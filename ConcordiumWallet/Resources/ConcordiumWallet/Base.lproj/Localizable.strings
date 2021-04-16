@@ -1,0 +1,320 @@
+/* 
+  Localizable.strings
+  ConcordiumWallet
+
+  Created by Dennis Vexborg Kristensen on 13/02/2020.
+  Copyright © 2020 concordium. All rights reserved.
+*/
+
+ok = "OK"; /*  */
+yes = "Yes"; /*  */
+no = "No"; /*  */
+close = "Close"; /*  */
+start = "Start"; /*  */
+accounts_tab_title = "Accounts"; /*  */
+identities_tab_title = "Identities"; /*  */
+more_tab_title = "More"; /*  */
+identity_provider_list_title = "Initial account creation"; /*  */
+passcode_selection_title = "Select Passcode"; /*  */
+add_identity_data = "Reveal Identity Data";
+
+"identityProviders.subtitle" = "The third step:\nChoosing an identity provider";
+"identityProviders.details" =  "%@, good choice!\n\nNext you have to choose what identity provider you will request your initial account and identity from. By choosing an identity provider, you will be taken to their issuance flow, in which the provider will guide you through the issuance process. After finishing their process, you will be taken back here, so we can create your initial account.\n\nNote: More identity providers will be added later.";
+"errorAlert.title" = "An error occurred";
+"errorAlert.okButton" = "OK";
+"errorAlert.cancelButton" = "Cancel";
+"errorAlert.continueButton" = "Continue";
+"warningAlert.title" = "Warning";
+"viewError.wrongPassword" = "Incorrect Password!\nPlease try again.";
+"viewError.genericError" = "An error occured. Please try again.";
+"viewError.userCancelled" = "User cancelled";
+"viewError.networkCommunicationError" = "Cannot connect to server. Please check your internet connection and try again.";
+"viewError.internalServerError" = "Cannot establish communication with the server. Please try again later.";
+"viewError.invalidName" = "The name can only contain letters, numbers, and these special characters: \"-\", \"_\", \",\", \".\", \"!\", \"?\". The name cannot be empty, or start or end with a space.";
+"viewError.duplicateRecipient" = "This account was not added to the address book, as it was already saved as ";
+"viewError.passwordChangeFailed" = "An error occured while changing password";
+"viewError.jailbroken" = "This iPhone might be jailbroken. Using this iPhone is not safe.";
+"keychain.popup.button.enterpassword" = "Enter Password";
+"keychain.popup.button.enterpasscode" = "Enter Passcode";
+"selectPassword.button.useFullPassword" = "Use full password instead";
+"selectPassword.button.continue" = "Continue";
+"selectPassword.passcode.title" = "Select Passcode";
+"selectPassword.passcode.descriptiveText" = "Select a 6-digit passcode to secure your wallet.";
+"selectPassword.cautionText" = "Note: you will not be able to\nrecover your account keys if this\npasscode is lost!";
+"selectPassword.passcode2.title" = "Re-enter Passcode";
+"selectPassword.passcode2.descriptiveText" = "Re-enter your 6-digit passcode to secure your wallet";
+"selectPassword.password.title" = "Select Password";
+"selectPassword.password.descriptiveText" = "Select a password with at least\n6 characters.";
+"selectPassword.password2.title" = "Re-enter Password";
+"selectPassword.password2.descriptiveText" = "Re-enter your password to secure your wallet.";
+"selectExportPassword.password.title" = "Select Export Password";
+"selectExportPassword.password.descriptiveText" = "Select an export password. The password will be needed to access the exported data in a secure way.";
+"selectExportPassword.password2.title" = "Re-enter Export Password";
+"selectExportPassword.password2.descriptiveText" = "Re-enter your export password.";
+"requestExportPassword.password.title" = "Enter Export Password";
+"requestExportPassword.password.descriptiveText" = "Enter the export password created when exporting the file";
+"import.passwordError" = "Invalid password or import file corrupted";
+"import.noUserCreated" = "Please create password first. Then try again.";
+"import.importing.title" = "Importing...";
+"import.importing.subtitle" = "Please hold on a moment,\nwhile the import is finishing";
+"import.successful.title" = "Import Successful";
+"import.successful.subtitle" = "You have successfully imported:";
+"import.report.alreadyExistedPostfix" = " (Already existed)";
+"import.report.recipientAccountsAlreadyExisted" = "recipient accounts were not imported, as they already existed";
+"import.report.recipientAccountsFailed" = "recipient accounts failed import";
+"import.report.failedPostfix" = " (Failed)";
+"import.report.accountsTitle" = "Accounts:";
+"import.report.accountsReadonlyTitle" = "Accounts found on chain:";
+"import.report.addressBookTitle" = "Address Book:";
+"import.report.recipientAccountsTitle" = "Recipient Accounts:";
+"selectPassword.biometrics.title.faceId"="Enable FaceID";
+"selectPassword.biometrics.title.touchId"="Enable TouchID";
+"selectPassword.biometrics.infoText.faceIdText"="Enable FaceID for more convenient login.";
+"selectPassword.biometrics.infoText.touchIdText"="Enable TouchID for more convenient login.";
+"selectPassword.biometrics.enableButton.faceIdText"="Enable FaceID";
+"selectPassword.biometrics.enableButton.touchIdText"="Enable TouchID";
+"selectPassword.biometrics.continueButton.text"="Continue without";
+"login.passcode.title" = "Enter Passcode";
+"login.password.title" = "Enter Password";
+"selectPassword.entryMismatch" = "Entries do not match!\nPlease try again.";
+"identities.createIdentity" = "Create identity";
+"accounts.totalBalanceTitleLabel" = "WALLET TOTAL";
+"accounts.createNewAccount" = "Submit account";
+"accounts.createNewIdentity" = "Create identity";
+"accounts.noAccountsMessage" = "You have no accounts yet.";
+"accounts.noIdentityMessage" = "You need to create an identity\nbefore creating an account.";
+"accounts.balance" = "Balance";
+"accounts.shieldedbalance" = "Shielded Balance";
+"accounts.atdisposal" = "- At disposal";
+"accounts.staked" = "- Staked";
+"account.accounttotal" = "Account Total";
+"accounts.initial" = "(Initial)";
+"accounts.overview.atdisposal" = "At disposal";
+"accounts.overview.staked" = "Staked";
+
+
+"accounts.shieldedamount" = "Shield amount";
+"accounts.unshieldedamount" = "Unshield amount";
+"accounts.amountwillbeshielded" = "Amount will be shielded";
+"accounts.amountwillbeunshielded" = "Amount will be unshielded";
+
+"gettingstarted.title" = "Getting started";
+"gettingstarted.subtitle" = "Are you new here?";
+"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must create an initial account. \n\nIn case this is not your first time around, you can also import already existing accounts.\n\nHow would you like to continue?";
+"gettingstarted.newaccount" = "I want to create my initial account";
+"gettingstarted.importaccount" = "I want to import existing accounts";
+
+
+
+"initialaccountinfo.title" = "Initial account creation";
+"initialaccountinfo.subtitle" = "The initial account";
+"initialaccountinfo.details" = "On the following pages you will be guided through the three-step process of requesting an initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";
+"initialaccountinfo.firstidentity.details" = "The initial account is an account created by an identity provider of your choice. This account is created at the same time as you request an identity from an identity provider. You will have to request both the identity and the initial account, before you can start using the Concordium block-chain.\n\nOn the following pages you will be guided through the three-step process of requesting the initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";
+
+
+"importinfo.title" = "Import";
+"importinfo.subtitle" = "How to import on iOS";
+"importinfo.details" = "On iOS, importing works by opening the media in which you keep your exported file. By using the sharing option built into iOS, you can choose to share the file with Concordium Wallet. When doing this, Concordium Wallet will ask you for the password chosen during export, followed by the import of your accounts, identities and address book.";
+
+
+
+"firstScreen.title" = "";
+"firstScreen.subtitle" = "Hi, there!";
+"firstScreen.details" = "Before you can start using Concordium ID, you have to set up your passcode and biometrics, and either create your initial account, or import one or more existing accounts.\n\n\nLet’s get started!";
+"firstScreen.button" = "Yes, let’s go!";
+
+"okay.gotit" = "Okay, got it!";
+
+"createAccount.tooManyAccounts" = "You already have the maximum number of accounts for this identity.";
+
+"createNickname.initialaccount.title" = "Initial account creation";
+"createNickname.initialaccount.nicknameField.placeholder" = "Account name";
+"createNickname.initialaccount.subtitle" = "The first step:\nNaming your initial account";
+"createNickname.initialaccount.details" = "What would you like to name your \ninitial account?";
+"createNickname.initialaccount.button" = "Continue";
+
+
+"createNickname.account.title" = "New Account";
+"createNickname.account.nicknameField.placeholder" = "Account name";
+"createNickname.account.subtitle" = "";
+"createNickname.account.details" = "What would you like to name your account?";
+"createNickname.account.button" = "Next";
+
+"createNickname.identity.title" = "Initial account creation";
+"createNickname.identity.nicknameField.placeholder" = "Identity name";
+"createNickname.identity.subtitle" = "The second step:\nNaming your identity";
+"createNickname.identity.details" = "What would you like to name your identity?";
+"createNickname.identity.button" = "Continue to identity providers";
+
+"createNickname.next.title" = "Next";
+"Ok.thanks" = "Ok, thanks";
+"Ok" = "Ok";
+"accountConfirmed.submitted" = "Account submitted";
+"accountConfirmed.submittedMessage" = "This may take a few minutes to
+process on-chain.";
+"accountFailed.title" = "Account creation failed!";
+"accountFailed.tryLater" = "Please try again.";
+"accountDetails.failedMessage" = "Account creation failed in the process of creation";
+"accountDetails.committedMessage" = "Account creation in progress.\n\nYou can start using this account once it’s been finalized on the chain.";
+
+"accountDetails.retryAccountCreation.title" = "Retry account creation";
+"accountDetails.removeAccount.title" = "Remove account from wallet";
+"accountDetails.send" = "SEND";
+"accountDetails.shield" = "SHIELD";
+"accountDetails.unshield" = "UNSHIELD";
+"accountDetails.address" = "ADDRESS";
+"accountDetails.noTransfers" = "This balance has no transactions yet.";
+"accountDetails.noIdentities" = "This account has no revealed identity data.";
+"accountDetails.bakerId" = "Baker ID:";
+"identityFailed.title" = "Identity issuance failed!";
+
+
+"sendFund.pageTitle.send" = "Send Funds";
+"sendFund.pageTitle.shieldAmount" = "Shield Amount";
+"sendFund.pageTitle.unshieldAmount" = "Unshield Amount";
+"sendFund.buttonTitle.send" = "Send amount";
+"sendFund.buttonTitle.shieldAmount" = "Shield amount";
+"sendFund.buttonTitle.unshieldAmount" = "Unshield amount";
+"sendFund.sendshielded" = "Send shielded amount";
+"sendFund.selectRecipient" = "Select Recipient";
+"sendFund.feeMessage" = "Estimated transaction fee:
+Ǥ";
+"sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
+"sendFund.insufficientFunds" = "Insufficient funds";
+"sendFund.confirmation.shield" = "Are you sure you want to shield";
+"sendFund.confirmation.unshield" = "Are you sure you want to unshield";
+"sendFund.confirmation.transfer" = "Are you sure you want to transfer";
+"sendFund.confirmation.line2.to" = "to";
+"sendFund.confirmation.line3.fromAccount" = "from account: ";
+"sendFund.confirmation.line3.Account" = "Account: ";
+"sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:\n";
+"sendFund.confirmation.buttonTitle" = "Yes, send funds";
+"selectRecipient.title" = "Select recipient";
+"selectRecipient.searchRecipients" = "Search recipients";
+"accountAddress.share" = "SHARE";
+"accountAddress.copy" = "COPY";
+"accountAddress.title" = "Address";
+"accountAddress.toast.addressCopied" = "Address copied";
+"scanQr.title" = "Scan QR Code";
+"scanQr.unsupportedMessage.title" = "Scanning not supported";
+"scanQr.unsupportedMessage.message" = "Your device does not support scanning a code from an item. Please use a device with a camera.";
+"scanQr.invalidQr" = "Invalid QR code";
+
+"addRecipient.title" = "New Recipient";
+"addRecipient.addressInvalid" = "Invalid account address";
+"addRecipient.recipientName" = "Recipient Name";
+"addRecipient.recipientAddress" = "Recipient Address";
+
+"editAddress.title" = "Edit Address";
+
+"attributes.firstName" = "First Name";
+"attributes.countryOfResidence" = "Country of residence";
+"attributes.dob" = "Date of birth";
+"attributes.idDocExpiresAt" = "ID Valid to";
+"attributes.idDocIssuedAt" = "ID Valid from";
+"attributes.idDocIssuer" = "Identity Document Issuer";
+"attributes.idDocNo" = "Identity Document number";
+"attributes.idDocType" = "Identity Document Type";
+"attributes.lastName" = "Last Name";
+"attributes.nationality" = "Country of nationality";
+"attributes.sex" = "Sex";
+"attributes.taxIDNo" = "Tax ID number";
+"attributes.nationalIDNo" = "National ID number";
+
+"sex.notKnown" = "Not known";
+"Save" = "Save";
+
+"transactionConfirmed.submitted" = "Transaction submitted!";
+"shieldedtransactionConfirmed.submitted" = "Shielded transaction submitted!";
+"shielding.submitted" = "Shielding submitted!";
+"unshielding.submitted" = "Unshielding submitted!";
+
+"transactionFailed.title" = "Transaction error!";
+"TransactionsList.loading" = "Loading...";
+"transactions.shieledtransactionfee" = "Shielded transaction fee";
+"transaction.shieldedAmount" = "Shielded amount";
+"transaction.unshieldedAmount" = "Unshielded amount";
+
+"accountDetails.generalbalance" = "Balance";
+"accountDetails.generalshieldedbalance" = "Shielded Balance";
+
+"accountDetails.title" = "Transaction Details";
+"accountDetails.origin" = "Origin";
+"accountDetails.fromAddress" = "From Address: ";
+"accountDetails.transactionHash" = "Transaction Hash";
+"accountDetails.submitted" = "Submitted";
+"accountDetails.failed" = "Failed";
+"accountDetails.blockHash" = "Block Hash";
+"accountDetails.details" = "Details";
+"accountDetails.toAddress" = "To Address: ";
+"accountDetails.readonly" = "This account is imported without keys, and is read only";
+
+"more.addressBook" = "Address Book";
+"more.import" = "Import";
+"more.export" = "Export";
+"export.explainingText" = "Here you can export your identities, accounts and the address book.\n\nThe exported data includes private keys which give access to your identities and accounts. For this reason the data will be encrypted under a password that you will be asked to select during the process. It is important that you store the password safely and securely. The password will be needed for access to exported data (e.g. if you want to import an account into the Concordium Client).";
+"export.button.continue" = "Continue";
+"export.unfinalizedAccounts" = "The following accounts are either failed or not ready on the chain, so they cannot be exported. \n";
+"more.update" = "Update Passcode & Biometrics";
+"more.updatePasswordAndBiometrics.title" = "Update Passcode & Biometrics";
+"more.update.button.continue" = "Continue";
+"more.updatePasswordAndBiometrics.infoText" = "By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them.";
+
+"more.about" = "About";
+"more.about.title" = "About";
+"more.about.support.title" = "Support";
+"more.about.support.text" = "If you ran into a problem, or need help with something, we have a helpful community on Discord and Telegram. This is typically the fastest way to find an answer to your question, and most questions can be answered by having a look there.\n \n Discord  \n \n Telegram   \n \n In case you could not find an answer to your question via the commuity, you can reach out to us via support@concordium.com";
+"more.about.contact.title" = "Contact";
+"more.about.contact.text" = "Should you have any inquiries not related to the support, you can reach out at contact@concordium.com";
+"more.about.privacy.title" = "Privacy Policy";
+"more.about.privacy.text" = "Our privacy policy could go here, but this is yet to be determined.";
+
+"accountDetails.testnetGtuDropTitle" = "TESTNET GTU DROP";
+"accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started";
+"accountDetails.testnetGtuDropButtonTitle" = "Request 100 GTU";
+
+"identityData.title" = "Identity";
+"accountConfirmed.title" = "New account";
+"identitySubmitted.title" = "Account";
+"identitySubmitted.heading" = "That’s it!";
+"identitySubmitted.details"="It might take a little while for the identity provider to finish your request.";
+"identitySubmitted.text" = "Your identity object is currently being set-up.\n\nYou can start using your identity object once validation of your id has been completed by the identity provider.";
+"identitySubmitted.finish" = "Finish";
+
+"creationFailed.account" = "Account Creation";
+"creationFailed.identity" = "Identity Verification";
+"creationFailed.transfer" = "Send Funds";
+
+"identityStatus.pending" = "Verification in progress";
+"identityPage.pendingExplanation" = "The verification process has begun.\n\nYour identity object is currently being set-up.\nYou will be able to start using your identity object once it will be validated by the Identity provider you’ve chosen.";
+"identityStatus.failed" = "Verification failed";
+"identityDetails.identityStatus.failed" = "Failed to create";
+"identityDetails.deleteFailedButton.text" = "Remove from list";
+"identityCreation.dataCorrupted" = "An unknown error occurred creating identity. Please try again";
+"privacypolicy" = "Privacy Policy";
+
+"revealattributes.title" = "Reveal Identity Data?";
+"revealattributes.details" = "You can choose to reveal a range of attributes on your account, e.g. your name and country of residence. This is not necessary, and you can choose to reveal no attributes at all.";
+"revealattributes.submitAccount" = "Submit account";
+"revealattributes.selectAttributes"= "Reveal account attributes";
+
+"identityfailed.title" = "Initial account creation failed";
+"identityfailed.tryagain" = "Try again";
+"identityfailed.first.message" = "Something went wrong with the initial account creation. \n\n Please go back and try again.";
+"identityfailed.message" = "Something went wrong with the initial account creation.\n\nPlease go back and try again, or try at another time.";
+
+"releaseschedule.title" = "Release Schedule";
+"releaseschedule.dateandtime" = "Release date and time";
+"releaseschedule.amount" = "Amount";
+"releaseschedule.lockedamount" = "Locked amount";
+"releaseschedule.nodata" = "No data";
+
+"transferfilters.title" = "Transfer Filters";
+"transferfilters.showrewards" = "Show rewards";
+"transferfilters.showfinalrewards" = "Show finalization rewards";
+
+"general.copied" = "Copied";
+
+"burgermenu.releaseschedule" = "Release Schedule";
+"burgermenu.transferfilters" = "Transfer Filters";
+

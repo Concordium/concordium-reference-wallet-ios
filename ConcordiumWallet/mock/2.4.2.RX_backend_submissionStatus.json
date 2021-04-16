@@ -1,0 +1,8 @@
+{
+    "status": "finalized",
+    "sender": null,
+    "cost": "0",
+    "transactionHash": "3530905cf3d314d98710ec77da4444ae392ba343e6143cacab587d3045951f5f",
+    "outcome": "success",
+    "blockHashes": ["e000c1728272ceb758effd59ae4060b7a3cd4da62f8888a08ee3f18b53d2051c"]
+}

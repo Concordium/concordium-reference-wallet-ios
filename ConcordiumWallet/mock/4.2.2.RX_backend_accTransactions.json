@@ -1,0 +1,199 @@
+{
+    "transactions": [{
+        "blockTime": 1.6001113017e9,
+        "origin": {
+            "type": "self"
+        },
+        "energy": 59,
+        "blockHash": "bbb61b6b435d0e044e8fcb3815b966142ed4c52d496376b4cfbd4d8bdde0fe47",
+        "cost": "5900",
+        "subtotal": "-12000000",
+        "transactionHash": "5dc5fa145bffd7276a8de85f6df69933f3f236e676dbca817d6bc88cfde6227d",
+        "details": {
+            "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "transferAmount": "12000000",
+            "events": ["Transferred 12.000000 from 4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy to 4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6"],
+            "outcome": "success",
+            "type": "transfer",
+            "description": "Transfer",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"
+        },
+        "total": "-12005900",
+        "id": 4547
+    }, {
+        "blockTime": 1.6000908415e9,
+        "origin": {
+            "type": "self"
+        },
+        "energy": 30070,
+        "blockHash": "89cae82106243e9ba45d03dd18246ce6adda6a69aad7394be8351851d2c10591",
+        "cost": "3007000",
+        "encrypted": {
+            "newStartIndex": 0,
+            "newSelfEncryptedAmount": "b42b37f8dc57895ddb3cbb6f06365728be3d6a7a9e0528852ac79a783da4f7443c28969f6e932101136edcde6c3d488a8965ab0094005e988123a29bc521d715057697a0b0c6dcd54df540e374ae8cec44097ff0250ecfb7ce5267102e64692cab816e9c20c927d399704e7af16296eb2403f1e64208037d2077242b18ba1ebac6fbec443e50fbce97069e48132ddddbb899c2a24b67e2eef38b7cfaab38385ee15bc792197888c3acf5ad16d1b55f54e68d5c20857fb04a9ee16dc63b641263",
+            
+            "encryptedAmount": "a5467362cd4a962b55a6e6b633f8b593f2c3ff3c2940036662a5eb272d7f8fda5644d35c2cfe437fe3f9f54caa517865a529376f7f0f7bc65039bdbb6853bdecf85ee68c5553c2e4f6751b39a674eb71c9f210d9842af0f0ae7b8143df32b723aa41f9fcea19564ce767caf535ef380b2c3397149d2c2d36d3a7ab30e14ffa49810720ea8c560144b5f91f87a978a76da74de1e7311e5c93c941cd27a09d2ae7120d8a33b1ef73fee9c93f5807e745d5cb0769c84660975aeec0a7a9069b97cf"
+        },
+        "transactionHash": "3ab4179980929b7a14892132c7f05bb69173dbf2014304a6eff5e8f1a8e6287b",
+        "details": {
+            "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "events": ["Encrypted amounts up to index = 0 removed", "New encrypted amount added with index = 0"],
+            "outcome": "success",
+            "newIndex": 0,
+            "inputEncryptedAmount": "a5467362cd4a962b55a6e6b633f8b593f2c3ff3c2940036662a5eb272d7f8fda5644d35c2cfe437fe3f9f54caa517865a529376f7f0f7bc65039bdbb6853bdecf85ee68c5553c2e4f6751b39a674eb71c9f210d9842af0f0ae7b8143df32b723aa41f9fcea19564ce767caf535ef380b2c3397149d2c2d36d3a7ab30e14ffa49810720ea8c560144b5f91f87a978a76da74de1e7311e5c93c941cd27a09d2ae7120d8a33b1ef73fee9c93f5807e745d5cb0769c84660975aeec0a7a9069b97cf",
+            "newSelfEncryptedAmount": "b42b37f8dc57895ddb3cbb6f06365728be3d6a7a9e0528852ac79a783da4f7443c28969f6e932101136edcde6c3d488a8965ab0094005e988123a29bc521d715057697a0b0c6dcd54df540e374ae8cec44097ff0250ecfb7ce5267102e64692cab816e9c20c927d399704e7af16296eb2403f1e64208037d2077242b18ba1ebac6fbec443e50fbce97069e48132ddddbb899c2a24b67e2eef38b7cfaab38385ee15bc792197888c3acf5ad16d1b55f54e68d5c20857fb04a9ee16dc63b641263",
+            "encryptedAmount": "a5467362cd4a962b55a6e6b633f8b593f2c3ff3c2940036662a5eb272d7f8fda5644d35c2cfe437fe3f9f54caa517865a529376f7f0f7bc65039bdbb6853bdecf85ee68c5553c2e4f6751b39a674eb71c9f210d9842af0f0ae7b8143df32b723aa41f9fcea19564ce767caf535ef380b2c3397149d2c2d36d3a7ab30e14ffa49810720ea8c560144b5f91f87a978a76da74de1e7311e5c93c941cd27a09d2ae7120d8a33b1ef73fee9c93f5807e745d5cb0769c84660975aeec0a7a9069b97cf",
+            "type": "encryptedAmountTransfer",
+            "aggregatedIndex": 0,
+            "description": "Transfer of encrypted amount",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"
+        },
+        "total": "-3007000",
+        "id": 3319
+    }, {
+        "blockTime": 1600090743,
+        "origin": {
+            "type": "self"
+        },
+        "energy": 159,
+        "blockHash": "2fed9bcb921aec1a9d4cc445417d01ee86edbe25465cd2c07407f324599f1645",
+        "cost": "15900",
+        "subtotal": "-10000000",
+        "encrypted": {
+            "newSelfEncryptedAmount": "c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000092a4fe6c638762d02c435e9d70bf5c741a078ca30361bea3e7c09a3d496158d0ebaa26fad70efa4176fc146d638ab9a2c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "transactionHash": "28f825b7bcc35dad145815ba20bfcf8a1cd9bf4ad484e4377b2f1cabf79afbaa",
+        "details": {
+            "amountSubtracted": "10000000",
+            "events": ["New encrypted self-amount"],
+            "outcome": "reject",
+            "newSelfEncryptedAmount": "c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000092a4fe6c638762d02c435e9d70bf5c741a078ca30361bea3e7c09a3d496158d0ebaa26fad70efa4176fc146d638ab9a2c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "type": "transferToEncrypted",
+            "description": "Transfer from public to encrypted balance",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy",
+            "rejectReason": "Some reason for rejecting the transfer"
+        },
+        "total": "-10015900",
+        "id": 3300
+    }, {
+        "blockTime": 1.6000738746e9,
+        "origin": {
+            "type": "self"
+        },
+        "energy": 16065,
+        "blockHash": "ea089f88d72031568ce1bddd01c2c8bc1e87d4a48e10a06f66d18db5f771d179",
+        "cost": "1606500",
+        "subtotal": "10000000",
+        "encrypted": {
+            "newStartIndex": 0,
+            "newSelfEncryptedAmount": "844fae036b009d4cdf9461743cc90e7c4245b58762cb513551695b1896a80d16f48caace335799c6b3b09b6612181e70af0e4c92977291d8fcb0f5731c31a9b3fcd83673f65f94d74ea3b0553ae91f660828ae89bdfb1f13dfeeaadbe59951aa8a46694cc4292df2530a56cf9a3d92d3b3d79c942be6c57272092f6acc60e64b1ee272df85aeca77e400143531a8ebdba20263e353d171ca4be3df34fac279d4cef4fbb76db0d0505010da2d79dfee0986fbe0ad165c6d488ae11e7a2c681cb4"
+        },
+        "transactionHash": "767ca7115d0f96e3d1dce0b7c1c7f44eff7e54a4525f20db969955a5e3673ce3",
+        "details": {
+            "amountAdded": "10000000",
+            "events": ["Encrypted amounts up to index = 0 removed", "Amount added to the public balance by decryption = 10.000000"],
+            "outcome": "success",
+            "newSelfEncryptedAmount": "844fae036b009d4cdf9461743cc90e7c4245b58762cb513551695b1896a80d16f48caace335799c6b3b09b6612181e70af0e4c92977291d8fcb0f5731c31a9b3fcd83673f65f94d74ea3b0553ae91f660828ae89bdfb1f13dfeeaadbe59951aa8a46694cc4292df2530a56cf9a3d92d3b3d79c942be6c57272092f6acc60e64b1ee272df85aeca77e400143531a8ebdba20263e353d171ca4be3df34fac279d4cef4fbb76db0d0505010da2d79dfee0986fbe0ad165c6d488ae11e7a2c681cb4",
+            "type": "transferToPublic",
+            "aggregatedIndex": 0,
+            "description": "Transfer from encrypted to public balance",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"
+        },
+        "total": "8393500",
+        "id": 76
+    }, {
+        "blockTime": 1.6000736386e9,
+        "origin": {
+            "type": "self"
+        },
+        "energy": 159,
+        "blockHash": "0012350d6a1daed6d6482b4e6e355b09316e3a233286d3ab5ed51974178ea61e",
+        "cost": "15900",
+        "subtotal": "-25000000",
+        "encrypted": {
+            "newSelfEncryptedAmount": "c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000093ee5d3ecf326b2c1e2a1efac5c67ad112fcd945fe9229ace2b8a3e7f625a0982ede332773a3d802ee2ebbdcf199bbf0c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "transactionHash": "ccf279c7ff27e5ceac45c34e48226c2907bac060a16054537930b2554cb64a02",
+        "details": {
+            "amountSubtracted": "25000000",
+            "events": ["New encrypted self-amount"],
+            "outcome": "success",
+            "newSelfEncryptedAmount": "c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000093ee5d3ecf326b2c1e2a1efac5c67ad112fcd945fe9229ace2b8a3e7f625a0982ede332773a3d802ee2ebbdcf199bbf0c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "type": "transferToEncrypted",
+            "description": "Transfer from public to encrypted balance",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"
+        },
+        "total": "-25015900",
+        "id": 27
+    }, {
+        "blockTime": 1600073607,
+        "origin": {
+            "address": "4iFVSGcPwasmKWMqXMrzB5qXEapERMPGRkD4SRAUd496Q8AKix",
+            "type": "account"
+        },
+        "energy": 165,
+        "blockHash": "e3fd073ffa957dc55477655491400f2e72d0fec518e9785abb6a957af83c1af1",
+        "transactionHash": "f64dc3b579a90cfe15d29e5be2c373e5cb6a6e05d2440cd8e503d5ffd6c32db8",
+        "details": {
+            "transferDestination": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy",
+            "transferAmount": "100000000",
+            "events": ["Transferred 100.000000 from 4iFVSGcPwasmKWMqXMrzB5qXEapERMPGRkD4SRAUd496Q8AKix to 4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"],
+            "outcome": "success",
+            "type": "transfer",
+            "description": "Transfer",
+            "transferSource": "4iFVSGcPwasmKWMqXMrzB5qXEapERMPGRkD4SRAUd496Q8AKix"
+        },
+        "total": "100000000",
+        "id": 19
+    }, {
+        "blockTime": 1.6001113017e9,
+        "origin": {
+            "address": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy",
+            "type": "account"
+        },
+        "energy": 59,
+        "blockHash": "bbb61b6b435d0e044e8fcb3815b966142ed4c52d496376b4cfbd4d8bdde0fe47",
+        "transactionHash": "5dc5fa145bffd7276a8de85f6df69933f3f236e676dbca817d6bc88cfde6227d",
+        "details": {
+            "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "transferAmount": "12000000",
+            "events": ["Transferred 12.000000 from 4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy to 4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6"],
+            "outcome": "success",
+            "type": "transfer",
+            "description": "Transfer",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"
+        },
+        "total": "12000000",
+        "id": 4548
+    }, {
+        "blockTime": 1.6000908415e9,
+        "origin": {
+            "address": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy",
+            "type": "account"
+        },
+        "energy": 30070,
+        "blockHash": "89cae82106243e9ba45d03dd18246ce6adda6a69aad7394be8351851d2c10591",
+        "encrypted": {
+            "newIndex": 0,
+            "encryptedAmount": "a5467362cd4a962b55a6e6b633f8b593f2c3ff3c2940036662a5eb272d7f8fda5644d35c2cfe437fe3f9f54caa517865a529376f7f0f7bc65039bdbb6853bdecf85ee68c5553c2e4f6751b39a674eb71c9f210d9842af0f0ae7b8143df32b723aa41f9fcea19564ce767caf535ef380b2c3397149d2c2d36d3a7ab30e14ffa49810720ea8c560144b5f91f87a978a76da74de1e7311e5c93c941cd27a09d2ae7120d8a33b1ef73fee9c93f5807e745d5cb0769c84660975aeec0a7a9069b97cf"
+        },
+        "transactionHash": "3ab4179980929b7a14892132c7f05bb69173dbf2014304a6eff5e8f1a8e6287b",
+        "details": {
+            "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "events": ["Encrypted amounts up to index = 0 removed", "New encrypted amount added with index = 0"],
+            "outcome": "success",
+            "newIndex": 0,
+            "newSelfEncryptedAmount": "b42b37f8dc57895ddb3cbb6f06365728be3d6a7a9e0528852ac79a783da4f7443c28969f6e932101136edcde6c3d488a8965ab0094005e988123a29bc521d715057697a0b0c6dcd54df540e374ae8cec44097ff0250ecfb7ce5267102e64692cab816e9c20c927d399704e7af16296eb2403f1e64208037d2077242b18ba1ebac6fbec443e50fbce97069e48132ddddbb899c2a24b67e2eef38b7cfaab38385ee15bc792197888c3acf5ad16d1b55f54e68d5c20857fb04a9ee16dc63b641263",
+            "encryptedAmount": "a5467362cd4a962b55a6e6b633f8b593f2c3ff3c2940036662a5eb272d7f8fda5644d35c2cfe437fe3f9f54caa517865a529376f7f0f7bc65039bdbb6853bdecf85ee68c5553c2e4f6751b39a674eb71c9f210d9842af0f0ae7b8143df32b723aa41f9fcea19564ce767caf535ef380b2c3397149d2c2d36d3a7ab30e14ffa49810720ea8c560144b5f91f87a978a76da74de1e7311e5c93c941cd27a09d2ae7120d8a33b1ef73fee9c93f5807e745d5cb0769c84660975aeec0a7a9069b97cf",
+            "type": "encryptedAmountTransfer",
+            "aggregatedIndex": 0,
+            "description": "Transfer of encrypted amount",
+            "transferSource": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"
+        },
+        "total": "0",
+        "id": 3320
+    }],
+    "count": 6,
+    "limit": 20,
+    "order": "descending"
+}
