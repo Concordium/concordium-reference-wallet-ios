@@ -1,0 +1,16 @@
+disabled_rules: # rule identifiers to exclude from running
+  - identifier_name
+  - function_parameter_count
+  - file_length
+  - todo
+  - switch_case_alignment
+  - trailing_whitespace
+  - implicit_getter
+
+line_length: 150
+type_name:
+    max_length: 50
+
+excluded:
+  - Scripts
+  - Pods
