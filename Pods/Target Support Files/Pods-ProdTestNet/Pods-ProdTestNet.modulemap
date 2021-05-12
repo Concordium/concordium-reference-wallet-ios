@@ -1,6 +1,0 @@
-framework module Pods_ProdTestNet {
-  umbrella header "Pods-ProdTestNet-umbrella.h"
-
-  export *
-  module * { export * }
-}
