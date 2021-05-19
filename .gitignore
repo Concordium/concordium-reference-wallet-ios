@@ -65,7 +65,3 @@ fastlane/test_output
 
 #Pod
 Pods/
-
-#Tests
-ConcordiumWalletTests/
-
