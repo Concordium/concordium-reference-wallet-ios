@@ -13,7 +13,7 @@ import Foundation
 protocol GettingStartedViewProtocol: ShowError {
 }
 
-protocol GettingStartedPresenterProtocol: class {
+protocol GettingStartedPresenterProtocol: AnyObject {
     var view: GettingStartedViewProtocol? { get set }
     func userTappedCreateAccount()
     func userTappedImport()
@@ -22,7 +22,7 @@ protocol GettingStartedPresenterProtocol: class {
 
 // MARK: -
 // MARK: Delegate
-protocol GettingStartedPresenterDelegate: class {
+protocol GettingStartedPresenterDelegate: AnyObject {
     func userTappedCreateAccount()
     func userTappedImport()
 }
@@ -34,7 +34,6 @@ class GettingStartedPresenter {
     
     init(delegate: GettingStartedPresenterDelegate? = nil) {
         self.delegate = delegate
-       
     }
 }
 

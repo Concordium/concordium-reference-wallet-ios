@@ -48,8 +48,14 @@ class LoginCoordinator: Coordinator {
     }
     
     func showInitialScreen() {
-        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .firstScreen)
+        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .welcomeScreen)
         let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
+
+    func showTermsAndConditionsScreen() {
+        let TermsAndConditionsPresenter = TermsAndConditionsPresenter(delegate: self)
+        let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -57,8 +63,8 @@ class LoginCoordinator: Coordinator {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
         if passwordCreated {
             showLogin()
-        } else {
-             showInitialScreen()
+        } else {    
+            showTermsAndConditionsScreen()
         }
     }
 }
@@ -94,8 +100,14 @@ extension LoginCoordinator: InitialAccountInfoPresenterDelegate {
             break // No action for new account - we shouldn't reach it in this flow.
         case .newAccount:
             break // No action for new account - we shouldn't reach it in this flow.
-        case .firstScreen:
+        case .welcomeScreen:
             showPasscodeSelection()
         }
+    }
+}
+
+extension LoginCoordinator: TermsAndConditionsPresenterDelegate {
+    func userTappedAcceptTerms() {
+        showInitialScreen()
     }
 }

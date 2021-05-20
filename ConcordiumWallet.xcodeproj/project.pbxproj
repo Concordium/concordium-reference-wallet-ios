@@ -27,6 +27,14 @@
 		06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
+		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
+		1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
+		1737681C2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
+		1737681D2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
+		1737681F2652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
+		173768202652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
+		173768212652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
+		173768222652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
 		19C2E0045F94FFFE728C6603 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E2A62DFFBD03DED7890F /* TransactionViewModel.swift */; };
 		19C2E02C2E62088661C38523 /* CreateExportPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E7BC882DF50DA416E49A /* CreateExportPasswordCoordinator.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
@@ -1353,6 +1361,8 @@
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E98EFD222B26FF9DAED227 /* Pods-ProdTestNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdTestNet.release.xcconfig"; path = "Target Support Files/Pods-ProdTestNet/Pods-ProdTestNet.release.xcconfig"; sourceTree = "<group>"; };
+		173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
+		1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsPresenter.swift; sourceTree = "<group>"; };
 		185035ACEBD69D1877CF8244 /* Pods-ConcordiumWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-ConcordiumWalletTests/Pods-ConcordiumWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		19C2E08B62F4CA4DFC860060 /* ServicesProvider+mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServicesProvider+mock.swift"; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
@@ -1897,6 +1907,15 @@
 				06D178A023F6D54900ABC904 /* BaseTabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		173768182652A72300A48758 /* TermsAndConditionsView */ = {
+			isa = PBXGroup;
+			children = (
+				173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */,
+				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
+			);
+			path = TermsAndConditionsView;
 			sourceTree = "<group>";
 		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
@@ -2447,6 +2466,7 @@
 		7FD8784D2406AE1D00509BDB /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				173768182652A72300A48758 /* TermsAndConditionsView */,
 				7FD878552406AF7C00509BDB /* LoginCoordinator.swift */,
 				7FD878562406AF7C00509BDB /* PasswordViews */,
 				19C2E209FC8026E97BD89111 /* BiometricsEnabling */,
@@ -3347,12 +3367,14 @@
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
 				7F48C148244DCD0B00997684 /* MainTabBarController.swift in Sources */,
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
+				1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
 				7F48C14D244DCD0B00997684 /* AccountConfirmedPresenter.swift in Sources */,
 				528EB74A255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				7F48C266244E17D100997684 /* CredentialHolderInformation.swift in Sources */,
 				7F48C14E244DCD0B00997684 /* LoginInfoLabel.swift in Sources */,
 				7F48C26F244E17D100997684 /* IPInfoResponseElement.swift in Sources */,
+				1737681F2652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				7F48C267244E17D100997684 /* Description.swift in Sources */,
 				64FD334E25FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				7F48C14F244DCD0B00997684 /* String+Additions.swift in Sources */,
@@ -3664,6 +3686,7 @@
 				7F85B6FC246A9A7C00ED09B8 /* MenuItemCellView.swift in Sources */,
 				64DB66D325DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				7F85B6FE246A9A7C00ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
+				1737681C2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F85B6FF246A9A7C00ED09B8 /* LoadProtocol.swift in Sources */,
 				7F85B700246A9A7C00ED09B8 /* BaseButton.swift in Sources */,
 				7F85B701246A9A7C00ED09B8 /* BaseLabel.swift in Sources */,
@@ -3722,6 +3745,7 @@
 				7F85B73E246A9A7C00ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
 				52D0CF1D25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				7F85B740246A9A7C00ED09B8 /* Policy.swift in Sources */,
+				173768212652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				7F85B741246A9A7C00ED09B8 /* IdentitiesCoordinator.swift in Sources */,
 				7F85B742246A9A7C00ED09B8 /* PreIdentityObject.swift in Sources */,
 				7F85B743246A9A7C00ED09B8 /* CreateAccountCoordinator.swift in Sources */,
@@ -3963,6 +3987,7 @@
 				7F85B7FA246A9AB600ED09B8 /* KeychainWrapper.swift in Sources */,
 				64DB66D425DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				7F85B7FB246A9AB600ED09B8 /* MenuItemCellView.swift in Sources */,
+				1737681D2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F85B7FD246A9AB600ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
 				7F85B7FE246A9AB600ED09B8 /* LoadProtocol.swift in Sources */,
 				7F85B7FF246A9AB600ED09B8 /* BaseButton.swift in Sources */,
@@ -4021,6 +4046,7 @@
 				7F85B83B246A9AB600ED09B8 /* BaseView.swift in Sources */,
 				52D0CF1E25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				7F85B83D246A9AB600ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
+				173768222652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				7F85B83F246A9AB600ED09B8 /* Policy.swift in Sources */,
 				7F85B840246A9AB600ED09B8 /* IdentitiesCoordinator.swift in Sources */,
 				7F85B841246A9AB600ED09B8 /* PreIdentityObject.swift in Sources */,
@@ -4292,6 +4318,7 @@
 				C96632552459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */,
 				7FEB7BE724090B7900D3E0EC /* JSONObject.swift in Sources */,
 				64FD333125FF886E00563703 /* InputEncryptedAmount.swift in Sources */,
+				173768202652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				C968B9EF2448C37C00E31BD8 /* TransactionSubmittedPresenter.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
 				642A293625FB967A0073BF8C /* AccountKeys.swift in Sources */,
@@ -4387,6 +4414,7 @@
 				19C2E636FADEA7EA4563E778 /* IDRequest.swift in Sources */,
 				5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				C93D092824275C5A0022250B /* AccountConfirmedViewController.swift in Sources */,
+				1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				C924B2292431D3A200081E23 /* AccountDetailsViewController.swift in Sources */,
 				7FF618EE2437294E00269F9F /* CreateTransferRequest.swift in Sources */,
 				C94ED71D2461B2030071A4FB /* TransactionDetailPresenter.swift in Sources */,

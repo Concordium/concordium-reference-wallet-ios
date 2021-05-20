@@ -140,7 +140,7 @@ extension InitialAccountsCoordinator: InitialAccountInfoPresenterDelegate {
             navigationController.popViewController(animated: true)
         case .newAccount:
             break //no action for new account - we shouldn't reach it in this flow
-        case .firstScreen:
+        case .welcomeScreen:
             break //no action for new account - we shouldn't reach it in this flow
         }
     }

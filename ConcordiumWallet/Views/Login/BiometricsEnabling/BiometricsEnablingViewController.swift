@@ -28,6 +28,7 @@ class BiometricsEnablingViewController: BaseViewController, BiometricsEnablingVi
             }
         }
     }
+
     @IBOutlet weak var infoText: UILabel! {
         didSet {
             switch presenter.getBiometricType() {
@@ -85,11 +86,12 @@ class BiometricsEnablingViewController: BaseViewController, BiometricsEnablingVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesBackButton = true
-
     }
+
     @IBAction func enableButtonPressed(_ sender: Any) {
         presenter.enablePressed()
     }
+
     @IBAction func continueWithoutButtonPressed(_ sender: Any) {
         presenter.continueWithoutBiometrics()
     }

@@ -267,7 +267,7 @@ extension CreateIdentityCoordinator: InitialAccountInfoPresenterDelegate {
             break //no action for new account - we shouldn't reach it in this flow
         case .newAccount:
             self.showCreateNewAccount()
-        case .firstScreen:
+        case .welcomeScreen:
              break //no action for new account - we shouldn't reach it in this flow
         }
     }

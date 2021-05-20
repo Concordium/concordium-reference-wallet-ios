@@ -22,7 +22,7 @@ enum InitialAccountInfoType {
     case firstAccount
     case newAccount
     case importAccount
-    case firstScreen
+    case welcomeScreen
     
     func getViewModel() -> InitialAccountInfoViewModel {
         switch self {
@@ -42,11 +42,11 @@ enum InitialAccountInfoType {
                                                details: "importinfo.details".localized,
                                                buttonTitle: "okay.gotit".localized,
                                                showsClose: false)
-        case .firstScreen:
-            return InitialAccountInfoViewModel(title: "firstScreen.title".localized,
-                                               subtitle: "firstScreen.subtitle".localized,
-                                               details: "firstScreen.details".localized,
-                                               buttonTitle: "firstScreen.button".localized,
+        case .welcomeScreen:
+            return InitialAccountInfoViewModel(title: "welcomeScreen.title".localized,
+                                               subtitle: "welcomeScreen.subtitle".localized,
+                                               details: "welcomeScreen.details".localized,
+                                               buttonTitle: "welcomeScreen.button".localized,
                                                showsClose: false)
         }
     }

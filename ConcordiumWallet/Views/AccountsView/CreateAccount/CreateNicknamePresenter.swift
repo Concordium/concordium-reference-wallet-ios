@@ -17,7 +17,7 @@ protocol CreateNicknameViewProtocol: ShowError {
 
 // MARK: -
 // MARK: Delegate
-protocol CreateNicknamePresenterDelegate: class {
+protocol CreateNicknamePresenterDelegate: AnyObject {
     func createNicknamePresenterCancelled(_: CreateNicknamePresenter)
     func createNicknamePresenter(_: CreateNicknamePresenter, didCreateName: String, properties: CreateNicknameProperties)
 }
@@ -60,7 +60,7 @@ struct CreateIdentityNicknameProperties: CreateNicknameProperties {
 
 // MARK: -
 // MARK: Presenter
-protocol CreateNicknamePresenterProtocol: class {
+protocol CreateNicknamePresenterProtocol: AnyObject {
 	var view: CreateNicknameViewProtocol? { get set }
     func viewDidLoad()
 
