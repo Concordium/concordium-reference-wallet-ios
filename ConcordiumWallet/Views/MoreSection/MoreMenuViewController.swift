@@ -33,14 +33,6 @@ class MoreMenuViewController: BaseViewController, MoreMenuViewProtocol, Storyboa
     @IBOutlet weak var tableView: UITableView!
     var dataSource: MoreMenuDataSource?
 
-    @IBOutlet weak var versionLabel: UILabel! {
-        didSet {
-            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-            let buildNo = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
-            versionLabel.text = "Version: \(version).\(buildNo)"
-        }
-    }
-
     init?(coder: NSCoder, presenter: MoreMenuPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
