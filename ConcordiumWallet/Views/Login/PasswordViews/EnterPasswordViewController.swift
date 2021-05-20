@@ -185,6 +185,11 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
         presenter.viewDidAppear()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesBackButton = true
+    }
+
     @IBAction func usePasswordButtonPressed(_ sender: Any) {
         presenter.passwordButtonTapped()
     }

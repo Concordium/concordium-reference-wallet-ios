@@ -47,6 +47,11 @@ class InitialAccountInfoViewController: BaseViewController, InitialAccountInfoVi
         presenter.viewDidLoad()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesBackButton = true
+    }
+
     func setup(details: String) {
         self.detailsLabel.text = details
     }
