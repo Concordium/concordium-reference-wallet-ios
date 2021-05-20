@@ -309,11 +309,10 @@ process on-chain.";
 "more.about" = "About";
 "more.about.title" = "About";
 "more.about.support.title" = "Support";
-"more.about.support.text" = "If you ran into a problem, or need help with something, we have a helpful community on Discord and Telegram. This is typically the fastest way to find an answer to your question, and most questions can be answered by having a look there.\n \n Discord  \n \n Telegram   \n \n In case you could not find an answer to your question via the commuity, you can reach out to us via support@concordium.com";
-"more.about.contact.title" = "Contact";
-"more.about.contact.text" = "Should you have any inquiries not related to the support, you can reach out at contact@concordium.com";
-"more.about.privacy.title" = "Privacy Policy";
-"more.about.privacy.text" = "Our privacy policy could go here, but this is yet to be determined.";
+"more.about.support.text" = "If you encountered a problem, or need help with something, you can reach out to us via\n\nsupport@concordium.software";
+"more.about.website.title" = "Website";
+"more.about.website.text" = "For more info about Concordium you can visit\n\nconcordium.com";
+"more.about.appVersion.title" = "App Version";
 
 "accountDetails.testnetGtuDropTitle" = "TESTNET GTU DROP";
 "accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started";

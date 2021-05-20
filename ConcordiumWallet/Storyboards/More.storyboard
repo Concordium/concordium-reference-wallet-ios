@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,19 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X17-cr-Uyt">
-                                <rect key="frame" x="19.999999999999996" y="701.66666666666663" width="42.666666666666657" height="14.333333333333371"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" name="fadedText"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rah-qW-lHM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="694.33333333333337"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuItemCellView" rowHeight="60" id="CdD-cT-b8B" customClass="MenuItemCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="49" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CdD-cT-b8B" id="fdH-cz-Q55">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -73,17 +67,14 @@
                         <viewLayoutGuide key="safeArea" id="0i4-Vp-48f"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="X17-cr-Uyt" firstAttribute="top" secondItem="rah-qW-lHM" secondAttribute="bottom" constant="7.5" id="UxF-68-oqF"/>
-                            <constraint firstItem="X17-cr-Uyt" firstAttribute="leading" secondItem="0i4-Vp-48f" secondAttribute="leading" constant="20" id="dnp-9b-fwE"/>
+                            <constraint firstItem="0i4-Vp-48f" firstAttribute="bottom" secondItem="rah-qW-lHM" secondAttribute="bottom" id="UxF-68-oqF"/>
                             <constraint firstItem="rah-qW-lHM" firstAttribute="centerX" secondItem="0i4-Vp-48f" secondAttribute="centerX" id="hbk-9n-O5M"/>
                             <constraint firstItem="rah-qW-lHM" firstAttribute="leading" secondItem="0i4-Vp-48f" secondAttribute="leading" id="jfs-hO-0ej"/>
                             <constraint firstItem="rah-qW-lHM" firstAttribute="top" secondItem="0i4-Vp-48f" secondAttribute="top" id="k47-zi-9TO"/>
-                            <constraint firstItem="0i4-Vp-48f" firstAttribute="bottom" secondItem="X17-cr-Uyt" secondAttribute="bottom" constant="20" id="mdE-7t-Jmz"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="rah-qW-lHM" id="0vJ-1M-Kle"/>
-                        <outlet property="versionLabel" destination="X17-cr-Uyt" id="0me-wO-SNr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tn5-S2-2Dr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -355,10 +346,10 @@ The exported data includes private keys which give access to your identities and
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oox-cD-iZb" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIn-MP-E05" userLabel="SupportTitle">
-                                                <rect key="frame" x="25" y="30" width="71" height="24"/>
+                                                <rect key="frame" x="25" y="30" width="62" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
@@ -366,84 +357,81 @@ The exported data includes private keys which give access to your identities and
                                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="more.about.support.title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEu-nm-C2l" userLabel="SupportText">
-                                                <rect key="frame" x="25" y="62" width="364" height="324"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="If you encountered a problem, or need help with something, you can reach out to us via support@concordium.software" translatesAutoresizingMaskIntoConstraints="NO" id="aEu-nm-C2l" userLabel="SupportText">
+                                                <rect key="frame" x="25" y="58.333333333333343" width="364" height="73"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <string key="text">If you ran into a problem, or need help with something, we have a helpful community on Discord and Telegram. This is typically the fastest way to find an answer to your question, and most questions can be answered by having a look there. 
-Discord
- Telegram
-
-In case you could not find an answer to your question via the commuity, you can reach out to us via support@concordium.com</string>
                                                 <color key="textColor" name="fadedText"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSE-qQ-4qg" userLabel="ContactTitle">
-                                                <rect key="frame" x="25" y="416" width="70" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSE-qQ-4qg" userLabel="ContactTitle">
+                                                <rect key="frame" x="24.999999999999996" y="171.33333333333334" width="61.666666666666657" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="more.about.contact.title"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="more.about.website.title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Should you have any inquiries not related to the support, you can reach out at contact@concordium.com" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTP-hx-eoh" userLabel="ContactText">
-                                                <rect key="frame" x="25" y="448" width="364" height="82"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTP-hx-eoh" userLabel="ContactText">
+                                                <rect key="frame" x="25" y="199.66666666666666" width="364" height="72.999999999999972"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text">For more info about Concordium you can visit  
+concordium.com</string>
                                                 <color key="textColor" name="fadedText"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-Jn-SR8">
-                                                <rect key="frame" x="25.000000000000007" y="560" width="120.66666666666669" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-Jn-SR8">
+                                                <rect key="frame" x="25" y="312.66666666666669" width="92" height="20.333333333333314"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="more.about.privacy.title"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="more.about.appVersion.title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Our privacy policy could go here, but this is yet to be determined." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VXp-BX-MmZ">
-                                                <rect key="frame" x="25" y="592" width="364" height="60"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <color key="textColor" name="fadedText"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x.x.x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fef-Ow-gPa">
+                                                <rect key="frame" x="25" y="341" width="364" height="17"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
+                                                <color key="textColor" name="fadedText"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="aEu-nm-C2l" secondAttribute="trailing" constant="25" id="0oe-Cn-Rzh"/>
                                             <constraint firstItem="uSE-qQ-4qg" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="2D6-UJ-Vh8"/>
                                             <constraint firstItem="JIn-MP-E05" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="5g5-VF-Rol"/>
-                                            <constraint firstItem="VXp-BX-MmZ" firstAttribute="top" secondItem="BFs-Jn-SR8" secondAttribute="bottom" constant="8" symbolic="YES" id="74N-Vz-oSZ"/>
                                             <constraint firstItem="BFs-Jn-SR8" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="9u6-ly-si8"/>
-                                            <constraint firstItem="uSE-qQ-4qg" firstAttribute="top" secondItem="aEu-nm-C2l" secondAttribute="bottom" constant="30" id="9uS-R7-pmw"/>
+                                            <constraint firstItem="uSE-qQ-4qg" firstAttribute="top" secondItem="aEu-nm-C2l" secondAttribute="bottom" constant="40" id="9uS-R7-pmw"/>
                                             <constraint firstAttribute="trailing" secondItem="KTP-hx-eoh" secondAttribute="trailing" constant="25" id="9xX-2u-y76"/>
+                                            <constraint firstItem="JIn-MP-E05" firstAttribute="top" secondItem="oox-cD-iZb" secondAttribute="top" constant="30" id="B7q-hL-Vkw"/>
                                             <constraint firstItem="aEu-nm-C2l" firstAttribute="top" secondItem="JIn-MP-E05" secondAttribute="bottom" constant="8" symbolic="YES" id="Bbk-Z0-Kov"/>
-                                            <constraint firstItem="JIn-MP-E05" firstAttribute="top" secondItem="oox-cD-iZb" secondAttribute="top" constant="30" id="Qdk-mg-osl"/>
-                                            <constraint firstAttribute="height" constant="800" id="VE1-92-lEl"/>
-                                            <constraint firstAttribute="trailing" secondItem="VXp-BX-MmZ" secondAttribute="trailing" constant="25" id="Z9K-9v-aPu"/>
+                                            <constraint firstItem="fef-Ow-gPa" firstAttribute="top" secondItem="BFs-Jn-SR8" secondAttribute="bottom" constant="8" symbolic="YES" id="N6s-gH-Ym3"/>
+                                            <constraint firstItem="fef-Ow-gPa" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="Tve-Rj-DpB"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fef-Ow-gPa" secondAttribute="bottom" constant="25" id="bux-G9-qcT"/>
+                                            <constraint firstAttribute="trailing" secondItem="fef-Ow-gPa" secondAttribute="trailing" constant="25" id="eUQ-z8-r7e"/>
                                             <constraint firstItem="aEu-nm-C2l" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="efJ-D5-Bx7"/>
-                                            <constraint firstItem="BFs-Jn-SR8" firstAttribute="top" secondItem="KTP-hx-eoh" secondAttribute="bottom" constant="30" id="fec-d7-ozT"/>
+                                            <constraint firstItem="BFs-Jn-SR8" firstAttribute="top" secondItem="KTP-hx-eoh" secondAttribute="bottom" constant="40" id="fec-d7-ozT"/>
                                             <constraint firstItem="KTP-hx-eoh" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="g33-rV-aTE"/>
-                                            <constraint firstItem="VXp-BX-MmZ" firstAttribute="leading" secondItem="oox-cD-iZb" secondAttribute="leading" constant="25" id="k3H-V8-aI1"/>
                                             <constraint firstItem="KTP-hx-eoh" firstAttribute="top" secondItem="uSE-qQ-4qg" secondAttribute="bottom" constant="8" symbolic="YES" id="qK4-Wf-YIB"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="oox-cD-iZb" firstAttribute="trailing" secondItem="5kp-Yv-8b7" secondAttribute="trailing" id="6Y6-dG-bsH"/>
-                                    <constraint firstItem="oox-cD-iZb" firstAttribute="leading" secondItem="5kp-Yv-8b7" secondAttribute="leading" id="Gct-7M-fIx"/>
                                     <constraint firstItem="oox-cD-iZb" firstAttribute="top" secondItem="5kp-Yv-8b7" secondAttribute="top" id="MwD-ow-cAe"/>
                                     <constraint firstAttribute="bottom" secondItem="oox-cD-iZb" secondAttribute="bottom" id="NWA-cF-VI6"/>
+                                    <constraint firstItem="oox-cD-iZb" firstAttribute="centerX" secondItem="5kp-Yv-8b7" secondAttribute="centerXWithinMargins" id="UY1-zP-kIW"/>
+                                    <constraint firstItem="oox-cD-iZb" firstAttribute="centerY" secondItem="5kp-Yv-8b7" secondAttribute="centerYWithinMargins" id="ZNE-wX-SAX"/>
+                                    <constraint firstAttribute="trailing" secondItem="oox-cD-iZb" secondAttribute="trailing" id="amh-zI-0MB"/>
+                                    <constraint firstItem="oox-cD-iZb" firstAttribute="leading" secondItem="5kp-Yv-8b7" secondAttribute="leading" id="f0y-v4-1Oi"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OmJ-54-Frh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="oox-cD-iZb" firstAttribute="width" secondItem="Zzs-GY-4Xa" secondAttribute="width" id="hOm-g7-dbR"/>
                             <constraint firstItem="5kp-Yv-8b7" firstAttribute="top" secondItem="OmJ-54-Frh" secondAttribute="top" id="uwm-fT-xOL"/>
                             <constraint firstItem="5kp-Yv-8b7" firstAttribute="leading" secondItem="OmJ-54-Frh" secondAttribute="leading" id="wHt-QA-chf"/>
                             <constraint firstItem="5kp-Yv-8b7" firstAttribute="trailing" secondItem="OmJ-54-Frh" secondAttribute="trailing" id="wnU-Dp-DlY"/>
@@ -451,13 +439,10 @@ In case you could not find an answer to your question via the commuity, you can 
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="contactLabel" destination="uSE-qQ-4qg" id="2rH-z0-ySs"/>
-                        <outlet property="contactTextView" destination="KTP-hx-eoh" id="LSi-Ep-vxq"/>
-                        <outlet property="privacyLabel" destination="BFs-Jn-SR8" id="rDH-P2-Wpd"/>
-                        <outlet property="privateTextView" destination="VXp-BX-MmZ" id="WtO-hE-gPz"/>
                         <outlet property="scrollView" destination="5kp-Yv-8b7" id="beW-gG-tJ6"/>
-                        <outlet property="supportLabel" destination="JIn-MP-E05" id="TJK-yc-AoR"/>
                         <outlet property="supportTextView" destination="aEu-nm-C2l" id="9p9-AB-0oS"/>
+                        <outlet property="versionLabel" destination="fef-Ow-gPa" id="bZh-Vf-hRC"/>
+                        <outlet property="websiteTextView" destination="KTP-hx-eoh" id="LSi-Ep-vxq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdC-fy-XvP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

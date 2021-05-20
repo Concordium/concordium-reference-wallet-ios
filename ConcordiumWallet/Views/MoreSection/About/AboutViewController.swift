@@ -18,17 +18,16 @@ class AboutFactory {
 
 class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, UITextViewDelegate {
     var presenter: AboutPresenterProtocol
-
-    let linkDiscord = "https://www.google.com"
-    let linkTelegram = ""
-    
-    @IBOutlet weak var supportLabel: UILabel!
-    @IBOutlet weak var contactLabel: UILabel!
-    @IBOutlet weak var privacyLabel: UILabel!
     
     @IBOutlet weak var supportTextView: UITextView!
-    @IBOutlet weak var contactTextView: UITextView!
-    @IBOutlet weak var privateTextView: UITextView!
+    @IBOutlet weak var websiteTextView: UITextView!
+    @IBOutlet weak var versionLabel: UILabel! {
+        didSet {
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            let buildNo = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+            versionLabel.text = "\(version).\(buildNo)"
+        }
+    }
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -49,10 +48,8 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         presenter.viewDidLoad()
         
         // Note the spaces since we only want to insert links at the exact match in the orginal text.
-        let links = ["Discord  ": "https://discord.com/invite/xWmQ5tp",
-                     "Telegram  ": "https://t.me/concordium_official",
-                     "support@concordium.com": "mailto:support@concordium.com",
-                     "contact@concordium.com": "mailto:contact@concordium.com"]
+        let links = ["support@concordium.software": "mailto:support@concordium.software",
+                     "concordium.com": "https://concordium.com"]
 
         let supportText = "more.about.support.text".localized
         supportTextView.addHyperLinksToText(originalText: supportText, hyperLinks: links)
@@ -60,22 +57,15 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         supportTextView.textContainer.lineFragmentPadding = 0
         supportTextView.delegate = self
 
-        let contactText = "more.about.contact.text".localized
-        contactTextView.addHyperLinksToText(originalText: contactText, hyperLinks: links)
-        contactTextView.textContainerInset = UIEdgeInsets.zero
-        contactTextView.textContainer.lineFragmentPadding = 0
-        contactTextView.delegate = self
-        
-        let privacyText = "more.about.privacy.text".localized
-        privateTextView.addHyperLinksToText(originalText: privacyText, hyperLinks: links)
-        privateTextView.textContainerInset = UIEdgeInsets.zero
-        privateTextView.textContainer.lineFragmentPadding = 0
-        privateTextView.delegate = self
+        let websiteText = "more.about.website.text".localized
+        websiteTextView.addHyperLinksToText(originalText: websiteText, hyperLinks: links)
+        websiteTextView.textContainerInset = UIEdgeInsets.zero
+        websiteTextView.textContainer.lineFragmentPadding = 0
+        websiteTextView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+300)
     }
     
     func textView(_ textView: UITextView, shouldInteractWith link: URL, in characterRange: NSRange) -> Bool {
@@ -92,7 +82,7 @@ extension UITextView {
 
   func addHyperLinksToText(originalText: String, hyperLinks: [String: String]) {
     let font = Fonts.body
-    let color = UIColor.systemBlue
+    let color = UIColor.primary
     
     let style = NSMutableParagraphStyle()
     style.alignment = .left
@@ -107,8 +97,7 @@ extension UITextView {
     }
 
     self.linkTextAttributes = [
-        NSAttributedString.Key.foregroundColor: color,
-        NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
+        NSAttributedString.Key.foregroundColor: color
     ]
     self.attributedText = attributedOriginalText
   }
