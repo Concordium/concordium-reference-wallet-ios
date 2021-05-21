@@ -392,8 +392,8 @@ concordium.com</string>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x.x.x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fef-Ow-gPa">
-                                                <rect key="frame" x="25" y="341" width="364" height="17"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <rect key="frame" x="25" y="341" width="364" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" name="fadedText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -452,10 +452,10 @@ concordium.com</string>
     </scenes>
     <designables>
         <designable name="0zv-VA-uW2">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="krx-rP-ALL">
-            <size key="intrinsicContentSize" width="157" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
     </designables>
     <resources>
