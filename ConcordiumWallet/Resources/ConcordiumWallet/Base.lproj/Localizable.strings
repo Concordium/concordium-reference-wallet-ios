@@ -114,7 +114,7 @@ add_identity_data = "Reveal Identity Data";
 
 "importinfo.title" = "Import";
 "importinfo.subtitle" = "How to import on iOS";
-"importinfo.details" = "On iOS, importing works by opening the media in which you keep your exported file. By using the sharing option built into iOS, you can choose to share the file with Concordium Wallet. When doing this, Concordium Wallet will ask you for the password chosen during export, followed by the import of your accounts, identities and address book.";
+"importinfo.details" = "On iOS, importing works by opening the media in which you keep your exported file. By using the sharing option built into iOS, you can choose to share the file with Concordium Mobile Wallet. When doing this, Concordium Mobile Wallet will ask you for the password chosen during export, followed by the import of your accounts, identities and address book.";
 
 
 
