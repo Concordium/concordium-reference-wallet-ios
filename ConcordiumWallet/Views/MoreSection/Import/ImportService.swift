@@ -42,9 +42,15 @@ struct ImportService {
         guard importedObjects.v == 1 else {
             throw ImportError.unsupportedVersion(inputVersion: importedObjects.v)
         }
+
         guard importedObjects.type == ExportVersionContainer.concordiumWalletExportType else {
             throw ImportError.unsupportedWalletType(type: importedObjects.type)
         }
+
+        guard importedObjects.environment == ExportVersionContainer.concordiumWalletExportEnvironment else {
+            throw ImportError.unsupportedEnvironemt(environment: importedObjects.environment)
+        }
+
         return importedObjects
     }
 

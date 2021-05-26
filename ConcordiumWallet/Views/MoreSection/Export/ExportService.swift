@@ -9,6 +9,7 @@ enum ImportError: Error {
     case corruptDataError(reason: String)
     case unsupportedVersion(inputVersion: Int)
     case unsupportedWalletType(type: String)
+    case unsupportedEnvironemt(environment: String)
 }
 
 struct ExportService {
