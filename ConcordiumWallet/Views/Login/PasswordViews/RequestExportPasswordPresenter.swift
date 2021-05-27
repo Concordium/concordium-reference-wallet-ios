@@ -46,6 +46,8 @@ class RequestExportPasswordPresenter: EnterPasswordPresenterProtocol {
                     .checkPassword(importFile: self.importFileUrl,
                                    exportPassword: password)
             delegate?.finishedEnteringPassword(password: password)
+        } catch ImportError.unsupportedEnvironemt(_) {
+            view?.showError("import.environmentError".localized)
         } catch {
             view?.showError("import.passwordError".localized)
         }
