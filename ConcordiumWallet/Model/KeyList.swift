@@ -2,7 +2,7 @@
 //  KeyList.swift
 //  ConcordiumWallet
 //
-//  Created by Carsten Nørby on 15/03/2021.
+//  Created by Concordium on 15/03/2021.
 //  Copyright © 2021 concordium. All rights reserved.
 //
 

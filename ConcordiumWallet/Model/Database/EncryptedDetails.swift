@@ -2,7 +2,7 @@
 //  EncryptedDetails.swift
 //  ConcordiumWallet
 //
-//  Created by Ruxandra Nistor on 21/09/2020.
+//  Concordium on 21/09/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

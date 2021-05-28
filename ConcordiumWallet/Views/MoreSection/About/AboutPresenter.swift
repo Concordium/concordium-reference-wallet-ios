@@ -2,7 +2,7 @@
 //  AboutPresenter.swift
 //  ConcordiumWallet
 //
-//  Created by Carsten Nørby on 18/02/2021.
+//  Created by Concordium on 18/02/2021.
 //  Copyright © 2021 concordium. All rights reserved.
 //
 

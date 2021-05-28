@@ -2,7 +2,7 @@
 //  ConcordiumWallet-Briding-Header-File.h
 //  ConcordiumWallet
 //
-//  Created by Johan Rugager Vase on 12/02/2020.
+//  Created by Concordium on 12/02/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

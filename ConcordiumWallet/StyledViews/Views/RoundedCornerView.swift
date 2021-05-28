@@ -2,7 +2,7 @@
 //  RoundedCornerView.swift
 //  ConcordiumWallet
 //
-//  Created by Mohamed Ghonemi on 3/4/20.
+//  Created by Concordium on 3/4/20.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

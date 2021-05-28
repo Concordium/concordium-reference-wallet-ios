@@ -2,7 +2,7 @@
 //  String+Localizable.swift
 //  Ohmatex
 //
-//  Created by Mohamed Ghonemi on 1/15/20.
+//  Created by Concordium on 1/15/20.
 //  Copyright © 2020 Mjonler. All rights reserved.
 //
 

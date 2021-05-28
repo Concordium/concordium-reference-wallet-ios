@@ -2,7 +2,7 @@
 //  BurgerMenuPresenter.swift
 //  ConcordiumWallet
 //
-//  Created by Ruxandra Nistor on 04/12/2020.
+//  Concordium on 04/12/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

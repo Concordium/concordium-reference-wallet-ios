@@ -2,7 +2,7 @@
 //  ScheduleEntity.swift
 //  ConcordiumWallet
 //
-//  Created by Ruxandra Nistor on 23/11/2020.
+//  Concordium on 23/11/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

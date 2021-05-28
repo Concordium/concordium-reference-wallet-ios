@@ -2,7 +2,7 @@
 //  IdentityProviderWebViewViewController.swift
 //  ConcordiumWallet
 //
-//  Created by Johan Rugager Vase on 03/06/2020.
+//  Created by Concordium on 03/06/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

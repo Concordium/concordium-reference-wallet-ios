@@ -2,7 +2,7 @@
 //  UITableView+scroll.swift
 //  sos-demo
 //
-//  Created by Ruxandra Nistor on 22/10/2019.
+//  Concordium on 22/10/2019.
 //  Copyright © 2019 Ruxandra Nistor. All rights reserved.
 //
 

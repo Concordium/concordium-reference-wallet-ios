@@ -2,7 +2,7 @@
 //  CreateNicknamePresenter.swift
 //  ConcordiumWallet
 //
-//  Created by Mohamed Ghonemi on 3/15/20.
+//  Created by Concordium on 3/15/20.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

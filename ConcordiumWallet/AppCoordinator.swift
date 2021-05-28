@@ -2,7 +2,7 @@
 //  AppCoordinator.swift
 //  ConcordiumWallet
 //
-//  Created by Johan Rugager Vase on 13/03/2020.
+//  Created by Concordium on 13/03/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  WidgetView.swift
 //  ConcordiumWallet
 //
-//  Created by Dennis Vexborg Kristensen on 12/02/2020.
+//  Created by Concordium on 12/02/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 import UIKit

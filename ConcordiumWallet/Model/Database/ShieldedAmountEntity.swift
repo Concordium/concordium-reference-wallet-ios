@@ -2,7 +2,7 @@
 //  ShieldedAmount.swift
 //  ConcordiumWallet
 //
-//  Created by Ruxandra Nistor on 03/09/2020.
+//  Concordium on 03/09/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  TransferFiltersViewController.swift
 //  Mock
 //
-//  Created by Carsten Nørby on 26/02/2021.
+//  Created by Concordium on 26/02/2021.
 //  Copyright © 2021 concordium. All rights reserved.
 //
 

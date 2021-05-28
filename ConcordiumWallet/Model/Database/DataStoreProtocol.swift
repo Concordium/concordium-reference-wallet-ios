@@ -1,5 +1,5 @@
 //
-// Created by Johan Rugager Vase on 01/04/2020.
+// Created by Concordium on 01/04/2020.
 // Copyright (c) 2020 concordium. All rights reserved.
 //
 

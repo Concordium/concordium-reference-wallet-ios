@@ -2,7 +2,7 @@
 //  IdentityWrapperShell.swift
 //  ConcordiumWallet
 //
-//  Created by Ruxandra Nistor on 17/09/2020.
+//  Concordium on 17/09/2020.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 

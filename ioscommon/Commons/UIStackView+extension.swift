@@ -2,7 +2,7 @@
 //  UIStackView+extension.swift
 //  Obton
 //
-//  Created by Ruxandra Nistor on 16/10/2019.
+//  Concordium on 16/10/2019.
 //  Copyright © 2019 Springfeed. All rights reserved.
 //
 

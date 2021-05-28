@@ -2,7 +2,7 @@
 //  SelectRecipientViewController.swift
 //  ConcordiumWallet
 //
-//  Created by Mohamed Ghonemi on 4/7/20.
+//  Created by Concordium on 4/7/20.
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
