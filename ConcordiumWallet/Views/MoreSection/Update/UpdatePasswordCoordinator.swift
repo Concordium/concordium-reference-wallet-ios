@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import Combine
 
-protocol UpdatePasswordCoordinatorDelegate: class {
+protocol UpdatePasswordCoordinatorDelegate: AnyObject {
     func passcodeChanged()
     func passcodeChangeCanceled()
 }
 
-class UpdatePasswordCoordinator: Coordinator {
+class UpdatePasswordCoordinator: Coordinator, ShowError {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var parentCoordinator: UpdatePasswordCoordinatorDelegate
@@ -85,7 +85,14 @@ extension UpdatePasswordCoordinator: UpdatePasswordPresenterDelegate {
     }
     
     func showChangePasscode() {
-        requestPassword()
+        let accountsNotFinalized = self.walletAndStorage.storageManager().getAccounts().contains { $0.transactionStatus != .finalized }
+        let identitiesNotConfirmed = self.walletAndStorage.storageManager().getIdentities().contains { $0.state != .confirmed}
+
+        if accountsNotFinalized || identitiesNotConfirmed {
+            self.showErrorAlert(.simpleError(localizedReason: "more.update.error.nonFinalizedItems".localized))
+        } else {
+            requestPassword()
+        }
     }
     
     func setPreviousPwHashed(pwHash: String) {

@@ -21,7 +21,7 @@ private func currentEnvironemt() -> String {
     return "testnet"
     #elseif STAGINGNET
     return "staging"
-    #else //Mock
+    #else // Mock
     return "mock"
     #endif
 }
