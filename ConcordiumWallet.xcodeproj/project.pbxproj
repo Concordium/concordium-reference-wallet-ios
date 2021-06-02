@@ -1363,6 +1363,10 @@
 		15E98EFD222B26FF9DAED227 /* Pods-ProdTestNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdTestNet.release.xcconfig"; path = "Target Support Files/Pods-ProdTestNet/Pods-ProdTestNet.release.xcconfig"; sourceTree = "<group>"; };
 		173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsPresenter.swift; sourceTree = "<group>"; };
+		17A41E4A266789F10079BD3A /* StagingNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StagingNet.entitlements; sourceTree = "<group>"; };
+		17A41E4B26678FF80079BD3A /* Concordium ID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Concordium ID.entitlements"; sourceTree = "<group>"; };
+		17A41E4C2667900A0079BD3A /* ProdMainNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdMainNet.entitlements; sourceTree = "<group>"; };
+		17A41E4D266790160079BD3A /* Mock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mock.entitlements; sourceTree = "<group>"; };
 		185035ACEBD69D1877CF8244 /* Pods-ConcordiumWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-ConcordiumWalletTests/Pods-ConcordiumWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		19C2E08B62F4CA4DFC860060 /* ServicesProvider+mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServicesProvider+mock.swift"; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
@@ -1848,6 +1852,7 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				17A41E4E266790220079BD3A /* Entitlements */,
 				7FD435FC249A2D34002D2AC3 /* icon-22-29.png */,
 				7FD435FD249A2D34002D2AC3 /* icon-44-58.png */,
 				7F5F779124891F220016F8D1 /* AppIcon.xcassets */,
@@ -1916,6 +1921,17 @@
 				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
 			);
 			path = TermsAndConditionsView;
+			sourceTree = "<group>";
+		};
+		17A41E4E266790220079BD3A /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				17A41E4D266790160079BD3A /* Mock.entitlements */,
+				17A41E4C2667900A0079BD3A /* ProdMainNet.entitlements */,
+				17A41E4B26678FF80079BD3A /* Concordium ID.entitlements */,
+				17A41E4A266789F10079BD3A /* StagingNet.entitlements */,
+			);
+			path = Entitlements;
 			sourceTree = "<group>";
 		};
 		19C2E0CE4D75C20FB441CB95 /* ioscommon */ = {
@@ -4606,6 +4622,7 @@
 			baseConfigurationReference = F569CEA4618B81F7BE4AD738 /* Pods-Mock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				ENABLE_BITCODE = NO;
@@ -4639,6 +4656,7 @@
 			baseConfigurationReference = 30C8CA551767D0F45977322A /* Pods-Mock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				ENABLE_BITCODE = NO;
@@ -4668,6 +4686,7 @@
 			baseConfigurationReference = 48408869D66A1B82DF5212C1 /* Pods-ProdTestNet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = WP87SA38DK;
@@ -4699,6 +4718,7 @@
 			baseConfigurationReference = 15E98EFD222B26FF9DAED227 /* Pods-ProdTestNet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = WP87SA38DK;
@@ -4730,6 +4750,7 @@
 			baseConfigurationReference = 0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
@@ -4761,6 +4782,7 @@
 			baseConfigurationReference = 6DBECC1129FAE710DA905F53 /* Pods-ProdMainNet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
@@ -4908,6 +4930,7 @@
 			baseConfigurationReference = EBC4C6338E39DEA7A2EA7BCC /* Pods-StagingNet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
@@ -4941,6 +4964,7 @@
 			baseConfigurationReference = 22D9FDC5B2C0583E994FA513 /* Pods-StagingNet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
