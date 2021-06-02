@@ -54,6 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
+
+    // Disable third-party keyboards
+    func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier) -> Bool {
+      return extensionPointIdentifier != .keyboard
+    }
 }
 
 extension AppDelegate {
