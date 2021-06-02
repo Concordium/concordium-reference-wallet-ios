@@ -35,6 +35,10 @@
 		173768202652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
 		173768212652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
 		173768222652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
+		17A41E552667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
+		17A41E562667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
+		17A41E572667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
+		17A41E582667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
 		19C2E0045F94FFFE728C6603 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E2A62DFFBD03DED7890F /* TransactionViewModel.swift */; };
 		19C2E02C2E62088661C38523 /* CreateExportPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E7BC882DF50DA416E49A /* CreateExportPasswordCoordinator.swift */; };
 		19C2E039DFC724B7CCFFF321 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E4B1F77014C882288F8E /* Coordinator.swift */; };
@@ -1367,6 +1371,7 @@
 		17A41E4B26678FF80079BD3A /* Concordium ID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Concordium ID.entitlements"; sourceTree = "<group>"; };
 		17A41E4C2667900A0079BD3A /* ProdMainNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdMainNet.entitlements; sourceTree = "<group>"; };
 		17A41E4D266790160079BD3A /* Mock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mock.entitlements; sourceTree = "<group>"; };
+		17A41E542667AE1D0079BD3A /* BlockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingViewController.swift; sourceTree = "<group>"; };
 		185035ACEBD69D1877CF8244 /* Pods-ConcordiumWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-ConcordiumWalletTests/Pods-ConcordiumWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		19C2E08B62F4CA4DFC860060 /* ServicesProvider+mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServicesProvider+mock.swift"; sourceTree = "<group>"; };
 		19C2E113307579CAF5005F21 /* Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
@@ -2628,6 +2633,7 @@
 				7FF07AE623EAE0ED00F1FC04 /* RootView */,
 				7FB4118123F2AFCD007FE732 /* Widgets */,
 				7FB4117C23F2AEFA007FE732 /* WidgetView */,
+				17A41E542667AE1D0079BD3A /* BlockingViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3431,6 +3437,7 @@
 				7F48C27B244E17D100997684 /* SubmissionResponse.swift in Sources */,
 				7F48C16B244DCD0B00997684 /* String+Localizable.swift in Sources */,
 				7F48C27E244E17E000997684 /* AttributesFormatter.swift in Sources */,
+				17A41E552667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				7F48C16C244DCD0B00997684 /* CreationFailedViewController.swift in Sources */,
 				7F48C284244EEE7700997684 /* TransactionSubmittedViewController.swift in Sources */,
 				52A6A77924F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
@@ -3862,6 +3869,7 @@
 				7F85B8EF2472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
 				7F85B79A246A9A7C00ED09B8 /* OutcomeEnum.swift in Sources */,
 				7F85B79B246A9A7C00ED09B8 /* RequestPasswordPresenter.swift in Sources */,
+				17A41E572667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				7F85B79C246A9A7C00ED09B8 /* RequestPasswordDelegate.swift in Sources */,
 				7F85B79D246A9A7C00ED09B8 /* GeneralError.swift in Sources */,
 				7F85B79E246A9A7C00ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
@@ -4163,6 +4171,7 @@
 				7F85B891246A9AB600ED09B8 /* Result+Additions.swift in Sources */,
 				7F85B892246A9AB600ED09B8 /* ErrorMapper.swift in Sources */,
 				7F85B893246A9AB600ED09B8 /* LoginPresenter.swift in Sources */,
+				17A41E582667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				7F85B899246A9AB600ED09B8 /* OutcomeEnum.swift in Sources */,
 				7F85B89A246A9AB600ED09B8 /* RequestPasswordPresenter.swift in Sources */,
 				7F85B89B246A9AB600ED09B8 /* RequestPasswordDelegate.swift in Sources */,
@@ -4295,6 +4304,7 @@
 				64FD334F25FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				C938F5372423432000ECAD47 /* IdentityChoosePresenter.swift in Sources */,
 				7FA0AE9524598D6500B7673F /* Origin.swift in Sources */,
+				17A41E562667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				069B9DDB23FBEA8700A02A1F /* KeychainWrapper.swift in Sources */,
 				C916DAE92467F481008EA16A /* MenuItemCellView.swift in Sources */,
 				C9C097A52433163A00ACA35A /* UIButton+StoryboardLocalization.swift in Sources */,

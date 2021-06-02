@@ -17,6 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator = AppCoordinator()
 
+    private lazy var backgroundWindow: UIWindow = {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = BlockingViewController()
+        window.windowLevel = .alert
+        return window
+    }()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -42,6 +49,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                object: nil)
         
         return true
+    }
+
+    func applicationWillResignActive(_ application: UIApplication) {
+        backgroundWindow.isHidden = false
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        backgroundWindow.isHidden = true
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        backgroundWindow.isHidden = true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
