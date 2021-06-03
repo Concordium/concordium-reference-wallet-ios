@@ -51,12 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         backgroundWindow.isHidden = false
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        backgroundWindow.isHidden = true
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
