@@ -1,11 +1,12 @@
 PODS:
-  - MaterialComponents/AnimationTiming (109.6.0)
-  - MaterialComponents/Availability (109.6.0)
-  - MaterialComponents/Buttons (109.6.0):
+  - MaterialComponents/AnimationTiming (124.2.0)
+  - MaterialComponents/Availability (124.2.0)
+  - MaterialComponents/Buttons (124.2.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
     - MaterialComponents/Ripple
+    - MaterialComponents/Shadow
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/ShapeLibrary
@@ -13,35 +14,37 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/Elevation (109.6.0):
+  - MaterialComponents/Elevation (124.2.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (109.6.0):
+  - MaterialComponents/Ink (124.2.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Palettes (109.6.0)
-  - MaterialComponents/private/Application (109.6.0)
-  - MaterialComponents/private/Color (109.6.0):
+  - MaterialComponents/Palettes (124.2.0)
+  - MaterialComponents/private/Application (124.2.0)
+  - MaterialComponents/private/Color (124.2.0):
     - MaterialComponents/Availability
-  - MaterialComponents/private/Math (109.6.0)
-  - MaterialComponents/Ripple (109.6.0):
+  - MaterialComponents/private/Math (124.2.0)
+  - MaterialComponents/Ripple (124.2.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/ShadowElevations (109.6.0)
-  - MaterialComponents/ShadowLayer (109.6.0):
+  - MaterialComponents/Shadow (124.2.0):
+    - MaterialComponents/Availability
+  - MaterialComponents/ShadowElevations (124.2.0)
+  - MaterialComponents/ShadowLayer (124.2.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (109.6.0):
+  - MaterialComponents/ShapeLibrary (124.2.0):
     - MaterialComponents/private/Math
     - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (109.6.0):
+  - MaterialComponents/Shapes (124.2.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/Tabs (109.6.0):
+  - MaterialComponents/Tabs (124.2.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
@@ -52,7 +55,7 @@ PODS:
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
     - MDFInternationalization
-  - MaterialComponents/TextFields (109.6.0):
+  - MaterialComponents/TextFields (124.2.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Buttons
     - MaterialComponents/Elevation
@@ -60,16 +63,17 @@ PODS:
     - MaterialComponents/private/Math
     - MaterialComponents/Typography
     - MDFInternationalization
-  - MaterialComponents/Typography (109.6.0):
+  - MaterialComponents/Typography (124.2.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
-  - MDFInternationalization (2.0.0)
-  - MDFTextAccessibility (2.0.0)
-  - Realm (5.0.2):
-    - Realm/Headers (= 5.0.2)
-  - Realm/Headers (5.0.2)
-  - RealmSwift (5.0.2):
-    - Realm (= 5.0.2)
+    - MDFTextAccessibility
+  - MDFInternationalization (3.0.0)
+  - MDFTextAccessibility (2.0.1)
+  - Realm (10.7.6):
+    - Realm/Headers (= 10.7.6)
+  - Realm/Headers (10.7.6)
+  - RealmSwift (10.7.6):
+    - Realm (= 10.7.6)
 
 DEPENDENCIES:
   - MaterialComponents/Tabs
@@ -85,11 +89,11 @@ SPEC REPOS:
     - RealmSwift
 
 SPEC CHECKSUMS:
-  MaterialComponents: 7c5a7d77fbe08aca9383fc97aeb7423b1fbce6b4
-  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
-  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
-  Realm: 6b6f096671b64b04d08974177cabb2ff9343d153
-  RealmSwift: a3db6be0488bf3e1d5314c2956cefe98a65cdd01
+  MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
+  MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
+  MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
+  Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
+  RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
 
 PODFILE CHECKSUM: c6cfbf119402d3eac3e1de732e8e29616b8771e1
 

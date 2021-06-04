@@ -2633,7 +2633,6 @@
 				7FF07AE623EAE0ED00F1FC04 /* RootView */,
 				7FB4118123F2AFCD007FE732 /* Widgets */,
 				7FB4117C23F2AEFA007FE732 /* WidgetView */,
-				17A41E542667AE1D0079BD3A /* BlockingViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2662,6 +2661,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */,
+				17A41E542667AE1D0079BD3A /* BlockingViewController.swift */,
 			);
 			path = RootView;
 			sourceTree = "<group>";
