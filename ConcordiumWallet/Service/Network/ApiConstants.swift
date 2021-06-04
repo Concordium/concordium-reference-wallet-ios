@@ -9,20 +9,15 @@ struct ApiConstants {
 
 #if DEBUG
     //UserDefaults loads from launch arguments: https://www.swiftbysundell.com/articles/launch-arguments-in-swift/
-    static let overriddenServerUrl = UserDefaults.standard.string(forKey: "server")
     static let overriddenProxyUrl = UserDefaults.standard.string(forKey: "proxy")
 #else
-    static let overriddenServerUrl: String? = nil
     static let overriddenProxyUrl: String? = nil
 #endif
 #if TESTNET
-    static let serverUrl = URL(string: overriddenServerUrl ?? "https://wallet-server.testnet.concordium.com/v0")!
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.testnet.concordium.com/v0")!
 #elseif MAINNET
-    static let serverUrl = URL(string: overriddenServerUrl ?? "https://wallet-server.eu.staging.concordium.com/v0")!
-    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.eu.staging.concordium.com/v0")!
+    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.mainnet.concordium.software/v0")!
 #else //Staging
-    static let serverUrl = URL(string: overriddenServerUrl ?? "https://wallet-server.eu.staging.concordium.com/v0")!
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.eu.staging.concordium.com/v0")!
 #endif
 
