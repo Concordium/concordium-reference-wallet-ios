@@ -99,7 +99,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         .store(in: &cancellables)
 
         // Show disposable balance.
-        viewModel.accountBalance = GTU(intValue: account.forecastAtDisposalBalance + account.forecastEncryptedBalance).displayValueWithGStroke()
+        viewModel.accountBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
         viewModel.accountBalanceShielded = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke()
         
         let showLock = account.encryptedBalanceStatus == .partiallyDecrypted || account.encryptedBalanceStatus == .encrypted
