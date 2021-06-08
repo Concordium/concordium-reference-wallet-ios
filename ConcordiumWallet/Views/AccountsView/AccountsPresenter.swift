@@ -71,11 +71,6 @@ class AccountViewModel: Hashable {
                 
         totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
         
-        if account.encryptedBalance != nil && account.encryptedBalance!.selfAmount == ShieldedAmountEntity.zeroValue {
-            totalLockStatus = .decrypted
-            shieldedLockStatus = .decrypted
-        }
-        
         atDisposalName = "accounts.atdisposal".localized
         stakedName = "accounts.staked".localized
         
