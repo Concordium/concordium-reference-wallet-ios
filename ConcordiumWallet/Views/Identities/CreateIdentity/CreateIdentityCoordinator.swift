@@ -167,6 +167,7 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
 
 extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
     func createNicknamePresenterCancelled(_ presenter: CreateNicknamePresenter) {
+        cleanupUnfinishedAccounts()
         parentCoordinator?.createNewIdentityCancelled()
     }
 
