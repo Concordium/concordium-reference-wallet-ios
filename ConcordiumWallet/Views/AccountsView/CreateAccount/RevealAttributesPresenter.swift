@@ -96,6 +96,4 @@ class RevealAttributesPresenter: RevealAttributesPresenterProtocol {
         recipient.name = account.displayName
         _ = try? self.storageManager.storeRecipient(recipient)
     }
-    
-    
 }

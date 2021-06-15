@@ -12,7 +12,6 @@ import Combine
 
 protocol UpdatePasswordCoordinatorDelegate: AnyObject {
     func passcodeChanged()
-    func passcodeChangeCanceled()
 }
 
 class UpdatePasswordCoordinator: Coordinator, ShowError {
@@ -36,7 +35,7 @@ class UpdatePasswordCoordinator: Coordinator, ShowError {
         self.dependencyProvider = dependencyProvider
         self.walletAndStorage = walletAndStorage
     }
-
+    
     func start() {
         showUpdateInfo()
     }
@@ -45,9 +44,8 @@ class UpdatePasswordCoordinator: Coordinator, ShowError {
         let vc = UpdatePasswordFactory.create(with: UpdatePasswordPresenter(delegate: self))
         navigationController.pushViewController(vc, animated: true)
     }
-
+    
     func requestPassword() {
-        navigationController.dismiss(animated: true)
         // Ask for current passcode before proceeding to passcode change.
         self.requestPasswordDelegate?
             .requestUserPassword(keychain: dependencyProvider.keychainWrapper())
@@ -57,22 +55,29 @@ class UpdatePasswordCoordinator: Coordinator, ShowError {
                 self?.previousPwHashed = pwHash
                 self?.showChangePassword()
             }).store(in: &cancellables)
-
+        
     }
     
     func showChangePassword() {
-        let vc = EnterPasswordFactory.create(with: ChangePasswordPresenter(delegate: self,
-                                                                           dependencyProvider: dependencyProvider,
-                                                                           walletAndStorage: walletAndStorage,
-                                                                           oldPasscodeHash: previousPwHashed))
-        navigationController.pushViewController(vc, animated: true)
+        let presenter = ChangePasswordPresenter(delegate: self,
+                                                dependencyProvider: dependencyProvider,
+                                                walletAndStorage: walletAndStorage,
+                                                oldPasscodeHash: previousPwHashed)
+        let vc = EnterPasswordFactory.create(with: presenter)
+        let nc = TransparentNavigationController()
+        nc.modalPresentationStyle = .fullScreen
+        nc.viewControllers = [vc]
+        self.navigationController.present(nc, animated: true)
     }
     
     func showBiometricsEnabling(pwHash: String) {
         let presenter = BiometricsEnablingPresenter(delegate: self, pwHash: pwHash, dependencyProvider: dependencyProvider)
         if presenter.biometricsEnabled() {
             let vc = BiometricsEnablingFactory.create(with: presenter)
-            navigationController.pushViewController(vc, animated: true)
+            let nc = TransparentNavigationController()
+            nc.modalPresentationStyle = .fullScreen
+            nc.viewControllers = [vc]
+            self.navigationController.present(nc, animated: true)
         } else {
             biometricsEnablingDone()
         }
@@ -80,9 +85,6 @@ class UpdatePasswordCoordinator: Coordinator, ShowError {
 }
 
 extension UpdatePasswordCoordinator: UpdatePasswordPresenterDelegate {
-    func cancelChangePassword() {
-        navigationController.popViewController(animated: true)
-    }
     
     func showChangePasscode() {
         let accountsNotFinalized = self.walletAndStorage.storageManager().getAccounts().contains { $0.transactionStatus != .finalized }
@@ -102,22 +104,20 @@ extension UpdatePasswordCoordinator: UpdatePasswordPresenterDelegate {
 
 extension UpdatePasswordCoordinator: ChangePasswordPresenterDelegate {
     func passwordSelectionDone(pwHash: String) {
-        navigationController.popViewController(animated: true)
+        navigationController.dismiss(animated: true)
         self.showBiometricsEnabling(pwHash: pwHash)
     }
     
     func passwordChangeFailed() {
-        navigationController.popViewController(animated: true)
+        navigationController.dismiss(animated: true)    
     }
 }
 
 extension UpdatePasswordCoordinator: BiometricsEnablingPresenterDelegate {
     func biometricsEnablingDone() {
-        
-        if navigationController.viewControllers.last as? BiometricsEnablingViewController != nil {
-            navigationController.popViewController(animated: true)
-        }
-        
+
+        navigationController.dismiss(animated: true)
+
         self.parentCoordinator.passcodeChanged()
     }
 }
