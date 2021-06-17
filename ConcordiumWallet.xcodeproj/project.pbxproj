@@ -4699,7 +4699,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4713,7 +4713,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
 				PRODUCT_NAME = "Concordium ID";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -4731,7 +4731,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4745,7 +4745,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
 				PRODUCT_NAME = "Concordium ID";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -4944,7 +4944,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4958,7 +4958,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
@@ -4978,7 +4978,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4992,7 +4992,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
