@@ -41,6 +41,8 @@ class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate 
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.loginPassword.rawValue)
     }
 
+
+
     private func showLogin() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController,
                                                 parentCoordinator: self,
@@ -78,12 +80,23 @@ class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate 
                                                   parentCoordinator: self,
                                                   importFileUrl: url)
         importCoordinator.navigationController.modalPresentationStyle = .fullScreen
+
+        if navigationController.topPresented() is IdentityProviderWebViewViewController {
+            navigationController.dismiss(animated: true) {
+                self.presentImportView(importCoordinator: importCoordinator)
+            }
+        } else {
+            presentImportView(importCoordinator: importCoordinator)
+        }
+    }
+
+    private func presentImportView(importCoordinator: ImportCoordinator) {
         navigationController.present(importCoordinator.navigationController, animated: true)
         importCoordinator.navigationController.presentationController?.delegate = self
         importCoordinator.start()
         childCoordinators.append(importCoordinator)
     }
-    
+
     func showInitialIdentityCreation() {
         let initiaAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
                                                                         parentCoordinator: self,
