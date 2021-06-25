@@ -134,19 +134,10 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
 
     func showIdentityProviderWebView(urlRequest: URLRequest, createdIdentity: IdentityDataType) {
         self.createdIdentity = createdIdentity
-
-        let wkWebView = true//TODO - select which version to use and delete the other version.
-        if wkWebView {
             Logger.debug("Open URL in WKWebView: \(urlRequest.url?.absoluteString ?? "nil")")
             let vc = IdentityProviderWebViewFactory.create(with: IdentityProviderWebViewPresenter(url: urlRequest, delegate: self))
             vc.modalPresentationStyle = .fullScreen
             navigationController.present(vc, animated: true)
-        } else {
-            let config = SFSafariViewController.Configuration()
-            Logger.debug("Open URL in SFSafariViewController: \(urlRequest.url?.absoluteString ?? "nil")")
-            let vc = SFSafariViewController(url: urlRequest.url!, configuration: config)
-            navigationController.present(vc, animated: true)
-        }
     }
 
     func showIdentitySubmitted(identity: IdentityDataType) {
