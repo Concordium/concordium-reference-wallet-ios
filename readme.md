@@ -2,12 +2,12 @@
 
 **Concordium** 
 is a science-based proof-of-stake blockchain, the first in the world with identification built into the protocol and designed to meet regulatory requirements.
-**Concordium Mobile Wallet App** is a free and open-source app reference implementation for Android 8.0+ devices. 
+**Concordium Mobile Wallet App** is a free and open-source app reference implementation for iPhone 13.0+ devices. 
 ## App Store
 You can download the latest version on [App Store](https://apps.apple.com/us/app/concordium-mobile-wallet/id1566996491) 
 ## Getting started
 
-1. Install Xcode.
+1. Install Xcode from the Mac App Store.
 2. Clone this repository.
 3. Install and run cocoapods:
 
@@ -26,7 +26,8 @@ You can download the latest version on [App Store](https://apps.apple.com/us/app
 	Learn more about [MVP tempate](https://github.com/khacchan/Swift-MVP-Module)
 7. Open `ConcordiumWallet.xcworkspace` in Xcode. 
 
-###Following targets can be selected:
+### Following targets can be selected:
+
 **mock**: Allows the app to use mocked data
 
 **localhost**: Allows the app to use a local server
