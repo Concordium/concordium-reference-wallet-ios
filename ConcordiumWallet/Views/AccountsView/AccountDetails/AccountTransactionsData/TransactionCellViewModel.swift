@@ -76,11 +76,11 @@ struct TransactionCellViewModel {
             if let cost = transactionVM.cost?.displayValueWithGStroke(),
                 let amount = transactionVM.amount?.displayValueWithGStroke() {
                 self.amount = amount
-                self.cost = " -" + cost + " Fee"
+                self.cost = " - " + cost + " Fee"
 
                 // Prepend with ~ if cost is estimated.
                 if showCostAsEstimate {
-                    self.cost = "~" + self.cost
+                    self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
                 }
             }
         }
