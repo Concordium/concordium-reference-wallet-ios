@@ -457,7 +457,6 @@
 		642A28A625FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */; };
 		642A28A725FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */; };
 		642A28A825FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */; };
-		642A28AF25FB5DAF0073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28AE25FB5D950073BF8C /* libmobile_wallet.a */; };
 		642A28B125FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28B025FB5DB80073BF8C /* libmobile_wallet.a */; };
 		642A28B225FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28B025FB5DB80073BF8C /* libmobile_wallet.a */; };
 		642A28B325FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28B025FB5DB80073BF8C /* libmobile_wallet.a */; };
@@ -1781,7 +1780,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				642A28B225FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
-				642A28AF25FB5DAF0073BF8C /* libmobile_wallet.a in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
 				7111D4FA482EED93124EAA6A /* Pods_StagingNet.framework in Frameworks */,
 			);
@@ -2925,7 +2923,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = concordium;
 				TargetAttributes = {
 					7FF07A6823EADB1200F1FC04 = {
@@ -4845,6 +4843,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -4906,6 +4905,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
