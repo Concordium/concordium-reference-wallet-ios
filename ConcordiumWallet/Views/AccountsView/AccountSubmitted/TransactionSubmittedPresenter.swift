@@ -41,19 +41,19 @@ class TransactionSubmittedViewModel {
 }
 
 // MARK: View
-protocol TransactionSubmittedViewProtocol: class {
+protocol TransactionSubmittedViewProtocol: AnyObject {
     func bind(to viewModel: TransactionSubmittedViewModel)
 }
 
 // MARK: -
 // MARK: Delegate
-protocol TransactionSubmittedPresenterDelegate: class {
+protocol TransactionSubmittedPresenterDelegate: AnyObject {
     func transactionSubmittedPresenterFinish()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol TransactionSubmittedPresenterProtocol: class {
+protocol TransactionSubmittedPresenterProtocol: AnyObject {
 	var view: TransactionSubmittedViewProtocol? { get set }
     func viewDidLoad()
     

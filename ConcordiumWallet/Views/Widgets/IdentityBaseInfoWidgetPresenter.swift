@@ -50,12 +50,12 @@ struct IdentityDetailsInfoViewModel {
 }
 
 // MARK: View -
-protocol IdentityBaseInfoWidgetViewProtocol: class {
+protocol IdentityBaseInfoWidgetViewProtocol: AnyObject {
 
 }
 
 // MARK: Presenter -
-protocol IdentityBaseInfoWidgetPresenterProtocol: class {
+protocol IdentityBaseInfoWidgetPresenterProtocol: AnyObject {
     var view: IdentityBaseInfoWidgetViewProtocol? { get set }
 
     var identityViewModel: IdentityDetailsInfoViewModel { get set }

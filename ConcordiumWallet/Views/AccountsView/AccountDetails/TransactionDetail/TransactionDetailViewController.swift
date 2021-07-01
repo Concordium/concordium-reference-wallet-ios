@@ -216,7 +216,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         if !detailsValue.isEmpty {
             let title = "accountDetails.details".localized
             let value = detailsValue
-            //let displayValue = detailsValue
+            // let displayValue = detailsValue
             let displayVM = TransactionDetailItemViewModel(title: title, value: value, displayValue: detailsValue, displayCopy: false)
             return [.details(displayVM)]
         }
@@ -245,7 +245,7 @@ extension TransactionDetailViewController: UITableViewDelegate {
             case .origin(let vm), .to(let vm), .from(let vm), .blockHash(let vm), .transactionHash(let vm), .details(let vm):
                 UIPasteboard.general.string = vm.value
                 self.showToast(withMessage: "general.copied".localized + " " + vm.value)
-            case .error(let errorText):
+            case .error(_):
                 break
             }
         }

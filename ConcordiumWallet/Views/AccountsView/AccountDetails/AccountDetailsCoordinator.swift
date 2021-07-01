@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AccountDetailsDelegate: class {
+protocol AccountDetailsDelegate: AnyObject {
     func accountDetailsClosed()
     func retryCreateAccount(failedAccount: AccountDataType)
     func accountRemoved()
@@ -47,7 +47,10 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showAccountDetails(account: AccountDataType) {
-        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider, account: account, balanceType: balanceType, delegate: self)
+        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
+                                                          account: account,
+                                                          balanceType: balanceType,
+                                                          delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
         navigationController.pushViewController(vc, animated: true)
     }

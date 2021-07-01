@@ -15,7 +15,7 @@ enum CreationFailedUIMode {
 }
 
 // MARK: View
-protocol CreationFailedViewProtocol: class {
+protocol CreationFailedViewProtocol: AnyObject {
     func set(errorTitle: String)
     func set(errorMessage: String)
     func set(viewControllerTitle: String)
@@ -23,13 +23,13 @@ protocol CreationFailedViewProtocol: class {
 
 // MARK: -
 // MARK: Delegate
-protocol CreationFailedPresenterDelegate: class {
+protocol CreationFailedPresenterDelegate: AnyObject {
     func finish()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol CreationFailedPresenterProtocol: class {
+protocol CreationFailedPresenterProtocol: AnyObject {
 	var view: CreationFailedViewProtocol? { get set }
     func viewDidLoad()
 

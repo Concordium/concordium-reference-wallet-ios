@@ -38,6 +38,7 @@ enum MobileWalletError: Error {
     case invalidArgument
 }
 
+// swiftlint:disable type_body_length
 class MobileWallet: MobileWalletProtocol {
     private let walletFacade = MobileWalletFacade()
 
@@ -53,16 +54,16 @@ class MobileWallet: MobileWalletProtocol {
                                         identityObject: IdentityObject,
                                         privateIDObjectData: PrivateIDObjectData,
                                         startingFrom: Int,
-                                        pwHash: String) throws -> Result<[MakeGenerateAccountsResponseElement], Error>
-    {
-        let generateAccountsRequest = MakeGenerateAaccountsRequest(identityObject: identityObject, privateIDObjectData: privateIDObjectData, global: global.value)
+                                        pwHash: String) throws -> Result<[MakeGenerateAccountsResponseElement], Error> {
+        let generateAccountsRequest = MakeGenerateAaccountsRequest(identityObject: identityObject,
+                                                                   privateIDObjectData: privateIDObjectData,
+                                                                   global: global.value)
         guard let input = try generateAccountsRequest.jsonString(),
             let responseData = try walletFacade.generateAccounts(input: input).data(using: .utf8)
             else {
             return .failure(GeneralError.unexpectedNullValue)
         }
-        
-        
+
         let response = try JSONDecoder().decode([MakeGenerateAccountsResponseElement].self, from: responseData)
         return .success(response)
     }
@@ -76,11 +77,13 @@ class MobileWallet: MobileWalletProtocol {
     *   - an identity object that can be sent to the blockChain
     *   - A privateId Object that must be stored securely
     */
+
+    // swiftlint:disable function_body_length
     func createIdRequestAndPrivateData(identity: IdentityDataType,
                                        global: GlobalWrapper,
                                        requestPasswordDelegate: RequestPasswordDelegate)
                     -> AnyPublisher<IDObjectRequestWrapper, Error> {
-        var identity = identity
+        let identity = identity
         do {
             guard let ipInfo = identity.identityProvider?.ipInfo, let arsInfo = identity.identityProvider?.arsInfos,
                 let input = try CreateIDRequest(ipInfo: ipInfo, arsInfos: arsInfo, global: global.value).jsonString() else {
@@ -114,15 +117,17 @@ class MobileWallet: MobileWalletProtocol {
                         account.name = initialAccountName
                         account.address = data.initialAccountData.accountAddress
                         account.encryptedBalanceStatus = .decrypted
-                        account.encryptedAccountData = try self.storageManager.storePrivateAccountKeys(data.initialAccountData.accountKeys, pwHash: pwHash).get()
-                        account.encryptedPrivateKey = try self.storageManager.storePrivateEncryptionKey(data.initialAccountData.encryptionSecretKey, pwHash: pwHash).get()
+                        account.encryptedAccountData = try self.storageManager.storePrivateAccountKeys(data.initialAccountData.accountKeys,
+                                                                                                       pwHash: pwHash).get()
+                        account.encryptedPrivateKey = try self.storageManager.storePrivateEncryptionKey(data.initialAccountData.encryptionSecretKey,
+                                                                                                        pwHash: pwHash).get()
                         
-                        try self.storageManager.storeAccount(account)
+                        _ = try self.storageManager.storeAccount(account)
                     } catch {
                         return .fail(error)
                     }
                     return self.storageManager.storePrivateIdObjectData(data.privateIDObjectData.value, pwHash: pwHash).onSuccess {
-                        identity.withUpdated(encryptedPrivateIdObjectData: $0)
+                        _ = identity.withUpdated(encryptedPrivateIdObjectData: $0)
                         let newAccount = account.withUpdatedIdentity(identity: identity)
                         let shieldedAmount = ShieldedAmountTypeFactory.create().withInitialValue(for: newAccount)
                         _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)

@@ -22,7 +22,7 @@ protocol RevealAttributesPresenterDelegate: CreateAccountButtonWidgetPresenterDe
 
 // MARK: -
 // MARK: Presenter
-protocol RevealAttributesPresenterProtocol: class {
+protocol RevealAttributesPresenterProtocol: AnyObject {
     var view: RevealAttributesViewProtocol? { get set }
     func viewDidLoad()
     
@@ -53,13 +53,12 @@ class RevealAttributesPresenter: RevealAttributesPresenterProtocol {
     
     func viewDidLoad() {
     }
-    
-    
+
     func revealAttributes() {
         delegate?.revealAttributes(account)
     }
     func finish() {
-        //Get gathered info from the coordinator
+        // Get gathered info from the coordinator
         guard let delegate = self.delegate else { return }
         service.createAccount(account: account, requestPasswordDelegate: delegate)
             .showLoadingIndicator(in: view)

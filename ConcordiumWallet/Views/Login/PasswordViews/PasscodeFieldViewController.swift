@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-protocol PasscodeFieldDelegate: class {
+protocol PasscodeFieldDelegate: AnyObject {
     func pincodeView(_ pincodeView: PasscodeFieldViewController, didFinishEnteringPincode: String)
 }
 

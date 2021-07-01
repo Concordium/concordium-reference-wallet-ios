@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-protocol ShowToast: class {
+protocol ShowToast: AnyObject {
     func showToast(withMessage toastMessage: String?, centeredIn view: UIView?, time: Double?)
 }
 

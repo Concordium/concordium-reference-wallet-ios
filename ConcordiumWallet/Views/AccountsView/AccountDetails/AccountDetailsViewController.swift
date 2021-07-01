@@ -351,7 +351,6 @@ extension AccountDetailsViewController {
         }
         self.retryCreateButton.isHidden = !showErrorButtons
         self.removeLocalAccountButton.isHidden = !showErrorButtons
-        //self.errorMessageLabel.isHidden = !showMessage
         self.errorMessageLabel.text = message
         self.statusImageView.isHidden = !showMessage
         if !statusIconImageName.isEmpty {

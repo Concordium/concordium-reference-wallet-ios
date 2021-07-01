@@ -11,7 +11,7 @@ import Combine
 
 // MARK: -
 // MARK: Presenter Delegate
-protocol IdentitiesPresenterDelegate: class {
+protocol IdentitiesPresenterDelegate: AnyObject {
     func identitySelected(identity: IdentityDataType)
     func createIdentitySelected()
     func noValidIdentitiesAvailable()

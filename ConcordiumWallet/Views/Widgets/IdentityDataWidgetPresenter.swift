@@ -9,19 +9,19 @@
 import Foundation
 
 // MARK: View
-protocol IdentityDataWidgetViewProtocol: class {
+protocol IdentityDataWidgetViewProtocol: AnyObject {
     func reloadData()
 }
 
 // MARK: -
 // MARK: Delegate
-protocol IdentityDataWidgetPresenterDelegate: class {
+protocol IdentityDataWidgetPresenterDelegate: AnyObject {
 
 }
 
 // MARK: -
 // MARK: Presenter
-protocol IdentityDataWidgetPresenterProtocol: class {
+protocol IdentityDataWidgetPresenterProtocol: AnyObject {
 	var view: IdentityDataWidgetViewProtocol? { get set }
     func viewDidLoad()
 
@@ -36,7 +36,7 @@ class IdentityDataWidgetPresenter: IdentityDataWidgetPresenterProtocol {
     }
 
     func countOfData() -> Int {
-        identityDataAsArray.count + 1 //For the header
+        identityDataAsArray.count + 1 // For the header
     }
 
     func dataItem(index: Int) -> [String: String] {

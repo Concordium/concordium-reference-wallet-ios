@@ -17,19 +17,19 @@ struct IdentityRowSelectionViewModel {
 }
 
 // MARK: View
-protocol IdentityDataSelectionWidgetViewProtocol: class {
+protocol IdentityDataSelectionWidgetViewProtocol: AnyObject {
     func reloadData()
 }
 
 // MARK: -
 // MARK: Delegate
-protocol IdentityDataSelectionWidgetPresenterDelegate: class {
+protocol IdentityDataSelectionWidgetPresenterDelegate: AnyObject {
     func userChangeSelected(account: AccountDataType)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol IdentityDataSelectionWidgetPresenterProtocol: class {
+protocol IdentityDataSelectionWidgetPresenterProtocol: AnyObject {
     var view: IdentityDataSelectionWidgetViewProtocol? { get set }
     func viewDidLoad()
 

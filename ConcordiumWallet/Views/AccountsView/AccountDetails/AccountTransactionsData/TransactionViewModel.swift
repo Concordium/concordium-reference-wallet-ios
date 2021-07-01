@@ -268,7 +268,7 @@ extension TransactionViewModel: CustomStringConvertible {
             date: \(date)
             cost: \(cost?.displayValueWithGStroke() ?? "nil")
             amount: \(amount?.displayValueWithGStroke() ?? "nil")
-            total: \(total?.displayValueWithGStroke())
+            total: \(total?.displayValueWithGStroke() ?? "")
             status: \(status?.rawValue ?? "nil"); outcome: \(outcome?.rawValue ?? "nil")
         """
     }

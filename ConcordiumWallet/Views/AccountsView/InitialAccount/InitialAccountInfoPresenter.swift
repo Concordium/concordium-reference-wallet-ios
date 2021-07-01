@@ -57,7 +57,7 @@ protocol InitialAccountInfoViewProtocol: ShowError {
       func bind(to viewModel: InitialAccountInfoViewModel)
 }
 
-protocol InitialAccountInfoPresenterProtocol: class {
+protocol InitialAccountInfoPresenterProtocol: AnyObject {
     var view: InitialAccountInfoViewProtocol? { get set }
     func userTappedOK()
     func userTappedClose()
@@ -66,7 +66,7 @@ protocol InitialAccountInfoPresenterProtocol: class {
 
 // MARK: -
 // MARK: Delegate
-protocol InitialAccountInfoPresenterDelegate: class {
+protocol InitialAccountInfoPresenterDelegate: AnyObject {
     func userTappedOK(withType: InitialAccountInfoType)
     func userTappedClose()
 }

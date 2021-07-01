@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol IdentitiesPresenterProtocol: class {
+protocol IdentitiesPresenterProtocol: AnyObject {
     var view: IdentitiesViewProtocol? { get set }
     
     func getTitle() -> String
@@ -28,8 +28,8 @@ protocol IdentitiesPresenterProtocol: class {
     func refresh()
 }
 
-///Handle the shared logic between identities and chooseIdentities presenters
-///Note: empty functions to allow subclasses to override implemenation
+/// Handle the shared logic between identities and chooseIdentities presenters
+/// Note: empty functions to allow subclasses to override implemenation
 class IdentityGeneralPresenter: IdentitiesPresenterProtocol {
     func getTitle() -> String {
         ""
@@ -73,7 +73,7 @@ class IdentityGeneralPresenter: IdentitiesPresenterProtocol {
         return viewModels[index]
     }
     
-    //Providing default implementation because it is optional
+    // Providing default implementation because it is optional
     func cancel() {
     }
     

@@ -9,13 +9,13 @@
 import Foundation
 
 // MARK: View
-protocol MoreMenuViewProtocol: class {
+protocol MoreMenuViewProtocol: AnyObject {
 
 }
 
 // MARK: -
 // MARK: Delegate
-protocol MoreMenuPresenterDelegate: class {
+protocol MoreMenuPresenterDelegate: AnyObject {
     func addressBookSelected()
     func importSelected()
     func exportSelected()
@@ -25,7 +25,7 @@ protocol MoreMenuPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol MoreMenuPresenterProtocol: class {
+protocol MoreMenuPresenterProtocol: AnyObject {
 	var view: MoreMenuViewProtocol? { get set }
     func viewDidLoad()
     

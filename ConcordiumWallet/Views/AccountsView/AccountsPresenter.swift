@@ -121,7 +121,7 @@ class AccountsListViewModel {
     @Published var staked = GTU(intValue: 0)
 }
 
-protocol AccountsPresenterDelegate: class {
+protocol AccountsPresenterDelegate: AnyObject {
     func createNewAccount()
     func createNewIdentity()
     func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum)
@@ -135,7 +135,7 @@ protocol AccountsViewProtocol: ShowError, Loadable {
     func showIdentityFailed(_ errorMessage: String, showCancel: Bool, completion: @escaping () -> Void)
 }
 
-protocol AccountsPresenterProtocol: class {
+protocol AccountsPresenterProtocol: AnyObject {
     var view: AccountsViewProtocol? { get set }
     
     func viewDidLoad()
@@ -248,11 +248,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private func cleanIdentitiesAndAccounts() {
-        let accounts = dependencyProvider.storageManager().getAccounts().filter{$0.transactionStatus == SubmissionStatusEnum.absent}
+        let accounts = dependencyProvider.storageManager().getAccounts().filter{ $0.transactionStatus == SubmissionStatusEnum.absent }
         for account in accounts {
             dependencyProvider.storageManager().removeAccount(account: account)
         }
-        let identities = dependencyProvider.storageManager().getIdentities().filter{$0.state == .failed}
+        let identities = dependencyProvider.storageManager().getIdentities().filter{ $0.state == .failed }
         for identity in identities {
             dependencyProvider.storageManager().removeIdentity(identity)
         }

@@ -10,13 +10,13 @@ import Foundation
 
 // MARK: -
 // MARK: Delegate
-protocol ImportReceiptPresenterDelegate: class {
+protocol ImportReceiptPresenterDelegate: AnyObject {
     func importReceiptDidFinish()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol ImportReceiptPresenterProtocol: class {
+protocol ImportReceiptPresenterProtocol: AnyObject {
 	var view: ImportReceiptViewProtocol? { get set }
     func viewDidLoad()
     func okButtonPressed()

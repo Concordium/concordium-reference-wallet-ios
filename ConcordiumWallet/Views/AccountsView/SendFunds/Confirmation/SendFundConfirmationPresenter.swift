@@ -21,14 +21,14 @@ protocol SendFundConfirmationViewProtocol: ShowError, Loadable {
 
 // MARK: -
 // MARK: Delegate
-protocol SendFundConfirmationPresenterDelegate: class {
+protocol SendFundConfirmationPresenterDelegate: AnyObject {
     func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType)
     func sendFundFailed(error: Error)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol SendFundConfirmationPresenterProtocol: class {
+protocol SendFundConfirmationPresenterProtocol: AnyObject {
 	var view: SendFundConfirmationViewProtocol? { get set }
     func viewDidLoad()
     func userTappedConfirm()

@@ -26,13 +26,13 @@ protocol TransferFiltersViewProtocol: class {
 }
 
 // MARK: Delegate
-protocol TransferFiltersPresenterDelegate: class {
+protocol TransferFiltersPresenterDelegate: AnyObject {
     func refreshTransactionList()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol TransferFiltersPresenterProtocol: class {
+protocol TransferFiltersPresenterProtocol: AnyObject {
     var view: TransferFiltersViewProtocol? { get set }
     func viewDidLoad()
     func setShowRewardsEnabled(_ enabled: Bool)

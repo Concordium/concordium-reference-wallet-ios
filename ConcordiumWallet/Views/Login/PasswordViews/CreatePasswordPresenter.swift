@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CreatePasswordPresenterDelegate: class {
+protocol CreatePasswordPresenterDelegate: AnyObject {
     func passwordSelectionDone(pwHash: String)
 }
 

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-protocol RequestExportPasswordPresenterDelegate: class {
+protocol RequestExportPasswordPresenterDelegate: AnyObject {
     func passwordSelectionCancelled()
     func finishedEnteringPassword(password: String)
 }

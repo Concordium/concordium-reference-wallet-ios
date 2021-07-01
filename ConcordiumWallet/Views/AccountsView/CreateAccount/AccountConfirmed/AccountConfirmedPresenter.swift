@@ -21,7 +21,7 @@ protocol AccountConfirmedPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol AccountConfirmedPresenterProtocol: class {
+protocol AccountConfirmedPresenterProtocol: AnyObject {
 	var view: AccountConfirmedViewProtocol? { get set }
     func viewDidLoad()
 

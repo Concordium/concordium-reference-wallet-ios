@@ -5,7 +5,7 @@
 
 import UIKit
 
-protocol SendFundsCoordinatorDelegate: class {
+protocol SendFundsCoordinatorDelegate: AnyObject {
     func sendFundsCoordinatorFinished()
 }
 
