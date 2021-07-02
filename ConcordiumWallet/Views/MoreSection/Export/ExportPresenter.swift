@@ -15,14 +15,14 @@ protocol ExportViewProtocol: ShowError {
 
 // MARK: -
 // MARK: Delegate
-protocol ExportPresenterDelegate: class {
+protocol ExportPresenterDelegate: AnyObject {
     func shareExportedFile(url: URL, completion: @escaping () -> Void)
     func createExportPassword() -> AnyPublisher<String, Error>
 }
 
 // MARK: -
 // MARK: Presenter
-protocol ExportPresenterProtocol: class {
+protocol ExportPresenterProtocol: AnyObject {
     var view: ExportViewProtocol? { get set }
     func viewDidLoad()
     func export()
@@ -52,7 +52,7 @@ class ExportPresenter: ExportPresenterProtocol {
         let exportService: ExportService = self.dependencyProvider.exportService()
         let unfinalizedAccounts = exportService.getUnfinalizedAccounts()
         if unfinalizedAccounts.count > 0 {
-            let unfinalizedAccountsNames = unfinalizedAccounts.enumerated().map { "\($0.0 + 1). \($0.1.name)" }
+            let unfinalizedAccountsNames = unfinalizedAccounts.enumerated().map { "\($0.0 + 1). \($0.1.name ?? "")" }
             view?.showRecoverableAlert(ViewError.exportUnfinalizedAccounts(unfinalizedAccountsNames: unfinalizedAccountsNames),
                                        completion: { [weak self] in
                 self?.performExport()

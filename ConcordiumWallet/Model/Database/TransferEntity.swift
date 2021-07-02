@@ -50,7 +50,7 @@ extension TransferDataType {
             balanceChange = Int(cost) ?? 0
         default:
             switch transferType {
-            case .simpleTransfer, .transferToSecret: //transfer to public is included even if not finalized
+            case .simpleTransfer, .transferToSecret: // transfer to public is included even if not finalized
                 balanceChange = (Int(amount) ?? 0) + (Int(cost) ?? 0)
             case .transferToPublic:
                 balanceChange = -(Int(amount) ?? 0) + (Int(cost) ?? 0)
@@ -76,7 +76,7 @@ extension TransferDataType {
             case .simpleTransfer:
                 balanceChange = 0
             case .transferToSecret:
-                balanceChange = -(Int(amount) ?? 0)//shielding is included even if not finalized
+                balanceChange = -(Int(amount) ?? 0)// shielding is included even if not finalized
             case .encryptedTransfer, .transferToPublic:
                 balanceChange = (Int(amount) ?? 0) + 0 // the cost is taken from the public balance
             }

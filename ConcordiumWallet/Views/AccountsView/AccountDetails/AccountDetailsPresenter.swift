@@ -26,7 +26,7 @@ protocol AccountDetailsViewProtocol: ShowError, Loadable {
 
 // MARK: -
 // MARK: Delegate
-protocol AccountDetailsPresenterDelegate: class {
+protocol AccountDetailsPresenterDelegate: AnyObject {
     func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter)
 
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter)
@@ -41,7 +41,7 @@ protocol AccountDetailsPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol AccountDetailsPresenterProtocol: class {
+protocol AccountDetailsPresenterProtocol: AnyObject {
     var view: AccountDetailsViewProtocol? { get set }
     func viewDidLoad()
     func viewWillAppear()

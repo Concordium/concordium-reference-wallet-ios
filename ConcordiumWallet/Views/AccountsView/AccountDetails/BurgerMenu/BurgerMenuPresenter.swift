@@ -18,18 +18,18 @@ struct BurgerMenuViewModel: Hashable {
 }
 
 // MARK: View
-protocol BurgerMenuViewProtocol: class {
+protocol BurgerMenuViewProtocol: AnyObject {
     func bind(to viewModel: BurgerMenuViewModel)
 }
 
 // MARK: Delegate
-protocol BurgerMenuPresenterDelegate: class {
+protocol BurgerMenuPresenterDelegate: AnyObject {
     func pressedOption(action: BurgerMenuAction, account: AccountDataType)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol BurgerMenuPresenterProtocol: class {
+protocol BurgerMenuPresenterProtocol: AnyObject {
     var view: BurgerMenuViewProtocol? { get set }
     func viewDidLoad()
     
@@ -39,7 +39,7 @@ protocol BurgerMenuPresenterProtocol: class {
     
 }
 
-protocol BurgerMenuDismissDelegate: class {
+protocol BurgerMenuDismissDelegate: AnyObject {
     func bugerMenuDismissedWithAction(_action: BurgerMenuAction)
 }
 

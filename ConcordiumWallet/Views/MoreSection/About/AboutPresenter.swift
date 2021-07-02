@@ -16,12 +16,12 @@ protocol AboutViewProtocol: ShowError {
 
 // MARK: -
 // MARK: Delegate
-protocol AboutPresenterDelegate: class {
+protocol AboutPresenterDelegate: AnyObject {
 }
 
 // MARK: -
 // MARK: Presenter
-protocol AboutPresenterProtocol: class {
+protocol AboutPresenterProtocol: AnyObject {
     var view: AboutViewProtocol? { get set }
     func viewDidLoad()
 }
@@ -38,5 +38,3 @@ class AboutPresenter: AboutPresenterProtocol {
     func viewDidLoad() {
     }
 }
-
-

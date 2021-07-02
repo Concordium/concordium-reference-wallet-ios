@@ -26,7 +26,7 @@ class EnterPasswordFactory {
 }
 
 // MARK: View -
-protocol EnterPasswordViewProtocol: class {
+protocol EnterPasswordViewProtocol: AnyObject {
     var pincodeDelegate: PasscodeFieldDelegate? { get set }
     func showKeyboard()
     func setState(_: PasswordSelectionState, newPasswordFieldDelegate: PasswordFieldDelegate & PasscodeFieldDelegate, animated: Bool, reverse: Bool)
@@ -35,7 +35,7 @@ protocol EnterPasswordViewProtocol: class {
 }
 
 // MARK: Presenter -
-protocol EnterPasswordPresenterProtocol: class {
+protocol EnterPasswordPresenterProtocol: AnyObject {
     var view: EnterPasswordViewProtocol? { get set }
     func viewDidLoad()
     func viewDidAppear()
@@ -142,11 +142,11 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
 
     var presenter: EnterPasswordPresenterProtocol
     var pincodeDelegate: PasscodeFieldDelegate? {
-        set {
-            getPincodeViewController()?.delegate = newValue
-        }
         get {
             getPincodeViewController()?.delegate
+        }
+        set {
+            getPincodeViewController()?.delegate = newValue
         }
     }
 
@@ -265,7 +265,7 @@ extension EnterPasswordViewController: EnterPasswordViewProtocol {
         presenter.closePasswordViewTapped()
     }
 
-    //swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity
     private func changePasswordFields(state: PasswordSelectionState,
                                       newPasswordFieldDelegate: PasswordFieldDelegate & PasscodeFieldDelegate,
                                       animated: Bool,

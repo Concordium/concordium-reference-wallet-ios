@@ -21,23 +21,21 @@ class IdentityInfoViewModel: IdentityGeneralViewModel {
         }
 
         let attributes = identity.identityObject?.attributeList.chosenAttributes
-        let details = attributes?.keys
+        _ = attributes?.keys
                 .sorted()
                 .compactMap(ChosenAttributeKeys.init(rawValue:))
                 .map(AttributeFormatter.format)
                 .joined(separator: ", ") ?? "identityStatus.\(identity.state.rawValue)".localized
 
         let expiresOn: String
-        if let validTo = identity.identityObject?.attributeList.validTo  {
+        if let validTo = identity.identityObject?.attributeList.validTo {
             expiresOn = "Expires on " + GeneralFormatter.formatISO8601Date(date: validTo)
         } else {
             expiresOn = ""
         }
-        
-        #warning("no privacy policy url")
-        //TODO: add privacy policy
-        let privacyPolicyURL = ""
-        
+
+        let privacyPolicyURL = "https://developer.concordium.software/extra/Terms-and-conditions-Mobile-Wallet.pdf"
+
         self.init(id: ipIdentity,
                   name: name,
                   iconEncoded: icon,

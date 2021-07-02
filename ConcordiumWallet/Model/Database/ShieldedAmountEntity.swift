@@ -29,9 +29,10 @@ final class ShieldedAmountEntity: Object {
     @objc dynamic var accountEntity: AccountEntity? = AccountEntity()
     @objc dynamic var encryptedValue: String = ""
     @objc dynamic var decryptedValue: String = ""
-    @objc dynamic var incomingAmountIndex: Int = -1 //-1 means no index
+    @objc dynamic var incomingAmountIndex: Int = -1 // -1 means no index
     @objc dynamic var primaryKey: String = ""
-    
+
+    // swiftlint:disable line_length
     static let zeroValue = "c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     
     override class func primaryKey() -> String? {
@@ -49,8 +50,7 @@ final class ShieldedAmountEntity: Object {
         }
         return self
     }
-    
-    
+
     func withInitialValue(for account: AccountDataType) -> ShieldedAmountType {
         _ = write {
             let shieldedAmount = $0
@@ -62,7 +62,6 @@ final class ShieldedAmountEntity: Object {
         }
         return self
     }
-    
 }
 
 extension ShieldedAmountEntity: ShieldedAmountType {

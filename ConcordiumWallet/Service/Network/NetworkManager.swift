@@ -32,9 +32,9 @@ final class NetworkManager: NetworkManagerProtocol {
     func load<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
         if Logger.shouldLog(on: .debug) {
             if let bodyData = request.httpBody, let bodyString = String(data: bodyData, encoding: .utf8) {
-                Logger.debug("TX \(request.httpMethod) \(request.url):\n\(bodyString)")
+                Logger.debug("TX \(String(describing: request.httpMethod)) \(String(describing: request.url)):\n\(bodyString)")
             } else {
-                Logger.debug("TX \(request.httpMethod) \(request)")
+                Logger.debug("TX \(String(describing: request.httpMethod)) \(request)")
             }
         }
         return session.load(request: request)
@@ -46,7 +46,7 @@ final class NetworkManager: NetworkManagerProtocol {
                     }
 
                     guard 200..<300 ~= response.statusCode else {
-                        Logger.error("RX \(response.statusCode) \(request.url):\n\(String(data: data, encoding: .utf8) ?? "")")
+                        Logger.error("RX \(response.statusCode) \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
                         if let error = try? ServerErrorMessage(data: data) {
                             return .fail(NetworkError.serverError(error: error))
                         }
@@ -55,7 +55,7 @@ final class NetworkManager: NetworkManagerProtocol {
                     return .just(data)
                 }
                 .map { data in
-                    Logger.debug("RX \(request.url):\n\(String(data: data, encoding: .utf8) ?? "")")
+                    Logger.debug("RX \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
                     return data
                 }
                 .decode(type: T.self, decoder: JSONDecoder())
@@ -63,11 +63,11 @@ final class NetworkManager: NetworkManagerProtocol {
                     if error is NetworkError {
                         return error // do not attempt to map an error that is not caused by the json decoding
                     }
-                    Logger.error("cannot decode - \(request.url):\n\(error)")
+                    Logger.error("cannot decode - \(String(describing: request.url)):\n\(error)")
                     return NetworkError.jsonDecodingError(error: error)
                 })
                 .performInBackground()
-                //comment this in to force loading indicator
+                // comment this in to force loading indicator
 //                .delay(for: 1.0, scheduler: RunLoop.main)
                 .eraseToAnyPublisher()
     }

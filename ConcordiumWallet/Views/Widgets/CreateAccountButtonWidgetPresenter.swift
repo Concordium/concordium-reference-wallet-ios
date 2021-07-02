@@ -15,14 +15,14 @@ protocol CreateAccountButtonWidgetViewProtocol: Loadable, ShowError {
 
 // MARK: -
 // MARK: Delegate
-protocol CreateAccountButtonWidgetPresenterDelegate: class {
+protocol CreateAccountButtonWidgetPresenterDelegate: AnyObject {
     func createAccountFinished(_ account: AccountDataType)
     func createAccountFailed(error: Error)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol CreateAccountButtonWidgetPresenterProtocol: class {
+protocol CreateAccountButtonWidgetPresenterProtocol: AnyObject {
 	var view: CreateAccountButtonWidgetViewProtocol? { get set }
 
     func updateData(account: AccountDataType)
@@ -55,7 +55,7 @@ class CreateAccountButtonWidgetPresenter: CreateAccountButtonWidgetPresenterProt
     }
 
     func createAccountTapped() {
-        //Get gathered info from the coordinator
+        // Get gathered info from the coordinator
         guard let delegate = self.delegate else { return }
         service.createAccount(account: account, requestPasswordDelegate: delegate)
                 .showLoadingIndicator(in: view)
@@ -67,7 +67,7 @@ class CreateAccountButtonWidgetPresenter: CreateAccountButtonWidgetPresenterProt
                         self?.delegate?.createAccountFailed(error: error)
                     } else if case GeneralError.userCancelled = error {
                         return
-                    } else if let viewError = error as? ViewError{
+                    } else if let viewError = error as? ViewError {
                         self?.view?.showErrorAlert(viewError)
                     } else {
                         self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))

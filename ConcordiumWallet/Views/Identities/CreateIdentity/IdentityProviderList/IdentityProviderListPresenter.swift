@@ -48,11 +48,9 @@ class IdentityProviderViewModel: IdentityGeneralViewModel {
     convenience init(ipInfo: IPInfoResponseElement) {
         let id = ipInfo.ipInfo.ipIdentity
         let name = ipInfo.ipInfo.ipDescription.name
-//        let description = ipInfo.ipInfo.ipDescription.desc
         let encodedIcon = ipInfo.metadata.icon
-        //TODO: fix this
-        #warning("No privacy policy URL yet")
-        let privacyPolicyURL = ""
+
+        let privacyPolicyURL = "https://developer.concordium.software/extra/Terms-and-conditions-Mobile-Wallet.pdf"
         self.init(id: id, identityName: name, iconEncoded: encodedIcon, privacyPolicyURL: privacyPolicyURL)
     }
 }
@@ -62,7 +60,7 @@ class IdentityProviderListViewModel {
 }
 
 // MARK: Presenter -
-protocol IdentityProviderListPresenterProtocol: class {
+protocol IdentityProviderListPresenterProtocol: AnyObject {
     var view: IdentityProviderListViewProtocol? { get set }
     func viewDidLoad()
     func closeIdentityProviderList()
@@ -70,7 +68,7 @@ protocol IdentityProviderListPresenterProtocol: class {
     func getIdentityName() -> String
 }
 
-protocol IdentitiyProviderListPresenterDelegate: class {
+protocol IdentitiyProviderListPresenterDelegate: AnyObject {
     func closeIdentityProviderList()
     func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityDataType)
 }

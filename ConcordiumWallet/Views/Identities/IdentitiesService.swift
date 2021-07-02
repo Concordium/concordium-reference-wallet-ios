@@ -114,7 +114,7 @@ class IdentitiesService {
 
     private func addErrorMessage(_ error: String, to identity: IdentityDataType) throws -> IdentityDataType {
         if let account = storageManager.getAccounts(for: identity).first {
-            account.withUpdatedStatus(status: .absent)
+            _ = account.withUpdatedStatus(status: .absent)
         }
         return identity.withUpdated(identityCreationError: error)
     }

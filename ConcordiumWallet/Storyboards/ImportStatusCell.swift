@@ -16,7 +16,7 @@ class ImportStatusCell: UIView {
     @IBOutlet weak var stackview: UIStackView!
     
     class func instanceFromNib() -> ImportStatusCell {
-        //swiftlint:disable:next force_cast
+        // swiftlint:disable:next force_cast
         UINib(nibName: "ImportStatusCell", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! ImportStatusCell
     }
 

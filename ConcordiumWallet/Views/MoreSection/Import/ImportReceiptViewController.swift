@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: View
-protocol ImportReceiptViewProtocol: class {
+protocol ImportReceiptViewProtocol: AnyObject {
 
 }
 

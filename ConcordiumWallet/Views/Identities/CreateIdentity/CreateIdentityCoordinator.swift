@@ -262,11 +262,11 @@ extension CreateIdentityCoordinator: InitialAccountInfoPresenterDelegate {
         case .firstAccount:
             break // no action for new account - we shouldn't reach it in this flow
         case .importAccount:
-            break //no action for new account - we shouldn't reach it in this flow
+            break // no action for new account - we shouldn't reach it in this flow
         case .newAccount:
             self.showCreateNewAccount()
         case .welcomeScreen:
-            break //no action for new account - we shouldn't reach it in this flow
+            break // no action for new account - we shouldn't reach it in this flow
         }
     }
     

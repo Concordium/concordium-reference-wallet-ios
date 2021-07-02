@@ -8,11 +8,9 @@
 
 import UIKit
 
-protocol InitialAccountsCoordinatorDelegate: class {
+protocol InitialAccountsCoordinatorDelegate: AnyObject {
     func finishedCreatingInitialIdentity()
 }
-
-
 
 class InitialAccountsCoordinator: Coordinator, ShowError {
     var childCoordinators = [Coordinator]()
@@ -37,7 +35,6 @@ class InitialAccountsCoordinator: Coordinator, ShowError {
         showGettingStarted()
     }
 
-    
     func showGettingStarted() {
         let gettingStartedPresenter = GettingStartedPresenter(delegate: self)
         let vc = GettingStartedFactory.create(with: gettingStartedPresenter)
@@ -81,14 +78,16 @@ extension InitialAccountsCoordinator: CreateNicknamePresenterDelegate {
         navigationController.popToRootViewController(animated: true)
     }
 
-    func createNicknamePresenter(_ createNicknamePresenter: CreateNicknamePresenter, didCreateName nickname: String, properties: CreateNicknameProperties) {
+    func createNicknamePresenter(_ createNicknamePresenter: CreateNicknamePresenter,
+                                 didCreateName nickname: String,
+                                 properties: CreateNicknameProperties) {
         var account = AccountDataTypeFactory.create()
         account.name = nickname
         account.transactionStatus = .committed
         account.encryptedBalanceStatus = .decrypted
         do {
             cleanupUnfinishedAccounts()
-            try accountsProvider.storageManager().storeAccount(account)
+            _ = try accountsProvider.storageManager().storeAccount(account)
         } catch {
             Logger.error(error)
             self.showErrorAlert(.genericError(reason: error))

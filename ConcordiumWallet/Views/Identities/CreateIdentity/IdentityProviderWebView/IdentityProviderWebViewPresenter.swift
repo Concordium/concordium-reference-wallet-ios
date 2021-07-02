@@ -9,13 +9,13 @@
 import Foundation
 
 // MARK: View
-protocol IdentityProviderWebViewViewProtocol: class {
+protocol IdentityProviderWebViewViewProtocol: AnyObject {
     func show(url: URLRequest)
 }
 
 // MARK: -
 // MARK: Delegate
-protocol IdentityProviderWebViewPresenterDelegate: class {
+protocol IdentityProviderWebViewPresenterDelegate: AnyObject {
     func identityProviderWebViewPresenterDidClose(_: IdentityProviderWebViewPresenter)
     func identityProviderWebViewPresenter(receivedCallback: String)
     func identityProviderWebViewPresenter(failedLoading: Error)
@@ -23,7 +23,7 @@ protocol IdentityProviderWebViewPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol IdentityProviderWebViewPresenterProtocol: class {
+protocol IdentityProviderWebViewPresenterProtocol: AnyObject {
 	var view: IdentityProviderWebViewViewProtocol? { get set }
     func viewDidLoad()
     func closeTapped()

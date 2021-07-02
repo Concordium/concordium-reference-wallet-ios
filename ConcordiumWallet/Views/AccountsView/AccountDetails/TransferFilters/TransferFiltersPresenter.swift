@@ -21,7 +21,7 @@ class TransferFiltersViewModel {
 }
 
 // MARK: View
-protocol TransferFiltersViewProtocol: class {
+protocol TransferFiltersViewProtocol: AnyObject {
     func bind(to viewModel: TransferFiltersViewModel)
 }
 

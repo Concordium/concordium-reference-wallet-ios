@@ -10,7 +10,7 @@ import Foundation
 import LocalAuthentication
 import Combine
 
-protocol RequestPasswordPresenterDelegate: class {
+protocol RequestPasswordPresenterDelegate: AnyObject {
     func requestPasswordPresenter(_: RequestPasswordPresenter, didGetPassword: String)
     func failedGettingPassword()
 }

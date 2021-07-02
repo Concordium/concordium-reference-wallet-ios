@@ -41,8 +41,6 @@ class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate 
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.loginPassword.rawValue)
     }
 
-
-
     private func showLogin() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController,
                                                 parentCoordinator: self,

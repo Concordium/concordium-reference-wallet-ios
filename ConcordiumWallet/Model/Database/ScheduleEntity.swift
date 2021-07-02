@@ -43,4 +43,3 @@ extension ScheduleEntity: ScheduleDataType {
         }
     }
 }
-

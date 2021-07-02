@@ -51,13 +51,13 @@ class RecipientListViewModel {
 }
 
 // MARK: View
-protocol SelectRecipientViewProtocol: class {
+protocol SelectRecipientViewProtocol: AnyObject {
     func bind(to viewModel: RecipientListViewModel)
 }
 
 // MARK: -
 // MARK: Delegate
-protocol SelectRecipientPresenterDelegate: class {
+protocol SelectRecipientPresenterDelegate: AnyObject {
     func didSelect(recipient: RecipientDataType)
     func createRecipient()
     func selectRecipientDidSelectQR()
@@ -65,7 +65,7 @@ protocol SelectRecipientPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol SelectRecipientPresenterProtocol: class {
+protocol SelectRecipientPresenterProtocol: AnyObject {
 	var view: SelectRecipientViewProtocol? { get set }
     func viewDidLoad()
     func viewWillAppear()

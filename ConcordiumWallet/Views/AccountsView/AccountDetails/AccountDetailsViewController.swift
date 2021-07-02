@@ -142,7 +142,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @objc func refreshOnTimerCallback() {
         presenter.updateTransfersOnChanges()
     }
-    
+
+    // swiftlint:disable function_body_length
     func bind(to viewModel: AccountDetailsViewModel) {
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
 

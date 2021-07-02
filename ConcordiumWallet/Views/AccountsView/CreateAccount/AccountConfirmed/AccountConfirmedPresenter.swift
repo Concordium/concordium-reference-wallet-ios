@@ -9,13 +9,13 @@
 import Foundation
 
 // MARK: View
-protocol AccountConfirmedViewProtocol: class {
+protocol AccountConfirmedViewProtocol: AnyObject {
     func bind(title: String, accountViewModel: AccountViewModel)
 }
 
 // MARK: -
 // MARK: Delegate
-protocol AccountConfirmedPresenterDelegate: class {
+protocol AccountConfirmedPresenterDelegate: AnyObject {
     func finish()
 }
 
