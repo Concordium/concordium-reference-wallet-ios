@@ -14,10 +14,15 @@ protocol MobileWalletProtocol {
                     -> AnyPublisher<IDObjectRequestWrapper, Error>
     func createCredential(global: GlobalWrapper, account: AccountDataType, pwHash: String, expiry: Date)
                     -> AnyPublisher<CreateCredentialRequest, Error>
-    func createTransfer(from fromAccount: AccountDataType, to toAccount: String,
-                        amount: Int, nonce: AccNonce, expiry: Date, energy: Int, transferType: TransferType,
-                        requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?)
-        -> AnyPublisher<CreateTransferRequest, Error>
+    func createTransfer(from fromAccount: AccountDataType,
+                        to toAccount: String,
+                        amount: Int, nonce: AccNonce,
+                        expiry: Date, energy: Int,
+                        transferType: TransferType,
+                        requestPasswordDelegate: RequestPasswordDelegate,
+                        global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?,
+                        receiverPublicKey: String?) -> AnyPublisher<CreateTransferRequest, Error>
+
     func decryptEncryptedAmounts(from fromAccount: AccountDataType,
                                  _ encryptedAmounts: [String],
                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
@@ -296,14 +301,16 @@ class MobileWallet: MobileWalletProtocol {
                 .mapError { $0 as Error }
     }
     
-    func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String], requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error> {
+    func decryptEncryptedAmounts(from fromAccount: AccountDataType, _ encryptedAmounts: [String],
+                                 requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error> {
         requestPasswordDelegate.requestUserPassword(keychain: keychain)
             .flatMap { (pwHash) -> AnyPublisher<[(String, Int)], Error> in
                 self.performDecryption(from: fromAccount, encryptedAmounts, pwHash: pwHash)
         }.eraseToAnyPublisher()
     }
     
-    private func performDecryption(from fromAccount: AccountDataType, _ encryptedAmounts: [String], pwHash: String) ->  AnyPublisher<[(String, Int)], Error> {
+    private func performDecryption(from fromAccount: AccountDataType, _ encryptedAmounts: [String],
+                                   pwHash: String) ->  AnyPublisher<[(String, Int)], Error> {
         do {
             let secretEncryptionKey = try self.getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
             

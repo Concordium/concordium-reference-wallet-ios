@@ -9,7 +9,7 @@
 import Foundation
 
 class GeneralFormatter {
-    //output Format : if not specified, default is "MMMM, yyyy"
+    // output Format : if not specified, default is "MMMM, yyyy"
     static func formatISO8601Date(date: String, hasDay: Bool = false, outputFormat: String = "MMMM, yyyy") -> String {
         let formatter = DateFormatter()
         if hasDay {
@@ -19,7 +19,7 @@ class GeneralFormatter {
         }
         let convertedDate = formatter.date(from: date)
         guard convertedDate != nil else {
-            //If string cannot be interpreted as date, just return the string
+            // If string cannot be interpreted as date, just return the string
             return date
         }
         let resultDateFormatter = DateFormatter()

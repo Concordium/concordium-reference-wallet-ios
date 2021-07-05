@@ -10,6 +10,6 @@ import Foundation
 
 enum ShieldedAccountEncryptionStatus: String, Codable {
     case decrypted // no lock
-    case partiallyDecrypted //sum + lock
-    case encrypted //just lock
+    case partiallyDecrypted // sum + lock
+    case encrypted // just lock
 }

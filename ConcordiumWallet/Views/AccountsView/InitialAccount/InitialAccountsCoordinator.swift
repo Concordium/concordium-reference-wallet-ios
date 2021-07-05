@@ -138,9 +138,9 @@ extension InitialAccountsCoordinator: InitialAccountInfoPresenterDelegate {
         case .importAccount:
             navigationController.popViewController(animated: true)
         case .newAccount:
-            break //no action for new account - we shouldn't reach it in this flow
+            break // no action for new account - we shouldn't reach it in this flow
         case .welcomeScreen:
-            break //no action for new account - we shouldn't reach it in this flow
+            break // no action for new account - we shouldn't reach it in this flow
         }
     }
 }

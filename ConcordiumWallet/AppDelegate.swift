@@ -12,7 +12,7 @@ extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
 }
 
-//@UIApplicationMain
+// @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator = AppCoordinator()
@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // swiftlint:disable line_length
     // Disable third-party keyboards
     func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier) -> Bool {
       return extensionPointIdentifier != .keyboard

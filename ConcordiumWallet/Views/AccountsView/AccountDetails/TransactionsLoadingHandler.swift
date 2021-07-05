@@ -68,7 +68,7 @@ class TransactionsLoadingHandler {
     func loadLocalTransfers() {
         self.localTransactionsNotShownYet = storageManager.getTransfers(for: account.address)
             .filter { (transfer) -> Bool in
-                //we don't show simple trasnfers in shielded balance
+                // we don't show simple trasnfers in shielded balance
                 if balanceType == .shielded && (transfer.transferType == .simpleTransfer) {
                     return false
                 }
@@ -92,6 +92,7 @@ class TransactionsLoadingHandler {
         return false
     }
 
+    // swiftlint:disable function_body_length
     private func mergeTransactions(newTransactions: RemoteTransactions, useAllTransactions: Bool = false) -> [TransactionViewModel] {
         let rawTransactions: [Transaction] = newTransactions.transactions ?? []
         let filteredRawTransactions: [Transaction]
@@ -119,6 +120,7 @@ class TransactionsLoadingHandler {
         }
         
         if balanceType == .shielded {
+            // swiftlint:disable line_length
             let association: [(Transaction, String?, Int?)] = filteredRawTransactions.map { (transaction) -> (Transaction, String?, Int?) in
                 (transaction, transaction.encrypted?.encryptedAmount, self.encryptedAmopuntLookup(encryptedAmount: transaction.encrypted?.encryptedAmount))
             }

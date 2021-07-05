@@ -31,7 +31,7 @@ class ConcordiumApplication: UIApplication {
         timeoutTimer?.invalidate()
         timeoutTimer = Timer.scheduledTimer(timeInterval: timeoutInSeconds,
                                             target: self,
-                                            selector: #selector(self.idleTimerExceeded),
+                                            selector: #selector(idleTimerExceeded),
                                             userInfo: nil,
                                             repeats: false)
     }

@@ -8,7 +8,7 @@ import Foundation
 struct ApiConstants {
 
 #if DEBUG
-    //UserDefaults loads from launch arguments: https://www.swiftbysundell.com/articles/launch-arguments-in-swift/
+    // UserDefaults loads from launch arguments: https://www.swiftbysundell.com/articles/launch-arguments-in-swift/
     static let overriddenProxyUrl = UserDefaults.standard.string(forKey: "proxy")
 #else
     static let overriddenProxyUrl: String? = nil
@@ -17,7 +17,7 @@ struct ApiConstants {
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.testnet.concordium.com/v0")!
 #elseif MAINNET
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.mainnet.concordium.software/v0")!
-#else //Staging
+#else // Staging
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.eu.staging.concordium.com/v0")!
 #endif
 
@@ -25,7 +25,7 @@ struct ApiConstants {
     static let scheme = "concordiumwallettest"
     #elseif MAINNET
     static let scheme = "concordiumwallet"
-    #else //Staging
+    #else // Staging
     static let scheme = "concordiumwalletstaging"
     #endif
     static let notabeneCallback = "\(scheme)://identity-issuer/callback"

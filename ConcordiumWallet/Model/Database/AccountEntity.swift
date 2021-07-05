@@ -205,6 +205,7 @@ extension AccountEntity: AccountDataType {
         get {
              return forecastBalance + forecastEncryptedBalance
         }
+        // swiftlint:disable unused_setter_value
         set {
         }
     }

@@ -30,7 +30,7 @@ enum ChosenAttributeKeys: String, CodingKey, CaseIterable {
 }
 
 class AttributeFormatter {
-    //swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable cyclomatic_complexity
     static func format(key: ChosenAttributeKeys) -> String {
         var formattedKey = ""
         switch key {
@@ -144,7 +144,7 @@ private class InternalFormatter {
     
     func countryName(for countryCode: String) -> String {
         var countryName = ""
-        //What locale should we use ??
+        // What locale should we use ??
         let locale = NSLocale.current
         let identifier = NSLocale(localeIdentifier: locale.identifier)
         countryName = identifier.displayName(forKey: NSLocale.Key.countryCode, value: countryCode) ?? ""

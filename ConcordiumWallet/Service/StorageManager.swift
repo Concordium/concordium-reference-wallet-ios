@@ -17,7 +17,7 @@ protocol StorageManagerProtocol {
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
 
     func storePrivateAccountKeys(_ privateAccountKeys: AccountKeys, pwHash: String) -> Result<String, Error>
-    //func storePrivateAccountData(_ privateAccountData: AccountData, pwHash: String) -> Result<String, Error>
+    // func storePrivateAccountData(_ privateAccountData: AccountData, pwHash: String) -> Result<String, Error>
     func getPrivateAccountKeys(key: String, pwHash: String) -> Result<AccountKeys, Error>
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error>
     
@@ -66,7 +66,7 @@ class StorageManager: StorageManagerProtocol {
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
     }
 
-    //MARK: Identity
+    // MARK: Identity
     func storeIdentity(_ identity: IdentityDataType) throws {
         guard let identityEntity = identity as? IdentityEntity else {
             return
@@ -80,6 +80,7 @@ class StorageManager: StorageManagerProtocol {
         Array(realm.objects(IdentityEntity.self))
     }
 
+    // swiftlint:disable line_length
     func getIdentity(matching identityObject: IdentityObject) -> IdentityDataType? {
         getIdentities().first { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub == identityObject.preIdentityObject.pubInfoForIP.idCredPub }
     }
@@ -157,7 +158,7 @@ class StorageManager: StorageManagerProtocol {
         }
     }
 
-    //MARK: Account
+    // MARK: Account
     func getAccounts() -> [AccountDataType] {
         Array(realm.objects(AccountEntity.self))
     }
@@ -171,7 +172,6 @@ class StorageManager: StorageManagerProtocol {
         realm.objects(AccountEntity.self).filter("address == %@", address).first
     }
 
-    
     func storePrivateAccountKeys(_ privateAccountKeys: AccountKeys, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         guard let jsonData = try? privateAccountKeys.jsonString() else { return .failure(StorageError.nullDataError) }
@@ -299,7 +299,7 @@ class StorageManager: StorageManagerProtocol {
         }
     }
 
-    //MARK: Transfer
+    // MARK: Transfer
     func storeTransfer(_ transfer: TransferDataType) throws -> TransferDataType {
         if let transferEntity = transfer as? TransferEntity {
             do {

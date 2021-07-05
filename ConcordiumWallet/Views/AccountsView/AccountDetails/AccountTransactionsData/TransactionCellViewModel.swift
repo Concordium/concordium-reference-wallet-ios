@@ -31,7 +31,6 @@ struct TransactionCellViewModel {
         title = transactionVM.title
         date = GeneralFormatter.formatTime(for: transactionVM.date)
         fullDate = GeneralFormatter.formatDateWithTime(for: transactionVM.date)
-
         total = transactionVM.total?.displayValueWithGStroke() ?? ""
         showLock = transactionVM.total?.displayValueWithGStroke() == nil
         
@@ -51,13 +50,11 @@ struct TransactionCellViewModel {
             showErrorIcon = false
             statusIcon = #imageLiteral(resourceName: "ok")
             if let total = transactionVM.total?.intValue, total > 0 {
-//                showCostAndAmount = false
                 totalColor = .success
             }
         } else if transactionVM.status == .finalized && transactionVM.outcome == .success {
             showErrorIcon = false
             if let total = transactionVM.total?.intValue, total > 0 {
-//                showCostAndAmount = false
                 totalColor = .success
             }
         } else if transactionVM.status == .committed && transactionVM.outcome == .reject {

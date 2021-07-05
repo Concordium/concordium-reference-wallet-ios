@@ -79,7 +79,7 @@ class CreateAccountCoordinator: Coordinator {
 
     func showRevealAttributes(for account: AccountDataType) {
         let vc = RevealAttributesFactory.create(with: RevealAttributesPresenter(account: account,
-                                                                                dependencyProvider:dependencyProvider,
+                                                                                dependencyProvider: dependencyProvider,
                                                                                 delegate: self))
 
         navigationController.pushViewController(vc, animated: true)

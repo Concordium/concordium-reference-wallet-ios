@@ -11,7 +11,7 @@ import XCTest
 
 class TransactionsCellViewModelTests: XCTestCase {
     
-    //swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length
     func testTransactionCellFormat() {
         let amount = GTU(intValue: 1)
         let total = GTU(intValue: 1)

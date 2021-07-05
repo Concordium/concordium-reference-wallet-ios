@@ -106,7 +106,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                  receiverPublicKey: nil
                 )
         }.map({ (transferRequest) -> CreateTransferRequest in
-            //try and store the expected selfAmount, based on calculations
+            // try and store the expected selfAmount, based on calculations
             if let transaction = self.getLatestLocalEncryptedBalanceTransaction(for: account),
                 let encryptedDetails = transaction.encryptedDetails,
                 let selfAmount = encryptedDetails.updatedNewSelfEncryptedAmount,
@@ -193,7 +193,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                                              incomingAmountIndex: -1)
                 _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
                 
-                //store encrypted details
+                // store encrypted details
                 let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
                                                               newStartIndex: inputEncryptedAmount.aggIndex)
                 transfer.encryptedDetails = encryptedDetails
@@ -309,24 +309,24 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                 storageManager.getShieldedAmount(encryptedValue: amount, account: account) != nil
             }
             
-            //we always use all the indexes available in incoming Amounts
+            // we always use all the indexes available in incoming Amounts
             index = encryptedBalance.startIndex + incomingAmounts.count
             
-            //if we have any pending transactions, we calculate the amount and the index based on what was used in that transaction
+            // if we have any pending transactions, we calculate the amount and the index based on what was used in that transaction
             if let transaction = getLatestLocalEncryptedBalanceTransaction(for: account),
                 let encryptedDetails = transaction.encryptedDetails,
                 let latestSelfAmount = encryptedDetails.updatedNewSelfEncryptedAmount {
                 var amounts: [String] = [latestSelfAmount]
                 let lastUsedIndexInTransaction = encryptedDetails.updatedNewStartIndex
                 
-                //get the first unused index of incoming amounts and add that to the selfAmount
+                // get the first unused index of incoming amounts and add that to the selfAmount
                 let startIndexInIncomingAmounts = lastUsedIndexInTransaction - encryptedBalance.startIndex
                 if startIndexInIncomingAmounts < incomingAmounts.count {
                     amounts.append(contentsOf: incomingAmounts[startIndexInIncomingAmounts..<incomingAmounts.count])
                 }
                 aggEncryptedAmount = addAmounts(amounts)
             } else {
-                //if we don't have any pending transactions, we just add up the incoming amounts
+                // if we don't have any pending transactions, we just add up the incoming amounts
                 var amounts: [String] = incomingAmounts
                 if let selfAmount = encryptedBalance.selfAmount {
                     amounts.append(selfAmount)
@@ -334,7 +334,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                 aggEncryptedAmount = addAmounts(amounts)
             }
         } else {
-            //this shouldn't happen
+            // this shouldn't happen
             index = 0
             aggEncryptedAmount = account.encryptedBalance?.selfAmount
         }
@@ -396,7 +396,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                    $0.encrypted?.encryptedAmount ?? ""
                }.filter { $0 != ""}
                
-        //for sent transactions we remember both newSelfAmount AND inputEncryptedAmount so we can decrypt them and calculated the value of the encrypted amount
+        // for sent transactions we remember both newSelfAmount AND inputEncryptedAmount so we can decrypt them and calculated the value of the encrypted amount
         let sentTransactions = transactions.filter { (transaction) -> Bool in
             transaction.origin?.type == OriginTypeEnum.typeSelf
         }

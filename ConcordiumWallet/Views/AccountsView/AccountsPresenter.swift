@@ -263,7 +263,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
             let accountVM = AccountViewModel(account: account)
             
             #warning("CHECK IF IT IS INITIAL USING CREDENTIAL")
-            //TODO: change to check if it is initial!!!!!
+            // TODO: change to check if it is initial!!!!!
             if account.submissionId != "" {
                 accountVM.stateUpdater = self.dependencyProvider.accountsService().getState(for: account).eraseToAnyPublisher()
             } else {

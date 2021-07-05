@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK: ViewModel
 struct InitialAccountInfoViewModel {
     var title: String
@@ -80,7 +79,7 @@ class InitialAccountInfoPresenter {
     init(delegate: InitialAccountInfoPresenterDelegate? = nil,
          type: InitialAccountInfoType) {
         self.delegate = delegate
-        self.viewModel = type.getViewModel()
+        viewModel = type.getViewModel()
         self.type = type
     }
     
@@ -91,9 +90,9 @@ class InitialAccountInfoPresenter {
 
 extension InitialAccountInfoPresenter: InitialAccountInfoPresenterProtocol {
     func userTappedOK() {
-        self.delegate?.userTappedOK(withType: type)
+        delegate?.userTappedOK(withType: type)
     }
     func userTappedClose() {
-        self.delegate?.userTappedClose()
+        delegate?.userTappedClose()
     }
 }

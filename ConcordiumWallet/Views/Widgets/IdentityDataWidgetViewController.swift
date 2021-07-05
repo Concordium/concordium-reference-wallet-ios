@@ -35,7 +35,7 @@ class IdentityDataWidgetViewController: BaseViewController, IdentityDataWidgetVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //To remove separator when not needed
+        // To remove separator when not needed
         tableView.tableFooterView = UIView(frame: .zero)
 //        tableView.applyConcordiumEdgeStyle()
         tableView.backgroundColor = .clear
@@ -46,7 +46,7 @@ class IdentityDataWidgetViewController: BaseViewController, IdentityDataWidgetVi
 
     func reloadData() {
         tableView.reloadData()
-        //To set the height of the table as the height of its content
+        // To set the height of the table as the height of its content
         tableHeightConstraint.constant = tableView.contentSize.height
     }
 }

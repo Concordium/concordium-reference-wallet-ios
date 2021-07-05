@@ -150,7 +150,7 @@ struct KeychainWrapper {
             let theApplicationPassword = password.data(using: .utf8)
             _ = localAuthenticationContext.setCredential(theApplicationPassword, type: .applicationPassword)
 
-            //This does not work on simulator :-( https://stackoverflow.com/questions/53341248
+            // This does not work on simulator :-( https://stackoverflow.com/questions/53341248
             #if !targetEnvironment(simulator)
             query[kSecUseAuthenticationContext as String] = localAuthenticationContext
             #endif
@@ -182,7 +182,7 @@ struct KeychainWrapper {
             let theApplicationPassword = password.data(using: .utf8)
             _ = localAuthenticationContext.setCredential(theApplicationPassword, type: .applicationPassword)
 
-            //This does not work on simulator :-( https://stackoverflow.com/questions/53341248
+            // This does not work on simulator :-( https://stackoverflow.com/questions/53341248
             #if !targetEnvironment(simulator)
             query[kSecUseAuthenticationContext as String] = localAuthenticationContext
             #endif

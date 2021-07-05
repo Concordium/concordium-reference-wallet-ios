@@ -21,7 +21,6 @@ class RevealAttributesViewController: BaseViewController, RevealAttributesViewPr
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var revealAttributesButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
-    
 
     var presenter: RevealAttributesPresenterProtocol
 
@@ -50,7 +49,6 @@ class RevealAttributesViewController: BaseViewController, RevealAttributesViewPr
         presenter.revealAttributes()
     }
     
-    
     @IBAction func finishAction(_ sender: Any) {
         presenter.finish()
     }
@@ -59,4 +57,3 @@ class RevealAttributesViewController: BaseViewController, RevealAttributesViewPr
         presenter.closeButtonPressed()
     }
 }
-

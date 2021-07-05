@@ -20,7 +20,6 @@ protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependency
     func identitiesService() -> IdentitiesService
 }
 
-
 protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
     func exportService() -> ExportService
     func keychainWrapper() -> KeychainWrapperProtocol

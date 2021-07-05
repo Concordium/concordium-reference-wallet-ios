@@ -66,11 +66,11 @@ class TransSrcvMock: TransactionsServiceMockHelper {
                 cost: "0", subtotal: "0",
                 transactionHash: "", details: mockDetails,
                 total: "0", id: 0))
-        transactions.sort { $0.blockTime ?? 0 > $1.blockTime ?? 0 } //sort descending
+        transactions.sort { $0.blockTime ?? 0 > $1.blockTime ?? 0 } // sort descending
     }
 }
 
-//swiftlint:disable:next type_body_length
+// swiftlint:disable:next type_body_length
 class TransactionsLoadingHandlerTests: XCTestCase {
     let transactionsServiceMock = TransSrcvMock()
     let storageManagerMock = StorageManagerMock()
@@ -115,7 +115,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         transactionsServiceMock.addMockRemoteTransaction(time: 2)
         transactionsServiceMock.addMockRemoteTransaction(time: 0)
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         storageManagerMock.addMockLocalTransaction(time: 3)
         storageManagerMock.addMockLocalTransaction(time: 1)
@@ -139,14 +139,14 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         transactionsServiceMock.addMockRemoteTransaction(time: 4)
         transactionsServiceMock.addMockRemoteTransaction(time: 2)
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         storageManagerMock.addMockLocalTransaction(time: 13)
         storageManagerMock.addMockLocalTransaction(time: 11)
         storageManagerMock.addMockLocalTransaction(time: 9)
         storageManagerMock.addMockLocalTransaction(time: 7)
         storageManagerMock.addMockLocalTransaction(time: 5)
-        storageManagerMock.addMockLocalTransaction(time: 3)//not expected to be returned
+        storageManagerMock.addMockLocalTransaction(time: 3)// not expected to be returned
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
@@ -169,7 +169,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         transactionsServiceMock.addMockRemoteTransaction(time: 4)
         transactionsServiceMock.addMockRemoteTransaction(time: 2)
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
@@ -204,9 +204,9 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         storageManagerMock.addMockLocalTransaction(time: 9)
         storageManagerMock.addMockLocalTransaction(time: 7)
         storageManagerMock.addMockLocalTransaction(time: 5)
-        storageManagerMock.addMockLocalTransaction(time: 3)//not expected to be returned
+        storageManagerMock.addMockLocalTransaction(time: 3)// not expected to be returned
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
@@ -263,7 +263,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
                     _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
                             .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
                                 XCTAssertEqual(transactionViewModels2.count, 0)
-                                //'isLast' must be set in the shown array when no elements are returned
+                                // 'isLast' must be set in the shown array when no elements are returned
                                 // - therefore, nothing extra to check here
                                 expectation.fulfill()
                             })
@@ -277,7 +277,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         transactionsServiceMock.addMockRemoteTransaction(time: 4)
         transactionsServiceMock.addMockRemoteTransaction(time: 2)
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
@@ -305,7 +305,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         storageManagerMock.addMockLocalTransaction(time: 5)
         storageManagerMock.addMockLocalTransaction(time: 3)
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
@@ -338,7 +338,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         storageManagerMock.addMockLocalTransaction(time: 3)
         storageManagerMock.addMockLocalTransaction(time: 1)
 
-        transactionsServiceMock.limit = 2 //only return the first two elements
+        transactionsServiceMock.limit = 2 // only return the first two elements
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()

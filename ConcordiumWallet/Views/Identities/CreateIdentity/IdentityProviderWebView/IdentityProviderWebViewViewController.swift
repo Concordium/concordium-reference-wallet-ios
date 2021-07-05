@@ -61,7 +61,7 @@ extension IdentityProviderWebViewViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        //If navigation fails we report error
+        // If navigation fails we report error
         presenter.urlFailedToLoad(error: error)
         hideLoading()
     }

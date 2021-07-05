@@ -6,6 +6,8 @@ disabled_rules: # rule identifiers to exclude from running
   - switch_case_alignment
   - trailing_whitespace
   - implicit_getter
+  - redundant_string_enum_value
+  - class_delegate_protocol
 
 line_length: 150
 type_name:

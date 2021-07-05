@@ -11,7 +11,9 @@ protocol ShowToast: AnyObject {
 }
 
 extension ShowToast {
-    func showToast(withMessage toastMessage: String?, centeredIn view: UIView? = (UIApplication.shared.delegate as? AppDelegate)?.window, time: Double? = 0.3) {
+    func showToast(withMessage toastMessage: String?,
+                   centeredIn view: UIView? = (UIApplication.shared.delegate as? AppDelegate)?.window,
+                   time: Double? = 0.3) {
         OperationQueue.main.addOperation({
             let toastView = ToastLabel()
             toastView.text = toastMessage

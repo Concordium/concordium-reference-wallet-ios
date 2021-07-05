@@ -10,7 +10,7 @@ struct TransactionViewModel {
     var outcome: OutcomeEnum?
     var cost: GTU?
     var amount: GTU?
-    var total: GTU? //we can sometimes not know the value of an encrypted amount
+    var total: GTU? // we can sometimes not know the value of an encrypted amount
     var title: String
     var date: Date
     var details: TransactionDetailsViewModel
@@ -118,7 +118,7 @@ extension TransactionViewModel {
             self.init(status: transfer.transactionStatus ?? SubmissionStatusEnum.received,
                       outcome: transfer.outcome,
                       cost: GTU(intValue: Int("0") ?? 0),
-                      amount: nil, //amount is stored as positive in database
+                      amount: nil, // amount is stored as positive in database
                 total: GTU(intValue: transfer.getShieldedBalanceChange()),
                 title: title,
                 date: transfer.createdAt,
@@ -214,7 +214,7 @@ extension TransactionDetailsViewModel {
          recipientListLookup: (String?) -> String?) {
         self.init(rejectReason: submissionStatus?.rejectReason,
                 origin: nil,
-                fromAddressName: account.name, //local transfers are always from local account
+                fromAddressName: account.name, // local transfers are always from local account
                 fromAddressValue: transfer.fromAddress,
                 toAddressName: recipientListLookup(transfer.toAddress),
                 toAddressValue: transfer.toAddress,

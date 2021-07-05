@@ -27,12 +27,12 @@ struct IdentityDetailsInfoViewModel {
 
         switch identity.state {
         case .confirmed:
-            //Show expiry date for confirmed state
+            // Show expiry date for confirmed state
             bottomLabel = "Expires on " + GeneralFormatter.formatISO8601Date(date: identity.identityObject?.attributeList.validTo ?? "")
             bottomIcon = "ok_icon"
             bottomIconTintColor = .text
         case .pending:
-            bottomLabel = "" //"identityStatus.pending".localized
+            bottomLabel = "" // "identityStatus.pending".localized
             bottomIcon = "pending"
             bottomIconTintColor = .primary
         case .failed:
