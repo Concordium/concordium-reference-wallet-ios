@@ -67,7 +67,7 @@ extension String {
                 fractional += "0"
             }
         }
-        //remove all after precision
+        // remove all after precision
         let endIndex = fractional.index(startIndex, offsetBy: precision)
         fractional = String(fractional[startIndex..<endIndex])
         

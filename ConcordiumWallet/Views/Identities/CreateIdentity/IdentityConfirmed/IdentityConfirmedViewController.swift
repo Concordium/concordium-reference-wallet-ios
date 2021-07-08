@@ -19,7 +19,6 @@ class IdentityConfirmedFactory {
 class IdentityConfirmedViewController: BaseViewController, IdentityConfirmedViewProtocol, Storyboarded {
 
 	var presenter: IdentityConfirmedPresenterProtocol
-
     
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var details: UILabel!

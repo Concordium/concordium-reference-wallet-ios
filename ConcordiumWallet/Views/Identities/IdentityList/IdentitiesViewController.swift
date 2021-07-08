@@ -58,7 +58,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded {
         title = presenter.getTitle()
         tableView.tableFooterView = UIView(frame: .zero)
 
-        //Set the right bar button item depending on the flow
+        // Set the right bar button item depending on the flow
         var barButtonSelector: Selector
         var iconName: String
         switch flowMode {

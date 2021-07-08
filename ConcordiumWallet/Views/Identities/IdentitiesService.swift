@@ -75,7 +75,7 @@ class IdentitiesService {
                     updateIdentity(identity: identity)
                 }
 
-        //convert [Publisher<IdentityDataType>] to Publisher<[IdentityDataType]>
+        // convert [Publisher<IdentityDataType>] to Publisher<[IdentityDataType]>
         return Publishers.Sequence<[AnyPublisher<IdentityDataType, Error>], Error>(sequence: updatedIdentities)
                 .flatMap { $0 }
                 .collect()

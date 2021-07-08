@@ -87,7 +87,7 @@ class ReleaseScheduleViewController: BaseViewController, ReleaseScheduleViewProt
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: ReleaseScheduleTransactionViewModel) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReleaseScheduleCell", for: indexPath)
             as? ReleaseScheduleCell
-        cell?.transactionHashLabel.text = viewModel.getTransactionHashDisplayValue() //.getTransactionHashDisplayValue(index: indexPath.row)
+        cell?.transactionHashLabel.text = viewModel.getTransactionHashDisplayValue() // .getTransactionHashDisplayValue(index: indexPath.row)
         return cell
         
     }

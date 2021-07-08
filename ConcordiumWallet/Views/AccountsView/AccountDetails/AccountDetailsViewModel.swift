@@ -15,7 +15,7 @@ class AccountDetailsViewModel {
     var name: String?
     var address: String?
     @Published var balance: String
-    @Published var hasTransfers = true //assume transfers exists to avoid showing placeholders until we know about it
+    @Published var hasTransfers = true // assume transfers exists to avoid showing placeholders until we know about it
     @Published var transactionsList = TransactionsListViewModel()
     @Published var allAccountTransactionsList = TransactionsListViewModel()
     @Published var showUnlockButton = false

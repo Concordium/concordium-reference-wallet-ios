@@ -40,7 +40,7 @@ class IdentityDataWidgetPresenter: IdentityDataWidgetPresenterProtocol {
     }
 
     func dataItem(index: Int) -> [String: String] {
-        let realIndex = index - 1 //For the header
+        let realIndex = index - 1 // For the header
         let formattedTitle = AttributeFormatter.format(key: identityDataAsArray[realIndex].key)
         return [formattedTitle: identityDataAsArray[realIndex].value]
     }

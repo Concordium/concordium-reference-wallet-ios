@@ -8,7 +8,7 @@
 
 import Foundation
 
-//Add this to your coordinator:
+// Add this to your coordinator:
 //    func showDeleteIdentityButtonWidget() {
 //        let vc = DeleteIdentityButtonWidgetFactory.create(with: DeleteIdentityButtonWidgetPresenter(delegate: self))
 //        navigationController.pushViewController(vc, animated: false)

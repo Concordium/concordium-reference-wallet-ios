@@ -22,7 +22,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
     
-    //Labels
+    // Labels
     @IBOutlet weak var tableView: UITableView!
     var dataSource: UITableViewDiffableDataSource<String, AccountViewModel>?
 

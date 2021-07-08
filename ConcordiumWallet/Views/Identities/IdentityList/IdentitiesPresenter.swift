@@ -75,7 +75,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                         self.delegate?.tryAgainIdentity()
                         
                     })
-                    break //we break here because if there are more accounts that failed, we want to show that later on
+                    break // we break here because if there are more accounts that failed, we want to show that later on
                 }
             }
         }

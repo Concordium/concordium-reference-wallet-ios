@@ -73,6 +73,6 @@ extension RequestExportPasswordPresenter: PasswordFieldDelegate {
 
 extension RequestExportPasswordPresenter: PasscodeFieldDelegate {
     func pincodeView(_ pincodeView: PasscodeFieldViewController, didFinishEnteringPincode pincode: String) {
-        //Pincode view is not used
+        // Pincode view is not used
     }
 }

@@ -45,7 +45,7 @@ class IdentityDataSelectionWidgetPresenter: IdentityDataSelectionWidgetPresenter
         identityViewModel.data.filter { $0.key == ChosenAttributeKeys.countryOfResidence ||
             $0.key == ChosenAttributeKeys.nationality ||
             $0.key == ChosenAttributeKeys.idDocType ||
-            $0.key == ChosenAttributeKeys.idDocIssuer }  //only allow this 4 fields, as per new specifications
+            $0.key == ChosenAttributeKeys.idDocIssuer }  // only allow this 4 fields, as per new specifications
             .map {
                 IdentityRowSelectionViewModel(titleKey: $0.key,
                                               title: AttributeFormatter.format(key: $0.key),
