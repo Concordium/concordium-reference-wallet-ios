@@ -37,14 +37,14 @@ class KeychainWrapperTest: XCTestCase {
     }
 
     #if !targetEnvironment(simulator)
-    //password protected keychain items only work on a real device
+    // password protected keychain items only work on a real device
     func testStoreAndCheckInvalidPassword() {
         keychain.storePassword(password: "qwerty")
                 .flatMap { _ in keychain.checkPassword(password: "wrong") }
                 .onSuccess { val in  XCTFail("keychain should not return success on wrong password \(val)") }
                 .onFailure {
                     if case KeychainError.wrongPassword = $0 {
-                        //success - this is the expected return value
+                        // success - this is the expected return value
                     } else {
                         XCTFail("keychain should not return success on wrong password")
                     }

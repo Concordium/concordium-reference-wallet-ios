@@ -9,13 +9,13 @@
 import Foundation
 
 // MARK: View
-protocol AccountAddressQRViewProtocol: class {
+protocol AccountAddressQRViewProtocol: AnyObject {
     func bind(to: AccountAddressViewModel)
 }
 
 // MARK: -
 // MARK: Delegate
-protocol AccountAddressQRPresenterDelegate: class {
+protocol AccountAddressQRPresenterDelegate: AnyObject {
     func accountAddressQRPresenterDidFinish(_: AccountAddressQRPresenter)
     func shareButtonTapped()
     func copyButtonTapped()
@@ -23,7 +23,7 @@ protocol AccountAddressQRPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol AccountAddressQRPresenterProtocol: class {
+protocol AccountAddressQRPresenterProtocol: AnyObject {
 	var view: AccountAddressQRViewProtocol? { get set }
     func viewDidLoad()
     func closeButtonTapped()

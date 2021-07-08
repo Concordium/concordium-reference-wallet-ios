@@ -6,12 +6,14 @@
 import Foundation
 import UIKit
 
-protocol ShowToast: class {
+protocol ShowToast: AnyObject {
     func showToast(withMessage toastMessage: String?, centeredIn view: UIView?, time: Double?)
 }
 
 extension ShowToast {
-    func showToast(withMessage toastMessage: String?, centeredIn view: UIView? = (UIApplication.shared.delegate as? AppDelegate)?.window, time: Double? = 0.3) {
+    func showToast(withMessage toastMessage: String?,
+                   centeredIn view: UIView? = (UIApplication.shared.delegate as? AppDelegate)?.window,
+                   time: Double? = 0.3) {
         OperationQueue.main.addOperation({
             let toastView = ToastLabel()
             toastView.text = toastMessage

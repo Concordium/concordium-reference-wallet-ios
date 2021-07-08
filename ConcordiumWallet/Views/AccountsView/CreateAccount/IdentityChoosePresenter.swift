@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: -
 // MARK: Presenter Delegate
-protocol IdentityChoosePresenterDelegate: class {
+protocol IdentityChoosePresenterDelegate: AnyObject {
     func identitySelected(for: AccountDataType)
     func chooseIdentityPresenterCancelled(_ chooseIdentityPresenter: IdentityChoosePresenter)
 }

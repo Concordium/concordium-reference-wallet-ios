@@ -29,13 +29,13 @@ class IdentityDataListViewModel {
 }
 
 // MARK: View
-protocol AccountDetailsIdentityDataViewProtocol: class {
+protocol AccountDetailsIdentityDataViewProtocol: AnyObject {
     func bind(to viewModel: IdentityDataListViewModel)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol AccountDetailsIdentityDataPresenterProtocol: class {
+protocol AccountDetailsIdentityDataPresenterProtocol: AnyObject {
 	var view: AccountDetailsIdentityDataViewProtocol? { get set }
     func viewDidLoad()
 }

@@ -17,19 +17,19 @@ struct IdentityRowSelectionViewModel {
 }
 
 // MARK: View
-protocol IdentityDataSelectionWidgetViewProtocol: class {
+protocol IdentityDataSelectionWidgetViewProtocol: AnyObject {
     func reloadData()
 }
 
 // MARK: -
 // MARK: Delegate
-protocol IdentityDataSelectionWidgetPresenterDelegate: class {
+protocol IdentityDataSelectionWidgetPresenterDelegate: AnyObject {
     func userChangeSelected(account: AccountDataType)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol IdentityDataSelectionWidgetPresenterProtocol: class {
+protocol IdentityDataSelectionWidgetPresenterProtocol: AnyObject {
     var view: IdentityDataSelectionWidgetViewProtocol? { get set }
     func viewDidLoad()
 
@@ -45,7 +45,7 @@ class IdentityDataSelectionWidgetPresenter: IdentityDataSelectionWidgetPresenter
         identityViewModel.data.filter { $0.key == ChosenAttributeKeys.countryOfResidence ||
             $0.key == ChosenAttributeKeys.nationality ||
             $0.key == ChosenAttributeKeys.idDocType ||
-            $0.key == ChosenAttributeKeys.idDocIssuer }  //only allow this 4 fields, as per new specifications
+            $0.key == ChosenAttributeKeys.idDocIssuer }  // only allow this 4 fields, as per new specifications
             .map {
                 IdentityRowSelectionViewModel(titleKey: $0.key,
                                               title: AttributeFormatter.format(key: $0.key),

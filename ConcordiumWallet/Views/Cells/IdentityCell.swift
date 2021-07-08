@@ -12,8 +12,7 @@ import UIKit
 class IdentityCell: UITableViewCell {
 
     @IBOutlet weak var identityCardView: IdentityCardView?
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = 4

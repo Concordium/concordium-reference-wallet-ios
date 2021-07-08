@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AccountCardViewDelegate: class {
+protocol AccountCardViewDelegate: AnyObject {
     func didTapGeneralBalance()
     func didTapShieldedBalance()
     func didTapExpand()

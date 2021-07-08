@@ -10,7 +10,7 @@ import Foundation
 import LocalAuthentication
 import Combine
 
-protocol RequestPasswordPresenterDelegate: class {
+protocol RequestPasswordPresenterDelegate: AnyObject {
     func requestPasswordPresenter(_: RequestPasswordPresenter, didGetPassword: String)
     func failedGettingPassword()
 }
@@ -27,8 +27,8 @@ class RequestPasswordPresenter: EnterPasswordPresenterProtocol {
 
     func performBiometricLogin(fallback: @escaping () -> Void) {
         DispatchQueue.main.async {
-            //All calls here are blocking - so to make sure that the data passed to "result" PassthroughSubject
-            //is actually received, we put this in the end of the dispatch queue
+            // All calls here are blocking - so to make sure that the data passed to "result" PassthroughSubject
+            // is actually received, we put this in the end of the dispatch queue
             if AppSettings.biometricsEnabled && self.phoneSettingsBiometricsEnabled() {
                 self.keychain.getPasswordWithBiometrics()
                         .onSuccess { pwHash in

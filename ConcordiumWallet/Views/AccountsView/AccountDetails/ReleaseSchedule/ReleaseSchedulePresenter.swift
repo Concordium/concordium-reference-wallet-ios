@@ -88,17 +88,17 @@ struct ReleaseScheduleViewModel: Hashable {
 }
 
 // MARK: View
-protocol ReleaseScheduleViewProtocol: class {
+protocol ReleaseScheduleViewProtocol: AnyObject {
     func bind(to viewModel: ReleaseScheduleListViewModel)
 }
 
 // MARK: Delegate
-protocol ReleaseSchedulePresenterDelegate: class {
+protocol ReleaseSchedulePresenterDelegate: AnyObject {
 }
 
 // MARK: -
 // MARK: Presenter
-protocol ReleaseSchedulePresenterProtocol: class {
+protocol ReleaseSchedulePresenterProtocol: AnyObject {
     var view: ReleaseScheduleViewProtocol? { get set }
     func viewDidLoad()
     

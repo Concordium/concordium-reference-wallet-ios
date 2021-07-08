@@ -6,7 +6,7 @@
 import Foundation
 import RealmSwift
 
-protocol IdentityProviderDataType: class {
+protocol IdentityProviderDataType: AnyObject {
     var ipInfo: IPInfo? { get set }
     var arsInfos: [String: ArsInfo]? { get set }
     var icon: String { get set }

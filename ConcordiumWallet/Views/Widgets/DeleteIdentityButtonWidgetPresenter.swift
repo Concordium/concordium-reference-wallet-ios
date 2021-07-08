@@ -8,22 +8,21 @@
 
 import Foundation
 
-//Add this to your coordinator:
+// Add this to your coordinator:
 //    func showDeleteIdentityButtonWidget() {
 //        let vc = DeleteIdentityButtonWidgetFactory.create(with: DeleteIdentityButtonWidgetPresenter(delegate: self))
 //        navigationController.pushViewController(vc, animated: false)
 //    }
 
-
 // MARK: -
 // MARK: Delegate
-protocol DeleteIdentityButtonWidgetPresenterDelegate: class {
+protocol DeleteIdentityButtonWidgetPresenterDelegate: AnyObject {
     func deleteIdentityButtonWidgetDidDelete()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol DeleteIdentityButtonWidgetPresenterProtocol: class {
+protocol DeleteIdentityButtonWidgetPresenterProtocol: AnyObject {
 	var view: DeleteIdentityButtonWidgetViewProtocol? { get set }
     func viewDidLoad()
     func deleteButtonTapped()
@@ -36,7 +35,9 @@ class DeleteIdentityButtonWidgetPresenter: DeleteIdentityButtonWidgetPresenterPr
     private let identity: IdentityDataType
     private let dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
 
-    init(identity: IdentityDataType, dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider, delegate: DeleteIdentityButtonWidgetPresenterDelegate? = nil) {
+    init(identity: IdentityDataType,
+         dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
+         delegate: DeleteIdentityButtonWidgetPresenterDelegate? = nil) {
         self.delegate = delegate
         self.identity = identity
         self.dependencyProvider = dependencyProvider

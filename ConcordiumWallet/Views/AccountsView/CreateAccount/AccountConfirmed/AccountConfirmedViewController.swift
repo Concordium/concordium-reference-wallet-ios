@@ -34,7 +34,6 @@ class AccountConfirmedViewController: BaseViewController, AccountConfirmedViewPr
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         presenter.view = self
         presenter.viewDidLoad()
     }

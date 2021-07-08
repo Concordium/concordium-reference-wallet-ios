@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-protocol PasswordFieldDelegate: class {
+protocol PasswordFieldDelegate: AnyObject {
     func passwordView(_ passwordView: PasswordFieldViewController, didFinishEnteringPassword: String)
     func setPasswordState(valid: Bool)
 }

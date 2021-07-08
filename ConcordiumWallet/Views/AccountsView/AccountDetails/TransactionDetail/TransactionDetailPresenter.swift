@@ -10,18 +10,18 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol TransactionDetailViewProtocol: class {
+protocol TransactionDetailViewProtocol: AnyObject {
     func setupUI(viewModel: TransactionViewModel)
 }
 
 // MARK: -
 // MARK: Delegate
-protocol TransactionDetailPresenterDelegate: class {
+protocol TransactionDetailPresenterDelegate: AnyObject {
 }
 
 // MARK: -
 // MARK: Presenter
-protocol TransactionDetailPresenterProtocol: class {
+protocol TransactionDetailPresenterProtocol: AnyObject {
 	var view: TransactionDetailViewProtocol? { get set }
     func viewDidLoad()
 }

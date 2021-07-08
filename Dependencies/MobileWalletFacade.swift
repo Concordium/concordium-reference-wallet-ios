@@ -55,7 +55,6 @@ class MobileWalletFacade {
         try call(cFunction: generate_accounts, with: input, debugTitle: "generateAccounts")
     }
     
-    
     private func call(cFunction: (UnsafePointer<Int8>?, UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,
                       with input: String,
                       debugTitle: String) throws -> String {
@@ -79,8 +78,10 @@ class MobileWalletFacade {
         return responseString
 
     }
-    
-    private func callTwoParameterFunction(cFunction: (UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,
+
+    private func callTwoParameterFunction(cFunction: (UnsafePointer<Int8>?,
+                                                      UnsafePointer<Int8>?,
+                                                      UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,
                                           with input1: String,
                                           andWith input2: String,
                                           debugTitle: String) throws -> String {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Combine
 
-protocol AccountCellDelegate: class {
+protocol AccountCellDelegate: AnyObject {
     func cellCheckTapped(cellRow: Int, index: Int)
     func tappedExpanded(cellRow: Int)
 }
@@ -35,7 +35,11 @@ class AccountCell: UITableViewCell {
                             atDisposal: String,
                             staked: String,
                             shieldedBalance: String) {
-        accountCardView.setupStaticStrings(accountTotal: accountTotal, publicBalance: publicBalance, atDisposal: atDisposal, staked: staked, shieldedBalance: shieldedBalance)
+        accountCardView.setupStaticStrings(accountTotal: accountTotal,
+                                           publicBalance: publicBalance,
+                                           atDisposal: atDisposal,
+                                           staked: staked,
+                                           shieldedBalance: shieldedBalance)
     }
     
     func setup(accountName: String?,
@@ -51,8 +55,19 @@ class AccountCell: UITableViewCell {
                shieldedAmount: String,
                isExpanded: Bool,
                isExpandable: Bool = true) {
-        accountCardView.setup(accountName: accountName, accountOwner: accountOwner, isInitialAccount: isInitialAccount, isBaking: isBaking, isReadOnly: isReadOnly, totalAmount: totalAmount, showLock: showLock, publicBalanceAmount: publicBalanceAmount, atDisposalAmount: atDisposalAmount, stakedAmount: stakedAmount, shieldedAmount: shieldedAmount, isExpanded: isExpanded)
-        
+
+        accountCardView.setup(accountName: accountName,
+                accountOwner: accountOwner,
+                isInitialAccount: isInitialAccount,
+                isBaking: isBaking,
+                isReadOnly: isReadOnly,
+                totalAmount: totalAmount,
+                showLock: showLock,
+                publicBalanceAmount: publicBalanceAmount,
+                atDisposalAmount: atDisposalAmount,
+                stakedAmount: stakedAmount,
+                shieldedAmount: shieldedAmount,
+                isExpanded: isExpanded)
     }
     
     func showStatusImage(_ image: UIImage?) {

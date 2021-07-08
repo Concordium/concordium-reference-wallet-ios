@@ -48,7 +48,7 @@ class EncryptionServiceTest: XCTestCase {
             let key = try AES256Crypter.createKey(password: password, salt: salt)
             let encryptionService = try AES256Crypter(key: key, iv: iv)
 
-            //swiftlint:disable line_length
+            // swiftlint:disable line_length
             let clearText = """
                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel sodales eros. Maecenas quis erat ac massa convallis faucibus at quis massa. Vivamus laoreet nulla in maximus volutpat. In et ornare tortor. Nullam a ligula feugiat enim elementum rutrum. Ut fringilla dignissim tempor. Aenean malesuada neque nec ante dictum, eget ullamcorper tellus aliquam.
 

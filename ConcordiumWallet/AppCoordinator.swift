@@ -78,12 +78,42 @@ class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate 
                                                   parentCoordinator: self,
                                                   importFileUrl: url)
         importCoordinator.navigationController.modalPresentationStyle = .fullScreen
+
+        if navigationController.topPresented() is IdentityProviderWebViewViewController {
+            navigationController.dismiss(animated: true) {
+                self.presentImportView(importCoordinator: importCoordinator)
+                self.cleanupUnfinishedIdentiesAndAccounts()
+            }
+        } else {
+            presentImportView(importCoordinator: importCoordinator)
+            self.cleanupUnfinishedAccounts()
+        }
+    }
+
+    private func cleanupUnfinishedIdentiesAndAccounts() {
+        let unfinishedIdentities = defaultProvider.storageManager().getIdentities().filter { $0.ipStatusUrl .isEmpty }
+        for identity in unfinishedIdentities {
+            if let account = defaultProvider.storageManager().getAccounts(for: identity).first {
+                defaultProvider.storageManager().removeAccount(account: account)
+                defaultProvider.storageManager().removeIdentity(identity)
+            }
+        }
+    }
+
+    private func cleanupUnfinishedAccounts() {
+        let unfinishedAccounts = defaultProvider.storageManager().getAccounts().filter { $0.address .isEmpty}
+        for account in unfinishedAccounts {
+            defaultProvider.storageManager().removeAccount(account: account)
+        }
+    }
+
+    private func presentImportView(importCoordinator: ImportCoordinator) {
         navigationController.present(importCoordinator.navigationController, animated: true)
         importCoordinator.navigationController.presentationController?.delegate = self
         importCoordinator.start()
         childCoordinators.append(importCoordinator)
     }
-    
+
     func showInitialIdentityCreation() {
         let initiaAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
                                                                         parentCoordinator: self,

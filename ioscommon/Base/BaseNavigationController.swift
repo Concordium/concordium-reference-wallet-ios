@@ -29,7 +29,6 @@ class BaseNavigationController: UINavigationController {
 
 }
 
-
 extension UINavigationController {
     func setupBaseNavigationControllerStyle() {
         navigationBar.barTintColor = UIColor.barBackground

@@ -142,7 +142,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @objc func refreshOnTimerCallback() {
         presenter.updateTransfersOnChanges()
     }
-    
+
+    // swiftlint:disable function_body_length
     func bind(to viewModel: AccountDetailsViewModel) {
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
 
@@ -351,7 +352,6 @@ extension AccountDetailsViewController {
         }
         self.retryCreateButton.isHidden = !showErrorButtons
         self.removeLocalAccountButton.isHidden = !showErrorButtons
-        //self.errorMessageLabel.isHidden = !showMessage
         self.errorMessageLabel.text = message
         self.statusImageView.isHidden = !showMessage
         if !statusIconImageName.isEmpty {

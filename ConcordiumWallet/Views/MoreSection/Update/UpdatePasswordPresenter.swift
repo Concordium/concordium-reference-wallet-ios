@@ -16,18 +16,16 @@ protocol UpdatePasswordViewProtocol: ShowError {
 
 // MARK: -
 // MARK: Delegate
-protocol UpdatePasswordPresenterDelegate: class {
-    func cancelChangePassword()
+protocol UpdatePasswordPresenterDelegate: AnyObject {
     func showChangePasscode()
     func setPreviousPwHashed(pwHash: String)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol UpdatePasswordPresenterProtocol: class {
+protocol UpdatePasswordPresenterProtocol: AnyObject {
     var view: UpdatePasswordViewProtocol? { get set }
     func viewDidLoad()
-    func closeButtonPressed()
     func userSelectedContinue()
 }
 
@@ -41,10 +39,6 @@ class UpdatePasswordPresenter: UpdatePasswordPresenterProtocol {
     }
 
     func viewDidLoad() {
-    }
-    
-    func closeButtonPressed() {
-        delegate?.cancelChangePassword()
     }
     
     func userSelectedContinue() {

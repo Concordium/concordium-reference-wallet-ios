@@ -21,14 +21,14 @@ protocol AddRecipientViewProtocol: ShowError {
 
 // MARK: -
 // MARK: Delegate
-protocol AddRecipientPresenterDelegate: class {
+protocol AddRecipientPresenterDelegate: AnyObject {
     func addRecipientDidSelectSave(recipient: RecipientDataType)
     func addRecipientDidSelectQR()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol AddRecipientPresenterProtocol: class {
+protocol AddRecipientPresenterProtocol: AnyObject {
 	var view: AddRecipientViewProtocol? { get set }
     func viewDidLoad()
     

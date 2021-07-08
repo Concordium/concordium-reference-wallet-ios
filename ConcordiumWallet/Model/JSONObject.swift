@@ -75,7 +75,7 @@ struct JSONObject: Codable, Hashable {
             } else if let value = value as? [JSONObject] {
                 try container.encode(value, forKey: Key(stringValue: key)!)
             } else {
-                Logger.warn("JSON Object failed encoding for key \(key) value \(value)")
+                Logger.warn("JSON Object failed encoding for key \(key) value \(String(describing: value))")
             }
         }
     }

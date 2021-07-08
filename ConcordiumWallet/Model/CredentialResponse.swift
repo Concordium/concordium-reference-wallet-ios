@@ -52,6 +52,6 @@ extension CredentialResponse {
 
     func toCredential() -> Credential {
         return Credential(v: v, value: value)
-        //return Credential(v: v, value: CredentialValue(credential: value, messageExpiry: 0))
+        // return Credential(v: v, value: CredentialValue(credential: value, messageExpiry: 0))
     }
 }

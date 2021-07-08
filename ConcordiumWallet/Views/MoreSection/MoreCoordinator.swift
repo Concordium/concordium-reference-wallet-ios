@@ -175,9 +175,6 @@ extension MoreCoordinator: UpdatePasswordCoordinatorDelegate {
         navigationController.popViewController(animated: false)
         childCoordinators.removeAll(where: { $0 is UpdatePasswordCoordinator })
     }
-    
-    func passcodeChangeCanceled() {}
-
 }
 
 extension MoreCoordinator: ExportPresenterDelegate {

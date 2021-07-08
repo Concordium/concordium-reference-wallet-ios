@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol ChangePasswordPresenterDelegate: class {
+protocol ChangePasswordPresenterDelegate: AnyObject {
     func passwordSelectionDone(pwHash: String)
     func passwordChangeFailed()
 }
@@ -107,6 +107,8 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
                     // AppCoordinator will complete the transaction from old to new password
                     // on all accounts if, for some very strange reason, the phone crashes in this process.
                     do {
+
+                        // swiftlint:disable line_length
                         let accounts = self.walletAndStorage.storageManager().getAccounts().filter { !$0.isReadOnly && $0.transactionStatus == .finalized }
                             
                         // Verify that the passcode can decrypt all accounts before we start (precondition).

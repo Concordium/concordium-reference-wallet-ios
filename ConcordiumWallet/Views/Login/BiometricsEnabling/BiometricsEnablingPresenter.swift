@@ -10,19 +10,19 @@ import Foundation
 import LocalAuthentication
 
 // MARK: View
-protocol BiometricsEnablingViewProtocol: class {
+protocol BiometricsEnablingViewProtocol: AnyObject {
 
 }
 
 // MARK: -
 // MARK: Delegate
-protocol BiometricsEnablingPresenterDelegate: class {
+protocol BiometricsEnablingPresenterDelegate: AnyObject {
     func biometricsEnablingDone()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol BiometricsEnablingPresenterProtocol: class {
+protocol BiometricsEnablingPresenterProtocol: AnyObject {
     var view: BiometricsEnablingViewProtocol? { get set }
     func viewDidLoad()
     func enablePressed()

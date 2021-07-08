@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol Loadable: class {
+protocol Loadable: AnyObject {
     func showLoading()
     func hideLoading()
 }

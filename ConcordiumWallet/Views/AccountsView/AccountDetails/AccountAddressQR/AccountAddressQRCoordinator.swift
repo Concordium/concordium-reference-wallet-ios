@@ -4,7 +4,7 @@
 //
 
 import UIKit
-protocol AccountAddressQRCoordinatorDelegate: class {
+protocol AccountAddressQRCoordinatorDelegate: AnyObject {
     func accountAddressQRCoordinatorFinished()
 }
 

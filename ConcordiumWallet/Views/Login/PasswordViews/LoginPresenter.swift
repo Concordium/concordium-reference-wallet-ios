@@ -9,7 +9,7 @@
 import Foundation
 import LocalAuthentication
 
-protocol LoginViewDelegate: class {
+protocol LoginViewDelegate: AnyObject {
     func loginDone()
 }
 

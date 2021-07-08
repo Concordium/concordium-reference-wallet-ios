@@ -22,19 +22,21 @@ struct ImportService {
         let exportContainer = try ExportContainer(data: data)
         let importedData = try decryptImport(exportContainer, exportPassword: exportPassword)
         
-        //Logger.debug("import data: \(importedData.prettyPrintedJSONString)");
+        // Logger.debug("import data: \(importedData.prettyPrintedJSONString)");
         
         _ = try decodeImport(importedData: importedData)
     }
 
     func importFile(from url: URL, pwHash: String, exportPassword: String) throws -> AnyPublisher<ImportedItemsReport, Error> {
         let data = try Data(contentsOf: url)
-        //Logger.debug("file imported:  \(String(data: data, encoding: .utf8)!)")
+        // Logger.debug("file imported:  \(String(data: data, encoding: .utf8)!)")
         let exportContainer = try ExportContainer(data: data)
         let importedData = try decryptImport(exportContainer, exportPassword: exportPassword)
         let importedObjects = try decodeImport(importedData: importedData)
         Logger.debug("Imported  \(importedObjects.value)")
-        return Importer(storageManager: storageManager, mobileWallet: mobileWallet, accountsService: accountsService).importToDatabase(importedObjects.value, pwHash: pwHash)
+        return Importer(storageManager: storageManager,
+                        mobileWallet: mobileWallet,
+                        accountsService: accountsService).importToDatabase(importedObjects.value, pwHash: pwHash)
     }
 
     private func decodeImport(importedData: Data) throws -> ExportVersionContainer {
@@ -73,7 +75,7 @@ struct ImportService {
 }
 
 extension Data {
-    var prettyPrintedJSONString: NSString? { /// NSString gives us a nice sanitized debugDescription
+    var prettyPrintedJSONString: NSString? { // NSString gives us a nice sanitized debugDescription
         guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
               let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
               let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }

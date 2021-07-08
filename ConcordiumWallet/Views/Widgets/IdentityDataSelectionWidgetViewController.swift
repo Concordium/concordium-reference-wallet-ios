@@ -35,7 +35,7 @@ class IdentityDataSelectionWidgetViewController: BaseViewController, IdentityDat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //To remove separator when not needed
+        // To remove separator when not needed
         tableView.tableFooterView = UIView(frame: .zero)
 
         presenter.view = self
@@ -44,7 +44,7 @@ class IdentityDataSelectionWidgetViewController: BaseViewController, IdentityDat
 
     func reloadData() {
         tableView.reloadData()
-        //To set the height of the table as the height of its content
+        // To set the height of the table as the height of its content
         tableHeightConstraint.constant = tableView.contentSize.height
     }    
 }
@@ -60,7 +60,7 @@ extension IdentityDataSelectionWidgetViewController: UITableViewDataSource {
 //                let cell = tableView.dequeueReusableCell(withIdentifier: "IdentityDataHeaderCellView", for: indexPath)
 //                return cell
 //            default:
-                //swiftlint:disable:next force_cast
+                // swiftlint:disable:next force_cast
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IdentityDataSelectionCell", for: indexPath) as! IdentityDataSelectionCell
                 
                 cell.delegate = self
@@ -87,7 +87,7 @@ extension IdentityDataSelectionWidgetViewController: UITableViewDelegate {
 
 extension IdentityDataSelectionWidgetViewController: IdentityDataSelectionCellDelegate {
     func cellCheckTapped(_ cell: IdentityDataSelectionCell) {
-        //Get the index
+        // Get the index
         if let index = tableView.indexPath(for: cell) {
             presenter.userCheckedItem(at: index.row)
         }

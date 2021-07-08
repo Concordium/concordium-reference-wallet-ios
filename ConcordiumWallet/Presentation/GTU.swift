@@ -67,7 +67,7 @@ struct GTU {
         let wholeValueString = String(absValue / conversionFactor)
         var fractionVal = String(absValue % conversionFactor)
         
-        //make it 6 digits
+        // make it 6 digits
         let appendedZeros = String(conversionFactor).count - 1 - fractionVal.count
         if appendedZeros > 0 {
             for _ in 0..<appendedZeros {
@@ -75,7 +75,7 @@ struct GTU {
             }
         }
         
-        //remove trailing zeros
+        // remove trailing zeros
         let length = min(fractionVal.count, maximumFractionDigits)
         var removed = false
         for i in stride(from: 0, to: -length + minimumFractionDigits, by: -1) {

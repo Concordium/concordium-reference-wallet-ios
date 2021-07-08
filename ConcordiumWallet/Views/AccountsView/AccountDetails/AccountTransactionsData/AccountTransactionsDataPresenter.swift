@@ -10,19 +10,19 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol AccountTransactionsDataViewProtocol: class {
+protocol AccountTransactionsDataViewProtocol: AnyObject {
     func bind(to viewModel: TransactionsListViewModel)
 }
 
 // MARK: Delegate
-protocol AccountTransactionsDataPresenterDelegate: class {
+protocol AccountTransactionsDataPresenterDelegate: AnyObject {
     func transactionSelected(_ transaction: TransactionViewModel)
     func userSelectedDecryption(for transactionWithHash: String)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol AccountTransactionsDataPresenterProtocol: class {
+protocol AccountTransactionsDataPresenterProtocol: AnyObject {
     var view: AccountTransactionsDataViewProtocol? { get set }
     func viewDidLoad()
     func viewUnload()

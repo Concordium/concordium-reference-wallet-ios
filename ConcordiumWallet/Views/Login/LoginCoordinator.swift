@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LoginCoordinatorDelegate: class {
+protocol LoginCoordinatorDelegate: AnyObject {
     func loginDone()
     func passwordSelectionDone()
 }

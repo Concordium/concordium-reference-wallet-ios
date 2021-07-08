@@ -457,7 +457,6 @@
 		642A28A625FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */; };
 		642A28A725FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */; };
 		642A28A825FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */; };
-		642A28AF25FB5DAF0073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28AE25FB5D950073BF8C /* libmobile_wallet.a */; };
 		642A28B125FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28B025FB5DB80073BF8C /* libmobile_wallet.a */; };
 		642A28B225FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28B025FB5DB80073BF8C /* libmobile_wallet.a */; };
 		642A28B325FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642A28B025FB5DB80073BF8C /* libmobile_wallet.a */; };
@@ -1781,7 +1780,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				642A28B225FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
-				642A28AF25FB5DAF0073BF8C /* libmobile_wallet.a in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
 				7111D4FA482EED93124EAA6A /* Pods_StagingNet.framework in Frameworks */,
 			);
@@ -2925,7 +2923,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = concordium;
 				TargetAttributes = {
 					7FF07A6823EADB1200F1FC04 = {
@@ -4699,7 +4697,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4713,7 +4711,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
 				PRODUCT_NAME = "Concordium ID";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -4731,7 +4729,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 65;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4745,7 +4743,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
 				PRODUCT_NAME = "Concordium ID";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -4845,6 +4843,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -4906,6 +4905,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -4944,7 +4944,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4958,7 +4958,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
@@ -4978,7 +4978,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4992,7 +4992,7 @@
 					"$(PROJECT_DIR)/Dependencies",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;

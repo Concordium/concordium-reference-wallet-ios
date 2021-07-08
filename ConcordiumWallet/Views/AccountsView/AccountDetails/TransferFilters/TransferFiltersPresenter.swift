@@ -21,18 +21,18 @@ class TransferFiltersViewModel {
 }
 
 // MARK: View
-protocol TransferFiltersViewProtocol: class {
+protocol TransferFiltersViewProtocol: AnyObject {
     func bind(to viewModel: TransferFiltersViewModel)
 }
 
 // MARK: Delegate
-protocol TransferFiltersPresenterDelegate: class {
+protocol TransferFiltersPresenterDelegate: AnyObject {
     func refreshTransactionList()
 }
 
 // MARK: -
 // MARK: Presenter
-protocol TransferFiltersPresenterProtocol: class {
+protocol TransferFiltersPresenterProtocol: AnyObject {
     var view: TransferFiltersViewProtocol? { get set }
     func viewDidLoad()
     func setShowRewardsEnabled(_ enabled: Bool)

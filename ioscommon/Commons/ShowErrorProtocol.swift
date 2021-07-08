@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol ShowError: class {
+protocol ShowError: AnyObject {
     func showErrorAlert(_ error: ViewError)
     func showRecoverableAlert(_ error: ViewError, completion: @escaping () -> Void)
 }
@@ -24,7 +24,7 @@ extension ShowError where Self: UIViewController {
     
     func showRecoverableAlert(_ error: ViewError, completion: @escaping () -> Void) {
         let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
-        let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (action) in
+        let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
             completion()
         }
         ac.addAction(continueAction)

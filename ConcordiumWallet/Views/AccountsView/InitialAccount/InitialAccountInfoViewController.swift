@@ -63,7 +63,9 @@ class InitialAccountInfoViewController: BaseViewController, InitialAccountInfoVi
         self.okButton.setTitle(viewModel.buttonTitle, for: .normal)
         if viewModel.showsClose {
             let addIcon = UIImage(named: "close_icon")
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain,
+                                                                target: self,
+                                                                action: #selector(self.closeButtonTapped))
         }
     }
     

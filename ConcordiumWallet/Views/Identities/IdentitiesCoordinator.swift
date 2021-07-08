@@ -9,11 +9,9 @@
 import Foundation
 import UIKit
 
-protocol IdentitiesCoordinatorDelegate: class {
+protocol IdentitiesCoordinatorDelegate: AnyObject {
     func noIdentitiesFound()
 }
-
-
 
 class IdentitiesCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
@@ -21,7 +19,10 @@ class IdentitiesCoordinator: Coordinator {
 
     private var dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     weak var delegate: IdentitiesCoordinatorDelegate?
-    init(navigationController: UINavigationController, dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider, parentCoordinator: IdentitiesCoordinatorDelegate) {
+    init(navigationController: UINavigationController,
+         dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
+         parentCoordinator: IdentitiesCoordinatorDelegate) {
+
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.delegate = parentCoordinator

@@ -71,11 +71,6 @@ class AccountViewModel: Hashable {
                 
         totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
         
-        if account.encryptedBalance != nil && account.encryptedBalance!.selfAmount == ShieldedAmountEntity.zeroValue {
-            totalLockStatus = .decrypted
-            shieldedLockStatus = .decrypted
-        }
-        
         atDisposalName = "accounts.atdisposal".localized
         stakedName = "accounts.staked".localized
         
@@ -126,7 +121,7 @@ class AccountsListViewModel {
     @Published var staked = GTU(intValue: 0)
 }
 
-protocol AccountsPresenterDelegate: class {
+protocol AccountsPresenterDelegate: AnyObject {
     func createNewAccount()
     func createNewIdentity()
     func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum)
@@ -140,7 +135,7 @@ protocol AccountsViewProtocol: ShowError, Loadable {
     func showIdentityFailed(_ errorMessage: String, showCancel: Bool, completion: @escaping () -> Void)
 }
 
-protocol AccountsPresenterProtocol: class {
+protocol AccountsPresenterProtocol: AnyObject {
     var view: AccountsViewProtocol? { get set }
     
     func viewDidLoad()
@@ -253,11 +248,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private func cleanIdentitiesAndAccounts() {
-        let accounts = dependencyProvider.storageManager().getAccounts().filter{$0.transactionStatus == SubmissionStatusEnum.absent}
+        let accounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == SubmissionStatusEnum.absent }
         for account in accounts {
             dependencyProvider.storageManager().removeAccount(account: account)
         }
-        let identities = dependencyProvider.storageManager().getIdentities().filter{$0.state == .failed}
+        let identities = dependencyProvider.storageManager().getIdentities().filter { $0.state == .failed }
         for identity in identities {
             dependencyProvider.storageManager().removeIdentity(identity)
         }
@@ -268,7 +263,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
             let accountVM = AccountViewModel(account: account)
             
             #warning("CHECK IF IT IS INITIAL USING CREDENTIAL")
-            //TODO: change to check if it is initial!!!!!
+            // TODO: change to check if it is initial!!!!!
             if account.submissionId != "" {
                 accountVM.stateUpdater = self.dependencyProvider.accountsService().getState(for: account).eraseToAnyPublisher()
             } else {

@@ -9,20 +9,20 @@
 import Foundation
 
 // MARK: View
-protocol ScanAddressQRViewProtocol: class {
+protocol ScanAddressQRViewProtocol: AnyObject {
     func showQrValid()
     func showQrInvalid()
 }
 
 // MARK: -
 // MARK: Delegate
-protocol ScanAddressQRPresenterDelegate: class {
+protocol ScanAddressQRPresenterDelegate: AnyObject {
     func scanAddressQr(didScanAddress: String)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol ScanAddressQRPresenterProtocol: class {
+protocol ScanAddressQRPresenterProtocol: AnyObject {
 	var view: ScanAddressQRViewProtocol? { get set }
     func viewDidLoad()
     func scannedQrCode(_: String)

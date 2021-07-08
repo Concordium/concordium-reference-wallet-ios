@@ -69,10 +69,10 @@ extension AccountDataType {
 //            transactionStatus == other.transactionStatus &&
 //            encryptedAccountData == other.encryptedAccountData &&
 //            encryptedPrivateKey == other.encryptedPrivateKey &&
-//            //identity == other.identity &&
-////        var revealedAttributes: [String: String] { get set }
-////
-//            finalizedBalance == other.finalizedBalance &&
+//        //identity == other.identity &&
+//        var revealedAttributes: [String: String] { get set }
+//
+//        finalizedBalance == other.finalizedBalance &&
 //            forecastBalance == other.forecastBalance &&
 //            forecastAtDisposalBalance == other.forecastAtDisposalBalance &&
 //            stakedAmount == other.stakedAmount &&
@@ -83,14 +83,14 @@ extension AccountDataType {
 //            encryptedBalance?.selfAmount == other.encryptedBalance?.selfAmount &&
 //            encryptedBalanceStatus == other.encryptedBalanceStatus &&
 //            accountNonce == other.accountNonce &&
-////
-////        var credential: Credential? { get set }
-////        var createdTime: Date { get }
-////        var usedIncomingAmountIndex: Int { get set}
-//            isReadOnly == other.isReadOnly
-////        var bakerId: Int { get set }
-////        var releaseSchedule: ReleaseScheduleDataType? { get set }
-////        var transferFilters: TransferFilter? { get set }
+//
+//        var credential: Credential? { get set }
+//        var createdTime: Date { get }
+//        var usedIncomingAmountIndex: Int { get set}
+//        isReadOnly == other.isReadOnly
+//        var bakerId: Int { get set }
+//        var releaseSchedule: ReleaseScheduleDataType? { get set }
+//        var transferFilters: TransferFilter? { get set }
 //    }
 }
 
@@ -105,7 +105,12 @@ extension AccountDataType {
         return self
     }
 
-    func withUpdatedFinalizedBalance(_ finaliedBalance: Int, _ finalizedEncryptedBalance: Int, _ status: ShieldedAccountEncryptionStatus, _ encryptedBalance: EncryptedBalanceDataType, accountNonce: Int, bakerId: Int, staked: Int, releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
+    func withUpdatedFinalizedBalance(_ finaliedBalance: Int,
+                                     _ finalizedEncryptedBalance: Int,
+                                     _ status: ShieldedAccountEncryptionStatus,
+                                     _ encryptedBalance: EncryptedBalanceDataType,
+                                     accountNonce: Int, bakerId: Int, staked: Int,
+                                     releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.finalizedBalance = finaliedBalance
@@ -160,7 +165,7 @@ final class AccountEntity: Object {
     @objc dynamic var encryptedBalanceStatusString: String? = ""
     @objc dynamic var encryptedAccountData: String? = ""
     @objc dynamic var encryptedPrivateKey: String? = ""
-    @objc dynamic var identityEntity: IdentityEntity? = nil
+    @objc dynamic var identityEntity: IdentityEntity?
     @objc dynamic var encryptedBalanceEntity: EncryptedBalanceEntity? = EncryptedBalanceEntity()
     @objc dynamic var finalizedBalance: Int = 0
     @objc dynamic var forecastBalance: Int = 0
@@ -174,7 +179,7 @@ final class AccountEntity: Object {
     @objc dynamic var usedIncomingAmountIndex: Int = 0
     @objc dynamic var isReadOnly: Bool = false
     @objc dynamic var bakerId: Int = -1
-    @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity? = nil
+    @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity?
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
 
@@ -200,6 +205,7 @@ extension AccountEntity: AccountDataType {
         get {
              return forecastBalance + forecastEncryptedBalance
         }
+        // swiftlint:disable unused_setter_value
         set {
         }
     }

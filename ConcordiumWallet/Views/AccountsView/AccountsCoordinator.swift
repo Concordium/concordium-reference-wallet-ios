@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol AccountsCoordinatorDelegate: class {
+protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
     func createNewAccount()
     func noIdentitiesFound()

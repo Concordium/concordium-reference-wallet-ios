@@ -9,11 +9,11 @@
 import Foundation
 
 // MARK: View -
-protocol IdentityRevokersWidgetViewProtocol: class {
+protocol IdentityRevokersWidgetViewProtocol: AnyObject {
 }
 
 // MARK: Presenter -
-protocol IdentityRevokersWidgetPresenterProtocol: class {
+protocol IdentityRevokersWidgetPresenterProtocol: AnyObject {
 	var view: IdentityRevokersWidgetViewProtocol? { get set }
 }
 

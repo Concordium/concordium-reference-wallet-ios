@@ -6,7 +6,7 @@
 import Foundation
 import Combine
 
-protocol RequestPasswordDelegate: class {
+protocol RequestPasswordDelegate: AnyObject {
     func requestUserPassword(keychain: KeychainWrapperProtocol) -> AnyPublisher<String, Error>
 }
 

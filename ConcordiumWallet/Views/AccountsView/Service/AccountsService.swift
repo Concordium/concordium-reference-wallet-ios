@@ -12,12 +12,15 @@ protocol AccountsServiceProtocol {
     func getState(for account: AccountDataType) -> AnyPublisher<SubmissionStatusEnum, Error>
     func createAccount(account pAccount: AccountDataType, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error>
     func updateAccountsBalances(accounts: [AccountDataType]) -> AnyPublisher<[AccountDataType], Error>
-    func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType,  balanceType: AccountBalanceTypeEnum, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error>
+    func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType,
+                                                 balanceType: AccountBalanceTypeEnum,
+                                                 requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error>
     func recalculateAccountBalance(account: AccountDataType, balanceType: AccountBalanceTypeEnum) -> AnyPublisher<AccountDataType, Error>
     func gtuDrop(for accountAddress: String) -> AnyPublisher<TransferDataType, Error>
     func checkAccountExistance(accounts: [String]) -> AnyPublisher<[String], Error>
 }
 
+// swiftlint:disable type_body_length
 class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     
     var networkManager: NetworkManagerProtocol
@@ -27,7 +30,10 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     
     var cancelables: [AnyCancellable] = []
     
-    init(networkManager: NetworkManagerProtocol, mobileWallet: MobileWalletProtocol, storageManager: StorageManagerProtocol, keychain: KeychainWrapperProtocol) {
+    init(networkManager: NetworkManagerProtocol,
+         mobileWallet: MobileWalletProtocol,
+         storageManager: StorageManagerProtocol,
+         keychain: KeychainWrapperProtocol) {
         self.networkManager = networkManager
         self.mobileWallet = mobileWallet
         self.storageManager = storageManager
@@ -40,7 +46,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     
     func submitCredential(_ credential: Credential) -> AnyPublisher<SubmissionResponse, Error> {
         
-        let data: Data? = try? credential.jsonData() //HERE?
+        let data: Data? = try? credential.jsonData()
         return networkManager.load(ResourceRequest(url: ApiConstants.submitCredential, httpMethod: .put, body: data))
     }
     
@@ -68,7 +74,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             })
             .eraseToAnyPublisher()
     }
-    
+
+    // swiftlint:disable function_body_length
     func createAccount(account pAccount: AccountDataType, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error> {
         
         var account = pAccount
@@ -103,7 +110,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             Publishers.Zip(globalAndPasswordPublisher, noncePublisher)
                 .flatMap { (arg0, nonce) -> AnyPublisher<CreateCredentialRequest, Error> in
                     let (global, pwHash) = arg0
-                    let _ = account.identity?.withUpdated(accountsCreated: nonce)
+                    _ = account.identity?.withUpdated(accountsCreated: nonce)
                     if nonce > account.identity?.identityObject?.attributeList.maxAccounts ?? 200 {
                         return .fail(ViewError.simpleError(localizedReason: "createAccount.tooManyAccounts".localized))
                     }
@@ -126,8 +133,13 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             .eraseToAnyPublisher()
     }
     
-    func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType, balanceType: AccountBalanceTypeEnum, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error> {
-        getAccountWithUpdatedFinalizedBalance(account: account, balanceType: balanceType, withDecryption: true, requestPasswordDelegate: requestPasswordDelegate)
+    func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType,
+                                                 balanceType: AccountBalanceTypeEnum,
+                                                 requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error> {
+        getAccountWithUpdatedFinalizedBalance(account: account,
+                                              balanceType: balanceType,
+                                              withDecryption: true,
+                                              requestPasswordDelegate: requestPasswordDelegate)
             .flatMap(self.addingBalanceEffectFromTransfers)
             .eraseToAnyPublisher()
         
@@ -141,7 +153,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                     .eraseToAnyPublisher()
         }
         
-        //convert [Publisher<Account>] to Publisher<[Account]>
+        // convert [Publisher<Account>] to Publisher<[Account]>
         return Publishers.Sequence<[AnyPublisher<AccountDataType, Error>], Error>(sequence: updatedAccounts)
             .flatMap { $0 }
             .collect()
@@ -154,12 +166,10 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 if account.transactionStatus != SubmissionStatusEnum.absent {
                     return .just(address)
                 } else {
-                    //cleanup locally
+                    // cleanup locally
                     storageManager.removeAccount(account: account)
                 }
             }
-            
-            
             
             return getAccountBalance(for: address).tryMap { (accountBalance) -> String in
                 if accountBalance.currentBalance == nil && accountBalance.finalizedBalance == nil {
@@ -233,8 +243,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount, account.releaseSchedule?.total ?? 0)
-                return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0), forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1), forecastAtDisposalBalance: forecastAtDisposalBalance) }
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                                                                                                           account.releaseSchedule?.total ?? 0)
+                return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
+                                                          forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
+                                                          forecastAtDisposalBalance: forecastAtDisposalBalance) }
             .eraseToAnyPublisher()
     }
     
@@ -251,9 +264,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount, account.releaseSchedule?.total ?? 0)
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                                                                                                           account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
-                                                          forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1), forecastAtDisposalBalance: forecastAtDisposalBalance) }
+                                                          forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
+                                                          forecastAtDisposalBalance: forecastAtDisposalBalance) }
             .eraseToAnyPublisher()
     }
     
@@ -261,7 +276,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         if account.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted {
             
         }
-        return Result.Publisher(account).eraseToAnyPublisher()//Just(account)
+        return Result.Publisher(account).eraseToAnyPublisher()// Just(account)
     }
     
     private func getUnDecryptedValues(for account: AccountDataType, balance: AccountBalance) -> [String] {
@@ -307,7 +322,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         let shieldedAmounts = self.storageManager.getShieldedAmountsForAccount(account)
         
         guard let selfAmount = balance.finalizedBalance?.accountEncryptedAmount?.selfAmount else {
-            //if we have no balance we assume 0
+            // if we have no balance we assume 0
             return (0, .decrypted)
         }
         guard let firstDecryptedAmount = lookupEcryptedAmount(encryptedAmounts: [selfAmount], shieldedAmounts: shieldedAmounts).first,
@@ -315,7 +330,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 return (0, .encrypted)
         }
         
-        //if we don't have incoming amounts, we just return the self amount and we know its value
+        // if we don't have incoming amounts, we just return the self amount and we know its value
         guard let incomingAmounts = balance.finalizedBalance?.accountEncryptedAmount?.incomingAmounts else {
             return (selfAmountDecrypted, .decrypted)
         }
@@ -338,10 +353,13 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             return nil
         }
     }
-    
-    private func getAccountWithUpdatedFinalizedBalance(account: AccountDataType,  balanceType: AccountBalanceTypeEnum = .balance,  withDecryption: Bool = false, requestPasswordDelegate: RequestPasswordDelegate? = nil) -> AnyPublisher<AccountDataType, Error> {
+
+    // swiftlint:disable line_length
+    private func getAccountWithUpdatedFinalizedBalance(account: AccountDataType,
+                                                       balanceType: AccountBalanceTypeEnum = .balance,
+                                                       withDecryption: Bool = false, requestPasswordDelegate: RequestPasswordDelegate? = nil) -> AnyPublisher<AccountDataType, Error> {
         
-        //if the account is created as an initial account in an identity
+        // if the account is created as an initial account in an identity
         if account.address == "" {
             return .just(account)
         }
@@ -358,10 +376,13 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                     
                 }
                 return .just([])
-                
+
             }) .map({ (values) -> (AccountDataType) in
                 values.map { (encryptedValue, decryptedValue) -> ShieldedAmountType in
-                    ShieldedAmountTypeFactory.create().with(account: account, encryptedValue: encryptedValue, decryptedValue: String(decryptedValue), incomingAmountIndex: -1)
+                    ShieldedAmountTypeFactory.create().with(account: account,
+                                                            encryptedValue: encryptedValue,
+                                                            decryptedValue: String(decryptedValue),
+                                                            incomingAmountIndex: -1)
                 }.forEach { (shieldedAmount) in
                     _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
                 }

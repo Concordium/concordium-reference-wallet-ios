@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol IdentityDataSelectionCellDelegate: class {
+protocol IdentityDataSelectionCellDelegate: AnyObject {
     func cellCheckTapped(_ cell: IdentityDataSelectionCell)
 }
 

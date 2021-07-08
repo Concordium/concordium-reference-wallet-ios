@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CreateNewAccountDelegate: class {
+protocol CreateNewAccountDelegate: AnyObject {
     func createNewAccountFinished()
     func createNewAccountCancelled()
 }
@@ -78,8 +78,10 @@ class CreateAccountCoordinator: Coordinator {
     }
 
     func showRevealAttributes(for account: AccountDataType) {
-        let vc = RevealAttributesFactory.create(with: RevealAttributesPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self))
-      
+        let vc = RevealAttributesFactory.create(with: RevealAttributesPresenter(account: account,
+                                                                                dependencyProvider: dependencyProvider,
+                                                                                delegate: self))
+
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -110,7 +112,7 @@ extension CreateAccountCoordinator: IdentityChoosePresenterDelegate {
     }
 
     func identitySelected(for account: AccountDataType) {
-        //Set the account create info
+        // Set the account create info
         showRevealAttributes(for: account)
     }
 }
@@ -137,7 +139,7 @@ extension CreateAccountCoordinator: AccountConfirmedPresenterDelegate, CreationF
     }
 }
 
-extension CreateAccountCoordinator: RevealAttributesPresenterDelegate  {
+extension CreateAccountCoordinator: RevealAttributesPresenterDelegate {
     func revealAttributes(_ account: AccountDataType) {
         showIdentityAttributeSelection(for: account)
     }
@@ -146,7 +148,6 @@ extension CreateAccountCoordinator: RevealAttributesPresenterDelegate  {
         parentCoordinator?.createNewAccountCancelled()
     }
 }
-
 
 extension CreateAccountCoordinator: RequestPasswordDelegate {
 }

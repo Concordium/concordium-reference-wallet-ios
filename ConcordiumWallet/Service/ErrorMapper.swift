@@ -23,7 +23,7 @@ extension ViewError: LocalizedError {
         switch self {
         case .simpleError(let reason):
             return reason
-        case .genericError (let error):
+        case .genericError(let error):
             #if DEBUG
             return "viewError.genericError".localized + String(describing: error)
             #else

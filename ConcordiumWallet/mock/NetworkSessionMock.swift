@@ -49,12 +49,8 @@ class NetworkSessionMock: NetworkSession {
         return nil
     }
 
-    //swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity
     func getFilename(for url: URL) -> String {
-//        if url.absoluteString.hasPrefix(ApiConstants.submitCredential.absoluteString) {
-//            return "backend_server_error"
-//            return "backend_invalidRequest_error"
-//        }
         if url.absoluteString.hasPrefix(ApiConstants.submissionStatus.absoluteString) {
             let submissionId = url.lastPathComponent
             switch submissionId {
@@ -93,7 +89,7 @@ class NetworkSessionMock: NetworkSession {
     }
 }
 
-extension NetworkSessionMock { //Methods for overwriting data instead of returning the mocked data
+extension NetworkSessionMock { // Methods for overwriting data instead of returning the mocked data
     private func loadFromServerAndOverwriteWithReceivedData(request: URLRequest)
                     -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLSession.DataTaskPublisher.Failure> {
         URLSession.shared.dataTaskPublisher(for: request).handleEvents(receiveOutput: { (data, _) in

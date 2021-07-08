@@ -62,7 +62,7 @@ class Importer {
         }
     }
     
-    private func generateAccounts(identity: ExportIdentityData, pwHash: String) throws -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error>  {
+    private func generateAccounts(identity: ExportIdentityData, pwHash: String) throws -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error> {
         return accountsService.getGlobal()
             .flatMap { global -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error>   in
                 do {
@@ -92,8 +92,9 @@ class Importer {
             }
             return false
         }
-        
-        return accountsService.checkAccountExistance(accounts: accountsToVerify.map { $0.accountAddress } ).map { (accountsToImport) -> [MakeGenerateAccountsResponseElement] in
+
+        // swiftlint:disable line_length
+        return accountsService.checkAccountExistance(accounts: accountsToVerify.map { $0.accountAddress }).map { (accountsToImport) -> [MakeGenerateAccountsResponseElement] in
             accountsToVerify.filter { accountsToImport.contains($0.accountAddress) }
         }.eraseToAnyPublisher()
     }

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK: View
 protocol GettingStartedInfoViewProtocol: ShowError {
 }
@@ -17,7 +16,6 @@ protocol GettingStartedInfoPresenterProtocol: class {
     var view: GettingStartedInfoViewProtocol? { get set }
     func userTappedOK()
 }
-
 
 // MARK: -
 // MARK: Delegate

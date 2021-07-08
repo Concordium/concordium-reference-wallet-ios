@@ -6,7 +6,7 @@
 //
 
 import Foundation
-protocol CreateExportPasswordPresenterDelegate: class {
+protocol CreateExportPasswordPresenterDelegate: AnyObject {
     func passwordSelectionDone(password: String)
     func passwordSelectionCancelled()
 }
@@ -79,6 +79,6 @@ extension CreateExportPasswordPresenter: PasswordFieldDelegate {
 
 extension CreateExportPasswordPresenter: PasscodeFieldDelegate {
     func pincodeView(_ pincodeView: PasscodeFieldViewController, didFinishEnteringPincode pincode: String) {
-        //Pincode view is not used
+        // Pincode view is not used
     }
 }

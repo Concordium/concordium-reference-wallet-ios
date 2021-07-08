@@ -34,18 +34,11 @@ class UpdatePasswordViewController: BaseViewController, UpdatePasswordViewProtoc
         super.viewDidLoad()
 
         title = "more.updatePasswordAndBiometrics.title".localized
-        
-        let addIcon = UIImage(named: "close_icon")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
        
         infoTextView.text = "more.updatePasswordAndBiometrics.infoText".localized
         
         presenter.view = self
         presenter.viewDidLoad()
-    }
-        
-    @objc func closeButtonTapped(_ sender: Any) {
-        presenter.closeButtonPressed()
     }
     
     @IBAction func continueButtonPressed(_ sender: Any) {

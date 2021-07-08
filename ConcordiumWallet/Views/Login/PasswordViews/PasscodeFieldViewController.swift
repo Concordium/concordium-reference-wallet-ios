@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-protocol PasscodeFieldDelegate: class {
+protocol PasscodeFieldDelegate: AnyObject {
     func pincodeView(_ pincodeView: PasscodeFieldViewController, didFinishEnteringPincode: String)
 }
 
@@ -64,14 +64,14 @@ class PasscodeFieldViewController: UIViewController, Storyboarded {
     }
 
     func mask(_ value: String?) -> String {
-        //cancel previous calls to mask
+        // cancel previous calls to mask
         NSObject.cancelPreviousPerformRequests(withTarget: self)
 
         guard let value = value, value.count > 0 else {return ""}
         if addingCharacters, let lastCharacter = value.last {
             let maskedValue = String(repeating: "*", count: value.count-1)
             
-            //mask last entered value after 1 second
+            // mask last entered value after 1 second
             perform(#selector(maskCharactersAfterDelay), with: value, afterDelay: 1)
             
             return "\(maskedValue)\(lastCharacter)"
@@ -97,7 +97,7 @@ extension PasscodeFieldViewController: UITextFieldDelegate {
         var textRange = Range(range, in: text)
 
         if range.location != textField.text?.count ?? 0 {
-            //if user has moved the cursor, just move the cursor to the end of the document again and continue
+            // if user has moved the cursor, just move the cursor to the end of the document again and continue
             textField.selectedTextRange = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
             textRange = Range(NSRange(location: text.count, length: 0), in: text)
         }

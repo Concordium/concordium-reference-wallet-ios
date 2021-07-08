@@ -16,8 +16,8 @@ protocol Coordinator {
 }
 
 extension Coordinator {
-    ///Handle showing modally the view controller right if presented from navigation controller (by wrapping
-    ///It inside a navigation controller)
+    /// Handle showing modally the view controller right if presented from navigation controller (by wrapping
+    /// It inside a navigation controller)
     func showModally(_ vc: UIViewController, from navController: UINavigationController) {
         let presentedNavController = BaseNavigationController(rootViewController: vc)
         presentedNavController.modalPresentationStyle = .fullScreen

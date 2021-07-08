@@ -58,7 +58,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded {
         title = presenter.getTitle()
         tableView.tableFooterView = UIView(frame: .zero)
 
-        //Set the right bar button item depending on the flow
+        // Set the right bar button item depending on the flow
         var barButtonSelector: Selector
         var iconName: String
         switch flowMode {
@@ -137,7 +137,7 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
     
     func showIdentityFailed(_ errorMessage: String, showCancel: Bool = true, completion: @escaping () -> Void) {
         let ac = UIAlertController(title: "identityfailed.title".localized, message: errorMessage, preferredStyle: .alert)
-        let continueAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { (action) in
+        let continueAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { (_) in
             completion()
         }
         ac.addAction(continueAction)

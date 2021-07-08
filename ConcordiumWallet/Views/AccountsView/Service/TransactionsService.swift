@@ -17,6 +17,7 @@ protocol TransactionsServiceProtocol {
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
 }
 
+// swiftlint:disable type_body_length
 class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService {
     var networkManager: NetworkManagerProtocol
     private let mobileWallet: MobileWalletProtocol
@@ -55,31 +56,32 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
                 transfer.nonce = nonce.nonce
                 return self.mobileWallet.createTransfer(from: account,
-                                                 to: transfer.toAddress,
-                                                 amount: Int(transfer.amount) ?? 0,
-                                                 nonce: nonce,
-                                                 expiry: expiry,
-                                                 energy: transfer.energy,
-                                                 transferType: transfer.transferType,
-                                                 requestPasswordDelegate: requestPasswordDelegate,
-                                                 global: nil,
-                                                 inputEncryptedAmount: nil,
-                                                 receiverPublicKey: nil
+                                                        to: transfer.toAddress,
+                                                        amount: Int(transfer.amount) ?? 0,
+                                                        nonce: nonce,
+                                                        expiry: expiry,
+                                                        energy: transfer.energy,
+                                                        transferType: transfer.transferType,
+                                                        requestPasswordDelegate: requestPasswordDelegate,
+                                                        global: nil,
+                                                        inputEncryptedAmount: nil,
+                                                        receiverPublicKey: nil
                 )
-        }
-        .flatMap(submitTransfer)
-        .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-            transfer.submissionId = submissionResponse.submissionID
-            return self.submissionStatus(submissionId: submissionResponse.submissionID)
-        }.map { (submissionStatus: SubmissionStatus) in
-            transfer.transactionStatus = submissionStatus.status
-            transfer.outcome = submissionStatus.outcome
-            return transfer
-        }
-        .eraseToAnyPublisher()
+            }
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { (submissionStatus: SubmissionStatus) in
+                transfer.transactionStatus = submissionStatus.status
+                transfer.outcome = submissionStatus.outcome
+                return transfer
+            }
+            .eraseToAnyPublisher()
         
     }
-    
+
+    // swiftlint:disable function_body_length
     private func performShielding(_ pTransfer: TransferDataType,
                                   from account: AccountDataType,
                                   requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
@@ -94,67 +96,71 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             .flatMap { (nonce, global)  -> AnyPublisher<CreateTransferRequest, Error>  in
                 transfer.nonce = nonce.nonce
                 return self.mobileWallet.createTransfer(from: account,
-                                                 to: transfer.toAddress,
-                                                 amount: Int(transfer.amount) ?? 0,
-                                                 nonce: nonce,
-                                                 expiry: expiry,
-                                                 energy: transfer.energy,
-                                                 transferType: transfer.transferType,
-                                                 requestPasswordDelegate: requestPasswordDelegate,
-                                                 global: global,
-                                                 inputEncryptedAmount: nil,
-                                                 receiverPublicKey: nil
+                                                        to: transfer.toAddress,
+                                                        amount: Int(transfer.amount) ?? 0,
+                                                        nonce: nonce,
+                                                        expiry: expiry,
+                                                        energy: transfer.energy,
+                                                        transferType: transfer.transferType,
+                                                        requestPasswordDelegate: requestPasswordDelegate,
+                                                        global: global,
+                                                        inputEncryptedAmount: nil,
+                                                        receiverPublicKey: nil
                 )
-        }.map({ (transferRequest) -> CreateTransferRequest in
-            //try and store the expected selfAmount, based on calculations
-            if let transaction = self.getLatestLocalEncryptedBalanceTransaction(for: account),
-                let encryptedDetails = transaction.encryptedDetails,
-                let selfAmount = encryptedDetails.updatedNewSelfEncryptedAmount,
-                let decryptedSelfAmount = self.storageManager.getShieldedAmount(encryptedValue: selfAmount, account: account)?.decryptedValue,
-                let transferAmount = Int(transfer.amount),
-                let decryptedSelfAmountInt = Int(decryptedSelfAmount),
-                let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
-                let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
-                let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
-                
-                let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account, encryptedValue: newSelfAmount, decryptedValue: String(newDecryptedSelfAmount), incomingAmountIndex: -1)
-                _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-                
-                let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount,
-                                                              newStartIndex: encryptedDetails.updatedNewStartIndex)
-                transfer.encryptedDetails = encryptedDetails
-                
-            } else if let selfAmount = account.encryptedBalance?.selfAmount,
-                let startIndex = account.encryptedBalance?.startIndex,
-                let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
-                let decryptedSelfAmount = self.storageManager.getShieldedAmount(encryptedValue: selfAmount, account: account)?.decryptedValue,
-                let transferAmount = Int(transfer.amount),
-                let decryptedSelfAmountInt = Int(decryptedSelfAmount),
-                let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
-                
-                let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
-                
-                let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                             encryptedValue: newSelfAmount,
-                                                                             decryptedValue: String(newDecryptedSelfAmount),
-                                                                             incomingAmountIndex: -1)
-                _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-                
-                let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount, newStartIndex: startIndex)
-                transfer.encryptedDetails = encryptedDetails
+            }.map({ (transferRequest) -> CreateTransferRequest in
+                // try and store the expected selfAmount, based on calculations
+                if let transaction = self.getLatestLocalEncryptedBalanceTransaction(for: account),
+                   let encryptedDetails = transaction.encryptedDetails,
+                   let selfAmount = encryptedDetails.updatedNewSelfEncryptedAmount,
+                   let decryptedSelfAmount = self.storageManager.getShieldedAmount(encryptedValue: selfAmount, account: account)?.decryptedValue,
+                   let transferAmount = Int(transfer.amount),
+                   let decryptedSelfAmountInt = Int(decryptedSelfAmount),
+                   let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
+                   let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
+                    let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
+
+                    let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+                                                                                 encryptedValue: newSelfAmount,
+                                                                                 decryptedValue: String(newDecryptedSelfAmount),
+                                                                                 incomingAmountIndex: -1)
+                    _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+
+                    let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount,
+                                                                  newStartIndex: encryptedDetails.updatedNewStartIndex)
+                    transfer.encryptedDetails = encryptedDetails
+
+                } else if let selfAmount = account.encryptedBalance?.selfAmount,
+                          let startIndex = account.encryptedBalance?.startIndex,
+                          let addedSelfEncryptedAmount = transferRequest.addedSelfEncryptedAmount,
+                          let decryptedSelfAmount = self.storageManager.getShieldedAmount(encryptedValue: selfAmount,
+                                                                                          account: account)?.decryptedValue,
+                          let transferAmount = Int(transfer.amount),
+                          let decryptedSelfAmountInt = Int(decryptedSelfAmount),
+                          let newSelfAmount = try? self.mobileWallet.combineEncryptedAmount(addedSelfEncryptedAmount, selfAmount).get() {
+
+                    let newDecryptedSelfAmount = decryptedSelfAmountInt + transferAmount
+
+                    let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+                                                                                 encryptedValue: newSelfAmount,
+                                                                                 decryptedValue: String(newDecryptedSelfAmount),
+                                                                                 incomingAmountIndex: -1)
+                    _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+
+                    let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: newSelfAmount, newStartIndex: startIndex)
+                    transfer.encryptedDetails = encryptedDetails
+                }
+                return transferRequest
+            })
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { (submissionStatus: SubmissionStatus) in
+                transfer.transactionStatus = submissionStatus.status
+                transfer.outcome = submissionStatus.outcome
+                return transfer
             }
-            return transferRequest
-        })
-        .flatMap(submitTransfer)
-        .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-            transfer.submissionId = submissionResponse.submissionID
-            return self.submissionStatus(submissionId: submissionResponse.submissionID)
-        }.map { (submissionStatus: SubmissionStatus) in
-            transfer.transactionStatus = submissionStatus.status
-            transfer.outcome = submissionStatus.outcome
-            return transfer
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
         
     }
     
@@ -169,48 +175,50 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         transfer.createdAt = Date()
         let inputEncryptedAmount = self.getInputEncryptedAmount(for: account)
         return getAccountNonce(for: transfer.fromAddress).zip(getGlobal())
-        .flatMap { (nonce, global)  -> AnyPublisher<CreateTransferRequest, Error> in
-            transfer.nonce = nonce.nonce
-            return self.mobileWallet.createTransfer(from: account,
-                                                 to: transfer.toAddress,
-                                                 amount: Int(transfer.amount) ?? 0,
-                                                 nonce: nonce,
-                                                 expiry: expiry,
-                                                 energy: transfer.energy,
-                                                 transferType: transfer.transferType,
-                                                 requestPasswordDelegate: requestPasswordDelegate,
-                                                 global: global,
-                                                 inputEncryptedAmount: inputEncryptedAmount,
-                                                 receiverPublicKey: nil
+            .flatMap { (nonce, global)  -> AnyPublisher<CreateTransferRequest, Error> in
+                transfer.nonce = nonce.nonce
+                return self.mobileWallet.createTransfer(from: account,
+                                                        to: transfer.toAddress,
+                                                        amount: Int(transfer.amount) ?? 0,
+                                                        nonce: nonce,
+                                                        expiry: expiry,
+                                                        energy: transfer.energy,
+                                                        transferType: transfer.transferType,
+                                                        requestPasswordDelegate: requestPasswordDelegate,
+                                                        global: global,
+                                                        inputEncryptedAmount: inputEncryptedAmount,
+                                                        receiverPublicKey: nil
                 )
-        }.map({ (transferRequest) -> CreateTransferRequest in
-            if let aggAmount = inputEncryptedAmount.aggAmount, let remainingSelfAmount = transferRequest.remaining, let aggAmountInt = Int(aggAmount), let transferedAmount = Int(transfer.amount) {
-                let remainingAmount = aggAmountInt - transferedAmount
-                
-                let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                             encryptedValue: remainingSelfAmount,
-                                                                             decryptedValue: String(remainingAmount),
-                                                                             incomingAmountIndex: -1)
-                _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-                
-                //store encrypted details
-                let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
-                                                              newStartIndex: inputEncryptedAmount.aggIndex)
-                transfer.encryptedDetails = encryptedDetails
+            }.map({ (transferRequest) -> CreateTransferRequest in
+                if let aggAmount = inputEncryptedAmount.aggAmount,
+                   let remainingSelfAmount = transferRequest.remaining,
+                   let aggAmountInt = Int(aggAmount),
+                   let transferedAmount = Int(transfer.amount) {
+                    let remainingAmount = aggAmountInt - transferedAmount
+
+                    let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+                                                                                 encryptedValue: remainingSelfAmount,
+                                                                                 decryptedValue: String(remainingAmount),
+                                                                                 incomingAmountIndex: -1)
+                    _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+
+                    // store encrypted details
+                    let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
+                                                                  newStartIndex: inputEncryptedAmount.aggIndex)
+                    transfer.encryptedDetails = encryptedDetails
+                }
+                return transferRequest
+            })
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { (submissionStatus: SubmissionStatus) in
+                transfer.transactionStatus = submissionStatus.status
+                transfer.outcome = submissionStatus.outcome
+                return transfer
             }
-            return transferRequest
-        })
-        .flatMap(submitTransfer)
-        .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-            transfer.submissionId = submissionResponse.submissionID
-            return self.submissionStatus(submissionId: submissionResponse.submissionID)
-        }.map { (submissionStatus: SubmissionStatus) in
-            transfer.transactionStatus = submissionStatus.status
-            transfer.outcome = submissionStatus.outcome
-            return transfer
-        }
-        .eraseToAnyPublisher()
-        
+            .eraseToAnyPublisher()
     }
     
     private func performEncryptedTransfer(_ pTransfer: TransferDataType,
@@ -238,32 +246,35 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                         inputEncryptedAmount: inputEncryptedAmount,
                                                         receiverPublicKey: receiverPublicKey.accountEncryptionKey
                 )
-        }.map({ (transferRequest) -> CreateTransferRequest in
-            if let aggAmount = inputEncryptedAmount.aggAmount, let remainingSelfAmount = transferRequest.remaining, let aggAmountInt = Int(aggAmount), let transferedAmount = Int(transfer.amount) {
-                let remainingAmount = aggAmountInt - transferedAmount
-                
-                let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
-                                                                             encryptedValue: remainingSelfAmount,
-                                                                             decryptedValue: String(remainingAmount),
-                                                                             incomingAmountIndex: -1)
-                _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-                
-                let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
-                                                              newStartIndex: inputEncryptedAmount.aggIndex)
-                transfer.encryptedDetails = encryptedDetails
+            }.map({ (transferRequest) -> CreateTransferRequest in
+                if let aggAmount = inputEncryptedAmount.aggAmount,
+                   let remainingSelfAmount = transferRequest.remaining,
+                   let aggAmountInt = Int(aggAmount),
+                   let transferedAmount = Int(transfer.amount) {
+                    let remainingAmount = aggAmountInt - transferedAmount
+
+                    let shieldedAmount = ShieldedAmountTypeFactory.create().with(account: account,
+                                                                                 encryptedValue: remainingSelfAmount,
+                                                                                 decryptedValue: String(remainingAmount),
+                                                                                 incomingAmountIndex: -1)
+                    _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
+
+                    let encryptedDetails = EncryptedDetailsEntity(newSelfEncryptedAmount: remainingSelfAmount,
+                                                                  newStartIndex: inputEncryptedAmount.aggIndex)
+                    transfer.encryptedDetails = encryptedDetails
+                }
+                return transferRequest
+            })
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { (submissionStatus: SubmissionStatus) in
+                transfer.transactionStatus = submissionStatus.status
+                transfer.outcome = submissionStatus.outcome
+                return transfer
             }
-            return transferRequest
-        })
-        .flatMap(submitTransfer)
-        .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
-            transfer.submissionId = submissionResponse.submissionID
-            return self.submissionStatus(submissionId: submissionResponse.submissionID)
-        }.map { (submissionStatus: SubmissionStatus) in
-            transfer.transactionStatus = submissionStatus.status
-            transfer.outcome = submissionStatus.outcome
-            return transfer
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
     
     func getTransactions(for account: AccountDataType, startingFrom: Transaction? = nil) -> AnyPublisher<RemoteTransactions, Error> {
@@ -294,7 +305,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
     private func getAccountNonce(for address: String) -> AnyPublisher<AccNonce, Error> {
         networkManager.load(ResourceRequest(url: ApiConstants.accNonce.appendingPathComponent(address)))
     }
-   
+
     private func getInputEncryptedAmount(for account: AccountDataType) -> InputEncryptedAmount {
         // if existing pending transactions,
         // aggEncryptedAmount = last self amount from transaction + any incoming amounts that were NOT used in that transaction
@@ -309,24 +320,24 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                 storageManager.getShieldedAmount(encryptedValue: amount, account: account) != nil
             }
             
-            //we always use all the indexes available in incoming Amounts
+            // we always use all the indexes available in incoming Amounts
             index = encryptedBalance.startIndex + incomingAmounts.count
             
-            //if we have any pending transactions, we calculate the amount and the index based on what was used in that transaction
+            // if we have any pending transactions, we calculate the amount and the index based on what was used in that transaction
             if let transaction = getLatestLocalEncryptedBalanceTransaction(for: account),
-                let encryptedDetails = transaction.encryptedDetails,
-                let latestSelfAmount = encryptedDetails.updatedNewSelfEncryptedAmount {
+               let encryptedDetails = transaction.encryptedDetails,
+               let latestSelfAmount = encryptedDetails.updatedNewSelfEncryptedAmount {
                 var amounts: [String] = [latestSelfAmount]
                 let lastUsedIndexInTransaction = encryptedDetails.updatedNewStartIndex
                 
-                //get the first unused index of incoming amounts and add that to the selfAmount
+                // get the first unused index of incoming amounts and add that to the selfAmount
                 let startIndexInIncomingAmounts = lastUsedIndexInTransaction - encryptedBalance.startIndex
                 if startIndexInIncomingAmounts < incomingAmounts.count {
                     amounts.append(contentsOf: incomingAmounts[startIndexInIncomingAmounts..<incomingAmounts.count])
                 }
                 aggEncryptedAmount = addAmounts(amounts)
             } else {
-                //if we don't have any pending transactions, we just add up the incoming amounts
+                // if we don't have any pending transactions, we just add up the incoming amounts
                 var amounts: [String] = incomingAmounts
                 if let selfAmount = encryptedBalance.selfAmount {
                     amounts.append(selfAmount)
@@ -334,7 +345,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                 aggEncryptedAmount = addAmounts(amounts)
             }
         } else {
-            //this shouldn't happen
+            // this shouldn't happen
             index = 0
             aggEncryptedAmount = account.encryptedBalance?.selfAmount
         }
@@ -388,21 +399,22 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error> {
-       
+
         let receivedTransactions = transactions.filter { (transaction) -> Bool in
             transaction.origin?.type != OriginTypeEnum.typeSelf
         }
         var amounts = receivedTransactions.map {
-                   $0.encrypted?.encryptedAmount ?? ""
-               }.filter { $0 != ""}
-               
-        //for sent transactions we remember both newSelfAmount AND inputEncryptedAmount so we can decrypt them and calculated the value of the encrypted amount
+            $0.encrypted?.encryptedAmount ?? ""
+        }.filter { $0 != ""}
+
+        // for sent transactions we remember both newSelfAmount AND inputEncryptedAmount
+        // so we can decrypt them and calculated the value of the encrypted amount
         let sentTransactions = transactions.filter { (transaction) -> Bool in
             transaction.origin?.type == OriginTypeEnum.typeSelf
         }
-       let selfAmounts = sentTransactions.map {
-           $0.encrypted?.newSelfEncryptedAmount ?? ""
-       }.filter { $0 != ""}
+        let selfAmounts = sentTransactions.map {
+            $0.encrypted?.newSelfEncryptedAmount ?? ""
+        }.filter { $0 != ""}
         let inputAmounts = sentTransactions.map {
             $0.details.inputEncryptedAmount ?? ""
         }.filter { $0 != ""}
@@ -414,7 +426,10 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             .map { (values) -> [(String, Int)] in
                 
                 values.map { (encryptedValue, decryptedValue) -> ShieldedAmountType in
-                    ShieldedAmountTypeFactory.create().with(account: account, encryptedValue: encryptedValue, decryptedValue: String(decryptedValue), incomingAmountIndex: -1)
+                    ShieldedAmountTypeFactory.create().with(account: account,
+                                                            encryptedValue: encryptedValue,
+                                                            decryptedValue: String(decryptedValue),
+                                                            incomingAmountIndex: -1)
                 }.forEach { (shieldedAmount) in
                     _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
                 }
@@ -423,10 +438,10 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                     if let newSelfEncrypted = values.filter({ (encrypted, _) -> Bool in
                         encrypted == transaction.encrypted?.newSelfEncryptedAmount
                     }).first,
-                        let inputAmount = values.filter({ (encrypted, _) -> Bool in
-                            encrypted == transaction.details.inputEncryptedAmount
-                        }).first,
-                        let encryptedValue = transaction.encrypted?.encryptedAmount {
+                    let inputAmount = values.filter({ (encrypted, _) -> Bool in
+                        encrypted == transaction.details.inputEncryptedAmount
+                    }).first,
+                    let encryptedValue = transaction.encrypted?.encryptedAmount {
                         return (encryptedValue, (inputAmount.1 - newSelfEncrypted.1))
                         
                     } else {
@@ -442,6 +457,6 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                 }
                 
                 return values
-        }.eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
     }
 }

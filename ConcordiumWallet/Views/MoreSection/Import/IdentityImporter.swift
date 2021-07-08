@@ -65,13 +65,13 @@ class IdentityImporter {
         
         let existingAccount = storageManager.getAccount(withAddress: accountData.address)
         
-        //we allow overwritting
-        guard (existingAccount == nil || existingAccount?.isReadOnly == true) else {
+        // we allow overwritting
+        guard existingAccount == nil || existingAccount?.isReadOnly == true else {
             importedIdentity.duplicateAccounts.append(accountData.name)
             return
         }
-        //we remove the readonly account if it exists
-        //(we ony get here if we have a readonly account or existing account is nil)
+        // we remove the readonly account if it exists
+        // (we ony get here if we have a readonly account or existing account is nil)
         storageManager.removeAccount(account: existingAccount)
         
         do {

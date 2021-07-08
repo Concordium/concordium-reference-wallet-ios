@@ -40,10 +40,10 @@ class ReleaseScheduleViewController: BaseViewController, ReleaseScheduleViewProt
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         tableView.tableFooterView = UIView(frame: .zero)
-        dataSource = UITableViewDiffableDataSource<ReleaseScheduleHeader, ReleaseScheduleTransactionViewModel>(tableView: tableView, cellProvider: createCell)
+        dataSource = UITableViewDiffableDataSource<ReleaseScheduleHeader,
+                                                   ReleaseScheduleTransactionViewModel>(tableView: tableView, cellProvider: createCell)
         dataSource?.defaultRowAnimation = .none
         
         tableView.applyConcordiumEdgeStyle()
@@ -87,7 +87,7 @@ class ReleaseScheduleViewController: BaseViewController, ReleaseScheduleViewProt
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: ReleaseScheduleTransactionViewModel) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReleaseScheduleCell", for: indexPath)
             as? ReleaseScheduleCell
-        cell?.transactionHashLabel.text = viewModel.getTransactionHashDisplayValue() //.getTransactionHashDisplayValue(index: indexPath.row)
+        cell?.transactionHashLabel.text = viewModel.getTransactionHashDisplayValue() // .getTransactionHashDisplayValue(index: indexPath.row)
         return cell
         
     }
@@ -113,7 +113,10 @@ extension ReleaseScheduleViewController: UITableViewDelegate {
         titleLabel.font = Fonts.body
         headerView.addSubview(titleLabel)
         
-        let subtitleLabel = UILabel(frame: CGRect(x: headerView.frame.size.width/2, y: 0, width: headerView.frame.size.width/2 - 15, height: tableHeaderHeight))
+        let subtitleLabel = UILabel(frame: CGRect(x: headerView.frame.size.width/2,
+                                                  y: 0,
+                                                  width: headerView.frame.size.width/2 - 15,
+                                                  height: tableHeaderHeight))
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = true
         subtitleLabel.textColor = .text
         subtitleLabel.font = Fonts.body

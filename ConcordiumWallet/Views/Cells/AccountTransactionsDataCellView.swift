@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol AccountTransactionsDataCellViewDelegate: class {
+protocol AccountTransactionsDataCellViewDelegate: AnyObject {
     func lockButtonPressed(from cell: AccountTransactionsDataCellView)
 }
 

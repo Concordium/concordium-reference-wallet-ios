@@ -11,7 +11,7 @@ import Combine
 
 // MARK: -
 // MARK: Presenter Delegate
-protocol IdentitiesPresenterDelegate: class {
+protocol IdentitiesPresenterDelegate: AnyObject {
     func identitySelected(identity: IdentityDataType)
     func createIdentitySelected()
     func noValidIdentitiesAvailable()
@@ -75,7 +75,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                         self.delegate?.tryAgainIdentity()
                         
                     })
-                    break //we break here because if there are more accounts that failed, we want to show that later on
+                    break // we break here because if there are more accounts that failed, we want to show that later on
                 }
             }
         }

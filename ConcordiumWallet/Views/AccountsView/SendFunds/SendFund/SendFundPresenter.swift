@@ -33,7 +33,7 @@ protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
 
 // MARK: -
 // MARK: Delegate
-protocol SendFundPresenterDelegate: class {
+protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
     func sendFundPresenter(didSelectTransferAmount amount: GTU,
@@ -46,7 +46,7 @@ protocol SendFundPresenterDelegate: class {
 
 // MARK: -
 // MARK: Presenter
-protocol SendFundPresenterProtocol: class {
+protocol SendFundPresenterProtocol: AnyObject {
 	var view: SendFundViewProtocol? { get set }
     func viewDidLoad()
     

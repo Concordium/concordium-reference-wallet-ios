@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol AccountMultiBalanceCellDelegate: class {
+protocol AccountMultiBalanceCellDelegate: AnyObject {
     func cellCheckTapped(cellRow: Int, index: Int)
 }
 
@@ -37,7 +37,7 @@ class AccountMultiBalanceCell: UITableViewCell {
     
     override func awakeFromNib() {
         statusImageWidth =
-            //To get it from storyboard
+            // To get it from storyboard
             statusImageWidthConstraint.constant
         _ = leftAlignmentConstraint.constant
         roundedView?.applyConcordiumEdgeStyle()

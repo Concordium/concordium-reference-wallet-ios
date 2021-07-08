@@ -78,6 +78,7 @@ extension TermsAndConditionsViewController {
                                       paragraphAttribute: paragraphAttribute)
     }
 
+    // swiftlint:disable function_body_length
     private func createAttributedString(titleAttribute: [NSAttributedString.Key: Any],
                                         detailsAttribute: [NSAttributedString.Key: Any],
                                         subtitleAttribute: [NSAttributedString.Key: Any],

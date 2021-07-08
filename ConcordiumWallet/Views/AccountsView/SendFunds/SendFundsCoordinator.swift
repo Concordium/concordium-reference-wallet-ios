@@ -5,7 +5,7 @@
 
 import UIKit
 
-protocol SendFundsCoordinatorDelegate: class {
+protocol SendFundsCoordinatorDelegate: AnyObject {
     func sendFundsCoordinatorFinished()
 }
 
@@ -80,7 +80,12 @@ class SendFundsCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showSendFundConfirmation(amount: GTU, energy: Int, from account: AccountDataType, to recipient: RecipientDataType, cost: GTU, transferType: TransferType) {
+    func showSendFundConfirmation(amount: GTU,
+                                  energy: Int,
+                                  from account: AccountDataType,
+                                  to recipient: RecipientDataType,
+                                  cost: GTU,
+                                  transferType: TransferType) {
         let presenter = SendFundConfirmationPresenter(delegate: self, amount: amount,
                                                       from: account, to: recipient,
                                                       cost: cost,

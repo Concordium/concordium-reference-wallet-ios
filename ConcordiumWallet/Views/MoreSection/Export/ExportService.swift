@@ -67,7 +67,7 @@ struct ExportService {
     }
 
     private func getRecipients() -> [ExportRecipient] {
-        //exclude unfinished accounts from recipients
+        // exclude unfinished accounts from recipients
         let unfinishedAccounts: [AccountDataType] = storageManager.getAccounts().filter { $0.transactionStatus != SubmissionStatusEnum.finalized }
         return storageManager.getRecipients().filter({ (recipient) -> Bool in
             !unfinishedAccounts.contains { (account) -> Bool in

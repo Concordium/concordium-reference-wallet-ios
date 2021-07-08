@@ -42,7 +42,6 @@ class IdentitiesService {
         }
         return ResourceRequest(url: issuanceStartURL.urlWithoutParameters!, parameters: parameters)
     }
-
     
     func getInitialAccountStatus(for account: AccountDataType) -> AnyPublisher<SubmissionStatusEnum, Error> {
         guard let identity = account.identity else {
@@ -68,8 +67,7 @@ class IdentitiesService {
                 }
         }.eraseToAnyPublisher()
     }
-    
-    
+
     func updatePendingIdentities() -> AnyPublisher<[IdentityDataType], Error> {
         let updatedIdentities = storageManager
                 .getPendingIdentities()
@@ -77,7 +75,7 @@ class IdentitiesService {
                     updateIdentity(identity: identity)
                 }
 
-        //convert [Publisher<IdentityDataType>] to Publisher<[IdentityDataType]>
+        // convert [Publisher<IdentityDataType>] to Publisher<[IdentityDataType]>
         return Publishers.Sequence<[AnyPublisher<IdentityDataType, Error>], Error>(sequence: updatedIdentities)
                 .flatMap { $0 }
                 .collect()
@@ -114,7 +112,7 @@ class IdentitiesService {
 
     private func addErrorMessage(_ error: String, to identity: IdentityDataType) throws -> IdentityDataType {
         if let account = storageManager.getAccounts(for: identity).first {
-            account.withUpdatedStatus(status: .absent)
+            _ = account.withUpdatedStatus(status: .absent)
         }
         return identity.withUpdated(identityCreationError: error)
     }

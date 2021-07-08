@@ -69,7 +69,7 @@ class AddRecipientViewController: BaseViewController, AddRecipientViewProtocol, 
     func bind(to viewModel: AddRecipientViewModel) {
         viewModel.$address.sink(receiveValue: {
             self.recipientAddressTextField.text = $0
-            //Setting text does not send a notification. Without it the textFieldPublisher is not activated. Therefore, do it manually
+            // Setting text does not send a notification. Without it the textFieldPublisher is not activated. Therefore, do it manually
             NotificationCenter.default.post(name: UITextField.textDidChangeNotification, object: self.recipientAddressTextField)
         }).store(in: &cancellables)
         

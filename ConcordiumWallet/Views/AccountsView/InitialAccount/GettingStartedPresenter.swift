@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK: View
 protocol GettingStartedViewProtocol: ShowError {
 }
@@ -18,7 +17,6 @@ protocol GettingStartedPresenterProtocol: AnyObject {
     func userTappedCreateAccount()
     func userTappedImport()
 }
-
 
 // MARK: -
 // MARK: Delegate

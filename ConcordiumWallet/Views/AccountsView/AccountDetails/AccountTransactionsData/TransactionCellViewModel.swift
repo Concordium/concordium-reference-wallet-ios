@@ -27,11 +27,11 @@ struct TransactionCellViewModel {
     var statusIcon = #imageLiteral(resourceName: "ok_x2")
     var showCostAsEstimate = false
 
+    // swiftlint:disable all
     init(transactionVM: TransactionViewModel) {
         title = transactionVM.title
         date = GeneralFormatter.formatTime(for: transactionVM.date)
         fullDate = GeneralFormatter.formatDateWithTime(for: transactionVM.date)
-
         total = transactionVM.total?.displayValueWithGStroke() ?? ""
         showLock = transactionVM.total?.displayValueWithGStroke() == nil
         
@@ -51,13 +51,11 @@ struct TransactionCellViewModel {
             showErrorIcon = false
             statusIcon = #imageLiteral(resourceName: "ok")
             if let total = transactionVM.total?.intValue, total > 0 {
-//                showCostAndAmount = false
                 totalColor = .success
             }
         } else if transactionVM.status == .finalized && transactionVM.outcome == .success {
             showErrorIcon = false
             if let total = transactionVM.total?.intValue, total > 0 {
-//                showCostAndAmount = false
                 totalColor = .success
             }
         } else if transactionVM.status == .committed && transactionVM.outcome == .reject {
@@ -76,11 +74,11 @@ struct TransactionCellViewModel {
             if let cost = transactionVM.cost?.displayValueWithGStroke(),
                 let amount = transactionVM.amount?.displayValueWithGStroke() {
                 self.amount = amount
-                self.cost = " -" + cost + " Fee"
+                self.cost = " - " + cost + " Fee"
 
                 // Prepend with ~ if cost is estimated.
                 if showCostAsEstimate {
-                    self.cost = "~" + self.cost
+                    self.cost = self.cost.replacingOccurrences(of: "- ", with: "- ~", options: NSString.CompareOptions.literal, range: nil)
                 }
             }
         }
