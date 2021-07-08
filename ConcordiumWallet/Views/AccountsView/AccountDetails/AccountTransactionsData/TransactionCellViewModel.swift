@@ -27,6 +27,7 @@ struct TransactionCellViewModel {
     var statusIcon = #imageLiteral(resourceName: "ok_x2")
     var showCostAsEstimate = false
 
+    // swiftlint:disable all
     init(transactionVM: TransactionViewModel) {
         title = transactionVM.title
         date = GeneralFormatter.formatTime(for: transactionVM.date)

@@ -40,6 +40,7 @@ private struct AddressDisplay {
     }
 }
 
+// sw// swiftlint:disable function_body_length
 extension TransactionViewModel {
     init(remoteTransactionData transaction: Transaction,
          account: AccountDataType,

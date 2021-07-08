@@ -20,6 +20,7 @@ protocol AccountsServiceProtocol {
     func checkAccountExistance(accounts: [String]) -> AnyPublisher<[String], Error>
 }
 
+// swiftlint:disable type_body_length
 class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     
     var networkManager: NetworkManagerProtocol
@@ -73,7 +74,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             })
             .eraseToAnyPublisher()
     }
-    
+
+    // swiftlint:disable function_body_length
     func createAccount(account pAccount: AccountDataType, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error> {
         
         var account = pAccount
@@ -241,8 +243,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount, account.releaseSchedule?.total ?? 0)
-                return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0), forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1), forecastAtDisposalBalance: forecastAtDisposalBalance) }
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                                                                                                           account.releaseSchedule?.total ?? 0)
+                return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
+                                                          forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
+                                                          forecastAtDisposalBalance: forecastAtDisposalBalance) }
             .eraseToAnyPublisher()
     }
     
@@ -259,9 +264,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount, account.releaseSchedule?.total ?? 0)
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                                                                                                           account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
-                                                          forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1), forecastAtDisposalBalance: forecastAtDisposalBalance) }
+                                                          forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
+                                                          forecastAtDisposalBalance: forecastAtDisposalBalance) }
             .eraseToAnyPublisher()
     }
     
@@ -346,8 +353,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
             return nil
         }
     }
-    
-    private func getAccountWithUpdatedFinalizedBalance(account: AccountDataType, balanceType: AccountBalanceTypeEnum = .balance, withDecryption: Bool = false, requestPasswordDelegate: RequestPasswordDelegate? = nil) -> AnyPublisher<AccountDataType, Error> {
+
+    // swiftlint:disable line_length
+    private func getAccountWithUpdatedFinalizedBalance(account: AccountDataType,
+                                                       balanceType: AccountBalanceTypeEnum = .balance,
+                                                       withDecryption: Bool = false, requestPasswordDelegate: RequestPasswordDelegate? = nil) -> AnyPublisher<AccountDataType, Error> {
         
         // if the account is created as an initial account in an identity
         if account.address == "" {
@@ -366,10 +376,13 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                     
                 }
                 return .just([])
-                
+
             }) .map({ (values) -> (AccountDataType) in
                 values.map { (encryptedValue, decryptedValue) -> ShieldedAmountType in
-                    ShieldedAmountTypeFactory.create().with(account: account, encryptedValue: encryptedValue, decryptedValue: String(decryptedValue), incomingAmountIndex: -1)
+                    ShieldedAmountTypeFactory.create().with(account: account,
+                                                            encryptedValue: encryptedValue,
+                                                            decryptedValue: String(decryptedValue),
+                                                            incomingAmountIndex: -1)
                 }.forEach { (shieldedAmount) in
                     _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
                 }

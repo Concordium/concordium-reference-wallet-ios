@@ -42,7 +42,6 @@ class IdentitiesService {
         }
         return ResourceRequest(url: issuanceStartURL.urlWithoutParameters!, parameters: parameters)
     }
-
     
     func getInitialAccountStatus(for account: AccountDataType) -> AnyPublisher<SubmissionStatusEnum, Error> {
         guard let identity = account.identity else {
@@ -68,8 +67,7 @@ class IdentitiesService {
                 }
         }.eraseToAnyPublisher()
     }
-    
-    
+
     func updatePendingIdentities() -> AnyPublisher<[IdentityDataType], Error> {
         let updatedIdentities = storageManager
                 .getPendingIdentities()

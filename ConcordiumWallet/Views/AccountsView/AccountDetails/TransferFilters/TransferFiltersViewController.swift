@@ -23,8 +23,8 @@ class TransferFiltersViewController: BaseViewController, TransferFiltersViewProt
     
     @IBOutlet weak var showRewardCheckboxButton: UIButton!
     @IBOutlet weak var showFinalRewardCheckboxButton: UIButton!
-    var showRewardsEnabled: Bool = true;
-    var showFinalRewardsEnabled: Bool = true;
+    var showRewardsEnabled: Bool = true
+    var showFinalRewardsEnabled: Bool = true
     
     init?(coder: NSCoder, presenter: TransferFiltersPresenter) {
         self.presenter = presenter
