@@ -29,6 +29,10 @@
 		07619A7D269C6973009B79E2 /* IdentityFailureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */; };
 		07619A7E269C6973009B79E2 /* IdentityFailureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */; };
 		07619A7F269C6974009B79E2 /* IdentityFailureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */; };
+		07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
+		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
+		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
+		07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -1365,6 +1369,7 @@
 		06AEE69223F4065800D14834 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
 		07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFailureManager.swift; sourceTree = "<group>"; };
+		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2587,6 +2592,7 @@
 		7FF07A8F23EADBB100F1FC04 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				07619A80269C810B009B79E2 /* Digest+Additions.swift */,
 				C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */,
 				19C2E837B763654DFA84CC26 /* Logger.swift */,
 				19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */,
@@ -3382,6 +3388,7 @@
 				7F85B8F12472D39500ED09B8 /* MoreCoordinator.swift in Sources */,
 				52589B2625128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				528EB754256400C400010554 /* RevealAttributesViewController.swift in Sources */,
+				07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				7F48C143244DCD0B00997684 /* PasscodeFieldViewController.swift in Sources */,
 				7F48C261244E17D100997684 /* ChoiceArData.swift in Sources */,
 				7F48C275244E17D100997684 /* Metadata.swift in Sources */,
@@ -3795,6 +3802,7 @@
 				7F85B74F246A9A7C00ED09B8 /* LoginCoordinator.swift in Sources */,
 				7F85B750246A9A7C00ED09B8 /* AccountsCoordinator.swift in Sources */,
 				7F85B751246A9A7C00ED09B8 /* MobileWalletFacade.swift in Sources */,
+				07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				7F85B752246A9A7C00ED09B8 /* MobileWallet.swift in Sources */,
 				5237188125753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				7F7F6D3124A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
@@ -4098,6 +4106,7 @@
 				7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */,
 				7F85B84F246A9AB600ED09B8 /* AccountsCoordinator.swift in Sources */,
+				07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				7F85B850246A9AB600ED09B8 /* MobileWalletFacade.swift in Sources */,
 				5237188225753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				7F7F6D3224A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
@@ -4496,6 +4505,7 @@
 				52D35113250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
 				5248E7DD257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				19C2E13661957027A06ED585 /* OutcomeEnum.swift in Sources */,
+				07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				642ED93225E8F12300A09BB3 /* TransferFiltersViewController.swift in Sources */,
 				19C2E15B414E573B91062F7A /* RequestPasswordPresenter.swift in Sources */,
 				19C2E3B300FDB06F93F31442 /* RequestPasswordDelegate.swift in Sources */,

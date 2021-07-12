@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 enum IdentityFailureStatus {
     case retryValidation(identities: [IdentityDataType])
@@ -15,6 +16,7 @@ enum IdentityFailureStatus {
 
 protocol IdentityFailureManagerProtocol {
     func identityFailureStatus(identities: [IdentityDataType]) -> IdentityFailureStatus?
+    func hash(codeUri: String) -> String?
 }
 
 class IdentityFailureManager: IdentityFailureManagerProtocol {
@@ -42,5 +44,11 @@ class IdentityFailureManager: IdentityFailureManagerProtocol {
         }
         
         return .retryIdentityCreation(identity: identity)
+    }
+    
+    func hash(codeUri: String) -> String? {
+        guard let data = codeUri.data(using: .utf8) else { return nil }
+        let digest = SHA256.hash(data: data)
+        return digest.hexString
     }
 }

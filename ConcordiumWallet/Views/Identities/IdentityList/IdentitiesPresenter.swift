@@ -63,17 +63,25 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
         
         switch identityFailureStatus {
         case .retryIdentityCreation(let failedIdentity):
-            self.view?.showIdentityFailed("identityfailed.message".localized, showCancel: false) {
+            guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: failedIdentity.ipStatusUrl) else {
+                return
+            }
+            
+            self.view?.showIdentityFailed("identityfailed.message".localized, reference: reference, showCancel: false) {
                 self.cleanIdentitiesAndAccounts()
                 self.delegate?.noValidIdentitiesAvailable()
             }
         
         case .retryValidation(let failedIdentities):
             for identity in failedIdentities {
+                guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: identity.ipStatusUrl) else {
+                    return
+                }
+                
                 // if there is an account associated with the identity, we delete the account and show the error
                 if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                     dependencyProvider.storageManager().removeAccount(account: account)
-                    self.view?.showIdentityFailed("identityfailed.message".localized, showCancel: true) {
+                    self.view?.showIdentityFailed("identityfailed.message".localized, reference: reference, showCancel: true) {
                         self.dependencyProvider.storageManager().removeIdentity(identity)
                         self.delegate?.tryAgainIdentity()
                         

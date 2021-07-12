@@ -25,7 +25,7 @@ class IdentitiesFactory {
 protocol IdentitiesViewProtocol: ShowError {
     func showCreateIdentityView(show: Bool)
     func reloadView()
-    func showIdentityFailed(_ errorMessage: String, showCancel: Bool, completion: @escaping () -> Void)
+    func showIdentityFailed(_ errorMessage: String, reference: String, showCancel: Bool, completion: @escaping () -> Void)
 }
 
 class IdentitiesViewController: BaseViewController, Storyboarded {
@@ -135,7 +135,7 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
         tableView.reloadData()
     }
     
-    func showIdentityFailed(_ errorMessage: String, showCancel: Bool = true, completion: @escaping () -> Void) {
+    func showIdentityFailed(_ errorMessage: String, reference: String, showCancel: Bool = true, completion: @escaping () -> Void) {
         let ac = UIAlertController(title: "identityfailed.title".localized, message: errorMessage, preferredStyle: .alert)
         let continueAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { (_) in
             completion()
