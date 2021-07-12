@@ -12,6 +12,7 @@ extension ServicesProvider {
         return ServicesProvider(mobileWallet: MobileWallet(storageManager: storageManager, keychain: keychain),
                 networkManager: NetworkManager(),
                 storageManager: storageManager,
+                identityFailureManager: IdentityFailureManager(storageManager: storageManager),
                 keychainWrapper: keychain)
     }
 }

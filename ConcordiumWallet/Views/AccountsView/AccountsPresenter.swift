@@ -224,23 +224,27 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     private func checkForIdentityFailed() {
         let identities = self.dependencyProvider.storageManager().getIdentities()
-        let pendingOrConfirmedIdentities = identities.filter { $0.state == .confirmed || $0.state == .pending}.count
-        if pendingOrConfirmedIdentities == 0 {
-            self.view?.showIdentityFailed("identityfailed.first.message".localized, showCancel: false, completion: {
+
+        guard let identityFailureStatus = dependencyProvider.identityFailureManager().identityFailureStatus(identities: identities) else {
+            return
+        }
+
+        switch identityFailureStatus {
+        case .retryIdentityCreation(let failedIdentity):
+            self.view?.showIdentityFailed("identityfailed.message".localized, showCancel: false) {
                 self.cleanIdentitiesAndAccounts()
                 self.delegate?.noValidIdentitiesAvailable()
-            })
-        } else {
-            // We check if any other identities + accounts have failed -> we only show the error is the identity also has an account
-            let failedIdentities = identities.filter { $0.state == .failed}
+            }
+
+        case .retryValidation(let failedIdentities):
             for identity in failedIdentities {
                 // If there is an account associated with the identity, we delete the account and show the error
                 if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                     dependencyProvider.storageManager().removeAccount(account: account)
-                    self.view?.showIdentityFailed("identityfailed.message".localized, showCancel: true, completion: {
+                    self.view?.showIdentityFailed("identityfailed.message".localized, showCancel: true) {
                         self.dependencyProvider.storageManager().removeIdentity(identity)
                         self.delegate?.tryAgainIdentity()
-                    })
+                    }
                     break // We break here because if there are more accounts that failed, we want to show that later on
                 }
             }

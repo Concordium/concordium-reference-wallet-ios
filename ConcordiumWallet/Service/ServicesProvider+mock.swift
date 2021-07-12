@@ -12,6 +12,7 @@ extension ServicesProvider {
         let storageManager: StorageManager = StorageManager(keychain: keychain)
         return ServicesProvider(mobileWallet: MobileWallet(storageManager: storageManager, keychain: keychain),
                                 networkManager: NetworkManager(session: NetworkSessionMock()),
+                                identityFailureManager: IdentityFailureManager(storageManager: storageManager),
                                 storageManager: storageManager,
                                 keychainWrapper: keychain)
     }
