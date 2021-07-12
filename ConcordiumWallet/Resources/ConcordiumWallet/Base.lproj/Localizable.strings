@@ -345,10 +345,11 @@ process on-chain.";
 "revealattributes.submitAccount" = "Submit account";
 "revealattributes.selectAttributes"= "Reveal account attributes";
 
-"identityfailed.title" = "Initial account creation failed";
+"identityfailed.title" = "Identity issuance failed";
 "identityfailed.tryagain" = "Try again";
-"identityfailed.first.message" = "Something went wrong with the initial account creation. \n\n Please go back and try again.";
-"identityfailed.message" = "Something went wrong with the initial account creation.\n\nPlease go back and try again, or try at another time.";
+"identityfailed.message" = "Something went wrong while creating your identity. \n\n You can either try again, or contact Notabene’s support. \n\n Clicking Contact Support will open your e-mail app, with a reference to your submission as subject.";
+"identityfailed.copyreference" = "Copy reference";
+"identityfailed.contactsupport" = "Contact Support";
 
 "releaseschedule.title" = "Release Schedule";
 "releaseschedule.dateandtime" = "Release date and time";
