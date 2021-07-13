@@ -33,6 +33,10 @@
 		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
+		07619A91269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
+		07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
+		07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
+		07619A94269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -1370,6 +1374,7 @@
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
 		07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFailureManager.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
+		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2621,12 +2626,13 @@
 		7FF07AA423EADBB100F1FC04 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */,
-				069B9DDA23FBEA8700A02A1F /* KeychainWrapper.swift */,
-				19C2EEBD44B62F16333900D2 /* GeneralError.swift */,
-				19C2E4B1F77014C882288F8E /* Coordinator.swift */,
-				19C2E56CCF5D6B0E255FD1E8 /* BaseViewController.swift */,
 				19C2E9450B1C421941974794 /* AES256Encryption.swift */,
+				07619A90269D83D9009B79E2 /* AppConstants.swift */,
+				7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */,
+				19C2E56CCF5D6B0E255FD1E8 /* BaseViewController.swift */,
+				19C2E4B1F77014C882288F8E /* Coordinator.swift */,
+				19C2EEBD44B62F16333900D2 /* GeneralError.swift */,
+				069B9DDA23FBEA8700A02A1F /* KeychainWrapper.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3392,6 +3398,7 @@
 				7F48C143244DCD0B00997684 /* PasscodeFieldViewController.swift in Sources */,
 				7F48C261244E17D100997684 /* ChoiceArData.swift in Sources */,
 				7F48C275244E17D100997684 /* Metadata.swift in Sources */,
+				07619A91269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				52D0CF1B25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				64DB66BA25DE649D00F4C605 /* AboutPresenter.swift in Sources */,
 				528EB759256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
@@ -3934,6 +3941,7 @@
 				52B2CE5F24F68B4A0092F8EB /* GlobalWrapper.swift in Sources */,
 				52A6A77B24F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				19C2E6DE2479B8D900DF10E7 /* ExportIdentityData.swift in Sources */,
+				07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -4238,6 +4246,7 @@
 				52B2CE6024F68B4A0092F8EB /* GlobalWrapper.swift in Sources */,
 				52A6A77C24F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				19C2E8235F5A65E28FB153B6 /* AES256Encryption.swift in Sources */,
+				07619A94269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -4329,6 +4338,7 @@
 				068DC80E23F2E464001B2975 /* BaseLabel.swift in Sources */,
 				52A6A77F24F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				7F21398D24236C0A00D2A5C4 /* ArDatum.swift in Sources */,
+				07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				7FB12A9423F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				C95CE0C42439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift in Sources */,
 				7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */,

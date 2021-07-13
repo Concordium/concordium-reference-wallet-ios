@@ -86,6 +86,8 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>Notabene Support Mail</key>
+	<string>concordium-idss@notabene.id</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
