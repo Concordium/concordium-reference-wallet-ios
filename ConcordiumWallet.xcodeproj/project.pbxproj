@@ -33,6 +33,10 @@
 		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
+		07619A87269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
+		07619A88269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
+		07619A89269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
+		07619A8A269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
 		07619A91269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
@@ -1374,6 +1378,7 @@
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
 		07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFailureManager.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
+		07619A86269C88F6009B79E2 /* SupportMailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailViewController.swift; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1930,6 +1935,14 @@
 				06D178A023F6D54900ABC904 /* BaseTabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		07619A85269C88C3009B79E2 /* SupportMail */ = {
+			isa = PBXGroup;
+			children = (
+				07619A86269C88F6009B79E2 /* SupportMailViewController.swift */,
+			);
+			path = SupportMail;
 			sourceTree = "<group>";
 		};
 		173768182652A72300A48758 /* TermsAndConditionsView */ = {
@@ -2646,6 +2659,7 @@
 				7FD8784D2406AE1D00509BDB /* Login */,
 				7F85B8E02472D37600ED09B8 /* MoreSection */,
 				7FF07AE623EAE0ED00F1FC04 /* RootView */,
+				07619A85269C88C3009B79E2 /* SupportMail */,
 				7FB4118123F2AFCD007FE732 /* Widgets */,
 				7FB4117C23F2AEFA007FE732 /* WidgetView */,
 			);
@@ -3627,6 +3641,7 @@
 				5237187F25753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				19C2EF25D40012E140F9B773 /* GTU.swift in Sources */,
 				19C2E2157275F953BF8D33B0 /* AccountDetailsViewModel.swift in Sources */,
+				07619A87269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				C94ED71E2461B2030071A4FB /* TransactionDetailPresenter.swift in Sources */,
 				19C2E87C10444F6659AB3E8C /* AccountTransactionsLoadingCellView.swift in Sources */,
 				19C2E0C630D5ECCCC0B72DAF /* AccountDetailsPresenter.swift in Sources */,
@@ -3852,6 +3867,7 @@
 				7F85B773246A9A7C00ED09B8 /* AccountConfirmedViewController.swift in Sources */,
 				7F85B774246A9A7C00ED09B8 /* AccountDetailsViewController.swift in Sources */,
 				7F168A0E24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
+				07619A89269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				7F85B775246A9A7C00ED09B8 /* CreateTransferRequest.swift in Sources */,
 				5236EA4325134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F85B778246A9A7C00ED09B8 /* TransactionDetailPresenter.swift in Sources */,
@@ -4157,6 +4173,7 @@
 				7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */,
 				7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				7F168A0F24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
+				07619A8A269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				7F85B871246A9AB600ED09B8 /* IDRequest.swift in Sources */,
 				5236EA4425134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F85B872246A9AB600ED09B8 /* AccountConfirmedViewController.swift in Sources */,
@@ -4375,6 +4392,7 @@
 				C968B9EF2448C37C00E31BD8 /* TransactionSubmittedPresenter.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
 				642A293625FB967A0073BF8C /* AccountKeys.swift in Sources */,
+				07619A88269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				7F21398224236C0A00D2A5C4 /* Global.swift in Sources */,
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				C939821D240F8D7000C72FE2 /* RoundedCornerView.swift in Sources */,
