@@ -348,6 +348,7 @@ process on-chain.";
 "identityfailed.title" = "Identity issuance failed";
 "identityfailed.tryagain" = "Try again";
 "identityfailed.message" = "Something went wrong while creating your identity. \n\n You can either try again, or contact Notabene’s support. \n\n Clicking Contact Support will open your e-mail app, with a reference to your submission as subject.";
+"identityfailed.nomail.message" = "The Mail app seems to be unavailable or not set up \n\n Instead you can copy your session reference, and then contact Notabene via concordium-idss@notabene.id";
 "identityfailed.copyreference" = "Copy reference";
 "identityfailed.contactsupport" = "Contact Support";
 
@@ -366,3 +367,5 @@ process on-chain.";
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
 
+"supportmail.subject" = "Issuance reference: %@";
+"supportmail.body" = "My Concordium identity issuance failed with hashed session ID: %@";

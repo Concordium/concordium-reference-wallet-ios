@@ -67,7 +67,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                 return
             }
             
-            self.view?.showIdentityFailed("identityfailed.message".localized, reference: reference, showCancel: false) {
+            self.view?.showIdentityFailed(reference: reference) {
                 self.cleanIdentitiesAndAccounts()
                 self.delegate?.noValidIdentitiesAvailable()
             }
@@ -81,7 +81,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                 // if there is an account associated with the identity, we delete the account and show the error
                 if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                     dependencyProvider.storageManager().removeAccount(account: account)
-                    self.view?.showIdentityFailed("identityfailed.message".localized, reference: reference, showCancel: true) {
+                    self.view?.showIdentityFailed(reference: reference) {
                         self.dependencyProvider.storageManager().removeIdentity(identity)
                         self.delegate?.tryAgainIdentity()
                         

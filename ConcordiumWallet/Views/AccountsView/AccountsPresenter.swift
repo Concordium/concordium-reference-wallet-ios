@@ -132,7 +132,7 @@ protocol AccountsPresenterDelegate: AnyObject {
 // MARK: View
 protocol AccountsViewProtocol: ShowError, Loadable {
     func bind(to viewModel: AccountsListViewModel)
-    func showIdentityFailed(_ errorMessage: String, reference: String, showCancel: Bool, completion: @escaping () -> Void)
+    func showIdentityFailed(reference: String, completion: @escaping () -> Void)
 }
 
 protocol AccountsPresenterProtocol: AnyObject {
@@ -224,7 +224,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     private func checkForIdentityFailed() {
         let identities = dependencyProvider.storageManager().getIdentities()
-        
+
         guard let identityFailureStatus = dependencyProvider.identityFailureManager().identityFailureStatus(identities: identities) else {
             return
         }
@@ -235,7 +235,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 return
             }
             
-            self.view?.showIdentityFailed("identityfailed.message".localized, reference: reference, showCancel: false) {
+            self.view?.showIdentityFailed(reference: reference) {
                 self.cleanIdentitiesAndAccounts()
                 self.delegate?.noValidIdentitiesAvailable()
             }
@@ -245,11 +245,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: identity.ipStatusUrl) else {
                     return
                 }
-                
+
                 // If there is an account associated with the identity, we delete the account and show the error
                 if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                     dependencyProvider.storageManager().removeAccount(account: account)
-                    self.view?.showIdentityFailed("identityfailed.message".localized, reference: reference, showCancel: true) {
+                    self.view?.showIdentityFailed(reference: reference) {
                         self.dependencyProvider.storageManager().removeIdentity(identity)
                         self.delegate?.tryAgainIdentity()
                     }
