@@ -9,13 +9,8 @@
 import Foundation
 import CryptoKit
 
-enum IdentityFailureStatus {
-    case retryValidation(identities: [IdentityDataType])
-    case retryIdentityCreation(identity: IdentityDataType)
-}
-
 protocol IdentityFailureManagerProtocol {
-    func identityFailureStatus(identities: [IdentityDataType]) -> IdentityFailureStatus?
+    func hasFailedIdentities(identities: [IdentityDataType]) -> Bool
     func hash(codeUri: String) -> String?
 }
 
@@ -27,23 +22,9 @@ class IdentityFailureManager: IdentityFailureManagerProtocol {
         self.storageManager = storageManager
     }
     
-    func identityFailureStatus(identities: [IdentityDataType]) -> IdentityFailureStatus? {
+    func hasFailedIdentities(identities: [IdentityDataType]) -> Bool {
         let failedIdentities = identities.filter { $0.state == .failed }
-        
-        guard !failedIdentities.isEmpty else {
-            return nil
-        }
-        
-        guard failedIdentities.count == 1,
-              let identity = failedIdentities.first,
-              storageManager.getAccounts(for: identity).count == 1,
-              let account = storageManager.getAccounts(for: identity).first,
-              account.identity?.state == .failed
-        else {
-            return .retryValidation(identities: failedIdentities)
-        }
-        
-        return .retryIdentityCreation(identity: identity)
+        return !failedIdentities.isEmpty
     }
     
     func hash(codeUri: String) -> String? {

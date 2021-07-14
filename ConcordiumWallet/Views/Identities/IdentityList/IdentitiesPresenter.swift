@@ -57,37 +57,23 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
     }
     
     private func checkForIdentityFailed() {
-        guard let identityFailureStatus = dependencyProvider.identityFailureManager().identityFailureStatus(identities: identities) else {
+        guard dependencyProvider.identityFailureManager().hasFailedIdentities(identities: identities) else {
             return
         }
         
-        switch identityFailureStatus {
-        case .retryIdentityCreation(let failedIdentity):
-            guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: failedIdentity.ipStatusUrl) else {
+        for identity in identities {
+            guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: identity.ipStatusUrl) else {
                 return
             }
             
-            self.view?.showIdentityFailed(reference: reference) {
-                self.cleanIdentitiesAndAccounts()
-                self.delegate?.noValidIdentitiesAvailable()
-            }
-        
-        case .retryValidation(let failedIdentities):
-            for identity in failedIdentities {
-                guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: identity.ipStatusUrl) else {
-                    return
+            // if there is an account associated with the identity, we delete the account and show the error
+            if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
+                dependencyProvider.storageManager().removeAccount(account: account)
+                self.view?.showIdentityFailed(reference: reference) {
+                    self.dependencyProvider.storageManager().removeIdentity(identity)
+                    self.delegate?.tryAgainIdentity()
                 }
-                
-                // if there is an account associated with the identity, we delete the account and show the error
-                if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
-                    dependencyProvider.storageManager().removeAccount(account: account)
-                    self.view?.showIdentityFailed(reference: reference) {
-                        self.dependencyProvider.storageManager().removeIdentity(identity)
-                        self.delegate?.tryAgainIdentity()
-                        
-                    }
-                    break // we break here because if there are more accounts that failed, we want to show that later on
-                }
+                break // we break here because if there are more accounts that failed, we want to show that later on
             }
         }
     }
