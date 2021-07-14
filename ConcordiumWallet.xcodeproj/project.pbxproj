@@ -33,14 +33,14 @@
 		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
-		07619A87269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
-		07619A88269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
-		07619A89269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
-		07619A8A269C88F6009B79E2 /* SupportMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A86269C88F6009B79E2 /* SupportMailViewController.swift */; };
 		07619A91269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A94269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
+		077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
+		077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
+		077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
+		077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -1378,8 +1378,8 @@
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
 		07619A7B269C63C4009B79E2 /* IdentityFailureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFailureManager.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
-		07619A86269C88F6009B79E2 /* SupportMailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailViewController.swift; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailProtocol.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1935,14 +1935,6 @@
 				06D178A023F6D54900ABC904 /* BaseTabBar.swift */,
 			);
 			path = TabBar;
-			sourceTree = "<group>";
-		};
-		07619A85269C88C3009B79E2 /* SupportMail */ = {
-			isa = PBXGroup;
-			children = (
-				07619A86269C88F6009B79E2 /* SupportMailViewController.swift */,
-			);
-			path = SupportMail;
 			sourceTree = "<group>";
 		};
 		173768182652A72300A48758 /* TermsAndConditionsView */ = {
@@ -2621,6 +2613,7 @@
 				7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */,
 				7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */,
 				7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */,
+				077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */,
 				C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */,
 				7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */,
 				6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */,
@@ -2659,7 +2652,6 @@
 				7FD8784D2406AE1D00509BDB /* Login */,
 				7F85B8E02472D37600ED09B8 /* MoreSection */,
 				7FF07AE623EAE0ED00F1FC04 /* RootView */,
-				07619A85269C88C3009B79E2 /* SupportMail */,
 				7FB4118123F2AFCD007FE732 /* Widgets */,
 				7FB4117C23F2AEFA007FE732 /* WidgetView */,
 			);
@@ -3529,6 +3521,7 @@
 				7F48C1A5244DCD0B00997684 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
+				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F48C1A8244DCD0B00997684 /* UITableView+scroll.swift in Sources */,
 				644BB67D25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				7F48C1A9244DCD0B00997684 /* UIColor+Additions.swift in Sources */,
@@ -3641,7 +3634,6 @@
 				5237187F25753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				19C2EF25D40012E140F9B773 /* GTU.swift in Sources */,
 				19C2E2157275F953BF8D33B0 /* AccountDetailsViewModel.swift in Sources */,
-				07619A87269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				C94ED71E2461B2030071A4FB /* TransactionDetailPresenter.swift in Sources */,
 				19C2E87C10444F6659AB3E8C /* AccountTransactionsLoadingCellView.swift in Sources */,
 				19C2E0C630D5ECCCC0B72DAF /* AccountDetailsPresenter.swift in Sources */,
@@ -3867,7 +3859,6 @@
 				7F85B773246A9A7C00ED09B8 /* AccountConfirmedViewController.swift in Sources */,
 				7F85B774246A9A7C00ED09B8 /* AccountDetailsViewController.swift in Sources */,
 				7F168A0E24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
-				07619A89269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				7F85B775246A9A7C00ED09B8 /* CreateTransferRequest.swift in Sources */,
 				5236EA4325134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F85B778246A9A7C00ED09B8 /* TransactionDetailPresenter.swift in Sources */,
@@ -3913,6 +3904,7 @@
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
+				077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B7A0246A9A7C00ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
 				7F85B7A1246A9A7C00ED09B8 /* ToastLabel.swift in Sources */,
 				642ED93525E8F12300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
@@ -4173,7 +4165,6 @@
 				7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */,
 				7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				7F168A0F24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
-				07619A8A269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				7F85B871246A9AB600ED09B8 /* IDRequest.swift in Sources */,
 				5236EA4425134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F85B872246A9AB600ED09B8 /* AccountConfirmedViewController.swift in Sources */,
@@ -4219,6 +4210,7 @@
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
+				077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B89D246A9AB600ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
 				7F85B89E246A9AB600ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				642ED93725E8F12400A09BB3 /* TransferFiltersPresenter.swift in Sources */,
@@ -4392,7 +4384,6 @@
 				C968B9EF2448C37C00E31BD8 /* TransactionSubmittedPresenter.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
 				642A293625FB967A0073BF8C /* AccountKeys.swift in Sources */,
-				07619A88269C88F6009B79E2 /* SupportMailViewController.swift in Sources */,
 				7F21398224236C0A00D2A5C4 /* Global.swift in Sources */,
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				C939821D240F8D7000C72FE2 /* RoundedCornerView.swift in Sources */,
@@ -4593,6 +4584,7 @@
 				19C2E6DE1910B724444819F5 /* RecipientEntity.swift in Sources */,
 				7FB64A0C247D568500DC500E /* ExportViewController.swift in Sources */,
 				19C2EC21D98697C47A31F7F4 /* AccountEntity.swift in Sources */,
+				077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				19C2E4A1182C18A689D74D4B /* TransferEntity.swift in Sources */,
 				19C2E5598B371270B4639B4F /* DataStoreProtocol.swift in Sources */,
 				19C2E85AC21620CFD6D4941E /* EncryptionMetadata.swift in Sources */,

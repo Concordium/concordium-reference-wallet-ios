@@ -18,7 +18,7 @@ class AccountsFactory {
     }
 }
 
-class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast {
+class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail {
 
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
@@ -209,15 +209,18 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         
         ac.addAction(continueAction)
         
-        if SupportMailViewController.canSendMail() {
+        if canSendMail {
             let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
-                let supportMailViewController = SupportMailViewController(
-                    recipients: [AppConstants.Support.supportMail],
+                guard let self = self else { return }
+                
+                self.launchSupport(
+                    presenter: self,
+                    delegate: self,
+                    recipient: AppConstants.Support.supportMail,
                     subject: String(format: "supportmail.subject".localized, reference),
                     body: String(format: "supportmail.body".localized, reference)
                 )
-                supportMailViewController.mailComposeDelegate = self
-                self?.present(supportMailViewController, animated: true)
+                
             }
             ac.message = "identityfailed.message".localized
             ac.addAction(supportAction)

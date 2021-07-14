@@ -29,7 +29,7 @@ protocol IdentitiesViewProtocol: ShowError {
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
 }
 
-class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast {
+class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, SupportMail {
 
     var presenter: IdentitiesPresenterProtocol
     private weak var updateTimer: Timer?
@@ -144,15 +144,16 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
         
         ac.addAction(continueAction)
         
-        if SupportMailViewController.canSendMail() {
+        if canSendMail {
             let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
-                let supportMailViewController = SupportMailViewController(
-                    recipients: [AppConstants.Support.supportMail],
+                guard let self = self else { return }
+                self.launchSupport(
+                    presenter: self,
+                    delegate: self,
+                    recipient: AppConstants.Support.supportMail,
                     subject: String(format: "supportmail.subject".localized, reference),
                     body: String(format: "supportmail.body".localized, reference)
                 )
-                supportMailViewController.mailComposeDelegate = self
-                self?.present(supportMailViewController, animated: true)
             }
             ac.message = "identityfailed.message".localized
             ac.addAction(supportAction)
