@@ -224,13 +224,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     private func checkForIdentityFailed() {
         let identities = dependencyProvider.storageManager().getIdentities()
-
-        guard dependencyProvider.identityFailureManager().hasFailedIdentities(identities: identities) else {
-            return
-        }
+        let failedIdentities = identities.filter { $0.state == .failed }
         
-        for identity in identities {
-            guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: identity.ipStatusUrl) else {
+        for identity in failedIdentities {
+            guard let reference = IdentityFailureHelper.hash(codeUri: identity.ipStatusUrl) else {
                 return
             }
             

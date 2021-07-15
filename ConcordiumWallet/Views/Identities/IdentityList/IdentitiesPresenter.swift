@@ -57,12 +57,10 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
     }
     
     private func checkForIdentityFailed() {
-        guard dependencyProvider.identityFailureManager().hasFailedIdentities(identities: identities) else {
-            return
-        }
-        
-        for identity in identities {
-            guard let reference = dependencyProvider.identityFailureManager().hash(codeUri: identity.ipStatusUrl) else {
+        let failedIdentities = identities.filter { $0.state == .failed }
+
+        for identity in failedIdentities {
+            guard let reference = IdentityFailureHelper.hash(codeUri: identity.ipStatusUrl) else {
                 return
             }
             

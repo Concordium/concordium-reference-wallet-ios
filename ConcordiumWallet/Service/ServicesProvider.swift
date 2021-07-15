@@ -14,12 +14,10 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
-    func identityFailureManager() -> IdentityFailureManagerProtocol
 }
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
     func identitiesService() -> IdentitiesService
-    func identityFailureManager() -> IdentityFailureManagerProtocol
 }
 
 protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -36,26 +34,19 @@ protocol ImportDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
-protocol IdentityFailureManagerProvider {
-    func identityFailureManager() -> IdentityFailureManagerProtocol
-}
-
 class ServicesProvider {
     private let _mobileWallet: MobileWalletProtocol
     private let _networkManager: NetworkManagerProtocol
     private let _storageManager: StorageManagerProtocol
-    private let _identityFailureManager: IdentityFailureManagerProtocol
     private let _keychainWrapper: KeychainWrapper
 
     init(mobileWallet: MobileWalletProtocol,
          networkManager: NetworkManagerProtocol,
          storageManager: StorageManagerProtocol,
-         identityFailureManager: IdentityFailureManager,
          keychainWrapper: KeychainWrapper) {
         self._mobileWallet = mobileWallet
         self._networkManager = networkManager
         self._storageManager = storageManager
-        self._identityFailureManager = identityFailureManager
         self._keychainWrapper = keychainWrapper
     }
 }
@@ -101,11 +92,5 @@ extension ServicesProvider: MoreFlowCoordinatorDependencyProvider {
 extension ServicesProvider: ImportDependencyProvider {
     func importService() -> ImportService {
         ImportService(storageManager: _storageManager, accountsService: accountsService(), mobileWallet: mobileWallet())
-    }
-}
-
-extension ServicesProvider: IdentityFailureManagerProvider {
-    func identityFailureManager() -> IdentityFailureManagerProtocol {
-        IdentityFailureManager(storageManager: _storageManager)
     }
 }
