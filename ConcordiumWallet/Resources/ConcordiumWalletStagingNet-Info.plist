@@ -65,8 +65,6 @@
 	<string>Used to scan QR code and to take a picture for your identity</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable FaceID for more convenient login</string>
-	<key>Notabene Support Mail</key>
-	<string>concordium-idss@notabene.id</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -117,5 +115,7 @@
 		<string>ymail</string>
 		<string>readdle-spark</string>
 	</array>
+	<key>Notabene Support Mail</key>
+	<string>concordium-idiss@notabene.id</string>
 </dict>
 </plist>

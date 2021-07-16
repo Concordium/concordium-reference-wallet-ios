@@ -123,8 +123,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>Notabene Support Mail</key>
-	<string>concordium-idss@notabene.id</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlegmail</string>
@@ -132,5 +130,7 @@
 		<string>ymail</string>
 		<string>readdle-spark</string>
 	</array>
+	<key>Notabene Support Mail</key>
+	<string>concordium-idiss@notabene.id</string>
 </dict>
 </plist>
