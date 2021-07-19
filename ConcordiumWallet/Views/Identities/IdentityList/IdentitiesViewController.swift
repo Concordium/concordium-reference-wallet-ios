@@ -138,7 +138,7 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
     
     func showIdentityFailed(reference: String, completion: @escaping () -> Void) {
         let ac = UIAlertController(title: "identityfailed.title".localized, message: nil, preferredStyle: .alert)
-        let continueAction = UIAlertAction(title: "Ok".localized, style: .default) { _ in
+        let continueAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { _ in
             completion()
         }
         
