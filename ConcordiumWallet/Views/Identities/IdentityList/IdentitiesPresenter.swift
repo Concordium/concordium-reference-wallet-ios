@@ -68,7 +68,6 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
                 self.view?.showIdentityFailed(reference: reference) {
-                    self.dependencyProvider.storageManager().removeIdentity(identity)
                     self.delegate?.tryAgainIdentity()
                 }
                 break // we break here because if there are more accounts that failed, we want to show that later on
