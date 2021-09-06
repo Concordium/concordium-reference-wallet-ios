@@ -166,6 +166,9 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
             ac.addAction(copyAction)
         }
         
+        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
+        ac.addAction(cancelAction)
+        
         present(ac, animated: true)
     }
 }

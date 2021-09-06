@@ -232,6 +232,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             ac.message = "identityfailed.nomail.message".localized
             ac.addAction(copyAction)
         }
+                
+        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
+        ac.addAction(cancelAction)
         
         present(ac, animated: true)
     }
