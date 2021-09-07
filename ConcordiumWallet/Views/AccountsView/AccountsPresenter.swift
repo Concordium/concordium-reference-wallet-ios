@@ -234,8 +234,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
             // if there is an account associated with the identity, we delete the account and show the error
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
-                self.view?.showIdentityFailed(reference: reference) {
-                    self.delegate?.tryAgainIdentity()
+                refresh()
+                view?.showIdentityFailed(reference: reference) { [weak self] in
+                    self?.delegate?.tryAgainIdentity()
                 }
                 break // we break here because if there are more accounts that failed, we want to show that later on
             }
