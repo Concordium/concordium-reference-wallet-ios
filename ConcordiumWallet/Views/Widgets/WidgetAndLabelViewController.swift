@@ -8,14 +8,16 @@
 
 import UIKit
 
-class WidgetAndLabelViewController: BaseViewController, Storyboarded {
+class WidgetAndLabelViewController: BaseViewController, SupportMail, Storyboarded {
 
     @IBOutlet weak var topWidgetView: UIView!
-    @IBOutlet weak var bottomWidgetView: UIView!
+    @IBOutlet weak var primaryBottomWidgetView: UIView!
+    @IBOutlet weak var secondaryBottomWidgetView: UIView!
     @IBOutlet weak var middleLabel: UILabel!
     
     var topWidget: UIViewController?
-    var bottomWidget: UIViewController?
+    var primaryBottomWidget: UIViewController?
+    var secondaryBottmWidget: UIViewController?
     var middleLabelString: String?
     var middleLabelErrorString: String?
 
@@ -25,9 +27,15 @@ class WidgetAndLabelViewController: BaseViewController, Storyboarded {
         if let topWidget = topWidget {
             add(child: topWidget, inside: topWidgetView)
         }
-        if let bottomWidget = bottomWidget {
-            add(child: bottomWidget, inside: bottomWidgetView)
+        
+        if let primaryBottomWidget = primaryBottomWidget {
+            add(child: primaryBottomWidget, inside: primaryBottomWidgetView)
         }
+        
+        if let secondaryBottmWidget = secondaryBottmWidget {
+            add(child: secondaryBottmWidget, inside: secondaryBottomWidgetView)
+        }
+        
         if let middleLabelErrorString = middleLabelErrorString {
             middleLabel.text = middleLabelErrorString
             middleLabel.textColor = .errorText

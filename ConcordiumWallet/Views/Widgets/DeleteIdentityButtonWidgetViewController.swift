@@ -15,7 +15,7 @@ protocol DeleteIdentityButtonWidgetViewProtocol: AnyObject {
 
 class DeleteIdentityButtonWidgetFactory {
     class func create(with presenter: DeleteIdentityButtonWidgetPresenter) -> DeleteIdentityButtonWidgetViewController {
-        DeleteIdentityButtonWidgetViewController.instantiate(fromStoryboard: "Widget") {coder in
+        DeleteIdentityButtonWidgetViewController.instantiate(fromStoryboard: "Widget") { coder in
             return DeleteIdentityButtonWidgetViewController(coder: coder, presenter: presenter)
         }
     }
