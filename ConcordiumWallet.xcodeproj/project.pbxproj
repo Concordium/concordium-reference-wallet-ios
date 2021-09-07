@@ -37,6 +37,14 @@
 		07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
 		07619A94269D83D9009B79E2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A90269D83D9009B79E2 /* AppConstants.swift */; };
+		077AC5EA26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */; };
+		077AC5EB26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */; };
+		077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */; };
+		077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */; };
+		077AC5EF26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
+		077AC5F026E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
+		077AC5F126E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
+		077AC5F226E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
 		077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
@@ -1379,6 +1387,8 @@
 		07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFailureHelper.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetPresenter.swift; sourceTree = "<group>"; };
+		077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetViewController.swift; sourceTree = "<group>"; };
 		077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailProtocol.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2472,19 +2482,21 @@
 		7FB4118123F2AFCD007FE732 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				7FB4118223F2B031007FE732 /* IdentityBaseInfoWidgetPresenter.swift */,
-				7FB4118323F2B031007FE732 /* IdentityBaseInfoWidgetViewController.swift */,
-				7FB12A9223F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift */,
-				7FB12A9323F2D2E700B49DFA /* IdentityRevokersWidgetViewController.swift */,
-				C9874EC62417931E006EF386 /* IdentityDataWidgetPresenter.swift */,
-				C9874EC72417931E006EF386 /* IdentityDataWidgetViewController.swift */,
-				C9DB8A1D2423C328008551B8 /* IdentityDataSelectionWidgetPresenter.swift */,
-				C9DB8A1C2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift */,
+				077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */,
+				077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */,
 				C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */,
 				C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */,
-				7F7F6D2824A0986D0017B18F /* SingleLabelViewController.swift */,
 				7F7F6D2D24A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift */,
 				7F7F6D2E24A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift */,
+				7FB4118223F2B031007FE732 /* IdentityBaseInfoWidgetPresenter.swift */,
+				7FB4118323F2B031007FE732 /* IdentityBaseInfoWidgetViewController.swift */,
+				C9DB8A1D2423C328008551B8 /* IdentityDataSelectionWidgetPresenter.swift */,
+				C9DB8A1C2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift */,
+				C9874EC62417931E006EF386 /* IdentityDataWidgetPresenter.swift */,
+				C9874EC72417931E006EF386 /* IdentityDataWidgetViewController.swift */,
+				7FB12A9223F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift */,
+				7FB12A9323F2D2E700B49DFA /* IdentityRevokersWidgetViewController.swift */,
+				7F7F6D2824A0986D0017B18F /* SingleLabelViewController.swift */,
 				7F7F6D3824A13A8D0017B18F /* WidgetAndLabelViewController.swift */,
 			);
 			path = Widgets;
@@ -3468,6 +3480,7 @@
 				5248E7D7257A60F600E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				7F48C170244DCD0B00997684 /* EnterPasswordViewController.swift in Sources */,
 				7F48C277244E17D100997684 /* Policy.swift in Sources */,
+				077AC5EF26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				5236EA4125134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F48C173244DCD0B00997684 /* BiometricsEnablingViewController.swift in Sources */,
 				5211BAAC24FD2C1400EE1658 /* TransferType.swift in Sources */,
@@ -3659,6 +3672,7 @@
 				19C2EC33180F59E8660A215D /* ExportRecipient.swift in Sources */,
 				19C2E0E206CBB8B15F4E17B4 /* IdentityAttributeEntity.swift in Sources */,
 				19C2E3EE42E10C79DBD4D997 /* IdentityEntity.swift in Sources */,
+				077AC5EA26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				19C2E94132B8C8B8853EB589 /* IdentityProviderEntity.swift in Sources */,
 				19C2ED92172857EAA39F101A /* RecipientEntity.swift in Sources */,
 				19C2E2CADC6C1C6CFCBBBA67 /* AccountEntity.swift in Sources */,
@@ -3901,6 +3915,7 @@
 				7F85B79D246A9A7C00ED09B8 /* GeneralError.swift in Sources */,
 				7F85B79E246A9A7C00ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
 				7F5F77862487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
+				077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
@@ -3910,6 +3925,7 @@
 				642ED93525E8F12300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D3F24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
 				7F85B7A2246A9A7C00ED09B8 /* Logger.swift in Sources */,
+				077AC5F126E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				7F85B7A3246A9A7C00ED09B8 /* SendFundPresenter.swift in Sources */,
 				64FD33912601FBC400563703 /* Credential.swift in Sources */,
 				7F85B7A4246A9A7C00ED09B8 /* SendFundViewController.swift in Sources */,
@@ -4207,6 +4223,7 @@
 				7F85B89A246A9AB600ED09B8 /* RequestPasswordPresenter.swift in Sources */,
 				7F85B89B246A9AB600ED09B8 /* RequestPasswordDelegate.swift in Sources */,
 				7F5F77872487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
+				077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
@@ -4216,6 +4233,7 @@
 				642ED93725E8F12400A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D4024A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
 				7F85B89F246A9AB600ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
+				077AC5F226E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				7F85B8A0246A9AB600ED09B8 /* ToastLabel.swift in Sources */,
 				64FD33922601FBC400563703 /* Credential.swift in Sources */,
 				7F85B8A1246A9AB600ED09B8 /* Logger.swift in Sources */,
@@ -4345,6 +4363,7 @@
 				C9BFC836242A2FA00063AEE9 /* LoadProtocol.swift in Sources */,
 				068DC81023F2E46E001B2975 /* BaseButton.swift in Sources */,
 				068DC80E23F2E464001B2975 /* BaseLabel.swift in Sources */,
+				077AC5F026E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				52A6A77F24F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				7F21398D24236C0A00D2A5C4 /* ArDatum.swift in Sources */,
 				07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */,
@@ -4390,6 +4409,7 @@
 				7FF07B0723EC0ED300F1FC04 /* AccountsPresenter.swift in Sources */,
 				528EB75A256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
 				52D0CF212518C4680074D3C4 /* EncryptedDetails.swift in Sources */,
+				077AC5EB26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				06AA2AA023F688C60001F964 /* CreateIdentityCoordinator.swift in Sources */,
 				529531AE256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
 				642ED97825F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,

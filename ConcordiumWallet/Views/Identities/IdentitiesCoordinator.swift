@@ -56,8 +56,19 @@ class IdentitiesCoordinator: Coordinator {
             let vc = WidgetAndLabelViewController.instantiate(fromStoryboard: "Widget")
             vc.middleLabelErrorString = identity.identityCreationError
             vc.topWidget = identityBaseInfoWidgetViewController
-            let presenter = DeleteIdentityButtonWidgetPresenter(identity: identity, dependencyProvider: dependencyProvider, delegate: self)
-            vc.bottomWidget = DeleteIdentityButtonWidgetFactory.create(with: presenter)
+            
+            let deleteIdentityButtonWidgetPresenter = DeleteIdentityButtonWidgetPresenter(
+                identity: identity,
+                dependencyProvider: dependencyProvider,
+                delegate: self
+            )
+            vc.primaryBottomWidget = DeleteIdentityButtonWidgetFactory.create(with: deleteIdentityButtonWidgetPresenter)
+            
+            if vc.canSendMail {
+                let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
+                vc.secondaryBottmWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
+            }
+            
             topVc = vc
         }
         topVc.title = "identityData.title".localized
@@ -107,4 +118,8 @@ extension IdentitiesCoordinator: DeleteIdentityButtonWidgetPresenterDelegate {
     func deleteIdentityButtonWidgetDidDelete() {
         navigationController.popViewController(animated: true)
     }
+}
+
+extension IdentitiesCoordinator: ContactSupportButtonWidgetPresenterDelegate {
+    func contactSupportButtonWidgetDidContactSupport() {}
 }

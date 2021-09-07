@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,16 +47,26 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                             <constraint firstAttribute="height" constant="60" id="SBp-Ho-Ef9"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLe-1u-vja" userLabel="Secondary Bottom Widget View">
+                                        <rect key="frame" x="0.0" y="432" width="414" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Efe-Ru-45G"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GLe-1u-vja" secondAttribute="trailing" id="2po-nK-qID"/>
                                     <constraint firstAttribute="trailing" secondItem="NiL-8j-zCN" secondAttribute="trailing" constant="20" id="CPu-1f-Uy4"/>
                                     <constraint firstItem="NiL-8j-zCN" firstAttribute="centerX" secondItem="GVy-ah-kzn" secondAttribute="centerX" id="EdC-Sy-G3l"/>
                                     <constraint firstItem="NiL-8j-zCN" firstAttribute="centerY" secondItem="GVy-ah-kzn" secondAttribute="centerY" multiplier="0.8" priority="999" id="I6T-G0-CFn"/>
                                     <constraint firstAttribute="bottom" secondItem="GK3-MT-5uw" secondAttribute="bottom" id="R6N-g7-N8B"/>
                                     <constraint firstItem="GK3-MT-5uw" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" id="YJW-IM-KN1"/>
+                                    <constraint firstItem="GK3-MT-5uw" firstAttribute="top" secondItem="GLe-1u-vja" secondAttribute="bottom" constant="11" id="aLp-Tm-jts"/>
                                     <constraint firstItem="NiL-8j-zCN" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" constant="20" id="ejU-TT-dyV"/>
                                     <constraint firstAttribute="trailing" secondItem="GK3-MT-5uw" secondAttribute="trailing" id="snT-EP-2yW"/>
+                                    <constraint firstItem="GLe-1u-vja" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" id="vLt-rK-Myg"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -73,8 +83,9 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomWidgetView" destination="GK3-MT-5uw" id="fYe-93-uan"/>
                         <outlet property="middleLabel" destination="NiL-8j-zCN" id="92B-tb-x1X"/>
+                        <outlet property="primaryBottomWidgetView" destination="GK3-MT-5uw" id="fYe-93-uan"/>
+                        <outlet property="secondaryBottomWidgetView" destination="GLe-1u-vja" id="Dcv-XO-R2C"/>
                         <outlet property="topWidgetView" destination="T7j-UB-FOn" id="NUe-aA-L9b"/>
                     </connections>
                 </viewController>
@@ -201,7 +212,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataHeaderCellView" id="Pwi-Cy-0Cm">
-                                                <rect key="frame" x="0.0" y="28" width="382" height="56"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="382" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pwi-Cy-0Cm" id="WYp-gT-j4c">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
@@ -231,7 +242,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataRowCellView" textLabel="bJv-7A-CMk" detailTextLabel="FMR-dy-VWa" style="IBUITableViewCellStyleValue1" id="EEO-ZE-DPg" customClass="IdentityDataRowCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="84" width="382" height="56"/>
+                                                <rect key="frame" x="0.0" y="80.5" width="382" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EEO-ZE-DPg" id="FlW-Wn-s71">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
@@ -320,7 +331,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataSelectionCell" id="eT4-1R-bG5" customClass="IdentityDataSelectionCell" customModule="Concordium_ID" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="382" height="56"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="382" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eT4-1R-bG5" id="NRX-Su-uIY">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
@@ -495,13 +506,61 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
             </objects>
             <point key="canvasLocation" x="1830" y="729"/>
         </scene>
+        <!--Contact Support Button Widget View Controller-->
+        <scene sceneID="hkA-eg-S7D">
+            <objects>
+                <viewController storyboardIdentifier="ContactSupportButtonWidgetViewController" id="hjQ-lu-wBR" customClass="ContactSupportButtonWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mGm-KK-SVa"/>
+                        <viewControllerLayoutGuide type="bottom" id="JDv-23-x4v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="glo-db-no4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cr-v2-sR6" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                                <rect key="frame" x="16" y="0.0" width="382" height="50"/>
+                                <color key="backgroundColor" name="primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5e6-cD-1Kx"/>
+                                </constraints>
+                                <state key="normal" title="[Contact Support]">
+                                    <color key="titleColor" name="buttonText"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="identityfailed.contactsupport"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="contactSupportButtonTapped:" destination="hjQ-lu-wBR" eventType="touchUpInside" id="UaD-8k-4N5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5cr-v2-sR6" firstAttribute="centerX" secondItem="glo-db-no4" secondAttribute="centerX" id="3Sn-Lp-Ogu"/>
+                            <constraint firstItem="5cr-v2-sR6" firstAttribute="leading" secondItem="glo-db-no4" secondAttribute="leading" constant="16" id="mnH-jc-HY8"/>
+                            <constraint firstItem="JDv-23-x4v" firstAttribute="top" secondItem="5cr-v2-sR6" secondAttribute="bottom" constant="10" id="ooG-1r-82k"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="60"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZWg-Ca-y72" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1523" y="855"/>
+        </scene>
     </scenes>
     <designables>
+        <designable name="5cr-v2-sR6">
+            <size key="intrinsicContentSize" width="125" height="30"/>
+        </designable>
         <designable name="RUb-Yw-hRG">
-            <size key="intrinsicContentSize" width="261" height="30"/>
+            <size key="intrinsicContentSize" width="126" height="30"/>
         </designable>
         <designable name="nHW-0W-Thx">
-            <size key="intrinsicContentSize" width="197" height="30"/>
+            <size key="intrinsicContentSize" width="116" height="30"/>
         </designable>
     </designables>
     <resources>
