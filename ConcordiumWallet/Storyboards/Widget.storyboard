@@ -41,17 +41,17 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                         <string key="userLabel">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non arcu ut felis vestibulum vulputate. Proin facilisis, erat vitae dictum porta, diam massa facilisis neque, dignissim vestibulum ipsum tortor quis est.   Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharetra orci mauris sit amet leo. In vestibulum, dui a facilisis porttitor, mauris orci gravida metus, a gravida orci orci at sapien. Etiam faucibus massa non venenatis elementum. Ut consectetur metus turpis, ac consequat augue lacinia eu.</string>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GK3-MT-5uw">
-                                        <rect key="frame" x="0.0" y="503" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="501" width="414" height="50"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="SBp-Ho-Ef9"/>
+                                            <constraint firstAttribute="height" constant="50" id="SBp-Ho-Ef9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLe-1u-vja" userLabel="Secondary Bottom Widget View">
-                                        <rect key="frame" x="0.0" y="432" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="440" width="414" height="50"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="Efe-Ru-45G"/>
+                                            <constraint firstAttribute="height" constant="50" id="Efe-Ru-45G"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -61,7 +61,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                     <constraint firstAttribute="trailing" secondItem="NiL-8j-zCN" secondAttribute="trailing" constant="20" id="CPu-1f-Uy4"/>
                                     <constraint firstItem="NiL-8j-zCN" firstAttribute="centerX" secondItem="GVy-ah-kzn" secondAttribute="centerX" id="EdC-Sy-G3l"/>
                                     <constraint firstItem="NiL-8j-zCN" firstAttribute="centerY" secondItem="GVy-ah-kzn" secondAttribute="centerY" multiplier="0.8" priority="999" id="I6T-G0-CFn"/>
-                                    <constraint firstAttribute="bottom" secondItem="GK3-MT-5uw" secondAttribute="bottom" id="R6N-g7-N8B"/>
+                                    <constraint firstAttribute="bottom" secondItem="GK3-MT-5uw" secondAttribute="bottom" constant="12" id="R6N-g7-N8B"/>
                                     <constraint firstItem="GK3-MT-5uw" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" id="YJW-IM-KN1"/>
                                     <constraint firstItem="GK3-MT-5uw" firstAttribute="top" secondItem="GLe-1u-vja" secondAttribute="bottom" constant="11" id="aLp-Tm-jts"/>
                                     <constraint firstItem="NiL-8j-zCN" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" constant="20" id="ejU-TT-dyV"/>
@@ -425,7 +425,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         <viewControllerLayoutGuide type="bottom" id="wBO-Dg-aZX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xdR-2T-t1f">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHW-0W-Thx" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
@@ -447,15 +447,16 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="nHW-0W-Thx" firstAttribute="leading" secondItem="xdR-2T-t1f" secondAttribute="leading" constant="16" id="DaW-Ge-Aim"/>
-                            <constraint firstItem="wBO-Dg-aZX" firstAttribute="top" secondItem="nHW-0W-Thx" secondAttribute="bottom" constant="10" id="aAM-d9-kpi"/>
-                            <constraint firstItem="nHW-0W-Thx" firstAttribute="centerX" secondItem="xdR-2T-t1f" secondAttribute="centerX" id="cBz-kv-sYy"/>
+                            <constraint firstItem="wBO-Dg-aZX" firstAttribute="top" secondItem="nHW-0W-Thx" secondAttribute="bottom" id="UqP-AJ-yTs"/>
+                            <constraint firstItem="nHW-0W-Thx" firstAttribute="leading" secondItem="xdR-2T-t1f" secondAttribute="leading" constant="16" id="VhB-Dp-elN"/>
+                            <constraint firstAttribute="trailing" secondItem="nHW-0W-Thx" secondAttribute="trailing" constant="16" id="dZx-FZ-wMs"/>
+                            <constraint firstItem="nHW-0W-Thx" firstAttribute="top" secondItem="xdR-2T-t1f" secondAttribute="top" id="jTV-2y-Dw9"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="60"/>
+                    <size key="freeformSize" width="414" height="50"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zll-ls-KM3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -470,7 +471,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         <viewControllerLayoutGuide type="bottom" id="tfa-iH-dBX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F9v-XY-rNr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUb-Yw-hRG" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
@@ -492,15 +493,16 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tfa-iH-dBX" firstAttribute="top" secondItem="RUb-Yw-hRG" secondAttribute="bottom" constant="10" id="F68-U5-FUp"/>
-                            <constraint firstItem="RUb-Yw-hRG" firstAttribute="leading" secondItem="F9v-XY-rNr" secondAttribute="leading" constant="16" id="M5h-vj-N5R"/>
-                            <constraint firstItem="RUb-Yw-hRG" firstAttribute="centerX" secondItem="F9v-XY-rNr" secondAttribute="centerX" id="ww6-Al-vG9"/>
+                            <constraint firstAttribute="trailing" secondItem="RUb-Yw-hRG" secondAttribute="trailing" constant="16" id="3n8-DB-WS0"/>
+                            <constraint firstItem="RUb-Yw-hRG" firstAttribute="leading" secondItem="F9v-XY-rNr" secondAttribute="leading" constant="16" id="7hA-NY-7TW"/>
+                            <constraint firstItem="tfa-iH-dBX" firstAttribute="top" secondItem="RUb-Yw-hRG" secondAttribute="bottom" id="QDC-f0-F0D"/>
+                            <constraint firstItem="RUb-Yw-hRG" firstAttribute="top" secondItem="F9v-XY-rNr" secondAttribute="top" id="uah-bR-9yj"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="60"/>
+                    <size key="freeformSize" width="414" height="50"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6T0-Mc-cGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -515,7 +517,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         <viewControllerLayoutGuide type="bottom" id="JDv-23-x4v"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="glo-db-no4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cr-v2-sR6" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
@@ -537,15 +539,16 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5cr-v2-sR6" firstAttribute="centerX" secondItem="glo-db-no4" secondAttribute="centerX" id="3Sn-Lp-Ogu"/>
-                            <constraint firstItem="5cr-v2-sR6" firstAttribute="leading" secondItem="glo-db-no4" secondAttribute="leading" constant="16" id="mnH-jc-HY8"/>
-                            <constraint firstItem="JDv-23-x4v" firstAttribute="top" secondItem="5cr-v2-sR6" secondAttribute="bottom" constant="10" id="ooG-1r-82k"/>
+                            <constraint firstItem="JDv-23-x4v" firstAttribute="top" secondItem="5cr-v2-sR6" secondAttribute="bottom" id="5Jw-dj-AY4"/>
+                            <constraint firstItem="5cr-v2-sR6" firstAttribute="top" secondItem="glo-db-no4" secondAttribute="top" id="YEh-Qm-fzh"/>
+                            <constraint firstAttribute="trailing" secondItem="5cr-v2-sR6" secondAttribute="trailing" constant="16" id="xWK-uW-WEj"/>
+                            <constraint firstItem="5cr-v2-sR6" firstAttribute="leading" secondItem="glo-db-no4" secondAttribute="leading" constant="16" id="ykS-Ln-8O3"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="60"/>
+                    <size key="freeformSize" width="414" height="50"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZWg-Ca-y72" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
