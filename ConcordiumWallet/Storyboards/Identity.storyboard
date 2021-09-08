@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -58,8 +58,8 @@ Note: More Identity Issuers are coming soon!</string>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityProviderCell" rowHeight="95" id="xWx-nU-e5g" customClass="IdentityProviderCell" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="269" width="375" height="95"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityProviderCell" id="xWx-nU-e5g" customClass="IdentityProviderCell" customModule="Concordium_ID" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="265.5" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xWx-nU-e5g" id="rt4-4t-TUY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
@@ -118,9 +118,9 @@ Note: More Identity Issuers are coming soon!</string>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="AlR-HJ-VFD" firstAttribute="top" secondItem="rt4-4t-TUY" secondAttribute="top" constant="16" id="3m4-Dv-dya"/>
+                                                <constraint firstAttribute="trailing" secondItem="AlR-HJ-VFD" secondAttribute="trailing" constant="30" id="Dca-Jy-9hx"/>
                                                 <constraint firstItem="AlR-HJ-VFD" firstAttribute="leading" secondItem="rt4-4t-TUY" secondAttribute="leading" constant="30" id="cDb-q9-Tjj"/>
-                                                <constraint firstItem="AlR-HJ-VFD" firstAttribute="centerX" secondItem="rt4-4t-TUY" secondAttribute="centerX" id="fu7-Qf-9yX"/>
-                                                <constraint firstItem="AlR-HJ-VFD" firstAttribute="centerY" secondItem="rt4-4t-TUY" secondAttribute="centerY" id="ysR-io-n7g"/>
+                                                <constraint firstAttribute="bottom" secondItem="AlR-HJ-VFD" secondAttribute="bottom" constant="16" id="oa1-Y3-kZF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -422,8 +422,8 @@ You can start using your identity object once validation of your id has been com
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="221"/>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" rowHeight="221" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Concordium_ID" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="221"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z5F-8M-xsD" id="FHV-qe-9m3">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
@@ -436,9 +436,9 @@ You can start using your identity object once validation of your id has been com
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="XDA-GU-4dR" firstAttribute="centerY" secondItem="FHV-qe-9m3" secondAttribute="centerY" id="1cH-jZ-wvY"/>
                                                 <constraint firstItem="XDA-GU-4dR" firstAttribute="top" secondItem="FHV-qe-9m3" secondAttribute="top" constant="8" id="5Yu-ZP-1bn"/>
-                                                <constraint firstItem="XDA-GU-4dR" firstAttribute="centerX" secondItem="FHV-qe-9m3" secondAttribute="centerX" id="Nd8-FC-HZ4"/>
+                                                <constraint firstAttribute="trailing" secondItem="XDA-GU-4dR" secondAttribute="trailing" constant="16" id="7hU-A3-Zna"/>
+                                                <constraint firstAttribute="bottom" secondItem="XDA-GU-4dR" secondAttribute="bottom" constant="8" id="Ilj-1N-Yzu"/>
                                                 <constraint firstItem="XDA-GU-4dR" firstAttribute="leading" secondItem="FHV-qe-9m3" secondAttribute="leading" constant="16" id="Txv-Nt-uzT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -512,7 +512,7 @@ You can start using your identity object once validation of your id has been com
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VM5-HC-bJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="771.01449275362324" y="626.9021739130435"/>
+            <point key="canvasLocation" x="770.39999999999998" y="626.53673163418296"/>
         </scene>
         <!--Transparent Navigation Controller-->
         <scene sceneID="SeQ-la-WZ1">

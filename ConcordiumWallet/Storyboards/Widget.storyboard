@@ -554,13 +554,13 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
     </scenes>
     <designables>
         <designable name="5cr-v2-sR6">
-            <size key="intrinsicContentSize" width="125" height="30"/>
+            <size key="intrinsicContentSize" width="199" height="30"/>
         </designable>
         <designable name="RUb-Yw-hRG">
-            <size key="intrinsicContentSize" width="126" height="30"/>
+            <size key="intrinsicContentSize" width="261" height="30"/>
         </designable>
         <designable name="nHW-0W-Thx">
-            <size key="intrinsicContentSize" width="116" height="30"/>
+            <size key="intrinsicContentSize" width="197" height="30"/>
         </designable>
     </designables>
     <resources>
