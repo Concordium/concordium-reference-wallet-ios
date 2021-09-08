@@ -17,7 +17,7 @@ class WidgetAndLabelViewController: BaseViewController, SupportMail, Storyboarde
     
     var topWidget: UIViewController?
     var primaryBottomWidget: UIViewController?
-    var secondaryBottmWidget: UIViewController?
+    var secondaryBottomWidget: UIViewController?
     var middleLabelString: String?
     var middleLabelErrorString: String?
 
@@ -32,8 +32,8 @@ class WidgetAndLabelViewController: BaseViewController, SupportMail, Storyboarde
             add(child: primaryBottomWidget, inside: primaryBottomWidgetView)
         }
         
-        if let secondaryBottmWidget = secondaryBottmWidget {
-            add(child: secondaryBottmWidget, inside: secondaryBottomWidgetView)
+        if let secondaryBottomWidget = secondaryBottomWidget {
+            add(child: secondaryBottomWidget, inside: secondaryBottomWidgetView)
         }
         
         if let middleLabelErrorString = middleLabelErrorString {

@@ -66,7 +66,7 @@ class IdentitiesCoordinator: Coordinator {
             
             if vc.canSendMail {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
-                vc.secondaryBottmWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
+                vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
             }
             
             topVc = vc
