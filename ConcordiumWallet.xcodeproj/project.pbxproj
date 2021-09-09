@@ -25,10 +25,10 @@
 		06AEE69123F4064A00D14834 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69023F4064A00D14834 /* BaseView.swift */; };
 		06AEE69323F4065800D14834 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69223F4065800D14834 /* WidgetView.swift */; };
 		06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
-		07619A7C269C63C4009B79E2 /* IdentityFailureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */; };
-		07619A7D269C6973009B79E2 /* IdentityFailureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */; };
-		07619A7E269C6973009B79E2 /* IdentityFailureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */; };
-		07619A7F269C6974009B79E2 /* IdentityFailureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */; };
+		07619A7C269C63C4009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
+		07619A7D269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
+		07619A7E269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
+		07619A7F269C6974009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
 		07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
@@ -1400,7 +1400,7 @@
 		06AEE69023F4064A00D14834 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		06AEE69223F4065800D14834 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
-		07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFailureHelper.swift; sourceTree = "<group>"; };
+		07619A7B269C63C4009B79E2 /* HashingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingHelper.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetPresenter.swift; sourceTree = "<group>"; };
@@ -2638,7 +2638,7 @@
 			children = (
 				077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */,
 				07619A80269C810B009B79E2 /* Digest+Additions.swift */,
-				07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */,
+				07619A7B269C63C4009B79E2 /* HashingHelper.swift */,
 				C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */,
 				19C2E837B763654DFA84CC26 /* Logger.swift */,
 				079F30FC26EA0F9600ED96D3 /* MailHelper.swift */,
@@ -3710,7 +3710,7 @@
 				52D0CF202518C4680074D3C4 /* EncryptedDetails.swift in Sources */,
 				52A6A77424F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				19C2E22993CD8A4B1B3F3CF2 /* EncryptionMetadata.swift in Sources */,
-				07619A7C269C63C4009B79E2 /* IdentityFailureHelper.swift in Sources */,
+				07619A7C269C63C4009B79E2 /* HashingHelper.swift in Sources */,
 				642ED98125F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
 				19C2E6F6503A4A0ED31EFB07 /* ExportContainer.swift in Sources */,
 				19C2E7D2050B9833655301C2 /* CreateExportPasswordPresenter.swift in Sources */,
@@ -4019,7 +4019,7 @@
 				19C2E408CD5B059FB7FA8268 /* MockedData.swift in Sources */,
 				19C2E48CCDA5C4711F3C2436 /* EncryptionMetadata.swift in Sources */,
 				52589B2825128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
-				07619A7E269C6973009B79E2 /* IdentityFailureHelper.swift in Sources */,
+				07619A7E269C6973009B79E2 /* HashingHelper.swift in Sources */,
 				5211BAAE24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
 				19C2EBBA614AB2996127C30C /* CreateExportPasswordPresenter.swift in Sources */,
@@ -4331,7 +4331,7 @@
 				19C2E699AF90FE8324DD1693 /* TransferEntity.swift in Sources */,
 				19C2E31A01A86DD6F42D0845 /* DataStoreProtocol.swift in Sources */,
 				52589B2925128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
-				07619A7D269C6973009B79E2 /* IdentityFailureHelper.swift in Sources */,
+				07619A7D269C6973009B79E2 /* HashingHelper.swift in Sources */,
 				5211BAAF24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
 				19C2EAAD7644A803CCE64786 /* EncryptionMetadata.swift in Sources */,
@@ -4415,7 +4415,7 @@
 				C968B9F02448C37C00E31BD8 /* TransactionSubmittedViewController.swift in Sources */,
 				C93D092C242762440022250B /* CreationFailedViewController.swift in Sources */,
 				7FD8785B2406AF7C00509BDB /* EnterPasswordViewController.swift in Sources */,
-				07619A7F269C6974009B79E2 /* IdentityFailureHelper.swift in Sources */,
+				07619A7F269C6974009B79E2 /* HashingHelper.swift in Sources */,
 				7F9C86FE243B2D8F00CAD83F /* BiometricsEnablingViewController.swift in Sources */,
 				7FEC203623F1D435009BD4C9 /* IdentityProviderListPresenter.swift in Sources */,
 				529531B7256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,

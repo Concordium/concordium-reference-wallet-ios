@@ -97,7 +97,7 @@ final class IdentityEntity: Object {
 }
 
 extension IdentityEntity: IdentityDataType {
-    var hashedIpStatusUrl: String? { IdentityFailureHelper.hash(codeUri: ipStatusUrl) }
+    var hashedIpStatusUrl: String? { HashingHelper.hash(codeUri: ipStatusUrl) }
     
     var identityProvider: IdentityProviderDataType? {
         get { identityProviderEntity }

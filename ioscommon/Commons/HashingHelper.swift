@@ -1,5 +1,5 @@
 //
-//  IdentityFailureHelper.swift
+//  HashingHelper.swift
 //  Mock
 //
 //  Created by Kristiyan Dobrev on 12/07/2021.
@@ -9,7 +9,7 @@
 import Foundation
 import CryptoKit
 
-struct IdentityFailureHelper {
+struct HashingHelper {
     static func hash(codeUri: String) -> String? {
         guard let data = codeUri.data(using: .utf8) else { return nil }
         let digest = SHA256.hash(data: data)
