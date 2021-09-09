@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WidgetAndLabelViewController: BaseViewController, SupportMail, Storyboarded {
+class WidgetAndLabelViewController: BaseViewController, Storyboarded {
 
     @IBOutlet weak var topWidgetView: UIView!
     @IBOutlet weak var primaryBottomWidgetView: UIView!

@@ -61,6 +61,10 @@
 		077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
+		079F30FD26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
+		079F30FE26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
+		079F30FF26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
+		079F310026EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -1405,6 +1409,7 @@
 		077AC5F826E8DD550016BF26 /* CopyReferenceWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyReferenceWidgetViewController.swift; sourceTree = "<group>"; };
 		077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPasteHelper.swift; sourceTree = "<group>"; };
 		077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailProtocol.swift; sourceTree = "<group>"; };
+		079F30FC26EA0F9600ED96D3 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2636,6 +2641,7 @@
 				07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */,
 				C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */,
 				19C2E837B763654DFA84CC26 /* Logger.swift */,
+				079F30FC26EA0F9600ED96D3 /* MailHelper.swift */,
 				19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */,
 				19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */,
 				C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */,
@@ -3709,6 +3715,7 @@
 				19C2E6F6503A4A0ED31EFB07 /* ExportContainer.swift in Sources */,
 				19C2E7D2050B9833655301C2 /* CreateExportPasswordPresenter.swift in Sources */,
 				19C2E7A533F6848B74AC9847 /* ExportPresenter.swift in Sources */,
+				079F30FD26EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				19C2EC22A19C3BFED64FE5CE /* ExportService.swift in Sources */,
 				7F5F77812487D19B0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
 				19C2E7A25029B71F11DB0144 /* CreateExportPasswordCoordinator.swift in Sources */,
@@ -3734,6 +3741,7 @@
 				642ED98325F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
 				7F85B6D5246A9A7C00ED09B8 /* WidgetViewController.swift in Sources */,
 				7F85B6D6246A9A7C00ED09B8 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
+				079F30FF26EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				7F85B6D7246A9A7C00ED09B8 /* IdentityBaseInfoWidgetPresenter.swift in Sources */,
 				7FCA3996250BFB39004567C4 /* ImportReceiptPresenter.swift in Sources */,
 				7F85B6D8246A9A7C00ED09B8 /* BaseTabBar.swift in Sources */,
@@ -4045,6 +4053,7 @@
 				642ED98425F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
 				7F85B7D4246A9AB600ED09B8 /* WidgetViewController.swift in Sources */,
 				7F85B7D5246A9AB600ED09B8 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
+				079F310026EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				7F85B7D6246A9AB600ED09B8 /* IdentityBaseInfoWidgetPresenter.swift in Sources */,
 				7FCA3997250BFB39004567C4 /* ImportReceiptPresenter.swift in Sources */,
 				7F85B7D7246A9AB600ED09B8 /* BaseTabBar.swift in Sources */,
@@ -4523,6 +4532,7 @@
 				7F85B8F02472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
 				C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				19C2E636FADEA7EA4563E778 /* IDRequest.swift in Sources */,
+				079F30FE26EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				C93D092824275C5A0022250B /* AccountConfirmedViewController.swift in Sources */,
 				1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,

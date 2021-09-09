@@ -76,7 +76,7 @@ class IdentitiesCoordinator: Coordinator {
                 vc.centerWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
             }
             
-            if vc.canSendMail {
+            if MailHelper.canSendMail {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
                 vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
             }

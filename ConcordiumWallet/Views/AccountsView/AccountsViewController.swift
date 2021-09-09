@@ -209,7 +209,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         
         ac.addAction(continueAction)
         
-        if canSendMail {
+        if MailHelper.canSendMail {
             let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
                 guard let self = self else { return }
                 
