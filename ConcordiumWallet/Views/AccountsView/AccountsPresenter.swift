@@ -227,7 +227,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
         let failedIdentities = identities.filter { $0.state == .failed }
         
         for identity in failedIdentities {
-            guard let reference = IdentityFailureHelper.hash(codeUri: identity.ipStatusUrl) else {
+            guard let reference = identity.hashedIpStatusUrl else {
                 return
             }
             

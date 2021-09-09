@@ -338,6 +338,9 @@ process on-chain.";
 "identityDetails.identityStatus.failed" = "Failed to create";
 "identityDetails.deleteFailedButton.text" = "Remove from list";
 "identityCreation.dataCorrupted" = "An unknown error occurred creating identity. Please try again";
+"identityCreation.issuanceReference.text" = "Issuance reference:\n %@";
+"identityCreation.automaticAccountRemoval.text" = "The related initial account has been automatically removed.";
+
 "privacypolicy" = "Privacy Policy";
 
 "revealattributes.title" = "Reveal Identity Data?";

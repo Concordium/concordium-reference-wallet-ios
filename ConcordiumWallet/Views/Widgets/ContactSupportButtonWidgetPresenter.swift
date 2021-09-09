@@ -37,7 +37,7 @@ class ContactSupportButtonWidgetPresenter: ContactSupportButtonWidgetPresenterPr
     func viewDidLoad() {}
     
     func contactSupportButtonTapped() {
-        guard let reference = IdentityFailureHelper.hash(codeUri: identity.ipStatusUrl) else { return }
+        guard let reference = identity.hashedIpStatusUrl else { return }
         view?.launchSupport(with: reference)
         delegate?.contactSupportButtonWidgetDidContactSupport()
     }

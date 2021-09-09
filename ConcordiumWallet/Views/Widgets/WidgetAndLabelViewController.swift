@@ -13,13 +13,20 @@ class WidgetAndLabelViewController: BaseViewController, SupportMail, Storyboarde
     @IBOutlet weak var topWidgetView: UIView!
     @IBOutlet weak var primaryBottomWidgetView: UIView!
     @IBOutlet weak var secondaryBottomWidgetView: UIView!
-    @IBOutlet weak var middleLabel: UILabel!
+
+    @IBOutlet weak var centerWidgetView: UIView!
+    @IBOutlet weak var primaryLabel: UILabel!
+    @IBOutlet weak var tertiaryLabel: UILabel!
     
     var topWidget: UIViewController?
     var primaryBottomWidget: UIViewController?
     var secondaryBottomWidget: UIViewController?
-    var middleLabelString: String?
-    var middleLabelErrorString: String?
+    var centerWidget: UIViewController?
+    var primaryLabelString: String?
+    var primaryLabelErrorString: String?
+    var secondaryLabelString: String?
+    var secondaryLabelButtonAction: (() -> Void)?
+    var tertiaryLabelString: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +43,17 @@ class WidgetAndLabelViewController: BaseViewController, SupportMail, Storyboarde
             add(child: secondaryBottomWidget, inside: secondaryBottomWidgetView)
         }
         
-        if let middleLabelErrorString = middleLabelErrorString {
-            middleLabel.text = middleLabelErrorString
-            middleLabel.textColor = .errorText
+        if let primaryLabelErrorString = primaryLabelErrorString {
+            primaryLabel.text = primaryLabelErrorString
+            primaryLabel.textColor = .errorText
         } else {
-            middleLabel.text = middleLabelString
+            primaryLabel.text = primaryLabelString
+        }
+        
+        tertiaryLabel.text = tertiaryLabelString
+        
+        if let centerWidget = centerWidget {
+            add(child: centerWidget, inside: centerWidgetView)
         }
     }
 }

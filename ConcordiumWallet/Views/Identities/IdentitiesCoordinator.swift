@@ -49,12 +49,12 @@ class IdentitiesCoordinator: Coordinator {
             topVc = vc
         } else if identity.state == IdentityState.pending {
             let vc = WidgetAndLabelViewController.instantiate(fromStoryboard: "Widget")
-            vc.middleLabelString = "identityPage.pendingExplanation".localized
+            vc.primaryLabelString = "identityPage.pendingExplanation".localized
             vc.topWidget = identityBaseInfoWidgetViewController
             topVc = vc
         } else {
             let vc = WidgetAndLabelViewController.instantiate(fromStoryboard: "Widget")
-            vc.middleLabelErrorString = identity.identityCreationError
+            vc.primaryLabelErrorString = identity.identityCreationError
             vc.topWidget = identityBaseInfoWidgetViewController
             
             let deleteIdentityButtonWidgetPresenter = DeleteIdentityButtonWidgetPresenter(
@@ -62,7 +62,19 @@ class IdentitiesCoordinator: Coordinator {
                 dependencyProvider: dependencyProvider,
                 delegate: self
             )
+            
             vc.primaryBottomWidget = DeleteIdentityButtonWidgetFactory.create(with: deleteIdentityButtonWidgetPresenter)
+            
+            if let reference = identity.hashedIpStatusUrl {
+                vc.tertiaryLabelString = "identityCreation.automaticAccountRemoval.text".localized
+                
+                let copyReferenceWidgetPresenter = CopyReferenceWidgetPresenter(
+                    delegate: self,
+                    copyableReference: reference
+                )
+                
+                vc.centerWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
+            }
             
             if vc.canSendMail {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
@@ -122,4 +134,8 @@ extension IdentitiesCoordinator: DeleteIdentityButtonWidgetPresenterDelegate {
 
 extension IdentitiesCoordinator: ContactSupportButtonWidgetPresenterDelegate {
     func contactSupportButtonWidgetDidContactSupport() {}
+}
+
+extension IdentitiesCoordinator: CopyReferenceWidgetPresenterDelegate {
+    func copyReferenceWidgetDidCopyReference() {}
 }

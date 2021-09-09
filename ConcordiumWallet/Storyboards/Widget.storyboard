@@ -30,11 +30,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVy-ah-kzn">
                                 <rect key="frame" x="0.0" y="299" width="414" height="563"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NiL-8j-zCN">
-                                        <rect key="frame" x="20" y="126.5" width="374" height="197"/>
-                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non arcu ut felis vestibulum vulputate. Proin facilisis, erat vitae dictum porta, diam massa facilisis neque, dignissim vestibulum ipsum tortor quis est. 
-
-Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharetra orci mauris sit amet leo. In vestibulum, dui a facilisis porttitor, mauris orci gravida metus, a gravida orci orci at sapien. Etiam faucibus massa non venenatis elementum. Ut consectetur metus turpis, ac consequat augue lacinia eu.</string>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NiL-8j-zCN">
+                                        <rect key="frame" x="8" y="16" width="398" height="72"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non arcu ut felis vestibulum vulputate. Proin facilisis, erat vitae dictum porta, diam massa facilisis neque, dignissim vestibulum ipsum tortor quis est. </string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="fadedText"/>
                                         <nil key="highlightedColor"/>
@@ -42,29 +40,44 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GK3-MT-5uw">
                                         <rect key="frame" x="0.0" y="501" width="414" height="50"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="SBp-Ho-Ef9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLe-1u-vja" userLabel="Secondary Bottom Widget View">
                                         <rect key="frame" x="0.0" y="440" width="414" height="50"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Efe-Ru-45G"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The related initial account Account One has been automatically removed. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06x-77-SJM">
+                                        <rect key="frame" x="8" y="366.5" width="398" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <containerView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" placeholderIntrinsicWidth="338" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="0MC-z0-MaV">
+                                        <rect key="frame" x="0.0" y="105" width="414" height="237"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </containerView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="06x-77-SJM" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" constant="8" id="1UE-Vr-BDt"/>
                                     <constraint firstAttribute="trailing" secondItem="GLe-1u-vja" secondAttribute="trailing" id="2po-nK-qID"/>
-                                    <constraint firstAttribute="trailing" secondItem="NiL-8j-zCN" secondAttribute="trailing" constant="20" id="CPu-1f-Uy4"/>
-                                    <constraint firstItem="NiL-8j-zCN" firstAttribute="centerX" secondItem="GVy-ah-kzn" secondAttribute="centerX" id="EdC-Sy-G3l"/>
-                                    <constraint firstItem="NiL-8j-zCN" firstAttribute="centerY" secondItem="GVy-ah-kzn" secondAttribute="centerY" multiplier="0.8" priority="999" id="I6T-G0-CFn"/>
+                                    <constraint firstItem="0MC-z0-MaV" firstAttribute="top" relation="lessThanOrEqual" secondItem="NiL-8j-zCN" secondAttribute="bottom" constant="17" id="6CR-3x-Te6"/>
+                                    <constraint firstAttribute="trailing" secondItem="06x-77-SJM" secondAttribute="trailing" constant="8" id="A5z-v4-KTQ"/>
+                                    <constraint firstItem="NiL-8j-zCN" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" constant="8" id="LZX-Df-Y8s"/>
+                                    <constraint firstItem="0MC-z0-MaV" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" id="O9q-bZ-VdM"/>
                                     <constraint firstAttribute="bottom" secondItem="GK3-MT-5uw" secondAttribute="bottom" constant="12" id="R6N-g7-N8B"/>
+                                    <constraint firstAttribute="trailing" secondItem="0MC-z0-MaV" secondAttribute="trailing" id="ThT-dW-I3T"/>
+                                    <constraint firstAttribute="trailing" secondItem="NiL-8j-zCN" secondAttribute="trailing" constant="8" id="VSF-re-hto"/>
                                     <constraint firstItem="GK3-MT-5uw" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" id="YJW-IM-KN1"/>
                                     <constraint firstItem="GK3-MT-5uw" firstAttribute="top" secondItem="GLe-1u-vja" secondAttribute="bottom" constant="11" id="aLp-Tm-jts"/>
-                                    <constraint firstItem="NiL-8j-zCN" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" constant="20" id="ejU-TT-dyV"/>
+                                    <constraint firstItem="06x-77-SJM" firstAttribute="top" relation="lessThanOrEqual" secondItem="0MC-z0-MaV" secondAttribute="bottom" constant="24.5" id="hKC-h3-XTS"/>
+                                    <constraint firstItem="GLe-1u-vja" firstAttribute="top" secondItem="06x-77-SJM" secondAttribute="bottom" constant="40" id="mYf-rN-nNy"/>
                                     <constraint firstAttribute="trailing" secondItem="GK3-MT-5uw" secondAttribute="trailing" id="snT-EP-2yW"/>
                                     <constraint firstItem="GLe-1u-vja" firstAttribute="leading" secondItem="GVy-ah-kzn" secondAttribute="leading" id="vLt-rK-Myg"/>
                                 </constraints>
@@ -76,16 +89,18 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                             <constraint firstItem="GVy-ah-kzn" firstAttribute="leading" secondItem="met-zL-Q78" secondAttribute="leading" id="CW0-8l-tXK"/>
                             <constraint firstItem="T7j-UB-FOn" firstAttribute="leading" secondItem="met-zL-Q78" secondAttribute="leading" id="E4X-UN-dKO"/>
                             <constraint firstAttribute="trailing" secondItem="T7j-UB-FOn" secondAttribute="trailing" id="a9s-b5-Ki9"/>
-                            <constraint firstItem="NiL-8j-zCN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="T7j-UB-FOn" secondAttribute="bottom" constant="10" id="itR-dl-2Jt"/>
+                            <constraint firstItem="NiL-8j-zCN" firstAttribute="top" secondItem="T7j-UB-FOn" secondAttribute="bottom" constant="16" id="gnC-wi-rY8"/>
                             <constraint firstAttribute="trailing" secondItem="GVy-ah-kzn" secondAttribute="trailing" id="nya-lm-7Ib"/>
                             <constraint firstItem="GVy-ah-kzn" firstAttribute="top" secondItem="T7j-UB-FOn" secondAttribute="bottom" id="vS4-bw-pR1"/>
                             <constraint firstItem="vEF-tf-wUA" firstAttribute="top" secondItem="GVy-ah-kzn" secondAttribute="bottom" id="vWv-cN-6u3"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="middleLabel" destination="NiL-8j-zCN" id="92B-tb-x1X"/>
+                        <outlet property="centerWidgetView" destination="0MC-z0-MaV" id="swt-rN-Aap"/>
                         <outlet property="primaryBottomWidgetView" destination="GK3-MT-5uw" id="fYe-93-uan"/>
+                        <outlet property="primaryLabel" destination="NiL-8j-zCN" id="92B-tb-x1X"/>
                         <outlet property="secondaryBottomWidgetView" destination="GLe-1u-vja" id="Dcv-XO-R2C"/>
+                        <outlet property="tertiaryLabel" destination="06x-77-SJM" id="VaU-Zt-DKR"/>
                         <outlet property="topWidgetView" destination="T7j-UB-FOn" id="NUe-aA-L9b"/>
                     </connections>
                 </viewController>
@@ -552,7 +567,59 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZWg-Ca-y72" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1523" y="855"/>
+            <point key="canvasLocation" x="1829" y="833"/>
+        </scene>
+        <!--Copy Reference Widget View Controller-->
+        <scene sceneID="bud-as-a4I">
+            <objects>
+                <viewController storyboardIdentifier="CopyReferenceWidgetViewController" id="Xe8-oD-6WL" customClass="CopyReferenceWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1LK-b6-0tM"/>
+                        <viewControllerLayoutGuide type="bottom" id="hwd-Nc-V73"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yfI-hO-0Q0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mW-F3-HTv" userLabel="Issuance reference:  1f049d1a36d5774dc3f5d4e7425265d3ce6ee678ce1e7a56de55eebd60b4ff97">
+                                <rect key="frame" x="60" y="0.0" width="294" height="75"/>
+                                <string key="text">Issuance reference:
+
+1f049d1a36d5774dc3f5d4e7425265d3ce6ee678ce1e7a56de55eebd60b4ff97 </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" name="text"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkR-Oh-2aW">
+                                <rect key="frame" x="367" y="36.5" width="14" height="22"/>
+                                <state key="normal" image="Icon_Copy"/>
+                                <connections>
+                                    <action selector="copyReferenceTapped:" destination="Xe8-oD-6WL" eventType="touchUpInside" id="qwq-q6-gJ1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7mW-F3-HTv" firstAttribute="leading" secondItem="yfI-hO-0Q0" secondAttribute="leading" constant="60" id="61R-e0-loy"/>
+                            <constraint firstAttribute="trailing" secondItem="lkR-Oh-2aW" secondAttribute="trailing" constant="33" id="AWM-dn-A4h"/>
+                            <constraint firstItem="hwd-Nc-V73" firstAttribute="top" secondItem="7mW-F3-HTv" secondAttribute="bottom" id="Jl6-Rs-5pR"/>
+                            <constraint firstAttribute="trailing" secondItem="7mW-F3-HTv" secondAttribute="trailing" constant="60" id="OdI-Ho-qhf"/>
+                            <constraint firstItem="lkR-Oh-2aW" firstAttribute="centerY" secondItem="yfI-hO-0Q0" secondAttribute="centerY" constant="10" id="Orq-M2-6H0"/>
+                            <constraint firstItem="lkR-Oh-2aW" firstAttribute="leading" secondItem="7mW-F3-HTv" secondAttribute="trailing" constant="13" id="QhZ-rD-bvs"/>
+                            <constraint firstItem="7mW-F3-HTv" firstAttribute="top" secondItem="yfI-hO-0Q0" secondAttribute="top" id="hf0-Ga-Guu"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="75"/>
+                    <connections>
+                        <outlet property="label" destination="7mW-F3-HTv" id="qf7-As-lNx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oI9-2c-H9j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1066.6666666666667" y="625.78125"/>
         </scene>
     </scenes>
     <designables>
@@ -567,6 +634,7 @@ Sed imperdiet, nibh non dapibus porttitor, arcu ante sollicitudin diam, a pharet
         </designable>
     </designables>
     <resources>
+        <image name="Icon_Copy" width="14" height="18"/>
         <image name="Identities_menu" width="53" height="53"/>
         <image name="checkmark" width="38" height="38"/>
         <namedColor name="buttonText">

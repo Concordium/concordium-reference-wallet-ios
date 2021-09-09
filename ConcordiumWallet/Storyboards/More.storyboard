@@ -452,10 +452,10 @@ concordium.com</string>
     </scenes>
     <designables>
         <designable name="0zv-VA-uW2">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="krx-rP-ALL">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="157" height="30"/>
         </designable>
     </designables>
     <resources>
