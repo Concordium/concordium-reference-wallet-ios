@@ -45,6 +45,10 @@
 		077AC5F026E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
 		077AC5F126E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
 		077AC5F226E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */; };
+		077AC5FE26E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */; };
+		077AC5FF26E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */; };
+		077AC60026E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */; };
+		077AC60126E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */; };
 		077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
@@ -1389,6 +1393,7 @@
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		077AC5EE26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetViewController.swift; sourceTree = "<group>"; };
+		077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPasteHelper.swift; sourceTree = "<group>"; };
 		077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailProtocol.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2614,6 +2619,7 @@
 		7FF07A8F23EADBB100F1FC04 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */,
 				07619A80269C810B009B79E2 /* Digest+Additions.swift */,
 				07619A7B269C63C4009B79E2 /* IdentityFailureHelper.swift */,
 				C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */,
@@ -3462,6 +3468,7 @@
 				7F48C160244DCD0B00997684 /* IdentityChoosePresenter.swift in Sources */,
 				7F48C161244DCD0B00997684 /* KeychainWrapper.swift in Sources */,
 				7F48C163244DCD0B00997684 /* UIButton+StoryboardLocalization.swift in Sources */,
+				077AC5FE26E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				7F48C25B244E17D100997684 /* AccNonce.swift in Sources */,
 				7F48C164244DCD0B00997684 /* LoadProtocol.swift in Sources */,
 				7F48C165244DCD0B00997684 /* BaseButton.swift in Sources */,
@@ -3793,6 +3800,7 @@
 				7F85B72B246A9A7C00ED09B8 /* TransparentNavigationController.swift in Sources */,
 				7F85B72D246A9A7C00ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				7F85B72E246A9A7C00ED09B8 /* IdentitiesPresenterProtocol.swift in Sources */,
+				077AC60026E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				7F85B730246A9A7C00ED09B8 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				7F85B731246A9A7C00ED09B8 /* CreateNicknameViewController.swift in Sources */,
 				7F85B732246A9A7C00ED09B8 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
@@ -4101,6 +4109,7 @@
 				7F85B829246A9AB600ED09B8 /* CreateIdentityCoordinator.swift in Sources */,
 				7F85B82A246A9AB600ED09B8 /* TransparentNavigationController.swift in Sources */,
 				7F85B82C246A9AB600ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
+				077AC60126E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				7F85B82D246A9AB600ED09B8 /* IdentitiesPresenterProtocol.swift in Sources */,
 				7F85B82F246A9AB600ED09B8 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				7F85B830246A9AB600ED09B8 /* CreateNicknameViewController.swift in Sources */,
@@ -4474,6 +4483,7 @@
 				5237188425753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
 				C9DE5077242CF7CC00DE0EF5 /* AccountCell.swift in Sources */,
 				19C2EEAF48595170DFD3A79B /* CredentialHolderInformation.swift in Sources */,
+				077AC5FF26E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				C9420BC624410AA700086B6C /* AttributeList.swift in Sources */,
 				C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */,
 				C9DB8A1E2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,

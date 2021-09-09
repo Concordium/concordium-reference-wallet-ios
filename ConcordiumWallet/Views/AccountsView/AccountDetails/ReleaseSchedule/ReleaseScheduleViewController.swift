@@ -98,7 +98,7 @@ extension ReleaseScheduleViewController: UITableViewDelegate {
         let viewModel = dataSource?.itemIdentifier(for: indexPath)
         let fullHash = viewModel?.getTransactionHashFullHash() ?? ""
        
-        UIPasteboard.general.string = fullHash
+        CopyPasterHelper.copy(string: fullHash)
         tableView.deselectRow(at: indexPath, animated: true)
         self.showToast(withMessage: "general.copied".localized + " " + fullHash)
        

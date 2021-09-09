@@ -41,6 +41,6 @@ extension AccountAddressQRCoordinator: AccountAddressQRPresenterDelegate {
     }
 
     func copyButtonTapped() {
-        UIPasteboard.general.string = account.address
+        CopyPasterHelper.copy(string: account.address)
     }
 }
