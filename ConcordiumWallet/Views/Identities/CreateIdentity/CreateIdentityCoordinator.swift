@@ -104,6 +104,25 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         }
         createdIdentity = nil
     }
+    
+    private func cleanupUnfinishedIdentiesAndAccounts() {
+        cleanupUnfinishedIdenties()
+        cleanupUnfinishedAccounts()
+    }
+    
+    private func cleanupUnfinishedAccounts() {
+        let unfinishedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.address == "" || $0.transactionStatus == .committed}
+        for account in unfinishedAccounts {
+            dependencyProvider.storageManager().removeAccount(account: account)
+        }
+    }
+    
+    private func cleanupUnfinishedIdenties() {
+        let unfinishedIdentities = dependencyProvider.storageManager().getIdentities().filter { $0.ipStatusUrl.isEmpty }
+        for identity in unfinishedIdentities {
+            dependencyProvider.storageManager().removeIdentity(identity)
+        }
+    }
 
     func showInitialAccountInfo() {
         let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .newAccount)
@@ -187,18 +206,11 @@ extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
             showIdentityList(withIdentityName: nickname)
         }
     }
-    
-    private func cleanupUnfinishedAccounts() {
-        let unfinishedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.address == ""}
-        for account in unfinishedAccounts {
-            dependencyProvider.storageManager().removeAccount(account: account)
-        }
-    }
 }
 
 extension CreateIdentityCoordinator: IdentitiyProviderListPresenterDelegate {
     func closeIdentityProviderList() {
-        cleanupUnfinishedAccounts()
+        cleanupUnfinishedIdentiesAndAccounts()
         parentCoordinator?.createNewIdentityCancelled()
     }
 
@@ -254,7 +266,8 @@ extension CreateIdentityCoordinator: IdentityProviderWebViewPresenterDelegate {
 
 extension CreateIdentityCoordinator: InitialAccountInfoPresenterDelegate {
     func userTappedClose() {
-        self.navigationController.dismiss(animated: true)
+        cleanupUnfinishedIdentiesAndAccounts()
+        navigationController.dismiss(animated: true)
     }
     
     func userTappedOK(withType type: InitialAccountInfoType) {
