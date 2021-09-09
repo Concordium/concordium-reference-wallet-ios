@@ -10,8 +10,8 @@ import Foundation
 import CryptoKit
 
 struct HashingHelper {
-    static func hash(codeUri: String) -> String? {
-        guard let data = codeUri.data(using: .utf8) else { return nil }
+    static func hash(_ text: String) -> String? {
+        guard let data = text.data(using: .utf8) else { return nil }
         let digest = SHA256.hash(data: data)
         return digest.hexString
     }
