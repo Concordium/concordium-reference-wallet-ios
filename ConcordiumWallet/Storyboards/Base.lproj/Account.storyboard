@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -26,8 +26,20 @@
                                         <rect key="frame" x="0.0" y="24.333333969116211" width="396" height="222"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
-                                            <rect key="frame" x="0.0" y="0.0" width="396" height="222"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="396" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dM-s4-9xp" customClass="AccountCardView" customModule="Concordium_ID" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="396" height="44"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="3dM-s4-9xp" secondAttribute="bottom" id="CNO-TM-Aez"/>
+                                                <constraint firstItem="3dM-s4-9xp" firstAttribute="top" secondItem="JBE-wn-cGI" secondAttribute="top" id="N21-YB-1pf"/>
+                                                <constraint firstAttribute="trailing" secondItem="3dM-s4-9xp" secondAttribute="trailing" id="naS-0W-2i9"/>
+                                                <constraint firstItem="3dM-s4-9xp" firstAttribute="leading" secondItem="JBE-wn-cGI" secondAttribute="leading" id="ysL-a9-a33"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="accountCardView" destination="3dM-s4-9xp" id="HXI-px-6mg"/>
@@ -136,9 +148,7 @@
                                     <constraint firstItem="h1g-EM-AMh" firstAttribute="leading" secondItem="dpM-z7-M2L" secondAttribute="leading" id="HaT-h2-lfK"/>
                                     <constraint firstItem="VR5-FX-C3E" firstAttribute="centerY" secondItem="JnC-Qt-6oN" secondAttribute="centerY" id="I4r-xC-GEA"/>
                                     <constraint firstItem="x3H-1I-ttF" firstAttribute="top" secondItem="yAb-PT-jJM" secondAttribute="top" constant="4.6666666666666572" id="NvO-d3-BC5"/>
-                                    <constraint firstItem="JnC-Qt-6oN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dpM-z7-M2L" secondAttribute="trailing" constant="8" symbolic="YES" id="QMV-x9-tgA"/>
                                     <constraint firstAttribute="trailing" secondItem="VR5-FX-C3E" secondAttribute="trailing" constant="30" id="RLw-3s-2c6"/>
-                                    <constraint firstItem="dZv-ix-hxG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h1g-EM-AMh" secondAttribute="trailing" constant="8" symbolic="YES" id="UAe-ne-cPY"/>
                                     <constraint firstItem="dZv-ix-hxG" firstAttribute="centerY" secondItem="h1g-EM-AMh" secondAttribute="centerY" id="VxG-RX-584"/>
                                     <constraint firstItem="Hp6-kc-kGj" firstAttribute="top" secondItem="85l-hs-ZgH" secondAttribute="top" constant="89.333333333333343" id="Ym4-GQ-JQF"/>
                                     <constraint firstItem="yAb-PT-jJM" firstAttribute="centerX" secondItem="85l-hs-ZgH" secondAttribute="centerX" id="e34-Fe-Klk"/>
@@ -193,15 +203,12 @@
                         <constraints>
                             <constraint firstItem="wee-Hm-w2j" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="1tg-1n-B1v"/>
                             <constraint firstItem="85l-hs-ZgH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="3Ry-EP-HU4"/>
-                            <constraint firstItem="3dM-s4-9xp" firstAttribute="top" secondItem="85l-hs-ZgH" secondAttribute="bottom" constant="25" id="3bm-SP-god"/>
                             <constraint firstItem="SUa-VU-DyZ" firstAttribute="centerX" secondItem="85l-hs-ZgH" secondAttribute="centerX" id="4AR-8O-z5s"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="85l-hs-ZgH" secondAttribute="trailing" constant="16" id="7aa-VD-aqm"/>
                             <constraint firstItem="a9t-uc-NoB" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.069" id="8eQ-z0-X0x"/>
                             <constraint firstItem="wee-Hm-w2j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="9KU-qn-kkp"/>
-                            <constraint firstItem="3dM-s4-9xp" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Jrg-j3-HdK"/>
                             <constraint firstItem="2IA-xe-HZ9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="PMy-ti-iMl"/>
                             <constraint firstItem="wee-Hm-w2j" firstAttribute="top" secondItem="85l-hs-ZgH" secondAttribute="bottom" id="PVF-6V-w9h"/>
-                            <constraint firstItem="2IA-xe-HZ9" firstAttribute="top" secondItem="3dM-s4-9xp" secondAttribute="bottom" constant="12" id="Pww-U9-c4B"/>
                             <constraint firstItem="2IA-xe-HZ9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.3" constant="35" id="WwS-Ra-7AJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wee-Hm-w2j" secondAttribute="bottom" id="ebF-Of-utE"/>
                             <constraint firstItem="SUa-VU-DyZ" firstAttribute="top" secondItem="85l-hs-ZgH" secondAttribute="bottom" constant="65" id="gwW-Ot-ViR"/>
@@ -210,7 +217,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="a9t-uc-NoB" secondAttribute="bottom" constant="30" id="ouk-4n-c9K"/>
                             <constraint firstItem="85l-hs-ZgH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="xTN-Du-w2s"/>
                             <constraint firstItem="2IA-xe-HZ9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xYj-Ub-XG8"/>
-                            <constraint firstItem="3dM-s4-9xp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="yas-lD-usp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Accounts" id="XQL-nz-7Mj"/>
@@ -230,7 +236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="192.05607476635512" y="-69.97840172786178"/>
+            <point key="canvasLocation" x="192.80000000000001" y="-69.458128078817737"/>
         </scene>
         <!--Create Nickname View Controller-->
         <scene sceneID="mYQ-wd-BbR">
@@ -857,21 +863,21 @@ process on-chain]</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
                                                 <rect key="frame" x="0.0" y="53" width="396" height="290.33333333333331"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
                                                         <rect key="frame" x="0.0" y="0.0" width="396" height="290.33333333333331"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="290.33333333333331"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
+                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="309.66666666666669"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
-                                                                        <rect key="frame" x="174" y="0.0" width="48" height="25.666666666666668"/>
+                                                                        <rect key="frame" x="175.66666666666666" y="0.0" width="45" height="45"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="2Nh-Of-O1G" secondAttribute="height" multiplier="15:8" id="7i2-Bb-8nJ"/>
                                                                             <constraint firstAttribute="width" constant="48" id="lI8-IQ-74T"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZ2-ol-U99" userLabel="ErrorMessageContainerView">
-                                                                        <rect key="frame" x="26.666666666666657" y="45.666666666666686" width="342.66666666666674" height="50"/>
+                                                                        <rect key="frame" x="26.666666666666657" y="65" width="342.66666666666674" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="[Account creation failed in the process of creation]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oq-fm-ahS">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="50"/>
@@ -891,11 +897,11 @@ process on-chain]</string>
                                                                             <constraint firstAttribute="trailing" secondItem="6oq-fm-ahS" secondAttribute="trailing" id="ZJb-Am-Pvn"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
-                                                                        <rect key="frame" x="7" y="115.66666666666667" width="382" height="174.66666666666663"/>
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
+                                                                        <rect key="frame" x="7" y="135.00000000000006" width="382" height="174.66666666666669"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
-                                                                                <rect key="frame" x="110" y="10.000000000000002" width="162" height="20.666666666666671"/>
+                                                                                <rect key="frame" x="110" y="9.9999999999999982" width="162" height="20.333333333333329"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="primary"/>
                                                                                 <nil key="highlightedColor"/>
@@ -904,7 +910,7 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GH5-FJ-6Qg">
-                                                                                <rect key="frame" x="20" y="40.666666666666629" width="342" height="54"/>
+                                                                                <rect key="frame" x="20" y="40.333333333333258" width="342" height="54"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -913,7 +919,7 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgW-9v-gsl" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
-                                                                                <rect key="frame" x="20" y="104.66666666666663" width="342" height="50"/>
+                                                                                <rect key="frame" x="20" y="104.33333333333326" width="342" height="50"/>
                                                                                 <color key="backgroundColor" name="primary"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="50" id="xf6-RF-pOm"/>
@@ -1074,7 +1080,7 @@ process on-chain]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountDetailsIdentityDataCellView" rowHeight="80" id="DID-Eo-wIz" customClass="AccountDetailsIdentityDataCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DID-Eo-wIz" id="7UI-eK-aRK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -1154,7 +1160,7 @@ process on-chain]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsDataCellView" rowHeight="80" id="Euu-RL-We6" customClass="AccountTransactionsDataCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="388" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="388" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Euu-RL-We6" id="GQu-kl-Qie">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="80"/>
@@ -1261,8 +1267,8 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.33333396911621" width="388" height="74"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Concordium_ID" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="108" width="388" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="74"/>
@@ -1303,7 +1309,7 @@ process on-chain]</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionDetailErrorCellView" id="Ubq-PL-GzE" customClass="TransactionDetailErrorCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="178.33333396911621" width="388" height="73.666664123535156"/>
+                                        <rect key="frame" x="0.0" y="182" width="388" height="73.666664123535156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ubq-PL-GzE" id="zFh-UA-huo">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="73.666664123535156"/>
@@ -1696,7 +1702,7 @@ process on-chain]</string>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReleaseScheduleCell" rowHeight="20" id="zNm-iU-GhF" customClass="ReleaseScheduleCell" customModule="Concordium_ID" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="81.333333969116211" width="388" height="20"/>
+                                                <rect key="frame" x="0.0" y="85" width="388" height="20"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zNm-iU-GhF" id="fD9-pg-VbV">
                                                     <rect key="frame" x="0.0" y="0.0" width="388" height="20"/>
@@ -1862,7 +1868,7 @@ process on-chain]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsDataCellView" rowHeight="80" id="I17-H0-RK7" customClass="AccountTransactionsDataCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I17-H0-RK7" id="ADe-Rq-wft">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -1971,7 +1977,7 @@ process on-chain]</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsLoadingCell" id="blH-YO-rgR" customClass="AccountTransactionsLoadingCellView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.33333396911621" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="108" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="blH-YO-rgR" id="HgZ-h5-S5J">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -2112,31 +2118,28 @@ process on-chain]</string>
     </scenes>
     <designables>
         <designable name="89o-5w-snD">
-            <size key="intrinsicContentSize" width="175" height="30"/>
+            <size key="intrinsicContentSize" width="43" height="30"/>
         </designable>
         <designable name="ORm-Zf-XcW">
-            <size key="intrinsicContentSize" width="30" height="30"/>
+            <size key="intrinsicContentSize" width="31" height="30"/>
         </designable>
         <designable name="QhU-KP-8h3">
-            <size key="intrinsicContentSize" width="282" height="30"/>
+            <size key="intrinsicContentSize" width="167" height="30"/>
         </designable>
         <designable name="SWM-ta-B92">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="ZgW-9v-gsl">
-            <size key="intrinsicContentSize" width="287" height="30"/>
+            <size key="intrinsicContentSize" width="121" height="30"/>
         </designable>
         <designable name="a9t-uc-NoB">
             <size key="intrinsicContentSize" width="152" height="30"/>
         </designable>
-        <designable name="aJK-2I-lDP">
-            <size key="intrinsicContentSize" width="-1" height="48"/>
-        </designable>
         <designable name="c2h-uj-ha8">
-            <size key="intrinsicContentSize" width="244" height="30"/>
+            <size key="intrinsicContentSize" width="205" height="30"/>
         </designable>
         <designable name="y8I-YT-27p">
-            <size key="intrinsicContentSize" width="215" height="30"/>
+            <size key="intrinsicContentSize" width="119" height="30"/>
         </designable>
     </designables>
     <resources>
