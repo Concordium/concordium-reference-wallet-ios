@@ -1606,7 +1606,7 @@
 		7F7F6D2D24A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdentityButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		7F7F6D2E24A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdentityButtonWidgetViewController.swift; sourceTree = "<group>"; };
 		7F7F6D3824A13A8D0017B18F /* WidgetAndLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAndLabelViewController.swift; sourceTree = "<group>"; };
-		7F85B7CD246A9A7C00ED09B8 /* Concordium ID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Concordium ID.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdMainNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F85B8E22472D37600ED09B8 /* MoreMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuPresenter.swift; sourceTree = "<group>"; };
 		7F85B8E32472D37600ED09B8 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
@@ -2534,7 +2534,7 @@
 				7FF07A6923EADB1200F1FC04 /* StagingNet.app */,
 				7FF07A7F23EADB1500F1FC04 /* ConcordiumWalletTests.xctest */,
 				7F48C211244DCD0B00997684 /* Mock.app */,
-				7F85B7CD246A9A7C00ED09B8 /* Concordium ID.app */,
+				7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */,
 				7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */,
 			);
 			name = Products;
@@ -2853,7 +2853,7 @@
 			);
 			name = ProdTestNet;
 			productName = ConcordiumWallet;
-			productReference = 7F85B7CD246A9A7C00ED09B8 /* Concordium ID.app */;
+			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7F85B7CF246A9AB600ED09B8 /* ProdMainNet */ = {
@@ -4712,7 +4712,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
-				PRODUCT_NAME = "Concordium ID";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -4744,7 +4744,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
-				PRODUCT_NAME = "Concordium ID";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
