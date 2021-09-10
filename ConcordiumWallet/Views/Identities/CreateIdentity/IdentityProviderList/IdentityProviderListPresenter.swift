@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class IdentityGeneralViewModel: Hashable {
     var id: Int
@@ -121,6 +122,11 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
     }
     
     func userSelected(identityProviderIndex: Int) {
+        guard CameraHelper.isCameraAccessAllowed() else {
+            view?.showRecoverableAlert(.cameraAccessDeniedError) { SettingsHelper.openAppSettings() }
+            return
+        }
+        
         guard let delegate = delegate else { fatalError("Missing delegate in class IdentityProviderListPresenter") }
         guard let ipInfoResponse = ipInfo?[identityProviderIndex] else {
             fatalError("""
