@@ -47,7 +47,7 @@ extension ViewError: LocalizedError {
         case .exportUnfinalizedAccounts(let unfinalizedAccountsNames):
             return "export.unfinalizedAccounts".localized + unfinalizedAccountsNames.joined(separator: ", ")
         case .cameraAccessDeniedError:
-            return "view.error.cameraAccessDenued".localized
+            return "view.error.cameraAccessDenied".localized
         }
     }
 }
