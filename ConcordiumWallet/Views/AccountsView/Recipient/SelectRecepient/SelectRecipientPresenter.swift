@@ -117,7 +117,7 @@ class SelectRecipientPresenter {
             // Filter out own account.
             self.originalRecipientsViewModels = self.originalRecipientsViewModels
                 .filter {$0.address != ownAccount?.address}
-                .sorted(by: { $0.name < $1.name })
+                .sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
             
         }.store(in: &cancellables)
     }
