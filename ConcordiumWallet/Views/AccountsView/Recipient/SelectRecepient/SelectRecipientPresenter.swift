@@ -106,6 +106,7 @@ class SelectRecipientPresenter {
         
         $recipients.sink { (recipients) in
             self.originalRecipientsViewModels.removeAll()
+                        
             for (index, recipient) in recipients.enumerated() {
                 let encrypted = mode == .selectRecipientFromShielded
                 self.originalRecipientsViewModels.append(RecipientViewModel(recipient: recipient, realIndex: index, isEncrypted: encrypted))
@@ -114,7 +115,10 @@ class SelectRecipientPresenter {
             self.originalRecipientsViewModels = Array((NSOrderedSet(array: (self.originalRecipientsViewModels)).array as? [RecipientViewModel]) ?? [])
             
             // Filter out own account.
-            self.originalRecipientsViewModels = self.originalRecipientsViewModels.filter {$0.address != ownAccount?.address}
+            self.originalRecipientsViewModels = self.originalRecipientsViewModels
+                .filter {$0.address != ownAccount?.address}
+                .sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+            
         }.store(in: &cancellables)
     }
 
