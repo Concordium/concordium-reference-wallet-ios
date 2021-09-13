@@ -122,41 +122,46 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
     }
     
     func userSelected(identityProviderIndex: Int) {
-        guard CameraHelper.isCameraAccessAllowed() else {
-            view?.showRecoverableAlert(.cameraAccessDeniedError) { SettingsHelper.openAppSettings() }
-            return
+        PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
+            guard let self = self else { return }
+            
+            guard permissionGranted else {
+                self.view?.showRecoverableAlert(.cameraAccessDeniedError) { SettingsHelper.openAppSettings() }
+                return
+            }
+         
+            guard let delegate = self.delegate else { fatalError("Missing delegate in class IdentityProviderListPresenter") }
+            guard let ipInfoResponse = self.ipInfo?[identityProviderIndex] else {
+                fatalError("""
+                              Something is not wired up properly - user should not
+                              have been able to select an identity provider if we do
+                              not have an ipInfo object here
+                           """)
+            }
+            
+            self.identity = self.identity.withUpdated(identityProvider: IdentityProviderDataTypeFactory.create(ipData: ipInfoResponse))
+            
+            let wallet = self.dependencyProvider.mobileWallet()
+            
+            self.service.getGlobal().flatMap { global in
+                wallet.createIdRequestAndPrivateData(identity: self.identity, global: global, requestPasswordDelegate: delegate)
+            }
+            .tryMap { [unowned self] (idObjectRequest: IDObjectRequestWrapper) -> ResourceRequest in
+                return try self.service.createIdentityObjectRequest(
+                    on: self.identity.identityProvider!.issuanceStartURL,
+                    with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: ApiConstants.notabeneCallback)
+                )
+            }
+            .mapError(ErrorMapper.toViewError)
+            .sink(receiveError: { [weak self] error in
+                if case ViewError.userCancelled = error { return }
+                self?.view?.showErrorAlert(error)
+                }, receiveValue: { [weak self] resourceRequest in
+                    guard let self = self else { return }
+                    let urlRequest = resourceRequest.request
+                    self.delegate?.identityRequestURLGenerated(urlRequest: urlRequest!, createdIdentity: self.identity)
+            })
+                .store(in: &self.cancellables)
         }
-        
-        guard let delegate = delegate else { fatalError("Missing delegate in class IdentityProviderListPresenter") }
-        guard let ipInfoResponse = ipInfo?[identityProviderIndex] else {
-            fatalError("""
-                          Something is not wired up properly - user should not
-                          have been able to select an identity provider if we do
-                          not have an ipInfo object here
-                       """)
-        }
-        identity = identity.withUpdated(identityProvider: IdentityProviderDataTypeFactory.create(ipData: ipInfoResponse))
-        
-        let wallet = self.dependencyProvider.mobileWallet()
-        
-        service.getGlobal().flatMap { global in
-            wallet.createIdRequestAndPrivateData(identity: self.identity, global: global, requestPasswordDelegate: delegate)
-        }
-        .tryMap { [unowned self] (idObjectRequest: IDObjectRequestWrapper) -> ResourceRequest in
-            return try self.service.createIdentityObjectRequest(
-                on: self.identity.identityProvider!.issuanceStartURL,
-                with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: ApiConstants.notabeneCallback)
-            )
-        }
-        .mapError(ErrorMapper.toViewError)
-        .sink(receiveError: { [weak self] error in
-            if case ViewError.userCancelled = error { return }
-            self?.view?.showErrorAlert(error)
-            }, receiveValue: { [weak self] resourceRequest in
-                guard let self = self else { return }
-                let urlRequest = resourceRequest.request
-                self.delegate?.identityRequestURLGenerated(urlRequest: urlRequest!, createdIdentity: self.identity)
-        })
-            .store(in: &self.cancellables)
     }
 }

@@ -65,10 +65,10 @@
 		079F30FE26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
 		079F30FF26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
 		079F310026EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
-		079F310226EB5A2D00ED96D3 /* CameraHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* CameraHelper.swift */; };
-		079F310326EB5A2D00ED96D3 /* CameraHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* CameraHelper.swift */; };
-		079F310426EB5A2D00ED96D3 /* CameraHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* CameraHelper.swift */; };
-		079F310526EB5A2D00ED96D3 /* CameraHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* CameraHelper.swift */; };
+		079F310226EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */; };
+		079F310326EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */; };
+		079F310426EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */; };
+		079F310526EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */; };
 		079F310726EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
 		079F310826EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
 		079F310926EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
@@ -1418,7 +1418,7 @@
 		077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPasteHelper.swift; sourceTree = "<group>"; };
 		077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailProtocol.swift; sourceTree = "<group>"; };
 		079F30FC26EA0F9600ED96D3 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
-		079F310126EB5A2D00ED96D3 /* CameraHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHelper.swift; sourceTree = "<group>"; };
+		079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		079F310626EB69DD00ED96D3 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2646,13 +2646,13 @@
 		7FF07A8F23EADBB100F1FC04 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				079F310126EB5A2D00ED96D3 /* CameraHelper.swift */,
 				077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */,
 				07619A80269C810B009B79E2 /* Digest+Additions.swift */,
 				07619A7B269C63C4009B79E2 /* HashingHelper.swift */,
 				C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */,
 				19C2E837B763654DFA84CC26 /* Logger.swift */,
 				079F30FC26EA0F9600ED96D3 /* MailHelper.swift */,
+				079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */,
 				19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */,
 				19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */,
 				079F310626EB69DD00ED96D3 /* SettingsHelper.swift */,
@@ -3533,7 +3533,7 @@
 				7F48C17B244DCD0B00997684 /* AccountsViewController.swift in Sources */,
 				7F32341324691B540019A351 /* MenuItemCellView.swift in Sources */,
 				5211BAA324FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
-				079F310226EB5A2D00ED96D3 /* CameraHelper.swift in Sources */,
+				079F310226EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				7F48C17F244DCD0B00997684 /* IdentityDataRowCellView.swift in Sources */,
 				7F48C181244DCD0B00997684 /* IdentityProviderListViewController.swift in Sources */,
 				C96632562459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */,
@@ -4039,7 +4039,7 @@
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
 				19C2EBBA614AB2996127C30C /* CreateExportPasswordPresenter.swift in Sources */,
 				19C2E7AA27024C4F32B39273 /* ExportPresenter.swift in Sources */,
-				079F310426EB5A2D00ED96D3 /* CameraHelper.swift in Sources */,
+				079F310426EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				7FCA399A250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				528EB742255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				19C2EAA10B0289BB2E451EEA /* ExportService.swift in Sources */,
@@ -4353,7 +4353,7 @@
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
 				19C2EAAD7644A803CCE64786 /* EncryptionMetadata.swift in Sources */,
 				19C2E693A35A80A8317F32D8 /* ExportContainer.swift in Sources */,
-				079F310526EB5A2D00ED96D3 /* CameraHelper.swift in Sources */,
+				079F310526EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				7FCA399B250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				528EB743255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				19C2E97D649F0F8D782DCA6B /* CreateExportPasswordPresenter.swift in Sources */,
@@ -4619,7 +4619,7 @@
 				19C2EB74069A5C18BE3E0A27 /* SendFundViewController.swift in Sources */,
 				19C2E960F1FF0455D336825B /* SelectRecipientPresenter.swift in Sources */,
 				19C2EE4F9BADE3BCC1AF1358 /* SelectRecipientViewController.swift in Sources */,
-				079F310326EB5A2D00ED96D3 /* CameraHelper.swift in Sources */,
+				079F310326EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				19C2ED4B9B793A090B70CF7F /* AddRecipientPresenter.swift in Sources */,
 				52CE0C7A250FFEC70018B5D1 /* Encrypted.swift in Sources */,
 				5211BAA824FD1D5100EE1658 /* Balance.swift in Sources */,
