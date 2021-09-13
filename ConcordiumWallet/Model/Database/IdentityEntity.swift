@@ -21,6 +21,7 @@ protocol IdentityDataType: DataStoreProtocol {
     var nickname: String { get set }
     var state: IdentityState { get set }
     var ipStatusUrl: String { get set }
+    var hashedIpStatusUrl: String? { get }
     var identityCreationError: String { get set }
 }
 
@@ -96,6 +97,8 @@ final class IdentityEntity: Object {
 }
 
 extension IdentityEntity: IdentityDataType {
+    var hashedIpStatusUrl: String? { HashingHelper.hash(ipStatusUrl) }
+    
     var identityProvider: IdentityProviderDataType? {
         get { identityProviderEntity }
         set { self.identityProviderEntity = newValue as? IdentityProviderEntity }

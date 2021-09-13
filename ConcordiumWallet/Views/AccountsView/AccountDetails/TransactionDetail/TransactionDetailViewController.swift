@@ -243,7 +243,7 @@ extension TransactionDetailViewController: UITableViewDelegate {
                 break
                 
             case .origin(let vm), .to(let vm), .from(let vm), .blockHash(let vm), .transactionHash(let vm), .details(let vm):
-                UIPasteboard.general.string = vm.value
+                CopyPasterHelper.copy(string: vm.value)
                 self.showToast(withMessage: "general.copied".localized + " " + vm.value)
             case .error(_):
                 break

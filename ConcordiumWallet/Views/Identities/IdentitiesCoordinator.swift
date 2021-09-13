@@ -49,15 +49,38 @@ class IdentitiesCoordinator: Coordinator {
             topVc = vc
         } else if identity.state == IdentityState.pending {
             let vc = WidgetAndLabelViewController.instantiate(fromStoryboard: "Widget")
-            vc.middleLabelString = "identityPage.pendingExplanation".localized
+            vc.primaryLabelString = "identityPage.pendingExplanation".localized
             vc.topWidget = identityBaseInfoWidgetViewController
             topVc = vc
         } else {
             let vc = WidgetAndLabelViewController.instantiate(fromStoryboard: "Widget")
-            vc.middleLabelErrorString = identity.identityCreationError
+            vc.primaryLabelErrorString = identity.identityCreationError
             vc.topWidget = identityBaseInfoWidgetViewController
-            let presenter = DeleteIdentityButtonWidgetPresenter(identity: identity, dependencyProvider: dependencyProvider, delegate: self)
-            vc.bottomWidget = DeleteIdentityButtonWidgetFactory.create(with: presenter)
+            
+            let deleteIdentityButtonWidgetPresenter = DeleteIdentityButtonWidgetPresenter(
+                identity: identity,
+                dependencyProvider: dependencyProvider,
+                delegate: self
+            )
+            
+            vc.primaryBottomWidget = DeleteIdentityButtonWidgetFactory.create(with: deleteIdentityButtonWidgetPresenter)
+            
+            if let reference = identity.hashedIpStatusUrl {
+                vc.tertiaryLabelString = "identityCreation.automaticAccountRemoval.text".localized
+                
+                let copyReferenceWidgetPresenter = CopyReferenceWidgetPresenter(
+                    delegate: self,
+                    copyableReference: reference
+                )
+                
+                vc.centerWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
+            }
+            
+            if MailHelper.canSendMail {
+                let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
+                vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
+            }
+            
             topVc = vc
         }
         topVc.title = "identityData.title".localized
@@ -107,4 +130,12 @@ extension IdentitiesCoordinator: DeleteIdentityButtonWidgetPresenterDelegate {
     func deleteIdentityButtonWidgetDidDelete() {
         navigationController.popViewController(animated: true)
     }
+}
+
+extension IdentitiesCoordinator: ContactSupportButtonWidgetPresenterDelegate {
+    func contactSupportButtonWidgetDidContactSupport() {}
+}
+
+extension IdentitiesCoordinator: CopyReferenceWidgetPresenterDelegate {
+    func copyReferenceWidgetDidCopyReference() {}
 }

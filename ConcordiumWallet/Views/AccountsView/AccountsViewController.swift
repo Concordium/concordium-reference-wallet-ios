@@ -6,8 +6,9 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
-import UIKit
 import Combine
+import MessageUI
+import UIKit
 
 class AccountsFactory {
     class func create(with presenter: AccountsPresenter) -> AccountsViewController {
@@ -17,7 +18,7 @@ class AccountsFactory {
     }
 }
 
-class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol {
+class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail {
 
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
@@ -200,16 +201,41 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         .store(in: &cancellables)
     }
 
-    func showIdentityFailed(_ errorMessage: String, showCancel: Bool = true, completion: @escaping () -> Void) {
-        let ac = UIAlertController(title: "identityfailed.title".localized, message: errorMessage, preferredStyle: .alert)
+    func showIdentityFailed(reference: String, completion: @escaping () -> Void) {
+        let ac = UIAlertController(title: "identityfailed.title".localized, message: nil, preferredStyle: .alert)
         let continueAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { _ in
             completion()
         }
+        
         ac.addAction(continueAction)
-        if showCancel {
-            let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
-            ac.addAction(cancelAction)
+        
+        if MailHelper.canSendMail {
+            let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.launchSupport(
+                    presenter: self,
+                    delegate: self,
+                    recipient: AppConstants.Support.supportMail,
+                    subject: String(format: "supportmail.subject".localized, reference),
+                    body: String(format: "supportmail.body".localized, reference)
+                )
+                
+            }
+            ac.message = "identityfailed.message".localized
+            ac.addAction(supportAction)
+        } else {
+            let copyAction = UIAlertAction(title: "identityfailed.copyreference".localized, style: .default) { [weak self] _ in
+                CopyPasterHelper.copy(string: reference)
+                self?.showToast(withMessage: "general.copied".localized + " " + reference)
+            }
+            ac.message = "identityfailed.nomail.message".localized
+            ac.addAction(copyAction)
         }
+                
+        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
+        ac.addAction(cancelAction)
+        
         present(ac, animated: true)
     }
     
@@ -273,5 +299,11 @@ extension AccountsViewController: AccountCellDelegate {
     
     func tappedExpanded(cellRow: Int) {
         presenter?.toggleExpand(accountIndex: cellRow)
+    }
+}
+
+extension AccountsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true)
     }
 }
