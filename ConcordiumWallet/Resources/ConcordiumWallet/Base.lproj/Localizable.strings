@@ -34,6 +34,7 @@ add_identity_data = "Reveal Identity Data";
 "viewError.duplicateRecipient" = "This account was not added to the address book, as it was already saved as ";
 "viewError.passwordChangeFailed" = "An error occured while changing password";
 "viewError.jailbroken" = "This iPhone might be jailbroken. Using this iPhone is not safe.";
+"view.error.cameraAccessDenied" = "Camera access has been denied, and must be enabled in the Settings app to continue";
 "keychain.popup.button.enterpassword" = "Enter Password";
 "keychain.popup.button.enterpasscode" = "Enter Passcode";
 "selectPassword.button.useFullPassword" = "Use full password instead";
