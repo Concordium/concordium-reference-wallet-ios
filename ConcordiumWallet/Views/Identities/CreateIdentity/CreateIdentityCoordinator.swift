@@ -111,7 +111,7 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
     }
     
     private func cleanupUnfinishedAccounts() {
-        let unfinishedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.address == "" || $0.transactionStatus == .committed}
+        let unfinishedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.address == "" && $0.transactionStatus == .committed}
         for account in unfinishedAccounts {
             dependencyProvider.storageManager().removeAccount(account: account)
         }
