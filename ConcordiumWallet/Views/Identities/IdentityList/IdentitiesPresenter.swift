@@ -61,7 +61,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
 
         for identity in failedIdentities {
             guard let reference = identity.hashedIpStatusUrl else {
-                return
+                continue
             }
             
             // if there is an account associated with the identity, we delete the account and show the error
