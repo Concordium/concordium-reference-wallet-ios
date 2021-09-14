@@ -73,6 +73,10 @@
 		079F310826EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
 		079F310926EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
 		079F310A26EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
+		07DEC16B26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
+		07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
+		07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
+		07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -1420,6 +1424,7 @@
 		079F30FC26EA0F9600ED96D3 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		079F310626EB69DD00ED96D3 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
+		07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitmentsRandomness.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2114,6 +2119,7 @@
 				C9420BC424410AA700086B6C /* AttributeList.swift */,
 				5211BAA224FD1D5100EE1658 /* Balance.swift */,
 				19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */,
+				07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */,
 				7F21397724236C0A00D2A5C4 /* CreateCredentialRequest.swift */,
 				19C2EC8269ACB6C892A16310 /* CreateIDRequest.swift */,
 				7FF618EC2437294E00269F9F /* CreateTransferRequest.swift */,
@@ -3552,6 +3558,7 @@
 				7F48C18C244DCD0B00997684 /* TransparentNavigationController.swift in Sources */,
 				7F48C18E244DCD0B00997684 /* IdentitiesPresenterProtocol.swift in Sources */,
 				528EB745255C1ED900010554 /* InitialAccountSummaryPresenter.swift in Sources */,
+				07DEC16B26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F48C190244DCD0B00997684 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				7F48C191244DCD0B00997684 /* CreateNicknameViewController.swift in Sources */,
 				7F48C192244DCD0B00997684 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
@@ -3924,6 +3931,7 @@
 				7F85B778246A9A7C00ED09B8 /* TransactionDetailPresenter.swift in Sources */,
 				7F85B779246A9A7C00ED09B8 /* MakeCreateTransferRequest.swift in Sources */,
 				7F85B77A246A9A7C00ED09B8 /* IPArDatum.swift in Sources */,
+				07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B77B246A9A7C00ED09B8 /* IPInfo.swift in Sources */,
 				7F85B77C246A9A7C00ED09B8 /* CreateCredentialRequest.swift in Sources */,
 				7F85B77D246A9A7C00ED09B8 /* IPInfoResponseElement.swift in Sources */,
@@ -4238,6 +4246,7 @@
 				7F85B872246A9AB600ED09B8 /* AccountConfirmedViewController.swift in Sources */,
 				7FB64A08247BC9FB00DC500E /* ExportService.swift in Sources */,
 				7F85B873246A9AB600ED09B8 /* AccountDetailsViewController.swift in Sources */,
+				07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B874246A9AB600ED09B8 /* CreateTransferRequest.swift in Sources */,
 				7F85B877246A9AB600ED09B8 /* TransactionDetailPresenter.swift in Sources */,
 				7F85B878246A9AB600ED09B8 /* MakeCreateTransferRequest.swift in Sources */,
@@ -4501,6 +4510,7 @@
 				C9E3727824277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				7F21398E24236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
+				07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7FF07AC423EADBB100F1FC04 /* UITableView+scroll.swift in Sources */,
 				7FF07AC123EADBB100F1FC04 /* UIColor+Additions.swift in Sources */,
 				5237188025753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
