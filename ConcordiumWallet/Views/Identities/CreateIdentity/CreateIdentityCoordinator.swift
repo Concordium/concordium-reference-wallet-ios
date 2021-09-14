@@ -111,10 +111,15 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
     }
     
     private func cleanupUnfinishedAccounts() {
-        let unfinishedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.address == "" && $0.transactionStatus == .committed}
-        for account in unfinishedAccounts {
-            dependencyProvider.storageManager().removeAccount(account: account)
+        guard
+            let unfinishedAccount = dependencyProvider
+                .storageManager()
+                .getAccounts().first(where: { $0.identity == nil || $0.identity?.ipStatusUrl == nil || $0.identity?.state == .failed })
+        else {
+            return
         }
+        
+        dependencyProvider.storageManager().removeAccount(account: unfinishedAccount)
     }
     
     private func cleanupUnfinishedIdenties() {
