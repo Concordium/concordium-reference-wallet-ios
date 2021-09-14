@@ -285,6 +285,12 @@ class MobileWallet: MobileWalletProtocol {
             return .failure(error)
         }
     }
+    
+    private func getCommitmentsRandomness(for account: AccountDataType, pwHash: String) -> Result<CommitmentsRandomness, Error> {
+        guard let key = account.encryptedCommitmentsRandomness else { return .failure(MobileWalletError.invalidArgument) }
+        return storageManager.getCommitmentsRandomness(key: key, pwHash: pwHash)
+            .mapError { $0 as Error }
+    }
 
     private func getPrivateAccountKeys(for account: AccountDataType, pwHash: String) -> Result<AccountKeys, Error> {
         guard let key = account.encryptedAccountData else { return .failure(MobileWalletError.invalidArgument) }
@@ -352,6 +358,9 @@ class MobileWallet: MobileWalletProtocol {
             
             let privateAccountKeys = try getPrivateAccountKeys(for: account, pwHash: oldPwHash).get()
             try storageManager.updatePrivateAccountDataPasscode(for: account, accountData: privateAccountKeys, pwHash: newPwHash).get()
+            
+            let commitmentsRandomness = try getCommitmentsRandomness(for: account, pwHash: oldPwHash).get()
+            try storageManager.updateCommitmentsRandomnessPasscode(for: account, commitmentsRandomness: commitmentsRandomness, pwHash: oldPwHash).get()
 
             if let privateIdKey = account.identity?.encryptedPrivateIdObjectData {
                 self.getPrivateIdObjectData(privateIdObjectDataKey: privateIdKey, pwHash: oldPwHash)
@@ -372,6 +381,7 @@ class MobileWallet: MobileWalletProtocol {
         do {
             _ = try getSecretEncryptionKey(for: account, pwHash: pwHash).get()
             _ = try getPrivateAccountKeys(for: account, pwHash: pwHash).get()
+            _ = try getCommitmentsRandomness(for: account, pwHash: pwHash).get()
             return Result.success(Void())
         } catch {
             return Result.failure(error)
