@@ -10,6 +10,7 @@ struct CreateCredentialRequest: Codable {
     let accountAddress: String
     let accountKeys: AccountKeys
     let credential: Credential
+    let commitmentsRandomness: CommitmentsRandomness
     let encryptionPublicKey, encryptionSecretKey: String
 }
 
@@ -35,6 +36,7 @@ extension CreateCredentialRequest {
         accountAddress: String? = nil,
         accountKeys: AccountKeys? = nil,
         credential: Credential? = nil,
+        commitmentsRandomness: CommitmentsRandomness? = nil,
         encryptionPublicKey: String? = nil,
         encryptionSecretKey: String? = nil
     ) -> CreateCredentialRequest {
@@ -42,6 +44,7 @@ extension CreateCredentialRequest {
             accountAddress: accountAddress ?? self.accountAddress,
             accountKeys: accountKeys ?? self.accountKeys,
             credential: credential ?? self.credential,
+            commitmentsRandomness: commitmentsRandomness ?? self.commitmentsRandomness,
             encryptionPublicKey: encryptionPublicKey ?? self.encryptionPublicKey,
             encryptionSecretKey: encryptionSecretKey ?? self.encryptionSecretKey
         )
