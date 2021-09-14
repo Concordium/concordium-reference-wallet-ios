@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7F85B6D0246A9A7C00ED09B8"
-               BuildableName = "Concordium ID.app"
+               BuildableName = "ProdTestNet.app"
                BlueprintName = "ProdTestNet"
                ReferencedContainer = "container:ConcordiumWallet.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7F85B6D0246A9A7C00ED09B8"
-            BuildableName = "Concordium ID.app"
+            BuildableName = "ProdTestNet.app"
             BlueprintName = "ProdTestNet"
             ReferencedContainer = "container:ConcordiumWallet.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7F85B6D0246A9A7C00ED09B8"
-            BuildableName = "Concordium ID.app"
+            BuildableName = "ProdTestNet.app"
             BlueprintName = "ProdTestNet"
             ReferencedContainer = "container:ConcordiumWallet.xcodeproj">
          </BuildableReference>
