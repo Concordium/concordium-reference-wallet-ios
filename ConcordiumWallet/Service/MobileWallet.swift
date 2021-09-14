@@ -275,6 +275,7 @@ class MobileWallet: MobileWalletProtocol {
             let credentialResponse = try walletFacade.createCredential(input: input)
             let data = try CreateCredentialRequest(credentialResponse)
             
+            // swiftlint:disable line_length
             account.encryptedCommitmentsRandomness = try self.storageManager.storeCommitmentsRandomness(data.commitmentsRandomness, pwHash: pwHash).get()
             account.encryptedAccountData = try self.storageManager.storePrivateAccountKeys(data.accountKeys, pwHash: pwHash).get()
             account.encryptedPrivateKey = try self.storageManager.storePrivateEncryptionKey(data.encryptionSecretKey, pwHash: pwHash).get()
