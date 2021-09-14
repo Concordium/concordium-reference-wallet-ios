@@ -93,14 +93,24 @@ struct ExportService {
     private func getAccounts(for identity: IdentityDataType, pwHash: String) -> [ExportAccount] {
         let accounts: [AccountDataType] = storageManager.getAccounts(for: identity).filter { $0.transactionStatus == SubmissionStatusEnum.finalized }
         let exportAccounts: [ExportAccount] = accounts.compactMap { account in
-            guard let encryptedAccountDataKey = account.encryptedAccountData,
-                  let accountKeys = try? storageManager.getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get()
-                    else { return nil }
             
-            guard let encryptionKeyKey = account.encryptedPrivateKey,
-                let encryptionSecretKey = try? storageManager.getPrivateEncryptionKey(key: encryptionKeyKey, pwHash: pwHash).get() else { return nil }
+            guard
+                let encryptedAccountDataKey = account.encryptedAccountData,
+                let encryptionKeyKey = account.encryptedPrivateKey,
+                let commitmentsRandomnessKey = account.encryptedCommitmentsRandomness,
+                let accountKeys = try? storageManager.getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get(),
+                let encryptionSecretKey = try? storageManager.getPrivateEncryptionKey(key: encryptionKeyKey, pwHash: pwHash).get(),
+                let commitmentsRandomness = try? storageManager.getCommitmentsRandomness(key: commitmentsRandomnessKey, pwHash: pwHash).get()
+            else {
+                return nil
+            }
             
-            return ExportAccount(account: account, encryptedAccountKeys: accountKeys, encryptionSecretKey: encryptionSecretKey)
+            return ExportAccount(
+                account: account,
+                encryptedAccountKeys: accountKeys,
+                commitmentsRandomness: commitmentsRandomness,
+                encryptionSecretKey: encryptionSecretKey
+            )
         }
         return exportAccounts
     }
@@ -135,7 +145,12 @@ extension ExportIdentityData {
 }
 
 extension ExportAccount {
-    init?(account: AccountDataType, encryptedAccountKeys: AccountKeys, encryptionSecretKey: String) {
+    init?(
+        account: AccountDataType,
+        encryptedAccountKeys: AccountKeys,
+        commitmentsRandomness: CommitmentsRandomness,
+        encryptionSecretKey: String
+    ) {
         guard let submissionId = account.submissionId,
             let credential = account.credential,
             let name = account.name else {
@@ -146,6 +161,7 @@ extension ExportAccount {
                   address: account.address,
                   submissionId: submissionId,
                   accountKeys: encryptedAccountKeys,
+                  commitmentsRandomness: commitmentsRandomness,
                   revealedAttributes: account.revealedAttributes,
                   credential: credential,
                   encryptionSecretKey: encryptionSecretKey)

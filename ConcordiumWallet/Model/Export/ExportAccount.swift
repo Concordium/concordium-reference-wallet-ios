@@ -10,6 +10,7 @@ struct ExportAccount: Codable {
     let address: String
     let submissionId: String
     let accountKeys: AccountKeys
+    let commitmentsRandomness: CommitmentsRandomness
     let revealedAttributes: [String: String]
     let credential: Credential
     let encryptionSecretKey: String // ok
