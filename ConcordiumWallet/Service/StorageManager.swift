@@ -26,6 +26,7 @@ protocol StorageManagerProtocol {
 
     func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error>
     func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error>
+    // swiftlint:disable line_length
     func updateCommitmentsRandomnessPasscode(for account: AccountDataType, commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<Void, Error>
     
     func getNextAccountNumber(for identity: IdentityDataType) -> Result<Int, StorageError>
