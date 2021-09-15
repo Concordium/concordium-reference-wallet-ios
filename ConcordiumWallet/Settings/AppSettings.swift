@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 enum PasswordType: String {
     case passcode
