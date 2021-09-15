@@ -147,6 +147,10 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
             presenter.userTappedSendFund(amount: amount)
         }
     }
+    
+    @IBAction func doneTapped(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
 }
 
 extension SendFundViewController {

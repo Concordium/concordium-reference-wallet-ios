@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -14,12 +14,12 @@
         <!--Send Fund View Controller-->
         <scene sceneID="Vt9-Vu-JEB">
             <objects>
-                <viewController storyboardIdentifier="SendFundViewController" id="O2r-4W-sZC" customClass="SendFundViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendFundViewController" id="O2r-4W-sZC" customClass="SendFundViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="az3-KL-YwR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aao-ws-5Uh" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aao-ws-5Uh" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="812" width="374" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -36,7 +36,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sxI-ke-w4F">
-                                <rect key="frame" x="16" y="222" width="382" height="224"/>
+                                <rect key="frame" x="16" y="222" width="382" height="531.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQe-0t-cN8">
                                         <rect key="frame" x="71" y="0.0" width="240" height="50"/>
@@ -46,10 +46,10 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Knm-nI-g4S">
-                                        <rect key="frame" x="138.5" y="58" width="105.5" height="40"/>
+                                        <rect key="frame" x="134.5" y="58" width="113" height="200.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Ǥ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oms-CT-B3L">
-                                                <rect key="frame" x="0.0" y="10" width="19" height="20"/>
+                                                <rect key="frame" x="0.0" y="86.5" width="26.5" height="27.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Oms-CT-B3L" secondAttribute="height" multiplier="19:20" id="92N-6p-xkl"/>
                                                 </constraints>
@@ -58,7 +58,8 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="0.00" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="4Cm-9Z-Dol">
-                                                <rect key="frame" x="23" y="0.0" width="82.5" height="40"/>
+                                                <rect key="frame" x="30.5" y="73" width="82.5" height="55"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="amount_text_field"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="4sI-e3-5UI"/>
                                                 </constraints>
@@ -72,7 +73,7 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uTx-3l-E5c">
-                                        <rect key="frame" x="94.5" y="106" width="193" height="50"/>
+                                        <rect key="frame" x="94.5" y="266.5" width="193" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="900" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA7-si-afr">
                                                 <rect key="frame" x="20.5" y="5.5" width="152.5" height="29"/>
@@ -105,14 +106,46 @@ is less than 0.01 cents]</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3N-nY-18c">
-                                        <rect key="frame" x="71" y="164" width="240" height="2"/>
+                                        <rect key="frame" x="71" y="324.5" width="240" height="2"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="Hb5-uJ-1ce"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqd-fw-E0Y" userLabel="SelectRecipientWidgetView" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="174" width="382" height="50"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9Y-hU-WIa">
+                                        <rect key="frame" x="20" y="334.5" width="342" height="139"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="You can enter an optional memo here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uj2-bN-gJN" userLabel="textField">
+                                                <rect key="frame" x="0.0" y="48" width="342" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="memo_text_field"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                <connections>
+                                                    <action selector="doneTapped:" destination="O2r-4W-sZC" eventType="primaryActionTriggered" id="aZr-rJ-PW5"/>
+                                                </connections>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uA-kn-8hA" userLabel="separator">
+                                                <rect key="frame" x="0.0" y="79" width="342" height="1"/>
+                                                <color key="backgroundColor" systemColor="separatorColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="sjG-8R-E99"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Uj2-bN-gJN" firstAttribute="top" secondItem="F9Y-hU-WIa" secondAttribute="top" constant="48" id="DZG-Bc-Z1B"/>
+                                            <constraint firstAttribute="bottom" secondItem="9uA-kn-8hA" secondAttribute="bottom" constant="59" id="Pcd-cJ-QxP"/>
+                                            <constraint firstItem="Uj2-bN-gJN" firstAttribute="leading" secondItem="F9Y-hU-WIa" secondAttribute="leading" id="ThP-77-yXN"/>
+                                            <constraint firstAttribute="trailing" secondItem="Uj2-bN-gJN" secondAttribute="trailing" id="YKR-eW-pvf"/>
+                                            <constraint firstAttribute="trailing" secondItem="9uA-kn-8hA" secondAttribute="trailing" id="fLM-pU-8iv"/>
+                                            <constraint firstItem="9uA-kn-8hA" firstAttribute="leading" secondItem="F9Y-hU-WIa" secondAttribute="leading" id="gha-tU-R5I"/>
+                                            <constraint firstAttribute="height" constant="139" id="m47-Yc-bAE"/>
+                                            <constraint firstItem="9uA-kn-8hA" firstAttribute="top" secondItem="Uj2-bN-gJN" secondAttribute="bottom" constant="1" id="yO3-M5-CaC"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqd-fw-E0Y" userLabel="SelectRecipientWidgetView" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="481.5" width="382" height="50"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QR_code_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Q2S-Lq-zfP">
                                                 <rect key="frame" x="15" y="13.5" width="23" height="23"/>
@@ -164,6 +197,8 @@ is less than 0.01 cents]</string>
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="F9Y-hU-WIa" secondAttribute="trailing" constant="20" symbolic="YES" id="Kmq-Ds-MQw"/>
+                                    <constraint firstItem="F9Y-hU-WIa" firstAttribute="leading" secondItem="sxI-ke-w4F" secondAttribute="leading" constant="20" symbolic="YES" id="fPd-ib-xsV"/>
                                     <constraint firstItem="Cqd-fw-E0Y" firstAttribute="width" secondItem="sxI-ke-w4F" secondAttribute="width" id="ndd-Fp-77B"/>
                                 </constraints>
                             </stackView>
@@ -250,7 +285,7 @@ is less than 0.01 cents]</string>
                             <constraint firstItem="sxI-ke-w4F" firstAttribute="leading" secondItem="EHT-aW-0pg" secondAttribute="leading" constant="16" id="k1M-Lv-A6c"/>
                             <constraint firstItem="aao-ws-5Uh" firstAttribute="leading" secondItem="EHT-aW-0pg" secondAttribute="leading" constant="20" id="mvS-ff-clR"/>
                             <constraint firstItem="Chn-GT-Rn7" firstAttribute="leading" secondItem="EHT-aW-0pg" secondAttribute="leading" constant="25" id="sqv-kK-yZQ"/>
-                            <constraint firstItem="sxI-ke-w4F" firstAttribute="height" secondItem="EHT-aW-0pg" secondAttribute="height" multiplier="0.25" priority="999" id="stv-gV-a8d"/>
+                            <constraint firstItem="sxI-ke-w4F" firstAttribute="height" secondItem="EHT-aW-0pg" secondAttribute="height" multiplier="0.65" priority="999" id="stv-gV-a8d"/>
                             <constraint firstItem="EHT-aW-0pg" firstAttribute="trailing" secondItem="RhF-js-8bL" secondAttribute="trailing" constant="25" id="uxs-IY-b7a"/>
                             <constraint firstItem="sxI-ke-w4F" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EHT-aW-0pg" secondAttribute="top" id="wcK-jP-1x9"/>
                             <constraint firstItem="RhF-js-8bL" firstAttribute="top" secondItem="Chn-GT-Rn7" secondAttribute="bottom" constant="5" id="wmT-3Q-I1Z"/>
@@ -277,12 +312,12 @@ is less than 0.01 cents]</string>
         <!--Select Recipient View Controller-->
         <scene sceneID="hAX-JY-YTX">
             <objects>
-                <viewController storyboardIdentifier="SelectRecipientViewController" id="8bX-pD-9aO" customClass="SelectRecipientViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectRecipientViewController" id="8bX-pD-9aO" customClass="SelectRecipientViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H8g-Jv-QoR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYr-x4-aOx" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYr-x4-aOx" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="16" y="74" width="323" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="[Search Recipients]" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nS-zJ-XTa">
@@ -303,10 +338,10 @@ is less than 0.01 cents]</string>
                                     <constraint firstAttribute="trailing" secondItem="0nS-zJ-XTa" secondAttribute="trailing" constant="5" id="SLS-E2-kjX"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFN-jH-mFy" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFN-jH-mFy" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="354" y="74" width="44" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPa-Mn-IPK" customClass="BaseButton" customModule="Concordium_ID" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPa-Mn-IPK" customClass="BaseButton" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <color key="backgroundColor" name="whiteText"/>
                                         <color key="tintColor" name="primary"/>
@@ -332,7 +367,7 @@ is less than 0.01 cents]</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="RecipientViewCell" textLabel="aHy-4t-EaT" detailTextLabel="SXR-gX-fDz" style="IBUITableViewCellStyleSubtitle" id="ofl-Jh-eXU">
-                                        <rect key="frame" x="0.0" y="28" width="382" height="66"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="382" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ofl-Jh-eXU" id="bk8-aL-iG2">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="66"/>
@@ -389,12 +424,12 @@ is less than 0.01 cents]</string>
         <!--Add Recipient View Controller-->
         <scene sceneID="3qS-kT-wjQ">
             <objects>
-                <viewController storyboardIdentifier="AddRecipientViewController" id="UNw-Oh-kg1" customClass="AddRecipientViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddRecipientViewController" id="UNw-Oh-kg1" customClass="AddRecipientViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HJi-8u-Yf6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ho7-fc-b03" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ho7-fc-b03" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="16" y="94" width="382" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recipient Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mDy-Tz-AvT">
@@ -412,7 +447,7 @@ is less than 0.01 cents]</string>
                                     <constraint firstAttribute="trailing" secondItem="mDy-Tz-AvT" secondAttribute="trailing" constant="12" id="xZa-eT-CiS"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Wx-zv-3Aq" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Wx-zv-3Aq" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="16" y="149" width="323" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recipient address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCQ-pr-uWC">
@@ -431,7 +466,7 @@ is less than 0.01 cents]</string>
                                     <constraint firstItem="x7Y-5t-3xl" firstAttribute="trailing" secondItem="rCQ-pr-uWC" secondAttribute="trailing" constant="12" id="jEg-8u-rRX"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Day-NX-6wv" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Day-NX-6wv" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="354" y="149" width="44" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-w4-Xg8">
@@ -456,7 +491,7 @@ is less than 0.01 cents]</string>
                                     <constraint firstAttribute="bottom" secondItem="Uqo-w4-Xg8" secondAttribute="bottom" id="o4j-ZP-NIw"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Wm-nq-6Ah" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Wm-nq-6Ah" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="802" width="374" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -504,7 +539,7 @@ is less than 0.01 cents]</string>
         <!--Scan AddressQR View Controller-->
         <scene sceneID="sIY-hp-knw">
             <objects>
-                <viewController storyboardIdentifier="ScanAddressQRViewController" id="CrP-7c-VlD" customClass="ScanAddressQRViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanAddressQRViewController" id="CrP-7c-VlD" customClass="ScanAddressQRViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UeT-JM-3HM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -537,7 +572,7 @@ is less than 0.01 cents]</string>
         <!--Transaction Submitted View Controller-->
         <scene sceneID="gmC-0P-XJ3">
             <objects>
-                <viewController storyboardIdentifier="TransactionSubmittedViewController" id="dd8-44-RQu" customClass="TransactionSubmittedViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TransactionSubmittedViewController" id="dd8-44-RQu" customClass="TransactionSubmittedViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MxA-RH-MNn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -656,7 +691,7 @@ is less than 0.01 cents]</string>
                                     <constraint firstAttribute="height" priority="999" constant="486" id="MUZ-uU-Ycv"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-Wh-pXj" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-Wh-pXj" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="812" width="374" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -705,7 +740,7 @@ is less than 0.01 cents]</string>
         <!--Send Fund Confirmation View Controller-->
         <scene sceneID="tJl-vO-zC1">
             <objects>
-                <viewController storyboardIdentifier="SendFundConfirmationViewController" id="yZf-YW-hCi" customClass="SendFundConfirmationViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendFundConfirmationViewController" id="yZf-YW-hCi" customClass="SendFundConfirmationViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yth-Lu-l0Q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -765,7 +800,7 @@ is less than 0.01 cents]</string>
                                     <constraint firstItem="WaI-Wh-nVT" firstAttribute="centerX" secondItem="TSy-K0-mgw" secondAttribute="centerX" id="x6s-5s-GLV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kc-aS-szO" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kc-aS-szO" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="812" width="374" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -811,16 +846,16 @@ is less than 0.01 cents]</string>
     </scenes>
     <designables>
         <designable name="2Kc-aS-szO">
-            <size key="intrinsicContentSize" width="236" height="30"/>
+            <size key="intrinsicContentSize" width="120" height="30"/>
         </designable>
         <designable name="6Wm-nq-6Ah">
-            <size key="intrinsicContentSize" width="34" height="30"/>
+            <size key="intrinsicContentSize" width="44" height="30"/>
         </designable>
         <designable name="Agb-Wh-pXj">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="aao-ws-5Uh">
-            <size key="intrinsicContentSize" width="103" height="33"/>
+            <size key="intrinsicContentSize" width="109" height="34"/>
         </designable>
     </designables>
     <resources>
@@ -858,6 +893,9 @@ is less than 0.01 cents]</string>
         <namedColor name="whiteText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
