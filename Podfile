@@ -2,9 +2,9 @@ platform :ios, '13.0'
 use_frameworks!
 
 def pods
-  pod 'MaterialComponents/TextFields'
-  pod 'MaterialComponents/Tabs'
-  pod 'RealmSwift'
+  pod 'MaterialComponents/TextFields', '124.2.0'
+  pod 'MaterialComponents/Tabs', '124.2.0'
+  pod 'RealmSwift', '10.7.6'
 end
 
 target 'Mock' do

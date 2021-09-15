@@ -76,9 +76,9 @@ PODS:
     - Realm (= 10.7.6)
 
 DEPENDENCIES:
-  - MaterialComponents/Tabs
-  - MaterialComponents/TextFields
-  - RealmSwift
+  - MaterialComponents/Tabs (= 124.2.0)
+  - MaterialComponents/TextFields (= 124.2.0)
+  - RealmSwift (= 10.7.6)
 
 SPEC REPOS:
   trunk:
@@ -95,6 +95,6 @@ SPEC CHECKSUMS:
   Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
   RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
 
-PODFILE CHECKSUM: c6cfbf119402d3eac3e1de732e8e29616b8771e1
+PODFILE CHECKSUM: bcf9296d9b0e2d093d4a4d614d5807063e379667
 
 COCOAPODS: 1.10.1
