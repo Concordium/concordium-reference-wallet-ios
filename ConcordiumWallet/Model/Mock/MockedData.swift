@@ -129,7 +129,7 @@ class MockedData: ShowToast {
 
     @objc static func addMockData() {
         // swiftlint:disable force_try
-        let realm = try! Realm(configuration: AppSettings.realmConfiguration)
+        let realm = try! Realm(configuration: RealmHelper.realmConfiguration)
         let createAtBaseLine = Date()
         let minute: Double = 60
         try! realm.write {

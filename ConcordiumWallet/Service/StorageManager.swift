@@ -61,7 +61,7 @@ enum StorageError: Error {
 
 class StorageManager: StorageManagerProtocol {
 
-    private var realm: Realm = try! Realm(configuration: AppSettings.realmConfiguration) // swiftlint:disable:this force_try
+    private var realm: Realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
     private var keychain: KeychainWrapperProtocol
 
     init(keychain: KeychainWrapperProtocol) {

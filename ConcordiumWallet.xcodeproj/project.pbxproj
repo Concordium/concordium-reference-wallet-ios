@@ -77,6 +77,10 @@
 		07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
+		07E8573426F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
+		07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
+		07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
+		07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
 		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -1425,6 +1429,7 @@
 		079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		079F310626EB69DD00ED96D3 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
 		07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitmentsRandomness.swift; sourceTree = "<group>"; };
+		07E8573326F1D24F001FB2D2 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2660,6 +2665,7 @@
 				079F30FC26EA0F9600ED96D3 /* MailHelper.swift */,
 				079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */,
 				19C2E3CBC386A0EB2A37AA82 /* Publisher+Utils.swift */,
+				07E8573326F1D24F001FB2D2 /* RealmHelper.swift */,
 				19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */,
 				079F310626EB69DD00ED96D3 /* SettingsHelper.swift */,
 				C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */,
@@ -3680,6 +3686,7 @@
 				7F48C1F5244DCD0B00997684 /* ToastLabel.swift in Sources */,
 				7F48C1F6244DCD0B00997684 /* Logger.swift in Sources */,
 				52055F812552B8F10071F7CA /* IdentityCardView.swift in Sources */,
+				07E8573426F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F48C1F7244DCD0B00997684 /* SendFundPresenter.swift in Sources */,
 				7F48C1F8244DCD0B00997684 /* SendFundViewController.swift in Sources */,
 				7F48C1F9244DCD0B00997684 /* SelectRecipientPresenter.swift in Sources */,
@@ -3912,6 +3919,7 @@
 				7F85B766246A9A7C00ED09B8 /* IdentityCell.swift in Sources */,
 				7F85B767246A9A7C00ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B768246A9A7C00ED09B8 /* OriginTypeEnum.swift in Sources */,
+				07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F85B769246A9A7C00ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
@@ -4227,6 +4235,7 @@
 				7F85B862246A9AB600ED09B8 /* AttributeList.swift in Sources */,
 				7F85B863246A9AB600ED09B8 /* IdentityDataSelectionCell.swift in Sources */,
 				7F85B864246A9AB600ED09B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
+				07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */,
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
@@ -4634,6 +4643,7 @@
 				52CE0C7A250FFEC70018B5D1 /* Encrypted.swift in Sources */,
 				5211BAA824FD1D5100EE1658 /* Balance.swift in Sources */,
 				642A293225FB967A0073BF8C /* ValueCredential.swift in Sources */,
+				07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F7F6D2A24A0986D0017B18F /* SingleLabelViewController.swift in Sources */,
 				52589B2725128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				528EB741255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
