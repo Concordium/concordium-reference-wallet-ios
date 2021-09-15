@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +13,7 @@
         <!--Identity Provider List View Controller-->
         <scene sceneID="NQS-bM-KGT">
             <objects>
-                <viewController storyboardIdentifier="IdentityProviderListViewController" id="gNV-Wc-b1j" customClass="IdentityProviderListViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityProviderListViewController" id="gNV-Wc-b1j" customClass="IdentityProviderListViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cfd-oW-p8u">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,14 +58,14 @@ Note: More Identity Issuers are coming soon!</string>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityProviderCell" rowHeight="95" id="xWx-nU-e5g" customClass="IdentityProviderCell" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="269" width="375" height="95"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityProviderCell" rowHeight="95" id="xWx-nU-e5g" customClass="IdentityProviderCell" customModule="Mock" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="265.5" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xWx-nU-e5g" id="rt4-4t-TUY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AlR-HJ-VFD" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AlR-HJ-VFD" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                                     <rect key="frame" x="30" y="16" width="315" height="63"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GHM-Yf-xIs">
@@ -227,7 +227,7 @@ Note: More Identity Issuers are coming soon!</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.heading"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRM-MM-HP3" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRM-MM-HP3" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="597" width="335" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -294,7 +294,7 @@ You can start using your identity object once validation of your id has been com
         <!--Getting Started View Controller-->
         <scene sceneID="oou-hU-JeR">
             <objects>
-                <viewController storyboardIdentifier="GettingStartedViewController" id="tgW-3b-vFA" customClass="GettingStartedViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GettingStartedViewController" id="tgW-3b-vFA" customClass="GettingStartedViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZZP-mj-GQS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,7 +329,7 @@ You can start using your identity object once validation of your id has been com
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L26-6W-YRw">
                                                 <rect key="frame" x="0.0" y="96.5" width="335" height="140"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8Y-S7-jdl" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8Y-S7-jdl" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
                                                         <color key="backgroundColor" name="primary"/>
                                                         <constraints>
@@ -345,7 +345,7 @@ You can start using your identity object once validation of your id has been com
                                                             <action selector="createAccountsTapped:" destination="tgW-3b-vFA" eventType="touchUpInside" id="heP-HP-rby"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIs-du-qey" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIs-du-qey" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="90" width="335" height="50"/>
                                                         <color key="backgroundColor" name="primary"/>
                                                         <constraints>
@@ -412,7 +412,7 @@ You can start using your identity object once validation of your id has been com
         <!--Identities View Controller-->
         <scene sceneID="DKK-wO-2ho">
             <objects>
-                <viewController storyboardIdentifier="IdentitiesViewController" id="bBj-dC-EZg" customClass="IdentitiesViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentitiesViewController" id="bBj-dC-EZg" customClass="IdentitiesViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fmt-j7-xi2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -422,14 +422,14 @@ You can start using your identity object once validation of your id has been com
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Concordium_ID" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="221"/>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Mock" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="221"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z5F-8M-xsD" id="FHV-qe-9m3">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDA-GU-4dR" customClass="IdentityCardView" customModule="Concordium_ID" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDA-GU-4dR" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="8" width="343" height="205"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
@@ -456,13 +456,13 @@ You can start using your identity object once validation of your id has been com
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52n-TU-j5X">
                                 <rect key="frame" x="16" y="64" width="343" height="583"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no identities yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWX-P2-7Vq" customClass="BaseLabel" customModule="Concordium_ID" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no identities yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWX-P2-7Vq" customClass="BaseLabel" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="74.5" y="-75" width="194" height="593"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-1u-Y29" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-1u-Y29" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="533" width="343" height="50"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <constraints>
@@ -517,7 +517,7 @@ You can start using your identity object once validation of your id has been com
         <!--Transparent Navigation Controller-->
         <scene sceneID="SeQ-la-WZ1">
             <objects>
-                <navigationController storyboardIdentifier="IdentitiesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="XNA-cc-TPn" customClass="TransparentNavigationController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="IdentitiesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="XNA-cc-TPn" customClass="TransparentNavigationController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qgh-nZ-zeM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -535,7 +535,7 @@ You can start using your identity object once validation of your id has been com
         <!--Initial Account Info View Controller-->
         <scene sceneID="0LW-Vj-zUd">
             <objects>
-                <viewController storyboardIdentifier="InitialAccountInfoViewController" id="70d-gA-9M6" customClass="InitialAccountInfoViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InitialAccountInfoViewController" id="70d-gA-9M6" customClass="InitialAccountInfoViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Apz-ef-op4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -549,7 +549,7 @@ You can start using your identity object once validation of your id has been com
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.heading"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPb-gG-l6K" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPb-gG-l6K" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="597" width="335" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -618,7 +618,7 @@ You can start using your identity object once validation of your id has been com
         <!--Identity Confirmed View Controller-->
         <scene sceneID="c4O-De-KY9">
             <objects>
-                <viewController storyboardIdentifier="IdentityConfirmedViewController" id="ptF-jc-wGF" customClass="IdentityConfirmedViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityConfirmedViewController" id="ptF-jc-wGF" customClass="IdentityConfirmedViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Apc-vw-hpf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -659,15 +659,15 @@ You can start using your identity object once validation of your id has been com
                                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.text"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQo-bl-bBg" customClass="IdentityCardView" customModule="Concordium_ID" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQo-bl-bBg" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="165" width="335" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Concordium_ID" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="385" width="335" height="206"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="611" width="335" height="50"/>
                                                 <color key="backgroundColor" name="primary"/>
                                                 <constraints>
