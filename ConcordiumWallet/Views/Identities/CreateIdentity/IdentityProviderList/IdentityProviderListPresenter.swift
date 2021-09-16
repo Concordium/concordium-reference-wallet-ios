@@ -126,10 +126,12 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
             guard let self = self else { return }
             
             guard permissionGranted else {
-                self.view?.showRecoverableAlert(.cameraAccessDeniedError) { SettingsHelper.openAppSettings() }
+                DispatchQueue.main.async {
+                    self.view?.showRecoverableAlert(.cameraAccessDeniedError) { SettingsHelper.openAppSettings() }
+                }
                 return
             }
-         
+            
             guard let delegate = self.delegate else { fatalError("Missing delegate in class IdentityProviderListPresenter") }
             guard let ipInfoResponse = self.ipInfo?[identityProviderIndex] else {
                 fatalError("""
