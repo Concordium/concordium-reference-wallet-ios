@@ -197,8 +197,9 @@ extension AppCoordinator: InitialAccountsCoordinatorDelegate {
 extension AppCoordinator: LoginCoordinatorDelegate {
     func loginDone() {
         let identities = defaultProvider.storageManager().getIdentities()
+        let accounts = defaultProvider.storageManager().getAccounts()
         
-        if identities.filter({$0.state == IdentityState.confirmed || $0.state == IdentityState.pending}).first != nil {
+        if !accounts.isEmpty || !identities.isEmpty {
             showMainTabbar()
         } else {
             showInitialIdentityCreation()
