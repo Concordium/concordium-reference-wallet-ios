@@ -92,6 +92,9 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         keyboardWillHide { [weak self] keyboardHeight in
             self?.sendFundButtonBottomConstraint.constant -= keyboardHeight
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapGesture)
 
         amountTextField.delegate = self
     }
@@ -141,9 +144,13 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         }.store(in: &cancellables)
     }
 
+    @objc private func hideKeyboardOnTap(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     @IBAction func selectRecipientTapped(_ sender: Any) {
         presenter.userTappedSelectRecipient()
-        // amountTextField.resignFirstResponder()
+         amountTextField.resignFirstResponder()
     }
 
     @IBAction func sendFundTapped(_ sender: Any) {
