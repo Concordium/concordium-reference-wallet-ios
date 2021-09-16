@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 enum PasswordType: String {
     case passcode
@@ -50,9 +49,4 @@ struct AppSettings {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.passwordChangeInProgress.rawValue)
         }
     }
-    #if DEBUG
-    static let realmConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-    #else
-    static let realmConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-    #endif
 }

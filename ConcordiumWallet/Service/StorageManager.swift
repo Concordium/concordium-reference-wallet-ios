@@ -17,13 +17,17 @@ protocol StorageManagerProtocol {
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
 
     func storePrivateAccountKeys(_ privateAccountKeys: AccountKeys, pwHash: String) -> Result<String, Error>
-    // func storePrivateAccountData(_ privateAccountData: AccountData, pwHash: String) -> Result<String, Error>
     func getPrivateAccountKeys(key: String, pwHash: String) -> Result<AccountKeys, Error>
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error>
     
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error>
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error>
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error>
+
+    func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error>
+    func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error>
+    // swiftlint:disable line_length
+    func updateCommitmentsRandomnessPasscode(for account: AccountDataType, commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<Void, Error>
     
     func getNextAccountNumber(for identity: IdentityDataType) -> Result<Int, StorageError>
     func storeAccount(_ account: AccountDataType) throws -> AccountDataType
@@ -58,7 +62,7 @@ enum StorageError: Error {
 
 class StorageManager: StorageManagerProtocol {
 
-    private var realm: Realm = try! Realm(configuration: AppSettings.realmConfiguration) // swiftlint:disable:this force_try
+    private var realm: Realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
     private var keychain: KeychainWrapperProtocol
 
     init(keychain: KeychainWrapperProtocol) {
@@ -248,6 +252,33 @@ class StorageManager: StorageManagerProtocol {
     func getShieldedAmount(encryptedValue: String, account: AccountDataType) -> ShieldedAmountType? {
         guard let address = (account as? AccountEntity)?.address else { return nil }
         return Array(realm.objects(ShieldedAmountEntity.self).filter("primaryKey == %@", address + encryptedValue)).first
+    }
+    
+    func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error> {
+        let id = UUID().uuidString
+        guard let jsonData = try? commitmentsRandomness.jsonString() else { return .failure(StorageError.nullDataError) }
+        return keychain.store(key: id, value: jsonData, securedByPassword: pwHash)
+                .map { _ in id }
+                .mapError { $0 as Error}
+    }
+    
+    func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error> {
+        keychain.getValue(for: key, securedByPassword: pwHash)
+                .flatMap {
+                    do {
+                        return try .success(CommitmentsRandomness($0))
+                    } catch {
+                        return .failure(KeychainError.itemNotFound)
+                    }
+                }
+            .mapError { $0 as Error }
+    }
+    
+    func updateCommitmentsRandomnessPasscode(for account: AccountDataType, commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<Void, Error> {
+        guard let commitmentsRandomnessItemKey = account.encryptedCommitmentsRandomness else { return .success(Void()) }
+        guard let jsonData = try? commitmentsRandomness.jsonString() else { return .failure(StorageError.nullDataError) }
+        return keychain.store(key: commitmentsRandomnessItemKey, value: jsonData, securedByPassword: pwHash)
+                .mapError { $0 as Error }
     }
     
     // MARK: - Recipient

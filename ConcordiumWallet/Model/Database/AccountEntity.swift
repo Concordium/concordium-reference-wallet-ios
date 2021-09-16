@@ -12,8 +12,10 @@ protocol AccountDataType: DataStoreProtocol {
     var address: String { get set }
     var submissionId: String? { get set }
     var transactionStatus: SubmissionStatusEnum? { get set }
+    
     var encryptedAccountData: String? { get set }
     var encryptedPrivateKey: String? { get set}
+    var encryptedCommitmentsRandomness: String? { get set }
     
     var identity: IdentityDataType? { get set }
     var revealedAttributes: [String: String] { get set }
@@ -56,42 +58,6 @@ protocol AccountDataType: DataStoreProtocol {
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
     func withTransferFilters(filters: TransferFilter) -> AccountDataType
-    
-//    func isEqual(to: AccountDataType) -> Bool
-}
-
-extension AccountDataType {
-//    func isEqual(to other: AccountDataType) -> Bool {
-//        return name == other.name &&
-//            displayName == other.displayName &&
-//            address == other.address &&
-//            submissionId == other.submissionId &&
-//            transactionStatus == other.transactionStatus &&
-//            encryptedAccountData == other.encryptedAccountData &&
-//            encryptedPrivateKey == other.encryptedPrivateKey &&
-//        //identity == other.identity &&
-//        var revealedAttributes: [String: String] { get set }
-//
-//        finalizedBalance == other.finalizedBalance &&
-//            forecastBalance == other.forecastBalance &&
-//            forecastAtDisposalBalance == other.forecastAtDisposalBalance &&
-//            stakedAmount == other.stakedAmount &&
-//            finalizedEncryptedBalance == other.finalizedEncryptedBalance &&
-//            forecastEncryptedBalance == other.forecastEncryptedBalance &&
-//            totalForecastBalance == other.totalForecastBalance &&
-//            encryptedBalance?.incomingAmounts == other.encryptedBalance?.incomingAmounts &&
-//            encryptedBalance?.selfAmount == other.encryptedBalance?.selfAmount &&
-//            encryptedBalanceStatus == other.encryptedBalanceStatus &&
-//            accountNonce == other.accountNonce &&
-//
-//        var credential: Credential? { get set }
-//        var createdTime: Date { get }
-//        var usedIncomingAmountIndex: Int { get set}
-//        isReadOnly == other.isReadOnly
-//        var bakerId: Int { get set }
-//        var releaseSchedule: ReleaseScheduleDataType? { get set }
-//        var transferFilters: TransferFilter? { get set }
-//    }
 }
 
 extension AccountDataType {
@@ -164,6 +130,7 @@ final class AccountEntity: Object {
     @objc dynamic var transactionStatusString: String? = ""
     @objc dynamic var encryptedBalanceStatusString: String? = ""
     @objc dynamic var encryptedAccountData: String? = ""
+    @objc dynamic var encryptedCommitmentsRandomness: String? = ""
     @objc dynamic var encryptedPrivateKey: String? = ""
     @objc dynamic var identityEntity: IdentityEntity?
     @objc dynamic var encryptedBalanceEntity: EncryptedBalanceEntity? = EncryptedBalanceEntity()
