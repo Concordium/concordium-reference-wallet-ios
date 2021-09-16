@@ -34,15 +34,13 @@ class IdentityInfoViewModel: IdentityGeneralViewModel {
             expiresOn = ""
         }
 
-        let privacyPolicyURL = "https://developer.concordium.software/extra/Terms-and-conditions-Mobile-Wallet.pdf"
-
         self.init(id: ipIdentity,
                   name: name,
                   iconEncoded: icon,
                   state: identity.state,
                   nickname: identity.nickname,
                   expiresOn: expiresOn,
-                  privacyPolicyURL: privacyPolicyURL)
+                  privacyPolicyURL: AppConstants.PrivacyPolicy.url)
     }
 
     init(id: Int, name: String, iconEncoded: String, state: IdentityState, nickname: String, expiresOn: String, privacyPolicyURL: String) {
