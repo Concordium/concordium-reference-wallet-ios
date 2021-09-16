@@ -57,7 +57,7 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
         let addIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
         
-        animateWithKeyboard { [weak self] (keyboardHeight) in
+        keyboardWillShow { [weak self] (keyboardHeight) in
             self?.nextButtonButtomConstraint.constant = keyboardHeight
             if let scrollView = self?.scrollView, let view = self?.view {
                 scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentSize.height - (view.bounds.height - keyboardHeight)), animated: false)

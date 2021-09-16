@@ -85,8 +85,12 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
 
-        animateWithKeyboard { [weak self] keyboardHeight in
+        keyboardWillShow { [weak self] keyboardHeight in
             self?.sendFundButtonBottomConstraint.constant = keyboardHeight
+        }
+        
+        keyboardWillHide { [weak self] keyboardHeight in
+            self?.sendFundButtonBottomConstraint.constant -= keyboardHeight
         }
 
         amountTextField.delegate = self
