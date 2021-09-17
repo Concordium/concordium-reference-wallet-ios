@@ -178,9 +178,11 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     }
 
     @IBAction func sendFundTapped(_ sender: Any) {
-        if let amount = amountTextField.text {
-            presenter.userTappedSendFund(amount: amount)
-        }
+        guard let amount = amountTextField.text else { return }
+        presenter.userTappedSendFund(
+            amount: amount,
+            memo: memoTextField.text
+        )
     }
     
     @IBAction func doneTapped(_ sender: UITextField) {

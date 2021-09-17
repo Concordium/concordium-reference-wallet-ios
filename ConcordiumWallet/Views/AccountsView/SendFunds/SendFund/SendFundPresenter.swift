@@ -45,6 +45,7 @@ protocol SendFundPresenterDelegate: AnyObject {
                            energyUsed energy: Int,
                            from account: AccountDataType,
                            to recipient: RecipientDataType,
+                           memo: String?,
                            cost: GTU,
                            transferType: TransferType)
 }
@@ -57,7 +58,7 @@ protocol SendFundPresenterProtocol: AnyObject {
     
     func userTappedClose()
     func userTappedSelectRecipient()
-    func userTappedSendFund(amount: String)
+    func userTappedSendFund(amount: String, memo: String?)
     
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
@@ -256,7 +257,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         setPageAndSendButtonTitle()
     }
     
-    func userTappedSendFund(amount: String) {
+    func userTappedSendFund(amount: String, memo: String?) {
         guard let selectedRecipient = selectedRecipient, let cost = cost, let energy = energy else {
             // never happens since button is disabled in this case
             return
@@ -269,12 +270,15 @@ class SendFundPresenter: SendFundPresenterProtocol {
             recipient = selectedRecipient
         }
         
-        self.delegate?.sendFundPresenter(didSelectTransferAmount: GTU(displayValue: amount),
-                                         energyUsed: energy,
-                                         from: account,
-                                         to: recipient,
-                                         cost: cost,
-                                         transferType: transferType)
+        self.delegate?.sendFundPresenter(
+            didSelectTransferAmount: GTU(displayValue: amount),
+            energyUsed: energy,
+            from: account,
+            to: recipient,
+            memo: memo,
+            cost: cost,
+            transferType: transferType
+        )
     }
     
     func setPageAndSendButtonTitle() {

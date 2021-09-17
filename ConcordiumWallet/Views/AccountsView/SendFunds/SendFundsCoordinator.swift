@@ -80,18 +80,24 @@ class SendFundsCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showSendFundConfirmation(amount: GTU,
-                                  energy: Int,
-                                  from account: AccountDataType,
-                                  to recipient: RecipientDataType,
-                                  cost: GTU,
-                                  transferType: TransferType) {
-        let presenter = SendFundConfirmationPresenter(delegate: self, amount: amount,
-                                                      from: account, to: recipient,
-                                                      cost: cost,
-                                                      energy: energy,
-                                                      dependencyProvider: dependencyProvider,
-                                                      transferType: transferType)
+    func showSendFundConfirmation(
+        amount: GTU,
+        energy: Int,
+        from account: AccountDataType,
+        to recipient: RecipientDataType,
+        memo: String?,
+        cost: GTU,
+        transferType: TransferType
+    ) {
+        let presenter = SendFundConfirmationPresenter(
+            delegate: self, amount: amount,
+            from: account, to: recipient,
+            memo: memo,
+            cost: cost,
+            energy: energy,
+            dependencyProvider: dependencyProvider,
+            transferType: transferType
+        )
         let vc = SendFundConfirmationFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -106,13 +112,24 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
-    func sendFundPresenter(didSelectTransferAmount amount: GTU,
-                           energyUsed energy: Int,
-                           from account: AccountDataType,
-                           to recipient: RecipientDataType,
-                           cost: GTU,
-                           transferType: TransferType) {
-        showSendFundConfirmation(amount: amount, energy: energy, from: account, to: recipient, cost: cost, transferType: transferType)
+    func sendFundPresenter(
+        didSelectTransferAmount amount: GTU,
+        energyUsed energy: Int,
+        from account: AccountDataType,
+        to recipient: RecipientDataType,
+        memo: String?,
+        cost: GTU,
+        transferType: TransferType
+    ) {
+        showSendFundConfirmation(
+            amount: amount,
+            energy: energy,
+            from: account,
+            to: recipient,
+            memo: memo,
+            cost: cost,
+            transferType: transferType
+        )
     }
 
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType) {

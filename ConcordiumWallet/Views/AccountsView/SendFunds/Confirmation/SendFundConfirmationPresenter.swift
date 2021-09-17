@@ -45,22 +45,27 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var fromAccount: AccountDataType
     private var recipient: RecipientDataType
     private var cost: GTU
+    private var memo: String?
     private var energy: Int
     private var transferType: TransferType
 
-    init(delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
-         amount: GTU,
-         from account: AccountDataType,
-         to recipient: RecipientDataType,
-         cost: GTU,
-         energy: Int,
-         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
-         transferType: TransferType) {
+    init(
+        delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
+        amount: GTU,
+        from account: AccountDataType,
+        to recipient: RecipientDataType,
+        memo: String?,
+        cost: GTU,
+        energy: Int,
+        dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
+        transferType: TransferType
+    ) {
         self.delegate = delegate
         self.amount = amount
         self.fromAccount = account
         self.recipient = recipient
         self.cost = cost
+        self.memo = memo
         self.energy = energy
         self.dependencyProvider = dependencyProvider
         self.transferType = transferType
