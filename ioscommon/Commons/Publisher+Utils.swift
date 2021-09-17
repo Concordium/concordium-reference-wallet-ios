@@ -33,6 +33,12 @@ extension Publisher {
         loadingIndicatorView?.showLoading()
         return handleEvents(receiveCompletion: { _ in loadingIndicatorView?.hideLoading() })
     }
+    
+    func withPrevious() -> AnyPublisher<(previous: Output?, current: Output), Failure> {
+        scan(Optional<(Output?, Output)>.none) { ($0?.1, $1) }
+            .compactMap { $0 }
+            .eraseToAnyPublisher()
+    }
 }
 
 extension Publisher {
