@@ -14,17 +14,22 @@ class SendFundViewModel {
     @Published var selectRecipientText: String?
     @Published var feeMessage: String?
     @Published var isRecipientNameFaded = false
+    @Published var hasMemoError = false
+    @Published var shakeMemoField = false
     @Published var errorMessage: String?
     @Published var sendButtonEnabled = false
     @Published var imageName: String? = "QR_code_icon"
     @Published var accountBalance: String?
     @Published var accountBalanceShielded: String?
+    @Published var memoPlaceholderText: String?
+    @Published var memo: String?
 }
 
 // MARK: View
 protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
     func bind(to viewModel: SendFundViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
+    var memoPublisher: AnyPublisher<String, Never> { get }
     var buttonTitle: String? { get set }
     var pageTitle: String? { get set }
     var showSelectRecipient: Bool { get set }
@@ -90,14 +95,42 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 
     func viewDidLoad() {
-        $selectedRecipient.map({$0?.name})
-        .assign(to: \.recipientName, on: viewModel)
-        .store(in: &cancellables)
+        $selectedRecipient
+            .map({$0?.name})
+            .assign(to: \.recipientName, on: viewModel)
+            .store(in: &cancellables)
         
-        $selectedRecipient.map({($0?.name.isEmpty ?? true)})
-        .assign(to: \.isRecipientNameFaded, on: viewModel)
-        .store(in: &cancellables)
+        $selectedRecipient
+            .map({($0?.name.isEmpty ?? true)})
+            .assign(to: \.isRecipientNameFaded, on: viewModel)
+            .store(in: &cancellables)
 
+        view?.memoPublisher
+            .map { [weak self] memo in
+                guard let self = self else { return false }
+                return !self.memoIsValid(memo: memo)
+            }
+            .assign(to: \.hasMemoError, on: viewModel)
+            .store(in: &cancellables)
+        
+        view?.memoPublisher
+            .withPrevious()
+            .map { [weak self] in
+                let current = $0.current
+                
+                guard
+                    let self = self,
+                    let previous = $0.previous,
+                    !self.memoIsValid(memo: current)
+                else {
+                    return false
+                }
+                            
+                return current.utf8.count >= previous.utf8.count
+            }
+            .assign(to: \.shakeMemoField, on: viewModel)
+            .store(in: &cancellables)
+        
         // Show disposable balance.
         viewModel.accountBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
         viewModel.accountBalanceShielded = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke()
@@ -107,6 +140,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 
         viewModel.sendButtonEnabled = false
         viewModel.selectRecipientText = "sendFund.selectRecipient".localized
+        viewModel.memoPlaceholderText = "sendFund.memoText".localized
         
         setPageAndSendButtonTitle()
 
@@ -117,36 +151,44 @@ class SendFundPresenter: SendFundPresenterProtocol {
             view?.showSelectRecipient = false
         }
         
-        guard let amountPublisher = view?.amountPublisher else {
+        assignSendButtonEnabled()
+        
+        view?.bind(to: viewModel)
+    }
+    
+    private func assignSendButtonEnabled() {
+        guard
+            let amountPublisher = view?.amountPublisher,
+            let memoPublisher = view?.memoPublisher
+        else {
             return
         }
         
-//        Publishers.CombineLatest(viewModel.$recipientName, amountPublisher)
-//            .sink { [weak self] (_, amount) in
-//            guard let self = self else { return }
-//            if !self.hasSufficientFunds(amount: amount) {
-//                self.viewModel.errorMessage = "sendFund.insufficientFunds".localized
-//            } else {
-//                self.viewModel.errorMessage = ""
-//            }
-//        }.store(in: &cancellables)
-
-        Publishers.CombineLatest3(viewModel.$recipientName,
-                                  viewModel.$feeMessage,
-                                  amountPublisher).receive(on: DispatchQueue.main)
-                .map { [weak self] (recipientName, feeMessage, amount) in
-                    guard let self = self else { return false }
-                    if !self.hasSufficientFunds(amount: amount) {
-                        self.viewModel.errorMessage = "sendFund.insufficientFunds".localized
-                    } else {
-                        self.viewModel.errorMessage = ""
-                    }
-                    return !(recipientName ?? "").isEmpty && !(feeMessage ?? "").isEmpty && !amount.isEmpty && self.hasSufficientFunds(amount: amount)
-                }
-                .assign(to: \.sendButtonEnabled, on: viewModel)
-                .store(in: &cancellables)
-
-        view?.bind(to: viewModel)
+        Publishers.CombineLatest4(
+            viewModel.$recipientName,
+            viewModel.$feeMessage,
+            amountPublisher,
+            memoPublisher.prepend("")
+        )
+        .receive(on: DispatchQueue.main)
+        .map { [weak self] (recipientName, feeMessage, amount, memo) in
+            guard let self = self else { return false }
+            
+            if !self.hasSufficientFunds(amount: amount) {
+                self.viewModel.errorMessage = "sendFund.insufficientFunds".localized
+            } else {
+                self.viewModel.errorMessage = ""
+            }
+            
+            return
+                !(recipientName ?? "").isEmpty &&
+                !(feeMessage ?? "").isEmpty &&
+                !amount.isEmpty &&
+                self.hasSufficientFunds(amount: amount) &&
+                self.memoIsValid(memo: memo)
+        }
+        .assign(to: \.sendButtonEnabled, on: viewModel)
+        .store(in: &cancellables)
     }
 
     private func hasSufficientFunds(amount: String) -> Bool {
@@ -160,6 +202,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
         } else {
             return GTU(displayValue: amount).intValue <= self.account.forecastEncryptedBalance && cost.intValue <= self.account.forecastBalance
         }
+    }
+    
+    private func memoIsValid(memo: String) -> Bool {
+        return memo.utf8.count <= 256
     }
 
     func userTappedClose() {

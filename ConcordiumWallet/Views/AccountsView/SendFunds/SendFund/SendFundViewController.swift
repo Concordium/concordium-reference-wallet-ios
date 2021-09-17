@@ -21,6 +21,7 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
 
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
+    var memoPublisher: AnyPublisher<String, Never> { memoTextField.textPublisher }
     
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var selectedRecipientLabel: UILabel!
@@ -33,6 +34,8 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     @IBOutlet weak var accountBalance: UILabel!
     @IBOutlet weak var accountBalanceShielded: UILabel!
     @IBOutlet weak var shieldedBalanceLockImageView: UIImageView!
+    
+    @IBOutlet weak var memoTextField: UITextField!
     
     @IBOutlet weak var errorMessageLabel: UILabel! {
         didSet {
@@ -103,23 +106,38 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         
         viewModel.$recipientName
             .map { $0 ?? viewModel.selectRecipientText }
-                .assign(to: \.text, on: selectedRecipientLabel)
-                .store(in: &cancellables)
+            .assign(to: \.text, on: selectedRecipientLabel)
+            .store(in: &cancellables)
 
         viewModel.$isRecipientNameFaded
                 .sink { [weak self] in
-                    if $0 {
-                        self?.selectedRecipientLabel.textColor = .fadedText
-                    } else {
-                        self?.selectedRecipientLabel.textColor = .text
-                    }
+                    let color: UIColor = $0 ? .fadedText : .text
+                    self?.selectedRecipientLabel.textColor = color
                 }
                 .store(in: &cancellables)
+        
+        viewModel.$memoPlaceholderText
+            .assign(to: \.placeholder, on: memoTextField)
+            .store(in: &cancellables)
+
+        viewModel.$hasMemoError
+            .sink { [weak self] in
+                let color: UIColor = $0 ? .errorText : .text
+                self?.memoTextField.textColor = color
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$shakeMemoField
+            .sink { [weak self] in
+                guard $0 else { return }
+                self?.memoTextField.shake()
+            }
+            .store(in: &cancellables)
 
         viewModel.$accountBalance
             .assign(to: \.text, on: accountBalance)
             .store(in: &cancellables)
-
+    
         viewModel.$accountBalanceShielded
             .sink(receiveValue: { str in
                 self.accountBalanceShielded.text = str?.appending((self.shieldedBalanceLockImageView.image != nil ? " + " : ""))
@@ -133,6 +151,10 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         viewModel.$errorMessage
             .assign(to: \.text, on: errorMessageLabel)
             .store(in: &cancellables)
+        
+        viewModel.$memo
+            .assign(to: \.text, on: memoTextField)
+            .store(in: &cancellables)
 
         viewModel.$sendButtonEnabled
             .assign(to: \.isEnabled, on: sendFundsButton)
@@ -141,7 +163,9 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         viewModel.$imageName
             .sink { [weak self] (imageName) in
                 self?.transferIconImageView.image = UIImage(named: imageName ?? "")
-        }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
+        
     }
 
     @objc private func hideKeyboardOnTap(_ sender: Any) {
@@ -170,16 +194,29 @@ extension SendFundViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SendFundViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString: String) -> Bool {
-        let text = (textField.text ?? "") as NSString
-        let newString = text.replacingCharacters(in: range, with: replacementString)
-
-        if newString.unsignedWholePart  > (Int.max - 999999)/1000000 {
-            return false
-        }
+        switch textField.accessibilityIdentifier {
         
-        // Allow only numbers, dot and up to six decimal points
-        return newString.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
+        // Amount
+        case amountTextField.accessibilityIdentifier:
+            let text = (textField.text ?? "") as NSString
+            
+            let updatedText = text.replacingCharacters(
+                in: range,
+                with: replacementString
+            )
+
+            if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
+                return false
+            }
+            
+            // Allow only numbers, dot and up to six decimal points
+            return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
+            
+        default:
+            return true
+        }
     }
 }

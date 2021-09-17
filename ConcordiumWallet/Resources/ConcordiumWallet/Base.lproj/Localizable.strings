@@ -227,6 +227,8 @@ process on-chain.";
 "sendFund.selectRecipient" = "Select Recipient";
 "sendFund.feeMessage" = "Estimated transaction fee:
 Ǥ";
+"sendFund.memoText" = "You can enter an optional memo here.";
+
 "sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
 "sendFund.insufficientFunds" = "Insufficient funds";
 "sendFund.confirmation.shield" = "Are you sure you want to shield";
