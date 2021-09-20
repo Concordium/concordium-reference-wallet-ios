@@ -15,6 +15,7 @@ protocol SendFundConfirmationViewProtocol: ShowError, Loadable {
     var line2Text: String? { get set }
     var line3Text: String? { get set }
     var line4Text: String? { get set }
+    var line5Text: String? { get set }
     var buttonText: String? { get set }
     var visibleWaterMark: Bool { get set }
 }
@@ -86,7 +87,9 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             let accountName = fromAccount.displayName
             view?.line3Text = "\(sFromAccount) \(accountName)"
         }
+        
         view?.visibleWaterMark = false
+        
         switch transferType {
         case .simpleTransfer:
             view?.line1Text = "sendFund.confirmation.transfer".localized
@@ -107,6 +110,12 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         let estimateTransactionFee = "sendFund.confirmation.line4.estimatedTransactionFee".localized
         let sCost = cost.displayValueWithGStroke()
         view?.line4Text = "\(estimateTransactionFee)\(sCost)"
+        
+        if let memo = memo {
+            view?.line5Text = String(format: "sendFund.memo.text".localized, memo)
+        } else {
+            view?.line5Text = nil
+        }
     }
 
     func userTappedConfirm() {

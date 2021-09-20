@@ -239,6 +239,8 @@ process on-chain.";
 "sendFund.confirmation.line3.Account" = "Account: ";
 "sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:\n";
 "sendFund.confirmation.buttonTitle" = "Yes, send funds";
+"sendFund.memo.text" = "Memo:\n %@";
+
 "selectRecipient.title" = "Select recipient";
 "selectRecipient.searchRecipients" = "Search recipients";
 "accountAddress.share" = "SHARE";
