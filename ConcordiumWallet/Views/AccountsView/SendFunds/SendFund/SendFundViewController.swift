@@ -17,8 +17,7 @@ class SendFundFactory {
     }
 }
 
-class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboarded {
-
+class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
     var memoPublisher: AnyPublisher<String, Never> { memoTextField.textPublisher }
@@ -174,7 +173,34 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
             .store(in: &cancellables)
         
     }
-
+    
+    func showMemoWarningAlert(_ completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: "warningAlert.transactionMemo.title".localized,
+            message: "warningAlert.transactionMemo.text".localized,
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(
+            title: "errorAlert.okButton".localized,
+            style: .default
+        ) { _ in
+            completion()
+        }
+        
+        let dontShowAgain = UIAlertAction(
+            title: "warningAlert.dontShowAgainButton".localized,
+            style: .default
+        ) { [weak self] _ in
+            self?.presenter.userTappedDontShowMemoAlertAgain { completion() }
+        }
+        
+        alert.addAction(okAction)
+        alert.addAction(dontShowAgain)
+        
+        present(alert, animated: true)
+    }
+    
     @objc private func hideKeyboardOnTap(_ sender: Any) {
         view.endEditing(true)
     }

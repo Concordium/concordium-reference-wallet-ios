@@ -35,6 +35,7 @@ protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
     var showSelectRecipient: Bool { get set }
     var showShieldedLock: Bool { get set }
     var showMemo: Bool { get set }
+    func showMemoWarningAlert(_ completion: @escaping () -> Void)
 }
 
 // MARK: -
@@ -60,13 +61,13 @@ protocol SendFundPresenterProtocol: AnyObject {
     func userTappedClose()
     func userTappedSelectRecipient()
     func userTappedSendFund(amount: String, memo: String?)
+    func userTappedDontShowMemoAlertAgain(_ completion: @escaping () -> Void)
     
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
 }
 
 class SendFundPresenter: SendFundPresenterProtocol {
-
     weak var view: SendFundViewProtocol?
     weak var delegate: SendFundPresenterDelegate?
     
@@ -261,29 +262,47 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
     
     func userTappedSendFund(amount: String, memo: String?) {
-        guard let selectedRecipient = selectedRecipient, let cost = cost, let energy = energy else {
-            // never happens since button is disabled in this case
-            return
+        let sendFund = { [weak self] in
+            guard
+                let self = self,
+                let selectedRecipient = self.selectedRecipient,
+                let cost = self.cost,
+                let energy = self.energy
+            else {
+                // never happens since button is disabled in this case
+                return
+            }
+            
+            let recipient: RecipientDataType
+            if selectedRecipient.address == self.account.address {
+                recipient = RecipientEntity(name: self.account.displayName, address: self.account.address)
+            } else {
+                recipient = selectedRecipient
+            }
+            
+            self.delegate?.sendFundPresenter(
+                didSelectTransferAmount: GTU(displayValue: amount),
+                energyUsed: energy,
+                from: self.account,
+                to: recipient,
+                memo: memo,
+                cost: cost,
+                transferType: self.transferType
+            )
         }
         
-        let recipient: RecipientDataType
-        if selectedRecipient.address == self.account.address {
-            recipient = RecipientEntity(name: self.account.displayName, address: self.account.address)
+        if memo == nil || AppSettings.dontShowMemoAlertWarning {
+            sendFund()
         } else {
-            recipient = selectedRecipient
+            view?.showMemoWarningAlert { sendFund() }
         }
-        
-        self.delegate?.sendFundPresenter(
-            didSelectTransferAmount: GTU(displayValue: amount),
-            energyUsed: energy,
-            from: account,
-            to: recipient,
-            memo: memo,
-            cost: cost,
-            transferType: transferType
-        )
     }
     
+    func userTappedDontShowMemoAlertAgain(_ completion: @escaping () -> Void) {
+        AppSettings.dontShowMemoAlertWarning = true
+        completion()
+    }
+
     func setPageAndSendButtonTitle() {
         switch transferType {
         case .simpleTransfer, .encryptedTransfer:
