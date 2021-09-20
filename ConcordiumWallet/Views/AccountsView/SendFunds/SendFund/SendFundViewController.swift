@@ -179,9 +179,13 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
 
     @IBAction func sendFundTapped(_ sender: Any) {
         guard let amount = amountTextField.text else { return }
+            
+        let memoIsEmpty = memoTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == ""
+        let memo = memoIsEmpty ? nil : memoTextField.text
+
         presenter.userTappedSendFund(
             amount: amount,
-            memo: memoTextField.text
+            memo: memo
         )
     }
     
