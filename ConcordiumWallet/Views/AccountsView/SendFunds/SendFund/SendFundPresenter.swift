@@ -34,6 +34,7 @@ protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
     var pageTitle: String? { get set }
     var showSelectRecipient: Bool { get set }
     var showShieldedLock: Bool { get set }
+    var showMemo: Bool { get set }
 }
 
 // MARK: -
@@ -141,7 +142,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 
         viewModel.sendButtonEnabled = false
         viewModel.selectRecipientText = "sendFund.selectRecipient".localized
-        viewModel.memoPlaceholderText = "sendFund.memoText".localized
         
         setPageAndSendButtonTitle()
 
@@ -150,6 +150,9 @@ class SendFundPresenter: SendFundPresenterProtocol {
             let ownAccount = RecipientEntity(name: self.account.displayName, address: self.account.address)
             setSelectedRecipient(recipient: ownAccount)
             view?.showSelectRecipient = false
+            view?.showMemo = false
+        } else {
+            viewModel.memoPlaceholderText = "sendFund.memoText".localized
         }
         
         assignSendButtonEnabled()

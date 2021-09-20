@@ -35,6 +35,7 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     @IBOutlet weak var accountBalanceShielded: UILabel!
     @IBOutlet weak var shieldedBalanceLockImageView: UIImageView!
     
+    @IBOutlet weak var memoContainer: UIView!
     @IBOutlet weak var memoTextField: UITextField!
     
     @IBOutlet weak var errorMessageLabel: UILabel! {
@@ -54,6 +55,12 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     var showSelectRecipient: Bool = true {
         didSet {
             selectRecipientWidgetView.isHidden = !showSelectRecipient
+        }
+    }
+    
+    var showMemo: Bool = true {
+        didSet {
+            memoContainer.isHidden = !showMemo
         }
     }
     
