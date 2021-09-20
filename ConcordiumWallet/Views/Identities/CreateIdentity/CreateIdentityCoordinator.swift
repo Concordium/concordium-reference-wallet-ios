@@ -35,12 +35,21 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         navigationController.modalPresentationStyle = .fullScreen
         showInitialAccountInfo()
         registerForCreatedIdentityNotification()
+        registerForApplicationWillTerminateNotification()
     }
 
     func startWithIdentity() {
         navigationController.modalPresentationStyle = .fullScreen
         showCreateNewIdentity()
         registerForCreatedIdentityNotification()
+        registerForApplicationWillTerminateNotification()
+    }
+    
+    private func registerForApplicationWillTerminateNotification() {
+        NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)
+            .sink { [weak self] _ in
+                self?.cleanupUnfinishedIdentiesAndAccounts()
+            }.store(in: &cancellables)
     }
     
     private func registerForCreatedIdentityNotification() {
