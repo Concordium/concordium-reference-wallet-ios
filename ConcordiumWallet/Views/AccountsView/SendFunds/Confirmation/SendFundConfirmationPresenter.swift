@@ -125,6 +125,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.fromAddress = fromAccount.address
         transfer.toAddress = recipient.address
         transfer.cost = String(cost.intValue)
+        transfer.memo = memo
         transfer.energy = energy
 
         dependencyProvider.transactionsService()

@@ -33,12 +33,14 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         switch pTransfer.transferType {
         case .simpleTransfer:
+            // FIXME: Add memo
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToSecret:
             return performShielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToPublic:
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .encryptedTransfer:
+            // FIXME: Add memo
             return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
@@ -392,6 +394,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
     
     func getTransferCost(transferType: TransferType) -> AnyPublisher<TransferCost, Error> {
         let params = ["type": transferType.rawValue]
+        
         let request = ResourceRequest(url: ApiConstants.transferCost, parameters: params)
         return networkManager.load(request)
     }
