@@ -31,10 +31,14 @@ final class NetworkManager: NetworkManagerProtocol {
     }
     func load<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
         if Logger.shouldLog(on: .debug) {
-            if let bodyData = request.httpBody, let bodyString = String(data: bodyData, encoding: .utf8) {
-                Logger.debug("TX \(String(describing: request.httpMethod)) \(String(describing: request.url)):\n\(bodyString)")
-            } else {
-                Logger.debug("TX \(String(describing: request.httpMethod)) \(request)")
+            if
+                let bodyData = request.httpBody,
+                let bodyString = String(data: bodyData, encoding: .utf8),
+                let httpMethod = request.httpMethod
+            {
+                Logger.debug("TX \(String(describing: httpMethod)) \(String(describing: request.url)):\n\(bodyString)")
+            } else if let httpMethod = request.httpMethod {
+                Logger.debug("TX \(String(describing: httpMethod)) \(request)")
             }
         }
         return session.load(request: request)
@@ -55,7 +59,9 @@ final class NetworkManager: NetworkManagerProtocol {
                     return .just(data)
                 }
                 .map { data in
-                    Logger.debug("RX \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
+                    if let url = request.url {
+                        Logger.debug("RX \(String(describing: url)):\n\(String(data: data, encoding: .utf8) ?? "")")
+                    }
                     return data
                 }
                 .decode(type: T.self, decoder: JSONDecoder())
