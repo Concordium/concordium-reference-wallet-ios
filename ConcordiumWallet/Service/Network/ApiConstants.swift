@@ -14,11 +14,11 @@ struct ApiConstants {
     static let overriddenProxyUrl: String? = nil
 #endif
 #if TESTNET
-    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.testnet.concordium.com/v0")!
+    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.testnet.concordium.com")!
 #elseif MAINNET
-    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.mainnet.concordium.software/v0")!
+    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.mainnet.concordium.software")!
 #else // Staging
-    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.stagenet.concordium.com/v0")!
+    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.stagenet.concordium.com")!
 #endif
 
     #if TESTNET
@@ -30,15 +30,15 @@ struct ApiConstants {
     #endif
     static let notabeneCallback = "\(scheme)://identity-issuer/callback"
 
-    static let ipInfo = proxyUrl.appendingPathComponent("/ip_info")
-    static let global = proxyUrl.appendingPathComponent("/global")
-    static let submitCredential = proxyUrl.appendingPathComponent("/submitCredential")
-    static let submissionStatus = proxyUrl.appendingPathComponent("/submissionStatus")
-    static let accNonce = proxyUrl.appendingPathComponent("/accNonce")
-    static let accEncryptionKey = proxyUrl.appendingPathComponent("/accEncryptionKey")
-    static let submitTransfer = proxyUrl.appendingPathComponent("/submitTransfer")
-    static let transferCost = proxyUrl.appendingPathComponent("/transactionCost")
-    static let accountBalance = proxyUrl.appendingPathComponent("/accBalance")
-    static let accountTransactions = proxyUrl.appendingPathComponent("/accTransactions")
-    static let gtuDrop = proxyUrl.appendingPathComponent("/testnetGTUDrop")
+    static let ipInfo = proxyUrl.appendingPathComponent("/v0/ip_info")
+    static let global = proxyUrl.appendingPathComponent("/v0/global")
+    static let submitCredential = proxyUrl.appendingPathComponent("/v0/submitCredential")
+    static let submissionStatus = proxyUrl.appendingPathComponent("/v0/submissionStatus")
+    static let accNonce = proxyUrl.appendingPathComponent("/v0/accNonce")
+    static let accEncryptionKey = proxyUrl.appendingPathComponent("/v0/accEncryptionKey")
+    static let submitTransfer = proxyUrl.appendingPathComponent("/v0/submitTransfer")
+    static let transferCost = proxyUrl.appendingPathComponent("/v0/transactionCost")
+    static let accountBalance = proxyUrl.appendingPathComponent("/v0/accBalance")
+    static let accountTransactions = proxyUrl.appendingPathComponent("v0/accTransactions")
+    static let gtuDrop = proxyUrl.appendingPathComponent("/v0/testnetGTUDrop")
 }
