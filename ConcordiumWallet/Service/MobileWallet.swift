@@ -359,8 +359,9 @@ class MobileWallet: MobileWalletProtocol {
             let privateAccountKeys = try getPrivateAccountKeys(for: account, pwHash: oldPwHash).get()
             try storageManager.updatePrivateAccountDataPasscode(for: account, accountData: privateAccountKeys, pwHash: newPwHash).get()
             
-            let commitmentsRandomness = try getCommitmentsRandomness(for: account, pwHash: oldPwHash).get()
-            try storageManager.updateCommitmentsRandomnessPasscode(for: account, commitmentsRandomness: commitmentsRandomness, pwHash: oldPwHash).get()
+            if let commitmentsRandomness = try? getCommitmentsRandomness(for: account, pwHash: oldPwHash).get() {
+                try? storageManager.updateCommitmentsRandomnessPasscode(for: account, commitmentsRandomness: commitmentsRandomness, pwHash: oldPwHash).get()
+            }
 
             if let privateIdKey = account.identity?.encryptedPrivateIdObjectData {
                 self.getPrivateIdObjectData(privateIdObjectDataKey: privateIdKey, pwHash: oldPwHash)
@@ -381,7 +382,7 @@ class MobileWallet: MobileWalletProtocol {
         do {
             _ = try getSecretEncryptionKey(for: account, pwHash: pwHash).get()
             _ = try getPrivateAccountKeys(for: account, pwHash: pwHash).get()
-            _ = try getCommitmentsRandomness(for: account, pwHash: pwHash).get()
+            _ = try? getCommitmentsRandomness(for: account, pwHash: pwHash).get()
             return Result.success(Void())
         } catch {
             return Result.failure(error)
