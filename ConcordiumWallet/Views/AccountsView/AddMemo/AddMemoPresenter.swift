@@ -85,14 +85,12 @@ class AddMemoPresenter {
             }
             .assign(to: \.shakeTextView, on: viewModel)
             .store(in: &cancellables)
-        
-        
+                
         viewModel.$memo
             .compactMap { $0 }
             .map { !$0.memo.isEmpty && $0.isSizeValid }
             .assign(to: \.enableAddMemoToTransferButton, on: viewModel)
             .store(in: &cancellables)
-        
         
         view?.bind(to: viewModel)
     }

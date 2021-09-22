@@ -41,6 +41,10 @@
 		07519F7A26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */; };
 		07519F7B26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */; };
 		07519F7C26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */; };
+		07519F7E26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
+		07519F7F26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
+		07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
+		07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
 		07619A7C269C63C4009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
 		07619A7D269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
 		07619A7E269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
@@ -1436,6 +1440,7 @@
 		074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoPresenter.swift; sourceTree = "<group>"; };
 		07519F7326FB5AAB00F4E6E3 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackHelper.swift; sourceTree = "<group>"; };
 		07619A7B269C63C4009B79E2 /* HashingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingHelper.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -2717,6 +2722,7 @@
 				19C2EC7A96B744D007EE5D7B /* UIView+Additions.swift */,
 				7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */,
 				C93A752E24464813003FDBE2 /* URL+queryParameters.swift */,
+				07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -3580,6 +3586,7 @@
 				7F32341324691B540019A351 /* MenuItemCellView.swift in Sources */,
 				5211BAA324FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
 				079F310226EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
+				07519F7E26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				7F48C17F244DCD0B00997684 /* IdentityDataRowCellView.swift in Sources */,
 				7F48C181244DCD0B00997684 /* IdentityProviderListViewController.swift in Sources */,
 				C96632562459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */,
@@ -4017,6 +4024,7 @@
 				7F85B79E246A9A7C00ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
 				7F5F77862487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
+				07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
@@ -4337,6 +4345,7 @@
 				7F85B89B246A9AB600ED09B8 /* RequestPasswordDelegate.swift in Sources */,
 				7F5F77872487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
+				07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
@@ -4529,6 +4538,7 @@
 				52D0CF212518C4680074D3C4 /* EncryptedDetails.swift in Sources */,
 				077AC5EB26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				06AA2AA023F688C60001F964 /* CreateIdentityCoordinator.swift in Sources */,
+				07519F7F26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				529531AE256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
 				07519F7526FB5AAB00F4E6E3 /* Memo.swift in Sources */,
 				642ED97825F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,

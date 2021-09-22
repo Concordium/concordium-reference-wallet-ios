@@ -89,6 +89,7 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
         viewModel.$shakeTextView
             .sink { [weak self] in
                 guard $0 else { return }
+                HapticFeedbackHelper.generate(feedback: .light)
                 self?.memoTextView.shake()
             }
             .store(in: &cancellables)

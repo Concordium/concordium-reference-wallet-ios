@@ -16,7 +16,6 @@ class SendFundViewModel {
     @Published var feeMessage: String?
     @Published var isRecipientNameFaded = false
     @Published var hasMemoError = false
-    @Published var shakeMemoField = false
     @Published var errorMessage: String?
     @Published var sendButtonEnabled = false
     @Published var imageName: String? = "QR_code_icon"
@@ -29,7 +28,6 @@ class SendFundViewModel {
 protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
     func bind(to viewModel: SendFundViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
-    var memoPublisher: AnyPublisher<String, Never> { get }
     var buttonTitle: String? { get set }
     var pageTitle: String? { get set }
     var showSelectRecipient: Bool { get set }
@@ -111,37 +109,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .assign(to: \.isRecipientNameFaded, on: viewModel)
             .store(in: &cancellables)
 
-        view?.memoPublisher
-            .map { [weak self] memo in
-                guard let self = self else { return false }
-                return !self.memoIsValid(memo: memo)
-            }
-            .assign(to: \.hasMemoError, on: viewModel)
-            .store(in: &cancellables)
-        
-        view?.memoPublisher
-            .compactMap { $0 }
-            .assign(to: \.memo, on: viewModel)
-            .store(in: &cancellables)
-
-        view?.memoPublisher
-            .withPrevious()
-            .map { [weak self] in
-                let current = $0.current
-                
-                guard
-                    let self = self,
-                    let previous = $0.previous,
-                    !self.memoIsValid(memo: current)
-                else {
-                    return false
-                }
-                            
-                return current.utf8.count >= previous.utf8.count
-            }
-            .assign(to: \.shakeMemoField, on: viewModel)
-            .store(in: &cancellables)
-        
         // Show disposable balance.
         viewModel.accountBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
         viewModel.accountBalanceShielded = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke()
@@ -170,21 +137,15 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
     
     private func assignSendButtonEnabled() {
-        guard
-            let amountPublisher = view?.amountPublisher,
-            let memoPublisher = view?.memoPublisher
-        else {
-            return
-        }
+        guard let amountPublisher = view?.amountPublisher else { return }
         
-        Publishers.CombineLatest4(
+        Publishers.CombineLatest3(
             viewModel.$recipientName,
             viewModel.$feeMessage,
-            amountPublisher,
-            memoPublisher.prepend("")
+            amountPublisher
         )
         .receive(on: DispatchQueue.main)
-        .map { [weak self] (recipientName, feeMessage, amount, memo) in
+        .map { [weak self] (recipientName, feeMessage, amount) in
             guard let self = self else { return false }
             
             if !self.hasSufficientFunds(amount: amount) {
@@ -197,8 +158,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 !(recipientName ?? "").isEmpty &&
                 !(feeMessage ?? "").isEmpty &&
                 !amount.isEmpty &&
-                self.hasSufficientFunds(amount: amount) &&
-                self.memoIsValid(memo: memo)
+                self.hasSufficientFunds(amount: amount)
         }
         .assign(to: \.sendButtonEnabled, on: viewModel)
         .store(in: &cancellables)
@@ -215,15 +175,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
         } else {
             return GTU(displayValue: amount).intValue <= self.account.forecastEncryptedBalance && cost.intValue <= self.account.forecastBalance
         }
-    }
-    
-    private func memoIsValid(memo: String) -> Bool {
-        return memoSizeInBytes(memo: memo) <= 256
-    }
-    
-    private func memoSizeInBytes(memo: String?) -> Int {
-        guard let memo = memo else { return 0 }
-        return memo.utf8.count
     }
 
     func userTappedClose() {

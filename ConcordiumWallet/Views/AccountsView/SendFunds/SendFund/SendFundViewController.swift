@@ -103,13 +103,6 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
             self?.sendFundButtonBottomConstraint.constant = keyboardHeight
         }
         
-//        keyboardWillHide { [weak self] keyboardHeight in
-//            self?.sendFundButtonBottomConstraint.constant -= keyboardHeight
-//        }
-//
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
-//        view.addGestureRecognizer(tapGesture)
-
         amountTextField.delegate = self
     }
 
@@ -148,10 +141,6 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         viewModel.$errorMessage
             .assign(to: \.text, on: errorMessageLabel)
             .store(in: &cancellables)
-        
-//        viewModel.$memo
-//            .assign(to: \.text, on: memoTextField)
-//            .store(in: &cancellables)
 
         viewModel.$sendButtonEnabled
             .assign(to: \.isEnabled, on: sendFundsButton)
@@ -205,7 +194,6 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         presenter.userTappedAddMemo()
         amountTextField.resignFirstResponder()
     }
-    
 
     @IBAction func sendFundTapped(_ sender: Any) {
         guard let amount = amountTextField.text else { return }
