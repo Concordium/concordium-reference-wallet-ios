@@ -25,6 +25,14 @@
 		06AEE69123F4064A00D14834 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69023F4064A00D14834 /* BaseView.swift */; };
 		06AEE69323F4065800D14834 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69223F4065800D14834 /* WidgetView.swift */; };
 		06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
+		074C00A326FB12F20090F7FE /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A226FB12F20090F7FE /* AddMemoViewController.swift */; };
+		074C00A526FB1D2A0090F7FE /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
+		07519F6D26FB23DE00F4E6E3 /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A226FB12F20090F7FE /* AddMemoViewController.swift */; };
+		07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A226FB12F20090F7FE /* AddMemoViewController.swift */; };
+		07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A226FB12F20090F7FE /* AddMemoViewController.swift */; };
+		07519F7026FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
+		07519F7126FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
+		07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
 		07619A7C269C63C4009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
 		07619A7D269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
 		07619A7E269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
@@ -1416,6 +1424,8 @@
 		06AEE69023F4064A00D14834 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		06AEE69223F4065800D14834 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		074C00A226FB12F20090F7FE /* AddMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewController.swift; sourceTree = "<group>"; };
+		074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoPresenter.swift; sourceTree = "<group>"; };
 		07619A7B269C63C4009B79E2 /* HashingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingHelper.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -1985,6 +1995,15 @@
 				06D178A023F6D54900ABC904 /* BaseTabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		074C00A126FB12AA0090F7FE /* AddMemo */ = {
+			isa = PBXGroup;
+			children = (
+				074C00A226FB12F20090F7FE /* AddMemoViewController.swift */,
+				074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */,
+			);
+			path = AddMemo;
 			sourceTree = "<group>";
 		};
 		173768182652A72300A48758 /* TermsAndConditionsView */ = {
@@ -2722,19 +2741,20 @@
 		7FF07AE523EAE0AC00F1FC04 /* AccountsView */ = {
 			isa = PBXGroup;
 			children = (
-				C968B9EC2448C36200E31BD8 /* AccountSubmitted */,
 				C924B2252431D38400081E23 /* AccountDetails */,
-				7FF07AEB23EB01FA00F1FC04 /* AccountsCoordinator.swift */,
-				7FF07B0623EC0ED300F1FC04 /* AccountsPresenter.swift */,
-				7FF07AEF23EB082000F1FC04 /* AccountsViewController.swift */,
+				C968B9EC2448C36200E31BD8 /* AccountSubmitted */,
+				074C00A126FB12AA0090F7FE /* AddMemo */,
 				C938F52B241E77E400ECAD47 /* CreateAccount */,
+				528EB739255C1EA300010554 /* InitialAccount */,
 				19C2E6726AF71C7221402B21 /* Recipient */,
 				19C2E8A9A4875A30D37DA869 /* SendFunds */,
-				19C2E4BCF6C3C2F180F502AA /* AccountsService.swift */,
-				19C2E655850DD350BDE695CF /* TransactionsService.swift */,
-				19C2E9785641601AE91623C6 /* SubmissionStatusService.swift */,
 				52055F8F25541AC80071F7CA /* AccountCardView.swift */,
-				528EB739255C1EA300010554 /* InitialAccount */,
+				7FF07AEB23EB01FA00F1FC04 /* AccountsCoordinator.swift */,
+				7FF07B0623EC0ED300F1FC04 /* AccountsPresenter.swift */,
+				19C2E4BCF6C3C2F180F502AA /* AccountsService.swift */,
+				7FF07AEF23EB082000F1FC04 /* AccountsViewController.swift */,
+				19C2E9785641601AE91623C6 /* SubmissionStatusService.swift */,
+				19C2E655850DD350BDE695CF /* TransactionsService.swift */,
 			);
 			path = AccountsView;
 			sourceTree = "<group>";
@@ -3467,6 +3487,7 @@
 				7F48C275244E17D100997684 /* Metadata.swift in Sources */,
 				07619A91269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				52D0CF1B25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
+				074C00A326FB12F20090F7FE /* AddMemoViewController.swift in Sources */,
 				64DB66BA25DE649D00F4C605 /* AboutPresenter.swift in Sources */,
 				528EB759256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
 				527DE3462571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
@@ -3524,6 +3545,7 @@
 				7F48C16B244DCD0B00997684 /* String+Localizable.swift in Sources */,
 				7F48C27E244E17E000997684 /* AttributesFormatter.swift in Sources */,
 				17A41E552667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
+				074C00A526FB1D2A0090F7FE /* AddMemoPresenter.swift in Sources */,
 				7F48C16C244DCD0B00997684 /* CreationFailedViewController.swift in Sources */,
 				7F48C284244EEE7700997684 /* TransactionSubmittedViewController.swift in Sources */,
 				077AC5F926E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
@@ -4018,6 +4040,8 @@
 				7F85B7B4246A9A7C00ED09B8 /* TransactionsService.swift in Sources */,
 				642ED94525EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				7F85B7B5246A9A7C00ED09B8 /* SubmissionStatusService.swift in Sources */,
+				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
+				07519F7126FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				7F85B7B6246A9A7C00ED09B8 /* AddRecipientCoordinatorHelper.swift in Sources */,
 				19C2ED08234E0F5A4507E2AF /* ShowToastProtocol.swift in Sources */,
 				19C2E17396643DFA4DBD34E9 /* Coordinator.swift in Sources */,
@@ -4334,6 +4358,8 @@
 				7F85B8B1246A9AB600ED09B8 /* TransactionsLoadingHandler.swift in Sources */,
 				642ED94625EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
+				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
+				07519F7026FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				7F85B8B3246A9AB600ED09B8 /* TransactionsService.swift in Sources */,
 				7F85B8B4246A9AB600ED09B8 /* SubmissionStatusService.swift in Sources */,
 				7F85B8B5246A9AB600ED09B8 /* AddRecipientCoordinatorHelper.swift in Sources */,
@@ -4412,6 +4438,7 @@
 				C938F535241FBEA600ECAD47 /* ServicesProvider.swift in Sources */,
 				64DB66D225DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				C93D092D242762440022250B /* CreationFailedPresenter.swift in Sources */,
+				07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				7F21399824236ECB00D2A5C4 /* SubmissionStatus.swift in Sources */,
 				C93D092724275C5A0022250B /* AccountConfirmedPresenter.swift in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
@@ -4640,6 +4667,7 @@
 				19C2EE4F9BADE3BCC1AF1358 /* SelectRecipientViewController.swift in Sources */,
 				079F310326EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				19C2ED4B9B793A090B70CF7F /* AddRecipientPresenter.swift in Sources */,
+				07519F6D26FB23DE00F4E6E3 /* AddMemoViewController.swift in Sources */,
 				52CE0C7A250FFEC70018B5D1 /* Encrypted.swift in Sources */,
 				5211BAA824FD1D5100EE1658 /* Balance.swift in Sources */,
 				642A293225FB967A0073BF8C /* ValueCredential.swift in Sources */,

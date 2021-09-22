@@ -230,7 +230,7 @@ process on-chain.";
 "sendFund.selectRecipient" = "Select Recipient";
 "sendFund.feeMessage" = "Estimated transaction fee:
 Ǥ";
-"sendFund.memoText" = "You can enter an optional memo here.";
+"sendFund.addMemo" = "Optional: Add memo";
 
 "sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
 "sendFund.insufficientFunds" = "Insufficient funds";
@@ -243,6 +243,8 @@ process on-chain.";
 "sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:\n";
 "sendFund.confirmation.buttonTitle" = "Yes, send funds";
 "sendFund.memo.text" = "Memo:\n %@";
+
+"addMemo.memoPlaceholder" = "You can enter an optional memo here.";
 
 "selectRecipient.title" = "Select recipient";
 "selectRecipient.searchRecipients" = "Search recipients";

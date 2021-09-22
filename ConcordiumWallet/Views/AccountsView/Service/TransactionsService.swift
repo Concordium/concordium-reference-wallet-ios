@@ -11,7 +11,7 @@ protocol TransactionsServiceProtocol {
                          from account: AccountDataType,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> AnyPublisher<RemoteTransactions, Error>
-    func getTransferCost(transferType: TransferType) -> AnyPublisher<TransferCost, Error>
+    func getTransferCost(transferType: TransferType, memoSize: Int) -> AnyPublisher<TransferCost, Error>
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
@@ -392,8 +392,12 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         }
     }
     
-    func getTransferCost(transferType: TransferType) -> AnyPublisher<TransferCost, Error> {
-        let params = ["type": transferType.rawValue]
+    func getTransferCost(transferType: TransferType, memoSize: Int) -> AnyPublisher<TransferCost, Error> {
+        var params = ["type": transferType.rawValue]
+        
+        if memoSize > 0 {
+            params["memoSize"] = String(memoSize)
+        }
         
         let request = ResourceRequest(url: ApiConstants.transferCost, parameters: params)
         return networkManager.load(request)

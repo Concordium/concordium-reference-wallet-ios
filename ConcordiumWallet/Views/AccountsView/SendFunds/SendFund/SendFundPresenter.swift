@@ -42,6 +42,7 @@ protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
 // MARK: Delegate
 protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter)
+    func sendFundPresenterAddMemo(_ presenter: SendFundPresenter)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
     func sendFundPresenter(didSelectTransferAmount amount: GTU,
                            energyUsed energy: Int,
@@ -60,11 +61,13 @@ protocol SendFundPresenterProtocol: AnyObject {
     
     func userTappedClose()
     func userTappedSelectRecipient()
+    func userTappedAddMemo()
     func userTappedSendFund(amount: String, memo: String?)
     func userTappedDontShowMemoAlertAgain(_ completion: @escaping () -> Void)
     
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
+    func setAddedMemo(memo: String)
 }
 
 class SendFundPresenter: SendFundPresenterProtocol {
@@ -117,6 +120,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .store(in: &cancellables)
         
         view?.memoPublisher
+            .compactMap { $0 }
+            .assign(to: \.memo, on: viewModel)
+            .store(in: &cancellables)
+
+        view?.memoPublisher
             .withPrevious()
             .map { [weak self] in
                 let current = $0.current
@@ -153,7 +161,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             view?.showSelectRecipient = false
             view?.showMemo = false
         } else {
-            viewModel.memoPlaceholderText = "sendFund.memoText".localized
+            viewModel.memoPlaceholderText = "sendFund.addMemo".localized
         }
         
         assignSendButtonEnabled()
@@ -210,11 +218,20 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
     
     private func memoIsValid(memo: String) -> Bool {
-        return memo.utf8.count <= 256
+        return memoSizeInBytes(memo: memo) <= 256
+    }
+    
+    private func memoSizeInBytes(memo: String?) -> Int {
+        guard let memo = memo else { return 0 }
+        return memo.utf8.count
     }
 
     func userTappedClose() {
         delegate?.sendFundPresenterClosed(self)
+    }
+    
+    func userTappedAddMemo() {
+        delegate?.sendFundPresenterAddMemo(self)
     }
     
     func userTappedSelectRecipient() {
@@ -248,7 +265,8 @@ class SendFundPresenter: SendFundPresenterProtocol {
         let updatedRecipient = RecipientEntity(name: recipientName, address: recipient.address)
         selectedRecipient = updatedRecipient
         
-        dependencyProvider.transactionsService().getTransferCost(transferType: transferType).sink(receiveError: { [weak self] (error) in
+        // TODO FIX
+        dependencyProvider.transactionsService().getTransferCost(transferType: transferType, memoSize: 0).sink(receiveError: { [weak self] (error) in
             Logger.error(error)
             self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] (value) in
@@ -259,6 +277,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
         }).store(in: &cancellables)
 
         setPageAndSendButtonTitle()
+    }
+    
+    func setAddedMemo(memo: String) {
+        ///DO AS IN THE PREVIOUS 👆
     }
     
     func userTappedSendFund(amount: String, memo: String?) {

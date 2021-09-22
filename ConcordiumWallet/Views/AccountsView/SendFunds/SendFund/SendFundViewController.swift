@@ -20,10 +20,15 @@ class SendFundFactory {
 class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
-    var memoPublisher: AnyPublisher<String, Never> { memoTextField.textPublisher }
+    var memoPublisher: AnyPublisher<String, Never> {
+//        memoTextField.textPublisher
+        amountTextField.textPublisher
+        
+    }
     
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var selectedRecipientLabel: UILabel!
+    @IBOutlet weak var addMemoLabel: UILabel!
     @IBOutlet weak var sendFundButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var costMessageLabel: UILabel!
     @IBOutlet weak var transferIconImageView: UIImageView!
@@ -34,8 +39,8 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
     @IBOutlet weak var accountBalanceShielded: UILabel!
     @IBOutlet weak var shieldedBalanceLockImageView: UIImageView!
     
-    @IBOutlet weak var memoContainer: UIView!
-    @IBOutlet weak var memoTextField: UITextField!
+//    @IBOutlet weak var memoContainer: UIView!
+//    @IBOutlet weak var memoTextField: UITextField!
     
     @IBOutlet weak var errorMessageLabel: UILabel! {
         didSet {
@@ -59,7 +64,7 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
     
     var showMemo: Bool = true {
         didSet {
-            memoContainer.isHidden = !showMemo
+//            memoContainer.isHidden = !showMemo
         }
     }
     
@@ -98,12 +103,12 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
             self?.sendFundButtonBottomConstraint.constant = keyboardHeight
         }
         
-        keyboardWillHide { [weak self] keyboardHeight in
-            self?.sendFundButtonBottomConstraint.constant -= keyboardHeight
-        }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
-        view.addGestureRecognizer(tapGesture)
+//        keyboardWillHide { [weak self] keyboardHeight in
+//            self?.sendFundButtonBottomConstraint.constant -= keyboardHeight
+//        }
+//
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+//        view.addGestureRecognizer(tapGesture)
 
         amountTextField.delegate = self
     }
@@ -123,22 +128,22 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
                 .store(in: &cancellables)
         
         viewModel.$memoPlaceholderText
-            .assign(to: \.placeholder, on: memoTextField)
+            .assign(to: \.text, on: addMemoLabel)
             .store(in: &cancellables)
 
-        viewModel.$hasMemoError
-            .sink { [weak self] in
-                let color: UIColor = $0 ? .errorText : .text
-                self?.memoTextField.textColor = color
-            }
-            .store(in: &cancellables)
+//        viewModel.$hasMemoError
+//            .sink { [weak self] in
+//                let color: UIColor = $0 ? .errorText : .text
+//                self?.memoTextField.textColor = color
+//            }
+//            .store(in: &cancellables)
         
-        viewModel.$shakeMemoField
-            .sink { [weak self] in
-                guard $0 else { return }
-                self?.memoTextField.shake()
-            }
-            .store(in: &cancellables)
+//        viewModel.$shakeMemoField
+//            .sink { [weak self] in
+//                guard $0 else { return }
+//                self?.memoTextField.shake()
+//            }
+//            .store(in: &cancellables)
 
         viewModel.$accountBalance
             .assign(to: \.text, on: accountBalance)
@@ -158,9 +163,9 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
             .assign(to: \.text, on: errorMessageLabel)
             .store(in: &cancellables)
         
-        viewModel.$memo
-            .assign(to: \.text, on: memoTextField)
-            .store(in: &cancellables)
+//        viewModel.$memo
+//            .assign(to: \.text, on: memoTextField)
+//            .store(in: &cancellables)
 
         viewModel.$sendButtonEnabled
             .assign(to: \.isEnabled, on: sendFundsButton)
@@ -207,18 +212,24 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
     
     @IBAction func selectRecipientTapped(_ sender: Any) {
         presenter.userTappedSelectRecipient()
-         amountTextField.resignFirstResponder()
+        amountTextField.resignFirstResponder()
     }
+    
+    @IBAction func addMemoTapped(_ sender: Any) {
+        presenter.userTappedAddMemo()
+        amountTextField.resignFirstResponder()
+    }
+    
 
     @IBAction func sendFundTapped(_ sender: Any) {
         guard let amount = amountTextField.text else { return }
             
-        let memoIsEmpty = memoTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == ""
-        let memo = memoIsEmpty ? nil : memoTextField.text
+//        let memoIsEmpty = memoTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == ""
+//        let memo = memoIsEmpty ? nil : memoTextField.text
 
         presenter.userTappedSendFund(
             amount: amount,
-            memo: memo
+            memo: "" //todo
         )
     }
     
