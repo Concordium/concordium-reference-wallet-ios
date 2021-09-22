@@ -327,17 +327,23 @@ is less than 0.01 cents]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeW-bp-GZz" userLabel="Text Container">
-                                <rect key="frame" x="20" y="153" width="374" height="634"/>
+                                <rect key="frame" x="20" y="156" width="374" height="631"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IUX-hJ-3lD">
-                                        <rect key="frame" x="0.0" y="299" width="374" height="36"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IUX-hJ-3lD">
+                                        <rect key="frame" x="0.0" y="299" width="374" height="33"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[You can enter an optional memo here]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adN-xe-4fz">
+                                        <rect key="frame" x="0.0" y="298" width="374" height="37"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="fadedText"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oV1-Jt-W50" userLabel="Separator">
-                                        <rect key="frame" x="0.0" y="335" width="374" height="1"/>
+                                        <rect key="frame" x="0.0" y="332" width="374" height="1"/>
                                         <color key="backgroundColor" name="separator"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="HVe-hm-Wal"/>
@@ -347,8 +353,12 @@ is less than 0.01 cents]</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="IUX-hJ-3lD" firstAttribute="top" relation="lessThanOrEqual" secondItem="LeW-bp-GZz" secondAttribute="top" constant="299" id="9iF-9Y-waA"/>
+                                    <constraint firstItem="adN-xe-4fz" firstAttribute="bottom" secondItem="IUX-hJ-3lD" secondAttribute="bottom" constant="3" id="Nla-JX-8Z4"/>
                                     <constraint firstItem="IUX-hJ-3lD" firstAttribute="leading" secondItem="LeW-bp-GZz" secondAttribute="leading" id="PaS-HQ-o9b"/>
                                     <constraint firstAttribute="bottom" secondItem="IUX-hJ-3lD" secondAttribute="bottom" constant="299" id="aT1-R2-Gef"/>
+                                    <constraint firstItem="adN-xe-4fz" firstAttribute="leading" secondItem="IUX-hJ-3lD" secondAttribute="leading" id="dNp-WE-KC8"/>
+                                    <constraint firstItem="adN-xe-4fz" firstAttribute="top" secondItem="IUX-hJ-3lD" secondAttribute="top" constant="-1" id="dgB-ZZ-dmN"/>
+                                    <constraint firstItem="adN-xe-4fz" firstAttribute="trailing" secondItem="IUX-hJ-3lD" secondAttribute="trailing" id="fAY-EB-31e"/>
                                     <constraint firstItem="oV1-Jt-W50" firstAttribute="top" secondItem="IUX-hJ-3lD" secondAttribute="bottom" id="jKv-aL-ROL"/>
                                     <constraint firstAttribute="trailing" secondItem="IUX-hJ-3lD" secondAttribute="trailing" id="jkA-pC-KQF"/>
                                     <constraint firstItem="oV1-Jt-W50" firstAttribute="leading" secondItem="IUX-hJ-3lD" secondAttribute="leading" id="rj1-Fc-G8M"/>
@@ -356,7 +366,7 @@ is less than 0.01 cents]</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Enter your memo below.]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DND-DT-YLk">
-                                <rect key="frame" x="20" y="108" width="374" height="20"/>
+                                <rect key="frame" x="20" y="84" width="374" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -385,7 +395,7 @@ is less than 0.01 cents]</string>
                             <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="LeW-bp-GZz" secondAttribute="bottom" constant="75" id="0er-ua-uwI"/>
                             <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="ysE-7N-kLa" secondAttribute="bottom" id="40n-Sc-Xf9"/>
                             <constraint firstItem="DND-DT-YLk" firstAttribute="leading" secondItem="cPM-tG-bAu" secondAttribute="leading" constant="20" id="6WT-gN-nRg"/>
-                            <constraint firstItem="DND-DT-YLk" firstAttribute="top" secondItem="cPM-tG-bAu" secondAttribute="top" constant="64" id="Cbu-0n-fWI"/>
+                            <constraint firstItem="DND-DT-YLk" firstAttribute="top" secondItem="cPM-tG-bAu" secondAttribute="top" constant="40" id="Cbu-0n-fWI"/>
                             <constraint firstItem="LeW-bp-GZz" firstAttribute="top" secondItem="DND-DT-YLk" secondAttribute="bottom" constant="25" id="Cr6-6V-0RO"/>
                             <constraint firstItem="cPM-tG-bAu" firstAttribute="trailing" secondItem="ysE-7N-kLa" secondAttribute="trailing" constant="20" id="IM7-FG-iwe"/>
                             <constraint firstItem="cPM-tG-bAu" firstAttribute="trailing" secondItem="LeW-bp-GZz" secondAttribute="trailing" constant="20" id="J4f-7O-H5x"/>
@@ -397,7 +407,9 @@ is less than 0.01 cents]</string>
                     <connections>
                         <outlet property="addMemoButton" destination="ysE-7N-kLa" id="l8D-w1-r5O"/>
                         <outlet property="addMemoButtonBottomConstraint" destination="40n-Sc-Xf9" id="Gcw-fO-0BI"/>
-                        <outlet property="placeholderLabel" destination="DND-DT-YLk" id="ms0-5J-hhg"/>
+                        <outlet property="memoTextView" destination="IUX-hJ-3lD" id="RRI-Gk-i7x"/>
+                        <outlet property="memoTextViewPlaceholderLabel" destination="adN-xe-4fz" id="nWf-xM-urD"/>
+                        <outlet property="memoTitleLabel" destination="DND-DT-YLk" id="ms0-5J-hhg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey1-cU-Dvb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -974,7 +986,7 @@ is less than 0.01 cents]</string>
             <size key="intrinsicContentSize" width="103" height="33"/>
         </designable>
         <designable name="ysE-7N-kLa">
-            <size key="intrinsicContentSize" width="178" height="33"/>
+            <size key="intrinsicContentSize" width="188" height="34"/>
         </designable>
     </designables>
     <resources>

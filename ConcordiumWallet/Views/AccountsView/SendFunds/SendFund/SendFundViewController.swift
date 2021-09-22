@@ -17,7 +17,7 @@ class SendFundFactory {
     }
 }
 
-class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storyboarded {
+class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
     var memoPublisher: AnyPublisher<String, Never> {
@@ -127,7 +127,7 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol,  Storybo
                 }
                 .store(in: &cancellables)
         
-        viewModel.$memoPlaceholderText
+        viewModel.$addMemoText
             .assign(to: \.text, on: addMemoLabel)
             .store(in: &cancellables)
 

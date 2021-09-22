@@ -244,7 +244,10 @@ process on-chain.";
 "sendFund.confirmation.buttonTitle" = "Yes, send funds";
 "sendFund.memo.text" = "Memo:\n %@";
 
-"addMemo.memoPlaceholder" = "You can enter an optional memo here.";
+"addMemo.pageTitle" = "Add memo";
+"addMemo.memoTitle" = "Enter your memo below.";
+"addMemo.memoTextViewPlaceholder" = "You can enter an optional memo here.";
+"addMemo.addMemoButtonTitle" = "Add memo to transfer";
 
 "selectRecipient.title" = "Select recipient";
 "selectRecipient.searchRecipients" = "Search recipients";

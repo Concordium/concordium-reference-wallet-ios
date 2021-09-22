@@ -11,6 +11,10 @@ import Foundation
 // MARK: - View
 protocol AddMemoViewProtocol: ShowError {
     func bind(to: AddMemoViewModel)
+    var pageTitle: String? { get set }
+    var memoTitleLabelText: String? { get set }
+    var memoTextViewPlaceholderText: String? { get set }
+    var buttonTitle: String? { get set }
 }
 
 // MARK: - Delegate
@@ -42,6 +46,12 @@ class AddMemoPresenter {
     }
     
     func viewDidLoad() {
+        
+        view?.pageTitle = "addMemo.pageTitle".localized
+        view?.memoTitleLabelText = "addMemo.memoTitle".localized
+        view?.memoTextViewPlaceholderText = "addMemo.memoTextViewPlaceholder".localized
+        view?.buttonTitle = "addMemo.addMemoButtonTitle".localized
+        
         view?.bind(to: viewModel)
     }
 }

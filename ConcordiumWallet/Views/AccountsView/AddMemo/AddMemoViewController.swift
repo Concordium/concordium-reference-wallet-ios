@@ -23,10 +23,35 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
     
     private var cancellables = [AnyCancellable]()
 
-    @IBOutlet weak var placeholderLabel: UILabel!
-//    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var memoTitleLabel: UILabel!
+    @IBOutlet weak var memoTextView: UITextView!
+    @IBOutlet weak var memoTextViewPlaceholderLabel: UILabel!
     @IBOutlet weak var addMemoButton: StandardButton!
     @IBOutlet weak var addMemoButtonBottomConstraint: NSLayoutConstraint!
+    
+    var memoTitleLabelText: String? {
+        didSet {
+            memoTitleLabel.text = memoTitleLabelText
+        }
+    }
+    
+    var memoTextViewPlaceholderText: String? {
+        didSet {
+            memoTextViewPlaceholderLabel.text = memoTextViewPlaceholderText
+        }
+    }
+    
+    var buttonTitle: String? {
+        didSet {
+            addMemoButton.setTitle(buttonTitle, for: .normal)
+        }
+    }
+    
+    var pageTitle: String? {
+        didSet {
+            title = pageTitle
+        }
+    }
     
     init?(coder: NSCoder, presenter: AddMemoPresenterProtocol) {
         self.presenter = presenter
@@ -46,6 +71,8 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
         view.addGestureRecognizer(tapGesture)
         
+        memoTextView.delegate = self
+        
         presenter.viewDidLoad()
     }
     
@@ -54,11 +81,23 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
     }
     
     @objc private func hideKeyboardOnTap(_ sender: Any) {
+        setTextViewPlaceholderHidden(!memoTextView.text.isEmpty)
         view.endEditing(true)
     }
     
-    
     @IBAction private func addMemoTapped(_ sender: Any) {
 
+    }
+    
+    private func setTextViewPlaceholderHidden(_ hidden: Bool) {
+        memoTextViewPlaceholderLabel.isHidden = hidden
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension AddMemoViewController: UITextViewDelegate {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        setTextViewPlaceholderHidden(true)
+        return true
     }
 }

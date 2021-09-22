@@ -12,6 +12,7 @@ import Combine
 class SendFundViewModel {
     @Published var recipientName: String?
     @Published var selectRecipientText: String?
+    @Published var addMemoText: String?
     @Published var feeMessage: String?
     @Published var isRecipientNameFaded = false
     @Published var hasMemoError = false
@@ -21,7 +22,6 @@ class SendFundViewModel {
     @Published var imageName: String? = "QR_code_icon"
     @Published var accountBalance: String?
     @Published var accountBalanceShielded: String?
-    @Published var memoPlaceholderText: String?
     @Published var memo: String?
 }
 
@@ -161,7 +161,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             view?.showSelectRecipient = false
             view?.showMemo = false
         } else {
-            viewModel.memoPlaceholderText = "sendFund.addMemo".localized
+            viewModel.addMemoText = "sendFund.addMemo".localized
         }
         
         assignSendButtonEnabled()
