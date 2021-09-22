@@ -18,11 +18,11 @@ class AddMemoFactory {
 }
 
 class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboarded {
-   
+    
     var presenter: AddMemoPresenterProtocol
     
     private var cancellables = [AnyCancellable]()
-
+    
     @IBOutlet weak var memoTitleLabel: UILabel!
     @IBOutlet weak var memoTextView: UITextView!
     @IBOutlet weak var memoTextViewPlaceholderLabel: UILabel!
@@ -53,6 +53,8 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
         }
     }
     
+    var memoPublisher: AnyPublisher<String, Never> { memoTextView.textPublisher }
+    
     init?(coder: NSCoder, presenter: AddMemoPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -76,8 +78,24 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
         presenter.viewDidLoad()
     }
     
-    func bind(to: AddMemoViewModel) {
+    func bind(to viewModel: AddMemoViewModel) {
+        viewModel.$invalidMemoSizeError
+            .sink { [weak self] in
+                let color: UIColor = $0 ? .errorText : .text
+                self?.memoTextView.textColor = color
+            }
+            .store(in: &cancellables)
         
+        viewModel.$shakeTextView
+            .sink { [weak self] in
+                guard $0 else { return }
+                self?.memoTextView.shake()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$enableAddMemoToTransferButton
+            .assign(to: \.isEnabled, on: addMemoButton)
+            .store(in: &cancellables)
     }
     
     @objc private func hideKeyboardOnTap(_ sender: Any) {
@@ -86,7 +104,7 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
     }
     
     @IBAction private func addMemoTapped(_ sender: Any) {
-
+        
     }
     
     private func setTextViewPlaceholderHidden(_ hidden: Bool) {
@@ -95,6 +113,7 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
 }
 
 // MARK: - UITextViewDelegate
+
 extension AddMemoViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         setTextViewPlaceholderHidden(true)

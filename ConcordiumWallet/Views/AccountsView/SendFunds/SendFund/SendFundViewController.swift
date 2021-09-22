@@ -131,20 +131,6 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
             .assign(to: \.text, on: addMemoLabel)
             .store(in: &cancellables)
 
-//        viewModel.$hasMemoError
-//            .sink { [weak self] in
-//                let color: UIColor = $0 ? .errorText : .text
-//                self?.memoTextField.textColor = color
-//            }
-//            .store(in: &cancellables)
-        
-//        viewModel.$shakeMemoField
-//            .sink { [weak self] in
-//                guard $0 else { return }
-//                self?.memoTextField.shake()
-//            }
-//            .store(in: &cancellables)
-
         viewModel.$accountBalance
             .assign(to: \.text, on: accountBalance)
             .store(in: &cancellables)
