@@ -46,7 +46,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var fromAccount: AccountDataType
     private var recipient: RecipientDataType
     private var cost: GTU
-    private var memo: String?
+    private var memo: Memo?
     private var energy: Int
     private var transferType: TransferType
 
@@ -55,7 +55,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         amount: GTU,
         from account: AccountDataType,
         to recipient: RecipientDataType,
-        memo: String?,
+        memo: Memo?,
         cost: GTU,
         energy: Int,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
@@ -111,7 +111,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         let sCost = cost.displayValueWithGStroke()
         view?.line4Text = "\(estimateTransactionFee)\(sCost)"
         
-        if let memo = memo {
+        if let memo = memo?.memo {
             view?.line5Text = String(format: "sendFund.memo.text".localized, memo)
         } else {
             view?.line5Text = nil
@@ -125,7 +125,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.fromAddress = fromAccount.address
         transfer.toAddress = recipient.address
         transfer.cost = String(cost.intValue)
-        transfer.memo = memo
+//        transfer.memo = memo //TODO: FIXME
         transfer.energy = energy
 
         dependencyProvider.transactionsService()

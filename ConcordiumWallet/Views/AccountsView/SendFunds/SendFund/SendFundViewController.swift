@@ -31,6 +31,8 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     @IBOutlet weak var sendFundsButton: StandardButton!
     @IBOutlet weak var selectRecipientWidgetView: WidgetView!
     @IBOutlet weak var addMemoWidgetView: WidgetView!
+    @IBOutlet weak var addMemoWidgetLabel: UILabel!
+    @IBOutlet weak var removeMemoButton: UIButton!
     
     @IBOutlet weak var accountBalance: UILabel!
     @IBOutlet weak var accountBalanceShielded: UILabel!
@@ -96,6 +98,7 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         keyboardWillShow { [weak self] keyboardHeight in
             self?.sendFundButtonBottomConstraint.constant = keyboardHeight
         }
+    
         
         amountTextField.delegate = self
     }
@@ -146,6 +149,10 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
             }
             .store(in: &cancellables)
         
+        viewModel.$memo
+            .compactMap { $0 == nil }
+            .assign(to: \.isHidden, on: removeMemoButton)
+            .store(in: &cancellables)
     }
     
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
@@ -188,22 +195,17 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         presenter.userTappedAddMemo()
         amountTextField.resignFirstResponder()
     }
-
-    @IBAction func sendFundTapped(_ sender: Any) {
-        guard let amount = amountTextField.text else { return }
-            
-//        let memoIsEmpty = memoTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == ""
-//        let memo = memoIsEmpty ? nil : memoTextField.text
-
-        presenter.userTappedSendFund(
-            amount: amount,
-            memo: "" //todo
-        )
+    
+    @IBAction func removeMemoTapped(_ sender: Any) {
+        presenter.userTappedRemoveMemo()
     }
     
-    @IBAction func doneTapped(_ sender: UITextField) {
-        sender.resignFirstResponder()
+    @IBAction func sendFundTapped(_ sender: Any) {
+        guard let amount = amountTextField.text else { return }
+
+        presenter.userTappedSendFund(amount: amount)
     }
+    
 }
 
 extension SendFundViewController {

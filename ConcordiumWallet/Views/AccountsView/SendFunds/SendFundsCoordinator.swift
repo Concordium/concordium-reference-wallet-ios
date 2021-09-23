@@ -91,7 +91,7 @@ class SendFundsCoordinator: Coordinator {
         energy: Int,
         from account: AccountDataType,
         to recipient: RecipientDataType,
-        memo: String?,
+        memo: Memo?,
         cost: GTU,
         transferType: TransferType
     ) {
@@ -129,7 +129,7 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
         energyUsed energy: Int,
         from account: AccountDataType,
         to recipient: RecipientDataType,
-        memo: String?,
+        memo: Memo?,
         cost: GTU,
         transferType: TransferType
     ) {

@@ -45,7 +45,7 @@ protocol SendFundPresenterDelegate: AnyObject {
                            energyUsed energy: Int,
                            from account: AccountDataType,
                            to recipient: RecipientDataType,
-                           memo: String?,
+                           memo: Memo?,
                            cost: GTU,
                            transferType: TransferType)
 }
@@ -59,7 +59,8 @@ protocol SendFundPresenterProtocol: AnyObject {
     func userTappedClose()
     func userTappedSelectRecipient()
     func userTappedAddMemo()
-    func userTappedSendFund(amount: String, memo: String?)
+    func userTappedRemoveMemo()
+    func userTappedSendFund(amount: String)
     func userTappedDontShowMemoAlertAgain(_ completion: @escaping () -> Void)
     
     // By coordinator
@@ -111,6 +112,16 @@ class SendFundPresenter: SendFundPresenterProtocol {
         
         $addedMemo
             .assign(to: \.memo, on: viewModel)
+            .store(in: &cancellables)
+        
+        $addedMemo
+            .sink { [weak self] memo in
+                if let memo = memo?.memo {
+                    self?.viewModel.addMemoText = memo
+                } else {
+                    self?.viewModel.addMemoText = "sendFund.addMemo".localized
+                }
+            }
             .store(in: &cancellables)
 
         // Show disposable balance.
@@ -189,6 +200,16 @@ class SendFundPresenter: SendFundPresenterProtocol {
         delegate?.sendFundPresenterAddMemo(self, memo: addedMemo)
     }
     
+    func userTappedRemoveMemo() {
+        addedMemo = nil
+        
+        if selectedRecipient != nil {
+            estimateTransferCost()
+        } else {
+            restEstimatedTransferCost()
+        }
+    }
+    
     func userTappedSelectRecipient() {
         delegate?.sendFundPresenterSelectRecipient(self, balanceType: balanceType, currentAccount: account)
     }
@@ -221,11 +242,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
         let updatedRecipient = RecipientEntity(name: recipientName, address: recipient.address)
         selectedRecipient = updatedRecipient
         
-        refreshTransferCost()
+        estimateTransferCost()
         setPageAndSendButtonTitle()
     }
     
-    private func refreshTransferCost() {
+    private func estimateTransferCost() {
         dependencyProvider.transactionsService()
             .getTransferCost(transferType: transferType, memoSize: addedMemo?.size)
             .sink(receiveError: { [weak self] (error) in
@@ -239,12 +260,18 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }).store(in: &cancellables)
     }
     
-    func setAddedMemo(memo: Memo) {
-        addedMemo = memo
-        refreshTransferCost()
+    private func restEstimatedTransferCost() {
+        viewModel.feeMessage = nil
+        cost = nil
+        energy = nil
     }
     
-    func userTappedSendFund(amount: String, memo: String?) {
+    func setAddedMemo(memo: Memo) {
+        addedMemo = memo
+        estimateTransferCost()
+    }
+    
+    func userTappedSendFund(amount: String) {
         let sendFund = { [weak self] in
             guard
                 let self = self,
@@ -268,13 +295,13 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 energyUsed: energy,
                 from: self.account,
                 to: recipient,
-                memo: memo,
+                memo: self.addedMemo,
                 cost: cost,
                 transferType: self.transferType
             )
         }
         
-        if memo == nil || AppSettings.dontShowMemoAlertWarning {
+        if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
             sendFund()
         } else {
             view?.showMemoWarningAlert { sendFund() }
