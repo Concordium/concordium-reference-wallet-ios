@@ -20,11 +20,7 @@ class SendFundFactory {
 class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
-    var memoPublisher: AnyPublisher<String, Never> {
-//        memoTextField.textPublisher
-        amountTextField.textPublisher
-        
-    }
+    var memoPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
     
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var selectedRecipientLabel: UILabel!
@@ -34,13 +30,11 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     @IBOutlet weak var transferIconImageView: UIImageView!
     @IBOutlet weak var sendFundsButton: StandardButton!
     @IBOutlet weak var selectRecipientWidgetView: WidgetView!
+    @IBOutlet weak var addMemoWidgetView: WidgetView!
     
     @IBOutlet weak var accountBalance: UILabel!
     @IBOutlet weak var accountBalanceShielded: UILabel!
     @IBOutlet weak var shieldedBalanceLockImageView: UIImageView!
-    
-//    @IBOutlet weak var memoContainer: UIView!
-//    @IBOutlet weak var memoTextField: UITextField!
     
     @IBOutlet weak var errorMessageLabel: UILabel! {
         didSet {
@@ -64,7 +58,7 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     
     var showMemo: Bool = true {
         didSet {
-//            memoContainer.isHidden = !showMemo
+            addMemoWidgetView.isHidden = !showMemo
         }
     }
     

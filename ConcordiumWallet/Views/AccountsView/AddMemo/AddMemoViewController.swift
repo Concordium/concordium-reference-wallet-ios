@@ -97,6 +97,14 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
         viewModel.$enableAddMemoToTransferButton
             .assign(to: \.isEnabled, on: addMemoButton)
             .store(in: &cancellables)
+        
+        viewModel.$memo
+            .compactMap { $0?.memo }
+            .sink { [weak self] memo in
+                self?.setTextViewPlaceholderHidden(!memo.isEmpty)
+                self?.memoTextView.text = memo
+            }
+            .store(in: &cancellables)
     }
     
     @objc private func hideKeyboardOnTap(_ sender: Any) {
@@ -105,7 +113,7 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
     }
     
     @IBAction private func addMemoTapped(_ sender: Any) {
-        
+        presenter.userTappedAddMemoToTransfer()
     }
     
     private func setTextViewPlaceholderHidden(_ hidden: Bool) {

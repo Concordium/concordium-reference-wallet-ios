@@ -21,14 +21,14 @@ protocol AddMemoViewProtocol: ShowError {
 
 // MARK: - Delegate
 protocol AddMemoPresenterDelegate: AnyObject {
-    func addMemoDidAddMemoToTransfer(memo: String)
+    func addMemoDidAddMemoToTransfer(memo: Memo)
 }
 
 // MARK: - Presenter
 protocol AddMemoPresenterProtocol: AnyObject {
     var view: AddMemoViewProtocol? { get set }
     func viewDidLoad()
-    func userTappedAddMemoToTransfer(memo: String)
+    func userTappedAddMemoToTransfer()
 }
 
 class AddMemoViewModel {
@@ -47,10 +47,10 @@ class AddMemoPresenter {
 
     private var viewModel = AddMemoViewModel()
     
-    @Published private var memo: Memo?
     
-    init(delegate: AddMemoPresenterDelegate? = nil) {
+    init(delegate: AddMemoPresenterDelegate? = nil, memo: Memo? = nil) {
         self.delegate = delegate
+        viewModel.memo = memo
     }
     
     func viewDidLoad() {
@@ -60,7 +60,11 @@ class AddMemoPresenter {
         view?.buttonTitle = "addMemo.addMemoButtonTitle".localized
         
         view?.memoPublisher
-            .map { Memo(memo: $0) }
+            .map {
+                let memo = Memo(memo: $0)
+                guard memo.isSizeValid else { return nil }
+                return memo
+            }
             .assign(to: \.memo, on: viewModel)
             .store(in: &cancellables)
         
@@ -97,7 +101,8 @@ class AddMemoPresenter {
 }
 
 extension AddMemoPresenter: AddMemoPresenterProtocol {
-    func userTappedAddMemoToTransfer(memo: String) {
-        
+    func userTappedAddMemoToTransfer() {
+        guard let memo = viewModel.memo else { return }
+        delegate?.addMemoDidAddMemoToTransfer(memo: memo)
     }
 }

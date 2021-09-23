@@ -60,8 +60,9 @@ class SendFundsCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showAddMemo() {
-        let addMemoViewController = AddMemoFactory.create(with: AddMemoPresenter(delegate: self))
+    func showAddMemo(_ memo: Memo?) {
+        let addMemoPresenter = AddMemoPresenter(delegate: self, memo: memo)
+        let addMemoViewController = AddMemoFactory.create(with: addMemoPresenter)
         navigationController.pushViewController(addMemoViewController, animated: true)
     }
 
@@ -115,7 +116,7 @@ class SendFundsCoordinator: Coordinator {
         sendFundPresenter?.setSelectedRecipient(recipient: recipient)
     }
     
-    func addedMemo(_ memo: String) {
+    func addedMemo(_ memo: Memo) {
         guard let vc = sendFundPresenter?.view as? UIViewController else { return }
         navigationController.popToViewController(vc, animated: true)
         sendFundPresenter?.setAddedMemo(memo: memo)
@@ -143,8 +144,8 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
         )
     }
     
-    func sendFundPresenterAddMemo(_ presenter: SendFundPresenter) {
-        showAddMemo()
+    func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?) {
+        showAddMemo(memo)
     }
     
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType) {
@@ -157,7 +158,7 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
 }
 
 extension SendFundsCoordinator: AddMemoPresenterDelegate {
-    func addMemoDidAddMemoToTransfer(memo: String) {
+    func addMemoDidAddMemoToTransfer(memo: Memo) {
         addedMemo(memo)
     }
 }

@@ -303,6 +303,7 @@ is less than 0.01 cents]</string>
                         <outlet property="accountBalance" destination="gal-Ji-ZyI" id="Ikg-D2-FWG"/>
                         <outlet property="accountBalanceShielded" destination="WKs-9V-K8n" id="YaO-vL-3U2"/>
                         <outlet property="addMemoLabel" destination="nSv-N5-G2j" id="Tre-bh-L2B"/>
+                        <outlet property="addMemoWidgetView" destination="R5e-6S-qaG" id="mrB-3U-bv7"/>
                         <outlet property="amountTextField" destination="4Cm-9Z-Dol" id="QWM-ge-7TB"/>
                         <outlet property="costMessageLabel" destination="uA7-si-afr" id="Hd5-Fz-QLD"/>
                         <outlet property="errorMessageLabel" destination="LSG-Da-V8L" id="Tjh-5H-gKD"/>
@@ -385,7 +386,6 @@ is less than 0.01 cents]</string>
                                 </state>
                                 <connections>
                                     <action selector="addMemoTapped:" destination="BB8-VP-N4y" eventType="touchUpInside" id="upT-Eo-7GR"/>
-                                    <action selector="sendFundTapped:" destination="O2r-4W-sZC" eventType="touchUpInside" id="e7N-7s-pRj"/>
                                 </connections>
                             </button>
                         </subviews>
