@@ -363,7 +363,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
                                 <rect key="frame" x="159.66666666666666" y="164" width="108.99999999999997" height="109"/>
                                 <color key="tintColor" name="primary"/>
                                 <constraints>
@@ -371,7 +371,7 @@
                                     <constraint firstAttribute="width" secondItem="K6y-ue-05u" secondAttribute="height" multiplier="1:1" id="Adh-4r-6XN"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
                                 <rect key="frame" x="110.66666666666669" y="308" width="207" height="27"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                 <color key="textColor" name="primary"/>
@@ -397,7 +397,7 @@
                                     <action selector="finishAction:" destination="wrn-j8-zZ3" eventType="touchUpInside" id="Oep-mP-5vM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
                                 <rect key="frame" x="103.66666666666669" y="591" width="221" height="36"/>
                                 <string key="text">[This may take a few minutes to 
 process on-chain]</string>
@@ -408,7 +408,7 @@ process on-chain]</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submittedMessage"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="15" y="365" width="398" height="206"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -856,13 +856,13 @@ process on-chain]</string>
                                                 <rect key="frame" x="0.0" y="5" width="396" height="48"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
                                                 <rect key="frame" x="0.0" y="53" width="396" height="290.33333333333331"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
                                                         <rect key="frame" x="0.0" y="0.0" width="396" height="290.33333333333331"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
                                                                 <rect key="frame" x="0.0" y="0.0" width="396" height="290.33333333333331"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
@@ -893,11 +893,11 @@ process on-chain]</string>
                                                                             <constraint firstAttribute="trailing" secondItem="6oq-fm-ahS" secondAttribute="trailing" id="ZJb-Am-Pvn"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
                                                                         <rect key="frame" x="7" y="115.66666666666667" width="382" height="174.66666666666663"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
-                                                                                <rect key="frame" x="110" y="9.9999999999999982" width="162" height="20.333333333333329"/>
+                                                                                <rect key="frame" x="110" y="10.000000000000002" width="162" height="20.666666666666671"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="primary"/>
                                                                                 <nil key="highlightedColor"/>
@@ -906,7 +906,7 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GH5-FJ-6Qg">
-                                                                                <rect key="frame" x="20" y="40.333333333333371" width="342" height="54"/>
+                                                                                <rect key="frame" x="20" y="40.666666666666629" width="342" height="54"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -915,7 +915,7 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgW-9v-gsl" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                                                                <rect key="frame" x="20" y="104.33333333333337" width="342" height="50"/>
+                                                                                <rect key="frame" x="20" y="104.66666666666663" width="342" height="50"/>
                                                                                 <color key="backgroundColor" name="primary"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="50" id="xf6-RF-pOm"/>
@@ -1163,16 +1163,16 @@ process on-chain]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qSg-o3-tAK">
-                                                    <rect key="frame" x="16" y="17.666666666666671" width="311.66666666666669" height="45"/>
+                                                    <rect key="frame" x="16" y="17.666666666666671" width="311.66666666666669" height="36"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="on3-pT-G6S">
-                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="45"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="36"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="yhL-t3-R7n"/>
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="elj-cZ-q2Z">
-                                                            <rect key="frame" x="28" y="4.3333333333333321" width="283.66666666666669" height="36"/>
+                                                            <rect key="frame" x="28" y="0.0" width="283.66666666666669" height="36"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRp-sD-ury">
                                                                     <rect key="frame" x="0.0" y="0.0" width="40.333333333333336" height="18"/>
@@ -1181,7 +1181,7 @@ process on-chain]</string>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="etT-IB-E9r">
-                                                                    <rect key="frame" x="0.0" y="24" width="41.333333333333336" height="12"/>
+                                                                    <rect key="frame" x="0.0" y="23.999999999999996" width="41.333333333333336" height="12.000000000000004"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUs-WI-gYw">
                                                                             <rect key="frame" x="0.0" y="0.0" width="26.333333333333332" height="12"/>
@@ -1204,13 +1204,13 @@ process on-chain]</string>
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="Sw3-q6-NSk">
-                                                    <rect key="frame" x="327.66666666666669" y="22" width="33.333333333333314" height="18"/>
+                                                    <rect key="frame" x="327.66666666666669" y="17.666666666666668" width="33.333333333333314" height="18.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="text"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8DN-bG-QrI">
-                                                    <rect key="frame" x="288" y="40" width="84" height="11"/>
+                                                    <rect key="frame" x="288" y="35.666666666666664" width="84" height="11"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="G0.05 +" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rd-kC-6c5">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="11"/>
@@ -1227,7 +1227,7 @@ process on-chain]</string>
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qso-Ib-bkh">
-                                                    <rect key="frame" x="361" y="20" width="11" height="22"/>
+                                                    <rect key="frame" x="361" y="15.666666666666664" width="11" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="11" id="0hE-DN-gUw"/>
                                                     </constraints>
@@ -1236,18 +1236,28 @@ process on-chain]</string>
                                                         <action selector="lockButtonPressed:" destination="Euu-RL-We6" eventType="touchUpInside" id="2D5-rr-kjD"/>
                                                     </connections>
                                                 </button>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a long text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43x-2q-w8j">
+                                                    <rect key="frame" x="16" y="59" width="356" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" name="fadedText"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Qso-Ib-bkh" firstAttribute="centerY" secondItem="Sw3-q6-NSk" secondAttribute="centerY" id="3eC-iI-KQP"/>
+                                                <constraint firstItem="qSg-o3-tAK" firstAttribute="top" secondItem="GQu-kl-Qie" secondAttribute="top" constant="17.666666666666671" id="7Dq-NO-nqA"/>
                                                 <constraint firstItem="Sw3-q6-NSk" firstAttribute="leading" secondItem="qSg-o3-tAK" secondAttribute="trailing" id="7hJ-Dk-RJN"/>
-                                                <constraint firstItem="qSg-o3-tAK" firstAttribute="centerY" secondItem="GQu-kl-Qie" secondAttribute="centerY" id="K3I-cn-TK3"/>
+                                                <constraint firstItem="43x-2q-w8j" firstAttribute="top" secondItem="qSg-o3-tAK" secondAttribute="bottom" constant="5.3333333333333286" id="LAb-Lx-UdV"/>
                                                 <constraint firstAttribute="trailing" secondItem="Qso-Ib-bkh" secondAttribute="trailing" constant="16" id="P9D-7C-YrH"/>
                                                 <constraint firstAttribute="trailing" secondItem="Sw3-q6-NSk" secondAttribute="trailing" priority="250" constant="16" id="QNM-YB-hTd"/>
                                                 <constraint firstItem="qSg-o3-tAK" firstAttribute="leading" secondItem="GQu-kl-Qie" secondAttribute="leading" constant="16" id="Vte-Lt-SPC"/>
+                                                <constraint firstAttribute="trailing" secondItem="43x-2q-w8j" secondAttribute="trailing" constant="16" id="ZQ7-4F-xfz"/>
                                                 <constraint firstItem="XRp-sD-ury" firstAttribute="centerY" secondItem="Sw3-q6-NSk" secondAttribute="centerY" id="fvo-Bz-m4U"/>
                                                 <constraint firstItem="Sw3-q6-NSk" firstAttribute="bottom" secondItem="8DN-bG-QrI" secondAttribute="top" id="hiC-cf-3fw"/>
                                                 <constraint firstItem="Qso-Ib-bkh" firstAttribute="leading" secondItem="Sw3-q6-NSk" secondAttribute="trailing" id="mFe-W0-EH4"/>
                                                 <constraint firstItem="Qso-Ib-bkh" firstAttribute="trailing" secondItem="d1E-s3-Axu" secondAttribute="trailing" id="mo5-hG-J8U"/>
+                                                <constraint firstItem="43x-2q-w8j" firstAttribute="leading" secondItem="GQu-kl-Qie" secondAttribute="leading" constant="16" id="qfG-we-MO8"/>
+                                                <constraint firstAttribute="bottom" secondItem="43x-2q-w8j" secondAttribute="bottom" constant="9" id="r8t-fn-tSh"/>
                                                 <constraint firstItem="d1E-s3-Axu" firstAttribute="trailing" secondItem="Sw3-q6-NSk" secondAttribute="trailing" priority="250" id="y5t-Cr-8gt"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1256,6 +1266,7 @@ process on-chain]</string>
                                             <outlet property="amountLabel" destination="1rd-kC-6c5" id="ypn-Ak-zmK"/>
                                             <outlet property="costLabel" destination="d1E-s3-Axu" id="lgc-14-c3w"/>
                                             <outlet property="lockButton" destination="Qso-Ib-bkh" id="Jne-tV-Chb"/>
+                                            <outlet property="memoLabel" destination="43x-2q-w8j" id="0wV-JB-aUR"/>
                                             <outlet property="recipientName" destination="XRp-sD-ury" id="Rtl-JE-g4T"/>
                                             <outlet property="statusIconImageView" destination="pDR-Kg-mMP" id="xQ2-Mo-tpw"/>
                                             <outlet property="timeLabel" destination="VUs-WI-gYw" id="O36-T6-AT3"/>
@@ -1354,7 +1365,7 @@ process on-chain]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p2E-jK-y7z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6229.6000000000004" y="-68.7192118226601"/>
+            <point key="canvasLocation" x="6228.5046728971956" y="-69.330453563714912"/>
         </scene>
         <!--Account AddressQR View Controller-->
         <scene sceneID="49x-jA-GMM">
@@ -1863,7 +1874,7 @@ process on-chain]</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsDataCellView" rowHeight="80" id="I17-H0-RK7" customClass="AccountTransactionsDataCellView" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsDataCellView" id="I17-H0-RK7" customClass="AccountTransactionsDataCellView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I17-H0-RK7" id="ADe-Rq-wft">
@@ -1871,7 +1882,7 @@ process on-chain]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jIV-AR-or5">
-                                                    <rect key="frame" x="16" y="17.666666666666671" width="326.66666666666669" height="45"/>
+                                                    <rect key="frame" x="16" y="10" width="326.66666666666669" height="45"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-2M-Gz7">
                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="45"/>
@@ -1880,7 +1891,7 @@ process on-chain]</string>
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="gDx-IL-xQ7">
-                                                            <rect key="frame" x="28" y="4.3333333333333321" width="298.66666666666669" height="36"/>
+                                                            <rect key="frame" x="28" y="4.6666666666666643" width="298.66666666666669" height="36"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cD-EF-Ykk">
                                                                     <rect key="frame" x="0.0" y="0.0" width="40.333333333333336" height="18"/>
@@ -1912,13 +1923,13 @@ process on-chain]</string>
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="rhY-LD-9CM">
-                                                    <rect key="frame" x="342.66666666666669" y="22" width="33.333333333333314" height="18"/>
+                                                    <rect key="frame" x="342.66666666666669" y="14.666666666666664" width="33.333333333333314" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="text"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcf-X5-NA4">
-                                                    <rect key="frame" x="314" y="40" width="84" height="11"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcf-X5-NA4">
+                                                    <rect key="frame" x="315" y="33" width="84" height="11"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="G0.05 +" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvl-GQ-PSX">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="11"/>
@@ -1934,8 +1945,8 @@ process on-chain]</string>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-dE-twO" userLabel="LockButton">
-                                                    <rect key="frame" x="376" y="16" width="22" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-dE-twO" userLabel="LockButton">
+                                                    <rect key="frame" x="377" y="9" width="22" height="29.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="8Up-yg-mAL"/>
                                                         <constraint firstAttribute="height" constant="30" id="T01-Cf-wPx"/>
@@ -1945,26 +1956,43 @@ process on-chain]</string>
                                                         <action selector="lockButtonPressed:" destination="I17-H0-RK7" eventType="touchUpInside" id="cZ3-VE-QG9"/>
                                                     </connections>
                                                 </button>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a long text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r62-CN-AGE">
+                                                    <rect key="frame" x="16" y="60" width="383" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" name="fadedText"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="z88-dE-twO" firstAttribute="centerY" secondItem="rhY-LD-9CM" secondAttribute="centerY" id="0TJ-HX-CaT"/>
                                                 <constraint firstItem="rhY-LD-9CM" firstAttribute="leading" secondItem="jIV-AR-or5" secondAttribute="trailing" id="0dh-kd-SLM"/>
-                                                <constraint firstItem="jIV-AR-or5" firstAttribute="centerY" secondItem="ADe-Rq-wft" secondAttribute="centerY" id="9iY-vH-edX"/>
+                                                <constraint firstItem="gDx-IL-xQ7" firstAttribute="centerY" secondItem="ADe-Rq-wft" secondAttribute="centerY" id="49U-6K-Rrj"/>
+                                                <constraint firstAttribute="bottom" secondItem="r62-CN-AGE" secondAttribute="bottom" constant="8" id="BJo-W5-xcA"/>
                                                 <constraint firstAttribute="trailing" secondItem="z88-dE-twO" secondAttribute="trailing" constant="16" id="DOa-ql-1gT"/>
+                                                <constraint firstItem="r62-CN-AGE" firstAttribute="top" secondItem="jIV-AR-or5" secondAttribute="bottom" constant="5" id="JUG-rs-AKN"/>
                                                 <constraint firstAttribute="trailing" secondItem="rhY-LD-9CM" secondAttribute="trailing" priority="250" constant="16" id="KS9-Kc-LlU"/>
                                                 <constraint firstItem="jIV-AR-or5" firstAttribute="leading" secondItem="ADe-Rq-wft" secondAttribute="leading" constant="16" id="MZb-Hs-EPf"/>
+                                                <constraint firstAttribute="trailing" secondItem="r62-CN-AGE" secondAttribute="trailing" constant="15" id="PNg-ak-Uhb"/>
+                                                <constraint firstItem="r62-CN-AGE" firstAttribute="leading" secondItem="ADe-Rq-wft" secondAttribute="leading" constant="16" id="ZrZ-gt-Rti"/>
                                                 <constraint firstItem="8cD-EF-Ykk" firstAttribute="centerY" secondItem="rhY-LD-9CM" secondAttribute="centerY" id="d43-gi-BK7"/>
                                                 <constraint firstItem="z88-dE-twO" firstAttribute="trailing" secondItem="xC1-h3-bpK" secondAttribute="trailing" id="iyN-kZ-2a0"/>
                                                 <constraint firstItem="z88-dE-twO" firstAttribute="leading" secondItem="rhY-LD-9CM" secondAttribute="trailing" id="ju7-e9-3vk"/>
+                                                <constraint firstItem="jIV-AR-or5" firstAttribute="top" secondItem="ADe-Rq-wft" secondAttribute="top" constant="10" id="lrb-X8-KEG"/>
                                                 <constraint firstItem="rhY-LD-9CM" firstAttribute="bottom" secondItem="hcf-X5-NA4" secondAttribute="top" id="nG8-b8-cIh"/>
                                                 <constraint firstItem="xC1-h3-bpK" firstAttribute="trailing" secondItem="rhY-LD-9CM" secondAttribute="trailing" priority="250" id="uJ2-xL-qvc"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="49U-6K-Rrj"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="amountCostStackView" destination="hcf-X5-NA4" id="YP4-gl-XJ7"/>
                                             <outlet property="amountLabel" destination="Yvl-GQ-PSX" id="uH9-7i-Gdj"/>
                                             <outlet property="costLabel" destination="xC1-h3-bpK" id="Fw8-r8-C9s"/>
                                             <outlet property="lockButton" destination="z88-dE-twO" id="Gzx-tA-vuq"/>
+                                            <outlet property="memoLabel" destination="r62-CN-AGE" id="nqW-lJ-WWu"/>
                                             <outlet property="recipientName" destination="8cD-EF-Ykk" id="hvy-mM-Zrj"/>
                                             <outlet property="statusIconImageView" destination="GYY-TD-ZfB" id="gdf-bG-g0M"/>
                                             <outlet property="timeLabel" destination="6lO-15-Mad" id="Wco-TY-Kkc"/>
@@ -2030,7 +2058,7 @@ process on-chain]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a8P-Hb-ZJy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5313.6000000000004" y="71.674876847290648"/>
+            <point key="canvasLocation" x="5313.0841121495323" y="71.274298056155516"/>
         </scene>
         <!--Reveal Attributes View Controller-->
         <scene sceneID="1cs-Na-3lM">
@@ -2114,16 +2142,16 @@ process on-chain]</string>
     </scenes>
     <designables>
         <designable name="89o-5w-snD">
-            <size key="intrinsicContentSize" width="175" height="30"/>
+            <size key="intrinsicContentSize" width="43" height="30"/>
         </designable>
         <designable name="ORm-Zf-XcW">
-            <size key="intrinsicContentSize" width="30" height="30"/>
+            <size key="intrinsicContentSize" width="31" height="30"/>
         </designable>
         <designable name="QhU-KP-8h3">
             <size key="intrinsicContentSize" width="282" height="30"/>
         </designable>
         <designable name="SWM-ta-B92">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="ZgW-9v-gsl">
             <size key="intrinsicContentSize" width="287" height="30"/>
@@ -2138,7 +2166,7 @@ process on-chain]</string>
             <size key="intrinsicContentSize" width="244" height="30"/>
         </designable>
         <designable name="y8I-YT-27p">
-            <size key="intrinsicContentSize" width="215" height="30"/>
+            <size key="intrinsicContentSize" width="119" height="30"/>
         </designable>
     </designables>
     <resources>

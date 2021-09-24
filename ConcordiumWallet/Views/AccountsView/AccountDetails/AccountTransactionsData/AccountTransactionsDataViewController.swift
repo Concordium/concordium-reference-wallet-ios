@@ -24,7 +24,6 @@ class AccountTransactionsDataFactory {
 
 class AccountTransactionsDataViewController: BaseViewController, AccountTransactionsDataViewProtocol, Storyboarded {
     let tableHeaderHeight: CGFloat = 22
-    let tableRowHeight: CGFloat = 60
 
     var presenter: AccountTransactionsDataPresenterProtocol?
     private var cancellables: [AnyCancellable] = []
@@ -50,15 +49,12 @@ class AccountTransactionsDataViewController: BaseViewController, AccountTransact
         dataSource?.defaultRowAnimation = .none
 
         tableView.prefetchDataSource = self
-
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 85
+        
         presenter?.view = self
         presenter?.viewDidLoad()
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        presenter = nil
-//    }
     
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: TransactionCell) -> UITableViewCell? {
         switch viewModel {
@@ -130,16 +126,13 @@ extension AccountTransactionsDataViewController: UITableViewDelegate {
             switch viewModel {
                 case .transaction(let transactionVM):
                     presenter?.userSelectTransaction(transactionVM)
+                    tableView.deselectRow(at: indexPath, animated: true)
                 default:
                     break
             }
         }
     }
 
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableRowHeight
-    }
-    
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: tableHeaderHeight))
         headerView.backgroundColor = .headerCellColor

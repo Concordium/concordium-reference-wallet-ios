@@ -13,6 +13,7 @@ struct TransactionViewModel {
     var total: GTU? // we can sometimes not know the value of an encrypted amount
     var title: String
     var date: Date
+    var memo: Memo?
     var details: TransactionDetailsViewModel
 
     let showCostAsShieleded: Bool
@@ -40,7 +41,7 @@ private struct AddressDisplay {
     }
 }
 
-// sw// swiftlint:disable function_body_length
+// swiftlint:disable function_body_length
 extension TransactionViewModel {
     init(remoteTransactionData transaction: Transaction,
          account: AccountDataType,
@@ -82,6 +83,7 @@ extension TransactionViewModel {
                 total: (total == nil ? nil : GTU(intValue: total)),
                 title: title,
                 date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
+                memo: Memo(hex: transaction.details.memo),
                 details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
                 showCostAsShieleded: false,
                 source: transaction)
@@ -93,6 +95,7 @@ extension TransactionViewModel {
                 total: GTU(intValue: Int(transaction.total ?? "0") ?? 0),
                 title: title,
                 date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
+                memo: Memo(hex: transaction.details.memo),
                 details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
                 showCostAsShieleded: (transaction.details.type == "encryptedAmountTransfer"),
                 source: transaction)
@@ -123,6 +126,7 @@ extension TransactionViewModel {
                 total: GTU(intValue: transfer.getShieldedBalanceChange()),
                 title: title,
                 date: transfer.createdAt,
+                memo: Memo(hex: transfer.memo),
                 details: TransactionDetailsViewModel(localTransferData: transfer,
                                                      submissionStatus: submissionStatus,
                                                      account: account,
@@ -152,6 +156,7 @@ extension TransactionViewModel {
                 total: totalGTU,
                 title: title,
                 date: transfer.createdAt,
+                memo: Memo(hex: transfer.memo),
                 details: TransactionDetailsViewModel(localTransferData: transfer,
                                                      submissionStatus: submissionStatus,
                                                      account: account,
@@ -267,6 +272,7 @@ extension TransactionViewModel: CustomStringConvertible {
         Transaction:
             title: '\(title)'
             date: \(date)
+            memo: \(memo?.rawValue ?? "nil")
             cost: \(cost?.displayValueWithGStroke() ?? "nil")
             amount: \(amount?.displayValueWithGStroke() ?? "nil")
             total: \(total?.displayValueWithGStroke() ?? "")

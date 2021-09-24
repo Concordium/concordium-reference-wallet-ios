@@ -12,6 +12,7 @@ import UIKit
 struct TransactionCellViewModel {
     var title = ""
     var date = ""
+    var memo: String?
     var fullDate = ""
     var total = ""
     var amount = ""
@@ -31,6 +32,7 @@ struct TransactionCellViewModel {
     init(transactionVM: TransactionViewModel) {
         title = transactionVM.title
         date = GeneralFormatter.formatTime(for: transactionVM.date)
+        memo = transactionVM.memo?.rawValue ?? ""
         fullDate = GeneralFormatter.formatDateWithTime(for: transactionVM.date)
         total = transactionVM.total?.displayValueWithGStroke() ?? ""
         showLock = transactionVM.total?.displayValueWithGStroke() == nil
