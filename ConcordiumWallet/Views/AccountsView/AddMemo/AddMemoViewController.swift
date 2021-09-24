@@ -99,7 +99,7 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
             .store(in: &cancellables)
         
         viewModel.$memo
-            .compactMap { $0?.memo }
+            .compactMap { $0?.rawValue }
             .sink { [weak self] memo in
                 self?.setTextViewPlaceholderHidden(!memo.isEmpty)
                 self?.memoTextView.text = memo

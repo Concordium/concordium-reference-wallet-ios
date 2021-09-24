@@ -111,7 +111,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         let sCost = cost.displayValueWithGStroke()
         view?.line4Text = "\(estimateTransactionFee)\(sCost)"
         
-        if let memo = memo?.memo {
+        if let memo = memo?.rawValue {
             view?.line5Text = String(format: "sendFund.memo.text".localized, memo)
         } else {
             view?.line5Text = nil
@@ -125,7 +125,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.fromAddress = fromAccount.address
         transfer.toAddress = recipient.address
         transfer.cost = String(cost.intValue)
-//        transfer.memo = memo //TODO: FIXME
+        transfer.memo = memo?.data.hexDescription
         transfer.energy = energy
 
         dependencyProvider.transactionsService()

@@ -5,6 +5,7 @@ def pods
   pod 'MaterialComponents/TextFields', '124.2.0'
   pod 'MaterialComponents/Tabs', '124.2.0'
   pod 'RealmSwift', '10.7.6'
+  pod 'SwiftCBOR', '0.4.4'
 end
 
 target 'Mock' do

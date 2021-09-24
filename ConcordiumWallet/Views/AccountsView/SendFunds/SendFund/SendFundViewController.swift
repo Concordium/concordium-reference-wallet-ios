@@ -99,7 +99,6 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
             self?.sendFundButtonBottomConstraint.constant = keyboardHeight
         }
     
-        
         amountTextField.delegate = self
     }
 

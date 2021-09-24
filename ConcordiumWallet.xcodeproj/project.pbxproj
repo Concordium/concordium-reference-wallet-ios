@@ -34,7 +34,6 @@
 		07519F7126FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
 		07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
 		07519F7426FB5AAB00F4E6E3 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7326FB5AAB00F4E6E3 /* Memo.swift */; };
-		07519F7526FB5AAB00F4E6E3 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7326FB5AAB00F4E6E3 /* Memo.swift */; };
 		07519F7626FB5AAB00F4E6E3 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7326FB5AAB00F4E6E3 /* Memo.swift */; };
 		07519F7726FB5AAB00F4E6E3 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7326FB5AAB00F4E6E3 /* Memo.swift */; };
 		07519F7926FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */; };
@@ -45,10 +44,19 @@
 		07519F7F26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
 		07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
 		07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */; };
-		07619A7C269C63C4009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
-		07619A7D269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
-		07619A7E269C6973009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
-		07619A7F269C6974009B79E2 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A7B269C63C4009B79E2 /* HashingHelper.swift */; };
+		07519F8826FCB21B00F4E6E3 /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */; };
+		07519F8926FCB21B00F4E6E3 /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */; };
+		07519F8A26FCB21B00F4E6E3 /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */; };
+		07519F8B26FCB21B00F4E6E3 /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */; };
+		07519F9226FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */; };
+		07519F9326FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */; };
+		07519F9426FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */; };
+		07519F9526FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */; };
+		07519F9B26FCC93200F4E6E3 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F7326FB5AAB00F4E6E3 /* Memo.swift */; };
+		07519F9D26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
+		07519F9E26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
+		07519F9F26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
+		07519FA026FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
 		07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
@@ -1441,7 +1449,9 @@
 		07519F7326FB5AAB00F4E6E3 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackHelper.swift; sourceTree = "<group>"; };
-		07619A7B269C63C4009B79E2 /* HashingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingHelper.swift; sourceTree = "<group>"; };
+		07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Additions.swift"; sourceTree = "<group>"; };
+		07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingHelper.swift; sourceTree = "<group>"; };
+		07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingProtocol.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetPresenter.swift; sourceTree = "<group>"; };
@@ -2537,12 +2547,12 @@
 				19C2E563B35B26CB118D1E42 /* IdentityProvider */,
 				7FEB7BE624090B7900D3E0EC /* JSONObject.swift */,
 				19C2EB9922806BFEE1920D58 /* Mock */,
+				07519F7326FB5AAB00F4E6E3 /* Memo.swift */,
 				7FA0AE9124598D6500B7673F /* OriginTypeEnum.swift */,
 				19C2E5788A2538609239493B /* OutcomeEnum.swift */,
 				5211BAB5250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift */,
 				19C2EF5243F84FCCF235C733 /* SubmissionStatusEnum.swift */,
 				5211BAAB24FD2C1400EE1658 /* TransferType.swift */,
-				07519F7326FB5AAB00F4E6E3 /* Memo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2693,8 +2703,11 @@
 			isa = PBXGroup;
 			children = (
 				077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */,
+				07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */,
 				07619A80269C810B009B79E2 /* Digest+Additions.swift */,
-				07619A7B269C63C4009B79E2 /* HashingHelper.swift */,
+				07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */,
+				07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */,
+				07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */,
 				C9BFC835242A2FA00063AEE9 /* LoadProtocol.swift */,
 				19C2E837B763654DFA84CC26 /* Logger.swift */,
 				079F30FC26EA0F9600ED96D3 /* MailHelper.swift */,
@@ -2722,7 +2735,6 @@
 				19C2EC7A96B744D007EE5D7B /* UIView+Additions.swift */,
 				7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */,
 				C93A752E24464813003FDBE2 /* URL+queryParameters.swift */,
-				07519F7D26FB68C700F4E6E3 /* HapticFeedbackHelper.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -3534,6 +3546,7 @@
 				7F48C260244E17D100997684 /* ArDatum.swift in Sources */,
 				7F48C273244E17D100997684 /* MakeCreateCredentialRequest.swift in Sources */,
 				64DB66B325DE643D00F4C605 /* AboutViewController.swift in Sources */,
+				07519F8826FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
 				7F48C153244DCD0B00997684 /* UIStackView+extension.swift in Sources */,
 				64FD33CB2602330B00563703 /* CredentialResponse.swift in Sources */,
 				7F48C263244E17D100997684 /* CreateIDRequest.swift in Sources */,
@@ -3643,6 +3656,8 @@
 				7F48C1AC244DCD0B00997684 /* LoginCoordinator.swift in Sources */,
 				64FD333A25FF8A7C00563703 /* KeyList.swift in Sources */,
 				7F48C1AD244DCD0B00997684 /* AccountsCoordinator.swift in Sources */,
+				07519F9226FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
+				07519F9D26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				7F48C1AE244DCD0B00997684 /* MobileWalletFacade.swift in Sources */,
 				7F48C1AF244DCD0B00997684 /* MobileWallet.swift in Sources */,
 				7F48C1B0244DCD0B00997684 /* StorageManager.swift in Sources */,
@@ -3781,7 +3796,6 @@
 				52D0CF202518C4680074D3C4 /* EncryptedDetails.swift in Sources */,
 				52A6A77424F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				19C2E22993CD8A4B1B3F3CF2 /* EncryptionMetadata.swift in Sources */,
-				07619A7C269C63C4009B79E2 /* HashingHelper.swift in Sources */,
 				642ED98125F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
 				19C2E6F6503A4A0ED31EFB07 /* ExportContainer.swift in Sources */,
 				19C2E7D2050B9833655301C2 /* CreateExportPasswordPresenter.swift in Sources */,
@@ -4040,6 +4054,7 @@
 				7F85B7A4246A9A7C00ED09B8 /* SendFundViewController.swift in Sources */,
 				7F85B7A5246A9A7C00ED09B8 /* SelectRecipientPresenter.swift in Sources */,
 				7F85B7A6246A9A7C00ED09B8 /* SelectRecipientViewController.swift in Sources */,
+				07519F9426FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				528EB751255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				5211BAA924FD1D5100EE1658 /* Balance.swift in Sources */,
 				7F85B7A7246A9A7C00ED09B8 /* AddRecipientPresenter.swift in Sources */,
@@ -4063,6 +4078,7 @@
 				7F85B7B3246A9A7C00ED09B8 /* AccountsService.swift in Sources */,
 				7F85B7B4246A9A7C00ED09B8 /* TransactionsService.swift in Sources */,
 				642ED94525EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
+				07519F9F26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				7F85B7B5246A9A7C00ED09B8 /* SubmissionStatusService.swift in Sources */,
 				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
 				07519F7126FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
@@ -4098,13 +4114,13 @@
 				19C2E408CD5B059FB7FA8268 /* MockedData.swift in Sources */,
 				19C2E48CCDA5C4711F3C2436 /* EncryptionMetadata.swift in Sources */,
 				52589B2825128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
-				07619A7E269C6973009B79E2 /* HashingHelper.swift in Sources */,
 				5211BAAE24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
 				19C2EBBA614AB2996127C30C /* CreateExportPasswordPresenter.swift in Sources */,
 				19C2E7AA27024C4F32B39273 /* ExportPresenter.swift in Sources */,
 				079F310426EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				7FCA399A250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
+				07519F8A26FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
 				528EB742255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				19C2EAA10B0289BB2E451EEA /* ExportService.swift in Sources */,
 				19C2EBC80FC154FA2B036828 /* CreateExportPasswordCoordinator.swift in Sources */,
@@ -4361,6 +4377,7 @@
 				7F85B8A1246A9AB600ED09B8 /* Logger.swift in Sources */,
 				7F85B8A2246A9AB600ED09B8 /* SendFundPresenter.swift in Sources */,
 				7F85B8A3246A9AB600ED09B8 /* SendFundViewController.swift in Sources */,
+				07519F9526FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				528EB752255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				5211BAAA24FD1D5100EE1658 /* Balance.swift in Sources */,
 				7F85B8A4246A9AB600ED09B8 /* SelectRecipientPresenter.swift in Sources */,
@@ -4384,6 +4401,7 @@
 				7F85B8B0246A9AB600ED09B8 /* TransactionDetailInfoCellView.swift in Sources */,
 				7F85B8B1246A9AB600ED09B8 /* TransactionsLoadingHandler.swift in Sources */,
 				642ED94625EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
+				07519FA026FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
 				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
 				07519F7026FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
@@ -4419,13 +4437,13 @@
 				19C2E699AF90FE8324DD1693 /* TransferEntity.swift in Sources */,
 				19C2E31A01A86DD6F42D0845 /* DataStoreProtocol.swift in Sources */,
 				52589B2925128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
-				07619A7D269C6973009B79E2 /* HashingHelper.swift in Sources */,
 				5211BAAF24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
 				19C2EAAD7644A803CCE64786 /* EncryptionMetadata.swift in Sources */,
 				19C2E693A35A80A8317F32D8 /* ExportContainer.swift in Sources */,
 				079F310526EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				7FCA399B250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
+				07519F8B26FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
 				528EB743255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				19C2E97D649F0F8D782DCA6B /* CreateExportPasswordPresenter.swift in Sources */,
 				19C2EABA3A43F2D530C4B60E /* CreateExportPasswordCoordinator.swift in Sources */,
@@ -4505,7 +4523,6 @@
 				C968B9F02448C37C00E31BD8 /* TransactionSubmittedViewController.swift in Sources */,
 				C93D092C242762440022250B /* CreationFailedViewController.swift in Sources */,
 				7FD8785B2406AF7C00509BDB /* EnterPasswordViewController.swift in Sources */,
-				07619A7F269C6974009B79E2 /* HashingHelper.swift in Sources */,
 				7F9C86FE243B2D8F00CAD83F /* BiometricsEnablingViewController.swift in Sources */,
 				7FEC203623F1D435009BD4C9 /* IdentityProviderListPresenter.swift in Sources */,
 				529531B7256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
@@ -4540,11 +4557,11 @@
 				06AA2AA023F688C60001F964 /* CreateIdentityCoordinator.swift in Sources */,
 				07519F7F26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				529531AE256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
-				07519F7526FB5AAB00F4E6E3 /* Memo.swift in Sources */,
 				642ED97825F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */,
 				C94ED724246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				C938F53B2423839900ECAD47 /* IdentitiesPresenterProtocol.swift in Sources */,
+				07519F8926FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
 				C9E3727924277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				527DE351257378DC00333E65 /* ReleaseScheduleCell.swift in Sources */,
 				C938F52F241E781200ECAD47 /* CreateNicknameViewController.swift in Sources */,
@@ -4621,6 +4638,7 @@
 				7FA0AE9424598D6500B7673F /* RemoteTransactions.swift in Sources */,
 				5211BAA424FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
 				C94ED71F2461B2030071A4FB /* TransactionDetailViewController.swift in Sources */,
+				07519F9326FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				7F21399524236ECB00D2A5C4 /* ServerErrorMessage.swift in Sources */,
 				C9D342B9245884AA007ED45E /* ShowErrorProtocol.swift in Sources */,
 				7F85B8F02472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
@@ -4736,10 +4754,12 @@
 				19C2E56B76C17E15DA67593E /* ExportRecipient.swift in Sources */,
 				19C2E3B9D4E93CCD41D4BFE8 /* IdentityAttributeEntity.swift in Sources */,
 				19C2E474975BA2FA750F1C83 /* IdentityEntity.swift in Sources */,
+				07519F9E26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				19C2EFA2750D7BD1DE605A0C /* IdentityProviderEntity.swift in Sources */,
 				644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				19C2E6DE1910B724444819F5 /* RecipientEntity.swift in Sources */,
 				7FB64A0C247D568500DC500E /* ExportViewController.swift in Sources */,
+				07519F9B26FCC93200F4E6E3 /* Memo.swift in Sources */,
 				19C2EC21D98697C47A31F7F4 /* AccountEntity.swift in Sources */,
 				077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				19C2E4A1182C18A689D74D4B /* TransferEntity.swift in Sources */,

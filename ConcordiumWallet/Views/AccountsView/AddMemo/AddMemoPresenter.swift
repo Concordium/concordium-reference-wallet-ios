@@ -47,7 +47,6 @@ class AddMemoPresenter {
 
     private var viewModel = AddMemoViewModel()
     
-    
     init(delegate: AddMemoPresenterDelegate? = nil, memo: Memo? = nil) {
         self.delegate = delegate
         viewModel.memo = memo
@@ -61,8 +60,8 @@ class AddMemoPresenter {
         
         view?.memoPublisher
             .map {
-                let memo = Memo(memo: $0)
-                guard memo.isSizeValid else { return nil }
+                let memo = Memo($0)
+                guard memo.hasValidSize else { return nil }
                 return memo
             }
             .assign(to: \.memo, on: viewModel)
@@ -70,7 +69,7 @@ class AddMemoPresenter {
         
         viewModel.$memo
             .compactMap { $0 }
-            .map { !$0.isSizeValid }
+            .map { !$0.hasValidSize }
             .assign(to: \.invalidMemoSizeError, on: viewModel)
             .store(in: &cancellables)
         
@@ -80,7 +79,7 @@ class AddMemoPresenter {
                 guard
                     let previous = $0.previous,
                     let current = $0.current,
-                    !current.isSizeValid
+                    !current.hasValidSize
                 else {
                     return false
                 }
@@ -92,7 +91,7 @@ class AddMemoPresenter {
                 
         viewModel.$memo
             .compactMap { $0 }
-            .map { !$0.memo.isEmpty && $0.isSizeValid }
+            .map { !$0.rawValue.isEmpty && $0.hasValidSize }
             .assign(to: \.enableAddMemoToTransferButton, on: viewModel)
             .store(in: &cancellables)
         

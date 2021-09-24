@@ -33,14 +33,12 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         switch pTransfer.transferType {
         case .simpleTransfer:
-            // FIXME: Add memo
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToSecret:
             return performShielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .transferToPublic:
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .encryptedTransfer:
-            // FIXME: Add memo
             return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
@@ -61,6 +59,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                         to: transfer.toAddress,
                                                         amount: Int(transfer.amount) ?? 0,
                                                         nonce: nonce,
+                                                        memo: transfer.memo,
                                                         expiry: expiry,
                                                         energy: transfer.energy,
                                                         transferType: transfer.transferType,
@@ -101,6 +100,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                         to: transfer.toAddress,
                                                         amount: Int(transfer.amount) ?? 0,
                                                         nonce: nonce,
+                                                        memo: nil,
                                                         expiry: expiry,
                                                         energy: transfer.energy,
                                                         transferType: transfer.transferType,
@@ -183,6 +183,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                         to: transfer.toAddress,
                                                         amount: Int(transfer.amount) ?? 0,
                                                         nonce: nonce,
+                                                        memo: nil,
                                                         expiry: expiry,
                                                         energy: transfer.energy,
                                                         transferType: transfer.transferType,
@@ -240,6 +241,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                                         to: transfer.toAddress,
                                                         amount: Int(transfer.amount) ?? 0,
                                                         nonce: nonce,
+                                                        memo: transfer.memo,
                                                         expiry: expiry,
                                                         energy: transfer.energy,
                                                         transferType: transfer.transferType,
