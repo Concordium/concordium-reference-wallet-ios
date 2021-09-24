@@ -71,7 +71,7 @@ protocol IdentityProviderListPresenterProtocol: AnyObject {
 
 protocol IdentitiyProviderListPresenterDelegate: AnyObject {
     func closeIdentityProviderList()
-    func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityDataType)
+    func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityCreationDataType)
 }
 
 class IdentityProviderListPresenter {
@@ -83,14 +83,16 @@ class IdentityProviderListPresenter {
     private var dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     let service: IdentitiesService
 
-    private var identity: IdentityDataType
+    private let initialAccountName: String
+    private let identityName: String
     private var viewModel = IdentityProviderListViewModel()
 
     init(dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
          delegate: (IdentitiyProviderListPresenterDelegate & RequestPasswordDelegate)? = nil,
+         accountNickname: String,
          identityNickname: String) {
-        identity = IdentityDataTypeFactory.create()
-        identity.nickname = identityNickname
+        self.initialAccountName = accountNickname
+        self.identityName = identityNickname
         self.delegate = delegate
         self.dependencyProvider = dependencyProvider
         self.service = dependencyProvider.identitiesService()
@@ -118,7 +120,7 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
     }
 
     func getIdentityName() -> String {
-        return self.identity.nickname
+        return self.identityName
     }
     
     func userSelected(identityProviderIndex: Int) {
@@ -141,27 +143,33 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
                            """)
             }
             
-            self.identity = self.identity.withUpdated(identityProvider: IdentityProviderDataTypeFactory.create(ipData: ipInfoResponse))
+            let identityProvider = IdentityProviderDataTypeFactory.create(ipData: ipInfoResponse)
             
             let wallet = self.dependencyProvider.mobileWallet()
             
             self.service.getGlobal().flatMap { global in
-                wallet.createIdRequestAndPrivateData(identity: self.identity, global: global, requestPasswordDelegate: delegate)
+                wallet.createIdRequestAndPrivateData(initialAccountName: self.initialAccountName,
+                                                     identityName: self.identityName,
+                                                     identityProvider: identityProvider,
+                                                     global: global,
+                                                     requestPasswordDelegate: delegate)
             }
-            .tryMap { [unowned self] (idObjectRequest: IDObjectRequestWrapper) -> ResourceRequest in
-                return try self.service.createIdentityObjectRequest(
-                    on: self.identity.identityProvider!.issuanceStartURL,
-                    with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: ApiConstants.notabeneCallback)
+            .tryMap { [unowned self] (idObjectRequest: IDObjectRequestWrapper, identityCreation) -> (ResourceRequest, IdentityCreationDataType) in
+                let callbackUri = ApiConstants.callbackUri(with: identityCreation.id)
+                let identityObjectRequest = try self.service.createIdentityObjectRequest(
+                    on: identityProvider.issuanceStartURL,
+                    with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: callbackUri)
                 )
+                return (identityObjectRequest, identityCreation)
             }
             .mapError(ErrorMapper.toViewError)
             .sink(receiveError: { [weak self] error in
                 if case ViewError.userCancelled = error { return }
                 self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] resourceRequest in
+                }, receiveValue: { [weak self] (resourceRequest, identityCreation) in
                     guard let self = self else { return }
                     let urlRequest = resourceRequest.request
-                    self.delegate?.identityRequestURLGenerated(urlRequest: urlRequest!, createdIdentity: self.identity)
+                    self.delegate?.identityRequestURLGenerated(urlRequest: urlRequest!, createdIdentity: identityCreation)
             })
                 .store(in: &self.cancellables)
         }

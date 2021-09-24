@@ -42,20 +42,11 @@ class InitialAccountsCoordinator: Coordinator, ShowError {
     }
     
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
-        let createNewAccountPresenter = CreateNicknamePresenter(withDefaultName: account?.name,
-                                                                delegate: self,
-                                                                properties: CreateInitialAccountNicknameProperties())
-        let vc = CreateNicknameFactory.create(with: createNewAccountPresenter)
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showCreateNewIdentity() {
         let createIdentityCoordinator = CreateIdentityCoordinator(navigationController: navigationController,
                                                                   dependencyProvider: identitiesProvider,
                                                                   parentCoordinator: self)
         childCoordinators.append(createIdentityCoordinator)
-        createIdentityCoordinator.startWithIdentity()
-//        navigationController.present(createIdentityCoordinator.navigationController, animated: true, completion: nil)
+        createIdentityCoordinator.startInitialAccount(withDefaultValuesFrom: account)
     }
     
     func showInitialAccountInfo() {
@@ -70,37 +61,6 @@ class InitialAccountsCoordinator: Coordinator, ShowError {
         let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
         vc.title = initialAccountPresenter.type.getViewModel().title
         navigationController.pushViewController(vc, animated: true)
-    }
-}
-
-extension InitialAccountsCoordinator: CreateNicknamePresenterDelegate {
-    func createNicknamePresenterCancelled(_ createNicknamePresenter: CreateNicknamePresenter) {
-        navigationController.popToRootViewController(animated: true)
-    }
-
-    func createNicknamePresenter(_ createNicknamePresenter: CreateNicknamePresenter,
-                                 didCreateName nickname: String,
-                                 properties: CreateNicknameProperties) {
-        var account = AccountDataTypeFactory.create()
-        account.name = nickname
-        account.transactionStatus = .committed
-        account.encryptedBalanceStatus = .decrypted
-        do {
-            cleanupUnfinishedAccounts()
-            _ = try accountsProvider.storageManager().storeAccount(account)
-        } catch {
-            Logger.error(error)
-            self.showErrorAlert(.genericError(reason: error))
-        }
-        
-        showCreateNewIdentity()
-    }
-    
-    private func cleanupUnfinishedAccounts() {
-        let unfinishedAccounts = accountsProvider.storageManager().getAccounts().filter { $0.address == ""}
-        for account in unfinishedAccounts {
-            accountsProvider.storageManager().removeAccount(account: account)
-        }
     }
 }
 

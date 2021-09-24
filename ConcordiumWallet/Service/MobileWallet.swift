@@ -8,10 +8,12 @@ import Combine
 
 protocol MobileWalletProtocol {
     func check(accountAddress: String) -> Bool
-    func createIdRequestAndPrivateData(identity: IdentityDataType,
+    func createIdRequestAndPrivateData(initialAccountName: String,
+                                       identityName: String,
+                                       identityProvider: IdentityProviderDataType,
                                        global: GlobalWrapper,
                                        requestPasswordDelegate: RequestPasswordDelegate)
-                    -> AnyPublisher<IDObjectRequestWrapper, Error>
+                    -> AnyPublisher<(IDObjectRequestWrapper, IdentityCreationDataType), Error>
     func createCredential(global: GlobalWrapper, account: AccountDataType, pwHash: String, expiry: Date)
                     -> AnyPublisher<CreateCredentialRequest, Error>
     func createTransfer(from fromAccount: AccountDataType,
@@ -77,20 +79,16 @@ class MobileWallet: MobileWalletProtocol {
         walletFacade.checkAccountAddress(input: accountAddress)
     }
 
-    /*
-    * Creates:
-    *   - an identity object that can be sent to the blockChain
-    *   - A privateId Object that must be stored securely
-    */
-
-    // swiftlint:disable function_body_length
-    func createIdRequestAndPrivateData(identity: IdentityDataType,
+    /// Creates an identity request and the associated private data.
+    /// The private data is stored securely.
+    func createIdRequestAndPrivateData(initialAccountName: String,
+                                       identityName: String,
+                                       identityProvider: IdentityProviderDataType,
                                        global: GlobalWrapper,
                                        requestPasswordDelegate: RequestPasswordDelegate)
-                    -> AnyPublisher<IDObjectRequestWrapper, Error> {
-        let identity = identity
+                    -> AnyPublisher<(IDObjectRequestWrapper, IdentityCreationDataType), Error> {
         do {
-            guard let ipInfo = identity.identityProvider?.ipInfo, let arsInfo = identity.identityProvider?.arsInfos,
+            guard let ipInfo = identityProvider.ipInfo, let arsInfo = identityProvider.arsInfos,
                 let input = try CreateIDRequest(ipInfo: ipInfo, arsInfos: arsInfo, global: global.value).jsonString() else {
                 return .fail(MobileWalletError.invalidArgument)
             }
@@ -101,46 +99,23 @@ class MobileWallet: MobileWalletProtocol {
             
             let data = try IDRequestAndPrivateData(idRequestString)
             return requestPasswordDelegate.requestUserPassword(keychain: keychain)
-                .flatMap { (pwHash) -> AnyPublisher<String, Error> in
-                     var account = AccountDataTypeFactory.create()
-                    do {
-                        // save account name
-                        let initialAccount = self.storageManager.getAccounts().filter {$0.address == ""}.first
-                        var initialAccountName = initialAccount?.name ?? ""
-                        self.storageManager.removeAccount(account: initialAccount)
-                        
-                        // cleanup if there have been other unsucessful tries and if the name was not set
-                        let failedAccounts = self.storageManager.getAccounts(for: identity)
-                        for account in failedAccounts {
-                            if initialAccountName == "" {
-                                initialAccountName = account.name ?? ""
-                            }
-                            self.storageManager.removeAccount(account: account)
-                        }
-                        
-                        // save account
-                        account.name = initialAccountName
-                        account.address = data.initialAccountData.accountAddress
-                        account.encryptedBalanceStatus = .decrypted
-                        account.encryptedAccountData = try self.storageManager.storePrivateAccountKeys(data.initialAccountData.accountKeys,
-                                                                                                       pwHash: pwHash).get()
-                        account.encryptedPrivateKey = try self.storageManager.storePrivateEncryptionKey(data.initialAccountData.encryptionSecretKey,
-                                                                                                        pwHash: pwHash).get()
-                        
-                        _ = try self.storageManager.storeAccount(account)
-                    } catch {
-                        return .fail(error)
-                    }
-                    return self.storageManager.storePrivateIdObjectData(data.privateIDObjectData.value, pwHash: pwHash).onSuccess {
-                        _ = identity.withUpdated(encryptedPrivateIdObjectData: $0)
-                        let newAccount = account.withUpdatedIdentity(identity: identity)
-                        let shieldedAmount = ShieldedAmountTypeFactory.create().withInitialValue(for: newAccount)
-                        _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
-                    }.publisher.eraseToAnyPublisher()
-            }
-            .map { _ in
-                data.idObjectRequest
-            }.eraseToAnyPublisher()
+                .tryMap { (pwHash) in
+                    let encryptedAccountData = try self.storageManager.storePrivateAccountKeys(data.initialAccountData.accountKeys,
+                                                                                               pwHash: pwHash).get()
+                    let encryptedPrivateKey = try self.storageManager.storePrivateEncryptionKey(data.initialAccountData.encryptionSecretKey,
+                                                                                                pwHash: pwHash).get()
+                    let encryptedPrivateIdObjectData =
+                        try self.storageManager.storePrivateIdObjectData(data.privateIDObjectData.value, pwHash: pwHash).get()
+                    var identityCreation = IdentityCreationDataTypeFactory.create(initialAccountName: initialAccountName,
+                                                           initialAccountAddress: data.initialAccountData.accountAddress,
+                                                           identityName: identityName,
+                                                           encryptedAccountData: encryptedAccountData,
+                                                           encryptedPrivateKey: encryptedPrivateKey,
+                                                           encryptedPrivateIdObjectData: encryptedPrivateIdObjectData,
+                                                           identityProvider: identityProvider)
+                    identityCreation = try self.storageManager.storeIdentityCreation(identityCreation)
+                    return (data.idObjectRequest, identityCreation)
+                }.eraseToAnyPublisher()
         } catch {
             return .fail(error)
         }

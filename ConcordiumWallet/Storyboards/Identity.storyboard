@@ -423,14 +423,14 @@ You can start using your identity object once validation of your id has been com
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="375" height="221"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z5F-8M-xsD" id="FHV-qe-9m3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDA-GU-4dR" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="8" width="343" height="205"/>
+                                                    <rect key="frame" x="16" y="8" width="343" height="0.0"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
                                             </subviews>
@@ -623,10 +623,10 @@ You can start using your identity object once validation of your id has been com
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hmu-Be-uFH">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hmu-Be-uFH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rfK-ov-g5R">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rfK-ov-g5R">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="681"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ja-kH-0qJ">
@@ -659,15 +659,15 @@ You can start using your identity object once validation of your id has been com
                                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.text"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQo-bl-bBg" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQo-bl-bBg" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="165" width="335" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="385" width="335" height="206"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="611" width="335" height="50"/>
                                                 <color key="backgroundColor" name="primary"/>
                                                 <constraints>
@@ -683,7 +683,7 @@ You can start using your identity object once validation of your id has been com
                                                     <action selector="finishAction:" destination="ptF-jc-wGF" eventType="touchUpInside" id="DZg-k3-sVL"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vn8-9s-Atd">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn8-9s-Atd">
                                                 <rect key="frame" x="67.5" y="681" width="240" height="0.0"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -734,22 +734,22 @@ You can start using your identity object once validation of your id has been com
     </scenes>
     <designables>
         <designable name="MRM-MM-HP3">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="Sbp-1u-Y29">
-            <size key="intrinsicContentSize" width="162" height="30"/>
+            <size key="intrinsicContentSize" width="112" height="30"/>
         </designable>
         <designable name="XPb-gG-l6K">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="YIs-du-qey">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="h8Y-S7-jdl">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="ilq-Bf-T4l">
-            <size key="intrinsicContentSize" width="163" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
     </designables>
     <resources>

@@ -41,4 +41,22 @@ struct ApiConstants {
     static let accountBalance = proxyUrl.appendingPathComponent("/accBalance")
     static let accountTransactions = proxyUrl.appendingPathComponent("/accTransactions")
     static let gtuDrop = proxyUrl.appendingPathComponent("/testnetGTUDrop")
+    
+    /// Generate a callback URI associated with an identifier
+    static func callbackUri(with identityCreationID: String) -> String {
+        "\(notabeneCallback)/\(identityCreationID)"
+    }
+    /// Check if the URI is a callback URI
+    static func isCallbackUri(uri: String) -> Bool {
+        uri.hasPrefix(notabeneCallback)
+    }
+    /// Get the identity creation identifier and poll URL from a callback URI.
+    /// Note that the pollUrl is NOT expected to be URL-encoded.
+    static func parseCallbackUri(uri: URL) -> (identityCreationId: String, pollUrl: String)? {
+        let identityCreationId = uri.absoluteURL.lastPathComponent
+        guard let pollUrl = uri.absoluteString.components(separatedBy: "#code_uri=").last else {
+            return nil
+        }
+        return (identityCreationId, pollUrl)
+    }
 }

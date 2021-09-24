@@ -16,12 +16,15 @@ protocol CreateNewIdentityDelegate: AnyObject {
 }
 
 class CreateIdentityCoordinator: Coordinator, ShowError {
+    
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: CreateNewIdentityDelegate?
     var navigationController: UINavigationController
     private var dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     private var cancellables: [AnyCancellable] = []
-    private var createdIdentity: IdentityDataType?
+    /// This variable maintains the owning reference to the nickname presenter
+    /// delegate when it is in use.
+    private var nicknameWrapper: CreateNicknamePresenterDelegate?
 
     init(navigationController: UINavigationController,
          dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
@@ -31,6 +34,8 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         self.dependencyProvider = dependencyProvider
     }
 
+    /// Start the identity issuance flow.
+    /// This starts with an introductory screen.
     func start() {
         navigationController.modalPresentationStyle = .fullScreen
         showInitialAccountInfo()
@@ -38,9 +43,11 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         registerForApplicationWillTerminateNotification()
     }
 
-    func startWithIdentity() {
+    /// Start the identity issuance flow for creating a first account.
+    /// This skips the introductory screen and displays the account naming screen with different text.
+    func startInitialAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
         navigationController.modalPresentationStyle = .fullScreen
-        showCreateNewIdentity()
+        showCreateNewAccount(withDefaultValuesFrom: account, isInitial: true)
         registerForCreatedIdentityNotification()
         registerForApplicationWillTerminateNotification()
     }
@@ -48,7 +55,7 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
     private func registerForApplicationWillTerminateNotification() {
         NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)
             .sink { [weak self] _ in
-                self?.cleanupUnfinishedIdentiesAndAccounts()
+                self?.cleanupIdentityCreations()
             }.store(in: &cancellables)
     }
     
@@ -67,12 +74,13 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
             Logger.error("wrong url when requesting identity: \(callback)")
             return
         }
-        guard let pollUrl = url.absoluteString.components(separatedBy: "#code_uri=").last else {
-            handleErrorResponse(url: url)
+        guard let (identityCreationId: identityCreationId, pollUrl: pollUrl) =
+                ApiConstants.parseCallbackUri(uri: url) else {
+            self.handleErrorResponse(url: url)
             return
         }
         do {
-            try handleIdentitySubmitted(createdIdentity, pollUrl: pollUrl)
+            try handleIdentitySubmitted(identityCreationId: identityCreationId, pollUrl: pollUrl)
         } catch {
             Logger.error(error)
             self.showErrorAlert(.genericError(reason: error))
@@ -80,11 +88,33 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
 
     }
 
-    private func handleIdentitySubmitted(_ identity: IdentityDataType?, pollUrl: String) throws {
-        guard let createdIdentity = identity else { return }
-        let newIdentity = createdIdentity.withUpdated(state: .pending, pollUrl: pollUrl)
-        try dependencyProvider.storageManager().storeIdentity(newIdentity)
-        identityObjectCreated(createdIdentity)
+    private func handleIdentitySubmitted(identityCreationId: String, pollUrl: String) throws {
+        let storageManager = dependencyProvider.storageManager()
+        guard let createdIdentity = storageManager.getIdentityCreation(withId: identityCreationId) else {
+            Logger.error("invalid identity creation id: \(identityCreationId)")
+            return
+        }
+        var newIdentity = IdentityDataTypeFactory.create()
+        newIdentity.nickname = createdIdentity.identityName
+        newIdentity.identityProvider = createdIdentity.identityProvider
+        newIdentity.encryptedPrivateIdObjectData = createdIdentity.encryptedPrivateIdObjectData
+        newIdentity.state = .pending
+        newIdentity.ipStatusUrl = pollUrl
+        try storageManager.storeIdentity(newIdentity)
+        var newAccount = AccountDataTypeFactory.create()
+        newAccount.name = createdIdentity.initialAccountName
+        newAccount.address = createdIdentity.initialAccountAddress
+        newAccount.transactionStatus = .committed
+        newAccount.encryptedBalanceStatus = .decrypted
+        newAccount.encryptedAccountData = createdIdentity.encryptedAccountData
+        newAccount.encryptedPrivateKey = createdIdentity.encryptedPrivateKey
+        newAccount.identity = newIdentity
+        _ = try storageManager.storeAccount(newAccount)
+        let shieldedAmount = ShieldedAmountTypeFactory.create().withInitialValue(for: newAccount)
+        _ = try storageManager.storeShieldedAmount(amount: shieldedAmount)
+        storageManager.removeIdentityCreation(createdIdentity)
+        
+        identityObjectCreated(newIdentity)
     }
 
     private func handleErrorResponse(url: URL) {
@@ -111,30 +141,17 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
             let serverError = ViewError.simpleError(localizedReason: error.error.detail)
             createIdentityFailed(serverError)
         }
-        createdIdentity = nil
     }
     
-    private func cleanupUnfinishedIdentiesAndAccounts() {
-        cleanupUnfinishedIdenties()
-        cleanupUnfinishedAccounts()
-    }
-    
-    private func cleanupUnfinishedAccounts() {
-        guard
-            let unfinishedAccount = dependencyProvider
-                .storageManager()
-                .getAccounts().first(where: { $0.identity == nil || $0.identity?.ipStatusUrl == nil || $0.identity?.state == .failed })
-        else {
-            return
-        }
-        
-        dependencyProvider.storageManager().removeAccount(account: unfinishedAccount)
-    }
-    
-    private func cleanupUnfinishedIdenties() {
-        let unfinishedIdentities = dependencyProvider.storageManager().getIdentities().filter { $0.ipStatusUrl.isEmpty }
-        for identity in unfinishedIdentities {
-            dependencyProvider.storageManager().removeIdentity(identity)
+    private func cleanupIdentityCreations() {
+        let storageManager = dependencyProvider.storageManager()
+        let identityCreations = storageManager.getIdentityCreations()
+        for identityCreation in identityCreations {
+            if storageManager.getAccount(withAddress: identityCreation.initialAccountAddress) != nil {
+                storageManager.removeIdentityCreation(identityCreation)
+            } else {
+                storageManager.discardIdentityCreation(identityCreation)
+            }
         }
     }
 
@@ -145,28 +162,45 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
-        let createNewAccountPresenter = CreateNicknamePresenter(withDefaultName: account?.name,
-                                                                delegate: self,
-                                                                properties: CreateAccountNicknameProperties())
+    func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil, isInitial: Bool = false) {
+        let wrapper = CreateIdentityCoordinatorAccountWrapper(coordinator: self)
+        self.nicknameWrapper = wrapper
+        let createNewAccountPresenter = isInitial ?
+            CreateNicknamePresenter(withDefaultName: account?.name,
+                                    delegate: wrapper,
+                                    properties: CreateInitialAccountNicknameProperties()) :
+            CreateNicknamePresenter(withDefaultName: account?.name,
+                                    delegate: wrapper,
+                                    properties: CreateAccountNicknameProperties())
         let vc = CreateNicknameFactory.create(with: createNewAccountPresenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showCreateNewIdentity() {
-        let vc = CreateNicknameFactory.create(with: CreateNicknamePresenter(delegate: self, properties: CreateIdentityNicknameProperties()))
+    func showCreateNewIdentity(initialAccountName: String) {
+        let wrapper = CreateIdentityCoordinatorIdentityWrapper(coordinator: self,
+                                                               initialAccountName: initialAccountName)
+        self.nicknameWrapper = wrapper
+        let vc = CreateNicknameFactory.create(with: CreateNicknamePresenter(delegate: wrapper, properties: CreateIdentityNicknameProperties()))
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func nicknameCancelled() {
+        self.nicknameWrapper = nil
+        parentCoordinator?.createNewIdentityCancelled()
+    }
 
-    func showIdentityList(withIdentityName nickname: String) {
+    func showIdentityList(withAccountName accountName: String, withIdentityName identityName: String) {
+        self.nicknameWrapper = nil
         let identityProviderListPresenter =
-            IdentityProviderListPresenter(dependencyProvider: dependencyProvider, delegate: self, identityNickname: nickname)
+            IdentityProviderListPresenter(dependencyProvider: dependencyProvider,
+                                          delegate: self,
+                                          accountNickname: accountName,
+                                          identityNickname: identityName)
         let vc = IdentityProviderListFactory.create(with: identityProviderListPresenter)
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showIdentityProviderWebView(urlRequest: URLRequest, createdIdentity: IdentityDataType) {
-        self.createdIdentity = createdIdentity
+    func showIdentityProviderWebView(urlRequest: URLRequest, createdIdentity: IdentityCreationDataType) {
         Logger.debug("Open URL in WKWebView: \(urlRequest.url?.absoluteString ?? "nil")")
         let vc = IdentityProviderWebViewFactory.create(with: IdentityProviderWebViewPresenter(url: urlRequest, delegate: self))
         vc.modalPresentationStyle = .fullScreen
@@ -192,43 +226,58 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
     }
 }
 
-extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
-    func createNicknamePresenterCancelled(_ presenter: CreateNicknamePresenter) {
-        cleanupUnfinishedAccounts()
-        parentCoordinator?.createNewIdentityCancelled()
+/// A wrapper for the CreateIdentityCoordinator to act as a CreateNicknamePresenterDelegate
+/// for obtaining the account name.
+class CreateIdentityCoordinatorAccountWrapper {
+    private weak var coordinator: CreateIdentityCoordinator?
+    init(coordinator: CreateIdentityCoordinator) {
+        self.coordinator = coordinator
     }
+}
 
-    func createNicknamePresenter(_ createNicknamePresenter: CreateNicknamePresenter,
+extension CreateIdentityCoordinatorAccountWrapper: CreateNicknamePresenterDelegate {
+    func createNicknamePresenterCancelled(_: CreateNicknamePresenter) {
+        coordinator?.nicknameCancelled()
+    }
+    
+    func createNicknamePresenter(_: CreateNicknamePresenter,
                                  didCreateName nickname: String,
                                  properties: CreateNicknameProperties) {
-        
-        if properties as? CreateAccountNicknameProperties != nil {
-            var account = AccountDataTypeFactory.create()
-            account.name = nickname
-            account.transactionStatus = .committed
-            account.encryptedBalanceStatus = .decrypted
-            do {
-                cleanupUnfinishedAccounts()
-                _ = try dependencyProvider.storageManager().storeAccount(account)
+        coordinator?.showCreateNewIdentity(initialAccountName: nickname)
+    }
+}
 
-            } catch {
-                Logger.error(error)
-                self.showErrorAlert(.genericError(reason: error))
-            }
-            showCreateNewIdentity()
-        } else if properties as? CreateIdentityNicknameProperties != nil {
-            showIdentityList(withIdentityName: nickname)
-        }
+/// A wrapper for the CreateIdentityCoordinator to act as a CreateNicknamePresenterDelegate
+/// for obtaining the identity name.
+class CreateIdentityCoordinatorIdentityWrapper {
+    private weak var coordinator: CreateIdentityCoordinator?
+    let initialAccountName: String
+    init(coordinator: CreateIdentityCoordinator, initialAccountName: String) {
+        self.coordinator = coordinator
+        self.initialAccountName = initialAccountName
+    }
+}
+
+extension CreateIdentityCoordinatorIdentityWrapper: CreateNicknamePresenterDelegate {
+    func createNicknamePresenterCancelled(_: CreateNicknamePresenter) {
+        coordinator?.parentCoordinator?.createNewIdentityCancelled()
+    }
+    
+    func createNicknamePresenter(_: CreateNicknamePresenter,
+                                 didCreateName nickname: String,
+                                 properties: CreateNicknameProperties) {
+        coordinator?.showIdentityList(withAccountName: initialAccountName,
+                                      withIdentityName: nickname)
     }
 }
 
 extension CreateIdentityCoordinator: IdentitiyProviderListPresenterDelegate {
     func closeIdentityProviderList() {
-        cleanupUnfinishedIdentiesAndAccounts()
+        cleanupIdentityCreations()
         parentCoordinator?.createNewIdentityCancelled()
     }
 
-    func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityDataType) {
+    func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityCreationDataType) {
         showIdentityProviderWebView(urlRequest: urlRequest, createdIdentity: createdIdentity)
     }
 }
@@ -280,7 +329,7 @@ extension CreateIdentityCoordinator: IdentityProviderWebViewPresenterDelegate {
 
 extension CreateIdentityCoordinator: InitialAccountInfoPresenterDelegate {
     func userTappedClose() {
-        cleanupUnfinishedIdentiesAndAccounts()
+        cleanupIdentityCreations()
         navigationController.dismiss(animated: true)
     }
     

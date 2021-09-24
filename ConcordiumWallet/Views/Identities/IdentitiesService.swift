@@ -32,7 +32,7 @@ class IdentitiesService {
         }
         var parameters: [String: String] = [
             "response_type": "code",
-            "redirect_uri": ApiConstants.notabeneCallback,
+            "redirect_uri": idRequest.redirectURI,
             "scope": "identity",
             "state": idRequestString
         ]

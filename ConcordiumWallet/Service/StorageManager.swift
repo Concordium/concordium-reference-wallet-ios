@@ -13,6 +13,18 @@ protocol StorageManagerProtocol {
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
+    
+    /// Get all identity creation objects
+    func getIdentityCreations() -> [IdentityCreationDataType]
+    /// Get a single identity creation object by its id
+    func getIdentityCreation(withId id: String) -> IdentityCreationDataType?
+    /// Store an identity creation object
+    func storeIdentityCreation(_ identityCreation: IdentityCreationDataType) throws -> IdentityCreationDataType
+    /// Remove an identity creation object, but do not expunge the associated keys from the keychain
+    func removeIdentityCreation(_ identityCreation: IdentityCreationDataType)
+    /// Remove an identity creation object and delete its keys from the keychain
+    func discardIdentityCreation(_ identityCreation: IdentityCreationDataType)
+    
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
 
@@ -160,6 +172,45 @@ class StorageManager: StorageManagerProtocol {
         try? realm.write {
             realm.delete(identityEntity)
         }
+    }
+    
+    // MARK: IdentityCreation
+    
+    func storeIdentityCreation(_ identityCreation: IdentityCreationDataType) throws -> IdentityCreationDataType {
+        if let identityCreationEntity = identityCreation as? IdentityCreationEntity {
+            do {
+                try realm.write {
+                    realm.add(identityCreationEntity)
+                }
+            } catch {
+                throw StorageError.writeError(error: error)
+            }
+        }
+        return identityCreation
+    }
+    
+    func getIdentityCreations() -> [IdentityCreationDataType] {
+        Array(realm.objects(IdentityCreationEntity.self))
+    }
+    
+    func getIdentityCreation(withId id: String) -> IdentityCreationDataType? {
+        realm.objects(IdentityCreationEntity.self).filter("id == %@", id).first
+    }
+    
+    func removeIdentityCreation(_ identityCreation: IdentityCreationDataType) {
+        guard let identityCreationEntity = identityCreation as? IdentityCreationEntity else {
+            return
+        }
+        try? realm.write {
+            realm.delete(identityCreationEntity)
+        }
+    }
+
+    func discardIdentityCreation(_ identityCreation: IdentityCreationDataType) {
+        _ = keychain.deleteKeychainItem(withKey: identityCreation.encryptedAccountData)
+        _ = keychain.deleteKeychainItem(withKey: identityCreation.encryptedPrivateKey)
+        _ = keychain.deleteKeychainItem(withKey: identityCreation.encryptedPrivateIdObjectData)
+        removeIdentityCreation(identityCreation)
     }
 
     // MARK: Account
