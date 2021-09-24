@@ -45,9 +45,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
     
     @IBOutlet weak var tableView: UITableView!
     var dataSource: TransactionsDetailDataSource?
-   
-    let infoCellHeight: CGFloat = 80
-    
+       
     init?(coder: NSCoder, presenter: TransactionDetailPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -64,6 +62,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.applyConcordiumEdgeStyle()
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
 
         dataSource = TransactionsDetailDataSource(tableView: tableView, cellProvider: createCell)
@@ -225,17 +224,6 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
 }
 
 extension TransactionDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let vm = dataSource?.itemIdentifier(for: indexPath) {
-            switch vm {
-            case .info:
-                return infoCellHeight
-            default:
-                break
-            }
-        }
-        return UITableView.automaticDimension
-    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vm = dataSource?.itemIdentifier(for: indexPath) {
             switch vm {
