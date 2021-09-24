@@ -59,11 +59,7 @@ class AddMemoPresenter {
         view?.buttonTitle = "addMemo.addMemoButtonTitle".localized
         
         view?.memoPublisher
-            .map {
-                let memo = Memo($0)
-                guard memo.hasValidSize else { return nil }
-                return memo
-            }
+            .map { Memo($0) }
             .assign(to: \.memo, on: viewModel)
             .store(in: &cancellables)
         
