@@ -91,7 +91,7 @@ class AddMemoPresenter {
                 
         viewModel.$memo
             .compactMap { $0 }
-            .map { !$0.rawValue.isEmpty && $0.hasValidSize }
+            .map { !$0.displayValue.isEmpty && $0.hasValidSize }
             .assign(to: \.enableAddMemoToTransferButton, on: viewModel)
             .store(in: &cancellables)
         

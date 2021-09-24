@@ -25,7 +25,7 @@ class TransactionSubmittedViewModel {
         self.visibleWaterMark = (transfer.transferType == .encryptedTransfer)
         
         if let memo = Memo(hex: transfer.memo) {
-            self.memoText = String(format: "sendFund.memo.text".localized, memo.rawValue)
+            self.memoText = String(format: "sendFund.memo.text".localized, memo.displayValue)
         } else {
             self.memoText = nil
         }

@@ -10,8 +10,8 @@ import Foundation
 import SwiftCBOR
 
 protocol MemoDataType {
-    /// Plain text value of a memo
-    var rawValue: String { get set }
+    /// Display value of a memo
+    var displayValue: String { get set }
     /// Data representation of a memo
     var data: Data { get }
     /// Size of a memo
@@ -29,14 +29,14 @@ struct Memo: MemoDataType {
         Data(bytes: encoded, count: encoded.count)
     }
     
-    var rawValue: String
+    var displayValue: String
     
     var size: Int { encoded.count }
     
     var hasValidSize: Bool { size <= Memo.Constants.maxSize }
     
     init(_ rawValue: String) {
-        self.rawValue = rawValue
+        self.displayValue = rawValue
     }
     
     init?(hex: String?) {
@@ -49,11 +49,11 @@ struct Memo: MemoDataType {
         
         let bytes = data.bytes
         guard case .utf8String(let value) = try? CBOR.decode(bytes) else { return nil }
-        self.rawValue = value
+        self.displayValue = value
     }
 }
 
 // MARK: - CBOREncodable
 extension Memo: CBOREncodable {
-    var encoded: [UInt8] { rawValue.encode() }
+    var encoded: [UInt8] { displayValue.encode() }
 }

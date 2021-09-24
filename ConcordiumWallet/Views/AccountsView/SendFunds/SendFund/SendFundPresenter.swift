@@ -116,7 +116,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         
         $addedMemo
             .sink { [weak self] memo in
-                if let memo = memo?.rawValue {
+                if let memo = memo?.displayValue {
                     self?.viewModel.addMemoText = memo
                 } else {
                     self?.viewModel.addMemoText = "sendFund.addMemo".localized

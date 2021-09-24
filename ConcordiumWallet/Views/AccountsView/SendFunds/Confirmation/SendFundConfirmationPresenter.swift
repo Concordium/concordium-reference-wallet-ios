@@ -111,7 +111,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         let sCost = cost.displayValueWithGStroke()
         view?.line4Text = "\(estimateTransactionFee)\(sCost)"
         
-        if let memo = memo?.rawValue {
+        if let memo = memo?.displayValue {
             view?.line5Text = String(format: "sendFund.memo.text".localized, memo)
         } else {
             view?.line5Text = nil

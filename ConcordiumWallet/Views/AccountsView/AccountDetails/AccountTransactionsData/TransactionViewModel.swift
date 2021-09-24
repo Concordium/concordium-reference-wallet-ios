@@ -272,7 +272,7 @@ extension TransactionViewModel: CustomStringConvertible {
         Transaction:
             title: '\(title)'
             date: \(date)
-            memo: \(memo?.rawValue ?? "nil")
+            memo: \(memo?.displayValue ?? "nil")
             cost: \(cost?.displayValueWithGStroke() ?? "nil")
             amount: \(amount?.displayValueWithGStroke() ?? "nil")
             total: \(total?.displayValueWithGStroke() ?? "")
