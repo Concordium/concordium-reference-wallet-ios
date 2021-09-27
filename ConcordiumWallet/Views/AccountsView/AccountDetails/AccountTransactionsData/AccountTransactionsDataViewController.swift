@@ -23,7 +23,8 @@ class AccountTransactionsDataFactory {
 }
 
 class AccountTransactionsDataViewController: BaseViewController, AccountTransactionsDataViewProtocol, Storyboarded {
-    let tableHeaderHeight: CGFloat = 22
+    private let tableHeaderHeight: CGFloat = 22
+    private let estimatedRowHeight: CGFloat = 85
 
     var presenter: AccountTransactionsDataPresenterProtocol?
     private var cancellables: [AnyCancellable] = []
@@ -50,7 +51,7 @@ class AccountTransactionsDataViewController: BaseViewController, AccountTransact
 
         tableView.prefetchDataSource = self
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 85
+        tableView.estimatedRowHeight = estimatedRowHeight
         
         presenter?.view = self
         presenter?.viewDidLoad()
