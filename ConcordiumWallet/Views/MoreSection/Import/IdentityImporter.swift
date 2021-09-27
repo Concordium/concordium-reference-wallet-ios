@@ -87,6 +87,11 @@ class IdentityImporter {
                 account.transactionStatus = .finalized
             }
             account.revealedAttributes = accountData.revealedAttributes
+            
+            if let commitmentsRandomness = accountData.commitmentsRandomness {
+                account.encryptedCommitmentsRandomness = try storageManager.storeCommitmentsRandomness(commitmentsRandomness, pwHash: pwHash).get()
+            }
+            
             account.encryptedPrivateKey = try storageManager.storePrivateEncryptionKey(accountData.encryptionSecretKey, pwHash: pwHash).get()
             _ = try storageManager.storeAccount(account)
             importedIdentity.importedAccounts.append(accountData.name)
