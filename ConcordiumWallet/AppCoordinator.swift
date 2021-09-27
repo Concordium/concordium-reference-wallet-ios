@@ -179,7 +179,7 @@ extension AppCoordinator: InitialAccountsCoordinatorDelegate {
 
 extension AppCoordinator: LoginCoordinatorDelegate {
     func loginDone() {
-        defaultProvider.storageManager().removeUnfinishedAccountsAndRelatedIdentities()
+        defaultProvider.storageManager().removeAccountsWithoutAddress()
         
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
