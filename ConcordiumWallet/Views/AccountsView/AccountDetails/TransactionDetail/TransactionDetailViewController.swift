@@ -41,6 +41,8 @@ class TransactionDetailFactory {
 class TransactionDetailViewController: BaseViewController, TransactionDetailViewProtocol, Storyboarded, ShowToast {
     
     var presenter: TransactionDetailPresenterProtocol
+    
+    private let estimatedRowHeight: CGFloat = 80
     private var cancellables: [AnyCancellable] = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -63,7 +65,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.applyConcordiumEdgeStyle()
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = estimatedRowHeight
 
         dataSource = TransactionsDetailDataSource(tableView: tableView, cellProvider: createCell)
 
