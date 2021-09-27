@@ -52,6 +52,11 @@ protocol StorageManagerProtocol {
     func getLastEncryptedBalanceTransfer(for accountAddress: String) -> TransferDataType?
     func getAllTransfers() -> [TransferDataType]
     func removeTransfer(_ transfer: TransferDataType?)
+    
+    func removeUnfinishedIdentities()
+    func removeUnfinishedAccounts()
+    func removeAccountsWithoutAddress()
+    func removeUnfinishedAccountsAndRelatedIdentities()
 }
 
 enum StorageError: Error {
@@ -61,7 +66,6 @@ enum StorageError: Error {
 }
 
 class StorageManager: StorageManagerProtocol {
-
     private var realm: Realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
     private var keychain: KeychainWrapperProtocol
 
@@ -371,6 +375,40 @@ class StorageManager: StorageManagerProtocol {
         }
         try? realm.write {
             realm.delete(transferEntity)
+        }
+    }
+    
+    func removeUnfinishedIdentities() {
+        let unfinishedIdentities = getIdentities().filter { $0.ipStatusUrl.isEmpty }
+        for identity in unfinishedIdentities {
+            removeIdentity(identity)
+        }
+    }
+    
+    func removeUnfinishedAccounts() {
+        guard
+            let unfinishedAccount = getAccounts().first(where: { $0.identity == nil || $0.identity?.ipStatusUrl == nil || $0.identity?.state == .failed })
+        else {
+            return
+        }
+        
+        removeAccount(account: unfinishedAccount)
+    }
+    
+    func removeAccountsWithoutAddress() {
+        let accountsWithoutAddress = getAccounts().filter { $0.address == ""}
+        for account in accountsWithoutAddress {
+            removeAccount(account: account)
+        }
+    }
+    
+    func removeUnfinishedAccountsAndRelatedIdentities() {
+        let unfinishedIdentities = getIdentities().filter { $0.ipStatusUrl.isEmpty }
+        for identity in unfinishedIdentities {
+            if let account = getAccounts(for: identity).first {
+                removeAccount(account: account)
+                removeIdentity(identity)
+            }
         }
     }
 }

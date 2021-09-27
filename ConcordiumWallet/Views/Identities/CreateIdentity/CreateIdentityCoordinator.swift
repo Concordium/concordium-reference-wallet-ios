@@ -115,27 +115,8 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
     }
     
     private func cleanupUnfinishedIdentiesAndAccounts() {
-        cleanupUnfinishedIdenties()
-        cleanupUnfinishedAccounts()
-    }
-    
-    private func cleanupUnfinishedAccounts() {
-        guard
-            let unfinishedAccount = dependencyProvider
-                .storageManager()
-                .getAccounts().first(where: { $0.identity == nil || $0.identity?.ipStatusUrl == nil || $0.identity?.state == .failed })
-        else {
-            return
-        }
-        
-        dependencyProvider.storageManager().removeAccount(account: unfinishedAccount)
-    }
-    
-    private func cleanupUnfinishedIdenties() {
-        let unfinishedIdentities = dependencyProvider.storageManager().getIdentities().filter { $0.ipStatusUrl.isEmpty }
-        for identity in unfinishedIdentities {
-            dependencyProvider.storageManager().removeIdentity(identity)
-        }
+        dependencyProvider.storageManager().removeUnfinishedIdentities()
+        dependencyProvider.storageManager().removeUnfinishedAccounts()
     }
 
     func showInitialAccountInfo() {
@@ -194,7 +175,7 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
 
 extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
     func createNicknamePresenterCancelled(_ presenter: CreateNicknamePresenter) {
-        cleanupUnfinishedAccounts()
+        dependencyProvider.storageManager().removeUnfinishedAccounts()
         parentCoordinator?.createNewIdentityCancelled()
     }
 
@@ -208,7 +189,7 @@ extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
             account.transactionStatus = .committed
             account.encryptedBalanceStatus = .decrypted
             do {
-                cleanupUnfinishedAccounts()
+                dependencyProvider.storageManager().removeUnfinishedAccounts()
                 _ = try dependencyProvider.storageManager().storeAccount(account)
 
             } catch {
