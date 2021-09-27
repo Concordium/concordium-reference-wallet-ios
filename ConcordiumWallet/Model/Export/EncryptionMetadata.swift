@@ -6,9 +6,23 @@
 import Foundation
 
 struct EncryptionMetadata: Codable {
-        static let encryptionMethod = "AES-256"
-        static let keyDerivationMethod: String = "PBKDF2WithHmacSHA256"
-        let iterations: Int
-        let salt: String
-        let initializationVector: String
+    let encryptionMethod: String
+    let keyDerivationMethod: String
+    let iterations: Int
+    let salt: String
+    let initializationVector: String
+    
+    init(
+        encryptionMethod: String = "AES-256",
+        keyDerivationMethod: String = "PBKDF2WithHmacSHA256",
+        iterations: Int,
+        salt: String,
+        initializationVector: String
+    ) {
+        self.encryptionMethod = encryptionMethod
+        self.keyDerivationMethod = keyDerivationMethod
+        self.iterations = iterations
+        self.salt = salt
+        self.initializationVector = initializationVector
+    }
 }
