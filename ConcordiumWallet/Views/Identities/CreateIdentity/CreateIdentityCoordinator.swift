@@ -114,7 +114,9 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         _ = try storageManager.storeShieldedAmount(amount: shieldedAmount)
         storageManager.removeIdentityCreation(createdIdentity)
         
-        identityObjectCreated(newIdentity)
+        navigationController.dismiss(animated: true) {
+            self.showIdentitySubmitted(identity: newIdentity, account: newAccount)
+        }
     }
 
     private func handleErrorResponse(url: URL) {
@@ -139,10 +141,13 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
             parentCoordinator?.createNewIdentityCancelled()
         } else {
             let serverError = ViewError.simpleError(localizedReason: error.error.detail)
-            createIdentityFailed(serverError)
+            navigationController.dismiss(animated: true) {
+                self.showFailedIdentityCreation(error: serverError)
+            }
         }
     }
     
+    /// Remove all identity creations.
     private func cleanupIdentityCreations() {
         let storageManager = dependencyProvider.storageManager()
         let identityCreations = storageManager.getIdentityCreations()
@@ -207,12 +212,7 @@ class CreateIdentityCoordinator: Coordinator, ShowError {
         navigationController.present(vc, animated: true)
     }
 
-    func showIdentitySubmitted(identity: IdentityDataType) {
-        guard let account = dependencyProvider.storageManager().getAccounts(for: identity).first else {
-            self.showErrorAlert(.simpleError(localizedReason: "Account association failed"))
-            return
-        }
-        
+    func showIdentitySubmitted(identity: IdentityDataType, account: AccountDataType) {
         let vc = IdentityConfirmedFactory.create(with: IdentityConfirmedPresenter(identity: identity,
                                                                                   account: account,
                                                                                   dependencyProvider: dependencyProvider,
@@ -289,20 +289,6 @@ extension CreateIdentityCoordinator: IdentityConfirmedPresenterDelegate {
 }
 
 extension CreateIdentityCoordinator: RequestPasswordDelegate {
-}
-
-extension CreateIdentityCoordinator {
-    func identityObjectCreated(_ result: IdentityDataType) {
-        navigationController.dismiss(animated: true) {
-            self.showIdentitySubmitted(identity: result)
-        }
-    }
-
-    func createIdentityFailed(_ error: Error) {
-        navigationController.dismiss(animated: true) {
-            self.showFailedIdentityCreation(error: error)
-        }
-    }
 }
 
 extension CreateIdentityCoordinator: CreationFailedPresenterDelegate {
