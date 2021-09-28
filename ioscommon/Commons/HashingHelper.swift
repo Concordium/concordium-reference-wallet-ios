@@ -1,11 +1,9 @@
 //
 //  HashingHelper.swift
-//  Mock
 //
 //  Created by Kristiyan Dobrev on 12/07/2021.
 //  Copyright © 2021 concordium. All rights reserved.
 //
-
 import Foundation
 import CryptoKit
 

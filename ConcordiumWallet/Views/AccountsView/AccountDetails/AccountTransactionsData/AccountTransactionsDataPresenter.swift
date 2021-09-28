@@ -51,10 +51,6 @@ class AccountTransactionsDataPresenter: AccountTransactionsDataPresenterProtocol
         self.viewModel = viewModel
         self.transactionsFetcher = transactionsFetcher
     }
-
-//    deinit {
-//        print("deinit \(self)")
-//    }
     
     func viewDidLoad() {
         view?.bind(to: viewModel)

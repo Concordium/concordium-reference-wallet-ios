@@ -41,13 +41,13 @@ class TransactionDetailFactory {
 class TransactionDetailViewController: BaseViewController, TransactionDetailViewProtocol, Storyboarded, ShowToast {
     
     var presenter: TransactionDetailPresenterProtocol
+    
+    private let estimatedRowHeight: CGFloat = 80
     private var cancellables: [AnyCancellable] = []
     
     @IBOutlet weak var tableView: UITableView!
     var dataSource: TransactionsDetailDataSource?
-   
-    let infoCellHeight: CGFloat = 80
-    
+       
     init?(coder: NSCoder, presenter: TransactionDetailPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -64,7 +64,8 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.applyConcordiumEdgeStyle()
-        tableView.estimatedRowHeight = 80
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = estimatedRowHeight
 
         dataSource = TransactionsDetailDataSource(tableView: tableView, cellProvider: createCell)
 
@@ -225,17 +226,6 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
 }
 
 extension TransactionDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let vm = dataSource?.itemIdentifier(for: indexPath) {
-            switch vm {
-            case .info:
-                return infoCellHeight
-            default:
-                break
-            }
-        }
-        return UITableView.automaticDimension
-    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vm = dataSource?.itemIdentifier(for: indexPath) {
             switch vm {

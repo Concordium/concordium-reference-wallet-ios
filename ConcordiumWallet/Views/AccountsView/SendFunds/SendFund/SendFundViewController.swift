@@ -18,17 +18,21 @@ class SendFundFactory {
 }
 
 class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboarded {
-
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
+    var memoPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
     
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var selectedRecipientLabel: UILabel!
+    @IBOutlet weak var addMemoLabel: UILabel!
     @IBOutlet weak var sendFundButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var costMessageLabel: UILabel!
     @IBOutlet weak var transferIconImageView: UIImageView!
     @IBOutlet weak var sendFundsButton: StandardButton!
     @IBOutlet weak var selectRecipientWidgetView: WidgetView!
+    @IBOutlet weak var addMemoWidgetView: WidgetView!
+    @IBOutlet weak var addMemoWidgetLabel: UILabel!
+    @IBOutlet weak var removeMemoButton: UIButton!
     
     @IBOutlet weak var accountBalance: UILabel!
     @IBOutlet weak var accountBalanceShielded: UILabel!
@@ -51,6 +55,12 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
     var showSelectRecipient: Bool = true {
         didSet {
             selectRecipientWidgetView.isHidden = !showSelectRecipient
+        }
+    }
+    
+    var showMemo: Bool = true {
+        didSet {
+            addMemoWidgetView.isHidden = !showMemo
         }
     }
     
@@ -85,10 +95,10 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
 
-        animateWithKeyboard { [weak self] keyboardHeight in
+        keyboardWillShow { [weak self] keyboardHeight in
             self?.sendFundButtonBottomConstraint.constant = keyboardHeight
         }
-
+    
         amountTextField.delegate = self
     }
 
@@ -96,23 +106,24 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         
         viewModel.$recipientName
             .map { $0 ?? viewModel.selectRecipientText }
-                .assign(to: \.text, on: selectedRecipientLabel)
-                .store(in: &cancellables)
+            .assign(to: \.text, on: selectedRecipientLabel)
+            .store(in: &cancellables)
 
         viewModel.$isRecipientNameFaded
                 .sink { [weak self] in
-                    if $0 {
-                        self?.selectedRecipientLabel.textColor = .fadedText
-                    } else {
-                        self?.selectedRecipientLabel.textColor = .text
-                    }
+                    let color: UIColor = $0 ? .fadedText : .text
+                    self?.selectedRecipientLabel.textColor = color
                 }
                 .store(in: &cancellables)
+        
+        viewModel.$addMemoText
+            .assign(to: \.text, on: addMemoLabel)
+            .store(in: &cancellables)
 
         viewModel.$accountBalance
             .assign(to: \.text, on: accountBalance)
             .store(in: &cancellables)
-
+    
         viewModel.$accountBalanceShielded
             .sink(receiveValue: { str in
                 self.accountBalanceShielded.text = str?.appending((self.shieldedBalanceLockImageView.image != nil ? " + " : ""))
@@ -134,19 +145,66 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         viewModel.$imageName
             .sink { [weak self] (imageName) in
                 self?.transferIconImageView.image = UIImage(named: imageName ?? "")
-        }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$memo
+            .compactMap { $0 == nil }
+            .assign(to: \.isHidden, on: removeMemoButton)
+            .store(in: &cancellables)
     }
-
+    
+    func showMemoWarningAlert(_ completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: "warningAlert.transactionMemo.title".localized,
+            message: "warningAlert.transactionMemo.text".localized,
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(
+            title: "errorAlert.okButton".localized,
+            style: .default
+        ) { _ in
+            completion()
+        }
+        
+        let dontShowAgain = UIAlertAction(
+            title: "warningAlert.dontShowAgainButton".localized,
+            style: .default
+        ) { [weak self] _ in
+            self?.presenter.userTappedDontShowMemoAlertAgain { completion() }
+        }
+        
+        alert.addAction(okAction)
+        alert.addAction(dontShowAgain)
+        
+        present(alert, animated: true)
+    }
+    
+    @objc private func hideKeyboardOnTap(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     @IBAction func selectRecipientTapped(_ sender: Any) {
         presenter.userTappedSelectRecipient()
-        // amountTextField.resignFirstResponder()
+        amountTextField.resignFirstResponder()
     }
-
+    
+    @IBAction func addMemoTapped(_ sender: Any) {
+        presenter.userTappedAddMemo()
+        amountTextField.resignFirstResponder()
+    }
+    
+    @IBAction func removeMemoTapped(_ sender: Any) {
+        presenter.userTappedRemoveMemo()
+    }
+    
     @IBAction func sendFundTapped(_ sender: Any) {
-        if let amount = amountTextField.text {
-            presenter.userTappedSendFund(amount: amount)
-        }
+        guard let amount = amountTextField.text else { return }
+
+        presenter.userTappedSendFund(amount: amount)
     }
+    
 }
 
 extension SendFundViewController {
@@ -155,16 +213,29 @@ extension SendFundViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SendFundViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString: String) -> Bool {
-        let text = (textField.text ?? "") as NSString
-        let newString = text.replacingCharacters(in: range, with: replacementString)
-
-        if newString.unsignedWholePart  > (Int.max - 999999)/1000000 {
-            return false
-        }
+        switch textField.accessibilityIdentifier {
         
-        // Allow only numbers, dot and up to six decimal points
-        return newString.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
+        // Amount
+        case amountTextField.accessibilityIdentifier:
+            let text = (textField.text ?? "") as NSString
+            
+            let updatedText = text.replacingCharacters(
+                in: range,
+                with: replacementString
+            )
+
+            if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
+                return false
+            }
+            
+            // Allow only numbers, dot and up to six decimal points
+            return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
+            
+        default:
+            return true
+        }
     }
 }

@@ -15,12 +15,21 @@ class TransactionSubmittedViewModel {
     @Published var submitedText: String
     @Published var amount: String
     @Published var recipient: RecipientDataType
+    @Published var memoText: String?
     
     init(transfer: TransferDataType, recipient: RecipientDataType) {
         self.transferSummary = TransactionSubmittedViewModel.formatSummary(for: transfer)
         self.amount = GTU(intValue: Int(transfer.amount) ?? 0).displayValue()
         self.recipient = recipient
+        
         self.visibleWaterMark = (transfer.transferType == .encryptedTransfer)
+        
+        if let memo = Memo(hex: transfer.memo) {
+            self.memoText = String(format: "sendFund.memo.text".localized, memo.displayValue)
+        } else {
+            self.memoText = transfer.memo
+        }
+        
         switch transfer.transferType {
         case .simpleTransfer:
             submitedText = "transactionConfirmed.submitted".localized

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Springfeed. All rights reserved.
 //
 
+import CryptoKit
 import UIKit
 
 extension String {

@@ -59,6 +59,12 @@ class SendFundsCoordinator: Coordinator {
                                                                               ownAccount: currentAccount))
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showAddMemo(_ memo: Memo?) {
+        let addMemoPresenter = AddMemoPresenter(delegate: self, memo: memo)
+        let addMemoViewController = AddMemoFactory.create(with: addMemoPresenter)
+        navigationController.pushViewController(addMemoViewController, animated: true)
+    }
 
     func showAddRecipient() {
         let vc = AddRecipientFactory.create(with: AddRecipientPresenter(delegate: self, dependencyProvider: dependencyProvider, mode: .add))
@@ -80,18 +86,24 @@ class SendFundsCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showSendFundConfirmation(amount: GTU,
-                                  energy: Int,
-                                  from account: AccountDataType,
-                                  to recipient: RecipientDataType,
-                                  cost: GTU,
-                                  transferType: TransferType) {
-        let presenter = SendFundConfirmationPresenter(delegate: self, amount: amount,
-                                                      from: account, to: recipient,
-                                                      cost: cost,
-                                                      energy: energy,
-                                                      dependencyProvider: dependencyProvider,
-                                                      transferType: transferType)
+    func showSendFundConfirmation(
+        amount: GTU,
+        energy: Int,
+        from account: AccountDataType,
+        to recipient: RecipientDataType,
+        memo: Memo?,
+        cost: GTU,
+        transferType: TransferType
+    ) {
+        let presenter = SendFundConfirmationPresenter(
+            delegate: self, amount: amount,
+            from: account, to: recipient,
+            memo: memo,
+            cost: cost,
+            energy: energy,
+            dependencyProvider: dependencyProvider,
+            transferType: transferType
+        )
         let vc = SendFundConfirmationFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -103,24 +115,51 @@ class SendFundsCoordinator: Coordinator {
         // Pass the data to the send fund presenter
         sendFundPresenter?.setSelectedRecipient(recipient: recipient)
     }
+    
+    func addedMemo(_ memo: Memo) {
+        guard let vc = sendFundPresenter?.view as? UIViewController else { return }
+        navigationController.popToViewController(vc, animated: true)
+        sendFundPresenter?.setAddedMemo(memo: memo)
+    }
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
-    func sendFundPresenter(didSelectTransferAmount amount: GTU,
-                           energyUsed energy: Int,
-                           from account: AccountDataType,
-                           to recipient: RecipientDataType,
-                           cost: GTU,
-                           transferType: TransferType) {
-        showSendFundConfirmation(amount: amount, energy: energy, from: account, to: recipient, cost: cost, transferType: transferType)
+    func sendFundPresenter(
+        didSelectTransferAmount amount: GTU,
+        energyUsed energy: Int,
+        from account: AccountDataType,
+        to recipient: RecipientDataType,
+        memo: Memo?,
+        cost: GTU,
+        transferType: TransferType
+    ) {
+        showSendFundConfirmation(
+            amount: amount,
+            energy: energy,
+            from: account,
+            to: recipient,
+            memo: memo,
+            cost: cost,
+            transferType: transferType
+        )
     }
-
+    
+    func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?) {
+        showAddMemo(memo)
+    }
+    
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType) {
         showSelectRecipient(balanceType: balanceType, currentAccount: currentAccount)
     }
 
     func sendFundPresenterClosed(_ presenter: SendFundPresenter) {
         self.parentCoordinator?.sendFundsCoordinatorFinished()
+    }
+}
+
+extension SendFundsCoordinator: AddMemoPresenterDelegate {
+    func addMemoDidAddMemoToTransfer(memo: Memo) {
+        addedMemo(memo)
     }
 }
 

@@ -74,11 +74,13 @@ PODS:
   - Realm/Headers (10.7.6)
   - RealmSwift (10.7.6):
     - Realm (= 10.7.6)
+  - SwiftCBOR (0.4.4)
 
 DEPENDENCIES:
   - MaterialComponents/Tabs (= 124.2.0)
   - MaterialComponents/TextFields (= 124.2.0)
   - RealmSwift (= 10.7.6)
+  - SwiftCBOR (= 0.4.4)
 
 SPEC REPOS:
   trunk:
@@ -87,6 +89,7 @@ SPEC REPOS:
     - MDFTextAccessibility
     - Realm
     - RealmSwift
+    - SwiftCBOR
 
 SPEC CHECKSUMS:
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
@@ -94,7 +97,8 @@ SPEC CHECKSUMS:
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
   RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
+  SwiftCBOR: ce5354ec8b660da2d6fc754462881119dbe1f963
 
-PODFILE CHECKSUM: bcf9296d9b0e2d093d4a4d614d5807063e379667
+PODFILE CHECKSUM: bd93dddf71cfbba94ff1d484cf5dd97a703f51c9
 
 COCOAPODS: 1.10.1

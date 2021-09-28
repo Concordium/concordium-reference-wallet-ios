@@ -19,19 +19,20 @@ extension Transaction {
 }
 
 protocol TransferDataType: DataStoreProtocol, TransactionType {
-    var amount: String {get set}
-    var fromAddress: String {get set}
-    var toAddress: String {get set}
-    var expiry: Date {get set}
-    var createdAt: Date {get set}
-    var submissionId: String? {get set}
-    var transactionStatus: SubmissionStatusEnum? {get set}
-    var outcome: OutcomeEnum? {get set}
-    var cost: String {get set}
-    var energy: Int {get set}
-    var transferType: TransferType {get set}
-    var encryptedDetails: EncryptedDetailsDataType? {get set}
-    var nonce: Int {get set}
+    var amount: String { get set }
+    var fromAddress: String {get set }
+    var toAddress: String { get set }
+    var expiry: Date { get set }
+    var createdAt: Date { get set }
+    var submissionId: String? { get set }
+    var transactionStatus: SubmissionStatusEnum? { get set }
+    var outcome: OutcomeEnum? { get set }
+    var cost: String { get set }
+    var energy: Int { get set }
+    var transferType: TransferType { get set }
+    var encryptedDetails: EncryptedDetailsDataType? { get set }
+    var nonce: Int { get set}
+    var memo: String? { get set }
     
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
@@ -113,6 +114,7 @@ final class TransferEntity: Object {
     @objc dynamic var transactionStatusString: String? = ""
     @objc dynamic var transferTypeString: String = ""
     @objc dynamic var outcomeString: String? = ""
+    @objc dynamic var memo: String?
     @objc dynamic var cost: String = "0"
     @objc dynamic var energy: Int = 0
     @objc dynamic var encryptedDetailsEntity: EncryptedDetailsEntity?

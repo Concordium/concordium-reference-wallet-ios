@@ -22,6 +22,7 @@ class SendFundConfirmationViewController: BaseViewController, SendFundConfirmati
     @IBOutlet weak var line2: UILabel!
     @IBOutlet weak var line3: UILabel!
     @IBOutlet weak var line4: UILabel!
+    @IBOutlet weak var line5: UILabel!
     
     @IBOutlet weak var sendButton: UIButton!
 
@@ -48,6 +49,12 @@ class SendFundConfirmationViewController: BaseViewController, SendFundConfirmati
     var line4Text: String? {
         didSet {
             line4.text = line4Text
+        }
+    }
+    
+    var line5Text: String? {
+        didSet {
+            line5.text = line5Text
         }
     }
     
