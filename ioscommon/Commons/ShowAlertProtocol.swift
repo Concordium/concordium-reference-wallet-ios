@@ -9,10 +9,16 @@
 import Foundation
 import UIKit
 
+struct RecoverableAlert {
+    let title: String?
+    let message: String?
+    let actionTitle: String?
+}
+
 protocol ShowAlert: AnyObject {
     func showErrorAlert(_ error: ViewError)
     func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void)
-    func showRecoverableAlert(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void)
+    func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void)
 }
 
 extension ShowAlert where Self: UIViewController {
@@ -49,14 +55,14 @@ extension ShowAlert where Self: UIViewController {
         present(alert, animated: true)
     }
     
-    func showRecoverableAlert(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void) {
+    func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void) {
         let alert = UIAlertController(
-            title: title,
-            message: message,
+            title: recovarableAlert.title,
+            message: recovarableAlert.message,
             preferredStyle: .alert
         )
        
-        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+        let action = UIAlertAction(title: recovarableAlert.actionTitle, style: .default) { _ in
             completion()
         }
         
@@ -116,14 +122,14 @@ extension ShowAlert where Self: Coordinator {
         navigationController.present(alert, animated: true)
     }
     
-    func showRecoverableAlert(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void) {
+    func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void) {
         let alert = UIAlertController(
-            title: title,
-            message: message,
+            title: recovarableAlert.title,
+            message: recovarableAlert.message,
             preferredStyle: .alert
         )
        
-        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+        let action = UIAlertAction(title: recovarableAlert.actionTitle, style: .default) { _ in
             completion()
         }
         

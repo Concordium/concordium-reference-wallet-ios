@@ -18,6 +18,8 @@ struct IdentityDetailsInfoViewModel {
     var bottomLabel: String
     var encodedImage: String
     var bottomIconTintColor: UIColor?
+    
+    var recoverableAlert: RecoverableAlert?
 
     var data: [ChosenAttributeFormattedTuple]
 
@@ -25,6 +27,12 @@ struct IdentityDetailsInfoViewModel {
         identityName = identity.identityProviderName ?? ""
         nickname = identity.nickname
 
+        self.recoverableAlert = RecoverableAlert(
+            title: "identitySubmitted.alert.title".localized,
+            message: "identitySubmitted.alert.message".localized,
+            actionTitle: "ok".localized
+        )
+        
         switch identity.state {
         case .confirmed:
             // Show expiry date for confirmed state
