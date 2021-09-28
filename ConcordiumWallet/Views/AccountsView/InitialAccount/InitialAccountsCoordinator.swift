@@ -86,7 +86,7 @@ extension InitialAccountsCoordinator: CreateNicknamePresenterDelegate {
         account.transactionStatus = .committed
         account.encryptedBalanceStatus = .decrypted
         do {
-            cleanupUnfinishedAccounts()
+            accountsProvider.storageManager().removeAccountsWithoutAddress()
             _ = try accountsProvider.storageManager().storeAccount(account)
         } catch {
             Logger.error(error)
@@ -94,13 +94,6 @@ extension InitialAccountsCoordinator: CreateNicknamePresenterDelegate {
         }
         
         showCreateNewIdentity()
-    }
-    
-    private func cleanupUnfinishedAccounts() {
-        let unfinishedAccounts = accountsProvider.storageManager().getAccounts().filter { $0.address == ""}
-        for account in unfinishedAccounts {
-            accountsProvider.storageManager().removeAccount(account: account)
-        }
     }
 }
 
