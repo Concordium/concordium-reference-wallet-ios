@@ -27,7 +27,7 @@ class TransactionSubmittedViewModel {
         if let memo = Memo(hex: transfer.memo) {
             self.memoText = String(format: "sendFund.memo.text".localized, memo.displayValue)
         } else {
-            self.memoText = nil
+            self.memoText = transfer.memo
         }
         
         switch transfer.transferType {
