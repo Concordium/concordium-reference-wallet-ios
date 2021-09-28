@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Combine
 
-class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate {
+class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate {
     var childCoordinators = [Coordinator]()
 
     var navigationController: UINavigationController

@@ -18,7 +18,7 @@ class IdentityProviderListFactory {
 }
 
 // MARK: View -
-protocol IdentityProviderListViewProtocol: Loadable, ShowError {
+protocol IdentityProviderListViewProtocol: Loadable, ShowAlert {
     func bind(to viewModel: IdentityProviderListViewModel)
 }
 

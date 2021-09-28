@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol SendFundConfirmationViewProtocol: ShowError, Loadable {
+protocol SendFundConfirmationViewProtocol: ShowAlert, Loadable {
     var line1Text: String? { get set }
     var line2Text: String? { get set }
     var line3Text: String? { get set }

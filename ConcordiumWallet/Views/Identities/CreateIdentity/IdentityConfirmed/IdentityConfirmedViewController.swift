@@ -74,5 +74,4 @@ class IdentityConfirmedViewController: BaseViewController, IdentityConfirmedView
     @IBAction func finishAction(_ sender: Any) {
         presenter.finish()
     }
-
 }

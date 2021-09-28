@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: View
-protocol TermsAndConditionsViewProtocol: ShowError {
+protocol TermsAndConditionsViewProtocol: ShowAlert {
 }
 
 protocol TermsAndConditionsPresenterProtocol: AnyObject {

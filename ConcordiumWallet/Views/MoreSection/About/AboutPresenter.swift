@@ -11,7 +11,7 @@ import Combine
 import UIKit
 
 // MARK: View
-protocol AboutViewProtocol: ShowError {
+protocol AboutViewProtocol: ShowAlert {
 }
 
 // MARK: -

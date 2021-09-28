@@ -19,7 +19,7 @@ protocol TransactionsFetcher {
 }
 
 // MARK: View
-protocol AccountDetailsViewProtocol: ShowError, Loadable {
+protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountDetailsViewModel)
     func showMenuButton(iconName: String)
 }

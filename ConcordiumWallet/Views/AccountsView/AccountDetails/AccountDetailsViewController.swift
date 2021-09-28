@@ -18,7 +18,7 @@ class AccountDetailsFactory {
     }
 }
 
-class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtocol, Storyboarded, ShowError {
+class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtocol, Storyboarded, ShowAlert {
 
 	var presenter: AccountDetailsPresenterProtocol
     var isShielded: Bool = false

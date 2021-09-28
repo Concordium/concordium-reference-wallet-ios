@@ -1,5 +1,5 @@
 //
-//  ShowError.swift
+//  ShowAlert.swift
 //  ConcordiumWallet
 //
 //  Created by Concordium on 4/28/20.
@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-protocol ShowError: AnyObject {
+protocol ShowAlert: AnyObject {
     func showErrorAlert(_ error: ViewError)
-    func showRecoverableAlert(_ error: ViewError, completion: @escaping () -> Void)
+    func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void)
 }
 
-extension ShowError where Self: UIViewController {
+extension ShowAlert where Self: UIViewController {
     func showErrorAlert(_ error: ViewError) {
         let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default)
@@ -22,7 +22,7 @@ extension ShowError where Self: UIViewController {
         present(ac, animated: true)
     }
     
-    func showRecoverableAlert(_ error: ViewError, completion: @escaping () -> Void) {
+    func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void) {
         let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
         let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
             completion()
@@ -34,7 +34,7 @@ extension ShowError where Self: UIViewController {
     }
 }
 
-extension ShowError where Self: Coordinator {
+extension ShowAlert where Self: Coordinator {
     func showErrorAlert(_ error: ViewError) {
         let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default)
@@ -51,7 +51,7 @@ extension ShowError where Self: Coordinator {
         navigationController.present(ac, animated: true)
     }
 
-    func showRecoverableAlert(_ error: ViewError, completion: @escaping () -> Void) {
+    func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void) {
         let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
         let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
             completion()

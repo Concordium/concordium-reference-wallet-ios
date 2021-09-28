@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: View
-protocol GettingStartedViewProtocol: ShowError {
+protocol GettingStartedViewProtocol: ShowAlert {
 }
 
 protocol GettingStartedPresenterProtocol: AnyObject {
