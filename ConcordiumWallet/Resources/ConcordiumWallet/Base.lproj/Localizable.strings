@@ -339,7 +339,7 @@ process on-chain.";
 "identitySubmitted.heading" = "Request submitted!";
 "identitySubmitted.details"="It might take a little while for the identity provider to finish your request.";
 "identitySubmitted.text" = "Your identity object is currently being set-up.\n\nYou can start using your identity object once validation of your id has been completed by the identity provider.";
-"identitySubmitted.finish" = "Finish";
+"identitySubmitted.continue" = "Continue";
 
 "creationFailed.account" = "Account Creation";
 "creationFailed.identity" = "Identity Verification";
