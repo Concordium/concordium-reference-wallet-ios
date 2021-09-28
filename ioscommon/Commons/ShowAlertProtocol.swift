@@ -12,53 +12,123 @@ import UIKit
 protocol ShowAlert: AnyObject {
     func showErrorAlert(_ error: ViewError)
     func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void)
+    func showRecoverableAlert(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void)
 }
 
 extension ShowAlert where Self: UIViewController {
     func showErrorAlert(_ error: ViewError) {
-        let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "errorAlert.title".localized,
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        
         let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default)
-        ac.addAction(okAction)
-        present(ac, animated: true)
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true)
     }
     
     func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void) {
-        let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "errorAlert.title".localized,
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        
         let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
             completion()
         }
-        ac.addAction(continueAction)
+        
         let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
-        ac.addAction(cancelAction)
-        present(ac, animated: true)
+        
+        alert.addAction(continueAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+    }
+    
+    func showRecoverableAlert(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+       
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion()
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
     }
 }
 
 extension ShowAlert where Self: Coordinator {
     func showErrorAlert(_ error: ViewError) {
-        let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "errorAlert.title".localized,
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        
         let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default)
-        ac.addAction(okAction)
-        navigationController.present(ac, animated: true)
+        
+        alert.addAction(okAction)
+        
+        navigationController.present(alert, animated: true)
     }
 
     func showErrorAlertWithHandler(_ error: ViewError, completion: @escaping () -> Void) {
-        let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "errorAlert.title".localized,
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        
         let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default) { (_) in
             completion()
         }
-        ac.addAction(okAction)
-        navigationController.present(ac, animated: true)
+        
+        alert.addAction(okAction)
+        
+        navigationController.present(alert, animated: true)
     }
 
     func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void) {
-        let ac = UIAlertController(title: "errorAlert.title".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "errorAlert.title".localized,
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        
         let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
             completion()
         }
-        ac.addAction(continueAction)
+        
         let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
-        ac.addAction(cancelAction)
-        navigationController.present(ac, animated: true)
+        
+        alert.addAction(continueAction)
+        alert.addAction(cancelAction)
+        
+        navigationController.present(alert, animated: true)
+    }
+    
+    func showRecoverableAlert(title: String?, message: String?, actionTitle: String, completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+       
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion()
+        }
+        
+        alert.addAction(action)
+        
+        navigationController.present(alert, animated: true)
     }
 }
