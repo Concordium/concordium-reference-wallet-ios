@@ -12,7 +12,7 @@ protocol InitialAccountsCoordinatorDelegate: AnyObject {
     func finishedCreatingInitialIdentity()
 }
 
-class InitialAccountsCoordinator: Coordinator, ShowError {
+class InitialAccountsCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
 

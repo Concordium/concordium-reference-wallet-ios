@@ -24,7 +24,7 @@ class SendFundViewModel {
 }
 
 // MARK: View
-protocol SendFundViewProtocol: Loadable, ShowError, ShowToast {
+protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
     func bind(to viewModel: SendFundViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
     var buttonTitle: String? { get set }

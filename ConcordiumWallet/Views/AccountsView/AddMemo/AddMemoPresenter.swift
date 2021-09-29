@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 // MARK: - View
-protocol AddMemoViewProtocol: ShowError {
+protocol AddMemoViewProtocol: ShowAlert {
     func bind(to: AddMemoViewModel)
     var pageTitle: String? { get set }
     var memoTitleLabelText: String? { get set }

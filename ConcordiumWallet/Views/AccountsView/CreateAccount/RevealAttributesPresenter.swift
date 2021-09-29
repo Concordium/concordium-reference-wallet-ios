@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol RevealAttributesViewProtocol: Loadable, ShowError {
+protocol RevealAttributesViewProtocol: Loadable, ShowAlert {
 }
 
 // MARK: -

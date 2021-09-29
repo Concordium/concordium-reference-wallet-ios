@@ -971,7 +971,7 @@
 		7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8F24598D6500B7673F /* RemoteTransactions.swift */; };
 		7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED71C2461B2030071A4FB /* TransactionDetailViewController.swift */; };
 		7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21399024236ECB00D2A5C4 /* ServerErrorMessage.swift */; };
-		7F85B770246A9A7C00ED09B8 /* ShowErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */; };
+		7F85B770246A9A7C00ED09B8 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */; };
 		7F85B771246A9A7C00ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		7F85B772246A9A7C00ED09B8 /* IDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED7945E8885037199CAF /* IDRequest.swift */; };
 		7F85B773246A9A7C00ED09B8 /* AccountConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092624275C5A0022250B /* AccountConfirmedViewController.swift */; };
@@ -1158,7 +1158,7 @@
 		7F85B86B246A9AB600ED09B8 /* RemoteTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8F24598D6500B7673F /* RemoteTransactions.swift */; };
 		7F85B86C246A9AB600ED09B8 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED71C2461B2030071A4FB /* TransactionDetailViewController.swift */; };
 		7F85B86E246A9AB600ED09B8 /* ServerErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21399024236ECB00D2A5C4 /* ServerErrorMessage.swift */; };
-		7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */; };
+		7F85B86F246A9AB600ED09B8 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */; };
 		7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		7F85B871246A9AB600ED09B8 /* IDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED7945E8885037199CAF /* IDRequest.swift */; };
 		7F85B872246A9AB600ED09B8 /* AccountConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092624275C5A0022250B /* AccountConfirmedViewController.swift */; };
@@ -1397,8 +1397,8 @@
 		C9C097A52433163A00ACA35A /* UIButton+StoryboardLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */; };
 		C9C097A724331BC400ACA35A /* AccountDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C097A624331BC400ACA35A /* AccountDetailsCoordinator.swift */; };
 		C9D342B724581CD9007ED45E /* WidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B624581CD9007ED45E /* WidgetButton.swift */; };
-		C9D342B9245884AA007ED45E /* ShowErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */; };
-		C9D342BA245884AA007ED45E /* ShowErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */; };
+		C9D342B9245884AA007ED45E /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */; };
+		C9D342BA245884AA007ED45E /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */; };
 		C9DB8A1E2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DB8A1C2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift */; };
 		C9DB8A1F2423C328008551B8 /* IdentityDataSelectionWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DB8A1D2423C328008551B8 /* IdentityDataSelectionWidgetPresenter.swift */; };
 		C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DB8A202423C98E008551B8 /* IdentityDataSelectionCell.swift */; };
@@ -1836,7 +1836,7 @@
 		C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+StoryboardLocalization.swift"; sourceTree = "<group>"; };
 		C9C097A624331BC400ACA35A /* AccountDetailsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailsCoordinator.swift; sourceTree = "<group>"; };
 		C9D342B624581CD9007ED45E /* WidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetButton.swift; sourceTree = "<group>"; };
-		C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowErrorProtocol.swift; sourceTree = "<group>"; };
+		C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertProtocol.swift; sourceTree = "<group>"; };
 		C9DB8A1C2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityDataSelectionWidgetViewController.swift; sourceTree = "<group>"; };
 		C9DB8A1D2423C328008551B8 /* IdentityDataSelectionWidgetPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityDataSelectionWidgetPresenter.swift; sourceTree = "<group>"; };
 		C9DB8A202423C98E008551B8 /* IdentityDataSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityDataSelectionCell.swift; sourceTree = "<group>"; };
@@ -2716,7 +2716,7 @@
 				07E8573326F1D24F001FB2D2 /* RealmHelper.swift */,
 				19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */,
 				079F310626EB69DD00ED96D3 /* SettingsHelper.swift */,
-				C9D342B8245884AA007ED45E /* ShowErrorProtocol.swift */,
+				C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */,
 				19C2EB40B942873B4D0E2288 /* ShowToastProtocol.swift */,
 				19C2ED4F802767556C4ABBE9 /* SingleSection.swift */,
 				7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */,
@@ -3662,7 +3662,7 @@
 				7F48C1AF244DCD0B00997684 /* MobileWallet.swift in Sources */,
 				7F48C1B0244DCD0B00997684 /* StorageManager.swift in Sources */,
 				7F48C258244E17D100997684 /* IdentityObjectWrapper.swift in Sources */,
-				C9D342BA245884AA007ED45E /* ShowErrorProtocol.swift in Sources */,
+				C9D342BA245884AA007ED45E /* ShowAlertProtocol.swift in Sources */,
 				7F48C1B1244DCD0B00997684 /* NetworkManager.swift in Sources */,
 				642ED94325EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				7F48C1B2244DCD0B00997684 /* IdentityInfoViewModel.swift in Sources */,
@@ -3985,7 +3985,7 @@
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */,
 				64FD333C25FF8A7C00563703 /* KeyList.swift in Sources */,
-				7F85B770246A9A7C00ED09B8 /* ShowErrorProtocol.swift in Sources */,
+				7F85B770246A9A7C00ED09B8 /* ShowAlertProtocol.swift in Sources */,
 				7F85B771246A9A7C00ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				077AC5F626E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				7F85B772246A9A7C00ED09B8 /* IDRequest.swift in Sources */,
@@ -4312,7 +4312,7 @@
 				7F85B86C246A9AB600ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				077AC5F726E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				7F85B86E246A9AB600ED09B8 /* ServerErrorMessage.swift in Sources */,
-				7F85B86F246A9AB600ED09B8 /* ShowErrorProtocol.swift in Sources */,
+				7F85B86F246A9AB600ED09B8 /* ShowAlertProtocol.swift in Sources */,
 				7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				7F168A0F24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
 				7F85B871246A9AB600ED09B8 /* IDRequest.swift in Sources */,
@@ -4640,7 +4640,7 @@
 				C94ED71F2461B2030071A4FB /* TransactionDetailViewController.swift in Sources */,
 				07519F9326FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				7F21399524236ECB00D2A5C4 /* ServerErrorMessage.swift in Sources */,
-				C9D342B9245884AA007ED45E /* ShowErrorProtocol.swift in Sources */,
+				C9D342B9245884AA007ED45E /* ShowAlertProtocol.swift in Sources */,
 				7F85B8F02472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
 				C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				19C2E636FADEA7EA4563E778 /* IDRequest.swift in Sources */,

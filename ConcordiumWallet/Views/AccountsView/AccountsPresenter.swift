@@ -130,7 +130,7 @@ protocol AccountsPresenterDelegate: AnyObject {
 }
 
 // MARK: View
-protocol AccountsViewProtocol: ShowError, Loadable {
+protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
 }

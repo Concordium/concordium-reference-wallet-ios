@@ -23,7 +23,7 @@ class IdentitiesFactory {
 }
 
 // MARK: View
-protocol IdentitiesViewProtocol: ShowError {
+protocol IdentitiesViewProtocol: ShowAlert {
     func showCreateIdentityView(show: Bool)
     func reloadView()
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)

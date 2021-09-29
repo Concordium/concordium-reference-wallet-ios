@@ -15,7 +15,7 @@ protocol CreateNewIdentityDelegate: AnyObject {
     func createNewIdentityCancelled()
 }
 
-class CreateIdentityCoordinator: Coordinator, ShowError {
+class CreateIdentityCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: CreateNewIdentityDelegate?
     var navigationController: UINavigationController

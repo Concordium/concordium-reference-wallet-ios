@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol CreateNicknameViewProtocol: ShowError {
+protocol CreateNicknameViewProtocol: ShowAlert {
     func setNickname(_: String)
     func setProperties(_: CreateNicknameProperties)
 }
