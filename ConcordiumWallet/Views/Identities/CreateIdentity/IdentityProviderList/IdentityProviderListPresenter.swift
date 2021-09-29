@@ -71,7 +71,7 @@ protocol IdentityProviderListPresenterProtocol: AnyObject {
 
 protocol IdentitiyProviderListPresenterDelegate: AnyObject {
     func closeIdentityProviderList()
-    func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityCreationDataType)
+    func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityCreation)
 }
 
 class IdentityProviderListPresenter {
@@ -154,7 +154,7 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
                                                      global: global,
                                                      requestPasswordDelegate: delegate)
             }
-            .tryMap { [unowned self] (idObjectRequest: IDObjectRequestWrapper, identityCreation) -> (ResourceRequest, IdentityCreationDataType) in
+            .tryMap { [unowned self] (idObjectRequest, identityCreation) -> (ResourceRequest, IdentityCreation) in
                 let callbackUri = ApiConstants.callbackUri(with: identityCreation.id)
                 let identityObjectRequest = try self.service.createIdentityObjectRequest(
                     on: identityProvider.issuanceStartURL,

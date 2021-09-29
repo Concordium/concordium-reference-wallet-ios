@@ -14,26 +14,21 @@ protocol StorageManagerProtocol {
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
     
-    /// Get all identity creation objects
-    func getIdentityCreations() -> [IdentityCreationDataType]
-    /// Get a single identity creation object by its id
-    func getIdentityCreation(withId id: String) -> IdentityCreationDataType?
-    /// Store an identity creation object
-    func storeIdentityCreation(_ identityCreation: IdentityCreationDataType) throws -> IdentityCreationDataType
-    /// Remove an identity creation object, but do not expunge the associated keys from the keychain
-    func removeIdentityCreation(_ identityCreation: IdentityCreationDataType)
-    /// Remove an identity creation object and delete its keys from the keychain
-    func discardIdentityCreation(_ identityCreation: IdentityCreationDataType)
-    
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
+    /// Remove the private ID object data stored in the keychain with the associated key
+    func removePrivateIdObjectData(key: String)
 
     func storePrivateAccountKeys(_ privateAccountKeys: AccountKeys, pwHash: String) -> Result<String, Error>
     func getPrivateAccountKeys(key: String, pwHash: String) -> Result<AccountKeys, Error>
+    /// Remove the private account keys stored in the keychain with the associated key
+    func removePrivateAccountKeys(key: String)
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error>
     
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error>
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error>
+    /// Remove the private encryptioni key stored in the keychain with the associated key
+    func removePrivateEncryptionKey(key: String)
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error>
 
     func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error>
@@ -132,6 +127,11 @@ class StorageManager: StorageManagerProtocol {
                 }
     }
     
+    /// Remove the private ID object data stored in the keychain with the associated key
+    func removePrivateIdObjectData(key: String) {
+        _ = keychain.deleteKeychainItem(withKey: key)
+    }
+    
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         return keychain.store(key: id, value: privateKey, securedByPassword: pwHash)
@@ -142,6 +142,11 @@ class StorageManager: StorageManagerProtocol {
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error> {
         keychain.getValue(for: key, securedByPassword: pwHash)
         .mapError { $0 as Error }
+    }
+    
+    /// Remove the private encryptioni key stored in the keychain with the associated key
+    func removePrivateEncryptionKey(key: String) {
+        _ = keychain.deleteKeychainItem(withKey: key)
     }
     
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error> {
@@ -174,45 +179,6 @@ class StorageManager: StorageManagerProtocol {
         }
     }
     
-    // MARK: IdentityCreation
-    
-    func storeIdentityCreation(_ identityCreation: IdentityCreationDataType) throws -> IdentityCreationDataType {
-        if let identityCreationEntity = identityCreation as? IdentityCreationEntity {
-            do {
-                try realm.write {
-                    realm.add(identityCreationEntity)
-                }
-            } catch {
-                throw StorageError.writeError(error: error)
-            }
-        }
-        return identityCreation
-    }
-    
-    func getIdentityCreations() -> [IdentityCreationDataType] {
-        Array(realm.objects(IdentityCreationEntity.self))
-    }
-    
-    func getIdentityCreation(withId id: String) -> IdentityCreationDataType? {
-        realm.objects(IdentityCreationEntity.self).filter("id == %@", id).first
-    }
-    
-    func removeIdentityCreation(_ identityCreation: IdentityCreationDataType) {
-        guard let identityCreationEntity = identityCreation as? IdentityCreationEntity else {
-            return
-        }
-        try? realm.write {
-            realm.delete(identityCreationEntity)
-        }
-    }
-
-    func discardIdentityCreation(_ identityCreation: IdentityCreationDataType) {
-        _ = keychain.deleteKeychainItem(withKey: identityCreation.encryptedAccountData)
-        _ = keychain.deleteKeychainItem(withKey: identityCreation.encryptedPrivateKey)
-        _ = keychain.deleteKeychainItem(withKey: identityCreation.encryptedPrivateIdObjectData)
-        removeIdentityCreation(identityCreation)
-    }
-
     // MARK: Account
     func getAccounts() -> [AccountDataType] {
         Array(realm.objects(AccountEntity.self))
@@ -245,6 +211,11 @@ class StorageManager: StorageManagerProtocol {
                     }
                 }
                 .mapError { $0 as Error }
+    }
+    
+    /// Remove the private account keys stored in the keychain with the associated key
+    func removePrivateAccountKeys(key: String) {
+        _ = keychain.deleteKeychainItem(withKey: key)
     }
 
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error> {

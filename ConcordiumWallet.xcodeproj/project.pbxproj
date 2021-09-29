@@ -295,10 +295,6 @@
 		19C2EFC9AF9159B6494E2784 /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EA2F9FE8F1D50D0B91C6 /* ResourceRequest.swift */; };
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C2EEC7EFFF9C46A7786EF7 /* 4.1.2.RX_backend_accBalance.json */; };
-		21B2CAA626FC78180068C917 /* IdentityCreationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2CAA526FC78180068C917 /* IdentityCreationEntity.swift */; };
-		21B2CAA726FC78180068C917 /* IdentityCreationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2CAA526FC78180068C917 /* IdentityCreationEntity.swift */; };
-		21B2CAA826FC78180068C917 /* IdentityCreationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2CAA526FC78180068C917 /* IdentityCreationEntity.swift */; };
-		21B2CAA926FC78180068C917 /* IdentityCreationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2CAA526FC78180068C917 /* IdentityCreationEntity.swift */; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -1550,7 +1546,6 @@
 		19C2EFED051EE58467949EAA /* AddRecipientPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipientPresenter.swift; sourceTree = "<group>"; };
 		19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceArData.swift; sourceTree = "<group>"; };
 		2115AC660A6C4D41772258FE /* Pods-ConcordiumWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWallet.debug.xcconfig"; path = "Target Support Files/Pods-ConcordiumWallet/Pods-ConcordiumWallet.debug.xcconfig"; sourceTree = "<group>"; };
-		21B2CAA526FC78180068C917 /* IdentityCreationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCreationEntity.swift; sourceTree = "<group>"; };
 		22D9FDC5B2C0583E994FA513 /* Pods-StagingNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StagingNet.release.xcconfig"; path = "Target Support Files/Pods-StagingNet/Pods-StagingNet.release.xcconfig"; sourceTree = "<group>"; };
 		30C8CA551767D0F45977322A /* Pods-Mock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock.release.xcconfig"; path = "Target Support Files/Pods-Mock/Pods-Mock.release.xcconfig"; sourceTree = "<group>"; };
 		48408869D66A1B82DF5212C1 /* Pods-ProdTestNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdTestNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdTestNet/Pods-ProdTestNet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2232,7 +2227,6 @@
 				5211BAB02501070D00EE1658 /* ShieldedAmountEntity.swift */,
 				19C2E4247383EBCDB341ECE4 /* TransferEntity.swift */,
 				642ED94225EE2FA500A09BB3 /* TransferFiltersEntity.swift */,
-				21B2CAA526FC78180068C917 /* IdentityCreationEntity.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -3523,7 +3517,6 @@
 				7F48C165244DCD0B00997684 /* BaseButton.swift in Sources */,
 				7FCA3998250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				7F48C166244DCD0B00997684 /* BaseLabel.swift in Sources */,
-				21B2CAA626FC78180068C917 /* IdentityCreationEntity.swift in Sources */,
 				7F48C169244DCD0B00997684 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				7F7F6D2F24A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				7F48C16A244DCD0B00997684 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
@@ -3856,7 +3849,6 @@
 				7F85B727246A9A7C00ED09B8 /* AccountsPresenter.swift in Sources */,
 				7F85B72A246A9A7C00ED09B8 /* CreateIdentityCoordinator.swift in Sources */,
 				7F85B72B246A9A7C00ED09B8 /* TransparentNavigationController.swift in Sources */,
-				21B2CAA826FC78180068C917 /* IdentityCreationEntity.swift in Sources */,
 				7F85B72D246A9A7C00ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				7F85B72E246A9A7C00ED09B8 /* IdentitiesPresenterProtocol.swift in Sources */,
 				077AC60026E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
@@ -4173,7 +4165,6 @@
 				7F85B824246A9AB600ED09B8 /* RoundedCornerView.swift in Sources */,
 				7F85B826246A9AB600ED09B8 /* AccountsPresenter.swift in Sources */,
 				7F85B829246A9AB600ED09B8 /* CreateIdentityCoordinator.swift in Sources */,
-				21B2CAA926FC78180068C917 /* IdentityCreationEntity.swift in Sources */,
 				7F85B82A246A9AB600ED09B8 /* TransparentNavigationController.swift in Sources */,
 				7F85B82C246A9AB600ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				077AC60126E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
@@ -4535,7 +4526,6 @@
 				C938F533241FB9B100ECAD47 /* UITextField+Extensions.swift in Sources */,
 				7FD878592406AF7C00509BDB /* LoginCoordinator.swift in Sources */,
 				5211BAB7250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
-				21B2CAA726FC78180068C917 /* IdentityCreationEntity.swift in Sources */,
 				7FF07AEC23EB01FA00F1FC04 /* AccountsCoordinator.swift in Sources */,
 				19C2EAC742E29C9849274DE4 /* MobileWalletFacade.swift in Sources */,
 				19C2E062C189A20D63953971 /* MobileWallet.swift in Sources */,
@@ -4782,7 +4772,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = P23RS765X2;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4801,7 +4791,7 @@
 				);
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -4816,7 +4806,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = P23RS765X2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4831,7 +4821,7 @@
 				);
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -4847,7 +4837,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 16;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4879,7 +4869,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 16;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
