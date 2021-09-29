@@ -223,7 +223,7 @@ extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
     func createNicknamePresenter(_: CreateNicknamePresenter,
                                  didCreateName nickname: String,
                                  properties: CreateNicknameProperties) {
-        if properties as? CreateAccountNicknameProperties != nil {
+        if properties as? CreateAccountNicknameProperties != nil || properties as? CreateInitialAccountNicknameProperties != nil {
             self.accountName = nickname
             showCreateNewIdentity(initialAccountName: nickname)
         } else if properties as? CreateIdentityNicknameProperties != nil {
