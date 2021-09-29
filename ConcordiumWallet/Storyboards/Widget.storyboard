@@ -12,7 +12,7 @@
         <!--Widget And Label View Controller-->
         <scene sceneID="lE3-sI-aMy">
             <objects>
-                <viewController storyboardIdentifier="WidgetAndLabelViewController" id="Q8d-cp-yEv" customClass="WidgetAndLabelViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WidgetAndLabelViewController" id="Q8d-cp-yEv" customClass="WidgetAndLabelViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LVQ-SR-u31"/>
                         <viewControllerLayoutGuide type="bottom" id="vEF-tf-wUA"/>
@@ -114,7 +114,7 @@
         <!--Identity Base Info Widget View Controller-->
         <scene sceneID="xxm-ZV-67E">
             <objects>
-                <viewController storyboardIdentifier="IdentityBaseInfoWidgetViewController" id="JiE-0Z-iax" customClass="IdentityBaseInfoWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityBaseInfoWidgetViewController" id="JiE-0Z-iax" customClass="IdentityBaseInfoWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e8C-9G-6i0"/>
                         <viewControllerLayoutGuide type="bottom" id="d5X-TO-ovm"/>
@@ -123,7 +123,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="255"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5R-Wj-DSV" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5R-Wj-DSV" customClass="IdentityCardView" customModule="Concordium_ID" customModuleProvider="target">
                                 <rect key="frame" x="15" y="20" width="384" height="220"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -151,7 +151,7 @@
         <!--Widget View Controller-->
         <scene sceneID="qpM-7v-Q5Y">
             <objects>
-                <viewController storyboardIdentifier="WidgetViewController" id="wbU-nC-odz" customClass="WidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WidgetViewController" id="wbU-nC-odz" customClass="WidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4L8-T1-HC9"/>
                         <viewControllerLayoutGuide type="bottom" id="T0L-to-gho"/>
@@ -209,7 +209,7 @@
         <!--Identity Data Widget View Controller-->
         <scene sceneID="cOD-ma-GLM">
             <objects>
-                <viewController storyboardIdentifier="IdentityDataWidgetViewController" id="1vA-DV-wih" customClass="IdentityDataWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityDataWidgetViewController" id="1vA-DV-wih" customClass="IdentityDataWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XM0-P7-nar"/>
                         <viewControllerLayoutGuide type="bottom" id="CZY-6T-YSD"/>
@@ -218,7 +218,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="235"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ba-ZU-N5i" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ba-ZU-N5i" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
                                 <rect key="frame" x="16" y="10" width="382" height="210"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="56" estimatedRowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mn3-bG-h54">
@@ -259,7 +259,7 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataRowCellView" textLabel="bJv-7A-CMk" detailTextLabel="FMR-dy-VWa" style="IBUITableViewCellStyleValue1" id="EEO-ZE-DPg" customClass="IdentityDataRowCellView" customModule="Mock" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataRowCellView" textLabel="bJv-7A-CMk" detailTextLabel="FMR-dy-VWa" style="IBUITableViewCellStyleValue1" id="EEO-ZE-DPg" customClass="IdentityDataRowCellView" customModule="Concordium_ID" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="80.333333969116211" width="382" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EEO-ZE-DPg" id="FlW-Wn-s71">
@@ -328,7 +328,7 @@
         <!--Identity Data Selection Widget View Controller-->
         <scene sceneID="7UX-Fb-AYa">
             <objects>
-                <viewController storyboardIdentifier="IdentityDataSelectionWidgetViewController" id="Gtk-6Y-kzi" customClass="IdentityDataSelectionWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityDataSelectionWidgetViewController" id="Gtk-6Y-kzi" customClass="IdentityDataSelectionWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="15I-Jr-rfE"/>
                         <viewControllerLayoutGuide type="bottom" id="6zd-e3-COd"/>
@@ -337,7 +337,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="235"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIc-Zb-8Ev" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIc-Zb-8Ev" customClass="WidgetView" customModule="Concordium_ID" customModuleProvider="target">
                                 <rect key="frame" x="16" y="10" width="382" height="210"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" estimatedRowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zhc-N3-2yM">
@@ -348,7 +348,7 @@
                                         </constraints>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataSelectionCell" id="eT4-1R-bG5" customClass="IdentityDataSelectionCell" customModule="Mock" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IdentityDataSelectionCell" id="eT4-1R-bG5" customClass="IdentityDataSelectionCell" customModule="Concordium_ID" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.333333969116211" width="382" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eT4-1R-bG5" id="NRX-Su-uIY">
@@ -437,7 +437,7 @@
         <!--Create Account Button Widget View Controller-->
         <scene sceneID="Rye-fP-cE3">
             <objects>
-                <viewController storyboardIdentifier="CreateAccountButtonWidgetViewController" id="4c9-oR-B9A" customClass="CreateAccountButtonWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateAccountButtonWidgetViewController" id="4c9-oR-B9A" customClass="CreateAccountButtonWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CvZ-OK-7cR"/>
                         <viewControllerLayoutGuide type="bottom" id="wBO-Dg-aZX"/>
@@ -446,7 +446,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHW-0W-Thx" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHW-0W-Thx" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="382" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -483,7 +483,7 @@
         <!--Delete Identity Button Widget View Controller-->
         <scene sceneID="zX4-Ho-2Q3">
             <objects>
-                <viewController storyboardIdentifier="DeleteIdentityButtonWidgetViewController" id="72C-Kh-LFY" customClass="DeleteIdentityButtonWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DeleteIdentityButtonWidgetViewController" id="72C-Kh-LFY" customClass="DeleteIdentityButtonWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l62-cm-ERY"/>
                         <viewControllerLayoutGuide type="bottom" id="tfa-iH-dBX"/>
@@ -492,7 +492,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUb-Yw-hRG" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUb-Yw-hRG" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="382" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -529,7 +529,7 @@
         <!--Contact Support Button Widget View Controller-->
         <scene sceneID="hkA-eg-S7D">
             <objects>
-                <viewController storyboardIdentifier="ContactSupportButtonWidgetViewController" id="hjQ-lu-wBR" customClass="ContactSupportButtonWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactSupportButtonWidgetViewController" id="hjQ-lu-wBR" customClass="ContactSupportButtonWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mGm-KK-SVa"/>
                         <viewControllerLayoutGuide type="bottom" id="JDv-23-x4v"/>
@@ -538,7 +538,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cr-v2-sR6" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cr-v2-sR6" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="382" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -575,7 +575,7 @@
         <!--Copy Reference Widget View Controller-->
         <scene sceneID="bud-as-a4I">
             <objects>
-                <viewController storyboardIdentifier="CopyReferenceWidgetViewController" id="Xe8-oD-6WL" customClass="CopyReferenceWidgetViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CopyReferenceWidgetViewController" id="Xe8-oD-6WL" customClass="CopyReferenceWidgetViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1LK-b6-0tM"/>
                         <viewControllerLayoutGuide type="bottom" id="hwd-Nc-V73"/>
@@ -627,13 +627,13 @@
     </scenes>
     <designables>
         <designable name="5cr-v2-sR6">
-            <size key="intrinsicContentSize" width="125" height="30"/>
+            <size key="intrinsicContentSize" width="199" height="30"/>
         </designable>
         <designable name="RUb-Yw-hRG">
-            <size key="intrinsicContentSize" width="126" height="30"/>
+            <size key="intrinsicContentSize" width="261" height="30"/>
         </designable>
         <designable name="nHW-0W-Thx">
-            <size key="intrinsicContentSize" width="116" height="30"/>
+            <size key="intrinsicContentSize" width="197" height="30"/>
         </designable>
     </designables>
     <resources>
