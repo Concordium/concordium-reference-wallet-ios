@@ -19,6 +19,7 @@ protocol MobileWalletProtocol {
     func createTransfer(from fromAccount: AccountDataType,
                         to toAccount: String,
                         amount: Int, nonce: AccNonce,
+                        memo: String?,
                         expiry: Date, energy: Int,
                         transferType: TransferType,
                         requestPasswordDelegate: RequestPasswordDelegate,
@@ -236,6 +237,7 @@ class MobileWallet: MobileWalletProtocol {
                         to toAccount: String,
                         amount: Int,
                         nonce: AccNonce,
+                        memo: String?,
                         expiry: Date,
                         energy: Int,
                         transferType: TransferType,
@@ -250,6 +252,7 @@ class MobileWallet: MobileWalletProtocol {
                                     expiry: expiry,
                                     amount: amount,
                                     nonce: nonce,
+                                    memo: memo,
                                     energy: energy,
                                     transferType: transferType,
                                     pwHash: pwHash,
@@ -264,6 +267,7 @@ class MobileWallet: MobileWalletProtocol {
                                 expiry: Date,
                                 amount: Int,
                                 nonce: AccNonce,
+                                memo: String?,
                                 energy: Int,
                                 transferType: TransferType,
                                 pwHash: String,
@@ -282,6 +286,7 @@ class MobileWallet: MobileWalletProtocol {
                                                                   to: toAccount,
                                                                   expiry: Int(expiry.timeIntervalSince1970),
                                                                   nonce: nonce.nonce,
+                                                                  memo: memo,
                                                                   keys: privateAccountKeys,
                                                                   energy: energy,
                                                                   amount: String(amount),
@@ -400,8 +405,9 @@ class MobileWallet: MobileWalletProtocol {
             let privateAccountKeys = try getPrivateAccountKeys(for: account, pwHash: oldPwHash).get()
             try storageManager.updatePrivateAccountDataPasscode(for: account, accountData: privateAccountKeys, pwHash: newPwHash).get()
             
-            let commitmentsRandomness = try getCommitmentsRandomness(for: account, pwHash: oldPwHash).get()
-            try storageManager.updateCommitmentsRandomnessPasscode(for: account, commitmentsRandomness: commitmentsRandomness, pwHash: oldPwHash).get()
+            if let commitmentsRandomness = try? getCommitmentsRandomness(for: account, pwHash: oldPwHash).get() {
+                try? storageManager.updateCommitmentsRandomnessPasscode(for: account, commitmentsRandomness: commitmentsRandomness, pwHash: oldPwHash).get()
+            }
 
             if let privateIdKey = account.identity?.encryptedPrivateIdObjectData {
                 self.getPrivateIdObjectData(privateIdObjectDataKey: privateIdKey, pwHash: oldPwHash)
@@ -422,7 +428,7 @@ class MobileWallet: MobileWalletProtocol {
         do {
             _ = try getSecretEncryptionKey(for: account, pwHash: pwHash).get()
             _ = try getPrivateAccountKeys(for: account, pwHash: pwHash).get()
-            _ = try getCommitmentsRandomness(for: account, pwHash: pwHash).get()
+            _ = try? getCommitmentsRandomness(for: account, pwHash: pwHash).get()
             return Result.success(Void())
         } catch {
             return Result.failure(error)

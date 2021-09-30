@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol ExportViewProtocol: ShowError {
+protocol ExportViewProtocol: ShowAlert {
 }
 
 // MARK: -
@@ -53,7 +53,7 @@ class ExportPresenter: ExportPresenterProtocol {
         let unfinalizedAccounts = exportService.getUnfinalizedAccounts()
         if unfinalizedAccounts.count > 0 {
             let unfinalizedAccountsNames = unfinalizedAccounts.enumerated().map { "\($0.0 + 1). \($0.1.name ?? "")" }
-            view?.showRecoverableAlert(ViewError.exportUnfinalizedAccounts(unfinalizedAccountsNames: unfinalizedAccountsNames),
+            view?.showRecoverableErrorAlert(ViewError.exportUnfinalizedAccounts(unfinalizedAccountsNames: unfinalizedAccountsNames),
                                        completion: { [weak self] in
                 self?.performExport()
             })

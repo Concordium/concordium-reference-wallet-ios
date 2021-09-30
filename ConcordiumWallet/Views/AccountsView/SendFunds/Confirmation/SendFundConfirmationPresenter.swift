@@ -10,11 +10,12 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol SendFundConfirmationViewProtocol: ShowError, Loadable {
+protocol SendFundConfirmationViewProtocol: ShowAlert, Loadable {
     var line1Text: String? { get set }
     var line2Text: String? { get set }
     var line3Text: String? { get set }
     var line4Text: String? { get set }
+    var line5Text: String? { get set }
     var buttonText: String? { get set }
     var visibleWaterMark: Bool { get set }
 }
@@ -45,22 +46,27 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var fromAccount: AccountDataType
     private var recipient: RecipientDataType
     private var cost: GTU
+    private var memo: Memo?
     private var energy: Int
     private var transferType: TransferType
 
-    init(delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
-         amount: GTU,
-         from account: AccountDataType,
-         to recipient: RecipientDataType,
-         cost: GTU,
-         energy: Int,
-         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
-         transferType: TransferType) {
+    init(
+        delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
+        amount: GTU,
+        from account: AccountDataType,
+        to recipient: RecipientDataType,
+        memo: Memo?,
+        cost: GTU,
+        energy: Int,
+        dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
+        transferType: TransferType
+    ) {
         self.delegate = delegate
         self.amount = amount
         self.fromAccount = account
         self.recipient = recipient
         self.cost = cost
+        self.memo = memo
         self.energy = energy
         self.dependencyProvider = dependencyProvider
         self.transferType = transferType
@@ -81,7 +87,9 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             let accountName = fromAccount.displayName
             view?.line3Text = "\(sFromAccount) \(accountName)"
         }
+        
         view?.visibleWaterMark = false
+        
         switch transferType {
         case .simpleTransfer:
             view?.line1Text = "sendFund.confirmation.transfer".localized
@@ -102,6 +110,12 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         let estimateTransactionFee = "sendFund.confirmation.line4.estimatedTransactionFee".localized
         let sCost = cost.displayValueWithGStroke()
         view?.line4Text = "\(estimateTransactionFee)\(sCost)"
+        
+        if let memo = memo?.displayValue {
+            view?.line5Text = String(format: "sendFund.memo.text".localized, memo)
+        } else {
+            view?.line5Text = nil
+        }
     }
 
     func userTappedConfirm() {
@@ -111,6 +125,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.fromAddress = fromAccount.address
         transfer.toAddress = recipient.address
         transfer.cost = String(cost.intValue)
+        transfer.memo = memo?.data.hexDescription
         transfer.energy = energy
 
         dependencyProvider.transactionsService()

@@ -174,7 +174,7 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
         presenter.view = self
         presenter.viewDidLoad()
 
-        animateWithKeyboard { [weak self] keyboardHeight in
+        keyboardWillShow { [weak self] keyboardHeight in
             self?.continueButtonButtomConstraint.constant = keyboardHeight + 20
             self?.usePasswordButtonButtomConstraint.constant = keyboardHeight + 20
         }

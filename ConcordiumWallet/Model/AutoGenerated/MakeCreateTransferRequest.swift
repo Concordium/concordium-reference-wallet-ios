@@ -11,6 +11,7 @@ struct MakeCreateTransferRequest: Codable {
     let to: String?
     let expiry: Int?
     let nonce: Int?
+    let memo: String?
     let keys: AccountKeys?
     let energy: Int?
     let amount: String?
@@ -24,6 +25,7 @@ struct MakeCreateTransferRequest: Codable {
         case to = "to"
         case expiry = "expiry"
         case nonce = "nonce"
+        case memo = "memo"
         case keys = "keys"
         case energy = "energy"
         case amount = "amount"
@@ -57,6 +59,7 @@ extension MakeCreateTransferRequest {
         to: String?? = nil,
         expiry: Int?? = nil,
         nonce: Int?? = nil,
+        memo: String?? = nil,
         keys: AccountKeys?? = nil,
         energy: Int?? = nil,
         amount: String?? = nil,
@@ -70,6 +73,7 @@ extension MakeCreateTransferRequest {
             to: to ?? self.to,
             expiry: expiry ?? self.expiry,
             nonce: nonce ?? self.nonce,
+            memo: memo ?? self.memo,
             keys: keys ?? self.keys,
             energy: energy ?? self.energy,
             amount: amount ?? self.amount,

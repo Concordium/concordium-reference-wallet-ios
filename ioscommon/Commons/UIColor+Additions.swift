@@ -12,55 +12,55 @@ extension UIColor {
     class var primary: UIColor {
         return UIColor(named: "primary") ?? UIColor.magenta
     }
-
+    
     class var secondary: UIColor {
         return UIColor(named: "secondary") ?? UIColor.magenta
     }
-
+    
     class var buttonText: UIColor {
         return UIColor(named: "buttonText") ??  UIColor.magenta
     }
-
+    
     class var fadedText: UIColor {
         return UIColor(named: "fadedText") ??  UIColor.magenta
     }
-
+    
     class var text: UIColor {
-           return UIColor(named: "text") ?? UIColor.magenta
+        return UIColor(named: "text") ?? UIColor.magenta
     }
-
+    
     class var errorText: UIColor {
-           return UIColor(named: "errorText") ?? UIColor.magenta
+        return UIColor(named: "errorText") ?? UIColor.magenta
     }
-
+    
     class var whiteText: UIColor {
-           return UIColor(named: "whiteText") ?? UIColor.magenta
+        return UIColor(named: "whiteText") ?? UIColor.magenta
     }
-
+    
     class var background: UIColor {
-          return UIColor(named: "background") ?? UIColor.magenta
+        return UIColor(named: "background") ?? UIColor.magenta
     }
-
+    
     class var barBackground: UIColor {
-           return UIColor(named: "barBackground") ?? UIColor.magenta
+        return UIColor(named: "barBackground") ?? UIColor.magenta
     }
-
+    
     class var barButton: UIColor {
         return UIColor(named: "barButton") ?? UIColor.magenta
     }
-
+    
     class var inactiveButton: UIColor {
         return UIColor(named: "inactiveButton") ?? UIColor.magenta
     }
-
+    
     class var separator: UIColor {
         return UIColor(named: "separator") ?? UIColor.magenta
     }
-
+    
     class var shadow: UIColor {
         return UIColor(named: "shadow") ?? UIColor.magenta
     }
-
+    
     class var success: UIColor {
         return UIColor(named: "success") ?? UIColor.magenta
     }

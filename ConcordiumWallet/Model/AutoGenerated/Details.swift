@@ -8,6 +8,7 @@ import Foundation
 // MARK: - Details
 struct Details: Codable {
     let transferDestination: String?
+    let memo: String?
     let transferAmount: String?
     let events: [String]?
     let outcome: OutcomeEnum
@@ -25,6 +26,7 @@ struct Details: Codable {
 
     enum CodingKeys: String, CodingKey {
         case transferDestination = "transferDestination"
+        case memo = "memo"
         case transferAmount = "transferAmount"
         case events = "events"
         case outcome = "outcome"
@@ -62,6 +64,7 @@ extension Details {
 
     func with(
         transferDestination: String?? = nil,
+        memo: String?? = nil,
         transferAmount: String?? = nil,
         events: [String]?? = nil,
         outcome: OutcomeEnum? = nil,
@@ -79,6 +82,7 @@ extension Details {
     ) -> Details {
         return Details(
             transferDestination: transferDestination ?? self.transferDestination,
+            memo: memo ?? self.memo,
             transferAmount: transferAmount ?? self.transferAmount,
             events: events ?? self.events,
             outcome: outcome ?? self.outcome,

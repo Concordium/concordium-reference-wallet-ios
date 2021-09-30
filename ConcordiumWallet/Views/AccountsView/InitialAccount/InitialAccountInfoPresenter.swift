@@ -52,7 +52,7 @@ enum InitialAccountInfoType {
 }
 
 // MARK: View
-protocol InitialAccountInfoViewProtocol: ShowError {
+protocol InitialAccountInfoViewProtocol: ShowAlert {
       func bind(to viewModel: InitialAccountInfoViewModel)
 }
 

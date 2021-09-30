@@ -14,6 +14,7 @@ enum UserDefaultKeys: String {
     case passwordType
     case biometricsEnabled
     case passwordChangeInProgress
+    case dontShowMemoAlertWarning
 }
 
 struct AppSettings {
@@ -47,6 +48,15 @@ struct AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.passwordChangeInProgress.rawValue)
+        }
+    }
+    
+    static var dontShowMemoAlertWarning: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.dontShowMemoAlertWarning.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.dontShowMemoAlertWarning.rawValue)
         }
     }
 }

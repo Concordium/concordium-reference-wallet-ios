@@ -14,7 +14,7 @@ enum EditRecipientMode {
 }
 
 // MARK: View
-protocol AddRecipientViewProtocol: ShowError {
+protocol AddRecipientViewProtocol: ShowAlert {
     func bind(to: AddRecipientViewModel)
     func showAddressInvalid()
 }

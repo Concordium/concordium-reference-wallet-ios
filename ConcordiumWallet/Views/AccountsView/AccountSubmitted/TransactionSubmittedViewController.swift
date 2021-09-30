@@ -28,6 +28,7 @@ class TransactionSubmittedViewController: BaseViewController, TransactionSubmitt
     @IBOutlet weak var recipientNameLabel: UILabel!
     @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var transactionSummaryLabel: UILabel!
+    @IBOutlet weak var transactionMemoLabel: UILabel!
     
     @IBOutlet weak var transactionSubmittedLabel: UILabel!
     
@@ -50,25 +51,29 @@ class TransactionSubmittedViewController: BaseViewController, TransactionSubmitt
     }
     
     func bind(to viewModel: TransactionSubmittedViewModel) {
-        viewModel.$recipient.sink { (recipient) in
-            self.recipientNameLabel.text = recipient.name
-            self.recipientAddressLabel.text = recipient.address
+        viewModel.$recipient.sink { [weak self] (recipient) in
+            self?.recipientNameLabel.text = recipient.name
+            self?.recipientAddressLabel.text = recipient.address
         }.store(in: &cancellables)
         
-        viewModel.$amount.sink { (amount) in
-            self.transactionAmountLabel.text = amount
+        viewModel.$amount.sink { [weak self] amount in
+            self?.transactionAmountLabel.text = amount
         }.store(in: &cancellables)
         
-        viewModel.$transferSummary.sink { (summary) in
-            self.transactionSummaryLabel.text = summary
+        viewModel.$transferSummary.sink { [weak self] summary in
+            self?.transactionSummaryLabel.text = summary
         }.store(in: &cancellables)
         
-        viewModel.$visibleWaterMark.sink { (visible) in
-            self.shieldedWaterMark.isHidden = !visible
+        viewModel.$visibleWaterMark.sink { [weak self] visible in
+            self?.shieldedWaterMark.isHidden = !visible
         }.store(in: &cancellables)
         
-        viewModel.$submitedText.sink { (text) in
-            self.transactionSubmittedLabel.text = text
+        viewModel.$submitedText.sink { [weak self] text in
+            self?.transactionSubmittedLabel.text = text
+        }.store(in: &cancellables)
+        
+        viewModel.$memoText.sink { [weak self] memoText in
+            self?.transactionMemoLabel.text = memoText
         }.store(in: &cancellables)
     }
     

@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol UpdatePasswordViewProtocol: ShowError {
+protocol UpdatePasswordViewProtocol: ShowAlert {
     
 }
 

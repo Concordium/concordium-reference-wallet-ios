@@ -677,7 +677,7 @@ You can start using your identity object once validation of your id has been com
                                                     <color key="titleColor" name="buttonText"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="identitySubmitted.finish"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="identitySubmitted.continue"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="finishAction:" destination="ptF-jc-wGF" eventType="touchUpInside" id="DZg-k3-sVL"/>
@@ -749,7 +749,7 @@ You can start using your identity object once validation of your id has been com
             <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="ilq-Bf-T4l">
-            <size key="intrinsicContentSize" width="163" height="30"/>
+            <size key="intrinsicContentSize" width="186" height="30"/>
         </designable>
     </designables>
     <resources>

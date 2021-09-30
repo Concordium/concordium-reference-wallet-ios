@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Combine
 
-class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate {
+class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate {
     var childCoordinators = [Coordinator]()
 
     var navigationController: UINavigationController
@@ -80,33 +80,16 @@ class AppCoordinator: NSObject, Coordinator, ShowError, RequestPasswordDelegate 
         importCoordinator.navigationController.modalPresentationStyle = .fullScreen
 
         if navigationController.topPresented() is IdentityProviderWebViewViewController {
-            navigationController.dismiss(animated: true) {
-                self.presentImportView(importCoordinator: importCoordinator)
-                self.cleanupUnfinishedIdentiesAndAccounts()
+            navigationController.dismiss(animated: true) { [weak self] in
+                self?.presentImportView(importCoordinator: importCoordinator)
+                self?.defaultProvider.storageManager().removeUnfinishedAccountsAndRelatedIdentities()
             }
         } else {
             presentImportView(importCoordinator: importCoordinator)
-            self.cleanupUnfinishedAccounts()
+            defaultProvider.storageManager().removeAccountsWithoutAddress()
         }
     }
-
-    private func cleanupUnfinishedIdentiesAndAccounts() {
-        let unfinishedIdentities = defaultProvider.storageManager().getIdentities().filter { $0.ipStatusUrl .isEmpty }
-        for identity in unfinishedIdentities {
-            if let account = defaultProvider.storageManager().getAccounts(for: identity).first {
-                defaultProvider.storageManager().removeAccount(account: account)
-                defaultProvider.storageManager().removeIdentity(identity)
-            }
-        }
-    }
-
-    private func cleanupUnfinishedAccounts() {
-        let unfinishedAccounts = defaultProvider.storageManager().getAccounts().filter { $0.address .isEmpty}
-        for account in unfinishedAccounts {
-            defaultProvider.storageManager().removeAccount(account: account)
-        }
-    }
-
+    
     private func presentImportView(importCoordinator: ImportCoordinator) {
         navigationController.present(importCoordinator.navigationController, animated: true)
         importCoordinator.navigationController.presentationController?.delegate = self
@@ -196,6 +179,8 @@ extension AppCoordinator: InitialAccountsCoordinatorDelegate {
 
 extension AppCoordinator: LoginCoordinatorDelegate {
     func loginDone() {
+        defaultProvider.storageManager().removeAccountsWithoutAddress()
+        
         let identities = defaultProvider.storageManager().getIdentities()
         let accounts = defaultProvider.storageManager().getAccounts()
         

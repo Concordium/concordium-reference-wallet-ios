@@ -61,8 +61,8 @@ class AddRecipientViewController: BaseViewController, AddRecipientViewProtocol, 
 
         presenter.viewDidLoad()
         
-        animateWithKeyboard { keyboardHeight in
-            self.saveButtonBottomContstraint.constant = keyboardHeight
+        keyboardWillShow { [weak self] keyboardHeight in
+            self?.saveButtonBottomContstraint.constant = keyboardHeight
         }
     }
 

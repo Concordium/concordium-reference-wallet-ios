@@ -14,7 +14,7 @@ protocol UpdatePasswordCoordinatorDelegate: AnyObject {
     func passcodeChanged()
 }
 
-class UpdatePasswordCoordinator: Coordinator, ShowError {
+class UpdatePasswordCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var parentCoordinator: UpdatePasswordCoordinatorDelegate

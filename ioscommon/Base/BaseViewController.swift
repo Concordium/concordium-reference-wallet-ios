@@ -14,7 +14,6 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -27,17 +26,29 @@ class BaseViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
 
-    func animateWithKeyboard(_ animationBlock: @escaping (CGFloat) -> Void) {
+// MARK: - Keyboard Notifications
+
+extension BaseViewController {
+    func keyboardWillShow(_ animationBlock: @escaping (CGFloat) -> Void) {
+        animateWithKeyboard(UIResponder.keyboardWillShowNotification, animationBlock)
+    }
+    
+    func keyboardWillHide(_ animationBlock: @escaping (CGFloat) -> Void) {
+        animateWithKeyboard(UIResponder.keyboardWillHideNotification, animationBlock)
+    }
+    
+    private func animateWithKeyboard(_ notification: NSNotification.Name, _ animationBlock: @escaping (CGFloat) -> Void) {
         NotificationCenter.default
-                .publisher(for: UIResponder.keyboardWillShowNotification)
-                .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
-                .sink { [weak self] keyboardFrame in
-                    UIView.animate(withDuration: 0.5) {
-                        animationBlock(keyboardFrame.height)
-                        self?.view.layoutIfNeeded()
-                    }
+            .publisher(for: notification)
+            .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
+            .sink { [weak self] keyboardFrame in
+                UIView.animate(withDuration: 0.5) {
+                    animationBlock(keyboardFrame.height)
+                    self?.view.layoutIfNeeded()
                 }
-                .store(in: &cancellables)
+            }
+            .store(in: &cancellables)
     }
 }

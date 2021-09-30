@@ -17,13 +17,14 @@ class AccountTransactionsDataCellView: UITableViewCell {
     @IBOutlet weak var recipientName: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var transactionIconStatusView: UIImageView!
     @IBOutlet weak var costLabel: UILabel!    
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var statusIconImageView: UIImageView!
     @IBOutlet weak var amountCostStackView: UIStackView!
     @IBOutlet weak var lockButton: UIButton!
-    
+
     weak var delegate: AccountTransactionsDataCellViewDelegate?
     var transactionHash: String?
     
@@ -48,6 +49,9 @@ class AccountTransactionsDataCellView: UITableViewCell {
         statusIconImageView.isHidden = !viewModel.showStatusIcon
         costLabel.text = viewModel.cost
         lockButton.isUserInteractionEnabled = viewModel.showLock
+        
+        memoLabel.text = viewModel.memo
+        memoLabel.isHidden = viewModel.memo == nil
         
         if viewModel.showLock {
             lockButton.setImage(UIImage(named: "Icon_Shield"), for: .normal)

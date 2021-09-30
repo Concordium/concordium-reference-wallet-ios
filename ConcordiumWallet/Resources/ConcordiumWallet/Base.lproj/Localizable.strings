@@ -24,7 +24,10 @@ add_identity_data = "Reveal Identity Data";
 "errorAlert.okButton" = "OK";
 "errorAlert.cancelButton" = "Cancel";
 "errorAlert.continueButton" = "Continue";
+"warningAlert.dontShowAgainButton" = "Don't show again";
 "warningAlert.title" = "Warning";
+"warningAlert.transactionMemo.title" = "Transaction messages";
+"warningAlert.transactionMemo.text" = "Transaction memos are public and visible to everyone on the blockchain. Any memo sent with a transaction are permament, and will be visible forever, so be careful what you write in the memo. \n\n Adding a memo will increase the transaction fee.";
 "viewError.wrongPassword" = "Incorrect Password!\nPlease try again.";
 "viewError.genericError" = "An error occured. Please try again.";
 "viewError.userCancelled" = "User cancelled";
@@ -227,6 +230,8 @@ process on-chain.";
 "sendFund.selectRecipient" = "Select Recipient";
 "sendFund.feeMessage" = "Estimated transaction fee:
 Ǥ";
+"sendFund.addMemo" = "Optional: Add memo";
+
 "sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
 "sendFund.insufficientFunds" = "Insufficient funds";
 "sendFund.confirmation.shield" = "Are you sure you want to shield";
@@ -237,6 +242,13 @@ process on-chain.";
 "sendFund.confirmation.line3.Account" = "Account: ";
 "sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:\n";
 "sendFund.confirmation.buttonTitle" = "Yes, send funds";
+"sendFund.memo.text" = "Memo:\n %@";
+
+"addMemo.pageTitle" = "Add memo";
+"addMemo.memoTitle" = "Enter your memo below.";
+"addMemo.memoTextViewPlaceholder" = "You can enter an optional memo here.";
+"addMemo.addMemoButtonTitle" = "Add memo to transfer";
+
 "selectRecipient.title" = "Select recipient";
 "selectRecipient.searchRecipients" = "Search recipients";
 "accountAddress.share" = "SHARE";
@@ -324,10 +336,12 @@ process on-chain.";
 "identityData.title" = "Identity";
 "accountConfirmed.title" = "New account";
 "identitySubmitted.title" = "Account";
-"identitySubmitted.heading" = "That’s it!";
+"identitySubmitted.heading" = "Request submitted!";
 "identitySubmitted.details"="It might take a little while for the identity provider to finish your request.";
 "identitySubmitted.text" = "Your identity object is currently being set-up.\n\nYou can start using your identity object once validation of your id has been completed by the identity provider.";
-"identitySubmitted.finish" = "Finish";
+"identitySubmitted.alert.title" = "Identity Issuance";
+"identitySubmitted.alert.message" = "Please check back in the app regularly, until the response from the identity provider has been received. It’s usually ready within 15 minutes, and can be retrieved for up to seven days.";
+"identitySubmitted.continue" = "Continue";
 
 "creationFailed.account" = "Account Creation";
 "creationFailed.identity" = "Identity Verification";

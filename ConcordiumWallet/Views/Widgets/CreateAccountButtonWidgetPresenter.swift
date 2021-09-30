@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: View
-protocol CreateAccountButtonWidgetViewProtocol: Loadable, ShowError {
+protocol CreateAccountButtonWidgetViewProtocol: Loadable, ShowAlert {
 }
 
 // MARK: -
