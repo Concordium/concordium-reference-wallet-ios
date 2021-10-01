@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="396" height="222"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3dM-s4-9xp" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dM-s4-9xp" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="396" height="222"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
@@ -120,14 +120,14 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accounts.overview.staked"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="G100 + " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnC-Qt-6oN">
-                                        <rect key="frame" x="292" y="127" width="63" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="G2000 + " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnC-Qt-6oN">
+                                        <rect key="frame" x="279" y="127" width="76" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" name="primary"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="G100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZv-ix-hxG">
-                                        <rect key="frame" x="312" y="157" width="43" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="G2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZv-ix-hxG">
+                                        <rect key="frame" x="299" y="157" width="56" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" name="primary"/>
                                         <nil key="highlightedColor"/>
@@ -612,8 +612,8 @@ process on-chain]</string>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accounts.overview.atdisposal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="G100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2Z-ra-eF7">
-                                                        <rect key="frame" x="323.33333333333331" y="-0.66666666666668561" width="42.666666666666686" height="21.666666666666668"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="G2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2Z-ra-eF7">
+                                                        <rect key="frame" x="310" y="-0.66666666666668561" width="56" height="21.666666666666668"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" name="primary"/>
                                                         <nil key="highlightedColor"/>
@@ -644,8 +644,8 @@ process on-chain]</string>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accounts.overview.staked"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="G100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4e-hB-BZ5">
-                                                        <rect key="frame" x="323.33333333333331" y="-0.66666666666668561" width="42.666666666666686" height="21.666666666666668"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="G2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4e-hB-BZ5">
+                                                        <rect key="frame" x="310" y="-0.66666666666668561" width="56" height="21.666666666666668"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" name="primary"/>
                                                         <nil key="highlightedColor"/>
@@ -894,10 +894,10 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
-                                                                        <rect key="frame" x="7" y="115.66666666666667" width="382" height="174.66666666666663"/>
+                                                                        <rect key="frame" x="1.3333333333333428" y="115.66666666666667" width="393.33333333333326" height="174.66666666666663"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
-                                                                                <rect key="frame" x="110" y="10.000000000000002" width="162" height="20.666666666666671"/>
+                                                                                <rect key="frame" x="115.66666666666669" y="10.000000000000002" width="162" height="20.666666666666671"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="primary"/>
                                                                                 <nil key="highlightedColor"/>
@@ -905,8 +905,8 @@ process on-chain]</string>
                                                                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountDetails.testnetGtuDropTitle"/>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GH5-FJ-6Qg">
-                                                                                <rect key="frame" x="20" y="40.666666666666629" width="342" height="54"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On the Concordium Testnet, you can request 2000GTU to be deposited to an account to get you started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GH5-FJ-6Qg">
+                                                                                <rect key="frame" x="20" y="40.666666666666629" width="353.33333333333331" height="54"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -915,12 +915,12 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgW-9v-gsl" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                                                                <rect key="frame" x="20" y="104.66666666666663" width="342" height="50"/>
+                                                                                <rect key="frame" x="20" y="104.66666666666663" width="353.33333333333331" height="50"/>
                                                                                 <color key="backgroundColor" name="primary"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="50" id="xf6-RF-pOm"/>
                                                                                 </constraints>
-                                                                                <state key="normal" title="Request 100 GTU">
+                                                                                <state key="normal" title="Request 2000 GTU">
                                                                                     <color key="titleColor" name="buttonText"/>
                                                                                 </state>
                                                                                 <userDefinedRuntimeAttributes>
