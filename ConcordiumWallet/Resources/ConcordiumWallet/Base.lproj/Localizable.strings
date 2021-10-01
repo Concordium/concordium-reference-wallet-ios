@@ -330,8 +330,8 @@ process on-chain.";
 "more.about.appVersion.title" = "App Version";
 
 "accountDetails.testnetGtuDropTitle" = "TESTNET GTU DROP";
-"accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started";
-"accountDetails.testnetGtuDropButtonTitle" = "Request 100 GTU";
+"accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 2000GTU to be deposited to an account to get you started";
+"accountDetails.testnetGtuDropButtonTitle" = "Request 2000 GTU";
 
 "identityData.title" = "Identity";
 "accountConfirmed.title" = "New account";
