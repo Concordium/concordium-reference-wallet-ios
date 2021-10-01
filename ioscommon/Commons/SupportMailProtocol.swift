@@ -40,7 +40,7 @@ extension SupportMail {
             
             presenter.present(mfMailComposeViewController, animated: true)
             
-        } else if let emailUrl = MailHelper.thirdPartyMailUrl(to: recipient, subject: subject, body: body) {
+        } else if let emailUrl = MailHelper.thirdPartyMailUrl(to: recipient, cc: ccRecipient, subject: subject, body: body) {
             UIApplication.shared.open(emailUrl)
         }
     }
