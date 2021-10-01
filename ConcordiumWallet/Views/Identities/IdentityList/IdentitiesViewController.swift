@@ -153,7 +153,7 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
                     recipient: AppConstants.Support.identityProviderSupportMail,
                     ccRecipient: AppConstants.Support.concordiumSupportMail,
                     subject: String(format: "supportmail.subject".localized, reference),
-                    body: String(format: "supportmail.body".localized, reference)
+                    body: String(format: "supportmail.body".localized, reference, AppSettings.appVersion, AppSettings.iOSVersion)
                 )
             }
             ac.message = "identityfailed.message".localized

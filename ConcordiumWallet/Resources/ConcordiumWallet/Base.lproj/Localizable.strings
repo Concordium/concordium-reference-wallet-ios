@@ -387,4 +387,4 @@ idiss@concordium.software";
 "burgermenu.transferfilters" = "Transfer Filters";
 
 "supportmail.subject" = "Issuance reference: %@";
-"supportmail.body" = "My Concordium identity issuance failed with hashed session ID: %@";
+"supportmail.body" = "Hi! My identity issuance failed. \n\n Here is my info: \n\n Issuance reference: \n %@ \n\n Mobile Wallet version: \n %@ \n\n Platform: \n\n iOS: \n %@";
