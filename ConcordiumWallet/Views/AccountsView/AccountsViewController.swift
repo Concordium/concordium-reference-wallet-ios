@@ -216,7 +216,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self.launchSupport(
                     presenter: self,
                     delegate: self,
-                    recipient: AppConstants.Support.supportMail,
+                    recipient: AppConstants.Support.identityProviderSupportMail,
+                    ccRecipient: AppConstants.Support.concordiumSupportMail,
                     subject: String(format: "supportmail.subject".localized, reference),
                     body: String(format: "supportmail.body".localized, reference)
                 )
