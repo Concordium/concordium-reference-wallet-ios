@@ -23,7 +23,7 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
     @IBOutlet weak var websiteTextView: UITextView!
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
-            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            let version = AppSettings.appVersion
             let buildNo = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
             versionLabel.text = "\(version).\(buildNo)"
         }
