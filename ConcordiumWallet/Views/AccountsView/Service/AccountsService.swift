@@ -206,7 +206,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     
     func gtuDrop(for accountAddress: String) -> AnyPublisher<TransferDataType, Error> {
         var transfer = TransferDataTypeFactory.create()
-        let expectedGTUDropAmount = "-100"
+        let expectedGTUDropAmount = "-2000"
         transfer.amount = String(GTU(displayValue: expectedGTUDropAmount).intValue)
         transfer.toAddress = accountAddress
         transfer.transferType = .simpleTransfer

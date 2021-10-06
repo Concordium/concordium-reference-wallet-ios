@@ -330,8 +330,8 @@ process on-chain.";
 "more.about.appVersion.title" = "App Version";
 
 "accountDetails.testnetGtuDropTitle" = "TESTNET GTU DROP";
-"accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 100GTU to be deposited to an account to get you started";
-"accountDetails.testnetGtuDropButtonTitle" = "Request 100 GTU";
+"accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 2000GTU to be deposited to an account to get you started";
+"accountDetails.testnetGtuDropButtonTitle" = "Request 2000 GTU";
 
 "identityData.title" = "Identity";
 "accountConfirmed.title" = "New account";
@@ -365,8 +365,9 @@ process on-chain.";
 
 "identityfailed.title" = "Identity issuance failed";
 "identityfailed.tryagain" = "Try again";
-"identityfailed.message" = "Something went wrong while creating your identity. \n\n You can either try again, or contact Notabene’s support. \n\n Clicking Contact Support will open your e-mail app, with a reference to your submission as subject.";
-"identityfailed.nomail.message" = "The Mail app seems to be unavailable or not set up \n\n Instead you can copy your session reference, and then contact Notabene via concordium-idss@notabene.id";
+"identityfailed.message" = "The identity issuance failed. \n\n You can either try again, or contact Notabene’s support. \n\n Clicking Contact Support will open your e-mail app, with a reference to your submission as subject. \n\n Concordium will be CC’ed in the correspondence.";
+"identityfailed.nomail.message" = "The identity issuance failed. \n\n You can either try again, or contact Notabene’s support. \n\n You can copy the reference below, and then contact Notabene at concordium-idiss@notabene.id \n\n Optional: Add Concordium as CC via
+idiss@concordium.software";
 "identityfailed.copyreference" = "Copy reference";
 "identityfailed.contactsupport" = "Contact Support";
 
@@ -386,4 +387,4 @@ process on-chain.";
 "burgermenu.transferfilters" = "Transfer Filters";
 
 "supportmail.subject" = "Issuance reference: %@";
-"supportmail.body" = "My Concordium identity issuance failed with hashed session ID: %@";
+"supportmail.body" = "Hi! My identity issuance failed. \n\n Here is my info: \n\n Issuance reference: \n %@ \n\n Mobile Wallet version: \n %@ \n\n Platform: \n\n iOS: %@";

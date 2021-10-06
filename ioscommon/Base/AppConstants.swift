@@ -18,6 +18,7 @@ struct AppConstants {
     
     // MARK: - Support
     struct Support {
-        static let supportMail: String = Bundle.main.object(forInfoDictionaryKey: "Notabene Support Mail") as? String ?? ""
+        static let identityProviderSupportMail: String = Bundle.main.object(forInfoDictionaryKey: "Notabene Support Mail") as? String ?? ""
+        static let concordiumSupportMail: String = Bundle.main.object(forInfoDictionaryKey: "Concordium Support Mail") as? String ?? ""
     }
 }

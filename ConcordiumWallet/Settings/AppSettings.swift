@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum PasswordType: String {
     case passcode
@@ -59,4 +60,10 @@ struct AppSettings {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.dontShowMemoAlertWarning.rawValue)
         }
     }
+    
+    static var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    }
+    
+    static var iOSVersion: String { UIDevice.current.systemVersion }
 }

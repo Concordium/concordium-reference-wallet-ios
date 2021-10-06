@@ -13,7 +13,7 @@ struct MailHelper {
         return MFMailComposeViewController.canSendMail() || thirdPartyMailUrl(to: "", subject: "", body: "") != nil
     }
 
-    static func thirdPartyMailUrl(to: String, subject: String, body: String) -> URL? {
+    static func thirdPartyMailUrl(to: String, cc: String? = nil, subject: String, body: String) -> URL? {
         guard
             let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -21,10 +21,16 @@ struct MailHelper {
             return nil
         }
         
-        let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+        var ccParams = ""
+        
+        if let carbonCopy = cc {
+            ccParams = "&cc=\(carbonCopy)"
+        }
+        
+        let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)\(ccParams)")
+        let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)\(ccParams)")
+        let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)\(ccParams)")
+        let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)\(ccParams)")
         
         if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
             return gmailUrl
