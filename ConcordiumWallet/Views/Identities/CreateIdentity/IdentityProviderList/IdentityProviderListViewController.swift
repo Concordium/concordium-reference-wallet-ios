@@ -50,7 +50,9 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
         detailsLabel.text = String(format: "identityProviders.details".localized, presenter.getIdentityName())
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
-        dataSource = UITableViewDiffableDataSource<SingleSection, IdentityProviderViewModel>(tableView: tableView, cellProvider: createCell)
+        dataSource = UITableViewDiffableDataSource<SingleSection, IdentityProviderViewModel>(
+            tableView: tableView,
+            cellProvider: IdentityProviderListViewController.createCell)
         tableView.sizeHeaderToFit()
     }
     
@@ -59,7 +61,7 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
         tableView.flashScrollIndicators()
     }
 
-    private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: IdentityProviderViewModel) -> UITableViewCell? {
+    private static func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: IdentityProviderViewModel) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IdentityProviderCell", for: indexPath) as? IdentityProviderCell
         cell?.titleLabel?.text = viewModel.identityName
         cell?.iconImageView?.image = UIImage.decodeBase64(toImage: viewModel.iconEncoded)
@@ -74,7 +76,8 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
 
 extension IdentityProviderListViewController: IdentityProviderListViewProtocol {
     func bind(to viewModel: IdentityProviderListViewModel) {
-        viewModel.$identityProviders.sink {
+        viewModel.$identityProviders.sink { [weak self] in
+            guard let self = self else { return }
             var snapshot = NSDiffableDataSourceSnapshot<SingleSection, IdentityProviderViewModel>()
             snapshot.appendSections([.main])
             snapshot.appendItems($0)

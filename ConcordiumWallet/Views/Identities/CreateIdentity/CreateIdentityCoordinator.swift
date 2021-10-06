@@ -117,8 +117,8 @@ class CreateIdentityCoordinator: Coordinator, ShowAlert {
         
         self.createdIdentity = nil
         
-        navigationController.dismiss(animated: true) {
-            self.showIdentitySubmitted(identity: newIdentity, account: newAccount)
+        navigationController.dismiss(animated: true) { [weak self] in
+            self?.showIdentitySubmitted(identity: newIdentity, account: newAccount)
         }
     }
 
@@ -144,8 +144,8 @@ class CreateIdentityCoordinator: Coordinator, ShowAlert {
             parentCoordinator?.createNewIdentityCancelled()
         } else {
             let serverError = ViewError.simpleError(localizedReason: error.error.detail)
-            navigationController.dismiss(animated: true) {
-                self.showFailedIdentityCreation(error: serverError)
+            navigationController.dismiss(animated: true) { [weak self] in
+                self?.showFailedIdentityCreation(error: serverError)
             }
         }
     }
@@ -210,6 +210,7 @@ class CreateIdentityCoordinator: Coordinator, ShowAlert {
     }
 
     func showFailedIdentityCreation(error: Error) {
+        Logger.error(error.localizedDescription)
         let vc = CreationFailedFactory.create(with: CreationFailedPresenter(serverError: error, delegate: self, mode: .identity))
         showModally(vc, from: navigationController)
     }

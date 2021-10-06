@@ -147,7 +147,7 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
             
             let wallet = self.dependencyProvider.mobileWallet()
             
-            self.service.getGlobal().flatMap { global in
+            self.service.getGlobal().flatMap { [unowned self] global in
                 wallet.createIdRequestAndPrivateData(initialAccountName: self.initialAccountName,
                                                      identityName: self.identityName,
                                                      identityProvider: identityProvider,
