@@ -31,7 +31,8 @@ extension Loadable where Self: UIViewController {
     }
 
     func showLoading() {
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self = self else { return }
             let mainView = self.getMainView()
             let eventCapturingView = UIView()
             eventCapturingView.frame = mainView.bounds
@@ -50,7 +51,8 @@ extension Loadable where Self: UIViewController {
     }
 
     func hideLoading() {
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self = self else { return }
             let mainView: UIView = self.getMainView()
             if let activityIndicator = mainView.viewWithTag(self.activityIndicatorTag) as? UIActivityIndicatorView {
                 activityIndicator.stopAnimating()

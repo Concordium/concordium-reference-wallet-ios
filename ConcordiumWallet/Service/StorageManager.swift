@@ -13,15 +13,22 @@ protocol StorageManagerProtocol {
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
+    
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
+    /// Remove the private ID object data stored in the keychain with the associated key
+    func removePrivateIdObjectData(key: String)
 
     func storePrivateAccountKeys(_ privateAccountKeys: AccountKeys, pwHash: String) -> Result<String, Error>
     func getPrivateAccountKeys(key: String, pwHash: String) -> Result<AccountKeys, Error>
+    /// Remove the private account keys stored in the keychain with the associated key
+    func removePrivateAccountKeys(key: String)
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error>
     
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error>
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error>
+    /// Remove the private encryptioni key stored in the keychain with the associated key
+    func removePrivateEncryptionKey(key: String)
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error>
 
     func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error>
@@ -124,6 +131,11 @@ class StorageManager: StorageManagerProtocol {
                 }
     }
     
+    /// Remove the private ID object data stored in the keychain with the associated key
+    func removePrivateIdObjectData(key: String) {
+        _ = keychain.deleteKeychainItem(withKey: key)
+    }
+    
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         return keychain.store(key: id, value: privateKey, securedByPassword: pwHash)
@@ -134,6 +146,11 @@ class StorageManager: StorageManagerProtocol {
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error> {
         keychain.getValue(for: key, securedByPassword: pwHash)
         .mapError { $0 as Error }
+    }
+    
+    /// Remove the private encryptioni key stored in the keychain with the associated key
+    func removePrivateEncryptionKey(key: String) {
+        _ = keychain.deleteKeychainItem(withKey: key)
     }
     
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error> {
@@ -165,7 +182,7 @@ class StorageManager: StorageManagerProtocol {
             realm.delete(identityEntity)
         }
     }
-
+    
     // MARK: Account
     func getAccounts() -> [AccountDataType] {
         Array(realm.objects(AccountEntity.self))
@@ -198,6 +215,11 @@ class StorageManager: StorageManagerProtocol {
                     }
                 }
                 .mapError { $0 as Error }
+    }
+    
+    /// Remove the private account keys stored in the keychain with the associated key
+    func removePrivateAccountKeys(key: String) {
+        _ = keychain.deleteKeychainItem(withKey: key)
     }
 
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error> {

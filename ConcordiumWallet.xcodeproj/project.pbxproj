@@ -323,6 +323,10 @@
 		19C2EFC9AF9159B6494E2784 /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EA2F9FE8F1D50D0B91C6 /* ResourceRequest.swift */; };
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C2EEC7EFFF9C46A7786EF7 /* 4.1.2.RX_backend_accBalance.json */; };
+		218F329F2705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
+		218F32A02705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
+		218F32A12705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
+		218F32A22705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -1581,6 +1585,7 @@
 		19C2EFED051EE58467949EAA /* AddRecipientPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipientPresenter.swift; sourceTree = "<group>"; };
 		19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceArData.swift; sourceTree = "<group>"; };
 		2115AC660A6C4D41772258FE /* Pods-ConcordiumWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWallet.debug.xcconfig"; path = "Target Support Files/Pods-ConcordiumWallet/Pods-ConcordiumWallet.debug.xcconfig"; sourceTree = "<group>"; };
+		218F329E2705DBB800372BBD /* IdentityCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCreation.swift; sourceTree = "<group>"; };
 		22D9FDC5B2C0583E994FA513 /* Pods-StagingNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StagingNet.release.xcconfig"; path = "Target Support Files/Pods-StagingNet/Pods-StagingNet.release.xcconfig"; sourceTree = "<group>"; };
 		30C8CA551767D0F45977322A /* Pods-Mock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock.release.xcconfig"; path = "Target Support Files/Pods-Mock/Pods-Mock.release.xcconfig"; sourceTree = "<group>"; };
 		48408869D66A1B82DF5212C1 /* Pods-ProdTestNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdTestNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdTestNet/Pods-ProdTestNet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2553,6 +2558,7 @@
 				5211BAB5250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift */,
 				19C2EF5243F84FCCF235C733 /* SubmissionStatusEnum.swift */,
 				5211BAAB24FD2C1400EE1658 /* TransferType.swift */,
+				218F329E2705DBB800372BBD /* IdentityCreation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3529,6 +3535,7 @@
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
 				7F48C14D244DCD0B00997684 /* AccountConfirmedPresenter.swift in Sources */,
 				528EB74A255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
+				218F329F2705DBB800372BBD /* IdentityCreation.swift in Sources */,
 				7F48C266244E17D100997684 /* CredentialHolderInformation.swift in Sources */,
 				7F48C14E244DCD0B00997684 /* LoginInfoLabel.swift in Sources */,
 				7F48C26F244E17D100997684 /* IPInfoResponseElement.swift in Sources */,
@@ -4132,6 +4139,7 @@
 				19C2E61D1E74081C5F756486 /* RequestExportPasswordPresenter.swift in Sources */,
 				19C2EEC653BDB392DE9D4358 /* ImportCoordinator.swift in Sources */,
 				19C2E5B621E2EC29B0F0DF64 /* IdentityImporter.swift in Sources */,
+				218F32A12705DBB800372BBD /* IdentityCreation.swift in Sources */,
 				19C2EA98124549CBD3E4BA58 /* Importer.swift in Sources */,
 				52055F9225541AC80071F7CA /* AccountCardView.swift in Sources */,
 				19C2E94D72648CAFD27AF1BD /* ImportService.swift in Sources */,
@@ -4455,6 +4463,7 @@
 				19C2E63F49CE373C58B7CDB0 /* RequestExportPasswordPresenter.swift in Sources */,
 				19C2E9B036EA12997B62CBD3 /* ImportCoordinator.swift in Sources */,
 				19C2E1BF5A6D8D4042ADE751 /* IdentityImporter.swift in Sources */,
+				218F32A22705DBB800372BBD /* IdentityCreation.swift in Sources */,
 				19C2E76F1EB138481A96DE2C /* Importer.swift in Sources */,
 				52055F9325541AC80071F7CA /* AccountCardView.swift in Sources */,
 				19C2E39DDF7E80E640E8EEE5 /* ImportService.swift in Sources */,
@@ -4717,6 +4726,7 @@
 				07519F6D26FB23DE00F4E6E3 /* AddMemoViewController.swift in Sources */,
 				52CE0C7A250FFEC70018B5D1 /* Encrypted.swift in Sources */,
 				5211BAA824FD1D5100EE1658 /* Balance.swift in Sources */,
+				218F32A02705DBB800372BBD /* IdentityCreation.swift in Sources */,
 				642A293225FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F7F6D2A24A0986D0017B18F /* SingleLabelViewController.swift in Sources */,
