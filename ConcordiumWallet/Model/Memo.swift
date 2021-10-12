@@ -48,7 +48,8 @@ struct Memo: MemoDataType {
             return nil
         }
         
-        let decodedValueHex = Data(bytes: decodedValue.encode(), count: decodedValue.encode().count).hexDescription
+        let encodedDecodedValue = decodedValue.encode()
+        let decodedValueHex = Data(bytes: encodedDecodedValue, count: encodedDecodedValue.count).hexDescription
         
         if decodedValueHex == hex {
             self.displayValue = decodedValue
