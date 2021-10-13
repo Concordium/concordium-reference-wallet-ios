@@ -109,7 +109,8 @@ class TransactionsLoadingHandler {
                     // For balance type shielded, we only keep shielded transactions and the self transfers
                     if transaction.details.type != "encryptedAmountTransfer" &&
                         transaction.details.type != "transferToEncrypted" &&
-                        transaction.details.type != "transferToPublic"{
+                        transaction.details.type != "transferToPublic" &&
+                        transaction.details.type != "encryptedAmountTransferWithMemo" {
                         return false
                     }
                 }
