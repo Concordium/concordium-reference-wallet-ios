@@ -48,7 +48,6 @@ struct Memo: MemoDataType {
             return nil
         }
         
-        
         /// Since the SwiftCBOR cannot ensure that the entire input was decoded
         /// we double check it by comparing the hex value of a successfuly
         /// decoded hex which was yet again encoded and the original hex
