@@ -235,8 +235,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             ac.addAction(supportAction)
         } else {
             let copyAction = UIAlertAction(title: "identityfailed.copyreference".localized, style: .default) { [weak self] _ in
-                self?.showToast(withMessage: "general.copied".localized + " " + reference)
                 CopyPasterHelper.copy(string: supportMailBody)
+                self?.showToast(withMessage: "supportmail.copied".localized)
             }
             ac.message = "identityfailed.nomail.message".localized
             ac.addAction(copyAction)
