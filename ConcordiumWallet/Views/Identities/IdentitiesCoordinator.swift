@@ -70,7 +70,7 @@ class IdentitiesCoordinator: Coordinator {
                 
                 let copyReferenceWidgetPresenter = CopyReferenceWidgetPresenter(
                     delegate: self,
-                    copyableReference: reference
+                    reference: reference
                 )
                 
                 vc.centerWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)

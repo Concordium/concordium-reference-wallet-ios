@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 protocol CopyReferenceWidgetViewProtocol: AnyObject {
-    func showToast(with message: String)
+    func showToast()
 }
 
 class CopyReferenceWidgetFactory {
@@ -41,11 +41,11 @@ class CopyReferenceWidgetViewController: BaseViewController, CopyReferenceWidget
         presenter.view = self
         presenter.viewDidLoad()
         
-        label.text = String(format: "identityCreation.issuanceReference.text".localized, presenter.copyableReference)
+        label.text = String(format: "identityCreation.issuanceReference.text".localized, presenter.reference)
     }
     
-    func showToast(with message: String) {
-        showToast(withMessage: "general.copied".localized + " " + message)
+    func showToast() {
+        showToast(withMessage: "supportmail.copied".localized)
     }
     
     @IBAction func copyReferenceTapped(_ sender: Any) {
