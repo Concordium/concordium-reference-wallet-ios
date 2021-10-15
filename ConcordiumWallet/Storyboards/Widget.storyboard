@@ -112,9 +112,11 @@
                     </view>
                     <connections>
                         <outlet property="primaryBottomWidgetView" destination="GK3-MT-5uw" id="fYe-93-uan"/>
+                        <outlet property="primaryCenterWidgetHeightConstraint" destination="PRS-YN-VOG" id="2f2-le-99F"/>
                         <outlet property="primaryCenterWidgetView" destination="2xS-Jh-2qu" id="GpR-tN-ENs"/>
                         <outlet property="primaryLabel" destination="NiL-8j-zCN" id="92B-tb-x1X"/>
                         <outlet property="secondaryBottomWidgetView" destination="GLe-1u-vja" id="Dcv-XO-R2C"/>
+                        <outlet property="secondaryCenterWidgetHeightConstraint" destination="urq-Jg-eol" id="2LM-6G-OU1"/>
                         <outlet property="secondaryCenterWidgetView" destination="0MC-z0-MaV" id="swt-rN-Aap"/>
                         <outlet property="tertiaryLabel" destination="06x-77-SJM" id="VaU-Zt-DKR"/>
                         <outlet property="topWidgetView" destination="T7j-UB-FOn" id="NUe-aA-L9b"/>

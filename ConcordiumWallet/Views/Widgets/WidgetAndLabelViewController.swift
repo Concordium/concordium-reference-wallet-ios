@@ -13,7 +13,8 @@ class WidgetAndLabelViewController: BaseViewController, Storyboarded {
     @IBOutlet weak var topWidgetView: UIView!
     @IBOutlet weak var primaryBottomWidgetView: UIView!
     @IBOutlet weak var secondaryBottomWidgetView: UIView!
-
+    @IBOutlet weak var primaryCenterWidgetHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var secondaryCenterWidgetHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var primaryCenterWidgetView: UIView!
     @IBOutlet weak var secondaryCenterWidgetView: UIView!
     @IBOutlet weak var primaryLabel: UILabel!
@@ -56,10 +57,14 @@ class WidgetAndLabelViewController: BaseViewController, Storyboarded {
         
         if let primaryCenterWidget = primaryCenterWidget {
             add(child: primaryCenterWidget, inside: primaryCenterWidgetView)
+        } else {
+            primaryCenterWidgetHeightConstraint.constant = 0
         }
         
         if let secondaryCenterWidget = secondaryCenterWidget {
             add(child: secondaryCenterWidget, inside: secondaryCenterWidgetView)
+        } else {
+            secondaryCenterWidgetHeightConstraint.constant = 0
         }
     }
 }
