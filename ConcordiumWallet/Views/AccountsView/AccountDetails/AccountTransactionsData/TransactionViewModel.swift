@@ -89,34 +89,21 @@ extension TransactionViewModel {
                 source: transaction)
         } else {
             
-            let total: Int?
-            let shielded: Bool
+            let isEncryptedAmountTransfer = transaction.details.type == "encryptedAmountTransfer"
+            let isEncryptedAmountTransferWithMemo = transaction.details.type == "encryptedAmountTransferWithMemo"
+            let isShielded = isEncryptedAmountTransfer || isEncryptedAmountTransferWithMemo
             
-            if transaction.details.type == "encryptedAmountTransfer" || transaction.details.type == "encryptedAmountTransferWithMemo" {
-                if OriginTypeEnum.typeSelf != transaction.origin?.type,
-                   let decryptedAmount = encryptedAmountLookup(transaction.encrypted?.encryptedAmount) {
-                    total = decryptedAmount
-                    shielded = false
-                } else {
-                    total = Int(transaction.total ?? "0")
-                    shielded = true
-                }
-            } else {
-                total = Int(transaction.total ?? "0")
-                shielded = false
-            }
-
             self.init(
                 status: .finalized,
                 outcome: transaction.details.outcome,
                 cost: GTU(intValue: Int(transaction.cost ?? "0" ) ?? 0),
                 amount: (transaction.subtotal) != nil ? GTU(intValue: Int(transaction.subtotal ?? "0") ?? 0) : nil,
-                total: GTU(intValue: total ?? 0),
+                total: GTU(intValue: Int(transaction.total ?? "0") ?? 0),
                 title: title,
                 date: Date(timeIntervalSince1970: TimeInterval(transaction.blockTime ?? 0.0)),
                 memo: Memo(hex: transaction.details.memo),
                 details: TransactionDetailsViewModel(remoteTransactionData: transaction, account: account, recipientListLookup: recipientListLookup),
-                showCostAsShieleded: shielded,
+                showCostAsShieleded: isShielded,
                 source: transaction
             )
         }
