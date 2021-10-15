@@ -144,6 +144,14 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
         
         ac.addAction(continueAction)
         
+        let supportMailBody = String(
+            format: "supportmail.body".localized,
+            reference,
+            AppSettings.appVersion,
+            AppSettings.buildNumber,
+            AppSettings.iOSVersion
+        )
+        
         if MailHelper.canSendMail {
             let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
                 guard let self = self else { return }
@@ -153,21 +161,15 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
                     recipient: AppConstants.Support.identityProviderSupportMail,
                     ccRecipient: AppConstants.Support.concordiumSupportMail,
                     subject: String(format: "supportmail.subject".localized, reference),
-                    body: String(
-                        format: "supportmail.body".localized,
-                        reference,
-                        AppSettings.appVersion,
-                        AppSettings.buildNumber,
-                        AppSettings.iOSVersion
-                    )
+                    body: supportMailBody
                 )
             }
             ac.message = "identityfailed.message".localized
             ac.addAction(supportAction)
         } else {
             let copyAction = UIAlertAction(title: "identityfailed.copyreference".localized, style: .default) { [weak self] _ in
-                CopyPasterHelper.copy(string: reference)
                 self?.showToast(withMessage: "general.copied".localized + " " + reference)
+                CopyPasterHelper.copy(string: supportMailBody)
             }
             ac.message = "identityfailed.nomail.message".localized
             ac.addAction(copyAction)
