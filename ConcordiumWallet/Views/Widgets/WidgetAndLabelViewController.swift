@@ -14,14 +14,16 @@ class WidgetAndLabelViewController: BaseViewController, Storyboarded {
     @IBOutlet weak var primaryBottomWidgetView: UIView!
     @IBOutlet weak var secondaryBottomWidgetView: UIView!
 
-    @IBOutlet weak var centerWidgetView: UIView!
+    @IBOutlet weak var primaryCenterWidgetView: UIView!
+    @IBOutlet weak var secondaryCenterWidgetView: UIView!
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var tertiaryLabel: UILabel!
     
     var topWidget: UIViewController?
     var primaryBottomWidget: UIViewController?
     var secondaryBottomWidget: UIViewController?
-    var centerWidget: UIViewController?
+    var primaryCenterWidget: UIViewController?
+    var secondaryCenterWidget: UIViewController?
     var primaryLabelString: String?
     var primaryLabelErrorString: String?
     var secondaryLabelString: String?
@@ -52,8 +54,12 @@ class WidgetAndLabelViewController: BaseViewController, Storyboarded {
         
         tertiaryLabel.text = tertiaryLabelString
         
-        if let centerWidget = centerWidget {
-            add(child: centerWidget, inside: centerWidgetView)
+        if let primaryCenterWidget = primaryCenterWidget {
+            add(child: primaryCenterWidget, inside: primaryCenterWidgetView)
+        }
+        
+        if let secondaryCenterWidget = secondaryCenterWidget {
+            add(child: secondaryCenterWidget, inside: secondaryCenterWidgetView)
         }
     }
 }

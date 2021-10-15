@@ -67,18 +67,21 @@ class IdentitiesCoordinator: Coordinator {
             
             if let reference = identity.hashedIpStatusUrl {
                 vc.tertiaryLabelString = "identityCreation.automaticAccountRemoval.text".localized
-                
+                                
                 let copyReferenceWidgetPresenter = CopyReferenceWidgetPresenter(
                     delegate: self,
                     reference: reference
                 )
                 
-                vc.centerWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
+                vc.secondaryCenterWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
             }
             
             if MailHelper.canSendMail {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
                 vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
+            } else {
+                let copyReferenceInfoWidgetPresenter = CopyReferenceInfoWidgetPresenter()
+                vc.primaryCenterWidget = CopyReferenceInfoWidgetFactory.create(with: copyReferenceInfoWidgetPresenter)
             }
             
             topVc = vc
