@@ -66,4 +66,8 @@ struct AppSettings {
     }
     
     static var iOSVersion: String { UIDevice.current.systemVersion }
+    
+    static var buildNumber: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+    }
 }

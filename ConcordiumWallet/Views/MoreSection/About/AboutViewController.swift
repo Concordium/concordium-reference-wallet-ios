@@ -24,7 +24,7 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
             let version = AppSettings.appVersion
-            let buildNo = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+            let buildNo = AppSettings.buildNumber
             versionLabel.text = "\(version).\(buildNo)"
         }
     }
