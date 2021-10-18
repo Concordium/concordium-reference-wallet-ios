@@ -386,5 +386,8 @@ idiss@concordium.software";
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
 
+"supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
-"supportmail.body" = "Hi! My identity issuance failed. \n\n Here is my info: \n\n Issuance reference: \n %@ \n\n Mobile Wallet version: \n %@ \n\n Platform: \n\n iOS: %@";
+"supportmail.body" = "Hi! My identity issuance failed. \n\n Here is my info: \n\n Issuance reference: \n %@ \n\n Mobile Wallet version: \n %@ (%@) \n\n Platform: \n\n iOS: %@";
+
+"copyreference.info.text" = "You can copy the reference below, and then contact Notabene at concordium-idiss@notabene.id \n\n Optional: Add Concordium as CC via idiss@concordium.software";

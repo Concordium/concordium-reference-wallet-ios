@@ -29,7 +29,7 @@ protocol IdentitiesViewProtocol: ShowAlert {
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
 }
 
-class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, SupportMail {
+class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, SupportMail, ShowIdentityFailure {
 
     var presenter: IdentitiesPresenterProtocol
     private weak var updateTimer: Timer?
@@ -137,40 +137,7 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
     }
     
     func showIdentityFailed(reference: String, completion: @escaping () -> Void) {
-        let ac = UIAlertController(title: "identityfailed.title".localized, message: nil, preferredStyle: .alert)
-        let continueAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { _ in
-            completion()
-        }
-        
-        ac.addAction(continueAction)
-        
-        if MailHelper.canSendMail {
-            let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
-                guard let self = self else { return }
-                self.launchSupport(
-                    presenter: self,
-                    delegate: self,
-                    recipient: AppConstants.Support.identityProviderSupportMail,
-                    ccRecipient: AppConstants.Support.concordiumSupportMail,
-                    subject: String(format: "supportmail.subject".localized, reference),
-                    body: String(format: "supportmail.body".localized, reference, AppSettings.appVersion, AppSettings.iOSVersion)
-                )
-            }
-            ac.message = "identityfailed.message".localized
-            ac.addAction(supportAction)
-        } else {
-            let copyAction = UIAlertAction(title: "identityfailed.copyreference".localized, style: .default) { [weak self] _ in
-                CopyPasterHelper.copy(string: reference)
-                self?.showToast(withMessage: "general.copied".localized + " " + reference)
-            }
-            ac.message = "identityfailed.nomail.message".localized
-            ac.addAction(copyAction)
-        }
-        
-        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
-        ac.addAction(cancelAction)
-        
-        present(ac, animated: true)
+        showIdentityFailureAlert(reference: reference, completion: completion)
     }
 }
 

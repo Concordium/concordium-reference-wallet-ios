@@ -18,25 +18,33 @@ protocol CopyReferenceWidgetPresenterProtocol: AnyObject {
     var view: CopyReferenceWidgetViewProtocol? { get set }
     func viewDidLoad()
     func copyReferenceButtonTapped()
-    var copyableReference: String { get }
+    var reference: String { get }
 }
 
 class CopyReferenceWidgetPresenter: CopyReferenceWidgetPresenterProtocol {
     
     var view: CopyReferenceWidgetViewProtocol?
-    var copyableReference: String
     weak var delegate: CopyReferenceWidgetPresenterDelegate?
-
-    init(delegate: CopyReferenceWidgetPresenterDelegate, copyableReference: String) {
+    var reference: String
+        
+    init(delegate: CopyReferenceWidgetPresenterDelegate, reference: String) {
         self.delegate = delegate
-        self.copyableReference = copyableReference
+        self.reference = reference
     }
     
     func viewDidLoad() {}
     
     func copyReferenceButtonTapped() {
-        CopyPasterHelper.copy(string: copyableReference)
-        view?.showToast(with: copyableReference)
+        let supportMailBody = String(
+            format: "supportmail.body".localized,
+            reference,
+            AppSettings.appVersion,
+            AppSettings.buildNumber,
+            AppSettings.iOSVersion
+        )
+        
+        CopyPasterHelper.copy(string: supportMailBody)
+        view?.showToast()
         delegate?.copyReferenceWidgetDidCopyReference()
     }
 }
