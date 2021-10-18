@@ -65,6 +65,10 @@
 		075A4BBF2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BBD2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift */; };
 		075A4BC02719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BBD2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift */; };
 		075A4BC12719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BBD2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift */; };
+		075A4BC3271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */; };
+		075A4BC4271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */; };
+		075A4BC5271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */; };
+		075A4BC6271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */; };
 		07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
 		07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619A80269C810B009B79E2 /* Digest+Additions.swift */; };
@@ -1466,6 +1470,7 @@
 		07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingProtocol.swift; sourceTree = "<group>"; };
 		075A4BB82719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyReferenceInfoWidgetPresenter.swift; sourceTree = "<group>"; };
 		075A4BBD2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyReferenceInfoWidgetViewController.swift; sourceTree = "<group>"; };
+		075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowIdentityFailureProtocol.swift; sourceTree = "<group>"; };
 		07619A80269C810B009B79E2 /* Digest+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest+Additions.swift"; sourceTree = "<group>"; };
 		07619A90269D83D9009B79E2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		077AC5E926E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSupportButtonWidgetPresenter.swift; sourceTree = "<group>"; };
@@ -2735,6 +2740,7 @@
 				19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */,
 				079F310626EB69DD00ED96D3 /* SettingsHelper.swift */,
 				C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */,
+				075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */,
 				19C2EB40B942873B4D0E2288 /* ShowToastProtocol.swift */,
 				19C2ED4F802767556C4ABBE9 /* SingleSection.swift */,
 				7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */,
@@ -3543,6 +3549,7 @@
 				7F48C146244DCD0B00997684 /* ScanAddressQRPresenter.swift in Sources */,
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
 				7F48C148244DCD0B00997684 /* MainTabBarController.swift in Sources */,
+				075A4BC3271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
 				1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
@@ -3971,6 +3978,7 @@
 				7F85B750246A9A7C00ED09B8 /* AccountsCoordinator.swift in Sources */,
 				7F85B751246A9A7C00ED09B8 /* MobileWalletFacade.swift in Sources */,
 				07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */,
+				075A4BC5271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F85B752246A9A7C00ED09B8 /* MobileWallet.swift in Sources */,
 				5237188125753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				7F7F6D3124A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
@@ -4297,6 +4305,7 @@
 				7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */,
 				7F85B84F246A9AB600ED09B8 /* AccountsCoordinator.swift in Sources */,
 				07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */,
+				075A4BC6271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F85B850246A9AB600ED09B8 /* MobileWalletFacade.swift in Sources */,
 				5237188225753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				7F7F6D3224A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
@@ -4511,6 +4520,7 @@
 				64DB66D225DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				C93D092D242762440022250B /* CreationFailedPresenter.swift in Sources */,
 				07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
+				075A4BC4271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F21399824236ECB00D2A5C4 /* SubmissionStatus.swift in Sources */,
 				C93D092724275C5A0022250B /* AccountConfirmedPresenter.swift in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
