@@ -101,15 +101,20 @@ class TransactionsLoadingHandler {
             filteredRawTransactions = rawTransactions.filter { (transaction) -> Bool in
                 if balanceType == .balance {
                      // For balance type balance, we only remove incoming shielded transactions
-                    if transaction.details.type == "encryptedAmountTransfer" &&
-                        transaction.origin?.type != OriginTypeEnum.typeSelf {
+                    let incomingEncrypted = transaction.details.type == "encryptedAmountTransfer"
+                        && transaction.origin?.type != OriginTypeEnum.typeSelf
+                    let incomingEncryptedWithMemo = transaction.details.type == "encryptedAmountTransferWithMemo"
+                        && transaction.origin?.type != OriginTypeEnum.typeSelf
+
+                    if incomingEncrypted || incomingEncryptedWithMemo {
                         return false
                     }
                 } else if balanceType == .shielded {
                     // For balance type shielded, we only keep shielded transactions and the self transfers
                     if transaction.details.type != "encryptedAmountTransfer" &&
+                        transaction.details.type != "encryptedAmountTransferWithMemo" &&
                         transaction.details.type != "transferToEncrypted" &&
-                        transaction.details.type != "transferToPublic"{
+                        transaction.details.type != "transferToPublic" {
                         return false
                     }
                 }
