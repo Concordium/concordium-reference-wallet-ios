@@ -24,7 +24,7 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
             preferredStyle: .alert
         )
         
-        let tryAgainAction = UIAlertAction(title: "identityfailed.tryagain", style: .default) { _ in
+        let tryAgainAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { _ in
             completion()
         }
         
@@ -39,7 +39,7 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
         )
         
         if MailHelper.canSendMail {
-            let supportAction = UIAlertAction(title: "identityfailed.contactsupport", style: .default) { [weak self] _ in
+            let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
                 guard let self = self else { return }
 
                 self.launchSupport(

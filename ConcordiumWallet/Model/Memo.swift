@@ -42,20 +42,19 @@ struct Memo: MemoDataType {
     init?(hex: String?) {
         guard
             let hex = hex,
-            let data = Data(hex: hex),
-            case .utf8String(let decodedValue) = try? CBOR.decode(data.bytes)
+            let data = Data(hex: hex)
         else {
             return nil
         }
         
-        /// Since the SwiftCBOR cannot ensure that the entire input was decoded
-        /// we double check it by comparing the hex value of a successfuly
-        /// decoded hex which was yet again encoded and the original hex
-        let encodedDecodedValue = decodedValue.encode()
-        let decodedValueHex = Data(bytes: encodedDecodedValue, count: encodedDecodedValue.count).hexDescription
-        
-        if decodedValueHex == hex {
-            self.displayValue = decodedValue
+        if case .utf8String(let decodedValue) = try? CBOR.decode(data.bytes) {
+            /// Since the SwiftCBOR cannot ensure that the entire input was decoded
+            /// we double check it by comparing the hex value of a successfuly
+            /// decoded hex which was yet again encoded and the original hex
+            let encodedDecodedValue = decodedValue.encode()
+            let decodedValueHex = Data(bytes: encodedDecodedValue, count: encodedDecodedValue.count).hexDescription
+            let displayValue = decodedValueHex == hex ? decodedValue : hex
+            self.displayValue = displayValue
         } else {
             self.displayValue = hex
         }
