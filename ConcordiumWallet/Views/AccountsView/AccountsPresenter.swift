@@ -127,12 +127,14 @@ protocol AccountsPresenterDelegate: AnyObject {
     func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum)
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
+    func didSelectMakeBackup()
 }
 
 // MARK: View
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
+    func showAccountFinalized(accountName: String)
 }
 
 protocol AccountsPresenterProtocol: AnyObject {
@@ -145,6 +147,7 @@ protocol AccountsPresenterProtocol: AnyObject {
     func userPressedCreate()
     func userSelected(accountIndex: Int, balanceIndex: Int)
     func toggleExpand(accountIndex: Int)
+    func userSelectedMakeBackup()
 }
 
 class AccountsPresenter: AccountsPresenterProtocol {
@@ -153,7 +156,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
     private var cancellables: [AnyCancellable] = []
     
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    private var latestAccountList: [AccountDataType] = []
     
     var accounts: [AccountDataType] = [] {
         didSet {
@@ -184,10 +186,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func viewWillAppear() {
         refresh(showLoadingIndicator: true)
+        checkPendingAccountsStatusesIfNeeded()
     }
     
     func refresh() {
         refresh(showLoadingIndicator: false)
+        checkPendingAccountsStatusesIfNeeded()
     }
     
     func refresh(showLoadingIndicator: Bool) {
@@ -207,7 +211,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 // Sort by created time and with readonly accounts at the end of the list.
                 let updatedAccounts = $0.sorted { $0.createdTime < $1.createdTime }.sorted { !$0.isReadOnly && $1.isReadOnly }
                 self.accounts = updatedAccounts
-                // self.latestAccountList = updatedAccounts
+                
+                self.identifyPendingAccounts(updatedAccounts: updatedAccounts)
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
                 let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance + $1.forecastEncryptedBalance })
@@ -220,6 +225,56 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.viewModel.staked = GTU(intValue: staked)
                 self.checkForIdentityFailed()
             }).store(in: &cancellables)
+    }
+    
+    private func checkPendingAccountsStatusesIfNeeded() {
+        let pendingAccountsAddresses = dependencyProvider.storageManager().getPendingAccountsAddresses()
+        
+        guard !pendingAccountsAddresses.isEmpty else { return }
+        
+        var pendingAccounts: [AccountDataType] = []
+        
+        for address in pendingAccountsAddresses {
+            guard let account = dependencyProvider.storageManager().getAccount(withAddress: address) else { return }
+            pendingAccounts.append(account)
+        }
+        
+        for account in pendingAccounts {
+            if account.submissionId != "" {
+                dependencyProvider.accountsService()
+                    .getState(for: account)
+                    .sink(receiveError: { _ in },
+                          receiveValue: { [weak self] state in
+                            guard state == .finalized else { return }
+                            self?.markPendingAccountAsFinalized(account: account)
+                          })
+                    .store(in: &cancellables)
+            } else {
+                dependencyProvider.identitiesService()
+                    .getInitialAccountStatus(for: account)
+                    .sink(receiveError: { _ in },
+                          receiveValue: { [weak self] state in
+                            guard state == .finalized else { return }
+                            self?.markPendingAccountAsFinalized(account: account)
+                          })
+                    .store(in: &cancellables)
+            }
+        }
+    }
+    
+    private func markPendingAccountAsFinalized(account: AccountDataType) {
+        dependencyProvider.storageManager().removePendingAccount(with: account.address)
+        print("🚀🚀🚀🚀🚀🚀🚀 FINALIZED \(account.address) 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀")
+        //TODO: remove from pending also when it fails
+        view?.showAccountFinalized(accountName: account.name ?? "")
+    }
+    
+    private func identifyPendingAccounts(updatedAccounts: [AccountDataType]) {
+        let pendingAccounts = updatedAccounts
+            .filter { $0.transactionStatus == .committed || $0.transactionStatus == .received }
+            .map { $0.address }
+        
+        pendingAccounts.forEach { dependencyProvider.storageManager().storePendingAccount(with: $0 ) }
     }
     
     private func checkForIdentityFailed() {
@@ -291,5 +346,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
             accountVM.isExpanded = !accountVM.isExpanded
             accountVM.expandedChanged.send(accountVM.isExpanded)
         }
+    }
+    
+    func userSelectedMakeBackup() {
+        delegate?.didSelectMakeBackup()
     }
 }

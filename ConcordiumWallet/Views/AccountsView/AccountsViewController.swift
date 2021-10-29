@@ -19,7 +19,6 @@ class AccountsFactory {
 }
 
 class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail, ShowIdentityFailure {
-
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
     
@@ -199,6 +198,19 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
         .assign(to: \.isHidden, on: lockView)
         .store(in: &cancellables)
+    }
+    
+    func showAccountFinalized(accountName: String) {
+        let alert = RecoverableAlert(
+            title: "accountfinalized.alert.title".localized,
+            message: String(format: "accountfinalized.alert.message".localized, accountName),
+            actionTitle: "accountfinalized.alert.action.backup".localized,
+            okButton: true
+        )
+        
+        showRecoverableAlert(alert) { [weak self] in
+            self?.presenter?.userSelectedMakeBackup()
+        }
     }
 
     func showIdentityFailed(reference: String, completion: @escaping () -> Void) {

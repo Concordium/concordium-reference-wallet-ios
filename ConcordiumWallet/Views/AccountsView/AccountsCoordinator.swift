@@ -52,9 +52,18 @@ class AccountsCoordinator: Coordinator {
         childCoordinators.append(accountDetailsCoordinator)
         accountDetailsCoordinator.start()
     }
+    
+    func showExport() {
+       ///
+    }
+    
 }
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
+    func didSelectMakeBackup() {
+        showExport()
+    }
+    
     func createNewAccount() {
         delegate?.createNewAccount()
     }
