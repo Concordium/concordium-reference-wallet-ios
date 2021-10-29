@@ -64,6 +64,10 @@ protocol StorageManagerProtocol {
     func removeUnfinishedAccounts()
     func removeAccountsWithoutAddress()
     func removeUnfinishedAccountsAndRelatedIdentities()
+    
+    func getPendingAccountsAddresses() -> [String]
+    func storePendingAccount(with address: String)
+    func removePendingAccount(with address: String)
 }
 
 enum StorageError: Error {
@@ -432,5 +436,37 @@ class StorageManager: StorageManagerProtocol {
                 removeIdentity(identity)
             }
         }
+    }
+    
+    func getPendingAccountsAddresses() -> [String] {
+        let key = UserDefaultKeys.pendingAccount.rawValue
+
+        guard let pendingAccountsAddresses = UserDefaults.standard.stringArray(forKey: key) else {
+            return []
+        }
+        
+        return pendingAccountsAddresses
+    }
+    
+    func storePendingAccount(with address: String) {
+        let key = UserDefaultKeys.pendingAccount.rawValue
+        
+        if var pendingAccounts = UserDefaults.standard.stringArray(forKey: key) {
+            pendingAccounts.append(address)
+            UserDefaults.standard.set(pendingAccounts, forKey: key)
+        } else {
+            UserDefaults.standard.set([address], forKey: key)
+        }
+    }
+    
+    func removePendingAccount(with address: String) {
+        let key = UserDefaultKeys.pendingAccount.rawValue
+        
+        guard var pendingAccounts = UserDefaults.standard.stringArray(forKey: key) else {
+            return
+        }
+        
+        pendingAccounts.removeAll(where: { $0 == address })
+        UserDefaults.standard.set(pendingAccounts, forKey: key)
     }
 }
