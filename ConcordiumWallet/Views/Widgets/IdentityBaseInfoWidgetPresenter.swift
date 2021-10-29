@@ -31,7 +31,7 @@ struct IdentityDetailsInfoViewModel {
             title: "identitySubmitted.alert.title".localized,
             message: "identitySubmitted.alert.message".localized,
             actionTitle: "ok".localized,
-            okButton: false
+            okButton: nil
         )
         
         switch identity.state {
