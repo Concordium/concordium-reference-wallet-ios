@@ -250,6 +250,9 @@ class StorageManager: StorageManagerProtocol {
         guard let accountEntity = account as? AccountEntity else {
             return
         }
+        
+        removePendingAccount(with: accountEntity.address)
+
         try? realm.write {
             realm.delete(accountEntity)
         }

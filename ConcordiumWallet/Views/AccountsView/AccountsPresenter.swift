@@ -264,8 +264,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)
-        print("🚀🚀🚀🚀🚀🚀🚀 FINALIZED \(account.address) 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀")
-        //TODO: remove from pending also when it fails
         view?.showAccountFinalized(accountName: account.name ?? "")
     }
     
