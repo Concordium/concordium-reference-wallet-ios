@@ -13,6 +13,7 @@ struct RecoverableAlert {
     let title: String?
     let message: String?
     let actionTitle: String?
+    let okButton: Bool?
 }
 
 protocol ShowAlert: AnyObject {
@@ -67,6 +68,11 @@ extension ShowAlert where Self: UIViewController {
         }
         
         alert.addAction(action)
+        
+        if recovarableAlert.okButton != nil {
+            let okAction = UIAlertAction(title: "ok".localized, style: .default)
+            alert.addAction(okAction)
+        }
         
         present(alert, animated: true)
     }
@@ -134,6 +140,11 @@ extension ShowAlert where Self: Coordinator {
         }
         
         alert.addAction(action)
+        
+        if recovarableAlert.okButton != nil {
+            let okAction = UIAlertAction(title: "ok".localized, style: .default)
+            alert.addAction(okAction)
+        }
         
         navigationController.present(alert, animated: true)
     }

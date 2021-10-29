@@ -30,7 +30,8 @@ struct IdentityDetailsInfoViewModel {
         self.recoverableAlert = RecoverableAlert(
             title: "identitySubmitted.alert.title".localized,
             message: "identitySubmitted.alert.message".localized,
-            actionTitle: "ok".localized
+            actionTitle: "ok".localized,
+            okButton: false
         )
         
         switch identity.state {
