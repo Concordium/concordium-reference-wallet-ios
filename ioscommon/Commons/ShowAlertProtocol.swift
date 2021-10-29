@@ -69,7 +69,7 @@ extension ShowAlert where Self: UIViewController {
         
         alert.addAction(action)
         
-        if recovarableAlert.okButton != nil {
+        if let okButton = recovarableAlert.okButton, okButton {
             let okAction = UIAlertAction(title: "ok".localized, style: .default)
             alert.addAction(okAction)
         }
@@ -141,7 +141,7 @@ extension ShowAlert where Self: Coordinator {
         
         alert.addAction(action)
         
-        if recovarableAlert.okButton != nil {
+        if let okButton = recovarableAlert.okButton, okButton {
             let okAction = UIAlertAction(title: "ok".localized, style: .default)
             alert.addAction(okAction)
         }
