@@ -144,7 +144,7 @@ struct KeychainWrapper {
 
         let access: SecAccessControl?
         if let password = password {
-            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .applicationPassword, nil)
+            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlocked, .applicationPassword, nil)
 
             let localAuthenticationContext = LAContext()
             let theApplicationPassword = password.data(using: .utf8)
@@ -155,7 +155,7 @@ struct KeychainWrapper {
             query[kSecUseAuthenticationContext as String] = localAuthenticationContext
             #endif
         } else {
-            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .biometryCurrentSet, nil)
+            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlocked, .biometryCurrentSet, nil)
         }
         query[kSecAttrAccessControl as String] = access as AnyObject?
 
@@ -176,7 +176,7 @@ struct KeychainWrapper {
 
         let access: SecAccessControl?
         if let password = password {
-            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .applicationPassword, nil)
+            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlocked, .applicationPassword, nil)
 
             let localAuthenticationContext = LAContext()
             let theApplicationPassword = password.data(using: .utf8)
@@ -191,7 +191,7 @@ struct KeychainWrapper {
             let pwType = AppSettings.passwordType?.rawValue ?? PasswordType.passcode.rawValue
             localAuthenticationContext.localizedCancelTitle = "keychain.popup.button.enter\(pwType)".localized
             query[kSecUseAuthenticationContext as String] = localAuthenticationContext
-            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .biometryCurrentSet, nil)
+            access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlocked, .biometryCurrentSet, nil)
         }
 
         query[kSecAttrAccessControl as String] = access as AnyObject?
