@@ -15,35 +15,32 @@ extension RequestPasswordDelegate where Self: Coordinator {
         let requestPasswordPresenter = RequestPasswordPresenter(keychain: keychain)
         var modalPasswordVCShown = false
 
+        let enterPasswordController = EnterPasswordFactory.create(with: requestPasswordPresenter)
+        let enterPasswordTransperantController = TransparentNavigationController()
+        enterPasswordTransperantController.modalPresentationStyle = .fullScreen
+        enterPasswordTransperantController.viewControllers = [enterPasswordController]
+
         requestPasswordPresenter.performBiometricLogin(fallback: { [weak self] in
-            self?.show(requestPasswordPresenter)
+            self?.navigationController.present(enterPasswordTransperantController, animated: true)
             modalPasswordVCShown = true
         })
 
-        let cleanup: (Result<String, Error>) -> Future<String, Error> = { [weak self] result in
-                    let future = Future<String, Error> { promise in
-                        if modalPasswordVCShown {
-                            self?.navigationController.dismiss(animated: true) {
-                                promise(result)
-                            }
-                        } else { 
-                            promise(result)
-                        }
+        let cleanup: (Result<String, Error>) -> Future<String, Error> = { result in
+            let future = Future<String, Error> { promise in
+                if modalPasswordVCShown {
+                    enterPasswordTransperantController.dismiss(animated: true) {
+                        promise(result)
                     }
-                    return future
+                } else {
+                    promise(result)
                 }
+            }
+            return future
+        }
 
         return requestPasswordPresenter.passwordPublisher
-                .flatMap { cleanup(.success($0)) }
-                .catch { cleanup(.failure($0)) }
-                .eraseToAnyPublisher()
-    }
-
-    private func show(_ presenter: RequestPasswordPresenter) {
-        let vc = EnterPasswordFactory.create(with: presenter)
-        let nc = TransparentNavigationController()
-        nc.modalPresentationStyle = .fullScreen
-        nc.viewControllers = [vc]
-        self.navigationController.present(nc, animated: true)
+            .flatMap { cleanup(.success($0)) }
+            .catch { cleanup(.failure($0)) }
+            .eraseToAnyPublisher()
     }
 }
