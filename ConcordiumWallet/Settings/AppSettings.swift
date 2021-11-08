@@ -16,6 +16,7 @@ enum UserDefaultKeys: String {
     case biometricsEnabled
     case passwordChangeInProgress
     case dontShowMemoAlertWarning
+    case pendingAccount
 }
 
 struct AppSettings {

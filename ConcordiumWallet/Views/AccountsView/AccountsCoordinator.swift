@@ -6,6 +6,7 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
+import Combine
 import Foundation
 import UIKit
 
@@ -52,9 +53,34 @@ class AccountsCoordinator: Coordinator {
         childCoordinators.append(accountDetailsCoordinator)
         accountDetailsCoordinator.start()
     }
+    
+    func showExport() {
+        let vc = ExportFactory.create(with: ExportPresenter(
+            dependencyProvider: ServicesProvider.defaultProvider(),
+            requestPasswordDelegate: self,
+            delegate: self
+        ))
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func showCreateExportPassword() -> AnyPublisher<String, Error> {
+        let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(
+            navigationController: TransparentNavigationController(),
+            dependencyProvider: ServicesProvider.defaultProvider()
+        )
+        self.childCoordinators.append(selectExportPasswordCoordinator)
+        selectExportPasswordCoordinator.navigationController.modalPresentationStyle = .fullScreen
+        selectExportPasswordCoordinator.start()
+        navigationController.present(selectExportPasswordCoordinator.navigationController, animated: true)
+        return selectExportPasswordCoordinator.passwordPublisher.eraseToAnyPublisher()
+    }
 }
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
+    func didSelectMakeBackup() {
+        showExport()
+    }
+    
     func createNewAccount() {
         delegate?.createNewAccount()
     }
@@ -100,6 +126,44 @@ extension AccountsCoordinator: AccountDetailsDelegate {
     }
 
     func accountRemoved() {
+        navigationController.popViewController(animated: true)
+    }
+}
+
+extension AccountsCoordinator: RequestPasswordDelegate { }
+
+extension AccountsCoordinator: ExportPresenterDelegate {
+    func createExportPassword() -> AnyPublisher<String, Error> {
+        let cleanup: (Result<String, Error>) -> Future<String, Error> = { [weak self] result in
+                    let future = Future<String, Error> { promise in
+                        self?.navigationController.dismiss(animated: true) {
+                            promise(result)
+                        }
+                        self?.childCoordinators.removeAll { coordinator in
+                            coordinator is CreateExportPasswordCoordinator
+                        }
+                    }
+                    return future
+                }
+        return showCreateExportPassword()
+                .flatMap { cleanup(.success($0)) }
+                .catch { cleanup(.failure($0)) }
+                .eraseToAnyPublisher()
+    }
+
+    func shareExportedFile(url: URL, completion: @escaping () -> Void) {
+        let vc = UIActivityViewController(activityItems: [url], applicationActivities: [])
+        vc.completionWithItemsHandler = { exportActivityType, completed, _, _ in
+            // exportActivityType == nil means that the user pressed the close button on the share sheet
+            if completed || exportActivityType == nil {
+                completion()
+                self.exportFinished()
+            }
+        }
+        self.navigationController.present(vc, animated: true)
+    }
+    
+    func exportFinished() {
         navigationController.popViewController(animated: true)
     }
 }

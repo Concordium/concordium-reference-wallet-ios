@@ -391,3 +391,8 @@ idiss@concordium.software";
 "supportmail.body" = "Hi! My identity issuance failed.\n\nHere is my info:\n\nIssuance reference:\n%@\n\nMobile Wallet version:\n%@ (%@) \n\nPlatform:\n\niOS: %@";
 
 "copyreference.info.text" = "You can copy the reference below, and then contact Notabene at concordium-idiss@notabene.id \n\n Optional: Add Concordium as CC via idiss@concordium.software";
+
+"accountfinalized.alert.title" = "Your new account is ready!";
+"accountfinalized.alert.message" = "Your new account %@ has finalized, and is now ready for use.\n\nWe recommend keeping a back-up of all accounts. You can make one now below, or later via the More page.\n\nRemember to store your back-up securely.";
+"accountfinalized.alert.action.backup" = "Make back-up";
+
