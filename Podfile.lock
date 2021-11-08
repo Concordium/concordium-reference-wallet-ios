@@ -44,16 +44,10 @@ PODS:
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/Tabs (124.2.0):
+  - "MaterialComponents/Tabs+TabBarView (124.2.0)":
     - MaterialComponents/AnimationTiming
-    - MaterialComponents/Elevation
-    - MaterialComponents/Ink
-    - MaterialComponents/Palettes
     - MaterialComponents/private/Math
     - MaterialComponents/Ripple
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/Typography
     - MDFInternationalization
   - MaterialComponents/TextFields (124.2.0):
     - MaterialComponents/AnimationTiming
@@ -77,7 +71,7 @@ PODS:
   - SwiftCBOR (0.4.4)
 
 DEPENDENCIES:
-  - MaterialComponents/Tabs (= 124.2.0)
+  - "MaterialComponents/Tabs+TabBarView (= 124.2.0)"
   - MaterialComponents/TextFields (= 124.2.0)
   - RealmSwift (= 10.7.6)
   - SwiftCBOR (= 0.4.4)
@@ -99,6 +93,6 @@ SPEC CHECKSUMS:
   RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
   SwiftCBOR: ce5354ec8b660da2d6fc754462881119dbe1f963
 
-PODFILE CHECKSUM: bd93dddf71cfbba94ff1d484cf5dd97a703f51c9
+PODFILE CHECKSUM: 4c1cfd17ce7eb9e0bf9ebd10dd2dbd4daf82306b
 
 COCOAPODS: 1.10.1

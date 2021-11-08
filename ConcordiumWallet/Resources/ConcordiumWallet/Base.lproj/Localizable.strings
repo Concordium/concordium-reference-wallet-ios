@@ -332,6 +332,10 @@ process on-chain.";
 "accountDetails.testnetGtuDropTitle" = "TESTNET GTU DROP";
 "accountDetails.testnetGtuDropMessage" = "On the Concordium Testnet, you can request 2000GTU to be deposited to an account to get you started";
 "accountDetails.testnetGtuDropButtonTitle" = "Request 2000 GTU";
+"accountDetails.transfers" = "Transfers";
+"accountDetails.identity_data" = "Identity data";
+
+
 
 "identityData.title" = "Identity";
 "accountConfirmed.title" = "New account";
