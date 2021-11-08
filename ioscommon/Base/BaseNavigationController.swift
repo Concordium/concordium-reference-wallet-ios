@@ -14,13 +14,7 @@ class BaseNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationBar.barTintColor = UIColor.barBackground
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.text,
-                                                                  NSAttributedString.Key.font: Fonts.navigationBarTitle]
-        navigationBar.tintColor = UIColor.barButton
-        navigationBar.isTranslucent = false
-        navigationBar.shadowImage = UIImage()
+        setupBaseNavigationControllerStyle()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -31,11 +25,17 @@ class BaseNavigationController: UINavigationController {
 
 extension UINavigationController {
     func setupBaseNavigationControllerStyle() {
-        navigationBar.barTintColor = UIColor.barBackground
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.text,
-                                                                  NSAttributedString.Key.font: Fonts.navigationBarTitle]
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .barBackground
+        appearance.shadowColor = .clear
+        appearance.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.text,
+            NSAttributedString.Key.font: Fonts.navigationBarTitle
+        ]
+
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
         navigationBar.tintColor = UIColor.barButton
-        navigationBar.isTranslucent = false
-        navigationBar.shadowImage = UIImage()
     }
 }

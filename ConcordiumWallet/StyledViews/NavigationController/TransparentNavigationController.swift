@@ -8,15 +8,19 @@
 import UIKit
 
 class TransparentNavigationController: BaseNavigationController {
-
     override func viewDidLoad() {
-        navigationBar.barTintColor = .clear
-        navigationBar.isTranslucent = true
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.buttonText,
+            NSAttributedString.Key.font: Fonts.navigationBarTitle
+        ]
+
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+
         view.backgroundColor = .clear
-        navigationBar.shadowImage = UIImage()
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.buttonText,
-                                             NSAttributedString.Key.font: Fonts.navigationBarTitle]
         statusBarStyle = .lightContent
     }
+
 }
