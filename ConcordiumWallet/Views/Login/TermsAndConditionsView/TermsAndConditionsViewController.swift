@@ -128,6 +128,8 @@ extension TermsAndConditionsViewController {
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms34.details".localized, attributes: detailsAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms35.title".localized, attributes: titleAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms36.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms37.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms38.details".localized, attributes: detailsAttribute))
         return text
     }
 }
