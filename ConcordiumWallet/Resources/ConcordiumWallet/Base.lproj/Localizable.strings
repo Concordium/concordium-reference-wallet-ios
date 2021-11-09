@@ -359,7 +359,7 @@ process on-chain.";
 "privacypolicy" = "Privacy Policy";
 
 "revealattributes.title" = "Reveal Identity Data?";
-"revealattributes.details" = "You can choose to reveal a range of attributes on your account, e.g. your name and country of residence. This is not necessary, and you can choose to reveal no attributes at all.";
+"revealattributes.details" = "You can choose to reveal a range of attributes on your account, e.g. your country of residence. Revealing attributes means that the information will be public on the Concordium blockchain, and that it cannot be hidden or deleted again. \n\n If you have no good reason for revealing attributes, we strongly recommend not revealing any.";
 "revealattributes.submitAccount" = "Submit account";
 "revealattributes.selectAttributes"= "Reveal account attributes";
 
