@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -23,7 +23,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="222" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="396" height="222"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="396" height="222"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
                                             <rect key="frame" x="0.0" y="0.0" width="396" height="222"/>
@@ -274,25 +274,35 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15M-Ua-Emb">
                                                 <rect key="frame" x="0.0" y="668" width="428" height="70"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="[Account name]" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kIE-QZ-JCK" customClass="MDCTextField">
-                                                        <rect key="frame" x="20" y="10" width="388" height="50"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="[Account name]" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kIE-QZ-JCK">
+                                                        <rect key="frame" x="20" y="20" width="388" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="6Eu-ge-2VZ"/>
+                                                            <constraint firstAttribute="height" constant="30" id="6Eu-ge-2VZ"/>
                                                         </constraints>
                                                         <color key="textColor" name="text"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="fj0-OD-w69" id="6al-n5-osO"/>
                                                         </connections>
                                                     </textField>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGG-Ei-uo8" userLabel="Separator">
+                                                        <rect key="frame" x="20" y="51" width="388" height="1"/>
+                                                        <color key="backgroundColor" systemColor="separatorColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="nrm-7l-xrL"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="kIE-QZ-JCK" firstAttribute="centerX" secondItem="15M-Ua-Emb" secondAttribute="centerX" id="JkI-5b-s0Y"/>
+                                                    <constraint firstItem="qGG-Ei-uo8" firstAttribute="top" secondItem="kIE-QZ-JCK" secondAttribute="bottom" constant="1" id="Yfw-fG-ZWi"/>
                                                     <constraint firstItem="kIE-QZ-JCK" firstAttribute="centerY" secondItem="15M-Ua-Emb" secondAttribute="centerY" id="daA-eV-xtu"/>
                                                     <constraint firstItem="kIE-QZ-JCK" firstAttribute="leading" secondItem="15M-Ua-Emb" secondAttribute="leading" constant="20" id="lqV-Ag-rlX"/>
                                                     <constraint firstAttribute="height" constant="70" id="osq-LS-9U2"/>
+                                                    <constraint firstItem="qGG-Ei-uo8" firstAttribute="leading" secondItem="kIE-QZ-JCK" secondAttribute="leading" id="pm9-ld-FS8"/>
+                                                    <constraint firstItem="qGG-Ei-uo8" firstAttribute="trailing" secondItem="kIE-QZ-JCK" secondAttribute="trailing" id="taO-7t-Wnh"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89o-5w-snD" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
@@ -353,7 +363,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8jA-bR-8dg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="990" y="-69"/>
+            <point key="canvasLocation" x="989.71962616822429" y="-69.330453563714912"/>
         </scene>
         <!--Account Confirmed View Controller-->
         <scene sceneID="5op-1g-lt5">
@@ -852,7 +862,7 @@ process on-chain]</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NHy-rQ-sY3" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="396" height="314.66666666666669"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="aJK-2I-lDP" customClass="MDCTabBar">
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aJK-2I-lDP" customClass="MDCTabBarView">
                                                 <rect key="frame" x="0.0" y="5" width="396" height="48"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
@@ -1076,7 +1086,7 @@ process on-chain]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountDetailsIdentityDataCellView" rowHeight="80" id="DID-Eo-wIz" customClass="AccountDetailsIdentityDataCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DID-Eo-wIz" id="7UI-eK-aRK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -1140,7 +1150,7 @@ process on-chain]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTy-cs-fnn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5314" y="-259"/>
+            <point key="canvasLocation" x="5313.0841121495323" y="-259.17926565874734"/>
         </scene>
         <!--Transaction Detail View Controller-->
         <scene sceneID="8He-Cf-WMt">
@@ -1156,7 +1166,7 @@ process on-chain]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsDataCellView" rowHeight="80" id="Euu-RL-We6" customClass="AccountTransactionsDataCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="388" height="80"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="388" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Euu-RL-We6" id="GQu-kl-Qie">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="80"/>
@@ -1275,7 +1285,7 @@ process on-chain]</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.33333396911621" width="388" height="74"/>
+                                        <rect key="frame" x="0.0" y="124.66666603088379" width="388" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="74"/>
@@ -1316,7 +1326,7 @@ process on-chain]</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionDetailErrorCellView" id="Ubq-PL-GzE" customClass="TransactionDetailErrorCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="178.33333396911621" width="388" height="73.666664123535156"/>
+                                        <rect key="frame" x="0.0" y="198.66666603088379" width="388" height="73.666664123535156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ubq-PL-GzE" id="zFh-UA-huo">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="73.666664123535156"/>
@@ -1709,7 +1719,7 @@ process on-chain]</string>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReleaseScheduleCell" rowHeight="20" id="zNm-iU-GhF" customClass="ReleaseScheduleCell" customModule="Mock" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="81.333333969116211" width="388" height="20"/>
+                                                <rect key="frame" x="0.0" y="101.66666603088379" width="388" height="20"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zNm-iU-GhF" id="fD9-pg-VbV">
                                                     <rect key="frame" x="0.0" y="0.0" width="388" height="20"/>
@@ -1875,7 +1885,7 @@ process on-chain]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsDataCellView" id="I17-H0-RK7" customClass="AccountTransactionsDataCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I17-H0-RK7" id="ADe-Rq-wft">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -2001,7 +2011,7 @@ process on-chain]</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountTransactionsLoadingCell" id="blH-YO-rgR" customClass="AccountTransactionsLoadingCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.33333396911621" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="124.66666603088379" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="blH-YO-rgR" id="HgZ-h5-S5J">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -2159,9 +2169,6 @@ process on-chain]</string>
         <designable name="a9t-uc-NoB">
             <size key="intrinsicContentSize" width="152" height="30"/>
         </designable>
-        <designable name="aJK-2I-lDP">
-            <size key="intrinsicContentSize" width="-1" height="48"/>
-        </designable>
         <designable name="c2h-uj-ha8">
             <size key="intrinsicContentSize" width="244" height="30"/>
         </designable>
@@ -2217,6 +2224,9 @@ process on-chain]</string>
         <namedColor name="whiteText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

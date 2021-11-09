@@ -42,5 +42,3 @@ class CopyReferenceInfoWidgetViewController: BaseViewController, CopyReferenceIn
         label.text = "copyreference.info.text".localized
     }
 }
-
-

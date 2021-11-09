@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MaterialComponents
+import MaterialComponents.MaterialTabs_TabBarView
 import Combine
 
 class AccountDetailsFactory {
@@ -24,7 +24,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     var isShielded: Bool = false
     private weak var updateTimer: Timer?
     
-    @IBOutlet weak var detailsTabBar: MDCTabBar!
+    @IBOutlet weak var detailsTabBar: MDCTabBarView!
 
     @IBOutlet weak var retryCreateButton: StandardButton!
     @IBOutlet weak var removeLocalAccountButton: StandardButton!
@@ -257,18 +257,32 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 
 extension AccountDetailsViewController {
     func setupTabBar() {
+        let transfersTabBarItem = MDCTabBarItem(
+            title: "accountDetails.transfers".localized,
+            image: nil,
+            tag: 0
+        )
+
+        let identityDataTabBarItem = MDCTabBarItem(
+            title: "accountDetails.identity_data".localized,
+            image: nil, tag: 1
+        )
+
         detailsTabBar.items = [
-            UITabBarItem(title: "Transfers", image: nil, tag: 0),
-            UITabBarItem(title: "Identity data", image: nil, tag: 1)
+            transfersTabBarItem,
+            identityDataTabBarItem
         ]
-        detailsTabBar.itemAppearance = .titles
-        detailsTabBar.setAlignment(.justified, animated: true)
-        detailsTabBar.titleTextTransform = .none
+
+        detailsTabBar.preferredLayoutStyle = .fixed
+        detailsTabBar.setTitleColor(.primary, for: .selected)
+        detailsTabBar.setTitleColor(.text, for: .normal)
+        detailsTabBar.setTitleFont(Fonts.tabBar, for: .normal)
         detailsTabBar.tintColor = .primary
-        detailsTabBar.selectedItemTintColor = .primary
-        detailsTabBar.unselectedItemTintColor = .text
+        detailsTabBar.rippleColor = .clear
+        detailsTabBar.selectionIndicatorStrokeColor = .primary
+        detailsTabBar.setSelectedItem(transfersTabBarItem, animated: true)
         detailsTabBar.bottomDividerColor = UIColor.fadedText.withAlphaComponent(0.3)
-        detailsTabBar.delegate = self
+        detailsTabBar.tabBarDelegate = self
     }
 
     fileprivate func setupIdentityDataUI() {
@@ -375,8 +389,8 @@ extension AccountDetailsViewController {
     }
 }
 
-extension AccountDetailsViewController: MDCTabBarDelegate {
-    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
+extension AccountDetailsViewController: MDCTabBarViewDelegate {
+    func tabBarView(_ tabBarView: MDCTabBarView, didSelect item: UITabBarItem) {
         if item.tag == 0 {
             presenter.userSelectedTransfers()
         } else {

@@ -17,4 +17,5 @@ struct Fonts {
     static let info = UIFont.systemFont(ofSize: 16, weight: .bold)
     static let buttonTitle = UIFont.systemFont(ofSize: 17, weight: .regular)
     static let cellHeading = UIFont.systemFont(ofSize: 10, weight: .medium)
+    static let tabBar = UIFont.systemFont(ofSize: 14, weight: .medium)
 }
