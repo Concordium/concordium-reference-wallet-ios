@@ -130,7 +130,7 @@ add_identity_data = "Reveal Identity Data";
 
 "termsAndConditionsScreen.title" = "";
 "termsAndConditionsScreen.subtitle" = "Terms and conditions for Concordium Mobile Wallet";
-"termsAndConditionsScreen.terms1.title" = "Effective from May 15th 2021\n\nIntroduction\n\n";
+"termsAndConditionsScreen.terms1.title" = "Effective from November 10th 2021\n\nIntroduction\n\n";
 "termsAndConditionsScreen.terms2.details" = "Concordium Mobile Wallet is a digital wallet that is offered worldwide by Concordium Software ApS (‘Concordium Software’). At developer.concordium.software, you can read about how the app works. Concordium Software may continually change and/or adjust the functions of Concordium Mobile Wallet. Concordium Software’s terms and conditions apply to Concordium Mobile Wallet users worldwide.\n\nThe wallet will register and use data about you. Concordium Software will not register or use data about you.\n\n";
 "termsAndConditionsScreen.terms3.title" = "Terms and conditions for all services and functions\n\n";
 "termsAndConditionsScreen.terms4.subtitle" = "Parties to the agreement\n\n";
