@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MaterialComponents
+import MaterialComponents.MaterialTabs_TabBarView
 import Combine
 
 class AccountDetailsFactory {
