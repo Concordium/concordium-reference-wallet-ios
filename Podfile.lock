@@ -1,29 +1,6 @@
 PODS:
   - MaterialComponents/AnimationTiming (124.2.0)
   - MaterialComponents/Availability (124.2.0)
-  - MaterialComponents/Buttons (124.2.0):
-    - MaterialComponents/Elevation
-    - MaterialComponents/Ink
-    - MaterialComponents/private/Math
-    - MaterialComponents/Ripple
-    - MaterialComponents/Shadow
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/ShapeLibrary
-    - MaterialComponents/Shapes
-    - MaterialComponents/Typography
-    - MDFInternationalization
-    - MDFTextAccessibility
-  - MaterialComponents/Elevation (124.2.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/Ink (124.2.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/Palettes (124.2.0)
-  - MaterialComponents/private/Application (124.2.0)
   - MaterialComponents/private/Color (124.2.0):
     - MaterialComponents/Availability
   - MaterialComponents/private/Math (124.2.0)
@@ -32,37 +9,12 @@ PODS:
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Shadow (124.2.0):
-    - MaterialComponents/Availability
-  - MaterialComponents/ShadowElevations (124.2.0)
-  - MaterialComponents/ShadowLayer (124.2.0):
-    - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (124.2.0):
-    - MaterialComponents/private/Math
-    - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (124.2.0):
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowLayer
   - "MaterialComponents/Tabs+TabBarView (124.2.0)":
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Math
     - MaterialComponents/Ripple
     - MDFInternationalization
-  - MaterialComponents/TextFields (124.2.0):
-    - MaterialComponents/AnimationTiming
-    - MaterialComponents/Buttons
-    - MaterialComponents/Elevation
-    - MaterialComponents/Palettes
-    - MaterialComponents/private/Math
-    - MaterialComponents/Typography
-    - MDFInternationalization
-  - MaterialComponents/Typography (124.2.0):
-    - MaterialComponents/private/Application
-    - MaterialComponents/private/Math
-    - MDFTextAccessibility
   - MDFInternationalization (3.0.0)
-  - MDFTextAccessibility (2.0.1)
   - Realm (10.7.6):
     - Realm/Headers (= 10.7.6)
   - Realm/Headers (10.7.6)
@@ -72,7 +24,6 @@ PODS:
 
 DEPENDENCIES:
   - "MaterialComponents/Tabs+TabBarView (= 124.2.0)"
-  - MaterialComponents/TextFields (= 124.2.0)
   - RealmSwift (= 10.7.6)
   - SwiftCBOR (= 0.4.4)
 
@@ -80,7 +31,6 @@ SPEC REPOS:
   trunk:
     - MaterialComponents
     - MDFInternationalization
-    - MDFTextAccessibility
     - Realm
     - RealmSwift
     - SwiftCBOR
@@ -88,11 +38,10 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
-  MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
   RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
   SwiftCBOR: ce5354ec8b660da2d6fc754462881119dbe1f963
 
-PODFILE CHECKSUM: 4c1cfd17ce7eb9e0bf9ebd10dd2dbd4daf82306b
+PODFILE CHECKSUM: b4625e8875339e9c00859af9cd4faa4ad5ff1085
 
 COCOAPODS: 1.10.1

@@ -9,8 +9,6 @@
 import UIKit
 import Combine
 
-import MaterialComponents.MaterialTextFields
-
 class CreateNicknameFactory {
     class func create(with presenter: CreateNicknamePresenter) -> CreateNicknameViewController {
         CreateNicknameViewController.instantiate(fromStoryboard: "Account") {coder in
@@ -28,7 +26,7 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
-    @IBOutlet weak var nicknameTextField: MDCTextField!
+    @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var nextButtonButtomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
 
@@ -48,6 +46,8 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
         presenter.viewDidLoad()
         
         nextButton.isEnabled = !(nicknameTextField.text?.isEmpty ?? true)
+
+        nicknameTextField.clearButtonMode = .whileEditing
         nicknameTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .map { !$0.isEmpty }
