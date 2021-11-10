@@ -25,6 +25,10 @@
 		06AEE69123F4064A00D14834 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69023F4064A00D14834 /* BaseView.swift */; };
 		06AEE69323F4065800D14834 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69223F4065800D14834 /* WidgetView.swift */; };
 		06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
+		074917CF273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
+		074917D0273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
+		074917D1273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
+		074917D2273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
 		074C00A326FB12F20090F7FE /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A226FB12F20090F7FE /* AddMemoViewController.swift */; };
 		074C00A526FB1D2A0090F7FE /* AddMemoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */; };
 		07519F6D26FB23DE00F4E6E3 /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C00A226FB12F20090F7FE /* AddMemoViewController.swift */; };
@@ -1460,6 +1464,7 @@
 		06AEE69023F4064A00D14834 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		06AEE69223F4065800D14834 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		074917CE273C02900087225F /* AccountSubmissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSubmissionStatus.swift; sourceTree = "<group>"; };
 		074C00A226FB12F20090F7FE /* AddMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewController.swift; sourceTree = "<group>"; };
 		074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoPresenter.swift; sourceTree = "<group>"; };
 		07519F7326FB5AAB00F4E6E3 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
@@ -2558,6 +2563,7 @@
 			isa = PBXGroup;
 			children = (
 				5211BABA2502140C00EE1658 /* AccountBalanceTypeEnum.swift */,
+				074917CE273C02900087225F /* AccountSubmissionStatus.swift */,
 				64FD333925FF8A7C00563703 /* KeyList.swift */,
 				64FD334D25FF8F6D00563703 /* SchemeVerifyKey.swift */,
 				64FD33CA2602330B00563703 /* CredentialResponse.swift */,
@@ -3528,6 +3534,7 @@
 				644BB67325DFB4220086ED48 /* main.swift in Sources */,
 				7F48C13F244DCD0B00997684 /* BaseTabBar.swift in Sources */,
 				528EB73B255C1EB600010554 /* GettingStartedPresenter.swift in Sources */,
+				074917CF273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				7F48C142244DCD0B00997684 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				528EB74F255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				7FA0AE982460479100B7673F /* WidgetButton.swift in Sources */,
@@ -4050,6 +4057,7 @@
 				7F85B78B246A9A7C00ED09B8 /* IdentitiesViewController.swift in Sources */,
 				7F85B78C246A9A7C00ED09B8 /* IdentitiesService.swift in Sources */,
 				7F85B78D246A9A7C00ED09B8 /* AppSettings.swift in Sources */,
+				074917D1273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				7F85B78E246A9A7C00ED09B8 /* UIView+Additions.swift in Sources */,
 				7F85B78F246A9A7C00ED09B8 /* PasswordFieldViewController.swift in Sources */,
 				529531B8256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
@@ -4377,6 +4385,7 @@
 				7F85B887246A9AB600ED09B8 /* IdentityConfirmedPresenter.swift in Sources */,
 				7F85B888246A9AB600ED09B8 /* IdentityConfirmedViewController.swift in Sources */,
 				7F85B889246A9AB600ED09B8 /* IdentitiesPresenter.swift in Sources */,
+				074917D2273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				7F85B88A246A9AB600ED09B8 /* IdentitiesViewController.swift in Sources */,
 				7F85B88B246A9AB600ED09B8 /* IdentitiesService.swift in Sources */,
 				529531B9256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
@@ -4746,6 +4755,7 @@
 				19C2E32CFA409D5BA9A50A60 /* ToastLabel.swift in Sources */,
 				19C2EA06B4E5D36103E1E8A5 /* Logger.swift in Sources */,
 				52055F822552B8F10071F7CA /* IdentityCardView.swift in Sources */,
+				074917D0273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				19C2E3DFF7E9AE050F860AA1 /* SendFundPresenter.swift in Sources */,
 				19C2EB74069A5C18BE3E0A27 /* SendFundViewController.swift in Sources */,
 				19C2E960F1FF0455D336825B /* SelectRecipientPresenter.swift in Sources */,
