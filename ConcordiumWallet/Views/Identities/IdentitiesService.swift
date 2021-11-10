@@ -43,27 +43,28 @@ class IdentitiesService {
         return ResourceRequest(url: issuanceStartURL.urlWithoutParameters!, parameters: parameters)
     }
     
-    func getInitialAccountStatus(for account: AccountDataType) -> AnyPublisher<SubmissionStatusEnum, Error> {
+    func getInitialAccountStatus(for account: AccountDataType) -> AnyPublisher<AccountSubmissionStatus, Error> {
         guard let identity = account.identity else {
-            return .just(account.transactionStatus ?? .committed)
+            return .just(AccountSubmissionStatus(status: account.transactionStatus ?? .committed, account: account))
         }
         if account.transactionStatus == SubmissionStatusEnum.finalized {
-            return .just(.finalized)
+            return .just(AccountSubmissionStatus(status: .finalized, account: account))
         }
         if account.transactionStatus == SubmissionStatusEnum.absent {
-            return .just(.absent)
+            return .just(AccountSubmissionStatus(status: .absent, account: account))
         }
         return updateIdentity(identity: identity)
-            .map { (identity) -> SubmissionStatusEnum in
+            .map { (identity) -> AccountSubmissionStatus in
+                
                 switch identity.state {
                 case .confirmed:
                     _ = account.write {
                         var account = $0
                         account.transactionStatus = .finalized
                     }
-                    return .finalized
+                    return AccountSubmissionStatus(status: .finalized, account: account)
                 default:
-                    return .committed
+                    return AccountSubmissionStatus(status: .committed, account: account)
                 }
         }.eraseToAnyPublisher()
     }

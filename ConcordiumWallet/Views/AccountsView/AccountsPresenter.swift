@@ -112,8 +112,15 @@ enum AccountsUIState {
     case showAccounts
 }
 
+enum FinalizedAccountsNotificationState {
+    case none
+    case singleAccount(accountName: String)
+    case multiple
+}
+
 class AccountsListViewModel {
     @Published var viewState: AccountsUIState = .newIdentity
+    @Published var finalizedAccountsNotificationState: FinalizedAccountsNotificationState = .none
     @Published var accounts = [AccountViewModel]()
     @Published var totalBalance = GTU(intValue: 0)
     @Published var totalBalanceLockStatus: ShieldedAccountEncryptionStatus  = .decrypted
@@ -134,14 +141,15 @@ protocol AccountsPresenterDelegate: AnyObject {
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
-    func showAccountFinalized(accountName: String)
+    var isOnScreen: Bool { get }
 }
 
 protocol AccountsPresenterProtocol: AnyObject {
     var view: AccountsViewProtocol? { get set }
-    
+
     func viewDidLoad()
     func viewWillAppear()
+    func viewDidAppear()
     func refresh()
     
     func userPressedCreate()
@@ -154,7 +162,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     weak var view: AccountsViewProtocol?
     weak var delegate: AccountsPresenterDelegate?
     private var cancellables: [AnyCancellable] = []
-    
+
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
     var accounts: [AccountDataType] = [] {
@@ -186,6 +194,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func viewWillAppear() {
         refresh(showLoadingIndicator: true)
+    }
+
+    func viewDidAppear() {
         checkPendingAccountsStatusesIfNeeded()
     }
     
@@ -233,46 +244,74 @@ class AccountsPresenter: AccountsPresenterProtocol {
         guard !pendingAccountsAddresses.isEmpty else { return }
         
         var pendingAccounts: [AccountDataType] = []
-        
+
         for address in pendingAccountsAddresses {
             guard let account = dependencyProvider.storageManager().getAccount(withAddress: address) else { return }
             pendingAccounts.append(account)
         }
-        
+
+        var pendingAccountStatusRequests = [AnyPublisher<AccountSubmissionStatus, Error>]()
+
         for account in pendingAccounts {
             if account.submissionId != "" {
-                dependencyProvider.accountsService()
-                    .getState(for: account)
-                    .sink(receiveError: { _ in },
-                          receiveValue: { [weak self] state in
-                            guard state == .finalized else { return }
-                            self?.markPendingAccountAsFinalized(account: account)
-                          })
-                    .store(in: &cancellables)
+                pendingAccountStatusRequests.append(dependencyProvider.accountsService().getState(for: account))
             } else {
-                dependencyProvider.identitiesService()
-                    .getInitialAccountStatus(for: account)
-                    .sink(receiveError: { _ in },
-                          receiveValue: { [weak self] state in
-                            guard state == .finalized else { return }
-                            self?.markPendingAccountAsFinalized(account: account)
-                          })
-                    .store(in: &cancellables)
+                pendingAccountStatusRequests.append(dependencyProvider.identitiesService().getInitialAccountStatus(for: account))
             }
+        }
+
+        Publishers.MergeMany(pendingAccountStatusRequests)
+            .collect()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveError: { _ in },
+                  receiveValue: { [weak self] data in
+                self?.handleFinalizedAccountsIfNeeded(data)
+            })
+            .store(in: &cancellables)
+    }
+
+    private func handleFinalizedAccountsIfNeeded(_ data: [AccountSubmissionStatus]) {
+        let finalizedAccounts = data.filter { $0.status == .finalized }.map { $0.account }
+
+        guard
+            !finalizedAccounts.isEmpty,
+            let isOnScreen = view?.isOnScreen,
+            isOnScreen
+        else {
+            return
+        }
+
+        if finalizedAccounts.count > 1 {
+            updateFinalizedAccountsViewState()
+            finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
+        } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
+            updateFinalizedAccountsViewState(account)
+            markPendingAccountAsFinalized(account: account)
         }
     }
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)
-        view?.showAccountFinalized(accountName: account.name ?? "")
+    }
+
+    private func updateFinalizedAccountsViewState(_ account: AccountDataType? = nil) {
+        if let account = account {
+            viewModel.finalizedAccountsNotificationState = .singleAccount(accountName: account.name ?? "")
+        } else {
+            viewModel.finalizedAccountsNotificationState = .multiple
+        }
     }
     
     private func identifyPendingAccounts(updatedAccounts: [AccountDataType]) {
-        let pendingAccounts = updatedAccounts
+        let currentPendingAccounts = dependencyProvider.storageManager().getPendingAccountsAddresses()
+
+        let newPendingAccounts = updatedAccounts
             .filter { $0.transactionStatus == .committed || $0.transactionStatus == .received }
             .map { $0.address }
-        
-        pendingAccounts.forEach { dependencyProvider.storageManager().storePendingAccount(with: $0 ) }
+
+        for pendingAccount in newPendingAccounts where !currentPendingAccounts.contains(pendingAccount) {
+            dependencyProvider.storageManager().storePendingAccount(with: pendingAccount )
+        }
     }
     
     private func checkForIdentityFailed() {
@@ -313,9 +352,17 @@ class AccountsPresenter: AccountsPresenterProtocol {
             #warning("CHECK IF IT IS INITIAL USING CREDENTIAL")
             // TODO: change to check if it is initial!!!!!
             if account.submissionId != "" {
-                accountVM.stateUpdater = self.dependencyProvider.accountsService().getState(for: account).eraseToAnyPublisher()
+                accountVM.stateUpdater = self.dependencyProvider
+                    .accountsService()
+                    .getState(for: account)
+                    .map { $0.status }
+                    .eraseToAnyPublisher()
             } else {
-                accountVM.stateUpdater = self.dependencyProvider.identitiesService().getInitialAccountStatus(for: account)
+                accountVM.stateUpdater = self.dependencyProvider
+                    .identitiesService()
+                    .getInitialAccountStatus(for: account)
+                    .map { $0.status }
+                    .eraseToAnyPublisher()
             }
             return accountVM
         }

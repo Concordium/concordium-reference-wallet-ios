@@ -9,7 +9,7 @@ import Combine
 protocol AccountsServiceProtocol {
     func getGlobal() -> AnyPublisher<GlobalWrapper, Error>
     func submitCredential(_ credential: Credential) -> AnyPublisher<SubmissionResponse, Error>
-    func getState(for account: AccountDataType) -> AnyPublisher<SubmissionStatusEnum, Error>
+    func getState(for account: AccountDataType) -> AnyPublisher<AccountSubmissionStatus, Error>
     func createAccount(account pAccount: AccountDataType, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<AccountDataType, Error>
     func updateAccountsBalances(accounts: [AccountDataType]) -> AnyPublisher<[AccountDataType], Error>
     func updateAccountBalancesAndDecryptIfNeeded(account: AccountDataType,
@@ -50,14 +50,14 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         return networkManager.load(ResourceRequest(url: ApiConstants.submitCredential, httpMethod: .put, body: data))
     }
     
-    func getState(for account: AccountDataType) -> AnyPublisher<SubmissionStatusEnum, Error> {
+    func getState(for account: AccountDataType) -> AnyPublisher<AccountSubmissionStatus, Error> {
         if let transactionStatus = account.transactionStatus,
             case SubmissionStatusEnum.finalized = transactionStatus {
-            return .just(.finalized)
+            return .just(AccountSubmissionStatus(status: .finalized, account: account))
         }
         if let transactionStatus = account.transactionStatus,
             case SubmissionStatusEnum.absent = transactionStatus {
-            return .just(.absent)
+            return .just(AccountSubmissionStatus(status: .absent, account: account))
         }
         
         guard let submissionId = account.submissionId else {
@@ -65,11 +65,11 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         }
         
         return submissionStatus(submissionId: submissionId)
-            .map(\.status)
-            .handleEvents(receiveOutput: { submissionStatus in
+            .map { AccountSubmissionStatus(status: $0.status, account: account) }
+            .handleEvents(receiveOutput: { data in
                 _ = account.write {
                     var account = $0
-                    account.transactionStatus = submissionStatus
+                    account.transactionStatus = data.status
                 }
             })
             .eraseToAnyPublisher()
