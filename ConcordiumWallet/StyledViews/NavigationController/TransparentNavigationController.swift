@@ -9,6 +9,15 @@ import UIKit
 
 class TransparentNavigationController: BaseNavigationController {
     override func viewDidLoad() {
+        setupTransparentNavigationControllerStyle()
+        view.backgroundColor = .clear
+        statusBarStyle = .lightContent
+    }
+
+}
+
+extension UINavigationController {
+    func setupTransparentNavigationControllerStyle() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.titleTextAttributes = [
@@ -18,9 +27,5 @@ class TransparentNavigationController: BaseNavigationController {
 
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
-
-        view.backgroundColor = .clear
-        statusBarStyle = .lightContent
     }
-
 }
