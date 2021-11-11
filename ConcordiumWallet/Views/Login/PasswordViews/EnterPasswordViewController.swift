@@ -168,6 +168,8 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
