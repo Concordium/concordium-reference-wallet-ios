@@ -160,30 +160,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         viewModel.$finalizedAccountsNotificationState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] state in
-                let title: String
-                let message: String
-
-                switch state {
-                case .singleAccount(let accountName):
-                    title = "accountfinalized.single.alert.title".localized
-                    message = String(format: "accountfinalized.single.alert.message".localized, accountName)
-                case .multiple:
-                    title = "accountfinalized.multiple.alert.title".localized
-                    message = "accountfinalized.multiple.alert.message".localized
-                default:
-                    return
-                }
-
-                let alert = RecoverableAlert(
-                    title: title,
-                    message: message,
-                    actionTitle: "accountfinalized.alert.action.backup".localized,
-                    okButton: true
-                )
-
-                self?.showRecoverableAlert(alert) { [weak self] in
-                    self?.presenter?.userSelectedMakeBackup()
-                }
+                self?.showAccountFinalizedNotificationIfNeeded(state)
             })
             .store(in: &cancellables)
 
@@ -273,6 +250,33 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     @IBAction func createNewButtonPressed(_ sender: Any) {
         presenter?.userPressedCreate()
+    }
+
+    private func showAccountFinalizedNotificationIfNeeded(_ state: FinalizedAccountsNotificationState) {
+        let title: String
+        let message: String
+
+        switch state {
+        case .singleAccount(let accountName):
+            title = "accountfinalized.single.alert.title".localized
+            message = String(format: "accountfinalized.single.alert.message".localized, accountName)
+        case .multiple:
+            title = "accountfinalized.multiple.alert.title".localized
+            message = "accountfinalized.multiple.alert.message".localized
+        default:
+            return
+        }
+
+        let alert = RecoverableAlert(
+            title: title,
+            message: message,
+            actionTitle: "accountfinalized.alert.action.backup".localized,
+            okButton: true
+        )
+
+        showRecoverableAlert(alert) { [weak self] in
+            self?.presenter?.userSelectedMakeBackup()
+        }
     }
 }
 

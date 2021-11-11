@@ -263,10 +263,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
         Publishers.MergeMany(pendingAccountStatusRequests)
             .collect()
             .receive(on: DispatchQueue.main)
-            .sink(receiveError: { _ in },
-                  receiveValue: { [weak self] data in
-                self?.handleFinalizedAccountsIfNeeded(data)
-            })
+            .sink(
+                receiveError: { _ in },
+                receiveValue: { [weak self] data in
+                    self?.handleFinalizedAccountsIfNeeded(data)
+                })
             .store(in: &cancellables)
     }
 
