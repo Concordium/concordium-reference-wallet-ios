@@ -3,7 +3,7 @@ use_frameworks!
 
 def pods
   pod 'MaterialComponents/Tabs+TabBarView', '124.2.0'
-  pod 'RealmSwift', '10.7.6'
+  pod 'RealmSwift', '10.19.0'
   pod 'SwiftCBOR', '0.4.4'
 end
 
