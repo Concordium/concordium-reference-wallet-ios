@@ -18,7 +18,7 @@ struct RecoverableAlert {
 
 protocol ShowAlert: AnyObject {
     func showErrorAlert(_ error: ViewError)
-    func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void)
+    func showRecoverableErrorAlert(_ error: ViewError, recoverActionTitle: String, hasCancel: Bool, completion: @escaping () -> Void)
     func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void)
 }
 
@@ -37,22 +37,23 @@ extension ShowAlert where Self: UIViewController {
         present(alert, animated: true)
     }
     
-    func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void) {
+    func showRecoverableErrorAlert(_ error: ViewError, recoverActionTitle: String, hasCancel: Bool, completion: @escaping () -> Void) {
         let alert = UIAlertController(
             title: "errorAlert.title".localized,
             message: error.localizedDescription,
             preferredStyle: .alert
         )
-        
-        let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
+
+        let recoverAction = UIAlertAction(title: recoverActionTitle, style: .default) { (_) in
             completion()
         }
-        
-        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
-        
-        alert.addAction(continueAction)
-        alert.addAction(cancelAction)
-        
+        alert.addAction(recoverAction)
+
+        if hasCancel {
+            let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
+            alert.addAction(cancelAction)
+        }
+
         present(alert, animated: true)
     }
     
@@ -109,22 +110,24 @@ extension ShowAlert where Self: Coordinator {
         navigationController.present(alert, animated: true)
     }
 
-    func showRecoverableErrorAlert(_ error: ViewError, completion: @escaping () -> Void) {
+    func showRecoverableErrorAlert(_ error: ViewError, recoverActionTitle: String, hasCancel: Bool, completion: @escaping () -> Void) {
         let alert = UIAlertController(
             title: "errorAlert.title".localized,
             message: error.localizedDescription,
             preferredStyle: .alert
         )
         
-        let continueAction = UIAlertAction(title: "errorAlert.continueButton".localized, style: .default) { (_) in
+        let recoverAction = UIAlertAction(title: recoverActionTitle, style: .default) { (_) in
             completion()
         }
-        
-        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
-        
-        alert.addAction(continueAction)
-        alert.addAction(cancelAction)
-        
+
+        alert.addAction(recoverAction)
+
+        if hasCancel {
+            let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
+            alert.addAction(cancelAction)
+        }
+
         navigationController.present(alert, animated: true)
     }
     

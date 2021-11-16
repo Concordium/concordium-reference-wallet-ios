@@ -173,11 +173,13 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
 
         presenter.view = self
         presenter.viewDidLoad()
+    }
 
-        keyboardWillShow { [weak self] keyboardHeight in
-            self?.continueButtonButtomConstraint.constant = keyboardHeight + 20
-            self?.usePasswordButtonButtomConstraint.constant = keyboardHeight + 20
-        }
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        super.keyboardWillShow(keyboardHeight)
+
+        continueButtonButtomConstraint.constant = keyboardHeight
+        usePasswordButtonButtomConstraint.constant = keyboardHeight
     }
 
     override func viewDidAppear(_ animated: Bool) {

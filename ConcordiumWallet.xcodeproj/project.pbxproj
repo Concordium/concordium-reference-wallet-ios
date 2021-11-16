@@ -101,6 +101,10 @@
 		077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
 		077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */; };
+		078967082742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078967072742F0890031EA9F /* KeyboardDismissableBaseViewController.swift */; };
+		078967092742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078967072742F0890031EA9F /* KeyboardDismissableBaseViewController.swift */; };
+		0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078967072742F0890031EA9F /* KeyboardDismissableBaseViewController.swift */; };
+		0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078967072742F0890031EA9F /* KeyboardDismissableBaseViewController.swift */; };
 		079F30FD26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
 		079F30FE26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
 		079F30FF26EA0F9600ED96D3 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F30FC26EA0F9600ED96D3 /* MailHelper.swift */; };
@@ -1479,6 +1483,7 @@
 		077AC5F826E8DD550016BF26 /* CopyReferenceWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyReferenceWidgetViewController.swift; sourceTree = "<group>"; };
 		077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPasteHelper.swift; sourceTree = "<group>"; };
 		077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMailProtocol.swift; sourceTree = "<group>"; };
+		078967072742F0890031EA9F /* KeyboardDismissableBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismissableBaseViewController.swift; sourceTree = "<group>"; };
 		079F30FC26EA0F9600ED96D3 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		079F310626EB69DD00ED96D3 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
@@ -2772,6 +2777,7 @@
 				19C2E56CCF5D6B0E255FD1E8 /* BaseViewController.swift */,
 				19C2E4B1F77014C882288F8E /* Coordinator.swift */,
 				19C2EEBD44B62F16333900D2 /* GeneralError.swift */,
+				078967072742F0890031EA9F /* KeyboardDismissableBaseViewController.swift */,
 				069B9DDA23FBEA8700A02A1F /* KeychainWrapper.swift */,
 			);
 			path = Base;
@@ -3722,6 +3728,7 @@
 				642A293D25FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
 				7F48C27D244E17D100997684 /* SubmissionStatus.swift in Sources */,
 				C94ED728246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
+				078967082742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F48C27F244E17EF00997684 /* GeneralFormatter.swift in Sources */,
 				5248E7DC257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				C94ED7202461B2030071A4FB /* TransactionDetailViewController.swift in Sources */,
@@ -4013,6 +4020,7 @@
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
+				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */,
 				64FD333C25FF8A7C00563703 /* KeyList.swift in Sources */,
@@ -4340,6 +4348,7 @@
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
+				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F85B869246A9AB600ED09B8 /* Details.swift in Sources */,
 				7F85B86A246A9AB600ED09B8 /* Description.swift in Sources */,
 				64FD333D25FF8A7C00563703 /* KeyList.swift in Sources */,
@@ -4726,6 +4735,7 @@
 				19C2E41830D7D6B7F2012E9D /* SubmissionStatusEnum.swift in Sources */,
 				528EB750255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				19C2E678EF032F92BCB63531 /* Result+Additions.swift in Sources */,
+				078967092742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				19C2E19E5F252739424456FE /* ErrorMapper.swift in Sources */,
 				19C2E2F0F2CB926A01A32088 /* LoginPresenter.swift in Sources */,
 				64FD333B25FF8A7C00563703 /* KeyList.swift in Sources */,

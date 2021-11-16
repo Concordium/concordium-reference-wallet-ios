@@ -12,43 +12,61 @@ import Combine
 class BaseViewController: UIViewController {
     private var cancellables: [AnyCancellable] = []
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerKeyboardNotifications()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
-    */
+
+    func keyboardWillShow(_ keyboardHeight: CGFloat) { }
+    func keyboardWillHide(_ keyboardHeight: CGFloat) { }
 }
 
 // MARK: - Keyboard Notifications
 
-extension BaseViewController {
-    func keyboardWillShow(_ animationBlock: @escaping (CGFloat) -> Void) {
-        animateWithKeyboard(UIResponder.keyboardWillShowNotification, animationBlock)
+private extension BaseViewController {
+    func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardEvent(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardEvent(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
-    
-    func keyboardWillHide(_ animationBlock: @escaping (CGFloat) -> Void) {
-        animateWithKeyboard(UIResponder.keyboardWillHideNotification, animationBlock)
-    }
-    
-    private func animateWithKeyboard(_ notification: NSNotification.Name, _ animationBlock: @escaping (CGFloat) -> Void) {
-        NotificationCenter.default
-            .publisher(for: notification)
-            .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
-            .sink { [weak self] keyboardFrame in
-                UIView.animate(withDuration: 0.5) {
-                    animationBlock(keyboardFrame.height)
-                    self?.view.layoutIfNeeded()
-                }
+
+    @objc func keyboardEvent(notification: NSNotification) {
+        guard
+            let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+        else {
+            return
+        }
+
+        let extraSpacing: CGFloat = 5
+        let keyboardHeight = (keyboardFrame.height - self.view.safeAreaInsets.bottom)
+        let newHeight = keyboardHeight + extraSpacing
+
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            switch notification.name {
+            case UIResponder.keyboardWillHideNotification:
+                self?.keyboardWillHide(newHeight)
+            case UIResponder.keyboardWillShowNotification:
+                self?.keyboardWillShow(newHeight)
+            default:
+                return
             }
-            .store(in: &cancellables)
+        }
+
+        view.layoutIfNeeded()
     }
 }

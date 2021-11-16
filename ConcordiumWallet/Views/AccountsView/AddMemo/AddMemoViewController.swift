@@ -17,11 +17,12 @@ class AddMemoFactory {
     }
 }
 
-class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboarded {
+class AddMemoViewController: KeyboardDismissableBaseViewController, AddMemoViewProtocol, Storyboarded {
     
     var presenter: AddMemoPresenterProtocol
     
     private var cancellables = [AnyCancellable]()
+    private var defaultAddMemoButtonBottomConstraint: CGFloat = 0
     
     @IBOutlet weak var memoTitleLabel: UILabel!
     @IBOutlet weak var memoTextView: UITextView!
@@ -66,18 +67,30 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        defaultAddMemoButtonBottomConstraint = addMemoButtonBottomConstraint.constant
         presenter.view = self
         addMemoButton.isEnabled = false
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
-        view.addGestureRecognizer(tapGesture)
-        
         memoTextView.delegate = self
-        
+
         presenter.viewDidLoad()
     }
-    
+
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        super.keyboardWillShow(keyboardHeight)
+        addMemoButtonBottomConstraint.constant = keyboardHeight
+    }
+
+    override func keyboardWillHide(_ keyboardHeight: CGFloat) {
+        super.keyboardWillHide(keyboardHeight)
+        addMemoButtonBottomConstraint.constant = defaultAddMemoButtonBottomConstraint
+    }
+
+    override func didDismissKeyboard() {
+        setTextViewPlaceholderHidden(!memoTextView.text.isEmpty)
+        super.didDismissKeyboard()
+    }
+
     func bind(to viewModel: AddMemoViewModel) {
         viewModel.$invalidMemoSizeError
             .sink { [weak self] in
@@ -106,12 +119,7 @@ class AddMemoViewController: BaseViewController, AddMemoViewProtocol, Storyboard
             }
             .store(in: &cancellables)
     }
-    
-    @objc private func hideKeyboardOnTap(_ sender: Any) {
-        setTextViewPlaceholderHidden(!memoTextView.text.isEmpty)
-        view.endEditing(true)
-    }
-    
+
     @IBAction private func addMemoTapped(_ sender: Any) {
         presenter.userTappedAddMemoToTransfer()
     }

@@ -17,7 +17,7 @@ class SendFundFactory {
     }
 }
 
-class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboarded {
+class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
     var memoPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
@@ -88,18 +88,24 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
 
         presenter.view = self
         presenter.viewDidLoad()
-        
+
         amountTextField.attributedPlaceholder =
             NSAttributedString(string: amountTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.primary])
         
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
 
-        keyboardWillShow { [weak self] keyboardHeight in
-            self?.sendFundButtonBottomConstraint.constant = keyboardHeight
-        }
-    
         amountTextField.delegate = self
+    }
+
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        super.keyboardWillShow(keyboardHeight)
+        sendFundButtonBottomConstraint.constant = keyboardHeight
+    }
+
+    override func keyboardWillHide(_ keyboardHeight: CGFloat) {
+        super.keyboardWillHide(keyboardHeight)
+        sendFundButtonBottomConstraint.constant = .zero
     }
 
     func bind(to viewModel: SendFundViewModel) {
@@ -179,10 +185,6 @@ class SendFundViewController: BaseViewController, SendFundViewProtocol, Storyboa
         alert.addAction(dontShowAgain)
         
         present(alert, animated: true)
-    }
-    
-    @objc private func hideKeyboardOnTap(_ sender: Any) {
-        view.endEditing(true)
     }
     
     @IBAction func selectRecipientTapped(_ sender: Any) {

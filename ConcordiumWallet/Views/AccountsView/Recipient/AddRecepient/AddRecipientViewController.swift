@@ -17,10 +17,11 @@ class AddRecipientFactory {
     }
 }
 
-class AddRecipientViewController: BaseViewController, AddRecipientViewProtocol, Storyboarded, ShowToast {
+class AddRecipientViewController: KeyboardDismissableBaseViewController, AddRecipientViewProtocol, Storyboarded, ShowToast {
 
 	var presenter: AddRecipientPresenterProtocol
-    
+
+    private var defaultSaveButtonBottomContstraint: CGFloat = 0
     private var cancellables = [AnyCancellable]()
     
     @IBOutlet weak var recipientNameTextField: UITextField! {
@@ -52,6 +53,7 @@ class AddRecipientViewController: BaseViewController, AddRecipientViewProtocol, 
 
         presenter.view = self
         saveButton.isEnabled = false
+        defaultSaveButtonBottomContstraint = saveButtonBottomContstraint.constant
         Publishers.CombineLatest(recipientNameTextField.textPublisher,
                               recipientAddressTextField.textPublisher)
         .receive(on: DispatchQueue.main)
@@ -60,10 +62,16 @@ class AddRecipientViewController: BaseViewController, AddRecipientViewProtocol, 
         }.store(in: &cancellables)
 
         presenter.viewDidLoad()
-        
-        keyboardWillShow { [weak self] keyboardHeight in
-            self?.saveButtonBottomContstraint.constant = keyboardHeight
-        }
+    }
+
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        super.keyboardWillShow(keyboardHeight)
+        saveButtonBottomContstraint.constant = keyboardHeight
+    }
+
+    override func keyboardWillHide(_ keyboardHeight: CGFloat) {
+        super.keyboardWillHide(keyboardHeight)
+        saveButtonBottomContstraint.constant = defaultSaveButtonBottomContstraint
     }
 
     func bind(to viewModel: AddRecipientViewModel) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -373,7 +373,7 @@ is less than 0.01 cents]</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ysE-7N-kLa" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="20" y="812" width="374" height="50"/>
+                                <rect key="frame" x="20" y="802" width="374" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="yXV-S8-hwu"/>
@@ -393,7 +393,7 @@ is less than 0.01 cents]</string>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="LeW-bp-GZz" secondAttribute="bottom" constant="75" id="0er-ua-uwI"/>
-                            <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="ysE-7N-kLa" secondAttribute="bottom" id="40n-Sc-Xf9"/>
+                            <constraint firstItem="cPM-tG-bAu" firstAttribute="bottom" secondItem="ysE-7N-kLa" secondAttribute="bottom" constant="10" id="40n-Sc-Xf9"/>
                             <constraint firstItem="DND-DT-YLk" firstAttribute="leading" secondItem="cPM-tG-bAu" secondAttribute="leading" constant="20" id="6WT-gN-nRg"/>
                             <constraint firstItem="DND-DT-YLk" firstAttribute="top" secondItem="cPM-tG-bAu" secondAttribute="top" constant="40" id="Cbu-0n-fWI"/>
                             <constraint firstItem="LeW-bp-GZz" firstAttribute="top" secondItem="DND-DT-YLk" secondAttribute="bottom" constant="25" id="Cr6-6V-0RO"/>
@@ -474,7 +474,7 @@ is less than 0.01 cents]</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="RecipientViewCell" textLabel="aHy-4t-EaT" detailTextLabel="SXR-gX-fDz" style="IBUITableViewCellStyleSubtitle" id="ofl-Jh-eXU">
-                                        <rect key="frame" x="0.0" y="24.5" width="382" height="66"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="382" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ofl-Jh-eXU" id="bk8-aL-iG2">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="66"/>
@@ -722,16 +722,16 @@ is less than 0.01 cents]</string>
                                         <rect key="frame" x="94.5" y="234.5" width="184.5" height="88"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="H01-jI-Cky">
-                                                <rect key="frame" x="49" y="0.0" width="86" height="50"/>
+                                                <rect key="frame" x="50" y="0.0" width="84.5" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ǥ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsq-Kg-2Yu">
-                                                        <rect key="frame" x="0.0" y="7" width="25" height="36"/>
+                                                        <rect key="frame" x="0.0" y="7" width="23.5" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssI-7h-8zC">
-                                                        <rect key="frame" x="27" y="0.5" width="59" height="49.5"/>
+                                                        <rect key="frame" x="25.5" y="0.5" width="59" height="49.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="49.5" id="YRC-fZ-gJ9"/>
                                                         </constraints>
