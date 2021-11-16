@@ -98,6 +98,8 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
             self.selectedPasscode = password
         } else if viewState == secondState {
             if self.selectedPasscode == password {
+
+                self.view?.showActivityIndicator()
   
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if let oldPwHash = self.oldPasscodeHashed {
@@ -142,17 +144,19 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
                         // Remove old password from keychain and set transaction flag false.
                         try self.dependencyProvider.keychainWrapper().deleteKeychainItem(withKey: KeychainKeys.oldPassword.rawValue).get()
                         AppSettings.passwordChangeInProgress = false
-
+                        self.view?.hideActivityIndicator()
                     } catch let error {
                         // Something went wrong trying to re-encrypt all accounts.
                         self.view?.showError(error.localizedDescription)
                         self.delegate?.passwordChangeFailed()
+                        self.view?.hideActivityIndicator()
                     }
                 }
                 }
             } else {
                 changeViewState(firstState)
                 view?.showError("selectPassword.entryMismatch".localized)
+                self.view?.hideActivityIndicator()
             }
         }
     }

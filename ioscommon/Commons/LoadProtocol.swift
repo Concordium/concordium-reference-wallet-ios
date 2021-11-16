@@ -44,6 +44,7 @@ extension Loadable where Self: UIViewController {
             activityIndicatorView.hidesWhenStopped = true
             activityIndicatorView.tag = self.activityIndicatorTag
             eventCapturingView.addSubview(activityIndicatorView)
+
             activityIndicatorView.center = mainView.center
             activityIndicatorView.startAnimating()
 
