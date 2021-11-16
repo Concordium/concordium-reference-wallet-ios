@@ -113,14 +113,12 @@ enum AccountsUIState {
 }
 
 enum FinalizedAccountsNotificationState {
-    case none
     case singleAccount(accountName: String)
     case multiple
 }
 
 class AccountsListViewModel {
     @Published var viewState: AccountsUIState = .newIdentity
-    @Published var finalizedAccountsNotificationState: FinalizedAccountsNotificationState = .none
     @Published var accounts = [AccountViewModel]()
     @Published var totalBalance = GTU(intValue: 0)
     @Published var totalBalanceLockStatus: ShieldedAccountEncryptionStatus  = .decrypted
@@ -141,6 +139,7 @@ protocol AccountsPresenterDelegate: AnyObject {
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
+    func showAccountFinalizedNotificationIfNeeded(_ state: FinalizedAccountsNotificationState)
     var isOnScreen: Bool { get }
 }
 
@@ -262,11 +261,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
         Publishers.MergeMany(pendingAccountStatusRequests)
             .collect()
-            .receive(on: DispatchQueue.main)
             .sink(
                 receiveError: { _ in },
-                receiveValue: { [weak self] data in
-                    self?.handleFinalizedAccountsIfNeeded(data)
+                receiveValue: { [weak self] in
+                    self?.handleFinalizedAccountsIfNeeded($0)
                 })
             .store(in: &cancellables)
     }
@@ -283,10 +281,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
 
         if finalizedAccounts.count > 1 {
-            updateFinalizedAccountsViewState()
+            view?.showAccountFinalizedNotificationIfNeeded(.multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
-            updateFinalizedAccountsViewState(account)
+            view?.showAccountFinalizedNotificationIfNeeded(.singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
     }
@@ -295,14 +293,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)
     }
 
-    private func updateFinalizedAccountsViewState(_ account: AccountDataType? = nil) {
-        if let account = account {
-            viewModel.finalizedAccountsNotificationState = .singleAccount(accountName: account.name ?? "")
-        } else {
-            viewModel.finalizedAccountsNotificationState = .multiple
-        }
-    }
-    
     private func identifyPendingAccounts(updatedAccounts: [AccountDataType]) {
         let currentPendingAccounts = dependencyProvider.storageManager().getPendingAccountsAddresses()
 

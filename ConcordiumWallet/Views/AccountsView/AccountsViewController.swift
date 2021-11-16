@@ -157,13 +157,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             self.setupUI(state: $0)
         }.store(in: &cancellables)
 
-        viewModel.$finalizedAccountsNotificationState
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] state in
-                self?.showAccountFinalizedNotificationIfNeeded(state)
-            })
-            .store(in: &cancellables)
-
         viewModel.$accounts
             .receive(on: RunLoop.main)
             .sink {
@@ -252,7 +245,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.userPressedCreate()
     }
 
-    private func showAccountFinalizedNotificationIfNeeded(_ state: FinalizedAccountsNotificationState) {
+    func showAccountFinalizedNotificationIfNeeded(_ state: FinalizedAccountsNotificationState) {
         let title: String
         let message: String
 
@@ -274,8 +267,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             okButton: true
         )
 
-        showRecoverableAlert(alert) { [weak self] in
-            self?.presenter?.userSelectedMakeBackup()
+        DispatchQueue.main.async { [weak self] in
+            self?.showRecoverableAlert(alert) { [weak self] in
+                self?.presenter?.userSelectedMakeBackup()
+            }
         }
     }
 }
