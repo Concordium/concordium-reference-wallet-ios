@@ -156,7 +156,6 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
             } else {
                 changeViewState(firstState)
                 view?.showError("selectPassword.entryMismatch".localized)
-                self.view?.hideActivityIndicator()
             }
         }
     }
