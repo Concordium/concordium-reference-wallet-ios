@@ -25,11 +25,15 @@ class Logger {
     }
 
     static func debug(_ items: Any..., fileName: String = #file, line: Int = #line) {
-        logText(items, level: .debug, fileName: fileName, line: line)
+        #if DEBUG
+            logText(items, level: .debug, fileName: fileName, line: line)
+        #endif
     }
 
     static func debug(_ items: String, fileName: String = #file, line: Int = #line) {
-        logText(items, level: .debug, fileName: fileName, line: line)
+        #if DEBUG
+            logText(items, level: .debug, fileName: fileName, line: line)
+        #endif
     }
 
     static func info(_ items: Any..., fileName: String = #file, line: Int = #line) {
