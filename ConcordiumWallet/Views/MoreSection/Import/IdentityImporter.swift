@@ -78,7 +78,7 @@ class IdentityImporter {
             let account = AccountEntity()
             account.name = accountData.name
             account.submissionId = accountData.submissionId
-            account.transactionStatus = .received
+            account.transactionStatus = .finalized
             account.identity = relatedIdentity
             account.encryptedAccountData = try storageManager.storePrivateAccountKeys(accountData.accountKeys, pwHash: pwHash).get()
             account.address = accountData.address
