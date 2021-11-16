@@ -54,7 +54,9 @@ struct ApiConstants {
     /// Note that the pollUrl is NOT expected to be URL-encoded.
     static func parseCallbackUri(uri: URL) -> (identityCreationId: String, pollUrl: String)? {
         let identityCreationId = uri.absoluteURL.lastPathComponent
-        guard let pollUrl = uri.absoluteString.components(separatedBy: "#code_uri=").last else {
+        let uriComponents = uri.absoluteString.components(separatedBy: "#code_uri=")
+        guard uriComponents.count == 2,
+              let pollUrl = uriComponents.last else {
             return nil
         }
         return (identityCreationId, pollUrl)
