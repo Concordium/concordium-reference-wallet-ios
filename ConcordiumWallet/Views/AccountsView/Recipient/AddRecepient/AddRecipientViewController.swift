@@ -37,8 +37,8 @@ class AddRecipientViewController: KeyboardDismissableBaseViewController, AddReci
     }
     
     @IBOutlet weak var saveButton: StandardButton!
-    @IBOutlet weak var saveButtonBottomContstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
+
     init?(coder: NSCoder, presenter: AddRecipientPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -53,7 +53,7 @@ class AddRecipientViewController: KeyboardDismissableBaseViewController, AddReci
 
         presenter.view = self
         saveButton.isEnabled = false
-        defaultSaveButtonBottomContstraint = saveButtonBottomContstraint.constant
+        defaultSaveButtonBottomContstraint = saveButtonBottomConstraint.constant
         Publishers.CombineLatest(recipientNameTextField.textPublisher,
                               recipientAddressTextField.textPublisher)
         .receive(on: DispatchQueue.main)
@@ -66,12 +66,12 @@ class AddRecipientViewController: KeyboardDismissableBaseViewController, AddReci
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
-        saveButtonBottomContstraint.constant = keyboardHeight
+        saveButtonBottomConstraint.constant = keyboardHeight
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
-        saveButtonBottomContstraint.constant = defaultSaveButtonBottomContstraint
+        saveButtonBottomConstraint.constant = defaultSaveButtonBottomContstraint
     }
 
     func bind(to viewModel: AddRecipientViewModel) {

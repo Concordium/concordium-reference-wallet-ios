@@ -869,21 +869,21 @@ process on-chain]</string>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
                                                 <rect key="frame" x="0.0" y="53" width="396" height="290.33333333333331"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
                                                         <rect key="frame" x="0.0" y="0.0" width="396" height="290.33333333333331"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="290.33333333333331"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
+                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="309.66666666666669"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
-                                                                        <rect key="frame" x="174" y="0.0" width="48" height="25.666666666666668"/>
+                                                                        <rect key="frame" x="175.66666666666666" y="0.0" width="45" height="45"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="2Nh-Of-O1G" secondAttribute="height" multiplier="15:8" id="7i2-Bb-8nJ"/>
                                                                             <constraint firstAttribute="width" constant="48" id="lI8-IQ-74T"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZ2-ol-U99" userLabel="ErrorMessageContainerView">
-                                                                        <rect key="frame" x="26.666666666666657" y="45.666666666666686" width="342.66666666666674" height="50"/>
+                                                                        <rect key="frame" x="26.666666666666657" y="65" width="342.66666666666674" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="[Account creation failed in the process of creation]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oq-fm-ahS">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="50"/>
@@ -903,11 +903,11 @@ process on-chain]</string>
                                                                             <constraint firstAttribute="trailing" secondItem="6oq-fm-ahS" secondAttribute="trailing" id="ZJb-Am-Pvn"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
-                                                                        <rect key="frame" x="1.3333333333333428" y="115.66666666666667" width="393.33333333333326" height="174.66666666666663"/>
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
+                                                                        <rect key="frame" x="1.3333333333333428" y="135.00000000000006" width="393.33333333333326" height="174.66666666666669"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
-                                                                                <rect key="frame" x="115.66666666666669" y="10.000000000000002" width="162" height="20.666666666666671"/>
+                                                                                <rect key="frame" x="115.66666666666669" y="9.9999999999999982" width="162" height="20.333333333333329"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="primary"/>
                                                                                 <nil key="highlightedColor"/>
@@ -916,7 +916,7 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On the Concordium Testnet, you can request 2000GTU to be deposited to an account to get you started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GH5-FJ-6Qg">
-                                                                                <rect key="frame" x="20" y="40.666666666666629" width="353.33333333333331" height="54"/>
+                                                                                <rect key="frame" x="20" y="40.333333333333258" width="353.33333333333331" height="54"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -925,7 +925,7 @@ process on-chain]</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgW-9v-gsl" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                                                                <rect key="frame" x="20" y="104.66666666666663" width="353.33333333333331" height="50"/>
+                                                                                <rect key="frame" x="20" y="104.33333333333326" width="353.33333333333331" height="50"/>
                                                                                 <color key="backgroundColor" name="primary"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="50" id="xf6-RF-pOm"/>
@@ -2152,7 +2152,7 @@ process on-chain]</string>
     </scenes>
     <designables>
         <designable name="89o-5w-snD">
-            <size key="intrinsicContentSize" width="43" height="30"/>
+            <size key="intrinsicContentSize" width="175" height="30"/>
         </designable>
         <designable name="ORm-Zf-XcW">
             <size key="intrinsicContentSize" width="30" height="30"/>
