@@ -32,6 +32,8 @@ protocol EnterPasswordViewProtocol: AnyObject {
     func setState(_: PasswordSelectionState, newPasswordFieldDelegate: PasswordFieldDelegate & PasscodeFieldDelegate, animated: Bool, reverse: Bool)
     func setContinueButtonEnabled(_: Bool)
     func showError(_: String)
+    func showActivityIndicator()
+    func hideActivityIndicator()
 }
 
 // MARK: Presenter -
@@ -158,6 +160,7 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
     @IBOutlet weak var usePasswordButton: StandardButton!
     @IBOutlet weak var continueButton: StandardButton!
     @IBOutlet weak var errorText: LoginInfoLabel!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 
     init?(coder: NSCoder, presenter: EnterPasswordPresenterProtocol) {
         self.presenter = presenter
@@ -221,6 +224,14 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
 }
 
 extension EnterPasswordViewController: EnterPasswordViewProtocol {
+    func showActivityIndicator() {
+        activityIndicatorView.startAnimating()
+    }
+
+    func hideActivityIndicator() {
+        activityIndicatorView.stopAnimating()
+    }
+
     func showKeyboard() {
         getPincodeViewController()?.passwordTextField.becomeFirstResponder()
     }

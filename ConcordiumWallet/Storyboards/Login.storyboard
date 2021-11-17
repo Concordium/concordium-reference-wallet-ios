@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +13,7 @@
         <!--Enter Password View Controller-->
         <scene sceneID="J5W-Kb-sa2">
             <objects>
-                <viewController storyboardIdentifier="EnterPasswordViewController" id="L41-Q7-fYr" customClass="EnterPasswordViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterPasswordViewController" id="L41-Q7-fYr" customClass="EnterPasswordViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tFw-is-USo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="concordium_prism_background" translatesAutoresizingMaskIntoConstraints="NO" id="elr-9S-ua5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Note: you will not be able to recover your account keys if this passcode is lost!]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="nb5-2V-0mH" customClass="LoginWarningLabel" customModule="Concordium_ID" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Note: you will not be able to recover your account keys if this passcode is lost!]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="nb5-2V-0mH" customClass="LoginWarningLabel" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="261" width="280" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="43" id="Ex0-LX-xzy"/>
@@ -30,7 +30,7 @@
                                 <color key="textColor" name="whiteText"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Select a 6-digit passcode to secure your wallet.]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="UJG-07-GO3" customClass="LoginInfoLabel" customModule="Concordium_ID" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Select a 6-digit passcode to secure your wallet.]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="UJG-07-GO3" customClass="LoginInfoLabel" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="50" y="60" width="220" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="55" id="Cpi-xu-iae"/>
@@ -40,7 +40,7 @@
                                 <color key="textColor" name="whiteText"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-LM-BsX" customClass="LoginErrorLabel" customModule="Concordium_ID" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-LM-BsX" customClass="LoginErrorLabel" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="15" y="135" width="290" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Oqb-g4-Wrm"/>
@@ -51,7 +51,7 @@ Please try again</string>
                                 <color key="textColor" name="errorText"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBK-SI-obb" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBK-SI-obb" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="10" y="410" width="300" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -76,7 +76,7 @@ Please try again</string>
                                     <segue destination="nC9-I0-6zL" kind="embed" id="7SD-Jb-1om"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uln-a0-lso" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uln-a0-lso" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="10" y="410" width="300" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -92,6 +92,10 @@ Please try again</string>
                                     <action selector="usePasswordButtonPressed:" destination="L41-Q7-fYr" eventType="touchUpInside" id="QOe-Fc-YAH"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="xW0-tr-peB">
+                                <rect key="frame" x="141.5" y="134.5" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eds-YD-a5e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -109,6 +113,7 @@ Please try again</string>
                             <constraint firstItem="elr-9S-ua5" firstAttribute="top" secondItem="tFw-is-USo" secondAttribute="top" id="Pkz-d4-Hb8"/>
                             <constraint firstItem="nb5-2V-0mH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="SzM-0l-Pwn" secondAttribute="bottom" constant="10" id="WTl-xr-ua4"/>
                             <constraint firstItem="nb5-2V-0mH" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" constant="20" id="X5T-Pc-Dlx"/>
+                            <constraint firstItem="xW0-tr-peB" firstAttribute="centerY" secondItem="nfs-LM-BsX" secondAttribute="centerY" id="XhJ-vs-W5w"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UJG-07-GO3" secondAttribute="trailing" constant="15" id="aCy-1g-AlN"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="trailing" secondItem="nfs-LM-BsX" secondAttribute="trailing" constant="15" id="bmB-Dl-hDi"/>
                             <constraint firstItem="nfs-LM-BsX" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" constant="15" id="cWD-I0-guw"/>
@@ -126,11 +131,13 @@ Please try again</string>
                             <constraint firstItem="nb5-2V-0mH" firstAttribute="top" secondItem="SzM-0l-Pwn" secondAttribute="bottom" priority="998" constant="30" id="oR4-06-P7j"/>
                             <constraint firstItem="SzM-0l-Pwn" firstAttribute="top" secondItem="nfs-LM-BsX" secondAttribute="bottom" constant="10" id="ooU-xV-WE9"/>
                             <constraint firstItem="UJG-07-GO3" firstAttribute="top" secondItem="Eds-YD-a5e" secondAttribute="top" priority="740" constant="60" id="opY-Xk-VI3"/>
+                            <constraint firstItem="xW0-tr-peB" firstAttribute="centerX" secondItem="nfs-LM-BsX" secondAttribute="centerX" id="vk4-gf-WFz"/>
                             <constraint firstItem="uln-a0-lso" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" constant="10" id="wck-NW-AW8"/>
                             <constraint firstItem="nfs-LM-BsX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UJG-07-GO3" secondAttribute="bottom" constant="5" id="wii-om-EY4"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="xW0-tr-peB" id="SRM-0p-pcw"/>
                         <outlet property="cautionText" destination="nb5-2V-0mH" id="FGv-hi-N8z"/>
                         <outlet property="continueButton" destination="CBK-SI-obb" id="kMd-bH-SyS"/>
                         <outlet property="continueButtonButtomConstraint" destination="7mt-bq-B4S" id="EcX-p2-5pO"/>
@@ -148,7 +155,7 @@ Please try again</string>
         <!--Passcode Field View Controller-->
         <scene sceneID="18y-rn-YoJ">
             <objects>
-                <viewController storyboardIdentifier="PasscodeFieldViewController" id="nC9-I0-6zL" customClass="PasscodeFieldViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PasscodeFieldViewController" id="nC9-I0-6zL" customClass="PasscodeFieldViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ENw-Nm-gtm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -308,7 +315,7 @@ Please try again</string>
         <!--Password Field View Controller-->
         <scene sceneID="xvz-4S-1Ja">
             <objects>
-                <viewController storyboardIdentifier="PasswordFieldViewController" id="hEE-rM-ykC" customClass="PasswordFieldViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PasswordFieldViewController" id="hEE-rM-ykC" customClass="PasswordFieldViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dvO-Wb-shI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -355,7 +362,7 @@ Please try again</string>
         <!--Update Password View Controller-->
         <scene sceneID="jKS-5h-0g3">
             <objects>
-                <viewController storyboardIdentifier="UpdatePasswordViewController" id="jSB-b7-VPY" customClass="UpdatePasswordViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpdatePasswordViewController" id="jSB-b7-VPY" customClass="UpdatePasswordViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mg8-cb-LWD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,7 +375,7 @@ Please try again</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cr-P8-SXD" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cr-P8-SXD" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="10" y="410" width="300" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -409,7 +416,7 @@ Please try again</string>
         <!--Biometrics Enabling View Controller-->
         <scene sceneID="MGp-K2-f70">
             <objects>
-                <viewController storyboardIdentifier="BiometricsEnablingViewController" id="N0R-V7-CiN" customClass="BiometricsEnablingViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BiometricsEnablingViewController" id="N0R-V7-CiN" customClass="BiometricsEnablingViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fOx-A6-30Q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -425,7 +432,7 @@ Please try again</string>
                                     <constraint firstAttribute="height" constant="156" id="eNd-iR-BpG"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyz-kV-tML" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyz-kV-tML" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="15" y="410" width="290" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -438,7 +445,7 @@ Please try again</string>
                                     <action selector="enableButtonPressed:" destination="N0R-V7-CiN" eventType="touchUpInside" id="Pvl-2y-q3Z"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLk-eL-ZIT" customClass="BaseButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLk-eL-ZIT" customClass="BaseButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="96" y="365" width="128" height="30"/>
                                 <state key="normal" title="[Continue without]">
                                     <color key="titleColor" name="primary"/>
@@ -450,8 +457,8 @@ Please try again</string>
                                     <action selector="continueWithoutButtonPressed:" destination="N0R-V7-CiN" eventType="touchUpInside" id="trH-ht-3qf"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBw-4l-oA3" customClass="LoginInfoLabel" customModule="Concordium_ID" customModuleProvider="target">
-                                <rect key="frame" x="16" y="71" width="288" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBw-4l-oA3" customClass="LoginInfoLabel" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="16.5" y="71" width="287.5" height="41"/>
                                 <string key="text">[Enable faceId for more convenient 
 login]</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -491,7 +498,7 @@ login]</string>
         <!--Terms And Conditions View Controller-->
         <scene sceneID="gZm-re-rBd">
             <objects>
-                <viewController storyboardIdentifier="TermsAndConditionsViewController" id="zfl-R3-S0W" customClass="TermsAndConditionsViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TermsAndConditionsViewController" id="zfl-R3-S0W" customClass="TermsAndConditionsViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ygT-48-cIv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -517,7 +524,7 @@ login]</string>
                                                 <color key="textColor" name="fadedText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZK-0o-WCh" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZK-0o-WCh" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="52" width="290" height="50"/>
                                                 <color key="backgroundColor" name="primary"/>
                                                 <constraints>
