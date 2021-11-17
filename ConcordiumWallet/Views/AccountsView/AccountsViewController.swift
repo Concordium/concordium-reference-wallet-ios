@@ -245,19 +245,17 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.userPressedCreate()
     }
 
-    func showAccountFinalizedNotificationIfNeeded(_ state: FinalizedAccountsNotificationState) {
+    func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {
         let title: String
         let message: String
 
-        switch state {
+        switch notification {
         case .singleAccount(let accountName):
             title = "accountfinalized.single.alert.title".localized
             message = String(format: "accountfinalized.single.alert.message".localized, accountName)
         case .multiple:
             title = "accountfinalized.multiple.alert.title".localized
             message = "accountfinalized.multiple.alert.message".localized
-        default:
-            return
         }
 
         let alert = RecoverableAlert(

@@ -112,7 +112,7 @@ enum AccountsUIState {
     case showAccounts
 }
 
-enum FinalizedAccountsNotificationState {
+enum FinalizedAccountsNotification {
     case singleAccount(accountName: String)
     case multiple
 }
@@ -139,7 +139,7 @@ protocol AccountsPresenterDelegate: AnyObject {
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(reference: String, completion: @escaping () -> Void)
-    func showAccountFinalizedNotificationIfNeeded(_ state: FinalizedAccountsNotificationState)
+    func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
     var isOnScreen: Bool { get }
 }
 
@@ -281,10 +281,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
 
         if finalizedAccounts.count > 1 {
-            view?.showAccountFinalizedNotificationIfNeeded(.multiple)
+            view?.showAccountFinalizedNotification(.multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
-            view?.showAccountFinalizedNotificationIfNeeded(.singleAccount(accountName: account.name ?? ""))
+            view?.showAccountFinalizedNotification(.singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
     }
@@ -294,14 +294,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
 
     private func identifyPendingAccounts(updatedAccounts: [AccountDataType]) {
-        let currentPendingAccounts = dependencyProvider.storageManager().getPendingAccountsAddresses()
-
         let newPendingAccounts = updatedAccounts
             .filter { $0.transactionStatus == .committed || $0.transactionStatus == .received }
             .map { $0.address }
 
-        for pendingAccount in newPendingAccounts where !currentPendingAccounts.contains(pendingAccount) {
-            dependencyProvider.storageManager().storePendingAccount(with: pendingAccount )
+        for pendingAccount in newPendingAccounts {
+            dependencyProvider.storageManager().storePendingAccount(with: pendingAccount)
         }
     }
     

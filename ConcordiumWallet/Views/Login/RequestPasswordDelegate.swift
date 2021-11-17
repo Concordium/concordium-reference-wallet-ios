@@ -16,19 +16,19 @@ extension RequestPasswordDelegate where Self: Coordinator {
         var modalPasswordVCShown = false
 
         let enterPasswordController = EnterPasswordFactory.create(with: requestPasswordPresenter)
-        let enterPasswordTransparantController = TransparentNavigationController()
-        enterPasswordTransparantController.modalPresentationStyle = .fullScreen
-        enterPasswordTransparantController.viewControllers = [enterPasswordController]
+        let enterPasswordTransparentController = TransparentNavigationController()
+        enterPasswordTransparentController.modalPresentationStyle = .fullScreen
+        enterPasswordTransparentController.viewControllers = [enterPasswordController]
 
         requestPasswordPresenter.performBiometricLogin(fallback: { [weak self] in
-            self?.navigationController.present(enterPasswordTransparantController, animated: true)
+            self?.navigationController.present(enterPasswordTransparentController, animated: true)
             modalPasswordVCShown = true
         })
 
         let cleanup: (Result<String, Error>) -> Future<String, Error> = { result in
             let future = Future<String, Error> { promise in
                 if modalPasswordVCShown {
-                    enterPasswordTransparantController.dismiss(animated: true) {
+                    enterPasswordTransparentController.dismiss(animated: true) {
                         promise(result)
                     }
                 } else {
