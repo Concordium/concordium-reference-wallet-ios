@@ -129,7 +129,13 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
             
             guard permissionGranted else {
                 DispatchQueue.main.async {
-                    self.view?.showRecoverableErrorAlert(.cameraAccessDeniedError) { SettingsHelper.openAppSettings() }
+                    self.view?.showRecoverableErrorAlert(
+                        .cameraAccessDeniedError,
+                        recoverActionTitle: "errorAlert.continueButton".localized,
+                        hasCancel: true
+                    ) {
+                        SettingsHelper.openAppSettings()
+                    }
                 }
                 return
             }

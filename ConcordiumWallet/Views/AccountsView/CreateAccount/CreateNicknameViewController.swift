@@ -23,12 +23,14 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
 
     var cancellableArray = [AnyCancellable]()
 
+    private var defaultNextButtonBottomConstraint: CGFloat = 0
+
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
     @IBOutlet weak var nicknameTextField: UITextField!
-    @IBOutlet weak var nextButtonButtomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
         self.presenter = presenter
@@ -42,6 +44,7 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        defaultNextButtonBottomConstraint = nextButtonBottomConstraint.constant
         presenter.view = self
         presenter.viewDidLoad()
         
@@ -56,14 +59,19 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
 
         let addIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
-        
-        keyboardWillShow { [weak self] (keyboardHeight) in
-            self?.nextButtonButtomConstraint.constant = keyboardHeight
-            if let scrollView = self?.scrollView, let view = self?.view {
-                scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentSize.height - (view.bounds.height - keyboardHeight)), animated: false)
-            }
-            self?.view.layoutIfNeeded()
-        }
+    }
+
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        super.keyboardWillShow(keyboardHeight)
+        nextButtonBottomConstraint.constant = keyboardHeight
+        scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentSize.height - (view.bounds.height - keyboardHeight)), animated: false)
+    }
+
+    override func keyboardWillHide(_ keyboardHeight: CGFloat) {
+        super.keyboardWillHide(keyboardHeight)
+        nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraint
+        scrollView.contentOffset = .zero
+        scrollView.scrollIndicatorInsets = .zero
     }
 
     @objc func closeButtonTapped(_ sender: Any) {
@@ -71,6 +79,7 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     }
 
     @IBAction func nextAction(_ sender: Any) {
+        view.endEditing(true)
         presenter.next(nickname: nicknameTextField.text!)
     }
 
@@ -85,9 +94,7 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     func setNickname(_ nickname: String) {
         nicknameTextField.text = nickname
     }
-}
-
-extension CreateNicknameViewController {
+    
     func showKeyboard() {
         nicknameTextField.becomeFirstResponder()
     }
@@ -95,6 +102,7 @@ extension CreateNicknameViewController {
 
 extension CreateNicknameViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
         presenter.next(nickname: nicknameTextField.text!)
         return false
     }

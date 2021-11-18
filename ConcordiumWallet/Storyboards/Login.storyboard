@@ -102,8 +102,8 @@ Please try again</string>
                         <constraints>
                             <constraint firstItem="nfs-LM-BsX" firstAttribute="centerX" secondItem="tFw-is-USo" secondAttribute="centerX" id="1A2-lS-dJV"/>
                             <constraint firstItem="UJG-07-GO3" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" priority="999" constant="50" id="5ZB-IM-kHu"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="uln-a0-lso" secondAttribute="bottom" constant="20" id="7Wc-pT-ok1"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="CBK-SI-obb" secondAttribute="bottom" constant="20" id="7mt-bq-B4S"/>
+                            <constraint firstItem="Eds-YD-a5e" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="uln-a0-lso" secondAttribute="bottom" constant="20" id="7Wc-pT-ok1"/>
+                            <constraint firstItem="Eds-YD-a5e" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="CBK-SI-obb" secondAttribute="bottom" constant="20" id="7mt-bq-B4S"/>
                             <constraint firstItem="nfs-LM-BsX" firstAttribute="top" secondItem="UJG-07-GO3" secondAttribute="bottom" priority="998" constant="20" id="999-09-rFY"/>
                             <constraint firstItem="UJG-07-GO3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Eds-YD-a5e" secondAttribute="top" constant="5" id="C5A-KO-r0v"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UJG-07-GO3" secondAttribute="trailing" constant="15" id="Cah-b6-HwH"/>
@@ -121,7 +121,7 @@ Please try again</string>
                             <constraint firstAttribute="bottom" secondItem="elr-9S-ua5" secondAttribute="bottom" id="cnu-fg-l0Z"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="bottom" secondItem="uln-a0-lso" secondAttribute="bottom" priority="999" id="cvh-LM-lIu"/>
                             <constraint firstItem="Eds-YD-a5e" firstAttribute="trailing" secondItem="nb5-2V-0mH" secondAttribute="trailing" constant="20" id="cw9-ay-B2D"/>
-                            <constraint firstItem="CBK-SI-obb" firstAttribute="bottom" secondItem="Eds-YD-a5e" secondAttribute="bottom" priority="999" id="dK0-T4-aqM"/>
+                            <constraint firstItem="CBK-SI-obb" firstAttribute="bottom" secondItem="Eds-YD-a5e" secondAttribute="bottom" priority="999" constant="20" id="dK0-T4-aqM"/>
                             <constraint firstItem="elr-9S-ua5" firstAttribute="trailing" secondItem="tFw-is-USo" secondAttribute="trailing" id="eMB-xK-3Qi"/>
                             <constraint firstItem="UJG-07-GO3" firstAttribute="leading" secondItem="Eds-YD-a5e" secondAttribute="leading" priority="999" constant="50" id="exa-m7-Ky9"/>
                             <constraint firstItem="elr-9S-ua5" firstAttribute="leading" secondItem="tFw-is-USo" secondAttribute="leading" id="fdo-98-qlj"/>
@@ -140,12 +140,12 @@ Please try again</string>
                         <outlet property="activityIndicatorView" destination="xW0-tr-peB" id="SRM-0p-pcw"/>
                         <outlet property="cautionText" destination="nb5-2V-0mH" id="FGv-hi-N8z"/>
                         <outlet property="continueButton" destination="CBK-SI-obb" id="kMd-bH-SyS"/>
-                        <outlet property="continueButtonButtomConstraint" destination="7mt-bq-B4S" id="EcX-p2-5pO"/>
+                        <outlet property="continueButtonBottomConstraint" destination="7mt-bq-B4S" id="LHh-Rz-y6C"/>
                         <outlet property="descriptiveText" destination="UJG-07-GO3" id="Q1c-46-Ytj"/>
                         <outlet property="errorText" destination="nfs-LM-BsX" id="UCE-Tn-6xt"/>
                         <outlet property="passwordContainer" destination="SzM-0l-Pwn" id="S02-4M-5xh"/>
                         <outlet property="usePasswordButton" destination="uln-a0-lso" id="XeY-W4-pfg"/>
-                        <outlet property="usePasswordButtonButtomConstraint" destination="7Wc-pT-ok1" id="DbB-pz-f8f"/>
+                        <outlet property="usePasswordButtonBottomConstraint" destination="7Wc-pT-ok1" id="8hh-Ho-Ea5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEh-gW-Fzi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -342,11 +342,12 @@ Please try again</string>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4Fx-zd-ZhZ" firstAttribute="leading" secondItem="dvO-Wb-shI" secondAttribute="leading" constant="70" id="5Xf-2s-8pu"/>
+                            <constraint firstItem="p7G-Tx-4Ys" firstAttribute="top" secondItem="4Fx-zd-ZhZ" secondAttribute="bottom" constant="10" id="5oG-9g-tv2"/>
                             <constraint firstItem="p7G-Tx-4Ys" firstAttribute="centerX" secondItem="dvO-Wb-shI" secondAttribute="centerX" id="7ch-60-87z"/>
                             <constraint firstItem="p7G-Tx-4Ys" firstAttribute="leading" secondItem="dvO-Wb-shI" secondAttribute="leading" constant="70" id="9sx-gs-yoX"/>
                             <constraint firstItem="4Fx-zd-ZhZ" firstAttribute="top" secondItem="dvO-Wb-shI" secondAttribute="top" id="ETG-Ng-izf"/>
                             <constraint firstAttribute="trailing" secondItem="p7G-Tx-4Ys" secondAttribute="trailing" constant="70" id="IiP-8r-nd7"/>
-                            <constraint firstItem="p7G-Tx-4Ys" firstAttribute="top" secondItem="4Fx-zd-ZhZ" secondAttribute="bottom" constant="10" id="KO4-lH-93T"/>
+                            <constraint firstItem="Z0b-5e-CMx" firstAttribute="top" secondItem="4Fx-zd-ZhZ" secondAttribute="bottom" constant="-34" id="KO4-lH-93T"/>
                             <constraint firstAttribute="trailing" secondItem="4Fx-zd-ZhZ" secondAttribute="trailing" constant="70" id="WPN-HT-3TI"/>
                         </constraints>
                     </view>

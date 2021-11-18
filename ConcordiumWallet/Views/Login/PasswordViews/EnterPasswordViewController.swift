@@ -155,8 +155,9 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
     @IBOutlet weak var descriptiveText: LoginInfoLabel!
     @IBOutlet weak var cautionText: LoginWarningLabel!
     @IBOutlet weak var passwordContainer: UIView!
-    @IBOutlet weak var continueButtonButtomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var usePasswordButtonButtomConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var continueButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var usePasswordButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var usePasswordButton: StandardButton!
     @IBOutlet weak var continueButton: StandardButton!
     @IBOutlet weak var errorText: LoginInfoLabel!
@@ -176,11 +177,13 @@ class EnterPasswordViewController: BaseViewController, Storyboarded {
 
         presenter.view = self
         presenter.viewDidLoad()
+    }
 
-        keyboardWillShow { [weak self] keyboardHeight in
-            self?.continueButtonButtomConstraint.constant = keyboardHeight + 20
-            self?.usePasswordButtonButtomConstraint.constant = keyboardHeight + 20
-        }
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        super.keyboardWillShow(keyboardHeight)
+
+        continueButtonBottomConstraint.constant = keyboardHeight
+        usePasswordButtonBottomConstraint.constant = keyboardHeight
     }
 
     override func viewDidAppear(_ animated: Bool) {

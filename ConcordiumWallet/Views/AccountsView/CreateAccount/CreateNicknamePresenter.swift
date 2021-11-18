@@ -13,6 +13,7 @@ import Combine
 protocol CreateNicknameViewProtocol: ShowAlert {
     func setNickname(_: String)
     func setProperties(_: CreateNicknameProperties)
+    func showKeyboard()
 }
 
 // MARK: -
@@ -93,9 +94,19 @@ class CreateNicknamePresenter: CreateNicknamePresenterProtocol {
 
     func next(nickname: String) {
         if nickname.isValidName() {
-            delegate?.createNicknamePresenter(self, didCreateName: nickname, properties: properties)
+            delegate?.createNicknamePresenter(
+                self,
+                didCreateName: nickname,
+                properties: properties
+            )
         } else {
-            view?.showErrorAlert(self.properties.errorInvalid)
+            view?.showRecoverableErrorAlert(
+                properties.errorInvalid,
+                recoverActionTitle: "ok".localized,
+                hasCancel: false
+            ) { [weak self] in
+                self?.view?.showKeyboard()
+            }
         }
     }
 }

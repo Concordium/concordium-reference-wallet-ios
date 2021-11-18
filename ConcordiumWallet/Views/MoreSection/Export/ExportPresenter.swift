@@ -53,10 +53,15 @@ class ExportPresenter: ExportPresenterProtocol {
         let unfinalizedAccounts = exportService.getUnfinalizedAccounts()
         if unfinalizedAccounts.count > 0 {
             let unfinalizedAccountsNames = unfinalizedAccounts.enumerated().map { "\($0.0 + 1). \($0.1.name ?? "")" }
-            view?.showRecoverableErrorAlert(ViewError.exportUnfinalizedAccounts(unfinalizedAccountsNames: unfinalizedAccountsNames),
-                                       completion: { [weak self] in
+            let error = ViewError.exportUnfinalizedAccounts(unfinalizedAccountsNames: unfinalizedAccountsNames)
+            
+            view?.showRecoverableErrorAlert(
+                error,
+                recoverActionTitle: "errorAlert.continueButton".localized,
+                hasCancel: true
+            ) { [weak self] in
                 self?.performExport()
-            })
+            }
         } else {
             performExport()
         }
