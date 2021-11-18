@@ -34,6 +34,7 @@ class LoginCoordinator: Coordinator {
 
     func showLogin() {
         let vc = EnterPasswordFactory.create(with: LoginPresenter(delegate: self, dependencyProvider: dependencyProvider))
+        navigationController.setupTransparentNavigationControllerStyle()
         navigationController.pushViewController(vc, animated: false)
     }
 

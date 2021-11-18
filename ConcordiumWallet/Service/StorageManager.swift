@@ -453,8 +453,9 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     
     func storePendingAccount(with address: String) {
         let key = UserDefaultKeys.pendingAccount.rawValue
-        
+
         if var pendingAccounts = UserDefaults.standard.stringArray(forKey: key) {
+            guard !pendingAccounts.contains(where: { $0 == address }) else { return }
             pendingAccounts.append(address)
             UserDefaults.standard.set(pendingAccounts, forKey: key)
         } else {

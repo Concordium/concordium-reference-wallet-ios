@@ -43,3 +43,9 @@ extension UIViewController {
         viewController.removeFromParent()
     }
 }
+
+extension UIViewController {
+    var isOnScreen: Bool {
+        return isViewLoaded && view.window != nil
+    }
+}

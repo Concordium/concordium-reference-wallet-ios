@@ -37,7 +37,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     @IBOutlet weak var atDisposalLockImageView: UIImageView!
     @IBOutlet weak var atDisposalLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
-    
+
     init?(coder: NSCoder, presenter: AccountsPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -67,6 +67,11 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         super.viewWillAppear(animated)
         presenter?.viewWillAppear()
         startRefreshTimer()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.viewDidAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,7 +156,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         viewModel.$viewState.sink {
             self.setupUI(state: $0)
         }.store(in: &cancellables)
-        
+
         viewModel.$accounts
             .receive(on: RunLoop.main)
             .sink {
@@ -200,19 +205,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         .store(in: &cancellables)
     }
     
-    func showAccountFinalized(accountName: String) {
-        let alert = RecoverableAlert(
-            title: "accountfinalized.alert.title".localized,
-            message: String(format: "accountfinalized.alert.message".localized, accountName),
-            actionTitle: "accountfinalized.alert.action.backup".localized,
-            okButton: true
-        )
-        
-        showRecoverableAlert(alert) { [weak self] in
-            self?.presenter?.userSelectedMakeBackup()
-        }
-    }
-
     func showIdentityFailed(reference: String, completion: @escaping () -> Void) {
         showIdentityFailureAlert(reference: reference, completion: completion)
     }
@@ -251,6 +243,33 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     @IBAction func createNewButtonPressed(_ sender: Any) {
         presenter?.userPressedCreate()
+    }
+
+    func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {
+        let title: String
+        let message: String
+
+        switch notification {
+        case .singleAccount(let accountName):
+            title = "accountfinalized.single.alert.title".localized
+            message = String(format: "accountfinalized.single.alert.message".localized, accountName)
+        case .multiple:
+            title = "accountfinalized.multiple.alert.title".localized
+            message = "accountfinalized.multiple.alert.message".localized
+        }
+
+        let alert = RecoverableAlert(
+            title: title,
+            message: message,
+            actionTitle: "accountfinalized.alert.action.backup".localized,
+            okButton: true
+        )
+
+        DispatchQueue.main.async { [weak self] in
+            self?.showRecoverableAlert(alert) { [weak self] in
+                self?.presenter?.userSelectedMakeBackup()
+            }
+        }
     }
 }
 
