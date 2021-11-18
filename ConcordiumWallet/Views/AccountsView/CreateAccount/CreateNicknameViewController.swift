@@ -17,7 +17,7 @@ class CreateNicknameFactory {
     }
 }
 
-class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtocol, Storyboarded {
+class CreateNicknameViewController: KeyboardDismissableBaseViewController, CreateNicknameViewProtocol, Storyboarded {
 
 	var presenter: CreateNicknamePresenterProtocol
 
@@ -29,7 +29,6 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
     @IBOutlet weak var nicknameTextField: UITextField!
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
@@ -64,14 +63,11 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
         nextButtonBottomConstraint.constant = keyboardHeight
-        scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentSize.height - (view.bounds.height - keyboardHeight)), animated: false)
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
         nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraint
-        scrollView.contentOffset = .zero
-        scrollView.scrollIndicatorInsets = .zero
     }
 
     @objc func closeButtonTapped(_ sender: Any) {
