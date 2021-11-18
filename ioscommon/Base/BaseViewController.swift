@@ -12,14 +12,9 @@ import Combine
 class BaseViewController: UIViewController {
     private var cancellables: [AnyCancellable] = []
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         registerKeyboardNotifications()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
     }
 
     func keyboardWillShow(_ keyboardHeight: CGFloat) { }
@@ -30,43 +25,36 @@ class BaseViewController: UIViewController {
 
 private extension BaseViewController {
     func registerKeyboardNotifications() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardEvent(notification:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardEvent(notification:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
+            Publishers.MergeMany(
+                NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification),
+                NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            )
+            .sink(receiveValue: { [weak self] notification in
+                guard
+                    let self = self,
+                    let userInfo = notification.userInfo,
+                    let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+                else {
+                    return
+                }
 
-    @objc func keyboardEvent(notification: NSNotification) {
-        guard
-            let userInfo = notification.userInfo,
-            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
-        else {
-            return
-        }
+                let extraSpacing: CGFloat = 5
+                let keyboardHeight = (keyboardFrame.height - self.view.safeAreaInsets.bottom)
+                let newHeight = keyboardHeight + extraSpacing
 
-        let extraSpacing: CGFloat = 5
-        let keyboardHeight = (keyboardFrame.height - self.view.safeAreaInsets.bottom)
-        let newHeight = keyboardHeight + extraSpacing
+                UIView.animate(withDuration: 0.5) { [weak self] in
+                    switch notification.name {
+                    case UIResponder.keyboardWillHideNotification:
+                        self?.keyboardWillHide(newHeight)
+                    case UIResponder.keyboardWillShowNotification:
+                        self?.keyboardWillShow(newHeight)
+                    default:
+                        return
+                    }
+                }
 
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            switch notification.name {
-            case UIResponder.keyboardWillHideNotification:
-                self?.keyboardWillHide(newHeight)
-            case UIResponder.keyboardWillShowNotification:
-                self?.keyboardWillShow(newHeight)
-            default:
-                return
-            }
-        }
-
-        view.layoutIfNeeded()
+                self.view.layoutIfNeeded()
+            })
+            .store(in: &cancellables)
     }
 }
