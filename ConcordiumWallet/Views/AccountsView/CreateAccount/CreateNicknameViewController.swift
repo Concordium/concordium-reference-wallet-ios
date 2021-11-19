@@ -23,13 +23,15 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
 
     var cancellableArray = [AnyCancellable]()
 
-    private var defaultNextButtonBottomConstraint: CGFloat = 0
+    private var defaultNextButtonBottomConstraintConstant: CGFloat = 0
 
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
     @IBOutlet weak var nicknameTextField: UITextField!
+
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtitleLabelTopConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
         self.presenter = presenter
@@ -43,7 +45,8 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        defaultNextButtonBottomConstraint = nextButtonBottomConstraint.constant
+        defaultNextButtonBottomConstraintConstant = nextButtonBottomConstraint.constant
+
         presenter.view = self
         presenter.viewDidLoad()
         
@@ -62,12 +65,17 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
+
+        subtitleLabelTopConstraint.constant = -keyboardHeight
         nextButtonBottomConstraint.constant = keyboardHeight
+
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
-        nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraint
+
+        subtitleLabelTopConstraint.constant = 0
+        nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraintConstant
     }
 
     @objc func closeButtonTapped(_ sender: Any) {
