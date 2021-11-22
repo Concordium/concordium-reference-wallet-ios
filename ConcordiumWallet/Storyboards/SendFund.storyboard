@@ -48,7 +48,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Knm-nI-g4S">
                                         <rect key="frame" x="134.5" y="58" width="113" height="299.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Ǥ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oms-CT-B3L">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Ͼ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oms-CT-B3L">
                                                 <rect key="frame" x="0.0" y="136" width="26.5" height="27.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Oms-CT-B3L" secondAttribute="height" multiplier="19:20" id="92N-6p-xkl"/>
@@ -721,16 +721,16 @@ is less than 0.01 cents]</string>
                                         <rect key="frame" x="94.5" y="234.5" width="184.5" height="88"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="H01-jI-Cky">
-                                                <rect key="frame" x="50" y="0.0" width="84.5" height="50"/>
+                                                <rect key="frame" x="52.5" y="0.0" width="79.5" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ǥ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsq-Kg-2Yu">
-                                                        <rect key="frame" x="0.0" y="7" width="23.5" height="36"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ͼ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsq-Kg-2Yu">
+                                                        <rect key="frame" x="0.0" y="7" width="18.5" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssI-7h-8zC">
-                                                        <rect key="frame" x="25.5" y="0.5" width="59" height="49.5"/>
+                                                        <rect key="frame" x="20.5" y="0.5" width="59" height="49.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="49.5" id="YRC-fZ-gJ9"/>
                                                         </constraints>
@@ -749,7 +749,7 @@ is less than 0.01 cents]</string>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="Kdh-7i-93o"/>
                                                 </constraints>
                                                 <string key="text">[Estimated transaction fee:
-Ǥ]</string>
+Ͼ]</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" name="fadedText"/>
                                                 <nil key="highlightedColor"/>
@@ -976,19 +976,19 @@ is less than 0.01 cents]</string>
     </scenes>
     <designables>
         <designable name="2Kc-aS-szO">
-            <size key="intrinsicContentSize" width="236" height="30"/>
+            <size key="intrinsicContentSize" width="120" height="30"/>
         </designable>
         <designable name="6Wm-nq-6Ah">
-            <size key="intrinsicContentSize" width="34" height="30"/>
+            <size key="intrinsicContentSize" width="44" height="30"/>
         </designable>
         <designable name="Agb-Wh-pXj">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="aao-ws-5Uh">
-            <size key="intrinsicContentSize" width="103" height="33"/>
+            <size key="intrinsicContentSize" width="109" height="34"/>
         </designable>
         <designable name="ysE-7N-kLa">
-            <size key="intrinsicContentSize" width="178" height="33"/>
+            <size key="intrinsicContentSize" width="188" height="34"/>
         </designable>
     </designables>
     <resources>
