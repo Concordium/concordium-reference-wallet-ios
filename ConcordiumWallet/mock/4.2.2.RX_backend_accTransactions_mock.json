@@ -13,6 +13,7 @@
       "transactionHash": "4962346f1c0c1600ae97d5c9db9fafe7402fc0d58a771edc0aac2875be74ffa2",
       "details": {
         "transferDestination": "3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe",
+        "memo": "",
         "transferAmount": "10000",
         "events": [
           "Transferred 10000 from 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt to 3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe"
@@ -38,6 +39,7 @@
       "transactionHash": "4962346f1c0c1600ae97d5c9db9fafe7402fc0d58a771edc0aac2875be74ffa2",
       "details": {
         "transferDestination": "[Transfer destination]",
+        "memo": "",
         "transferAmount": "10000",
         "events": [
           "Transferred 10000 from 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt to 3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe"
@@ -63,6 +65,7 @@
       "transactionHash": "4962346f1c0c1600ae97d5c9db9fafe7402fc0d58a771edc0aac2875be74ffa2",
       "details": {
         "transferDestination": "3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe",
+        "memo": null,
         "transferAmount": "10000",
         "events": [
           "Transferred 10000 from 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt to 3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe"
@@ -84,6 +87,7 @@
       "blockHash": "11a3f344c99ea9cf004c4e759a56f92afd605d5a85fa7f4a208ce784d14e54ff",
       "subtotal": "10003",
       "details": {
+        "memo": "",
         "events": [
           "[Rewarded 10000]"
         ],
@@ -108,6 +112,7 @@
       "transactionHash": "4962346f1c0c1600ae97d5c9db9fafe7402fc0d58a771edc0aac2875be74ffa2",
       "details": {
         "transferDestination": "3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe",
+        "memo": "",
         "transferAmount": "10000",
         "events": [
           "Transferred 10000 from 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt to 3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe"
@@ -133,6 +138,7 @@
       "transactionHash": "4962346f1c0c1600ae97d5c9db9fafe7402fc0d58a771edc0aac2875be74ffa2",
       "details": {
         "transferDestination": null,
+        "memo": "",
         "transferAmount": "10000",
         "events": [
           "Transferred 10000 from 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt to 3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe",
@@ -159,6 +165,7 @@
       "transactionHash": "4962346f1c0c1600ae97d5c9db9fafe7402fc0d58a771edc0aac2875be74ffa2",
       "details": {
         "transferDestination": "3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe",
+        "memo": "",
         "transferAmount": "10000",
         "events": [
           "Transferred 10000 from 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt to 3o75S15G3BvZXvufZaqsReS1e7bcN3DZxKPUd88uaiSN5oqmUe"
@@ -184,6 +191,7 @@
       "transactionHash": "404d57832b216383a383ad61c0ee8d85dda3b3d351b86b22d85ec5acd68c9b4d",
       "details": {
         "transferDestination": "4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt",
+        "memo": "",
         "transferAmount": "100007",
         "events": [
           "Transferred 100000 from 3LqzxroRTxGGBuhyoH5CzSyUvrgvhX1tPPCLVZz8QQ9ZmbrmcZ to 4eR2J6dHDpCDXZyFMUfcWPXx7wce8ysHqrKdfyDjGApvqyTVbt"
