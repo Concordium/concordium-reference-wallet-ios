@@ -17,20 +17,21 @@ class CreateNicknameFactory {
     }
 }
 
-class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtocol, Storyboarded {
+class CreateNicknameViewController: KeyboardDismissableBaseViewController, CreateNicknameViewProtocol, Storyboarded {
 
 	var presenter: CreateNicknamePresenterProtocol
 
     var cancellableArray = [AnyCancellable]()
 
-    private var defaultNextButtonBottomConstraint: CGFloat = 0
+    private var defaultNextButtonBottomConstraintConstant: CGFloat = 0
 
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
     @IBOutlet weak var nicknameTextField: UITextField!
-    @IBOutlet weak var scrollView: UIScrollView!
+
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtitleLabelTopConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
         self.presenter = presenter
@@ -44,7 +45,8 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        defaultNextButtonBottomConstraint = nextButtonBottomConstraint.constant
+        defaultNextButtonBottomConstraintConstant = nextButtonBottomConstraint.constant
+
         presenter.view = self
         presenter.viewDidLoad()
         
@@ -63,15 +65,17 @@ class CreateNicknameViewController: BaseViewController, CreateNicknameViewProtoc
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
+
+        subtitleLabelTopConstraint.constant = -keyboardHeight
         nextButtonBottomConstraint.constant = keyboardHeight
-        scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentSize.height - (view.bounds.height - keyboardHeight)), animated: false)
+
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
-        nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraint
-        scrollView.contentOffset = .zero
-        scrollView.scrollIndicatorInsets = .zero
+
+        subtitleLabelTopConstraint.constant = 0
+        nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraintConstant
     }
 
     @objc func closeButtonTapped(_ sender: Any) {
