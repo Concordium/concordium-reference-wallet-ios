@@ -140,7 +140,8 @@ extension ExportIdentityData {
               let identityObject = identity.identityObject,
               let privateIdObjectData = privateIdObjectData
                 else { return nil }
-        let ipMetaData = Metadata(issuanceStart: identityProvider.issuanceStartURL, icon: identityProvider.icon)
+        
+        let ipMetaData = Metadata(support: identityProvider.support, issuanceStart: identityProvider.issuanceStartURL, icon: identityProvider.icon)
       
         let identityProviderElm = IPInfoResponseElement(ipInfo: ipInfo, arsInfos: arsInfo, metadata: ipMetaData)
         self.init(nextAccountNumber: identity.accountsCreated,

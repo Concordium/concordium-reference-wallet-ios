@@ -12,7 +12,7 @@ import UIKit
 // MARK: - View
 
 protocol ContactSupportButtonWidgetViewProtocol: AnyObject {
-    func launchSupport(with reference: String)
+    func launchSupport(to supportEmail: String, with reference: String)
 }
 
 class ContactSupportButtonWidgetFactory {
@@ -42,11 +42,11 @@ class ContactSupportButtonWidgetViewController: BaseViewController, ContactSuppo
         presenter.viewDidLoad()
     }
     
-    func launchSupport(with reference: String) {
+    func launchSupport(to supportEmail: String, with reference: String) {
         launchSupport(
             presenter: self,
             delegate: self,
-            recipient: AppConstants.Support.identityProviderSupportMail,
+            recipient: supportEmail,
             ccRecipient: AppConstants.Support.concordiumSupportMail,
             subject: String(format: "supportmail.subject".localized, reference),
             body: String(
