@@ -70,7 +70,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                 let identityProviderName = identity.identityProviderName ?? ""
                 let identityProviderSupport = identity.identityProvider?.support ?? ""
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
-                                         identityProviderSupport: identityProviderSupport,
+                                         identityProviderSupportEmail: identityProviderSupport,
                                          reference: reference) { [weak self] in
                     self?.delegate?.tryAgainIdentity()
                 }
