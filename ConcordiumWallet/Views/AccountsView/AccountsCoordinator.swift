@@ -14,7 +14,6 @@ protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
     func createNewAccount()
     func noIdentitiesFound()
-    func displayNewTerms()
 }
 
 class AccountsCoordinator: Coordinator {
@@ -63,7 +62,6 @@ class AccountsCoordinator: Coordinator {
         navigationController.present(nav, animated: true, completion: nil)
     }
     
-    
     func showExport() {
         let vc = ExportFactory.create(with: ExportPresenter(
             dependencyProvider: ServicesProvider.defaultProvider(),
@@ -108,7 +106,7 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     }
     
     func newTermsAvailable() {
-        self.delegate?.displayNewTerms()
+        self.showNewTerms()
     }
     
     func tryAgainIdentity() {
