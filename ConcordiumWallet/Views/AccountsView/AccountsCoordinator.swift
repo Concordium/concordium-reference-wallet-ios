@@ -14,6 +14,7 @@ protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
     func createNewAccount()
     func noIdentitiesFound()
+    func displayNewTerms()
 }
 
 class AccountsCoordinator: Coordinator {
@@ -53,6 +54,15 @@ class AccountsCoordinator: Coordinator {
         childCoordinators.append(accountDetailsCoordinator)
         accountDetailsCoordinator.start()
     }
+    
+    func showNewTerms() {
+        let TermsAndConditionsPresenter = TermsAndConditionsPresenter(delegate: self)
+        let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        navigationController.present(nav, animated: true, completion: nil)
+    }
+    
     
     func showExport() {
         let vc = ExportFactory.create(with: ExportPresenter(
@@ -95,6 +105,10 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     
     func noValidIdentitiesAvailable() {
         self.delegate?.noIdentitiesFound()
+    }
+    
+    func newTermsAvailable() {
+        self.delegate?.displayNewTerms()
     }
     
     func tryAgainIdentity() {
@@ -165,5 +179,11 @@ extension AccountsCoordinator: ExportPresenterDelegate {
     
     func exportFinished() {
         navigationController.popViewController(animated: true)
+    }
+}
+
+extension AccountsCoordinator: TermsAndConditionsPresenterDelegate {
+    func userTappedAcceptTerms() {
+        navigationController.dismiss(animated: true)
     }
 }

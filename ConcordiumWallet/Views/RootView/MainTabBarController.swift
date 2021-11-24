@@ -56,4 +56,8 @@ extension MainTabBarController: AccountsCoordinatorDelegate {
         selectedViewController = identitiesCoordinator.navigationController
         identitiesCoordinator.showCreateNewIdentity()
     }
+    
+    func displayNewTerms() {
+        accountsCoordinator.showNewTerms()
+    }
 }
