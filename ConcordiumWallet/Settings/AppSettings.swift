@@ -17,7 +17,7 @@ enum UserDefaultKeys: String {
     case passwordChangeInProgress
     case dontShowMemoAlertWarning
     case pendingAccount
-    case termsHash
+    case acceptedTermsHash
 }
 
 struct AppSettings {
@@ -68,59 +68,12 @@ struct AppSettings {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
     
-        
-    static let currentTerms = String()
-    + "termsAndConditionsScreen.terms1.title".localized
-    + "termsAndConditionsScreen.terms2.details".localized
-    + "termsAndConditionsScreen.terms3.title".localized
-    + "termsAndConditionsScreen.terms4.subtitle".localized
-    + "termsAndConditionsScreen.terms5.details".localized
-    + "termsAndConditionsScreen.terms6.title".localized
-    + "termsAndConditionsScreen.terms7a.details".localized
-    + "termsAndConditionsScreen.terms7.paragraph1".localized
-    + "termsAndConditionsScreen.terms7.paragraph2".localized
-    + "termsAndConditionsScreen.terms7b.details".localized
-    + "termsAndConditionsScreen.terms8.title".localized
-    + "termsAndConditionsScreen.terms9.details".localized
-    + "termsAndConditionsScreen.terms10.title".localized
-    + "termsAndConditionsScreen.terms11.details".localized
-    + "termsAndConditionsScreen.terms12.title".localized
-    + "termsAndConditionsScreen.terms13.details".localized
-    + "termsAndConditionsScreen.terms14.title".localized
-    + "termsAndConditionsScreen.terms15.details".localized
-    + "termsAndConditionsScreen.terms16.title".localized
-    + "termsAndConditionsScreen.terms17.details".localized
-    + "termsAndConditionsScreen.terms18.title".localized
-    + "termsAndConditionsScreen.terms19.details".localized
-    + "termsAndConditionsScreen.terms20.title".localized
-    + "termsAndConditionsScreen.terms22.details".localized
-    + "termsAndConditionsScreen.terms23.subtitle".localized
-    + "termsAndConditionsScreen.terms24.details".localized
-    + "termsAndConditionsScreen.terms25.title".localized
-    + "termsAndConditionsScreen.terms26a.details".localized
-    + "termsAndConditionsScreen.terms26.paragraph1".localized
-    + "termsAndConditionsScreen.terms26.paragraph2".localized
-    + "termsAndConditionsScreen.terms26.paragraph3".localized
-    + "termsAndConditionsScreen.terms26b.details".localized
-    + "termsAndConditionsScreen.terms27.title".localized
-    + "termsAndConditionsScreen.terms28.details".localized
-    + "termsAndConditionsScreen.terms29.title".localized
-    + "termsAndConditionsScreen.terms30.details".localized
-    + "termsAndConditionsScreen.terms31.title".localized
-    + "termsAndConditionsScreen.terms32.details".localized
-    + "termsAndConditionsScreen.terms33.title".localized
-    + "termsAndConditionsScreen.terms34.details".localized
-    + "termsAndConditionsScreen.terms35.title".localized
-    + "termsAndConditionsScreen.terms36.details".localized
-    + "termsAndConditionsScreen.terms37.title".localized
-    + "termsAndConditionsScreen.terms38.details".localized
-    
-    static var termsHash: String? {
+    static var acceptedTermsHash: String? {
         get {
-            UserDefaults.standard.string(forKey: UserDefaultKeys.termsHash.rawValue)
+            UserDefaults.standard.string(forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.termsHash.rawValue)
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
         }
     }
     

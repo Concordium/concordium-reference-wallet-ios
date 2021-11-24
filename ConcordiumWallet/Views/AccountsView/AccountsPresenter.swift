@@ -306,10 +306,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private func checkForNewTerms() {
-        let currentTermsHash = HashingHelper.hash(AppSettings.currentTerms)
-        let previousTermsHash = AppSettings.termsHash
+        let currentTermsHash = HashingHelper.hash(TermsHelper.currentTerms)
+        let acceptedTermsHash = AppSettings.acceptedTermsHash
         
-        if currentTermsHash != previousTermsHash {
+        if currentTermsHash != acceptedTermsHash {
             self.delegate?.newTermsAvailable()
         }
     }

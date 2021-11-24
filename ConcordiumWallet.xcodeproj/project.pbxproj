@@ -498,6 +498,10 @@
 		528EB76425647DD800010554 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528EB76225647DD700010554 /* Key.swift */; };
 		528EB76525647DD800010554 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528EB76225647DD700010554 /* Key.swift */; };
 		528EB76625647DD800010554 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528EB76225647DD700010554 /* Key.swift */; };
+		529457C1274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
+		529457C2274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
+		529457C3274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
+		529457C4274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
 		529531A9256BA711004CECE4 /* AccountBaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529531A6256BA711004CECE4 /* AccountBaker.swift */; };
 		529531AA256BA711004CECE4 /* AccountBaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529531A6256BA711004CECE4 /* AccountBaker.swift */; };
 		529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529531A6256BA711004CECE4 /* AccountBaker.swift */; };
@@ -1653,6 +1657,7 @@
 		528EB758256400D900010554 /* RevealAttributesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealAttributesPresenter.swift; sourceTree = "<group>"; };
 		528EB75D25647A7F00010554 /* CredentialValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialValue.swift; sourceTree = "<group>"; };
 		528EB76225647DD700010554 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		529457C0274EB7440027EAA2 /* TermsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsHelper.swift; sourceTree = "<group>"; };
 		529531A6256BA711004CECE4 /* AccountBaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBaker.swift; sourceTree = "<group>"; };
 		529531A7256BA711004CECE4 /* AccountReleaseSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountReleaseSchedule.swift; sourceTree = "<group>"; };
 		529531A8256BA711004CECE4 /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -2758,6 +2763,7 @@
 				7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */,
 				7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */,
 				077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */,
+				529457C0274EB7440027EAA2 /* TermsHelper.swift */,
 				C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */,
 				7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */,
 				6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */,
@@ -3826,6 +3832,7 @@
 				19C2EC182A9F122A326021F6 /* ExportAccount.swift in Sources */,
 				19C2EC33180F59E8660A215D /* ExportRecipient.swift in Sources */,
 				19C2E0E206CBB8B15F4E17B4 /* IdentityAttributeEntity.swift in Sources */,
+				529457C1274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				19C2E3EE42E10C79DBD4D997 /* IdentityEntity.swift in Sources */,
 				077AC5EA26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				19C2E94132B8C8B8853EB589 /* IdentityProviderEntity.swift in Sources */,
@@ -3925,6 +3932,7 @@
 				64FD33CD2602330B00563703 /* CredentialResponse.swift in Sources */,
 				52589B2325121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				7F85B714246A9A7C00ED09B8 /* UIViewController+Additions.swift in Sources */,
+				529457C3274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				7F85B715246A9A7C00ED09B8 /* AccountTransactionsDataViewController.swift in Sources */,
 				7F85B716246A9A7C00ED09B8 /* BaseTextfield.swift in Sources */,
 				642ED97925F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,
@@ -4254,6 +4262,7 @@
 				64FD33CE2602330B00563703 /* CredentialResponse.swift in Sources */,
 				52589B2425121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				7F85B811246A9AB600ED09B8 /* AttributesFormatter.swift in Sources */,
+				529457C4274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */,
 				7F85B814246A9AB600ED09B8 /* AccountTransactionsDataViewController.swift in Sources */,
 				642ED97A25F21FB500A09BB3 /* UpdatePasswordViewController.swift in Sources */,
@@ -4704,6 +4713,7 @@
 				5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				C93D092824275C5A0022250B /* AccountConfirmedViewController.swift in Sources */,
 				1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
+				529457C2274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				C924B2292431D3A200081E23 /* AccountDetailsViewController.swift in Sources */,
 				7FF618EE2437294E00269F9F /* CreateTransferRequest.swift in Sources */,
 				C94ED71D2461B2030071A4FB /* TransactionDetailPresenter.swift in Sources */,
