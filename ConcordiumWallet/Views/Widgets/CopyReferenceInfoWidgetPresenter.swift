@@ -12,10 +12,24 @@ import Foundation
 
 protocol CopyReferenceInfoWidgetPresenterProtocol {
     var view: CopyReferenceInfoWidgetViewProtocol? { get set }
+    var identityProviderName: String { get }
+    var identityProviderSupportEmail: String { get }
     func viewDidLoad()
 }
 
 class CopyReferenceInfoWidgetPresenter: CopyReferenceInfoWidgetPresenterProtocol {
     var view: CopyReferenceInfoWidgetViewProtocol?
+    var identityProviderName: String
+    var identityProviderSupportEmail: String
+    
     func viewDidLoad() {}
+    
+    init(
+        identityProviderName: String,
+        identityProviderSupportEmail: String
+    ) {
+        self.identityProviderName = identityProviderName
+        self.identityProviderSupportEmail = identityProviderSupportEmail
+    }
+    
 }

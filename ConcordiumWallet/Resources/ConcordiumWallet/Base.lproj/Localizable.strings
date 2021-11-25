@@ -398,7 +398,7 @@ process on-chain.";
 "supportmail.subject" = "Issuance reference: %@";
 "supportmail.body" = "Hi! My identity issuance failed.\n\nHere is my info:\n\nIssuance reference:\n%@\n\nMobile Wallet version:\n%@ (%@) \n\nPlatform:\n\niOS: %@";
 
-"copyreference.info.text" = "You can copy the reference below, and then contact Notabene at concordium-idiss@notabene.id \n\n Optional: Add Concordium as CC via idiss@concordium.software";
+"copyreference.info.text" = "You can copy the reference below, and then contact %@ at %@ \n\n Optional: Add Concordium as CC via %@";
 
 
 "accountfinalized.single.alert.title" = "Your new account is ready!";
