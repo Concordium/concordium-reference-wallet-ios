@@ -133,6 +133,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func didSelectMakeBackup()
+    func newTermsAvailable()
 }
 
 // MARK: View
@@ -189,6 +190,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func viewDidLoad() {
         view?.bind(to: viewModel)
+        checkForNewTerms()
     }
     
     func viewWillAppear() {
@@ -300,6 +302,15 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
         for pendingAccount in newPendingAccounts {
             dependencyProvider.storageManager().storePendingAccount(with: pendingAccount)
+        }
+    }
+    
+    private func checkForNewTerms() {
+        let currentTermsHash = HashingHelper.hash(TermsHelper.currentTerms)
+        let acceptedTermsHash = AppSettings.acceptedTermsHash
+        
+        if currentTermsHash != acceptedTermsHash {
+            self.delegate?.newTermsAvailable()
         }
     }
     

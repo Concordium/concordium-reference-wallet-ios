@@ -17,9 +17,11 @@ enum UserDefaultKeys: String {
     case passwordChangeInProgress
     case dontShowMemoAlertWarning
     case pendingAccount
+    case acceptedTermsHash
 }
 
 struct AppSettings {
+    
     static var passwordType: PasswordType? {
         get {
             guard let string = UserDefaults.standard.string(forKey: UserDefaultKeys.passwordType.rawValue) else {
@@ -64,6 +66,15 @@ struct AppSettings {
     
     static var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    }
+    
+    static var acceptedTermsHash: String? {
+        get {
+            UserDefaults.standard.string(forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
+        }
     }
     
     static var iOSVersion: String { UIDevice.current.systemVersion }
