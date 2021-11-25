@@ -38,20 +38,20 @@ class GTUTests: XCTestCase {
     }
 
     func testFormatGtuWithGStroke() {
-        XCTAssertEqual(GTU(intValue: 1).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.000001"))
-        XCTAssertEqual(GTU(intValue: 10).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.00001"))
-        XCTAssertEqual(GTU(intValue: 100).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.0001"))
-        XCTAssertEqual(GTU(intValue: 1000).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.001"))
-        XCTAssertEqual(GTU(intValue: 10000).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.01"))
-        XCTAssertEqual(GTU(intValue: 100000).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.10"))
+        XCTAssertEqual(GTU(intValue: 1).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.000001"))
+        XCTAssertEqual(GTU(intValue: 10).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.00001"))
+        XCTAssertEqual(GTU(intValue: 100).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.0001"))
+        XCTAssertEqual(GTU(intValue: 1000).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.001"))
+        XCTAssertEqual(GTU(intValue: 10000).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.01"))
+        XCTAssertEqual(GTU(intValue: 100000).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.10"))
 
-        XCTAssertEqual(GTU(intValue: 0).displayValueWithGStroke(), replaceDecimalSep("Ǥ0.00"))
-        XCTAssertEqual(GTU(intValue: -1).displayValueWithGStroke(), replaceDecimalSep("-Ǥ0.000001"))
-        XCTAssertEqual(GTU(intValue: -10).displayValueWithGStroke(), replaceDecimalSep("-Ǥ0.00001"))
-        XCTAssertEqual(GTU(intValue: -100).displayValueWithGStroke(), replaceDecimalSep("-Ǥ0.0001"))
-        XCTAssertEqual(GTU(intValue: -1000).displayValueWithGStroke(), replaceDecimalSep("-Ǥ0.001"))
-        XCTAssertEqual(GTU(intValue: -10000).displayValueWithGStroke(), replaceDecimalSep("-Ǥ0.01"))
-        XCTAssertEqual(GTU(intValue: -100000).displayValueWithGStroke(), replaceDecimalSep("-Ǥ0.10"))
+        XCTAssertEqual(GTU(intValue: 0).displayValueWithGStroke(), replaceDecimalSep("Ͼ0.00"))
+        XCTAssertEqual(GTU(intValue: -1).displayValueWithGStroke(), replaceDecimalSep("-Ͼ0.000001"))
+        XCTAssertEqual(GTU(intValue: -10).displayValueWithGStroke(), replaceDecimalSep("-Ͼ0.00001"))
+        XCTAssertEqual(GTU(intValue: -100).displayValueWithGStroke(), replaceDecimalSep("-Ͼ0.0001"))
+        XCTAssertEqual(GTU(intValue: -1000).displayValueWithGStroke(), replaceDecimalSep("-Ͼ0.001"))
+        XCTAssertEqual(GTU(intValue: -10000).displayValueWithGStroke(), replaceDecimalSep("-Ͼ0.01"))
+        XCTAssertEqual(GTU(intValue: -100000).displayValueWithGStroke(), replaceDecimalSep("-Ͼ0.10"))
     }
 
     func testStringToGtu() {

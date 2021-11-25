@@ -40,9 +40,9 @@ struct GTU {
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
-            str = "-Ǥ\(str)"
+            str = "-Ͼ\(str)"
         } else {
-            str = "Ǥ\(str)"
+            str = "Ͼ\(str)"
         }
         return str
     }
