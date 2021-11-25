@@ -54,9 +54,18 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>14</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>Concordium Support Mail</key>
+	<string>idiss@concordium.software</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlegmail</string>
+		<string>ms-outlook</string>
+		<string>ymail</string>
+		<string>readdle-spark</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -108,14 +117,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>googlegmail</string>
-		<string>ms-outlook</string>
-		<string>ymail</string>
-		<string>readdle-spark</string>
-	</array>
-	<key>Concordium Support Mail</key>
-	<string>idiss@concordium.software</string>
 </dict>
 </plist>
