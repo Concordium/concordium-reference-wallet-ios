@@ -138,7 +138,7 @@ protocol AccountsPresenterDelegate: AnyObject {
 // MARK: View
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
-    func showIdentityFailed(reference: String, completion: @escaping () -> Void)
+    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping () -> Void)
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
     var isOnScreen: Bool { get }
 }
@@ -315,7 +315,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
             // if there is an account associated with the identity, we delete the account and show the error
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
-                view?.showIdentityFailed(reference: reference) { [weak self] in
+                let identityProviderName = identity.identityProviderName ?? ""
+                let identityProviderSupportEmail = identity.identityProvider?.support ?? ""
+                view?.showIdentityFailed(identityProviderName: identityProviderName,
+                                         identityProviderSupport: identityProviderSupportEmail,
+                                         reference: reference) { [weak self] in
                     self?.delegate?.tryAgainIdentity()
                 }
                 break // we break here because if there are more accounts that failed, we want to show that later on

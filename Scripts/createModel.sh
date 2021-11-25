@@ -141,6 +141,7 @@ searchReplace()
 
 replaceType "AttributeList.ChosenAttributes" "\[String: String\]"
 replaceType "Policy.RevealedAttributes" "\[String: String\]"
+replaceType "CommitmentsRandomness.AttributesRand" "\[String: String\]"
 #replaceType "AccountKeys.keys" "Key"
 #replaceType "AccountData.KeyValue" "Key"
 #replaceType "Details.Outcome" "OutcomeEnum"

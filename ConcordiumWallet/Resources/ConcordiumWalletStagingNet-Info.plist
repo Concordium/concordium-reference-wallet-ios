@@ -115,7 +115,7 @@
 		<string>ymail</string>
 		<string>readdle-spark</string>
 	</array>
-	<key>Notabene Support Mail</key>
-	<string>concordium-idiss@notabene.id</string>
+	<key>Concordium Support Mail</key>
+	<string>idiss@concordium.software</string>
 </dict>
 </plist>

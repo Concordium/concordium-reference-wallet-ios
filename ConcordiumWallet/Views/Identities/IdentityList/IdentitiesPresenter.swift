@@ -67,7 +67,11 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
             // if there is an account associated with the identity, we delete the account and show the error
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
-                view?.showIdentityFailed(reference: reference) { [weak self] in
+                let identityProviderName = identity.identityProviderName ?? ""
+                let identityProviderSupport = identity.identityProvider?.support ?? ""
+                view?.showIdentityFailed(identityProviderName: identityProviderName,
+                                         identityProviderSupportEmail: identityProviderSupport,
+                                         reference: reference) { [weak self] in
                     self?.delegate?.tryAgainIdentity()
                 }
                 break // we break here because if there are more accounts that failed, we want to show that later on

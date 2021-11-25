@@ -8,10 +8,13 @@ import Foundation
 // MARK: - CommitmentsRandomness
 struct CommitmentsRandomness: Codable {
     let attributesRand: [String: String]
-    let credCounterRand: String
-    let idCredSecRand: String
-    let maxAccountsRand: String
-    let prfRand: String
+    let credCounterRand, idCredSECRand, maxAccountsRand, prfRand: String
+
+    enum CodingKeys: String, CodingKey {
+        case attributesRand, credCounterRand
+        case idCredSECRand = "idCredSecRand"
+        case maxAccountsRand, prfRand
+    }
 }
 
 // MARK: CommitmentsRandomness convenience initializers and mutators
@@ -35,14 +38,14 @@ extension CommitmentsRandomness {
     func with(
         attributesRand: [String: String]? = nil,
         credCounterRand: String? = nil,
-        idCredSecRand: String? = nil,
+        idCredSECRand: String? = nil,
         maxAccountsRand: String? = nil,
         prfRand: String? = nil
     ) -> CommitmentsRandomness {
         return CommitmentsRandomness(
             attributesRand: attributesRand ?? self.attributesRand,
             credCounterRand: credCounterRand ?? self.credCounterRand,
-            idCredSecRand: idCredSecRand ?? self.idCredSecRand,
+            idCredSECRand: idCredSECRand ?? self.idCredSECRand,
             maxAccountsRand: maxAccountsRand ?? self.maxAccountsRand,
             prfRand: prfRand ?? self.prfRand
         )

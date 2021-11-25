@@ -11,6 +11,7 @@
         "transactionHash": "5dc5fa145bffd7276a8de85f6df69933f3f236e676dbca817d6bc88cfde6227d",
         "details": {
             "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "memo": "",
             "transferAmount": "12000000",
             "events": ["Transferred 12.000000 from 4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy to 4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6"],
             "outcome": "success",
@@ -37,6 +38,7 @@
         "transactionHash": "3ab4179980929b7a14892132c7f05bb69173dbf2014304a6eff5e8f1a8e6287b",
         "details": {
             "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "memo": null,
             "events": ["Encrypted amounts up to index = 0 removed", "New encrypted amount added with index = 0"],
             "outcome": "success",
             "newIndex": 0,
@@ -64,6 +66,7 @@
         },
         "transactionHash": "28f825b7bcc35dad145815ba20bfcf8a1cd9bf4ad484e4377b2f1cabf79afbaa",
         "details": {
+            "memo": "",
             "amountSubtracted": "10000000",
             "events": ["New encrypted self-amount"],
             "outcome": "reject",
@@ -90,6 +93,7 @@
         },
         "transactionHash": "767ca7115d0f96e3d1dce0b7c1c7f44eff7e54a4525f20db969955a5e3673ce3",
         "details": {
+            "memo": "",
             "amountAdded": "10000000",
             "events": ["Encrypted amounts up to index = 0 removed", "Amount added to the public balance by decryption = 10.000000"],
             "outcome": "success",
@@ -115,6 +119,7 @@
         },
         "transactionHash": "ccf279c7ff27e5ceac45c34e48226c2907bac060a16054537930b2554cb64a02",
         "details": {
+            "memo": "",
             "amountSubtracted": "25000000",
             "events": ["New encrypted self-amount"],
             "outcome": "success",
@@ -136,6 +141,7 @@
         "transactionHash": "f64dc3b579a90cfe15d29e5be2c373e5cb6a6e05d2440cd8e503d5ffd6c32db8",
         "details": {
             "transferDestination": "4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy",
+            "memo": "",
             "transferAmount": "100000000",
             "events": ["Transferred 100.000000 from 4iFVSGcPwasmKWMqXMrzB5qXEapERMPGRkD4SRAUd496Q8AKix to 4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy"],
             "outcome": "success",
@@ -156,6 +162,7 @@
         "transactionHash": "5dc5fa145bffd7276a8de85f6df69933f3f236e676dbca817d6bc88cfde6227d",
         "details": {
             "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "memo": "",
             "transferAmount": "12000000",
             "events": ["Transferred 12.000000 from 4oXFnLJWDVQ5LuwRpePe2fE1Yn4jrmromeurLyC5oKXZrvtkDy to 4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6"],
             "outcome": "success",
@@ -180,6 +187,7 @@
         "transactionHash": "3ab4179980929b7a14892132c7f05bb69173dbf2014304a6eff5e8f1a8e6287b",
         "details": {
             "transferDestination": "4TeL4JyeaXG3xCVdzY9gx38gu1gPuSR63QJJVPoTKJiZhtD1K6",
+            "memo": "",
             "events": ["Encrypted amounts up to index = 0 removed", "New encrypted amount added with index = 0"],
             "outcome": "success",
             "newIndex": 0,

@@ -373,9 +373,9 @@ process on-chain.";
 
 "identityfailed.title" = "Identity issuance failed";
 "identityfailed.tryagain" = "Try again";
-"identityfailed.message" = "The identity issuance failed. \n\n You can either try again, or contact Notabene’s support. \n\n Clicking Contact Support will open your e-mail app, with a reference to your submission as subject. \n\n Concordium will be CC’ed in the correspondence.";
-"identityfailed.nomail.message" = "The identity issuance failed. \n\n You can either try again, or contact Notabene’s support. \n\n You can copy the reference below, and then contact Notabene at concordium-idiss@notabene.id \n\n Optional: Add Concordium as CC via
-idiss@concordium.software";
+"identityfailed.message" = "The identity issuance failed. \n\n You can either try again, or contact %@’s support. \n\n Clicking Contact Support will open your e-mail app, with a reference to your submission as subject. \n\n Concordium will be CC’ed in the correspondence.";
+"identityfailed.nomail.message" = "The identity issuance failed. \n\n You can either try again, or contact %@’s support. \n\n You can copy the reference below, and then contact %@ at %@ \n\n Optional: Add Concordium as CC via
+%@";
 "identityfailed.copyreference" = "Copy reference";
 "identityfailed.contactsupport" = "Contact Support";
 

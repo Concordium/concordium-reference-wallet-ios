@@ -11,13 +11,20 @@ import MessageUI
 import UIKit
 
 protocol ShowIdentityFailure: AnyObject {
-    func showIdentityFailureAlert(reference: String, completion: @escaping () -> Void)
+    func showIdentityFailureAlert(identityProviderName: String,
+                                  identityProviderSupportEmail: String,
+                                  reference: String,
+                                  completion: @escaping () -> Void)
 }
 
 typealias IdentityFailableViewController = UIViewController & ShowToast & SupportMail & MFMailComposeViewControllerDelegate
 
 extension ShowIdentityFailure where Self: IdentityFailableViewController {
-    func showIdentityFailureAlert(reference: String, completion: @escaping () -> Void) {
+    func showIdentityFailureAlert(identityProviderName: String,
+                                  identityProviderSupportEmail: String,
+                                  reference: String,
+                                  completion: @escaping () -> Void) {
+        let concordiumSupportEmail = AppConstants.Support.concordiumSupportMail
         let alert = UIAlertController(
             title: "identityfailed.title".localized,
             message: nil,
@@ -45,14 +52,14 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
                 self.launchSupport(
                     presenter: self,
                     delegate: self,
-                    recipient: AppConstants.Support.identityProviderSupportMail,
-                    ccRecipient: AppConstants.Support.concordiumSupportMail,
+                    recipient: identityProviderSupportEmail,
+                    ccRecipient: concordiumSupportEmail,
                     subject: String(format: "supportmail.subject".localized, reference),
                     body: supportMailBody
                 )
             }
             
-            alert.message = "identityfailed.message".localized
+            alert.message = String(format: "identityfailed.message".localized, identityProviderName)
             alert.addAction(supportAction)
             
         } else {
@@ -60,7 +67,11 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
                 CopyPasterHelper.copy(string: supportMailBody)
                 self?.showToast(withMessage: "supportmail.copied".localized)
             }
-            alert.message = "identityfailed.nomail.message".localized
+            alert.message = String(format: "identityfailed.nomail.message".localized,
+                                   identityProviderName,
+                                   identityProviderName,
+                                   identityProviderSupportEmail,
+                                   concordiumSupportEmail)
             alert.addAction(copyAction)
         }
         
