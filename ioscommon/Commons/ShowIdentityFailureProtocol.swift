@@ -10,11 +10,18 @@ import Foundation
 import MessageUI
 import UIKit
 
+enum IdentityFailureAlertOption {
+    case tryAgain
+    case support
+    case copy
+    case cancel
+}
+
 protocol ShowIdentityFailure: AnyObject {
     func showIdentityFailureAlert(identityProviderName: String,
                                   identityProviderSupportEmail: String,
                                   reference: String,
-                                  completion: @escaping () -> Void)
+                                  completion: @escaping (_ result: IdentityFailureAlertOption) -> Void)
 }
 
 typealias IdentityFailableViewController = UIViewController & ShowToast & SupportMail & MFMailComposeViewControllerDelegate
@@ -23,7 +30,7 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
     func showIdentityFailureAlert(identityProviderName: String,
                                   identityProviderSupportEmail: String,
                                   reference: String,
-                                  completion: @escaping () -> Void) {
+                                  completion: @escaping (_ result: IdentityFailureAlertOption) -> Void) {
         let concordiumSupportEmail = AppConstants.Support.concordiumSupportMail
         let alert = UIAlertController(
             title: "identityfailed.title".localized,
@@ -32,7 +39,7 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
         )
         
         let tryAgainAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { _ in
-            completion()
+            completion(.tryAgain)
         }
         
         alert.addAction(tryAgainAction)
@@ -57,6 +64,7 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
                     subject: String(format: "supportmail.subject".localized, reference),
                     body: supportMailBody
                 )
+                completion(.support)
             }
             
             alert.message = String(format: "identityfailed.message".localized, identityProviderName)
@@ -72,10 +80,13 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
                                    identityProviderName,
                                    identityProviderSupportEmail,
                                    concordiumSupportEmail)
+            completion(.copy)
             alert.addAction(copyAction)
         }
         
-        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel)
+        let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel) { _ in
+            completion(.cancel)
+        }
         alert.addAction(cancelAction)
         
         present(alert, animated: true)

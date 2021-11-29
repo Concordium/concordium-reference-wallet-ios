@@ -139,7 +139,7 @@ protocol AccountsPresenterDelegate: AnyObject {
 // MARK: View
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
-    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping () -> Void)
+    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
     var isOnScreen: Bool { get }
 }
@@ -330,8 +330,13 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 let identityProviderSupportEmail = identity.identityProvider?.support ?? ""
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
                                          identityProviderSupport: identityProviderSupportEmail,
-                                         reference: reference) { [weak self] in
-                    self?.delegate?.tryAgainIdentity()
+                                         reference: reference) { [weak self] chosenAlertOption in
+                    switch chosenAlertOption {
+                    case .tryAgain:
+                        self?.delegate?.tryAgainIdentity()
+                    case .support, .copy, .cancel:
+                        self?.refresh(showLoadingIndicator: false)
+                    }
                 }
                 break // we break here because if there are more accounts that failed, we want to show that later on
             }
