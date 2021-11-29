@@ -205,7 +205,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         .store(in: &cancellables)
     }
     
-    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping () -> Void) {
+    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void) {
         showIdentityFailureAlert(identityProviderName: identityProviderName,
                                  identityProviderSupportEmail: identityProviderSupport,
                                  reference: reference,

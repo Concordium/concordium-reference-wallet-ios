@@ -71,8 +71,14 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                 let identityProviderSupport = identity.identityProvider?.support ?? ""
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
                                          identityProviderSupportEmail: identityProviderSupport,
-                                         reference: reference) { [weak self] in
-                    self?.delegate?.tryAgainIdentity()
+                                         reference: reference) { [weak self] chosenAlertOption in
+                    switch chosenAlertOption {
+                    case .tryAgain:
+                        self?.delegate?.tryAgainIdentity()
+                    case .support, .copy, .cancel:
+                        //no need to refresh because the identities are not updated
+                        break
+                    }
                 }
                 break // we break here because if there are more accounts that failed, we want to show that later on
             }

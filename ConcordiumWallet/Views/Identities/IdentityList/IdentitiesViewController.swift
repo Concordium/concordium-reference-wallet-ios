@@ -26,7 +26,7 @@ class IdentitiesFactory {
 protocol IdentitiesViewProtocol: ShowAlert {
     func showCreateIdentityView(show: Bool)
     func reloadView()
-    func showIdentityFailed(identityProviderName: String, identityProviderSupportEmail: String, reference: String, completion: @escaping () -> Void)
+    func showIdentityFailed(identityProviderName: String, identityProviderSupportEmail: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
 }
 
 class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, SupportMail, ShowIdentityFailure {
@@ -136,7 +136,7 @@ extension IdentitiesViewController: IdentitiesViewProtocol {
         tableView.reloadData()
     }
     
-    func showIdentityFailed(identityProviderName: String, identityProviderSupportEmail: String, reference: String, completion: @escaping () -> Void) {
+    func showIdentityFailed(identityProviderName: String, identityProviderSupportEmail: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void) {
         showIdentityFailureAlert(identityProviderName: identityProviderName,
                                  identityProviderSupportEmail: identityProviderSupportEmail,
                                  reference: reference,
