@@ -74,13 +74,13 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
             let copyAction = UIAlertAction(title: "identityfailed.copyreference".localized, style: .default) { [weak self] _ in
                 CopyPasterHelper.copy(string: supportMailBody)
                 self?.showToast(withMessage: "supportmail.copied".localized)
+                completion(.copy)
             }
             alert.message = String(format: "identityfailed.nomail.message".localized,
                                    identityProviderName,
                                    identityProviderName,
                                    identityProviderSupportEmail,
                                    concordiumSupportEmail)
-            completion(.copy)
             alert.addAction(copyAction)
         }
         
