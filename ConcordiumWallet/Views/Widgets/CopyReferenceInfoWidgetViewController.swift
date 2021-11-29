@@ -39,6 +39,6 @@ class CopyReferenceInfoWidgetViewController: BaseViewController, CopyReferenceIn
         presenter.view = self
         presenter.viewDidLoad()
         
-        label.text = "copyreference.info.text".localized
+        label.text = String(format: "copyreference.info.text".localized, presenter.identityProviderName, presenter.identityProviderSupportEmail, AppConstants.Support.concordiumSupportMail)
     }
 }

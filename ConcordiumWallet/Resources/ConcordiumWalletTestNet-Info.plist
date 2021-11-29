@@ -55,6 +55,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>Concordium Support Mail</key>
+	<string>idiss@concordium.software</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -115,7 +117,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>Concordium Support Mail</key>
-	<string>idiss@concordium.software</string>
 </dict>
 </plist>

@@ -80,7 +80,9 @@ class IdentitiesCoordinator: Coordinator {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
                 vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
             } else {
-                let copyReferenceInfoWidgetPresenter = CopyReferenceInfoWidgetPresenter()
+                let identityProviderName = identity.identityProviderName ?? ""
+                let identityProviderSupportEmail = identity.identityProvider?.support ?? ""
+                let copyReferenceInfoWidgetPresenter = CopyReferenceInfoWidgetPresenter(identityProviderName: identityProviderName, identityProviderSupportEmail: identityProviderSupportEmail)
                 vc.primaryCenterWidget = CopyReferenceInfoWidgetFactory.create(with: copyReferenceInfoWidgetPresenter)
             }
             
