@@ -68,7 +68,8 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
                 let identityProviderName = identity.identityProviderName ?? ""
-                let identityProviderSupport = identity.identityProvider?.support ?? ""
+                //if no ip support email is present, we use Concordium's
+                let identityProviderSupport = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
                                          identityProviderSupportEmail: identityProviderSupport,
                                          reference: reference) { [weak self] chosenAlertOption in
