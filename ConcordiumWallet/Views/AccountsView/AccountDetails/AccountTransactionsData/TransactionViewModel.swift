@@ -200,15 +200,9 @@ extension TransactionDetailsViewModel {
             transactionEvents = details.events
         }
 
-        let fromAddressName: String? =
-                OriginTypeEnum.typeSelf == transaction.origin?.type
-                        ? account.name
-                        : recipientListLookup(details.transferSource)
+        let fromAddressName: String? = recipientListLookup(details.transferSource)
 
-        let toAddressName: String? =
-                OriginTypeEnum.typeSelf == transaction.origin?.type
-                        ? recipientListLookup(details.transferDestination)
-                        : account.name
+        let toAddressName: String? = recipientListLookup(details.transferDestination)
 
         self.init(rejectReason: details.rejectReason,
                 origin: (originAddress),
