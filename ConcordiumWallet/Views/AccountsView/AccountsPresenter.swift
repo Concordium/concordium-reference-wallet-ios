@@ -327,7 +327,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
                 let identityProviderName = identity.identityProviderName ?? ""
-                let identityProviderSupportEmail = identity.identityProvider?.support ?? ""
+                //if no ip support email is present, we use Concordium's
+                let identityProviderSupportEmail = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
                                          identityProviderSupport: identityProviderSupportEmail,
                                          reference: reference) { [weak self] chosenAlertOption in

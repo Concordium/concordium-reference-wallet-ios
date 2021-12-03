@@ -81,7 +81,8 @@ class IdentitiesCoordinator: Coordinator {
                 vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
             } else {
                 let identityProviderName = identity.identityProviderName ?? ""
-                let identityProviderSupportEmail = identity.identityProvider?.support ?? ""
+                //if no ip support email is present, we use Concordium's
+                let identityProviderSupportEmail = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
                 let copyReferenceInfoWidgetPresenter = CopyReferenceInfoWidgetPresenter(identityProviderName: identityProviderName, identityProviderSupportEmail: identityProviderSupportEmail)
                 vc.primaryCenterWidget = CopyReferenceInfoWidgetFactory.create(with: copyReferenceInfoWidgetPresenter)
             }
