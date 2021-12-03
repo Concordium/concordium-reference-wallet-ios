@@ -94,6 +94,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         if !isShielded {
             showMenuButton(iconName: "lines_close")
         }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appWillResignActive),
+                                               name: UIApplication.willResignActiveNotification,
+                                               object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,6 +110,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         if self.isMovingFromParent {
             presenter.viewWillDisappear()
         }
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -111,6 +121,15 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             identityDataVC = nil
             transactionsVC = nil
         }
+    }
+    
+    @objc func appDidBecomeActive() {
+        presenter.updateTransfersOnChanges()
+        startRefreshTimer()
+    }
+    
+    @objc func appWillResignActive() {
+        stopRefreshTimer()
     }
     
     func showMenuButton(iconName: String) {
