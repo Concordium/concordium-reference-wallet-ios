@@ -405,5 +405,8 @@ process on-chain.";
 "accountfinalized.single.alert.message" = "Your new account %@ has been finalized, and is now ready for use.\n\nWe recommend keeping a back-up of all accounts. You can make one now below, or later via the More page.\n\nRemember to store your back-up securely.";
 "accountfinalized.multiple.alert.title" = "Your new accounts are ready!";
 "accountfinalized.multiple.alert.message" = "Your new accounts are now finalized, and ready for use.\n\nWe recommend keeping a back-up of all accounts. You can make one now below, or later via the More page.\n\nRemember to store your back-up securely.";
-"accountfinalized.alert.action.backup" = "Make back-up";
+"accountfinalized.alert.action.backup" = "Make backup";
 
+"accountfinalized.extrabackup.alert.title" = "⚠️ WARNING ⚠️";
+"accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup? \n\n If you loose your phone and do not have a backup you will no longer have access to your account(s).";
+"accountfinalized.extrabackup.alert.action.dismiss" = "Dismiss";
