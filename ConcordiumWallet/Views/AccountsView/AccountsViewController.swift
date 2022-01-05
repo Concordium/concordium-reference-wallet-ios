@@ -284,10 +284,37 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             title: title,
             message: message,
             actions: [
-                AlertAction(name: "ok".localized, completion: nil, style: .default),
+                AlertAction(
+                    name: "ok".localized,
+                    completion: { [weak self] in
+                        let options = AlertOptions(
+                            title: "accountfinalized.extrabackup.alert.title".localized,
+                            message: "accountfinalized.extrabackup.alert.message".localized,
+                            actions: [
+                                AlertAction(
+                                    name: "accountfinalized.extrabackup.alert.action.dismiss".localized,
+                                    completion: nil,
+                                    style: .destructive
+                                ),
+                                AlertAction(
+                                    name: "accountfinalized.alert.action.backup".localized,
+                                    completion: { [weak self] in
+                                        self?.presenter?.userSelectedMakeBackup()
+                                    },
+                                    style: .default
+                                )
+                            ]
+                        )
+
+                        self?.showAlert(with: options)
+                    },
+                    style: .default
+                ),
                 AlertAction(
                     name: "accountfinalized.alert.action.backup".localized,
-                    completion: { [weak self] in self?.presenter?.userSelectedMakeBackup() },
+                    completion: { [weak self] in
+                        self?.presenter?.userSelectedMakeBackup()
+                    },
                     style: .default
                 )
             ]
