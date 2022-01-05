@@ -280,17 +280,21 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             message = "accountfinalized.multiple.alert.message".localized
         }
 
-        let alert = RecoverableAlert(
+        let options = AlertOptions(
             title: title,
             message: message,
-            actionTitle: "accountfinalized.alert.action.backup".localized,
-            okButton: true
+            actions: [
+                AlertAction(name: "ok".localized, completion: nil, style: .default),
+                AlertAction(
+                    name: "accountfinalized.alert.action.backup".localized,
+                    completion: { [weak self] in self?.presenter?.userSelectedMakeBackup() },
+                    style: .default
+                )
+            ]
         )
 
         DispatchQueue.main.async { [weak self] in
-            self?.showRecoverableAlert(alert) { [weak self] in
-                self?.presenter?.userSelectedMakeBackup()
-            }
+            self?.showAlert(with: options)
         }
     }
 }

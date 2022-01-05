@@ -9,17 +9,22 @@
 import Foundation
 import UIKit
 
-struct RecoverableAlert {
+struct AlertAction {
+    let name: String
+    let completion: (() -> Void)?
+    let style: UIAlertAction.Style
+}
+
+struct AlertOptions {
     let title: String?
     let message: String?
-    let actionTitle: String?
-    let okButton: Bool?
+    let actions: [AlertAction]
 }
 
 protocol ShowAlert: AnyObject {
     func showErrorAlert(_ error: ViewError)
     func showRecoverableErrorAlert(_ error: ViewError, recoverActionTitle: String, hasCancel: Bool, completion: @escaping () -> Void)
-    func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void)
+    func showAlert(with options: AlertOptions)
 }
 
 extension ShowAlert where Self: UIViewController {
@@ -57,24 +62,21 @@ extension ShowAlert where Self: UIViewController {
         present(alert, animated: true)
     }
     
-    func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void) {
+    func showAlert(with options: AlertOptions) {
         let alert = UIAlertController(
-            title: recovarableAlert.title,
-            message: recovarableAlert.message,
+            title: options.title,
+            message: options.message,
             preferredStyle: .alert
         )
-       
-        let action = UIAlertAction(title: recovarableAlert.actionTitle, style: .default) { _ in
-            completion()
+
+        for alertAction in options.actions {
+            let action = UIAlertAction(title: alertAction.name, style: alertAction.style) { _ in
+                alertAction.completion?()
+            }
+
+            alert.addAction(action)
         }
-        
-        alert.addAction(action)
-        
-        if let okButton = recovarableAlert.okButton, okButton {
-            let okAction = UIAlertAction(title: "ok".localized, style: .default)
-            alert.addAction(okAction)
-        }
-        
+
         present(alert, animated: true)
     }
 }
@@ -131,24 +133,22 @@ extension ShowAlert where Self: Coordinator {
         navigationController.present(alert, animated: true)
     }
     
-    func showRecoverableAlert(_ recovarableAlert: RecoverableAlert, completion: @escaping () -> Void) {
+    
+    func showAlert(with options: AlertOptions) {
         let alert = UIAlertController(
-            title: recovarableAlert.title,
-            message: recovarableAlert.message,
+            title: options.title,
+            message: options.message,
             preferredStyle: .alert
         )
-       
-        let action = UIAlertAction(title: recovarableAlert.actionTitle, style: .default) { _ in
-            completion()
+        
+        for alertAction in options.actions {
+            let action = UIAlertAction(title: alertAction.name, style: alertAction.style) { _ in
+                alertAction.completion?()
+            }
+
+            alert.addAction(action)
         }
-        
-        alert.addAction(action)
-        
-        if let okButton = recovarableAlert.okButton, okButton {
-            let okAction = UIAlertAction(title: "ok".localized, style: .default)
-            alert.addAction(okAction)
-        }
-        
+
         navigationController.present(alert, animated: true)
     }
 }
