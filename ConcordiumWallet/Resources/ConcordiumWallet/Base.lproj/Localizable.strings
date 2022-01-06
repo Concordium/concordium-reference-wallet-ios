@@ -408,5 +408,5 @@ process on-chain.";
 "accountfinalized.alert.action.backup" = "Make backup";
 
 "accountfinalized.extrabackup.alert.title" = "⚠️ WARNING ⚠️";
-"accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup? \n\n If you loose your phone and do not have a backup you will no longer have access to your account(s).";
+"accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup?\n\nIf you loose your phone and do not have a backup you will no longer have access to your account(s).";
 "accountfinalized.extrabackup.alert.action.dismiss" = "Dismiss";
