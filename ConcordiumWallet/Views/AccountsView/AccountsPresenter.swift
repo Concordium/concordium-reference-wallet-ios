@@ -141,6 +141,7 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
+    func showBackupWarningBanner()
     var isOnScreen: Bool { get }
 }
 

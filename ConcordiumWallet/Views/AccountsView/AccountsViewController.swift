@@ -28,8 +28,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     private var cancellables = Set<AnyCancellable>()
 
-    @IBOutlet weak var newIdentityMessageLabel: UILabel!
+    @IBOutlet weak var backupWarningMessageView: RoundedCornerView!
+    @IBOutlet weak var backupWarningMessageLabel: UILabel!
 
+    @IBOutlet weak var newIdentityMessageLabel: UILabel!
     @IBOutlet weak var noAccountsMessageLabel: UILabel!
     @IBOutlet weak var createNewButton: StandardButton!
     @IBOutlet weak var totalBalanceLabel: UILabel!
@@ -37,6 +39,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     @IBOutlet weak var atDisposalLockImageView: UIImageView!
     @IBOutlet weak var atDisposalLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
+
+    @IBOutlet weak var balanceViewWarningTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var balanceViewTopConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: AccountsPresenterProtocol) {
         self.presenter = presenter
@@ -49,11 +54,13 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     override func viewDidLoad() {
         title = "accounts_tab_title".localized
+
         presenter?.view = self
         presenter?.viewDidLoad()
 
         dataSource = UITableViewDiffableDataSource<String, AccountViewModel>(tableView: tableView, cellProvider: createCell)
 //        tableView.applyConcordiumEdgeStyle()
+
         tableView.layer.masksToBounds = false
         tableView.backgroundColor = .white
         dataSource?.defaultRowAnimation = .none
@@ -61,6 +68,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
+
+        backupWarningMessageLabel.text = "accounts.backupwarning.text".localized
+        backupWarningMessageView.applyConcordiumEdgeStyle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -265,6 +275,16 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     @IBAction func createNewButtonPressed(_ sender: Any) {
         presenter?.userPressedCreate()
+    }
+
+    func showBackupWarningBanner() {
+        UIView.animate(withDuration: 0.25, animations: {  [weak self] in
+            self?.balanceViewTopConstraint.isActive = false
+            self?.balanceViewWarningTopConstraint.isActive = true
+            self?.view.layoutIfNeeded()
+        }, completion: { [weak self] _ in
+            self?.backupWarningMessageView.isHidden = false
+        })
     }
 
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {

@@ -103,6 +103,8 @@ add_identity_data = "Reveal Identity Data";
 "accounts.amountwillbeshielded" = "Amount will be shielded";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
 
+"accounts.backupwarning.text" = "Some accounts are not backed up. Press here to back them up.";
+
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new here?";
 "gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must create an initial account. \n\nIn case this is not your first time around, you can also import already existing accounts.\n\nHow would you like to continue?";
@@ -410,3 +412,4 @@ process on-chain.";
 "accountfinalized.extrabackup.alert.title" = "⚠️ WARNING ⚠️";
 "accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup?\n\nIf you loose your phone and do not have a backup you will no longer have access to your account(s).";
 "accountfinalized.extrabackup.alert.action.dismiss" = "Dismiss";
+
