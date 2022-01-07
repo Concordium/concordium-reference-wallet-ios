@@ -192,6 +192,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     func viewDidLoad() {
         view?.bind(to: viewModel)
         checkForNewTerms()
+        checkForBackup()
     }
     
     func viewWillAppear() {
@@ -313,6 +314,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if currentTermsHash != acceptedTermsHash {
             self.delegate?.newTermsAvailable()
         }
+    }
+
+    private func checkForBackup() {
+        guard !AppSettings.backupPerformed else { return }
+        view?.showBackupWarningBanner()
     }
     
     private func checkForIdentityFailed() {
