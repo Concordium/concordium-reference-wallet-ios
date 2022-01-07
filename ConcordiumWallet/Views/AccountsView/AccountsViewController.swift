@@ -71,6 +71,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
         backupWarningMessageLabel.text = "accounts.backupwarning.text".localized
         backupWarningMessageView.applyConcordiumEdgeStyle()
+        backupWarningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didSelectMakeBackup)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +99,12 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
-    
+
+    @objc private func didSelectMakeBackup() {
+        HapticFeedbackHelper.generate(feedback: .light)
+        presenter?.userSelectedMakeBackup()
+    }
+
     @objc func appDidBecomeActive() {
         presenter?.refresh()
         startRefreshTimer()
