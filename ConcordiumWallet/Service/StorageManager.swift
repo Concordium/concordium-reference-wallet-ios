@@ -83,6 +83,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     init(keychain: KeychainWrapperProtocol) {
         self.keychain = keychain
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
+        excludeDocumentsAndLibraryFoldersFromBackup()
     }
 
     // MARK: Identity
@@ -472,5 +473,27 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         
         pendingAccounts.removeAll(where: { $0 == address })
         UserDefaults.standard.set(pendingAccounts, forKey: key)
+    }
+    
+    private func excludeDocumentsAndLibraryFoldersFromBackup() {
+        let documentsPaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        var documentsDirectoryURL = documentsPaths[0]
+        excludeFromBackup(url: &documentsDirectoryURL)
+        
+        
+        let libraryPaths = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)
+        var libraryURL = libraryPaths[0]
+        excludeFromBackup(url: &libraryURL)
+        
+    }
+    
+    private func excludeFromBackup(url:inout URL) {
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        do {
+            try url.setResourceValues(values)
+        } catch let error {
+            Logger.debug("Unable to exclude folder from backup due to error: \(error)")
+        }
     }
 }
