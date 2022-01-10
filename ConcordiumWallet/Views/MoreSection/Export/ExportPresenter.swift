@@ -95,7 +95,6 @@ class ExportPresenter: ExportPresenterProtocol {
                 do {
                     Logger.trace("completed - delete export file")
                     try exportService.deleteExportFile()
-                    AppSettings.backupPerformed = true
                 } catch {
                     Logger.warn(error)
                     self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
