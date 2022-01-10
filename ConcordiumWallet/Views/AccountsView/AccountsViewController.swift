@@ -283,14 +283,25 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.userPressedCreate()
     }
 
-    func showBackupWarningBanner() {
-        UIView.animate(withDuration: 0.25, animations: {  [weak self] in
-            self?.balanceViewTopConstraint.isActive = false
-            self?.balanceViewWarningTopConstraint.isActive = true
-            self?.view.layoutIfNeeded()
-        }, completion: { [weak self] _ in
-            self?.backupWarningMessageView.isHidden = false
-        })
+    func showBackupWarningBanner(_ show: Bool) {
+        let duration: TimeInterval = 0.25
+
+        if show {
+            UIView.animate(withDuration: duration, animations: {  [weak self] in
+                self?.balanceViewTopConstraint.isActive = false
+                self?.balanceViewWarningTopConstraint.isActive = true
+                self?.view.layoutIfNeeded()
+            }, completion: { [weak self] _ in
+                self?.backupWarningMessageView.isHidden = false
+            })
+        } else {
+            UIView.animate(withDuration: duration, animations: { [weak self] in
+                self?.backupWarningMessageView.isHidden = true
+                self?.balanceViewTopConstraint.isActive = true
+                self?.balanceViewWarningTopConstraint.isActive = false
+                self?.view.layoutIfNeeded()
+            })
+        }
     }
 
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {
