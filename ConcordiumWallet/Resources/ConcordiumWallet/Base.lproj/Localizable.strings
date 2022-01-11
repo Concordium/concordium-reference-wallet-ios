@@ -59,6 +59,7 @@ add_identity_data = "Reveal Identity Data";
 "requestExportPassword.password.descriptiveText" = "Enter the export password created when exporting the file";
 "import.passwordError" = "Invalid password or import file corrupted";
 "import.environmentError" = "Files exported on Concordium Mainnet, TestNet or StageNet are not compatible with the other chains. Please import on the correct chain.";
+"import.noIdentitiesError" = "The file imported did not contain any identities. This indicates a corrupted backup file.";
 "import.noUserCreated" = "Please create password first. Then try again.";
 "import.importing.title" = "Importing...";
 "import.importing.subtitle" = "Please hold on a moment,\nwhile the import is finishing";

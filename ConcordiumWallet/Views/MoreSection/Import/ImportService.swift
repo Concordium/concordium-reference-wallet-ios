@@ -24,7 +24,10 @@ struct ImportService {
         
         // Logger.debug("import data: \(importedData.prettyPrintedJSONString)");
         
-        _ = try decodeImport(importedData: importedData)
+        let importedObjects = try decodeImport(importedData: importedData)
+        if importedObjects.value.identities.count == 0 {
+            throw ImportError.missingIdentitiesError
+        }
     }
 
     func importFile(from url: URL, pwHash: String, exportPassword: String) throws -> AnyPublisher<ImportedItemsReport, Error> {
