@@ -321,7 +321,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
 
     private func checkForBackup() {
-        let showWarning = !AppSettings.backupPerformed
+        let finalizedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == .finalized }
+        let showWarning = finalizedAccounts.isEmpty ? false : !AppSettings.backupPerformed
         view?.showBackupWarningBanner(showWarning)
     }
     
