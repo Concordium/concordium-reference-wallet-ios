@@ -141,6 +141,7 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)
     func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
+    func showBackupWarningBanner(_ show: Bool)
     var isOnScreen: Bool { get }
 }
 
@@ -195,6 +196,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func viewWillAppear() {
         refresh(showLoadingIndicator: true)
+        checkForBackup()
     }
 
     func viewDidAppear() {
@@ -283,9 +285,13 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
 
         if finalizedAccounts.count > 1 {
+            AppSettings.backupPerformed = false
+            checkForBackup()
             view?.showAccountFinalizedNotification(.multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
+            AppSettings.backupPerformed = false
+            checkForBackup()
             view?.showAccountFinalizedNotification(.singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
@@ -312,6 +318,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if currentTermsHash != acceptedTermsHash {
             self.delegate?.newTermsAvailable()
         }
+    }
+
+    private func checkForBackup() {
+        let finalizedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == .finalized }
+        let showWarning = finalizedAccounts.isEmpty ? false : !AppSettings.backupPerformed
+        view?.showBackupWarningBanner(showWarning)
     }
     
     private func checkForIdentityFailed() {
