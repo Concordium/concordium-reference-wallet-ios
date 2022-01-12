@@ -168,7 +168,7 @@ extension AccountsCoordinator: ExportPresenterDelegate {
         vc.completionWithItemsHandler = { exportActivityType, completed, _, _ in
             // exportActivityType == nil means that the user pressed the close button on the share sheet
             if completed {
-                AppSettings.backupPerformed = true
+                AppSettings.needsBackupWarning = false
             }
 
             if completed || exportActivityType == nil {
