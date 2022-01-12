@@ -25,7 +25,7 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
-protocol LoginDependencyProvider {
+protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 

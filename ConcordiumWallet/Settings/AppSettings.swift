@@ -18,6 +18,7 @@ enum UserDefaultKeys: String {
     case dontShowMemoAlertWarning
     case pendingAccount
     case acceptedTermsHash
+    case ignoreMissingKeysForIdsOrAccountsAtLogin
 }
 
 struct AppSettings {
@@ -74,6 +75,15 @@ struct AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
+        }
+    }
+    
+    static var ignoreMissingKeysForIdsOrAccountsAtLogin: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.ignoreMissingKeysForIdsOrAccountsAtLogin.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.ignoreMissingKeysForIdsOrAccountsAtLogin.rawValue)
         }
     }
     

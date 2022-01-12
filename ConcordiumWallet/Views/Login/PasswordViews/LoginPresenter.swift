@@ -18,10 +18,12 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     weak var delegate: LoginViewDelegate?
     let dependencyProvider: LoginDependencyProvider
     let viewState: PasswordSelectionState = AppSettings.passwordType == .password ? .loginWithPassword : .loginWithPasscode
-
+    let sanityChecker: SanityChecker
+    
     init(delegate: LoginViewDelegate, dependencyProvider: LoginDependencyProvider) {
         self.delegate = delegate
         self.dependencyProvider = dependencyProvider
+//        self.sanityChecker = SanityChecker(requestPasswordDelegate: self, keychainWrapper: dependencyProvider.keychainWrapper(), mobileWallet: dependencyProvider.mobileWrapper(), storageManager: dependencyProvider.storageManager(), errorDisplayer: <#T##ShowAlert#>, coordinator: <#T##Coordinator#>)
     }
 
     func viewDidLoad() {

@@ -42,16 +42,16 @@ class SanityChecker {
                 self?.errorDisplayer.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] pwHash in
                 guard let self = self else { return }
-                self.checkSanity(pwHash: pwHash)
+                self.checkSanity(pwHash: pwHash, completion: nil)
             }).store(in: &cancellables)
     }
     
-    public func checkSanity(pwHash: String) {
+    public func checkSanity(pwHash: String, completion: @escaping () -> Void) {
         let report = self.mobileWallet.verifyIdentitiesAndAccounts(pwHash: pwHash)
-        self.showValidateIdentitiesAlert(report: report)
+        self.showValidateIdentitiesAlert(report: report, completion: completion)
     }
     
-    private func showValidateIdentitiesAlert(report: [(IdentityDataType, [AccountDataType])]) {
+    private func showValidateIdentitiesAlert(report: [(IdentityDataType, [AccountDataType])], completion: @escaping () -> Void) {
         var message = "more.validateIdsAndAccount.unusableIdentitiesFound".localized
         for (identity, accounts) in report {
             message += String(format: "more.validateIdsAndAccount.identity".localized, identity.nickname)
@@ -66,16 +66,19 @@ class SanityChecker {
             preferredStyle: .alert
         )
         
-        let removeAction = UIAlertAction(title: "more.validateIdsAndAccount.removeFromApp".localized, style: .destructive) { (_) in
-//            completion()
+        let removeAction = UIAlertAction(title: "more.validateIdsAndAccount.removeFromApp".localized, style: .destructive) { [weak self] (_) in
+            self?.removeIdentitiesAndAccountsWithoutKeys(report: report)
+            completion()
         }
        
-        let remindMeLater = UIAlertAction(title: "more.validateIdsAndAccount.remindLater".localized, style: .default) { (_) in
-//            completion()
+        let remindMeLater = UIAlertAction(title: "more.validateIdsAndAccount.remindLater".localized, style: .default) {  [weak self] (_) in
+            self?.remindMeLater(report: report)
+            completion()
         }
         
-        let keepAsReadonly = UIAlertAction(title: "more.validateIdsAndAccount.keep".localized, style: .cancel) { (_) in
-//            completion()
+        let keepAsReadonly = UIAlertAction(title: "more.validateIdsAndAccount.keep".localized, style: .cancel) {  [weak self] (_) in
+            self?.keepAsReadOnly(report: report)
+            completion()
         }
         
         alert.addAction(removeAction)
@@ -94,11 +97,21 @@ class SanityChecker {
         }
     }
     
-    private func remindMeLater() {
-        //TODO: mark accounts as read-only and remind user later
+    private func remindMeLater(report: [(IdentityDataType, [AccountDataType])]){
+        AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin = false
+        markIdsAndAccountsAsReadOnly(report: report)
     }
     
-    private func keepAsReadOnly() {
-        //TODO: mark accounts as read-only and set a flag not to check this at login
+    private func keepAsReadOnly(report: [(IdentityDataType, [AccountDataType])]) {
+        AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin = true
+        markIdsAndAccountsAsReadOnly(report: report)
+    }
+    
+    private func markIdsAndAccountsAsReadOnly(report: [(IdentityDataType, [AccountDataType])]) {
+        for (_, accounts) in report {
+            for account in accounts {
+                let _ = account.withMarkAsReadOnly()
+            }
+        }
     }
 }
