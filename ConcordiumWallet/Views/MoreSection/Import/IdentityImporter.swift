@@ -23,7 +23,8 @@ class IdentityImporter {
                 //Here we have an identity stored.
                 //We check whether the identity has its keys and if it does, we try to
                 //import its accounts and mark it as duplicate in the report
-                if let key = existingEntity.encryptedPrivateIdObjectData, let _ = try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get() {
+                if let key = existingEntity.encryptedPrivateIdObjectData,
+                    let _ = try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get() {
                     importAccounts(identityData: identityDataToImport, identityEntity: existingEntity, pwHash: pwHash)
                     importReadOnlyAccounts(readOnlyAccounts, identityEntity: existingEntity, pwHash: pwHash)
                     importReport.duplicateIdentities.append(importedIdentity)
@@ -75,12 +76,13 @@ class IdentityImporter {
         
         let existingAccount = storageManager.getAccount(withAddress: accountData.address)
         let accountContainsKeys: Bool
-        if let storredAccount = existingAccount, let key = storredAccount.encryptedPrivateKey, let _ = try? storageManager.getPrivateAccountKeys(key: key, pwHash: pwHash).get() {
+        if let storredAccount = existingAccount,
+            let key = storredAccount.encryptedPrivateKey,
+            let _ = try? storageManager.getPrivateAccountKeys(key: key, pwHash: pwHash).get() {
             accountContainsKeys = true
         } else {
             accountContainsKeys = false
         }
-        
         
         // we allow overwritting if the account is readonly or it doesn't contain keys
         guard existingAccount?.isReadOnly == true || !accountContainsKeys else {

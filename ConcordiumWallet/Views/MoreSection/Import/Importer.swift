@@ -83,7 +83,8 @@ class Importer {
                 }}.eraseToAnyPublisher()
     }
     
-    private func verifyAccounts(accounts: [MakeGenerateAccountsResponseElement], pwHash: String) -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error> {
+    private func verifyAccounts(accounts: [MakeGenerateAccountsResponseElement],
+                                pwHash: String) -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error> {
         // filter accounts included in the import (we only include addresses that are not saved or are readonly or don't contain keys)
         let accountsToVerify = accounts.filter { (account) -> Bool in
             let storredAccount = storageManager.getAccount(withAddress: account.accountAddress)

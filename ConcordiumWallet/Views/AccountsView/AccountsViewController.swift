@@ -53,7 +53,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.viewDidLoad()
 
         dataSource = UITableViewDiffableDataSource<String, AccountViewModel>(tableView: tableView, cellProvider: createCell)
-//        tableView.applyConcordiumEdgeStyle()
         tableView.layer.masksToBounds = false
         tableView.backgroundColor = .white
         dataSource?.defaultRowAnimation = .none
@@ -224,7 +223,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         .store(in: &cancellables)
     }
     
-    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void) {
+    func showIdentityFailed(identityProviderName: String,
+                            identityProviderSupport: String,
+                            reference: String,
+                            completion: @escaping (_ option: IdentityFailureAlertOption) -> Void) {
         showIdentityFailureAlert(identityProviderName: identityProviderName,
                                  identityProviderSupportEmail: identityProviderSupport,
                                  reference: reference,
@@ -254,7 +256,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             createNewButton.isHidden = true
             shouldShowAddAccountButtonInTopBar = true
         }
-
         if shouldShowAddAccountButtonInTopBar {
             let rightButtonImage = UIImage(named: "add_icon")
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightButtonImage,

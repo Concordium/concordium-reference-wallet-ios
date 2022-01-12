@@ -18,7 +18,7 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     weak var delegate: LoginViewDelegate?
     let dependencyProvider: LoginDependencyProvider
     let viewState: PasswordSelectionState = AppSettings.passwordType == .password ? .loginWithPassword : .loginWithPasscode
-    let sanityChecker: SanityChecker
+//    let sanityChecker: SanityChecker
     
     init(delegate: LoginViewDelegate, dependencyProvider: LoginDependencyProvider) {
         self.delegate = delegate

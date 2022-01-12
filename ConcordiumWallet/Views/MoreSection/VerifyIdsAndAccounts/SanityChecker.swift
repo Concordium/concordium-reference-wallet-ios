@@ -42,7 +42,7 @@ class SanityChecker {
                 self?.errorDisplayer.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] pwHash in
                 guard let self = self else { return }
-                self.checkSanity(pwHash: pwHash, completion: nil)
+                self.checkSanity(pwHash: pwHash, completion: {})
             }).store(in: &cancellables)
     }
     
@@ -97,7 +97,7 @@ class SanityChecker {
         }
     }
     
-    private func remindMeLater(report: [(IdentityDataType, [AccountDataType])]){
+    private func remindMeLater(report: [(IdentityDataType, [AccountDataType])]) {
         AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin = false
         markIdsAndAccountsAsReadOnly(report: report)
     }
@@ -110,7 +110,7 @@ class SanityChecker {
     private func markIdsAndAccountsAsReadOnly(report: [(IdentityDataType, [AccountDataType])]) {
         for (_, accounts) in report {
             for account in accounts {
-                let _ = account.withMarkAsReadOnly()
+                _ = account.withMarkAsReadOnly(true)
             }
         }
     }

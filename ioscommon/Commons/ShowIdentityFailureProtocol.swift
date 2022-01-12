@@ -37,39 +37,29 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
             message: nil,
             preferredStyle: .alert
         )
-        
         let tryAgainAction = UIAlertAction(title: "identityfailed.tryagain".localized, style: .default) { _ in
             completion(.tryAgain)
         }
-        
         alert.addAction(tryAgainAction)
-        
-        let supportMailBody = String(
-            format: "supportmail.body".localized,
-            reference,
-            AppSettings.appVersion,
-            AppSettings.buildNumber,
-            AppSettings.iOSVersion
-        )
+        let supportMailBody = String( format: "supportmail.body".localized,
+                                      reference,
+                                      AppSettings.appVersion,
+                                      AppSettings.buildNumber,
+                                      AppSettings.iOSVersion)
         
         if MailHelper.canSendMail {
             let supportAction = UIAlertAction(title: "identityfailed.contactsupport".localized, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-
-                self.launchSupport(
-                    presenter: self,
-                    delegate: self,
-                    recipient: identityProviderSupportEmail,
-                    ccRecipient: concordiumSupportEmail,
-                    subject: String(format: "supportmail.subject".localized, reference),
-                    body: supportMailBody
-                )
+                self.launchSupport(presenter: self,
+                                   delegate: self,
+                                   recipient: identityProviderSupportEmail,
+                                   ccRecipient: concordiumSupportEmail,
+                                   subject: String(format: "supportmail.subject".localized, reference),
+                                   body: supportMailBody)
                 completion(.support)
             }
-            
             alert.message = String(format: "identityfailed.message".localized, identityProviderName)
             alert.addAction(supportAction)
-            
         } else {
             let copyAction = UIAlertAction(title: "identityfailed.copyreference".localized, style: .default) { [weak self] _ in
                 CopyPasterHelper.copy(string: supportMailBody)
@@ -83,7 +73,6 @@ extension ShowIdentityFailure where Self: IdentityFailableViewController {
                                    concordiumSupportEmail)
             alert.addAction(copyAction)
         }
-        
         let cancelAction = UIAlertAction(title: "errorAlert.cancelButton".localized, style: .cancel) { _ in
             completion(.cancel)
         }

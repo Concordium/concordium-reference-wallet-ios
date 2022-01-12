@@ -480,7 +480,6 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         var documentsDirectoryURL = documentsPaths[0]
         excludeFromBackup(url: &documentsDirectoryURL)
         
-        
         let libraryPaths = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)
         var libraryURL = libraryPaths[0]
         excludeFromBackup(url: &libraryURL)

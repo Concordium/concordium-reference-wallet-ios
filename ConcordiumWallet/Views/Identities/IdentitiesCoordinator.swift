@@ -83,7 +83,8 @@ class IdentitiesCoordinator: Coordinator {
                 let identityProviderName = identity.identityProviderName ?? ""
                 //if no ip support email is present, we use Concordium's
                 let identityProviderSupportEmail = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
-                let copyReferenceInfoWidgetPresenter = CopyReferenceInfoWidgetPresenter(identityProviderName: identityProviderName, identityProviderSupportEmail: identityProviderSupportEmail)
+                let copyReferenceInfoWidgetPresenter = CopyReferenceInfoWidgetPresenter(identityProviderName: identityProviderName,
+                                                                                        identityProviderSupportEmail: identityProviderSupportEmail)
                 vc.primaryCenterWidget = CopyReferenceInfoWidgetFactory.create(with: copyReferenceInfoWidgetPresenter)
             }
             
