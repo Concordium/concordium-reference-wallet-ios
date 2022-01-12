@@ -40,6 +40,7 @@ protocol MobileWalletProtocol {
     
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error>
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
+    func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType, [AccountDataType])]
 }
 
 enum MobileWalletError: Error {
@@ -359,5 +360,22 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return Result.failure(error)
         }
+    }
+    
+    func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
+        let invalidIdentities = storageManager.getIdentities().filter { identity in
+            if let key = identity.encryptedPrivateIdObjectData, let _ = try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()  {
+                return true
+            }
+            return false
+        }
+        var report:[(IdentityDataType, [AccountDataType])] = []
+        for identity in invalidIdentities {
+            let invalidAccountNames = storageManager.getAccounts(for: identity).filter {
+                (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
+            }
+            report.append((identity, invalidAccountNames))
+        }
+        return report
     }
 }

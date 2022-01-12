@@ -325,6 +325,14 @@ process on-chain.";
 "more.update.button.continue" = "Continue";
 "more.update.error.nonFinalizedItems" = "All identities and accounts must be finalized before passcode can be changed. Please wait, then try again.";
 "more.updatePasswordAndBiometrics.infoText" = "By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them.";
+"more.validateIdsAndAccounts" = "Validate IDs and Accounts";
+"more.validateIdsAndAccount.warningTitle" = "⚠️ Warning ⚠️";
+"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?";
+"more.validateIdsAndAccount.removeFromApp" = "Remove from app";
+"more.validateIdsAndAccount.remindLater" = "Remind me later";
+"more.validateIdsAndAccount.keep" = "Keep as read-only";
+"more.validateIdsAndAccount.identity" = "\nIdentity: %@\n";
+"more.validateIdsAndAccount.account" = "Account: %@\n";
 
 "more.about" = "About";
 "more.about.title" = "About";

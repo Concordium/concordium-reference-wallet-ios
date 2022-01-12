@@ -14,6 +14,7 @@ enum MenuCell: Hashable {
     case import_(title: String)
     case export(title: String)
     case update(title: String)
+    case validate(title: String)
     case about(title: String)
     
 }
@@ -78,6 +79,8 @@ extension MoreMenuViewController: UITableViewDelegate {
             presenter.userSelectedUpdate()
         case .about:
             presenter.userSelectedAbout()
+        case .validate:
+            presenter.userSelectedValidate()
         }
     }
 }
@@ -90,6 +93,7 @@ extension MoreMenuViewController {
         snapshot.appendItems([.import_(title: "more.import".localized)])
         snapshot.appendItems([.export(title: "more.export".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
+        snapshot.appendItems([.validate(title: "more.validateIdsAndAccounts".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
                 
         DispatchQueue.main.async {
@@ -103,6 +107,7 @@ extension MoreMenuViewController {
              .import_(let title),
              .export(let title),
              .update(let title),
+             .validate(let title),
              .about(let title):
             // swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemCellView", for: indexPath) as! MenuItemCellView

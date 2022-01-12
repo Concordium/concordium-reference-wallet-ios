@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import Combine
 
-class MoreCoordinator: Coordinator {
+class MoreCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     private var dependencyProvider: MoreFlowCoordinatorDependencyProvider
@@ -68,6 +68,16 @@ class MoreCoordinator: Coordinator {
         let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showValidateIdsAndAccounts() {
+        let sanityChecker = SanityChecker(requestPasswordDelegate: self,
+                                          keychainWrapper: dependencyProvider.keychainWrapper(),
+                                          mobileWallet: dependencyProvider.mobileWallet(),
+                                          storageManager: dependencyProvider.storageManager(),
+                                          errorDisplayer: self,
+                                          coordinator: self)
+        sanityChecker.requestPwAndCheckSanity()
+    }
 
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(navigationController: TransparentNavigationController(),
@@ -116,6 +126,9 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     
     func aboutSelected() {
         showAbout()
+    }
+    func validateIdsAndAccountsSelected() {
+        showValidateIdsAndAccounts()
     }
 }
 
@@ -213,6 +226,4 @@ extension MoreCoordinator: ExportPresenterDelegate {
     }
 }
 
-extension MoreCoordinator: AboutPresenterDelegate {
-    
-}
+extension MoreCoordinator: AboutPresenterDelegate {}
