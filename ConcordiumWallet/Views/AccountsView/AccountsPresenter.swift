@@ -288,12 +288,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
 
         if finalizedAccounts.count > 1 {
-            AppSettings.backupPerformed = false
+            AppSettings.needsBackupWarning = true
             checkForBackup()
             view?.showAccountFinalizedNotification(.multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
-            AppSettings.backupPerformed = false
+            AppSettings.needsBackupWarning = true
             checkForBackup()
             view?.showAccountFinalizedNotification(.singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
@@ -325,7 +325,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
     private func checkForBackup() {
         let finalizedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == .finalized }
-        let showWarning = finalizedAccounts.isEmpty ? false : !AppSettings.backupPerformed
+        let showWarning = finalizedAccounts.isEmpty ? false : AppSettings.needsBackupWarning
         view?.showBackupWarningBanner(showWarning)
     }
     

@@ -19,7 +19,8 @@ enum UserDefaultKeys: String {
     case pendingAccount
     case acceptedTermsHash
     case ignoreMissingKeysForIdsOrAccountsAtLogin
-    case backupPerformed
+    case needsBackupWarning
+
 }
 
 struct AppSettings {
@@ -79,12 +80,12 @@ struct AppSettings {
         }
     }
 
-    static var backupPerformed: Bool {
+    static var needsBackupWarning: Bool {
         get {
-            UserDefaults.standard.bool(forKey: UserDefaultKeys.backupPerformed.rawValue)
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.needsBackupWarning.rawValue)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.backupPerformed.rawValue)
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.needsBackupWarning.rawValue)
         }
     }
     
