@@ -17,6 +17,7 @@ enum ViewError: Error {
     case duplicateRecipient(name: String)
     case exportUnfinalizedAccounts(unfinalizedAccountsNames: [String])
     case cameraAccessDeniedError
+    case identityMissingKeys
 }
 
 extension ViewError: LocalizedError {
@@ -48,6 +49,8 @@ extension ViewError: LocalizedError {
             return "export.unfinalizedAccounts".localized + unfinalizedAccountsNames.joined(separator: ", ")
         case .cameraAccessDeniedError:
             return "view.error.cameraAccessDenied".localized
+        case .identityMissingKeys:
+            return "identitymissingkeyserror.details".localized
         }
     }
 }

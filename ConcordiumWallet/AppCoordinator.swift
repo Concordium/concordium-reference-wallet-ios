@@ -16,9 +16,13 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
     private var cancellables: [AnyCancellable] = []
-    
+    private var sanityChecker: SanityChecker
     override init() {
         navigationController = TransparentNavigationController()
+        sanityChecker = SanityChecker(mobileWallet: defaultProvider.mobileWallet(), storageManager: defaultProvider.storageManager())
+        super.init()
+        sanityChecker.coordinator = self
+        sanityChecker.errorDisplayer = self
     }
     
     func start() {
@@ -63,9 +67,13 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
                                                     identitiesCoordinator: identitiesCoordinator,
                                                     moreCoordinator: moreCoordinator)
-        
+        sanityChecker.delegate = tabBarController
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
+        sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
+            //reload accounts tab
+            accountsCoordinator.start()
+        })
     }
 
     func importWallet(from url: URL) {

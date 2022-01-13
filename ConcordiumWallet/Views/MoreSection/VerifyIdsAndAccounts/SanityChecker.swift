@@ -10,53 +10,73 @@ import Foundation
 import Combine
 import UIKit
 
+enum SanityCheckerMode {
+    case automatic
+    case manual
+}
+
+protocol ShowImport: AnyObject {
+    func showImport()
+}
+
 class SanityChecker {
-    var keychainWrapper: KeychainWrapperProtocol
-    var errorDisplayer: ShowAlert
+    var errorDisplayer: ShowAlert?
     var mobileWallet: MobileWalletProtocol
     var storageManager: StorageManagerProtocol
-   
-    weak var requestPasswordDelegate: RequestPasswordDelegate?
     weak var coordinator: Coordinator?
+    weak var delegate: ShowImport?
     
     private var cancellables: [AnyCancellable] = []
     
-    init(requestPasswordDelegate: RequestPasswordDelegate,
-         keychainWrapper: KeychainWrapperProtocol,
-         mobileWallet: MobileWalletProtocol,
-         storageManager: StorageManagerProtocol,
-         errorDisplayer: ShowAlert,
-         coordinator: Coordinator) {
-        self.requestPasswordDelegate = requestPasswordDelegate
-        self.keychainWrapper = keychainWrapper
-        self.errorDisplayer = errorDisplayer
+    static var lastSanityReport: [(IdentityDataType, [AccountDataType])] = []
+    
+    init(mobileWallet: MobileWalletProtocol,
+         storageManager: StorageManagerProtocol) {
         self.mobileWallet = mobileWallet
-        self.coordinator = coordinator
         self.storageManager = storageManager
     }
     
-    public func requestPwAndCheckSanity() {
+    // swiftlint:disable:next line_length
+    public func requestPwAndCheckSanity(requestPasswordDelegate: RequestPasswordDelegate?, keychainWrapper: KeychainWrapperProtocol, mode: SanityCheckerMode) {
         requestPasswordDelegate?.requestUserPassword(keychain: keychainWrapper)
             .sink(receiveError: { [weak self] error in
                 if case GeneralError.userCancelled = error { return }
-                self?.errorDisplayer.showErrorAlert(ErrorMapper.toViewError(error: error))
+                self?.errorDisplayer?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] pwHash in
                 guard let self = self else { return }
-                self.checkSanity(pwHash: pwHash, completion: {})
+                self.checkSanity(pwHash: pwHash, mode: mode, completion: {})
             }).store(in: &cancellables)
     }
     
-    public func checkSanity(pwHash: String, completion: @escaping () -> Void) {
+    public func getSanityReport(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
         let report = self.mobileWallet.verifyIdentitiesAndAccounts(pwHash: pwHash)
-        self.showValidateIdentitiesAlert(report: report, completion: completion)
+        SanityChecker.lastSanityReport = report
+        return report
     }
     
-    private func showValidateIdentitiesAlert(report: [(IdentityDataType, [AccountDataType])], completion: @escaping () -> Void) {
+    public func checkSanity(pwHash: String, mode: SanityCheckerMode, completion: @escaping () -> Void) {
+        let report = getSanityReport(pwHash: pwHash)
+        self.showValidateIdentitiesAlert(report: report, mode: mode, completion: completion)
+    }
+    
+    // swiftlint:disable:next line_length
+    public func showValidateIdentitiesAlert(report: [(IdentityDataType, [AccountDataType])], mode: SanityCheckerMode, completion: @escaping () -> Void) {
+        switch mode {
+        case .automatic:
+            if report.count == 0 ||  AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
+                return
+            }
+        case .manual:
+            if report.count == 0 {
+                showAllOkAlert()
+                return
+            }
+        }
         var message = "more.validateIdsAndAccount.unusableIdentitiesFound".localized
         for (identity, accounts) in report {
             message += String(format: "more.validateIdsAndAccount.identity".localized, identity.nickname)
             for account in accounts {
-                message += String(format: "more.validateIdsAndAccount.account".localized, (account.name ?? ""))
+                message += String(format: "more.validateIdsAndAccount.account".localized, account.displayName)
             }
         }
         
@@ -67,8 +87,7 @@ class SanityChecker {
         )
         
         let removeAction = UIAlertAction(title: "more.validateIdsAndAccount.removeFromApp".localized, style: .destructive) { [weak self] (_) in
-            self?.removeIdentitiesAndAccountsWithoutKeys(report: report)
-            completion()
+            self?.showSecondConfirmation(report: report, completion: completion)
         }
        
         let remindMeLater = UIAlertAction(title: "more.validateIdsAndAccount.remindLater".localized, style: .default) {  [weak self] (_) in
@@ -76,25 +95,53 @@ class SanityChecker {
             completion()
         }
         
-        let keepAsReadonly = UIAlertAction(title: "more.validateIdsAndAccount.keep".localized, style: .cancel) {  [weak self] (_) in
+        let keepAsReadonly = UIAlertAction(title: "more.validateIdsAndAccount.keep".localized, style: .default) {  [weak self] (_) in
             self?.keepAsReadOnly(report: report)
             completion()
         }
+        let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .cancel) {  [weak self] (_) in
+            self?.redirectToImport()
+            completion()
+        }
         
-        alert.addAction(removeAction)
+        switch mode {
+        case .automatic:
+            break
+        case .manual:
+            alert.addAction(removeAction)
+        }
+        
         alert.addAction(remindMeLater)
         alert.addAction(keepAsReadonly)
+        alert.addAction(redirectToImport)
         
         coordinator?.navigationController.present(alert, animated: true)
     }
     
-    private func removeIdentitiesAndAccountsWithoutKeys(report: [(IdentityDataType, [AccountDataType])]) {
+    private func redirectToImport() {
+        self.delegate?.showImport()
+    }
+    /*
+     The method returns the identities that failed to be removed. If some of the identities in the report also
+     contain accounts that have keys, that identity will not be removed
+     */
+    private func removeIdentitiesAndAccountsWithoutKeys(report: [(IdentityDataType, [AccountDataType])]) -> [IdentityDataType] {
+        var failToRemoveIdentities = [IdentityDataType]()
         for (identity, accounts) in report {
+            //we remove the readonly accounts from the calculations because they are not
+            // marked as needing deletion (readonly accounts never have keys)
+            let identityAccounts = self.storageManager.getAccounts(for: identity).filter { !$0.isReadOnly }
             for account in accounts {
                 self.storageManager.removeAccount(account: account)
             }
-            self.storageManager.removeIdentity(identity)
+            //if the identity contains also valid accounts, we cannot delete the identity
+            if identityAccounts.count == accounts.count {
+                self.storageManager.removeIdentity(identity)
+            } else {
+                failToRemoveIdentities.append(identity)
+            }
         }
+        return failToRemoveIdentities
     }
     
     private func remindMeLater(report: [(IdentityDataType, [AccountDataType])]) {
@@ -108,10 +155,78 @@ class SanityChecker {
     }
     
     private func markIdsAndAccountsAsReadOnly(report: [(IdentityDataType, [AccountDataType])]) {
+        //only accounts will be marked as readonly because we don't have a readonly state for ids yet
         for (_, accounts) in report {
             for account in accounts {
                 _ = account.withMarkAsReadOnly(true)
             }
         }
+    }
+    
+    private func showSecondConfirmation(report: [(IdentityDataType, [AccountDataType])], completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: "more.validateIdsAndAccount.confirmationtitle".localized,
+            message: "more.validateIdsAndAccount.confirmationtext".localized,
+            preferredStyle: .alert
+        )
+        
+        let removeAction = UIAlertAction(title: "more.validateIdsAndAccount.yesremoveFromApp".localized, style: .destructive) { [weak self] (_) in
+            guard let self = self else { return }
+            let failedToRemoveIdentities = self.removeIdentitiesAndAccountsWithoutKeys(report: report)
+            if failedToRemoveIdentities.count == 0 {
+                completion()
+            } else {
+                self.showAlertForIdentitiesNotDeleted(failedToRemoveIdentities: failedToRemoveIdentities,
+                                                      completion: completion)
+            }
+        }
+        
+        let keepAsReadonly = UIAlertAction(title: "more.validateIdsAndAccount.keep".localized, style: .cancel) {  [weak self] (_) in
+            self?.keepAsReadOnly(report: report)
+            completion()
+        }
+        let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .default) {  [weak self] (_) in
+            self?.redirectToImport()
+            completion()
+        }
+        alert.addAction(removeAction)
+        alert.addAction(keepAsReadonly)
+        alert.addAction(redirectToImport)
+        coordinator?.navigationController.present(alert, animated: true)
+    }
+    /*
+     This alert is shown in caset the user chooses to delete the identities with missing keys,
+     but some of them still contain accounts with valid keys
+     */
+    private func showAlertForIdentitiesNotDeleted(failedToRemoveIdentities: [IdentityDataType], completion: @escaping () -> Void) {
+        var message = "more.validateIdsAndAccount.idsWithFunctioningAccounts".localized
+        for identity in failedToRemoveIdentities {
+            message += String(format: "more.validateIdsAndAccount.identity".localized, identity.nickname)
+        }
+        
+        let alert = UIAlertController(
+            title: "more.validateIdsAndAccount.simpleWarningTitle".localized,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "more.validateIdsAndAccount.okay".localized, style: .default) {  (_) in
+            completion()
+        }
+        alert.addAction(okAction)
+        coordinator?.navigationController.present(alert, animated: true)
+    }
+    
+    private func showAllOkAlert() {
+        let alert = UIAlertController(
+            title: "more.validateIdsAndAccount.allOk.title".localized,
+            message: "more.validateIdsAndAccount.allOk.description".localized,
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "more.validateIdsAndAccount.okay".localized, style: .default) {  (_) in
+        }
+        alert.addAction(okAction)
+        coordinator?.navigationController.present(alert, animated: true)
     }
 }

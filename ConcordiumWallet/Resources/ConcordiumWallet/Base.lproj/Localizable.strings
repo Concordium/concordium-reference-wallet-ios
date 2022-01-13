@@ -327,12 +327,23 @@ process on-chain.";
 "more.updatePasswordAndBiometrics.infoText" = "By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them.";
 "more.validateIdsAndAccounts" = "Validate IDs and Accounts";
 "more.validateIdsAndAccount.warningTitle" = "⚠️ Warning ⚠️";
-"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?";
+"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?\n";
 "more.validateIdsAndAccount.removeFromApp" = "Remove from app";
 "more.validateIdsAndAccount.remindLater" = "Remind me later";
 "more.validateIdsAndAccount.keep" = "Keep as read-only";
 "more.validateIdsAndAccount.identity" = "\nIdentity: %@\n";
 "more.validateIdsAndAccount.account" = "Account: %@\n";
+"more.validateIdsAndAccount.import" = "Import from backup";
+"more.validateIdsAndAccount.simpleWarningTitle" = "Warning";
+"more.validateIdsAndAccount.idsWithFunctioningAccounts" = "The following keyless identities have accounts that still function. These identities will be kept, but can’t be used. If you make an export, these identites and related accounts will not be included.";
+"more.validateIdsAndAccount.okay" = "Okay";
+"more.validateIdsAndAccount.confirmationtitle" = "⚠️ Are you sure? ⚠️";
+"more.validateIdsAndAccount.yesremoveFromApp" = "Yes, remove from app";
+"more.validateIdsAndAccount.confirmationtext" = "If you remove the affected identities and accounts from the app and you don’t have a backup, they cannot be added again later.\n\n\n This action should only be done if you are absolutely sure you can’t recover them, and want them removed from your wallet.\n\n Do you still want to remove them?";
+"more.validateIdsAndAccount.allOk.title" = "Success";
+"more.validateIdsAndAccount.allOk.description" = "All your identities and accounts are valid and functional.";
+
+
 
 "more.about" = "About";
 "more.about.title" = "About";
@@ -379,6 +390,9 @@ process on-chain.";
 "revealattributes.details" = "You can choose to reveal a range of attributes on your account, e.g. your country of residence. Revealing attributes means that the information will be public on the Concordium blockchain, and that it cannot be hidden or deleted again. \n\n If you have no good reason for revealing attributes, we strongly recommend not revealing any.";
 "revealattributes.submitAccount" = "Submit account";
 "revealattributes.selectAttributes"= "Reveal account attributes";
+"identitymissingkeyserror.title" = "Missing keys";
+"identitymissingkeyserror.details" = "This identity does not have any keys, which means it cannot be used to create a new account.\n\nPlease choose another identity, or create a new one, to make a new account.";
+"identitymissingkeyserror.okay" = "Okay";
 
 "identityfailed.title" = "Identity issuance failed";
 "identityfailed.tryagain" = "Try again";

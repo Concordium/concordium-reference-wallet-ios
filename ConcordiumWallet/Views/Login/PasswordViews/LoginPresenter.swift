@@ -9,7 +9,7 @@
 import Foundation
 import LocalAuthentication
 
-protocol LoginViewDelegate: AnyObject {
+protocol LoginViewDelegate: Coordinator {
     func loginDone()
 }
 
@@ -18,12 +18,13 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     weak var delegate: LoginViewDelegate?
     let dependencyProvider: LoginDependencyProvider
     let viewState: PasswordSelectionState = AppSettings.passwordType == .password ? .loginWithPassword : .loginWithPasscode
-//    let sanityChecker: SanityChecker
+    let sanityChecker: SanityChecker
     
     init(delegate: LoginViewDelegate, dependencyProvider: LoginDependencyProvider) {
         self.delegate = delegate
         self.dependencyProvider = dependencyProvider
-//        self.sanityChecker = SanityChecker(requestPasswordDelegate: self, keychainWrapper: dependencyProvider.keychainWrapper(), mobileWallet: dependencyProvider.mobileWrapper(), storageManager: dependencyProvider.storageManager(), errorDisplayer: <#T##ShowAlert#>, coordinator: <#T##Coordinator#>)
+        self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
+                                           storageManager: dependencyProvider.storageManager())
     }
 
     func viewDidLoad() {
@@ -41,6 +42,7 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
                 .onSuccess { pwHash in
                     let passwordCheck = dependencyProvider.keychainWrapper()
                             .checkPasswordHash(pwHash: pwHash)
+                    _ = sanityChecker.getSanityReport(pwHash: pwHash) //we just make the sanitary report
                     handlePasswordCheck(checkPassword: passwordCheck)
                 }
         }
@@ -55,6 +57,7 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     func passwordEntered(password: String) {
         let passwordCheck = dependencyProvider.keychainWrapper()
                 .checkPassword(password: password)
+        _  = sanityChecker.getSanityReport(pwHash: dependencyProvider.keychainWrapper().hashPassword(password))
         handlePasswordCheck(checkPassword: passwordCheck)
     }
 

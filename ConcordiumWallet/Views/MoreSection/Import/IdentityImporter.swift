@@ -23,8 +23,9 @@ class IdentityImporter {
                 //Here we have an identity stored.
                 //We check whether the identity has its keys and if it does, we try to
                 //import its accounts and mark it as duplicate in the report
+               
                 if let key = existingEntity.encryptedPrivateIdObjectData,
-                    let _ = try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get() {
+                   (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
                     importAccounts(identityData: identityDataToImport, identityEntity: existingEntity, pwHash: pwHash)
                     importReadOnlyAccounts(readOnlyAccounts, identityEntity: existingEntity, pwHash: pwHash)
                     importReport.duplicateIdentities.append(importedIdentity)
@@ -73,12 +74,11 @@ class IdentityImporter {
     }
 
     private func importAccount(_ accountData: ExportAccount, relatedIdentity: IdentityDataType, pwHash: String) {
-        
         let existingAccount = storageManager.getAccount(withAddress: accountData.address)
         let accountContainsKeys: Bool
         if let storredAccount = existingAccount,
             let key = storredAccount.encryptedPrivateKey,
-            let _ = try? storageManager.getPrivateAccountKeys(key: key, pwHash: pwHash).get() {
+           (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) == nil {
             accountContainsKeys = true
         } else {
             accountContainsKeys = false

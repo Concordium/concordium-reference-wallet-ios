@@ -365,7 +365,7 @@ class MobileWallet: MobileWalletProtocol {
     func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
         let invalidIdentities = storageManager.getIdentities().filter { identity in
             if let key = identity.encryptedPrivateIdObjectData,
-                let _ = try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get() {
+                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) == nil {
                 return true
             }
             return false
@@ -373,7 +373,10 @@ class MobileWallet: MobileWalletProtocol {
         var report: [(IdentityDataType, [AccountDataType])] = []
         for identity in invalidIdentities {
             let invalidAccountNames = storageManager.getAccounts(for: identity).filter {
-                (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
+                if $0.isReadOnly {
+                    return false
+                }
+                return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
             }
             report.append((identity, invalidAccountNames))
         }

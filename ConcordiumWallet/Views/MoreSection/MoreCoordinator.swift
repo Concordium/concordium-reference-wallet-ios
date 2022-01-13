@@ -12,12 +12,18 @@ class MoreCoordinator: Coordinator, ShowAlert {
     var navigationController: UINavigationController
     private var dependencyProvider: MoreFlowCoordinatorDependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
+    private var sanityChecker: SanityChecker
     
     init(navigationController: UINavigationController,
          dependencyProvider: MoreFlowCoordinatorDependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.loginDependencyProvider = dependencyProvider
+        self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
+                                          storageManager: dependencyProvider.storageManager())
+        sanityChecker.errorDisplayer = self
+        sanityChecker.delegate = self
+        sanityChecker.coordinator = self
     }
 
     func start() {
@@ -70,13 +76,9 @@ class MoreCoordinator: Coordinator, ShowAlert {
     }
     
     func showValidateIdsAndAccounts() {
-        let sanityChecker = SanityChecker(requestPasswordDelegate: self,
-                                          keychainWrapper: dependencyProvider.keychainWrapper(),
-                                          mobileWallet: dependencyProvider.mobileWallet(),
-                                          storageManager: dependencyProvider.storageManager(),
-                                          errorDisplayer: self,
-                                          coordinator: self)
-        sanityChecker.requestPwAndCheckSanity()
+        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
+                                              keychainWrapper: dependencyProvider.keychainWrapper(),
+                                              mode: .manual)
     }
 
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
@@ -227,3 +229,5 @@ extension MoreCoordinator: ExportPresenterDelegate {
 }
 
 extension MoreCoordinator: AboutPresenterDelegate {}
+
+extension MoreCoordinator: ShowImport {}

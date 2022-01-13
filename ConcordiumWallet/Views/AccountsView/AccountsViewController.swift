@@ -17,7 +17,7 @@ class AccountsFactory {
         }
     }
 }
-
+// swiftlint:disable:next type_body_length
 class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail, ShowIdentityFailure {
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?

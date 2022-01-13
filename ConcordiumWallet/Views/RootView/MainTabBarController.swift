@@ -57,3 +57,10 @@ extension MainTabBarController: AccountsCoordinatorDelegate {
         identitiesCoordinator.showCreateNewIdentity()
     }
 }
+
+extension MainTabBarController: ShowImport {
+    func showImport() {
+        selectedViewController = moreCoordinator.navigationController
+        moreCoordinator.showImport()
+    }
+}

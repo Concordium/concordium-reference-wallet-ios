@@ -26,7 +26,7 @@ class EnterPasswordFactory {
 }
 
 // MARK: View -
-protocol EnterPasswordViewProtocol: AnyObject {
+protocol EnterPasswordViewProtocol: ShowAlert {
     var pincodeDelegate: PasscodeFieldDelegate? { get set }
     func showKeyboard()
     func setState(_: PasswordSelectionState, newPasswordFieldDelegate: PasswordFieldDelegate & PasscodeFieldDelegate, animated: Bool, reverse: Bool)
