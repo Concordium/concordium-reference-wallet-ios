@@ -70,8 +70,6 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
         delegate?.aboutSelected()
     }
     func userSelectedValidate() {
-        //TODO: show dialog here
         delegate?.validateIdsAndAccountsSelected()
-        
     }
 }

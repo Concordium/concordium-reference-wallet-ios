@@ -108,7 +108,7 @@ add_identity_data = "Reveal Identity Data";
 
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new here?";
-"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must create an initial account. \n\nIIn case this is not your first time around, you must import existing accounts to get access to them.\n\nHow would you like to continue?";
+"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must create an initial account. \n\nIn case this is not your first time around, you must import existing accounts to get access to them.\n\nHow would you like to continue?";
 "gettingstarted.newaccount" = "I want to create my initial account";
 "gettingstarted.importaccount" = "I want to import existing accounts";
 
