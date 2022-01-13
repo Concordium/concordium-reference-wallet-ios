@@ -19,20 +19,11 @@ struct IdentityDetailsInfoViewModel {
     var encodedImage: String
     var bottomIconTintColor: UIColor?
     
-    var recoverableAlert: RecoverableAlert?
-
     var data: [ChosenAttributeFormattedTuple]
 
     init(identity: IdentityDataType) {
         identityName = identity.identityProviderName ?? ""
         nickname = identity.nickname
-
-        self.recoverableAlert = RecoverableAlert(
-            title: "identitySubmitted.alert.title".localized,
-            message: "identitySubmitted.alert.message".localized,
-            actionTitle: "ok".localized,
-            okButton: false
-        )
         
         switch identity.state {
         case .confirmed:

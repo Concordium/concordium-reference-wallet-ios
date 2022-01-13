@@ -19,6 +19,7 @@ enum UserDefaultKeys: String {
     case pendingAccount
     case acceptedTermsHash
     case ignoreMissingKeysForIdsOrAccountsAtLogin
+    case backupPerformed
 }
 
 struct AppSettings {
@@ -75,6 +76,15 @@ struct AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
+        }
+    }
+
+    static var backupPerformed: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.backupPerformed.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.backupPerformed.rawValue)
         }
     }
     

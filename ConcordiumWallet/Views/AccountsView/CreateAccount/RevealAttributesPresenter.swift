@@ -73,11 +73,10 @@ class RevealAttributesPresenter: RevealAttributesPresenterProtocol {
                 } else if let viewError = error as? ViewError {
                     self?.view?.showErrorAlert(viewError)
                 } else if case KeychainError.itemNotFound = error {
-                    let recoverableAlert = RecoverableAlert(title: "identitymissingkeyserror.title".localized,
-                                                            message: "identitymissingkeyserror.details".localized,
-                                                            actionTitle: "identitymissingkeyserror.okay".localized,
-                                                            okButton: nil)
-                    self?.view?.showRecoverableAlert(recoverableAlert, completion: {})
+                    let alert = AlertOptions(title: "identitymissingkeyserror.title".localized,
+                                             message: "identitymissingkeyserror.details".localized,
+                                             actions: [AlertAction(name: "identitymissingkeyserror.okay".localized, completion: {}, style: .default)] )
+                    self?.view?.showAlert(with: alert)
                 } else {
                      self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                 }

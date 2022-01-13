@@ -24,9 +24,7 @@ class IdentityConfirmedViewController: BaseViewController, IdentityConfirmedView
     @IBOutlet weak var details: UILabel!
     @IBOutlet weak var accountCardView: AccountCardView!
     @IBOutlet weak var identityCardView: IdentityCardView!
-    
-    private var recoverableAlert: RecoverableAlert?
-    
+        
     init?(coder: NSCoder, presenter: IdentityConfirmedPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -40,8 +38,7 @@ class IdentityConfirmedViewController: BaseViewController, IdentityConfirmedView
         self.title = title
         self.subtitle.text = subtitle
         self.details.text = details
-        self.recoverableAlert = identityViewModel.recoverableAlert
-        
+
         accountCardView.setupStaticStrings(accountTotal: accountViewModel.totalName,
                                            publicBalance: accountViewModel.generalName,
                                            atDisposal: accountViewModel.atDisposalName,
@@ -75,9 +72,18 @@ class IdentityConfirmedViewController: BaseViewController, IdentityConfirmedView
     }
 
     @IBAction func finishAction(_ sender: Any) {
-        guard let recoverableAlert = recoverableAlert else { return }
-        showRecoverableAlert(recoverableAlert) { [weak self] in
-            self?.presenter.finish()
-        }
+        let options = AlertOptions(
+            title: "identitySubmitted.alert.title".localized,
+            message: "identitySubmitted.alert.message".localized,
+            actions: [
+                AlertAction(
+                    name: "ok".localized,
+                    completion: { [weak self] in self?.presenter.finish() },
+                    style: .default
+                )
+            ]
+        )
+
+        showAlert(with: options)
     }
 }

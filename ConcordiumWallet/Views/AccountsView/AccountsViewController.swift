@@ -28,8 +28,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     private var cancellables = Set<AnyCancellable>()
 
-    @IBOutlet weak var newIdentityMessageLabel: UILabel!
+    @IBOutlet weak var backupWarningMessageView: RoundedCornerView!
+    @IBOutlet weak var backupWarningMessageLabel: UILabel!
 
+    @IBOutlet weak var newIdentityMessageLabel: UILabel!
     @IBOutlet weak var noAccountsMessageLabel: UILabel!
     @IBOutlet weak var createNewButton: StandardButton!
     @IBOutlet weak var totalBalanceLabel: UILabel!
@@ -37,6 +39,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     @IBOutlet weak var atDisposalLockImageView: UIImageView!
     @IBOutlet weak var atDisposalLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
+
+    @IBOutlet weak var balanceViewWarningTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var balanceViewTopConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: AccountsPresenterProtocol) {
         self.presenter = presenter
@@ -49,10 +54,12 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     override func viewDidLoad() {
         title = "accounts_tab_title".localized
+
         presenter?.view = self
         presenter?.viewDidLoad()
 
         dataSource = UITableViewDiffableDataSource<String, AccountViewModel>(tableView: tableView, cellProvider: createCell)
+
         tableView.layer.masksToBounds = false
         tableView.backgroundColor = .white
         dataSource?.defaultRowAnimation = .none
@@ -60,6 +67,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
+
+        backupWarningMessageLabel.text = "accounts.backupwarning.text".localized
+        backupWarningMessageView.applyConcordiumEdgeStyle()
+        backupWarningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didSelectMakeBackup)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +98,12 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
-    
+
+    @objc private func didSelectMakeBackup() {
+        HapticFeedbackHelper.generate(feedback: .light)
+        presenter?.userSelectedMakeBackup()
+    }
+
     @objc func appDidBecomeActive() {
         presenter?.refresh()
         startRefreshTimer()
@@ -268,6 +284,27 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.userPressedCreate()
     }
 
+    func showBackupWarningBanner(_ show: Bool) {
+        let duration: TimeInterval = 0.25
+
+        if show {
+            UIView.animate(withDuration: duration, animations: {  [weak self] in
+                self?.balanceViewTopConstraint.isActive = false
+                self?.balanceViewWarningTopConstraint.isActive = true
+                self?.view.layoutIfNeeded()
+            }, completion: { [weak self] _ in
+                self?.backupWarningMessageView.isHidden = false
+            })
+        } else {
+            UIView.animate(withDuration: duration, animations: { [weak self] in
+                self?.backupWarningMessageView.isHidden = true
+                self?.balanceViewTopConstraint.isActive = true
+                self?.balanceViewWarningTopConstraint.isActive = false
+                self?.view.layoutIfNeeded()
+            })
+        }
+    }
+
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {
         let title: String
         let message: String
@@ -281,17 +318,48 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             message = "accountfinalized.multiple.alert.message".localized
         }
 
-        let alert = RecoverableAlert(
+        let options = AlertOptions(
             title: title,
             message: message,
-            actionTitle: "accountfinalized.alert.action.backup".localized,
-            okButton: true
+            actions: [
+                AlertAction(
+                    name: "ok".localized,
+                    completion: { [weak self] in
+                        let options = AlertOptions(
+                            title: "accountfinalized.extrabackup.alert.title".localized,
+                            message: "accountfinalized.extrabackup.alert.message".localized,
+                            actions: [
+                                AlertAction(
+                                    name: "accountfinalized.extrabackup.alert.action.dismiss".localized,
+                                    completion: nil,
+                                    style: .destructive
+                                ),
+                                AlertAction(
+                                    name: "accountfinalized.alert.action.backup".localized,
+                                    completion: { [weak self] in
+                                        self?.presenter?.userSelectedMakeBackup()
+                                    },
+                                    style: .default
+                                )
+                            ]
+                        )
+
+                        self?.showAlert(with: options)
+                    },
+                    style: .default
+                ),
+                AlertAction(
+                    name: "accountfinalized.alert.action.backup".localized,
+                    completion: { [weak self] in
+                        self?.presenter?.userSelectedMakeBackup()
+                    },
+                    style: .default
+                )
+            ]
         )
 
         DispatchQueue.main.async { [weak self] in
-            self?.showRecoverableAlert(alert) { [weak self] in
-                self?.presenter?.userSelectedMakeBackup()
-            }
+            self?.showAlert(with: options)
         }
     }
 }
