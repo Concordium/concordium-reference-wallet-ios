@@ -373,9 +373,6 @@ class MobileWallet: MobileWalletProtocol {
         var report: [(IdentityDataType, [AccountDataType])] = []
         for identity in invalidIdentities {
             let invalidAccountNames = storageManager.getAccounts(for: identity).filter {
-                if $0.isReadOnly {
-                    return false
-                }
                 return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
             }
             report.append((identity, invalidAccountNames))

@@ -128,9 +128,7 @@ class SanityChecker {
     private func removeIdentitiesAndAccountsWithoutKeys(report: [(IdentityDataType, [AccountDataType])]) -> [IdentityDataType] {
         var failToRemoveIdentities = [IdentityDataType]()
         for (identity, accounts) in report {
-            //we remove the readonly accounts from the calculations because they are not
-            // marked as needing deletion (readonly accounts never have keys)
-            let identityAccounts = self.storageManager.getAccounts(for: identity).filter { !$0.isReadOnly }
+            let identityAccounts = self.storageManager.getAccounts(for: identity)
             for account in accounts {
                 self.storageManager.removeAccount(account: account)
             }
