@@ -84,7 +84,7 @@ class IdentityImporter {
             accountContainsKeys = false
         }
         
-        // we allow overwritting if the account is readonly or it doesn't contain keys
+        // we allow overwriting if the account is readonly or it doesn't contain keys
         guard existingAccount?.isReadOnly == true || !accountContainsKeys else {
             importedIdentity.duplicateAccounts.append(accountData.name)
             return
