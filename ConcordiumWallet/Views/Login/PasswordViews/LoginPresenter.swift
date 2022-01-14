@@ -42,7 +42,7 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
                 .onSuccess { pwHash in
                     let passwordCheck = dependencyProvider.keychainWrapper()
                             .checkPasswordHash(pwHash: pwHash)
-                    _ = sanityChecker.getSanityReport(pwHash: pwHash) //we just make the sanitary report
+                    _ = sanityChecker.getSanityReport(pwHash: pwHash) //we just make the sanity report
                     handlePasswordCheck(checkPassword: passwordCheck)
                 }
         }
