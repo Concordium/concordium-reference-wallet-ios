@@ -87,11 +87,11 @@ class Importer {
                                 pwHash: String) -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error> {
         // filter accounts included in the import (we only include addresses that are not saved or are readonly or don't contain keys)
         let accountsToVerify = accounts.filter { (account) -> Bool in
-            let storredAccount = storageManager.getAccount(withAddress: account.accountAddress)
+            let storedAccount = storageManager.getAccount(withAddress: account.accountAddress)
             
             let accountContainsKeys: Bool
-            if let storredAccount = storredAccount {
-                let result = mobileWallet.verifyPasscode(for: storredAccount, pwHash: pwHash)
+            if let storedAccount = storedAccount {
+                let result = mobileWallet.verifyPasscode(for: storedAccount, pwHash: pwHash)
                 switch result {
                 case .failure:
                     accountContainsKeys = false
@@ -102,7 +102,7 @@ class Importer {
                 accountContainsKeys = false
             }
             
-            if storredAccount?.isReadOnly == true || !accountContainsKeys {
+            if storedAccount?.isReadOnly == true || !accountContainsKeys {
                 return true
             }
             return false

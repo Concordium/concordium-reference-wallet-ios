@@ -76,15 +76,15 @@ class IdentityImporter {
     private func importAccount(_ accountData: ExportAccount, relatedIdentity: IdentityDataType, pwHash: String) {
         let existingAccount = storageManager.getAccount(withAddress: accountData.address)
         let accountContainsKeys: Bool
-        if let storredAccount = existingAccount,
-            let key = storredAccount.encryptedPrivateKey,
+        if let storedAccount = existingAccount,
+            let key = storedAccount.encryptedPrivateKey,
            (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) == nil {
             accountContainsKeys = true
         } else {
             accountContainsKeys = false
         }
         
-        // we allow overwritting if the account is readonly or it doesn't contain keys
+        // we allow overwriting if the account is readonly or it doesn't contain keys
         guard existingAccount?.isReadOnly == true || !accountContainsKeys else {
             importedIdentity.duplicateAccounts.append(accountData.name)
             return

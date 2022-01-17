@@ -48,14 +48,14 @@ class SanityChecker {
             }).store(in: &cancellables)
     }
     
-    public func getSanityReport(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
+    public func generateSanityReport(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
         let report = self.mobileWallet.verifyIdentitiesAndAccounts(pwHash: pwHash)
         SanityChecker.lastSanityReport = report
         return report
     }
     
     public func checkSanity(pwHash: String, mode: SanityCheckerMode, completion: @escaping () -> Void) {
-        let report = getSanityReport(pwHash: pwHash)
+        let report = generateSanityReport(pwHash: pwHash)
         self.showValidateIdentitiesAlert(report: report, mode: mode, completion: completion)
     }
     
@@ -193,7 +193,7 @@ class SanityChecker {
         coordinator?.navigationController.present(alert, animated: true)
     }
     /*
-     This alert is shown in caset the user chooses to delete the identities with missing keys,
+     This alert is shown in case the user chooses to delete the identities with missing keys,
      but some of them still contain accounts with valid keys
      */
     private func showAlertForIdentitiesNotDeleted(failedToRemoveIdentities: [IdentityDataType], completion: @escaping () -> Void) {

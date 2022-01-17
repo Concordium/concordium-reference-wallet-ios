@@ -42,7 +42,7 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
                 .onSuccess { pwHash in
                     let passwordCheck = dependencyProvider.keychainWrapper()
                             .checkPasswordHash(pwHash: pwHash)
-                    _ = sanityChecker.getSanityReport(pwHash: pwHash) //we just make the sanitary report
+                    _ = sanityChecker.generateSanityReport(pwHash: pwHash) //we just make the sanitary report
                     handlePasswordCheck(checkPassword: passwordCheck)
                 }
         }
@@ -57,7 +57,7 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     func passwordEntered(password: String) {
         let passwordCheck = dependencyProvider.keychainWrapper()
                 .checkPassword(password: password)
-        _  = sanityChecker.getSanityReport(pwHash: dependencyProvider.keychainWrapper().hashPassword(password))
+        _  = sanityChecker.generateSanityReport(pwHash: dependencyProvider.keychainWrapper().hashPassword(password))
         handlePasswordCheck(checkPassword: passwordCheck)
     }
 
