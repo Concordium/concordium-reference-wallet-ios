@@ -7,17 +7,23 @@ import Foundation
 import UIKit
 import Combine
 
-class MoreCoordinator: Coordinator {
+class MoreCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     private var dependencyProvider: MoreFlowCoordinatorDependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
+    private var sanityChecker: SanityChecker
     
     init(navigationController: UINavigationController,
          dependencyProvider: MoreFlowCoordinatorDependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.loginDependencyProvider = dependencyProvider
+        self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
+                                          storageManager: dependencyProvider.storageManager())
+        sanityChecker.errorDisplayer = self
+        sanityChecker.delegate = self
+        sanityChecker.coordinator = self
     }
 
     func start() {
@@ -68,6 +74,12 @@ class MoreCoordinator: Coordinator {
         let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showValidateIdsAndAccounts() {
+        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
+                                              keychainWrapper: dependencyProvider.keychainWrapper(),
+                                              mode: .manual)
+    }
 
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(navigationController: TransparentNavigationController(),
@@ -116,6 +128,9 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     
     func aboutSelected() {
         showAbout()
+    }
+    func validateIdsAndAccountsSelected() {
+        showValidateIdsAndAccounts()
     }
 }
 
@@ -213,6 +228,6 @@ extension MoreCoordinator: ExportPresenterDelegate {
     }
 }
 
-extension MoreCoordinator: AboutPresenterDelegate {
-    
-}
+extension MoreCoordinator: AboutPresenterDelegate {}
+
+extension MoreCoordinator: ShowImport {}

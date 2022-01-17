@@ -413,6 +413,11 @@
 		5237188425753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237187E25753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift */; };
 		5237188525753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237187E25753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift */; };
 		5237188625753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237187E25753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift */; };
+		5243C032278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
+		5243C033278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
+		5243C034278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
+		5243C035278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
+		5243C036278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
 		5248E7D7257A60F600E4F6EC /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */; };
 		5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */; };
 		5248E7D9257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */; };
@@ -1635,6 +1640,7 @@
 		5237186A25751F2000B2BC31 /* 4.5.1.TX_lib_generate_accounts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.5.1.TX_lib_generate_accounts.json; sourceTree = "<group>"; };
 		5237187D25753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeGenerateAccountsResponseElement.swift; sourceTree = "<group>"; };
 		5237187E25753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeGenerateAaccountsRequest.swift; sourceTree = "<group>"; };
+		5243C031278E2384005CAC8D /* SanityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanityChecker.swift; sourceTree = "<group>"; };
 		5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuViewController.swift; sourceTree = "<group>"; };
 		5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuPresenter.swift; sourceTree = "<group>"; };
 		52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.4.1.TX_lib_decrypt_encrypted_amount.json; sourceTree = "<group>"; };
@@ -2330,6 +2336,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		5243C030278E2360005CAC8D /* VerifyIdsAndAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				5243C031278E2384005CAC8D /* SanityChecker.swift */,
+			);
+			path = VerifyIdsAndAccounts;
+			sourceTree = "<group>";
+		};
 		5248E7D5257A60DC00E4F6EC /* BurgerMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -2548,6 +2562,7 @@
 		7F85B8E02472D37600ED09B8 /* MoreSection */ = {
 			isa = PBXGroup;
 			children = (
+				5243C030278E2360005CAC8D /* VerifyIdsAndAccounts */,
 				642ED97025F21E2300A09BB3 /* Update */,
 				64DB66AC25DE636A00F4C605 /* About */,
 				7FB64A04247BC9FB00DC500E /* Export */,
@@ -3838,6 +3853,7 @@
 				19C2E94132B8C8B8853EB589 /* IdentityProviderEntity.swift in Sources */,
 				19C2ED92172857EAA39F101A /* RecipientEntity.swift in Sources */,
 				19C2E2CADC6C1C6CFCBBBA67 /* AccountEntity.swift in Sources */,
+				5243C032278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				5211BAA724FD1D5100EE1658 /* Balance.swift in Sources */,
 				19C2EF5346654ECC2B83CB96 /* TransferEntity.swift in Sources */,
 				19C2E8375F25819B1599F588 /* DataStoreProtocol.swift in Sources */,
@@ -4065,6 +4081,7 @@
 				7F85B785246A9A7C00ED09B8 /* PrivateIDObjectData.swift in Sources */,
 				07519F7B26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */,
 				7F85B786246A9A7C00ED09B8 /* CreateIDRequest.swift in Sources */,
+				5243C034278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				7F85B787246A9A7C00ED09B8 /* LetterSpacingLabel.swift in Sources */,
 				7F85B788246A9A7C00ED09B8 /* IdentityConfirmedPresenter.swift in Sources */,
 				52B2CE4B24F6806B0092F8EB /* ArsInfo.swift in Sources */,
@@ -4395,6 +4412,7 @@
 				7F85B880246A9AB600ED09B8 /* JSONSchemaSupport.swift in Sources */,
 				07519F7C26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */,
 				7F85B881246A9AB600ED09B8 /* AccountTransactionsDataPresenter.swift in Sources */,
+				5243C035278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				7F85B882246A9AB600ED09B8 /* Metadata.swift in Sources */,
 				7F85B884246A9AB600ED09B8 /* PrivateIDObjectData.swift in Sources */,
 				52B2CE4C24F6806B0092F8EB /* ArsInfo.swift in Sources */,
@@ -4774,6 +4792,7 @@
 				19C2EC67C03A0297F505AE6C /* AccountAddressQRCoordinator.swift in Sources */,
 				19C2E32CFA409D5BA9A50A60 /* ToastLabel.swift in Sources */,
 				19C2EA06B4E5D36103E1E8A5 /* Logger.swift in Sources */,
+				5243C033278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				52055F822552B8F10071F7CA /* IdentityCardView.swift in Sources */,
 				074917D0273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				19C2E3DFF7E9AE050F860AA1 /* SendFundPresenter.swift in Sources */,
@@ -4863,6 +4882,7 @@
 				7F0573E724AC710C009517AD /* StorageManagerMockHelper.swift in Sources */,
 				7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
+				5243C036278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,
@@ -4986,7 +5006,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
@@ -5019,7 +5039,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
@@ -5052,7 +5072,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -5085,7 +5105,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -5237,7 +5257,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -5272,7 +5292,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";

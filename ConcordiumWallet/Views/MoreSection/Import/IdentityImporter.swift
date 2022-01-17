@@ -20,17 +20,29 @@ class IdentityImporter {
                         importReport: inout ImportedItemsReport) -> IdentityDataType? {
         do {
             if let existingEntity = storageManager.getIdentity(matching: identityDataToImport.identityObject) {
-                importAccounts(identityData: identityDataToImport, identityEntity: existingEntity, pwHash: pwHash)
-                importReadOnlyAccounts(readOnlyAccounts, identityEntity: existingEntity, pwHash: pwHash)
-                importReport.duplicateIdentities.append(importedIdentity)
-                return existingEntity
-            } else {
-                let identityEntity = try storeIdentityInDb(identityDataToImport, pwHash: pwHash)
-                importAccounts(identityData: identityDataToImport, identityEntity: identityEntity, pwHash: pwHash)
-                importReadOnlyAccounts(readOnlyAccounts, identityEntity: identityEntity, pwHash: pwHash)
-                importReport.importedIdentities.append(importedIdentity)
-                return identityEntity
+                //Here we have an identity stored.
+                //We check whether the identity has its keys and if it does, we try to
+                //import its accounts and mark it as duplicate in the report
+               
+                if let key = existingEntity.encryptedPrivateIdObjectData,
+                   (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
+                    importAccounts(identityData: identityDataToImport, identityEntity: existingEntity, pwHash: pwHash)
+                    importReadOnlyAccounts(readOnlyAccounts, identityEntity: existingEntity, pwHash: pwHash)
+                    importReport.duplicateIdentities.append(importedIdentity)
+                    return existingEntity
+                } else {
+                    //we delete the stored unusable identity
+                    storageManager.removeIdentity(existingEntity)
+                }
             }
+            // if we are here, we need to import the identity, either because there is no
+            // local copy or the local copy didn't contain keys
+            let identityEntity = try storeIdentityInDb(identityDataToImport, pwHash: pwHash)
+            importAccounts(identityData: identityDataToImport, identityEntity: identityEntity, pwHash: pwHash)
+            importReadOnlyAccounts(readOnlyAccounts, identityEntity: identityEntity, pwHash: pwHash)
+            importReport.importedIdentities.append(importedIdentity)
+            return identityEntity
+            
         } catch {
             importReport.failedIdentities.append(importedIdentity.name)
         }
@@ -62,16 +74,25 @@ class IdentityImporter {
     }
 
     private func importAccount(_ accountData: ExportAccount, relatedIdentity: IdentityDataType, pwHash: String) {
-        
         let existingAccount = storageManager.getAccount(withAddress: accountData.address)
+        let accountContainsKeys: Bool
+        if let storedAccount = existingAccount,
+            let key = storedAccount.encryptedPrivateKey,
+           (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) == nil {
+            accountContainsKeys = true
+        } else {
+            accountContainsKeys = false
+        }
         
-        // we allow overwritting
-        guard existingAccount == nil || existingAccount?.isReadOnly == true else {
+        // we allow overwriting if the account is readonly or it doesn't contain keys
+        guard existingAccount?.isReadOnly == true || !accountContainsKeys else {
             importedIdentity.duplicateAccounts.append(accountData.name)
             return
         }
+        
         // we remove the readonly account if it exists
-        // (we ony get here if we have a readonly account or existing account is nil)
+        // (we ony get here if we have a readonly account or
+        // existing account is nil or doesn't contain keys)
         storageManager.removeAccount(account: existingAccount)
         
         do {
@@ -103,7 +124,7 @@ class IdentityImporter {
     private func importReadOnlyAccount(_ readOnlyAccount: MakeGenerateAccountsResponseElement, relatedIdentity: IdentityDataType, pwHash: String) {
         let existingAccount = storageManager.getAccount(withAddress: readOnlyAccount.accountAddress)
         guard existingAccount == nil else {
-//            importedIdentity.duplicateAccounts.append(existingAccount?.name ?? "")
+            //we don't import a read-only account if the account is already saved locally
             return
         }
         do {

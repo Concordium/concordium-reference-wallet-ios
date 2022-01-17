@@ -58,6 +58,7 @@ protocol AccountDataType: DataStoreProtocol {
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
     func withTransferFilters(filters: TransferFilter) -> AccountDataType
+    func withMarkAsReadOnly(_ isReadOnly: Bool) -> AccountDataType
 }
 
 extension AccountDataType {
@@ -112,6 +113,14 @@ extension AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.transferFilters = filters
+        }
+        return self
+    }
+    
+    func withMarkAsReadOnly(_ isReadOnly: Bool) -> AccountDataType {
+        _ = write {
+            var pAccount = $0
+            pAccount.isReadOnly = isReadOnly
         }
         return self
     }

@@ -10,6 +10,7 @@ enum ImportError: Error {
     case unsupportedVersion(inputVersion: Int)
     case unsupportedWalletType(type: String)
     case unsupportedEnvironemt(environment: String)
+    case missingIdentitiesError
 }
 
 struct ExportService {

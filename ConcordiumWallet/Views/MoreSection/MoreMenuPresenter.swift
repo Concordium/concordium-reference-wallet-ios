@@ -21,6 +21,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func exportSelected()
     func updateSelected()
     func aboutSelected()
+    func validateIdsAndAccountsSelected()
 }
 
 // MARK: -
@@ -33,6 +34,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func userSelectedImport()
     func userSelectedExport()
     func userSelectedUpdate()
+    func userSelectedValidate()
     func userSelectedAbout()
 }
 
@@ -66,5 +68,8 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
     }
     func userSelectedAbout() {
         delegate?.aboutSelected()
+    }
+    func userSelectedValidate() {
+        delegate?.validateIdsAndAccountsSelected()
     }
 }

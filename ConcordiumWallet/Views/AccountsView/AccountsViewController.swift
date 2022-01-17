@@ -17,7 +17,7 @@ class AccountsFactory {
         }
     }
 }
-
+// swiftlint:disable:next type_body_length
 class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail, ShowIdentityFailure {
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
@@ -59,7 +59,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.viewDidLoad()
 
         dataSource = UITableViewDiffableDataSource<String, AccountViewModel>(tableView: tableView, cellProvider: createCell)
-//        tableView.applyConcordiumEdgeStyle()
 
         tableView.layer.masksToBounds = false
         tableView.backgroundColor = .white
@@ -240,7 +239,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         .store(in: &cancellables)
     }
     
-    func showIdentityFailed(identityProviderName: String, identityProviderSupport: String, reference: String, completion: @escaping (_ option: IdentityFailureAlertOption) -> Void) {
+    func showIdentityFailed(identityProviderName: String,
+                            identityProviderSupport: String,
+                            reference: String,
+                            completion: @escaping (_ option: IdentityFailureAlertOption) -> Void) {
         showIdentityFailureAlert(identityProviderName: identityProviderName,
                                  identityProviderSupportEmail: identityProviderSupport,
                                  reference: reference,
@@ -270,7 +272,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             createNewButton.isHidden = true
             shouldShowAddAccountButtonInTopBar = true
         }
-
         if shouldShowAddAccountButtonInTopBar {
             let rightButtonImage = UIImage(named: "add_icon")
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightButtonImage,

@@ -32,7 +32,7 @@ class AccountsCoordinator: Coordinator {
     func start() {
         let vc = AccountsFactory.create(with: AccountsPresenter(dependencyProvider: dependencyProvider, delegate: self))
         vc.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
-        navigationController.pushViewController(vc, animated: false)
+        navigationController.viewControllers = [vc]
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {

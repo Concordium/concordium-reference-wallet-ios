@@ -48,6 +48,8 @@ class RequestExportPasswordPresenter: EnterPasswordPresenterProtocol {
             delegate?.finishedEnteringPassword(password: password)
         } catch ImportError.unsupportedEnvironemt(_) {
             view?.showError("import.environmentError".localized)
+        } catch ImportError.missingIdentitiesError {
+            view?.showError("import.noIdentitiesError".localized)
         } catch {
             view?.showError("import.passwordError".localized)
         }

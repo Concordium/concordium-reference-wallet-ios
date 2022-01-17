@@ -44,7 +44,7 @@ class Importer {
                                 
                 let accounts = try generateAccounts(identity: importIdentityData, pwHash: pwHash)
                 let mappedImportedAccounts = accounts.map { (accounts) -> AnyPublisher<IdentityDataType?, Error> in
-                    self.verifyAccounts(accounts: accounts).map { (accountElements) in
+                    self.verifyAccounts(accounts: accounts, pwHash: pwHash).map { (accountElements) in
                         self.importIdentity(importIdentityData: importIdentityData,
                                             readOnlyAccounts: accountElements,
                                             pwHash: pwHash) }.eraseToAnyPublisher()
@@ -83,11 +83,26 @@ class Importer {
                 }}.eraseToAnyPublisher()
     }
     
-    private func verifyAccounts(accounts: [MakeGenerateAccountsResponseElement]) -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error> {
-        // filter accounts included in the import (we only include addresses that are now saved or are readonly
+    private func verifyAccounts(accounts: [MakeGenerateAccountsResponseElement],
+                                pwHash: String) -> AnyPublisher<[MakeGenerateAccountsResponseElement], Error> {
+        // filter accounts included in the import (we only include addresses that are not saved or are readonly or don't contain keys)
         let accountsToVerify = accounts.filter { (account) -> Bool in
-            let storredAccount = storageManager.getAccount(withAddress: account.accountAddress)
-            if storredAccount == nil || storredAccount?.isReadOnly == true {
+            let storedAccount = storageManager.getAccount(withAddress: account.accountAddress)
+            
+            let accountContainsKeys: Bool
+            if let storedAccount = storedAccount {
+                let result = mobileWallet.verifyPasscode(for: storedAccount, pwHash: pwHash)
+                switch result {
+                case .failure:
+                    accountContainsKeys = false
+                case .success:
+                    accountContainsKeys = true
+                }
+            } else {
+                accountContainsKeys = false
+            }
+            
+            if storedAccount?.isReadOnly == true || !accountContainsKeys {
                 return true
             }
             return false
