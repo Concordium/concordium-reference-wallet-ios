@@ -20,7 +20,7 @@ enum UserDefaultKeys: String {
     case acceptedTermsHash
     case ignoreMissingKeysForIdsOrAccountsAtLogin
     case needsBackupWarning
-
+    case lastKnownAppVersionSinceBackupWarning
 }
 
 struct AppSettings {
@@ -95,6 +95,15 @@ struct AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.ignoreMissingKeysForIdsOrAccountsAtLogin.rawValue)
+        }
+    }
+
+    static var lastKnownAppVersionSinceBackupWarning: String? {
+        get {
+            UserDefaults.standard.string(forKey: UserDefaultKeys.lastKnownAppVersionSinceBackupWarning.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastKnownAppVersionSinceBackupWarning.rawValue)
         }
     }
     

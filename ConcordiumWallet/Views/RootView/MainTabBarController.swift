@@ -58,9 +58,14 @@ extension MainTabBarController: AccountsCoordinatorDelegate {
     }
 }
 
-extension MainTabBarController: ShowImport {
+extension MainTabBarController: ImportExport {
     func showImport() {
         selectedViewController = moreCoordinator.navigationController
         moreCoordinator.showImport()
+    }
+
+    func showExport() {
+        selectedViewController = moreCoordinator.navigationController
+        moreCoordinator.showExport()
     }
 }

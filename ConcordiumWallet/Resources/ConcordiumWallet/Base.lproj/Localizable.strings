@@ -436,3 +436,6 @@ process on-chain.";
 "accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup?\n\nIf you loose your phone and do not have a backup you will no longer have access to your account(s).";
 "accountfinalized.extrabackup.alert.action.dismiss" = "Dismiss";
 
+"backupafterupdate.alert.title" = "Welcome back!";
+"backupafterupdate.alert.message" = "Did you make a backup of your identities and accounts recently?\n\nIf you didn't, now is a good time to do so! Concordium strongly recommends having a backup of all your identities and accounts.";
+"backupafterupdate.alert.action.notnow" = "Not now";

@@ -15,8 +15,9 @@ enum SanityCheckerMode {
     case manual
 }
 
-protocol ShowImport: AnyObject {
+protocol ImportExport: AnyObject {
     func showImport()
+    func showExport()
 }
 
 class SanityChecker {
@@ -24,7 +25,7 @@ class SanityChecker {
     var mobileWallet: MobileWalletProtocol
     var storageManager: StorageManagerProtocol
     weak var coordinator: Coordinator?
-    weak var delegate: ShowImport?
+    weak var delegate: ImportExport?
     
     private var cancellables: [AnyCancellable] = []
     
@@ -63,7 +64,15 @@ class SanityChecker {
     public func showValidateIdentitiesAlert(report: [(IdentityDataType, [AccountDataType])], mode: SanityCheckerMode, completion: @escaping () -> Void) {
         switch mode {
         case .automatic:
-            if report.count == 0 ||  AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
+            if report.count == 0 || AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
+                if AppSettings.lastKnownAppVersionSinceBackupWarning == nil {
+                    showBackupWarningAfterUpdate()
+                    AppSettings.lastKnownAppVersionSinceBackupWarning = AppSettings.appVersion
+                } else if let lastKnownAppVersionSinceBackupWarning = AppSettings.lastKnownAppVersionSinceBackupWarning, lastKnownAppVersionSinceBackupWarning < AppSettings.appVersion {
+                    showBackupWarningAfterUpdate()
+                    AppSettings.lastKnownAppVersionSinceBackupWarning = AppSettings.appVersion
+                }
+                
                 return
             }
         case .manual:
@@ -225,6 +234,58 @@ class SanityChecker {
         let okAction = UIAlertAction(title: "more.validateIdsAndAccount.okay".localized, style: .default) {  (_) in
         }
         alert.addAction(okAction)
+        coordinator?.navigationController.present(alert, animated: true)
+    }
+
+    private func showBackupWarningAfterUpdate() {
+        let alert = UIAlertController(
+            title: "backupafterupdate.alert.title".localized,
+            message: "backupafterupdate.alert.message".localized,
+            preferredStyle: .alert
+        )
+
+        let notNowAction = UIAlertAction(
+            title: "backupafterupdate.alert.action.notnow".localized,
+            style: .default,
+            handler: { [weak self] _ in
+                let areYouSureAlert = UIAlertController(
+                    title: "accountfinalized.extrabackup.alert.title".localized,
+                    message: "accountfinalized.extrabackup.alert.message".localized,
+                    preferredStyle: .alert
+                )
+
+                let dismissAction = UIAlertAction(
+                    title: "accountfinalized.extrabackup.alert.action.dismiss".localized,
+                    style: .destructive,
+                    handler: { _ in }
+                )
+
+                let makeBackupAction = UIAlertAction(
+                    title: "accountfinalized.alert.action.backup".localized,
+                    style: .default,
+                    handler: { [weak self] _ in
+                        self?.delegate?.showExport()
+                    }
+                )
+
+                areYouSureAlert.addAction(dismissAction)
+                areYouSureAlert.addAction(makeBackupAction)
+
+                self?.coordinator?.navigationController.present(areYouSureAlert, animated: true)
+            }
+        )
+
+        let makeBackupAction = UIAlertAction(
+            title: "accountfinalized.alert.action.backup".localized,
+            style: .default,
+            handler: { [weak self] _ in
+                self?.delegate?.showExport()
+            }
+        )
+
+        alert.addAction(notNowAction)
+        alert.addAction(makeBackupAction)
+
         coordinator?.navigationController.present(alert, animated: true)
     }
 }
