@@ -104,7 +104,7 @@ add_identity_data = "Reveal Identity Data";
 "accounts.amountwillbeshielded" = "Amount will be shielded";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
 
-"accounts.backupwarning.text" = "Some accounts are not backed up. Press here to back them up.";
+"accounts.backupwarning.text" = "As your accounts are not backed up, you risk losing your tokens.";
 
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new here?";
@@ -433,9 +433,10 @@ process on-chain.";
 "accountfinalized.alert.action.backup" = "Make backup";
 
 "accountfinalized.extrabackup.alert.title" = "⚠️ WARNING ⚠️";
-"accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup?\n\nIf you loose your phone and do not have a backup you will no longer have access to your account(s).";
+"accountfinalized.extrabackup.alert.message" = "Are you sure that you do not want to create a backup? You risk losing your CCDs.\n\nIf you lose your phone and do not have a backup you will no longer have access to your account(s) and will lose your CCDs.";
 "accountfinalized.extrabackup.alert.action.dismiss" = "Dismiss";
 
 "backupafterupdate.alert.title" = "Welcome back!";
-"backupafterupdate.alert.message" = "Did you make a backup of your identities and accounts recently?\n\nIf you didn't, now is a good time to do so! Concordium strongly recommends having a backup of all your identities and accounts.";
+"backupafterupdate.alert.message" = "Did you make a backup of your identities and accounts recently?\n\nA backup file is the only way to restore private keys if you lose your phone or re-install the wallet. Without the private keys, you cannot access your accounts. Concordium cannot recover your private keys or export password and you will lose your CCDs. You should export a new backup file EVERY time a new account is created. Protect your export password.\n\nRemember to store the file named
+concordium-backup.concordiumwallet securely.";
 "backupafterupdate.alert.action.notnow" = "Not now";
