@@ -15,7 +15,9 @@ extension Notification.Name {
 // @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator = AppCoordinator()
+    var appCoordinator: AppCoordinator {
+        AppCoordinator()
+    }
 
     private lazy var backgroundWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -33,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Warn if device is jail broken.
         if UIDevice.current.isJailBroken {
             let ac = UIAlertController(title: "Warning", message: "error", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default) { (_) in
-                self.appCoordinator.start()
+            let okAction = UIAlertAction(title: "errorAlert.okButton".localized, style: .default) { [weak self] (_) in
+                self?.appCoordinator.start()
             }
             ac.addAction(okAction)
             appCoordinator.navigationController.present(ac, animated: true)
