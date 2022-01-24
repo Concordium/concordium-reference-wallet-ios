@@ -24,7 +24,7 @@ struct ExportService {
         let documentDirectory = FileManager.default.urls(for: .documentationDirectory, in: .userDomainMask).first!
         // it appears that the documentation directory does not necessarily exist in advance - create it if it doesn't
         try? FileManager.default.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
-        return documentDirectory.appendingPathComponent("export.concordiumwallet")
+        return documentDirectory.appendingPathComponent("concordium-backup.concordiumwallet")
     }
 
     func deleteExportFile() throws {
