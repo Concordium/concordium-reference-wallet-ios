@@ -15,9 +15,9 @@ extension Notification.Name {
 // @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator: AppCoordinator {
+    lazy var appCoordinator: AppCoordinator = {
         AppCoordinator()
-    }
+    }()
 
     private lazy var backgroundWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
