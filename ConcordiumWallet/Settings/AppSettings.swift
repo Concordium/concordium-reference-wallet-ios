@@ -21,6 +21,7 @@ enum UserDefaultKeys: String {
     case ignoreMissingKeysForIdsOrAccountsAtLogin
     case needsBackupWarning
     case lastKnownAppVersionSinceBackupWarning
+    case hasRunBefore
 }
 
 struct AppSettings {
@@ -104,6 +105,15 @@ struct AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastKnownAppVersionSinceBackupWarning.rawValue)
+        }
+    }
+
+    static var hasRunBefore: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.hasRunBefore.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.hasRunBefore.rawValue)
         }
     }
     

@@ -30,13 +30,12 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             clearAppDataFromPreviousInstall()
         }
 
-        UserDefaults.standard.set(true, forKey: "hasRunBefore")
+        AppSettings.hasRunBefore = true
         showLogin()
     }
     
     private func isNewAppInstall() -> Bool {
-        let hasRunBefore = UserDefaults.standard.bool(forKey: "hasRunBefore")
-        return !hasRunBefore
+        return !AppSettings.hasRunBefore
     }
 
     private func clearAppDataFromPreviousInstall() {
