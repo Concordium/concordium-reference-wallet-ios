@@ -65,7 +65,7 @@ class SanityChecker {
         switch mode {
         case .automatic:
             if report.count == 0 || AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
-                if AppSettings.lastKnownAppVersionSinceBackupWarning == nil {
+                if AppSettings.lastKnownAppVersionSinceBackupWarning == nil, AppSettings.hasRunBefore {
                     showBackupWarningAfterUpdate()
                     AppSettings.lastKnownAppVersionSinceBackupWarning = AppSettings.appVersion
                 } else if let lastKnownAppVersionSinceBackupWarning = AppSettings.lastKnownAppVersionSinceBackupWarning, lastKnownAppVersionSinceBackupWarning < AppSettings.appVersion {
