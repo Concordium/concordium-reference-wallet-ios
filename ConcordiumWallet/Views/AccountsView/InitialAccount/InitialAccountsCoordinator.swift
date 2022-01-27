@@ -33,7 +33,7 @@ class InitialAccountsCoordinator: Coordinator, ShowAlert {
 
     func start() {
         showGettingStarted()
-        AppSettings.lastKnownAppVersion = AppSettings.appVersion // Surpress the welcome back backup warning
+        AppSettings.lastKnownBuildNumber = AppSettings.buildNumber // Surpress the welcome back backup warning
     }
 
     func showGettingStarted() {
