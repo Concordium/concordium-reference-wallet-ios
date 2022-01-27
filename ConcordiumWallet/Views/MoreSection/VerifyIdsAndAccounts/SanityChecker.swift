@@ -68,7 +68,7 @@ class SanityChecker {
                 if AppSettings.lastKnownAppVersion == nil {
                     showBackupWarningAfterUpdate()
                     AppSettings.lastKnownAppVersion = AppSettings.appVersion
-                } else if let lastKnownAppVersion = AppSettings.lastKnownAppVersion, lastKnownAppVersion < AppSettings.appVersion {
+                } else if let lastKnownAppVersion = AppSettings.lastKnownAppVersion, lastKnownAppVersion.versionCompare(AppSettings.appVersion) != .orderedSame  {
                     showBackupWarningAfterUpdate()
                     AppSettings.lastKnownAppVersion = AppSettings.appVersion
                 }
