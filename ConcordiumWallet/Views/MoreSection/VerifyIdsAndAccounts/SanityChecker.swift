@@ -66,10 +66,10 @@ class SanityChecker {
         case .automatic:
             if report.count == 0 || AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
                 if AppSettings.lastKnownAppVersion == nil {
-                    showBackupWarningAfterUpdate()
+                    showBackupWarningAfterUpdate(completion: completion)
                     AppSettings.lastKnownAppVersion = AppSettings.appVersion
                 } else if let lastKnownAppVersion = AppSettings.lastKnownAppVersion, lastKnownAppVersion.versionCompare(AppSettings.appVersion) != .orderedSame  {
-                    showBackupWarningAfterUpdate()
+                    showBackupWarningAfterUpdate(completion: completion)
                     AppSettings.lastKnownAppVersion = AppSettings.appVersion
                 }
                 
@@ -237,7 +237,7 @@ class SanityChecker {
         coordinator?.navigationController.present(alert, animated: true)
     }
 
-    private func showBackupWarningAfterUpdate() {
+    private func showBackupWarningAfterUpdate(completion: @escaping () -> Void) {
         let alert = UIAlertController(
             title: "backupafterupdate.alert.title".localized,
             message: "backupafterupdate.alert.message".localized,
@@ -257,7 +257,10 @@ class SanityChecker {
                 let dismissAction = UIAlertAction(
                     title: "accountfinalized.extrabackup.alert.action.dismiss".localized,
                     style: .destructive,
-                    handler: { _ in }
+                    handler: { _ in
+                        AppSettings.needsBackupWarning = true
+                        completion()
+                    }
                 )
 
                 let makeBackupAction = UIAlertAction(
