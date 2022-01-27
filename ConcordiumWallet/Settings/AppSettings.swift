@@ -20,7 +20,8 @@ enum UserDefaultKeys: String {
     case acceptedTermsHash
     case ignoreMissingKeysForIdsOrAccountsAtLogin
     case needsBackupWarning
-    case lastKnownAppVersionSinceBackupWarning
+    case lastKnownAppVersion
+    case hasRunBefore
 }
 
 struct AppSettings {
@@ -98,12 +99,21 @@ struct AppSettings {
         }
     }
 
-    static var lastKnownAppVersionSinceBackupWarning: String? {
+    static var lastKnownAppVersion: String? {
         get {
-            UserDefaults.standard.string(forKey: UserDefaultKeys.lastKnownAppVersionSinceBackupWarning.rawValue)
+            UserDefaults.standard.string(forKey: UserDefaultKeys.lastKnownAppVersion.rawValue)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastKnownAppVersionSinceBackupWarning.rawValue)
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastKnownAppVersion.rawValue)
+        }
+    }
+
+    static var hasRunBefore: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: UserDefaultKeys.hasRunBefore.rawValue)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.hasRunBefore.rawValue)
         }
     }
     
