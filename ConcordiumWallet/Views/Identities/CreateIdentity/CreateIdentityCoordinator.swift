@@ -112,6 +112,7 @@ class CreateIdentityCoordinator: Coordinator, ShowAlert {
         newAccount.encryptedPrivateKey = createdIdentity.encryptedPrivateKey
         newAccount.identity = newIdentity
         _ = try storageManager.storeAccount(newAccount)
+        storageManager.storePendingAccount(with: newAccount.address)
         let shieldedAmount = ShieldedAmountTypeFactory.create().withInitialValue(for: newAccount)
         _ = try storageManager.storeShieldedAmount(amount: shieldedAmount)
         
