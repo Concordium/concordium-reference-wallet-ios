@@ -85,17 +85,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
             }
         }
     }
-    
-    private func cleanIdentitiesAndAccounts() {
-        let accounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == SubmissionStatusEnum.absent }
-        for account in accounts {
-            dependencyProvider.storageManager().removeAccount(account: account)
-        }
-        let identities = dependencyProvider.storageManager().getIdentities().filter { $0.state == .failed }
-        for identity in identities {
-            dependencyProvider.storageManager().removeIdentity(identity)
-        }
-    }
+
 
     override func createIdentitySelected() {
         self.delegate?.createIdentitySelected()
