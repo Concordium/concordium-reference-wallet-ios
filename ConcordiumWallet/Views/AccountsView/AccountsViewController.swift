@@ -77,6 +77,12 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         super.viewWillAppear(animated)
         presenter?.viewWillAppear()
         startRefreshTimer()
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.viewDidAppear()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appDidBecomeActive),
                                                name: UIApplication.didBecomeActiveNotification,
@@ -86,12 +92,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presenter?.viewDidAppear()
-    }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopRefreshTimer()

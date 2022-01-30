@@ -207,8 +207,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     func refresh() {
-        cancellables.removeAll()
-        self.view?.hideLoading()
         refresh(showLoadingIndicator: false)
         checkPendingAccountsStatusesIfNeeded()
     }
