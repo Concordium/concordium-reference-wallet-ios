@@ -97,6 +97,9 @@ add_identity_data = "Reveal Identity Data";
 "accounts.initial" = "(Initial)";
 "accounts.overview.atdisposal" = "At disposal";
 "accounts.overview.staked" = "Staked";
+"accounts.overview.readonly" = "Read-only";
+"accounts.overview.baking" = "Baking";
+"accounts.overview.readonly" = "Delegating";
 
 
 "accounts.shieldedamount" = "Shield amount";

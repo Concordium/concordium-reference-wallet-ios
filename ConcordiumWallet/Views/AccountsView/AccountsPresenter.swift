@@ -13,16 +13,9 @@ class AccountViewModel: Hashable {
     var address: String
     var name: String
     var totalName: String
-    var totalAmount: String
-    
-    var generalName: String
-    var generalAmount: String
-    
-    var shieldedName: String
-    var shieldedAmount: String
-    
+    var totalAmount: String //total amount = public + everything decrypted from shielded
+    var generalAmount: String //public balance
     var totalLockStatus: ShieldedAccountEncryptionStatus
-    var shieldedLockStatus: ShieldedAccountEncryptionStatus
     
     var owner: String?
     var isBaking: Bool = false
@@ -31,17 +24,16 @@ class AccountViewModel: Hashable {
     var atDisposalName: String
     var atDisposalAmount: String
     
-    var stakedName: String
-    var stakedAmount: String
-    
     var isReadOnly: Bool = false
+    var isDelegating: Bool = false //TODO: calculate the delegating !!!!
     
-    @Published var isExpanded: Bool = false
+//    @Published var isExpanded: Bool = false
     @Published var state: SubmissionStatusEnum
-    
+  
+    var areActionsEnabled = true
     private var cancellables: [AnyCancellable] = []
     
-    var expandedChanged = PassthroughSubject<Bool, Never>()
+//    var expandedChanged = PassthroughSubject<Bool, Never>()
     
     var stateUpdater: AnyPublisher<SubmissionStatusEnum, Error>? {
         didSet {
@@ -61,36 +53,27 @@ class AccountViewModel: Hashable {
         totalName = "account.accounttotal".localized
         totalAmount = GTU(intValue: account.totalForecastBalance).displayValueWithGStroke()
         state = account.transactionStatus ?? SubmissionStatusEnum.committed
-        
-        generalName = "accounts.balance".localized
         generalAmount = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
-        
-        shieldedName = "accounts.shieldedbalance".localized
-        shieldedAmount = GTU(intValue: account.forecastEncryptedBalance).displayValueWithGStroke()
-        shieldedLockStatus = account.encryptedBalanceStatus ?? .encrypted
-                
-        totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
+         
+        //TODO: this will need fixing in a future release. We currently don't show the lock
+        #warning("RNI: This has been intentionally set to decrypted for the purpose of March 2022 release")
+        totalLockStatus = .decrypted //(account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
         
         atDisposalName = "accounts.atdisposal".localized
-        stakedName = "accounts.staked".localized
         
         if !createMode {
-            if shieldedLockStatus == .encrypted {
-                shieldedAmount = ""
-            } else if shieldedLockStatus == .partiallyDecrypted {
-                shieldedAmount += " + "
-            }
+            areActionsEnabled = true
             if totalLockStatus != .decrypted {
                 totalAmount += " + "
             }
         } else {
             state = SubmissionStatusEnum.finalized
+            areActionsEnabled = false
         }
         
         owner = account.identity?.nickname
         isInitialAccount = account.credential?.value.credential.type == "initial"
         isBaking = account.bakerId > 0
-        stakedAmount = GTU(intValue: account.stakedAmount).displayValueWithGStroke()
         atDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
         isReadOnly = account.isReadOnly
     }
@@ -129,7 +112,7 @@ class AccountsListViewModel {
 protocol AccountsPresenterDelegate: AnyObject {
     func createNewAccount()
     func createNewIdentity()
-    func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum)
+    func userPerformed(action: AccountCardAction, on account: AccountDataType)
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func didSelectMakeBackup()
@@ -157,8 +140,7 @@ protocol AccountsPresenterProtocol: AnyObject {
     func refresh()
     
     func userPressedCreate()
-    func userSelected(accountIndex: Int, balanceIndex: Int)
-    func toggleExpand(accountIndex: Int)
+    func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
 }
 
@@ -359,7 +341,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
     }
     
-    
     func createAccountViewModelWithUpdatedStatus(accounts: [AccountDataType]) -> [AccountViewModel] {
         accounts.map { account in
             let accountVM = AccountViewModel(account: account)
@@ -392,20 +373,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
     }
     
-    func userSelected(accountIndex: Int, balanceIndex: Int) {
-        if balanceIndex == 1 {
-            delegate?.userSelected(account: accounts[accountIndex], balanceType: .balance)
-        } else if balanceIndex == 2 {
-            delegate?.userSelected(account: accounts[accountIndex], balanceType: .shielded)
-        }
-    }
-    
-    func toggleExpand(accountIndex: Int) {
-        let account = accounts[accountIndex]
-        if let accountVM = self.viewModel.accounts.first(where: {$0.address == account.address}) {
-            accountVM.isExpanded = !accountVM.isExpanded
-            accountVM.expandedChanged.send(accountVM.isExpanded)
-        }
+    func userPerformed(action: AccountCardAction, on accountIndex: Int) {
+        delegate?.userPerformed(action: action, on: accounts[accountIndex])
     }
     
     func userSelectedMakeBackup() {

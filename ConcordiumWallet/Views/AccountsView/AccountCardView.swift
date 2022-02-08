@@ -9,225 +9,184 @@
 import UIKit
 
 protocol AccountCardViewDelegate: AnyObject {
-    func didTapGeneralBalance()
-    func didTapShieldedBalance()
-    func didTapExpand()
+    func perform(action: AccountCardAction)
 }
+
+enum AccountCardAction {
+    case tap
+    case send
+    case receive
+    case more
+}
+
+
+enum AccountCardViewState {
+    case basic
+    case readonly
+    case baking
+    case delegating
+}
+
 
 @IBDesignable
 class AccountCardView: UIView, NibLoadable {
-    @IBOutlet weak private var accountNameCollapsed: UILabel!
-    @IBOutlet weak private var pendingIconCollapsedImageView: UIImageView!
-    @IBOutlet weak private var breadIconCollapsedImageView: UIImageView!
-    @IBOutlet weak private var readOnlyIconCollapsedImageView: UIImageView!
-    @IBOutlet weak private var accountTotalAmountCollapsedLabel: UILabel!
-    @IBOutlet weak private var accountTotalLockCollapsedImageView: UIImageView!
+
+    //Contained in accountView
+    @IBOutlet weak private var accountName: UILabel!
+    @IBOutlet weak var initialAccountLabel: UILabel!
+    @IBOutlet weak private var pendingImageView: UIImageView!
+    @IBOutlet weak private var accountOwner: UILabel!
+    @IBOutlet weak private var stateImageView: UIImageView!
+    @IBOutlet weak private var stateLabel: UILabel!
     
-    @IBOutlet weak private var accountNameExpanded: UILabel!
-    @IBOutlet weak private var pendingIconExpandedImageView: UIImageView!
-    @IBOutlet weak private var breadIconExpandedImageView: UIImageView!
-    @IBOutlet weak private var readOnlyIconExpandedImageView: UIImageView!
-    @IBOutlet weak private var accountTotalAmountExpandedLabel: UILabel!
-    @IBOutlet weak private var accountTotalLockExpandedImageView: UIImageView!
     
-    @IBOutlet weak private var accountTotalStaticLabel: UILabel!
-    @IBOutlet weak private var accountOwnerLabel: UILabel!
+    //Contained in totalView
+    @IBOutlet weak private var totalLabel: UILabel!
+    @IBOutlet weak private var totalAmount: UILabel!
+    @IBOutlet weak private var totalAmountLockImageView: UIImageView!
     
-    @IBOutlet weak private var balanceStaticLabel: UILabel!
-    @IBOutlet weak private var balanceAmountLabel: UILabel!
+    //Contained in atDisposalView
+    @IBOutlet weak private var atDisposalLabel: UILabel!
+    @IBOutlet weak private var atDisposalAmount: UILabel!
     
-    @IBOutlet weak private var atDisposalStaticLabel: UILabel!
-    @IBOutlet weak private var atDisposalAmountLabel: UILabel!
-    
-    @IBOutlet weak private var stakedStaticLabel: UILabel!
-    @IBOutlet weak private var stakedAmountLabel: UILabel!
-    
-    @IBOutlet weak private var shieldedBalanceStaticLabel: UILabel!
-    @IBOutlet weak private var shieldedBalanceAmountLabel: UILabel!
-    @IBOutlet weak private var shieldedBalanceLockImageView: UIImageView!
-    @IBOutlet weak private var expandImageView: UIImageView!
-    
-    // views that can be hidden/shown based on collapsed/expanded state
-    @IBOutlet weak private var totalViewCollapsed: UIView!
-    @IBOutlet weak private var accountViewExpanded: UIView!
-    @IBOutlet weak private var totalViewExpanded: UIView!
-    @IBOutlet weak private var atDisposalView: UIView!
-    @IBOutlet weak private var stakedView: UIView!
-    @IBOutlet weak private var expandView: UIView!
     
     @IBOutlet weak private var stackCardView: UIStackView!
-    
-    @IBOutlet weak var initialAccountCollapsedLabel: UILabel!
-    @IBOutlet weak var initialAccountExpandedLabel: UILabel!
-    
+    @IBOutlet weak private var buttonsHStackViewView: UIStackView!
+
     weak var delegate: AccountCardViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupFromNib()
-        setExpanded(true)
-        setupExpandCollapseGesture()
+        setupTapCardGesture()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupFromNib()
-        setExpanded(true)
-        setupExpandCollapseGesture()
+        setupTapCardGesture()
     }
     
-    func setupExpandCollapseGesture() {
-        let tapCollapsed = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        totalViewCollapsed.addGestureRecognizer(tapCollapsed)
-        let tapExpanded = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        accountViewExpanded.addGestureRecognizer(tapExpanded)
+    func setupTapCardGesture() {
+        let tapCard = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        stackCardView.addGestureRecognizer(tapCard)
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        pressedExpand(sender: self)
+        self.delegate?.perform(action: .tap)
     }
     
-    func setupStaticStrings(accountTotal: String,
-                            publicBalance: String,
-                            atDisposal: String,
-                            staked: String,
-                            shieldedBalance: String) {
-        accountTotalStaticLabel.text = accountTotal
-        balanceStaticLabel.text = publicBalance
-        atDisposalStaticLabel.text = atDisposal
-        stakedStaticLabel.text = staked
-        shieldedBalanceStaticLabel.text = shieldedBalance
+    func setup(accountViewModel: AccountViewModel) {
+        self.setupStaticStrings(accountTotal: accountViewModel.totalName,
+                                           atDisposal: accountViewModel.atDisposalName)
+        let state: AccountCardViewState!
+        if accountViewModel.isBaking {
+            state = .baking
+        } else if accountViewModel.isReadOnly {
+            state = .readonly
+        } else {
+            state = .basic
+        }
+        
+        let showLock = accountViewModel.totalLockStatus != .decrypted
+       
+        if accountViewModel.areActionsEnabled {
+            buttonsHStackViewView.isHidden = true
+        } else {
+            buttonsHStackViewView.isHidden = false
+        }
+        
+        self.setup(accountName: accountViewModel.name,
+                              accountOwner: accountViewModel.owner,
+                              isInitialAccount: accountViewModel.isInitialAccount,
+                              totalAmount: accountViewModel.totalAmount,
+                              showLock: showLock,
+                              publicBalanceAmount: accountViewModel.generalAmount,
+                              atDisposalAmount: accountViewModel.atDisposalAmount,
+                              state: state)
     }
     
-    func setup(accountName: String?,
+    private func setupStaticStrings(accountTotal: String,
+                            atDisposal: String) {
+        totalLabel.text = accountTotal
+        atDisposalLabel.text = atDisposal
+    }
+    
+    private func setup(accountName: String?,
                accountOwner: String?,
                isInitialAccount: Bool,
-               isBaking: Bool,
-               isReadOnly: Bool,
                totalAmount: String,
                showLock: Bool,
                publicBalanceAmount: String,
                atDisposalAmount: String,
-               stakedAmount: String,
-               shieldedAmount: String,
-               isExpanded: Bool = false,
-               isExpandable: Bool = true) {
+               state: AccountCardViewState) {
         
-        accountNameExpanded.text = accountName
-        accountNameCollapsed.text = accountName
+        self.accountName.text = accountName
+        self.accountOwner.text = accountOwner
+
+        self.totalAmount.text = totalAmount
+        self.atDisposalAmount.text = atDisposalAmount
         
-        accountOwnerLabel.text = accountOwner
-        breadIconExpandedImageView.isHidden = !isBaking
-        breadIconCollapsedImageView.isHidden = !isBaking
-        
-        readOnlyIconExpandedImageView.isHidden = !isReadOnly
-        readOnlyIconCollapsedImageView.isHidden = !isReadOnly
-        
-        accountTotalAmountExpandedLabel.text = totalAmount
-        accountTotalAmountCollapsedLabel.text = totalAmount
-        
-        balanceAmountLabel.text = publicBalanceAmount
-        atDisposalAmountLabel.text = atDisposalAmount
-        stakedAmountLabel.text = stakedAmount
-        shieldedBalanceAmountLabel.text = shieldedAmount
-        
-        if isInitialAccount {
-            initialAccountCollapsedLabel.isHidden = false
-            initialAccountExpandedLabel.isHidden = false
-        } else {
-            initialAccountCollapsedLabel.isHidden = true
-            initialAccountExpandedLabel.isHidden = true
-        }
+        initialAccountLabel.isHidden = !isInitialAccount
         
         if showLock {
             self.showLock()
         } else {
             hideLock()
         }
+
         
-        if isExpandable {
-            expandView.isHidden = false
-        } else {
-            expandView.isHidden = true
-        }
-        setExpanded(isExpanded)
-        
-        if isReadOnly {
-            self.stackCardView.alpha = 0.5
-        } else {
+        switch state {
+        case .basic:
             self.stackCardView.alpha = 1
+            self.stateLabel.isHidden = true
+            self.stateImageView.isHidden = true
+        case .readonly:
+            self.stackCardView.alpha = 0.5
+            self.stateLabel.text = "accounts.overview.readonly".localized
+            self.stateImageView.image = UIImage(named: "icon_read_only")
+        case .baking:
+            self.stackCardView.alpha = 1
+            self.stateLabel.text = "accounts.overview.baking".localized
+            self.stateImageView.image = UIImage(named: "icon_bread")
+        case .delegating:
+            self.stackCardView.alpha = 1
+            self.stateLabel.text = "accounts.overview.delegating".localized
+            self.stateImageView.image = UIImage(named: "icon_delegate")
         }
     }
     
-    func setExpanded(_ isExpanded: Bool) {
-        let hideExpandedViews = !isExpanded
-        let hideCollapsedViews = isExpanded
-        
-        self.totalViewCollapsed.isHidden = hideCollapsedViews
-        self.totalViewExpanded.isHidden = hideExpandedViews
-        self.accountViewExpanded.isHidden = hideExpandedViews
-        self.atDisposalView.isHidden = hideExpandedViews
-        self.stakedView .isHidden = hideExpandedViews
-        
-        self.stackCardView.layoutIfNeeded()
-        
-        if isExpanded {
-            expandImageView.image = UIImage(named: "Icon_arrow_top")
-        } else {
-            expandImageView.image = UIImage(named: "Icon_arrow_bottom")
-        }
-        
-        self.layoutIfNeeded()
-        
-    }
     
     func showStatusImage(_ statusImage: UIImage?) {
-        pendingIconExpandedImageView.image = statusImage
-        pendingIconCollapsedImageView.image = statusImage
+        pendingImageView.image = statusImage
         if statusImage == nil {
-            pendingIconExpandedImageView.isHidden = true
-            pendingIconCollapsedImageView.isHidden = true
+            pendingImageView.isHidden = true
         } else {
-            pendingIconExpandedImageView.isHidden = false
-            pendingIconCollapsedImageView.isHidden = false
+            pendingImageView.isHidden = false
         }
     }
     
     // MARK: Private
-    @IBAction private func pressedGeneralBalance(sender: Any) {
-        delegate?.didTapGeneralBalance()
-        //        guard let cellRow = cellRow else { return }
-        //        delegate?.cellCheckTapped(cellRow: cellRow, index: 1)
+    @IBAction private func pressedSend(sender: Any) {
+        delegate?.perform(action: .send)
     }
     
-    @IBAction private func pressedShieldedBalance(sender: Any) {
-        delegate?.didTapShieldedBalance()
-        //        guard let cellRow = cellRow else { return }
-        //        delegate?.cellCheckTapped(cellRow: cellRow, index: 2)
+    @IBAction private func pressedReceive(sender: Any) {
+        delegate?.perform(action: .receive)
     }
     
-    @IBAction private func pressedExpand(sender: Any) {
-        delegate?.didTapExpand()
+    @IBAction private func pressedMore(sender: Any) {
+        delegate?.perform(action: .more)
     }
     
     // MARK: Helpers
-    
     private func showLock() {
-        self.shieldedBalanceLockImageView.image = UIImage(named: "Icon_Shield")
-        self.accountTotalLockExpandedImageView.image = UIImage(named: "Icon_Shield")
-        self.accountTotalLockCollapsedImageView.image = UIImage(named: "Icon_Shield")
+        self.totalAmountLockImageView.image = UIImage(named: "Icon_Shield")
         layoutIfNeeded()
     }
     
     private func hideLock() {
-        self.shieldedBalanceLockImageView.image = nil
-        self.accountTotalLockExpandedImageView.image = nil
-        self.accountTotalLockCollapsedImageView.image = nil
+        self.totalAmountLockImageView.image = nil
         layoutIfNeeded()
     }
-}
-
-enum AccountCardState {
-    case expanded
-    case collapsed
 }

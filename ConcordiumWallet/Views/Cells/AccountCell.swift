@@ -11,8 +11,7 @@ import UIKit
 import Combine
 
 protocol AccountCellDelegate: AnyObject {
-    func cellCheckTapped(cellRow: Int, index: Int)
-    func tappedExpanded(cellRow: Int)
+    func perform(onCellRow: Int, action: AccountCardAction)
 }
 
 class AccountCell: UITableViewCell {
@@ -21,7 +20,7 @@ class AccountCell: UITableViewCell {
 
     var cancellables: [AnyCancellable] = []
     weak var delegate: AccountCellDelegate?
-    var cellRow: Int?
+    var cellRow: Int = 0
     
     override func awakeFromNib() {
         accountCardView.delegate = self
@@ -29,56 +28,15 @@ class AccountCell: UITableViewCell {
         layer.masksToBounds = false
         contentView.layer.masksToBounds = false
     }
-
-    func setupStaticStrings(accountTotal: String,
-                            publicBalance: String,
-                            atDisposal: String,
-                            staked: String,
-                            shieldedBalance: String) {
-        accountCardView.setupStaticStrings(accountTotal: accountTotal,
-                                           publicBalance: publicBalance,
-                                           atDisposal: atDisposal,
-                                           staked: staked,
-                                           shieldedBalance: shieldedBalance)
-    }
     
-    func setup(accountName: String?,
-               accountOwner: String?,
-               isInitialAccount: Bool,
-               isBaking: Bool,
-               isReadOnly: Bool,
-               totalAmount: String,
-               showLock: Bool,
-               publicBalanceAmount: String,
-               atDisposalAmount: String,
-               stakedAmount: String,
-               shieldedAmount: String,
-               isExpanded: Bool,
-               isExpandable: Bool = true) {
-
-        accountCardView.setup(accountName: accountName,
-                accountOwner: accountOwner,
-                isInitialAccount: isInitialAccount,
-                isBaking: isBaking,
-                isReadOnly: isReadOnly,
-                totalAmount: totalAmount,
-                showLock: showLock,
-                publicBalanceAmount: publicBalanceAmount,
-                atDisposalAmount: atDisposalAmount,
-                stakedAmount: stakedAmount,
-                shieldedAmount: shieldedAmount,
-                isExpanded: isExpanded)
+    func setup(accountViewModel: AccountViewModel) {
+        accountCardView.setup(accountViewModel: accountViewModel)
     }
     
     func showStatusImage(_ image: UIImage?) {
         accountCardView.showStatusImage(image)
     }
-    
-    func setExpanded(_ isExpanded: Bool) {
-        accountCardView.setExpanded(isExpanded)
-         layoutIfNeeded()
-    }
-    
+        
     override func prepareForReuse() {
         cancellables = []
     }
@@ -86,16 +44,8 @@ class AccountCell: UITableViewCell {
 }
 
 extension AccountCell: AccountCardViewDelegate {
-    func didTapGeneralBalance() {
-        guard let cellRow = cellRow else { return }
-        delegate?.cellCheckTapped(cellRow: cellRow, index: 1)
-    }
-    func didTapShieldedBalance() {
-        guard let cellRow = cellRow else { return }
-        delegate?.cellCheckTapped(cellRow: cellRow, index: 2)
-    }
-    func didTapExpand() {
-         guard let cellRow = cellRow else { return }
-        delegate?.tappedExpanded(cellRow: cellRow)
+    
+    func perform(action: AccountCardAction) {
+        delegate?.perform(onCellRow: cellRow, action: action)
     }
 }

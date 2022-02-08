@@ -152,36 +152,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                  }
              })
         cell?.cancellables.append(stateCancelable)
-        
-        let isExpandedCancelable = viewModel.expandedChanged.sink { (isExpanded) in
-            cell?.setExpanded(isExpanded)
-            if let snap = self.dataSource?.snapshot() {
-                DispatchQueue.main.async {
-                    self.dataSource?.apply(snap, animatingDifferences: true)
-                }
-            }
-        }
-        cell?.cancellables.append(isExpandedCancelable)
-        let showLock = (viewModel.shieldedLockStatus == .partiallyDecrypted || viewModel.shieldedLockStatus == .encrypted )
-        
-        cell?.setupStaticStrings(accountTotal: viewModel.totalName,
-                                 publicBalance: viewModel.generalName,
-                                 atDisposal: viewModel.atDisposalName,
-                                 staked: viewModel.stakedName,
-                                 shieldedBalance: viewModel.shieldedName)
-        cell?.setup(accountName: viewModel.name,
-                    accountOwner: viewModel.owner,
-                    isInitialAccount: viewModel.isInitialAccount,
-                    isBaking: viewModel.isBaking,
-                    isReadOnly: viewModel.isReadOnly,
-                    totalAmount: viewModel.totalAmount,
-                    showLock: showLock,
-                    publicBalanceAmount: viewModel.generalAmount,
-                    atDisposalAmount: viewModel.atDisposalAmount,
-                    stakedAmount: viewModel.stakedAmount,
-                    shieldedAmount: viewModel.shieldedAmount,
-                    isExpanded: viewModel.isExpanded,
-                    isExpandable: true)
+        cell?.setup(accountViewModel: viewModel)
         cell?.delegate = self
         cell?.cellRow = indexPath.section
         return cell
@@ -366,9 +337,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 }
 
 extension AccountsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.userSelected(accountIndex: indexPath.section, balanceIndex: indexPath.row)
-    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 15
@@ -382,12 +350,8 @@ extension AccountsViewController: UITableViewDelegate {
 }
 
 extension AccountsViewController: AccountCellDelegate {
-     func cellCheckTapped(cellRow: Int, index: Int) {
-        presenter?.userSelected(accountIndex: cellRow, balanceIndex: index)
-    }
-    
-    func tappedExpanded(cellRow: Int) {
-        presenter?.toggleExpand(accountIndex: cellRow)
+    func perform(onCellRow: Int, action: AccountCardAction) {
+        presenter?.userPerformed(action: action, on: onCellRow)
     }
 }
 

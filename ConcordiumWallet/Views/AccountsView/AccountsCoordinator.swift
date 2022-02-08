@@ -96,9 +96,19 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func createNewIdentity() {
         delegate?.createNewIdentity()
     }
-    
-    func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
-        showAccountDetails(account: account, balanceType: balanceType)
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        switch action {
+        case .tap:
+            showAccountDetails(account: account, balanceType: .balance)
+        case .send:
+            //TODO: show send
+            break
+        case .receive:
+            //TODO: show receive
+            break
+        case .more:
+            showAccountDetails(account: account, balanceType: .balance)
+        }
     }
     
     func noValidIdentitiesAvailable() {

@@ -40,24 +40,7 @@ class AccountConfirmedViewController: BaseViewController, AccountConfirmedViewPr
     
     func bind(title: String, accountViewModel: AccountViewModel) {
         self.title = title
-        accountCardView.setupStaticStrings(accountTotal: accountViewModel.totalName,
-                                           publicBalance: accountViewModel.generalName,
-                                           atDisposal: accountViewModel.atDisposalName,
-                                           staked: accountViewModel.stakedName,
-                                           shieldedBalance: accountViewModel.shieldedName)
-        accountCardView.setup(accountName: accountViewModel.name,
-                              accountOwner: accountViewModel.owner,
-                              isInitialAccount: accountViewModel.isInitialAccount,
-                              isBaking: accountViewModel.isBaking,
-                              isReadOnly: accountViewModel.isReadOnly,
-                              totalAmount: accountViewModel.totalAmount,
-                              showLock: false,
-                              publicBalanceAmount: accountViewModel.generalAmount,
-                              atDisposalAmount: accountViewModel.atDisposalAmount,
-                              stakedAmount: accountViewModel.stakedAmount,
-                              shieldedAmount: accountViewModel.shieldedAmount,
-                              isExpanded: true,
-                              isExpandable: false)
+        accountCardView.setup(accountViewModel: accountViewModel)
         accountCardView.showStatusImage(nil)
     }
 
