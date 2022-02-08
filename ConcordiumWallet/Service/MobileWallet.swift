@@ -396,12 +396,8 @@ class MobileWallet: MobileWalletProtocol {
         let invalidAccounts = allAccounts.filter {
             return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
         }
-        for account in invalidAccounts {
-            if let _ = account.identity {
-                //do nothing - we add it with the identities
-            } else {
-                report.append((nil, [account]))
-            }
+        for account in invalidAccounts where account.identity == nil {
+            report.append((nil, [account]))
         }
 
         return report
