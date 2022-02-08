@@ -29,7 +29,7 @@ class SanityChecker {
     
     private var cancellables: [AnyCancellable] = []
     
-    static var lastSanityReport: [(IdentityDataType, [AccountDataType])] = []
+    static var lastSanityReport: [(IdentityDataType?, [AccountDataType])] = []
     
     init(mobileWallet: MobileWalletProtocol,
          storageManager: StorageManagerProtocol) {
@@ -49,7 +49,7 @@ class SanityChecker {
             }).store(in: &cancellables)
     }
     
-    public func generateSanityReport(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
+    public func generateSanityReport(pwHash: String) -> [(IdentityDataType?, [AccountDataType])] {
         let report = self.mobileWallet.verifyIdentitiesAndAccounts(pwHash: pwHash)
         SanityChecker.lastSanityReport = report
         return report
@@ -61,7 +61,7 @@ class SanityChecker {
     }
     
     // swiftlint:disable:next line_length
-    public func showValidateIdentitiesAlert(report: [(IdentityDataType, [AccountDataType])], mode: SanityCheckerMode, completion: @escaping () -> Void) {
+    public func showValidateIdentitiesAlert(report: [(IdentityDataType?, [AccountDataType])], mode: SanityCheckerMode, completion: @escaping () -> Void) {
         switch mode {
         case .automatic:
             if report.count == 0 || AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
@@ -83,7 +83,11 @@ class SanityChecker {
         }
         var message = "more.validateIdsAndAccount.unusableIdentitiesFound".localized
         for (identity, accounts) in report {
-            message += String(format: "more.validateIdsAndAccount.identity".localized, identity.nickname)
+            if let nickname = identity?.nickname {
+                message += String(format: "more.validateIdsAndAccount.identity".localized, nickname)
+            } else {
+                message += "\n"
+            }
             for account in accounts {
                 message += String(format: "more.validateIdsAndAccount.account".localized, account.displayName)
             }
@@ -134,9 +138,16 @@ class SanityChecker {
      The method returns the identities that failed to be removed. If some of the identities in the report also
      contain accounts that have keys, that identity will not be removed
      */
-    private func removeIdentitiesAndAccountsWithoutKeys(report: [(IdentityDataType, [AccountDataType])]) -> [IdentityDataType] {
+    private func removeIdentitiesAndAccountsWithoutKeys(report: [(IdentityDataType?, [AccountDataType])]) -> [IdentityDataType] {
         var failToRemoveIdentities = [IdentityDataType]()
         for (identity, accounts) in report {
+            //if we do not have an identity attached, we delete the accounts
+            guard let identity = identity else {
+                for account in accounts {
+                    self.storageManager.removeAccount(account: account)
+                }
+                continue
+            }
             let identityAccounts = self.storageManager.getAccounts(for: identity)
             for account in accounts {
                 self.storageManager.removeAccount(account: account)
@@ -151,17 +162,17 @@ class SanityChecker {
         return failToRemoveIdentities
     }
     
-    private func remindMeLater(report: [(IdentityDataType, [AccountDataType])]) {
+    private func remindMeLater(report: [(IdentityDataType?, [AccountDataType])]) {
         AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin = false
         markIdsAndAccountsAsReadOnly(report: report)
     }
     
-    private func keepAsReadOnly(report: [(IdentityDataType, [AccountDataType])]) {
+    private func keepAsReadOnly(report: [(IdentityDataType?, [AccountDataType])]) {
         AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin = true
         markIdsAndAccountsAsReadOnly(report: report)
     }
     
-    private func markIdsAndAccountsAsReadOnly(report: [(IdentityDataType, [AccountDataType])]) {
+    private func markIdsAndAccountsAsReadOnly(report: [(IdentityDataType?, [AccountDataType])]) {
         //only accounts will be marked as readonly because we don't have a readonly state for ids yet
         for (_, accounts) in report {
             for account in accounts {
@@ -170,7 +181,7 @@ class SanityChecker {
         }
     }
     
-    private func showSecondConfirmation(report: [(IdentityDataType, [AccountDataType])], completion: @escaping () -> Void) {
+    private func showSecondConfirmation(report: [(IdentityDataType?, [AccountDataType])], completion: @escaping () -> Void) {
         let alert = UIAlertController(
             title: "more.validateIdsAndAccount.confirmationtitle".localized,
             message: "more.validateIdsAndAccount.confirmationtext".localized,

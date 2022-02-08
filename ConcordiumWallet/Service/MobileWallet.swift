@@ -40,7 +40,7 @@ protocol MobileWalletProtocol {
     
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error>
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
-    func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType, [AccountDataType])]
+    func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType?, [AccountDataType])]
 }
 
 enum MobileWalletError: Error {
@@ -362,21 +362,49 @@ class MobileWallet: MobileWalletProtocol {
         }
     }
     
-    func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType, [AccountDataType])] {
-        let invalidIdentities = storageManager.getIdentities().filter { identity in
+    func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType?, [AccountDataType])] {
+        
+        var report: [(IdentityDataType?, [AccountDataType])] = []
+        
+        //the identity is invalid if the privateIdObjectData cannot be retrieved from storage
+        let allIdentities = storageManager.getIdentities()
+        let invalidIdentities = allIdentities.filter { identity in
             if let key = identity.encryptedPrivateIdObjectData,
-                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) == nil {
-                return true
+                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
+                return false //it is not invalid because we have privateIdObjectData
             }
-            return false
+            return true //invalid becaut privateIdObjectData could not be retrieved
         }
-        var report: [(IdentityDataType, [AccountDataType])] = []
-        for identity in invalidIdentities {
-            let invalidAccountNames = storageManager.getAccounts(for: identity).filter {
-                return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
+        for identity in allIdentities {
+            let identityAccounts = storageManager.getAccounts(for: identity)
+            let invalidAccountNames = identityAccounts.filter {
+                let result = verifyPasscode(for: $0, pwHash: pwHash)
+                if case Result.success(_) = result {
+                    return false
+                } else {
+                    return true
+                }
             }
-            report.append((identity, invalidAccountNames))
+            //we add to the report invalid identities (even if their accounts are valid) and valid identities with invalid accounts
+            if(invalidIdentities.contains(where: { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub  == identity.identityObject?.preIdentityObject.pubInfoForIP.idCredPub }) || invalidAccountNames.count > 0) {
+                report.append((identity, invalidAccountNames))
+            }
         }
+        
+
+        //we add to the report any dangling accounts
+        let allAccounts = storageManager.getAccounts()
+        let invalidAccounts = allAccounts.filter {
+            return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
+        }
+        for account in invalidAccounts {
+            if let identity = account.identity {
+                //do nothing - we add it with the identities
+            } else {
+                report.append((nil, [account]))
+            }
+        }
+
         return report
     }
 }
