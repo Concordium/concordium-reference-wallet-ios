@@ -391,14 +391,13 @@ class MobileWallet: MobileWalletProtocol {
             }
         }
         
-
         //we add to the report any dangling accounts
         let allAccounts = storageManager.getAccounts()
         let invalidAccounts = allAccounts.filter {
             return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil
         }
         for account in invalidAccounts {
-            if let identity = account.identity {
+            if let _ = account.identity {
                 //do nothing - we add it with the identities
             } else {
                 report.append((nil, [account]))
