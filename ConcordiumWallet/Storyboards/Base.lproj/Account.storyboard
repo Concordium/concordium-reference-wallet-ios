@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dM-s4-9xp" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="396" height="222"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="396" height="206"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
                                             </subviews>
@@ -908,7 +908,7 @@ process on-chain]</string>
                                                                 <rect key="frame" x="0.0" y="0.0" width="396" height="309.66666666666669"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
-                                                                        <rect key="frame" x="155.66666666666666" y="0.0" width="84.666666666666657" height="45"/>
+                                                                        <rect key="frame" x="175.66666666666666" y="0.0" width="45" height="45"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="2Nh-Of-O1G" secondAttribute="height" multiplier="15:8" id="7i2-Bb-8nJ"/>
                                                                             <constraint firstAttribute="width" constant="48" id="lI8-IQ-74T"/>
@@ -1642,6 +1642,30 @@ process on-chain]</string>
                                     <constraint firstItem="5e6-po-SKW" firstAttribute="leading" secondItem="jvP-S0-EAx" secondAttribute="leading" id="fgc-ig-9sg"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noe-eY-68P" userLabel="Show shielded balance on Main Button" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="15" y="246" width="398" height="58"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzB-7d-yIf">
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="58"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="[Show shielded balance on Main]">
+                                            <color key="titleColor" name="text"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="burgermenu.showshieldedbalance"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="fzB-7d-yIf" firstAttribute="top" secondItem="noe-eY-68P" secondAttribute="top" id="3sg-aq-Vww"/>
+                                    <constraint firstAttribute="trailing" secondItem="fzB-7d-yIf" secondAttribute="trailing" id="jVj-FJ-AhB"/>
+                                    <constraint firstItem="fzB-7d-yIf" firstAttribute="leading" secondItem="noe-eY-68P" secondAttribute="leading" id="tor-Tx-WLG"/>
+                                    <constraint firstAttribute="bottom" secondItem="fzB-7d-yIf" secondAttribute="bottom" id="yam-Qc-L1Z"/>
+                                    <constraint firstAttribute="height" constant="58" id="zWH-EG-Uin"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EEG-nY-ckZ"/>
                         <color key="backgroundColor" name="backgroundBurgerMenu"/>
@@ -1650,7 +1674,10 @@ process on-chain]</string>
                             <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="bh3-Js-vRv" secondAttribute="trailing" constant="15" id="0ht-UG-ggo"/>
                             <constraint firstItem="jvP-S0-EAx" firstAttribute="top" secondItem="bh3-Js-vRv" secondAttribute="bottom" constant="8" symbolic="YES" id="GGI-IJ-xEV"/>
                             <constraint firstItem="jvP-S0-EAx" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="15" id="Jzc-y2-Z0R"/>
+                            <constraint firstItem="noe-eY-68P" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="15" id="LFL-iw-ncH"/>
+                            <constraint firstItem="noe-eY-68P" firstAttribute="top" secondItem="5e6-po-SKW" secondAttribute="bottom" constant="8" symbolic="YES" id="MLZ-dv-QAd"/>
                             <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="jvP-S0-EAx" secondAttribute="trailing" constant="15" id="Nid-pj-pgO"/>
+                            <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="noe-eY-68P" secondAttribute="trailing" constant="15" id="Njc-1J-LGL"/>
                             <constraint firstItem="bh3-Js-vRv" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="15" id="bOG-77-dac"/>
                             <constraint firstItem="bh3-Js-vRv" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="70" id="jys-St-GiJ"/>
                         </constraints>
@@ -1666,7 +1693,7 @@ process on-chain]</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6756" y="768"/>
+            <point key="canvasLocation" x="6755.6074766355132" y="767.81857451403891"/>
         </scene>
         <!--Release Schedule View Controller-->
         <scene sceneID="E9Q-ui-tin">

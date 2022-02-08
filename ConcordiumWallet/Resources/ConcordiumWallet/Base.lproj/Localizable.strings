@@ -418,6 +418,7 @@ process on-chain.";
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
+"burgermenu.showshieldedbalance" = "Show shielded balance on Main";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
