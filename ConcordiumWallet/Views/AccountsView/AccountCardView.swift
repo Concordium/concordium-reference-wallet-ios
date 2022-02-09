@@ -19,7 +19,6 @@ enum AccountCardAction {
     case more
 }
 
-
 enum AccountCardViewState {
     case basic
     case readonly
@@ -27,10 +26,11 @@ enum AccountCardViewState {
     case delegating
 }
 
-
 @IBDesignable
 class AccountCardView: UIView, NibLoadable {
-
+    
+    @IBOutlet weak private var widget: WidgetView!
+    
     //Contained in accountView
     @IBOutlet weak private var accountName: UILabel!
     @IBOutlet weak var initialAccountLabel: UILabel!
@@ -38,7 +38,6 @@ class AccountCardView: UIView, NibLoadable {
     @IBOutlet weak private var accountOwner: UILabel!
     @IBOutlet weak private var stateImageView: UIImageView!
     @IBOutlet weak private var stateLabel: UILabel!
-    
     
     //Contained in totalView
     @IBOutlet weak private var totalLabel: UILabel!
@@ -49,10 +48,14 @@ class AccountCardView: UIView, NibLoadable {
     @IBOutlet weak private var atDisposalLabel: UILabel!
     @IBOutlet weak private var atDisposalAmount: UILabel!
     
-    
     @IBOutlet weak private var stackCardView: UIStackView!
+    
+    @IBOutlet weak private var sendButton: UIButton!
+    @IBOutlet weak private var receiveButton: UIButton!
+    @IBOutlet weak private var moreButton: UIButton!
+    
     @IBOutlet weak private var buttonsHStackViewView: UIStackView!
-
+    
     weak var delegate: AccountCardViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,8 +80,12 @@ class AccountCardView: UIView, NibLoadable {
     }
     
     func setup(accountViewModel: AccountViewModel) {
-        self.setupStaticStrings(accountTotal: accountViewModel.totalName,
-                                           atDisposal: accountViewModel.atDisposalName)
+
+        setupStaticStrings(accountTotal: accountViewModel.totalName,
+                           atDisposal: accountViewModel.atDisposalName,
+                           sendButtonTitle: accountViewModel.sendTitle,
+                           receiveButtonTitle: accountViewModel.receiveTitle,
+                           moreButtonTitle: accountViewModel.moreTitle)
         let state: AccountCardViewState!
         if accountViewModel.isBaking {
             state = .baking
@@ -89,41 +96,50 @@ class AccountCardView: UIView, NibLoadable {
         }
         
         let showLock = accountViewModel.totalLockStatus != .decrypted
-       
+        
         if accountViewModel.areActionsEnabled {
-            buttonsHStackViewView.isHidden = true
-        } else {
             buttonsHStackViewView.isHidden = false
+        } else {
+            buttonsHStackViewView.isHidden = true
         }
         
         self.setup(accountName: accountViewModel.name,
-                              accountOwner: accountViewModel.owner,
-                              isInitialAccount: accountViewModel.isInitialAccount,
-                              totalAmount: accountViewModel.totalAmount,
-                              showLock: showLock,
-                              publicBalanceAmount: accountViewModel.generalAmount,
-                              atDisposalAmount: accountViewModel.atDisposalAmount,
-                              state: state)
+                   accountOwner: accountViewModel.owner,
+                   isInitialAccount: accountViewModel.isInitialAccount,
+                   totalAmount: accountViewModel.totalAmount,
+                   showLock: showLock,
+                   publicBalanceAmount: accountViewModel.generalAmount,
+                   atDisposalAmount: accountViewModel.atDisposalAmount,
+                   state: state)
     }
     
     private func setupStaticStrings(accountTotal: String,
-                            atDisposal: String) {
+                                    atDisposal: String,
+                                    sendButtonTitle: String,
+                                    receiveButtonTitle: String,
+                                    moreButtonTitle: String
+    ) {
         totalLabel.text = accountTotal
         atDisposalLabel.text = atDisposal
+        sendButton.setTitle(sendButtonTitle, for: .normal)
+        receiveButton.setTitle(receiveButtonTitle, for: .normal)
+        moreButton.setTitle(moreButtonTitle, for: .normal)
+        moreButton.layer.masksToBounds = true
+        buttonsHStackViewView.layer.masksToBounds = true
     }
     
     private func setup(accountName: String?,
-               accountOwner: String?,
-               isInitialAccount: Bool,
-               totalAmount: String,
-               showLock: Bool,
-               publicBalanceAmount: String,
-               atDisposalAmount: String,
-               state: AccountCardViewState) {
+                       accountOwner: String?,
+                       isInitialAccount: Bool,
+                       totalAmount: String,
+                       showLock: Bool,
+                       publicBalanceAmount: String,
+                       atDisposalAmount: String,
+                       state: AccountCardViewState) {
         
         self.accountName.text = accountName
         self.accountOwner.text = accountOwner
-
+        
         self.totalAmount.text = totalAmount
         self.atDisposalAmount.text = atDisposalAmount
         
@@ -134,28 +150,39 @@ class AccountCardView: UIView, NibLoadable {
         } else {
             hideLock()
         }
-
         
+        widget.applyConcordiumEdgeStyle(color: .primary)
+        widget.backgroundColor = UIColor.white
+        self.stateLabel.isHidden = false
+        self.stateImageView.isHidden = false
+        self.stackCardView.alpha = 1
+        setTextFontColor(color: .black)
         switch state {
         case .basic:
-            self.stackCardView.alpha = 1
             self.stateLabel.isHidden = true
             self.stateImageView.isHidden = true
         case .readonly:
+            
             self.stackCardView.alpha = 0.5
             self.stateLabel.text = "accounts.overview.readonly".localized
             self.stateImageView.image = UIImage(named: "icon_read_only")
+            setTextFontColor(color: .fadedText)
+            widget.applyConcordiumEdgeStyle(color: .fadedText)
+            widget.backgroundColor = UIColor.inactiveCard
         case .baking:
-            self.stackCardView.alpha = 1
             self.stateLabel.text = "accounts.overview.baking".localized
             self.stateImageView.image = UIImage(named: "icon_bread")
         case .delegating:
-            self.stackCardView.alpha = 1
             self.stateLabel.text = "accounts.overview.delegating".localized
             self.stateImageView.image = UIImage(named: "icon_delegate")
         }
     }
     
+    private func setTextFontColor(color: UIColor) {
+        for label in [accountName, totalLabel, totalAmount, atDisposalLabel, atDisposalAmount] {
+            label?.textColor = color
+        }
+    }
     
     func showStatusImage(_ statusImage: UIImage?) {
         pendingImageView.image = statusImage

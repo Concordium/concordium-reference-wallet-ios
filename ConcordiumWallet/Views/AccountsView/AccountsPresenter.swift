@@ -25,16 +25,18 @@ class AccountViewModel: Hashable {
     var atDisposalAmount: String
     
     var isReadOnly: Bool = false
-    var isDelegating: Bool = false //TODO: calculate the delegating !!!!
+    #warning("RNI: For the purpose of March 2022 release isDelegating will not be implemented")
+    //TODO: is delegating will need to be retreived from the network and saved in the local DB
+    var isDelegating: Bool = false
     
-//    @Published var isExpanded: Bool = false
-    @Published var state: SubmissionStatusEnum
-  
+    var sendTitle: String
+    var receiveTitle: String
+    var moreTitle: String
+    
     var areActionsEnabled = true
     private var cancellables: [AnyCancellable] = []
-    
-//    var expandedChanged = PassthroughSubject<Bool, Never>()
-    
+    @Published var state: SubmissionStatusEnum
+
     var stateUpdater: AnyPublisher<SubmissionStatusEnum, Error>? {
         didSet {
             stateUpdater?.sink(receiveError: { _ in
@@ -45,9 +47,10 @@ class AccountViewModel: Hashable {
     }
     
     init(account: AccountDataType, createMode: Bool = false) {
+        sendTitle = "accounts.overview.send".localized.uppercased()
+        receiveTitle = "accounts.overview.receive".localized.uppercased()
+        moreTitle = "accounts.overview.more".localized.uppercased()
         address = account.address
-        //        self.balanceType = balanceType
-        
         name = account.displayName
         
         totalName = "account.accounttotal".localized
@@ -62,7 +65,7 @@ class AccountViewModel: Hashable {
         atDisposalName = "accounts.atdisposal".localized
         
         if !createMode {
-            areActionsEnabled = true
+            areActionsEnabled = !account.isReadOnly //actions are enabled if the account is not readonly
             if totalLockStatus != .decrypted {
                 totalAmount += " + "
             }

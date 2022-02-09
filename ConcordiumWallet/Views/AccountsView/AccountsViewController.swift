@@ -338,14 +338,14 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
 extension AccountsViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 15
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+                let view = UIView()
+                view.backgroundColor = .clear
+                return view
     }
 }
 
