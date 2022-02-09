@@ -10,7 +10,7 @@ import UIKit
 
 final class OnboardingCarouselFactory {
     class func create(with presenter: OnboardingCarouselPresenter) -> OnboardingCarouselViewController {
-        OnboardingCarouselViewController.instantiate(fromStoryboard: "Account") { coder in
+        OnboardingCarouselViewController.instantiate(fromStoryboard: "Onboarding") { coder in
             return OnboardingCarouselViewController(coder: coder, presenter: presenter)
         }
     }

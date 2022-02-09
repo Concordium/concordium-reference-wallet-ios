@@ -85,6 +85,10 @@
 		070D625E27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070D625C27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift */; };
 		070D625F27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070D625C27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift */; };
 		070D626027B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070D625C27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift */; };
+		070D626727B40C2D00B6903C /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 070D626C27B40C2D00B6903C /* Onboarding.storyboard */; };
+		070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 070D626C27B40C2D00B6903C /* Onboarding.storyboard */; };
+		070D626927B40C2D00B6903C /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 070D626C27B40C2D00B6903C /* Onboarding.storyboard */; };
+		070D626A27B40C2D00B6903C /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 070D626C27B40C2D00B6903C /* Onboarding.storyboard */; };
 		074917CF273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
 		074917D0273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
 		074917D1273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
@@ -1552,6 +1556,7 @@
 		070D624E27B3DD5600B6903C /* shielding_2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shielding_2.svg; sourceTree = "<group>"; };
 		070D624F27B3DD5600B6903C /* shielding_1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shielding_1.svg; sourceTree = "<group>"; };
 		070D625C27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCarouselWebContentViewController.swift; sourceTree = "<group>"; };
+		070D626B27B40C2D00B6903C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Onboarding.storyboard; sourceTree = "<group>"; };
 		074917CE273C02900087225F /* AccountSubmissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSubmissionStatus.swift; sourceTree = "<group>"; };
 		074C00A226FB12F20090F7FE /* AddMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewController.swift; sourceTree = "<group>"; };
 		074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoPresenter.swift; sourceTree = "<group>"; };
@@ -2143,6 +2148,7 @@
 			isa = PBXGroup;
 			children = (
 				070D626127B4081F00B6903C /* OnboardingCarousel */,
+				070D626C27B40C2D00B6903C /* Onboarding.storyboard */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -3310,6 +3316,7 @@
 				7F48C24D244DCD7100997684 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				070D622927B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				070D625827B3DD5600B6903C /* shielding_1.svg in Resources */,
+				070D626727B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7F48C23E244DCD5F00997684 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
 				070D622127B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				7F48C24B244DCD7100997684 /* 3.2.1.TX-lib_create_transfer.json in Resources */,
@@ -3372,6 +3379,7 @@
 				070D621B27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				7F85B7C2246A9A7C00ED09B8 /* Widget.storyboard in Resources */,
 				7FD43604249A2D34002D2AC3 /* icon-44-58.png in Resources */,
+				070D626927B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				070D625627B3DD5600B6903C /* shielding_2.svg in Resources */,
 				070D622B27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				7FD43600249A2D34002D2AC3 /* icon-22-29.png in Resources */,
@@ -3408,6 +3416,7 @@
 				070D621C27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				7FD43605249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				52055F7A2552B83D0071F7CA /* IdentityCardView.xib in Resources */,
+				070D626A27B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				070D622427B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				070D622C27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				070D625727B3DD5600B6903C /* shielding_2.svg in Resources */,
@@ -3437,6 +3446,7 @@
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
 				070D620627B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
+				070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
 				06A5129823F545DA008050B4 /* Widget.storyboard in Resources */,
 				070D624927B3D67100B6903C /* style.css in Resources */,
@@ -5102,6 +5112,14 @@
 				06AA2A9923F58C2C0001F964 /* Base */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		070D626C27B40C2D00B6903C /* Onboarding.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				070D626B27B40C2D00B6903C /* Base */,
+			);
+			name = Onboarding.storyboard;
 			sourceTree = "<group>";
 		};
 		7FF07A7223EADB1200F1FC04 /* Account.storyboard */ = {
