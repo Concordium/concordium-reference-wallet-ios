@@ -78,7 +78,8 @@ class IdentityImporter {
         let accountContainsKeys: Bool
         if let storedAccount = existingAccount,
             let key = storedAccount.encryptedPrivateKey,
-           (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) == nil {
+           (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
+            //if the privateIdObject is NOT nil, it means the account contains keys
             accountContainsKeys = true
         } else {
             accountContainsKeys = false
