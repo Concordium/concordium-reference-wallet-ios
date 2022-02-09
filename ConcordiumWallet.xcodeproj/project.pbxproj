@@ -25,6 +25,50 @@
 		06AEE69123F4064A00D14834 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69023F4064A00D14834 /* BaseView.swift */; };
 		06AEE69323F4065800D14834 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEE69223F4065800D14834 /* WidgetView.swift */; };
 		06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D178A023F6D54900ABC904 /* BaseTabBar.swift */; };
+		070D620527B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61F827B3C54500B6903C /* schielded_balance_onboarding_en_1.html */; };
+		070D620627B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61F827B3C54500B6903C /* schielded_balance_onboarding_en_1.html */; };
+		070D620727B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61F827B3C54500B6903C /* schielded_balance_onboarding_en_1.html */; };
+		070D620827B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61F827B3C54500B6903C /* schielded_balance_onboarding_en_1.html */; };
+		070D621527B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FD27B3C54500B6903C /* schielded_balance_onboarding_en_6.html */; };
+		070D621627B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FD27B3C54500B6903C /* schielded_balance_onboarding_en_6.html */; };
+		070D621727B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FD27B3C54500B6903C /* schielded_balance_onboarding_en_6.html */; };
+		070D621827B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FD27B3C54500B6903C /* schielded_balance_onboarding_en_6.html */; };
+		070D621927B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FE27B3C54500B6903C /* schielded_balance_onboarding_en_7.html */; };
+		070D621A27B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FE27B3C54500B6903C /* schielded_balance_onboarding_en_7.html */; };
+		070D621B27B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FE27B3C54500B6903C /* schielded_balance_onboarding_en_7.html */; };
+		070D621C27B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D61FE27B3C54500B6903C /* schielded_balance_onboarding_en_7.html */; };
+		070D622127B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620127B3C54500B6903C /* schielded_balance_onboarding_en_4.html */; };
+		070D622227B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620127B3C54500B6903C /* schielded_balance_onboarding_en_4.html */; };
+		070D622327B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620127B3C54500B6903C /* schielded_balance_onboarding_en_4.html */; };
+		070D622427B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620127B3C54500B6903C /* schielded_balance_onboarding_en_4.html */; };
+		070D622527B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620227B3C54500B6903C /* schielded_balance_onboarding_en_5.html */; };
+		070D622627B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620227B3C54500B6903C /* schielded_balance_onboarding_en_5.html */; };
+		070D622727B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620227B3C54500B6903C /* schielded_balance_onboarding_en_5.html */; };
+		070D622827B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620227B3C54500B6903C /* schielded_balance_onboarding_en_5.html */; };
+		070D622927B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620327B3C54500B6903C /* schielded_balance_onboarding_en_2.html */; };
+		070D622A27B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620327B3C54500B6903C /* schielded_balance_onboarding_en_2.html */; };
+		070D622B27B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620327B3C54500B6903C /* schielded_balance_onboarding_en_2.html */; };
+		070D622C27B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620327B3C54500B6903C /* schielded_balance_onboarding_en_2.html */; };
+		070D622D27B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* schielded_balance_onboarding_en_3.html */; };
+		070D622E27B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* schielded_balance_onboarding_en_3.html */; };
+		070D622F27B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* schielded_balance_onboarding_en_3.html */; };
+		070D623027B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* schielded_balance_onboarding_en_3.html */; };
+		070D624827B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
+		070D624927B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
+		070D624A27B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
+		070D624B27B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
+		070D625027B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
+		070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
+		070D625227B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
+		070D625327B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
+		070D625427B3DD5600B6903C /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624E27B3DD5600B6903C /* shielding_2.svg */; };
+		070D625527B3DD5600B6903C /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624E27B3DD5600B6903C /* shielding_2.svg */; };
+		070D625627B3DD5600B6903C /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624E27B3DD5600B6903C /* shielding_2.svg */; };
+		070D625727B3DD5600B6903C /* shielding_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624E27B3DD5600B6903C /* shielding_2.svg */; };
+		070D625827B3DD5600B6903C /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624F27B3DD5600B6903C /* shielding_1.svg */; };
+		070D625927B3DD5600B6903C /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624F27B3DD5600B6903C /* shielding_1.svg */; };
+		070D625A27B3DD5600B6903C /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624F27B3DD5600B6903C /* shielding_1.svg */; };
+		070D625B27B3DD5600B6903C /* shielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624F27B3DD5600B6903C /* shielding_1.svg */; };
 		074917CF273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
 		074917D0273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
 		074917D1273C02900087225F /* AccountSubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074917CE273C02900087225F /* AccountSubmissionStatus.swift */; };
@@ -1477,6 +1521,17 @@
 		06AEE69023F4064A00D14834 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		06AEE69223F4065800D14834 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		06D178A023F6D54900ABC904 /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		070D61F827B3C54500B6903C /* schielded_balance_onboarding_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_1.html; sourceTree = "<group>"; };
+		070D61FD27B3C54500B6903C /* schielded_balance_onboarding_en_6.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_6.html; sourceTree = "<group>"; };
+		070D61FE27B3C54500B6903C /* schielded_balance_onboarding_en_7.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_7.html; sourceTree = "<group>"; };
+		070D620127B3C54500B6903C /* schielded_balance_onboarding_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_4.html; sourceTree = "<group>"; };
+		070D620227B3C54500B6903C /* schielded_balance_onboarding_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_5.html; sourceTree = "<group>"; };
+		070D620327B3C54500B6903C /* schielded_balance_onboarding_en_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_2.html; sourceTree = "<group>"; };
+		070D620427B3C54500B6903C /* schielded_balance_onboarding_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = schielded_balance_onboarding_en_3.html; sourceTree = "<group>"; };
+		070D624727B3D67100B6903C /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		070D624D27B3DD5600B6903C /* unshielding_1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unshielding_1.svg; sourceTree = "<group>"; };
+		070D624E27B3DD5600B6903C /* shielding_2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shielding_2.svg; sourceTree = "<group>"; };
+		070D624F27B3DD5600B6903C /* shielding_1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shielding_1.svg; sourceTree = "<group>"; };
 		074917CE273C02900087225F /* AccountSubmissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSubmissionStatus.swift; sourceTree = "<group>"; };
 		074C00A226FB12F20090F7FE /* AddMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewController.swift; sourceTree = "<group>"; };
 		074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoPresenter.swift; sourceTree = "<group>"; };
@@ -2001,6 +2056,7 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				070D61F727B3C54500B6903C /* SchieldedBalanceOnboarding */,
 				17A41E4E266790220079BD3A /* Entitlements */,
 				7FD435FC249A2D34002D2AC3 /* icon-22-29.png */,
 				7FD435FD249A2D34002D2AC3 /* icon-44-58.png */,
@@ -2061,6 +2117,40 @@
 				06D178A023F6D54900ABC904 /* BaseTabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		070D61F727B3C54500B6903C /* SchieldedBalanceOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				070D624C27B3DD5600B6903C /* images */,
+				070D624627B3D67100B6903C /* styles */,
+				070D61F827B3C54500B6903C /* schielded_balance_onboarding_en_1.html */,
+				070D620327B3C54500B6903C /* schielded_balance_onboarding_en_2.html */,
+				070D620427B3C54500B6903C /* schielded_balance_onboarding_en_3.html */,
+				070D620127B3C54500B6903C /* schielded_balance_onboarding_en_4.html */,
+				070D620227B3C54500B6903C /* schielded_balance_onboarding_en_5.html */,
+				070D61FD27B3C54500B6903C /* schielded_balance_onboarding_en_6.html */,
+				070D61FE27B3C54500B6903C /* schielded_balance_onboarding_en_7.html */,
+			);
+			path = SchieldedBalanceOnboarding;
+			sourceTree = "<group>";
+		};
+		070D624627B3D67100B6903C /* styles */ = {
+			isa = PBXGroup;
+			children = (
+				070D624727B3D67100B6903C /* style.css */,
+			);
+			path = styles;
+			sourceTree = "<group>";
+		};
+		070D624C27B3DD5600B6903C /* images */ = {
+			isa = PBXGroup;
+			children = (
+				070D624D27B3DD5600B6903C /* unshielding_1.svg */,
+				070D624E27B3DD5600B6903C /* shielding_2.svg */,
+				070D624F27B3DD5600B6903C /* shielding_1.svg */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		074C00A126FB12AA0090F7FE /* AddMemo */ = {
@@ -3160,10 +3250,12 @@
 				7F168A012481232400DE429E /* SendFund.storyboard in Resources */,
 				7FD43602249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				C92C64F6244EE5AF00675ECE /* 2.5.2.RX_backend_transferCost.json in Resources */,
+				070D622527B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */,
 				7F48C203244DCD0B00997684 /* LaunchScreen.storyboard in Resources */,
 				7F48C24F244DCD7100997684 /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				7FA0AED3246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
 				7F48C205244DCD0B00997684 /* readme.md in Resources */,
+				070D624827B3D67100B6903C /* style.css in Resources */,
 				7F48C206244DCD0B00997684 /* Widget.storyboard in Resources */,
 				7F48C24A244DCD7100997684 /* 2.1.2.RX-backend_global.json in Resources */,
 				7FA0AECC246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
@@ -3176,12 +3268,18 @@
 				7F48C209244DCD0B00997684 /* Identity.storyboard in Resources */,
 				7FD435FE249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				7F48C24D244DCD7100997684 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
+				070D622927B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */,
+				070D625827B3DD5600B6903C /* shielding_1.svg in Resources */,
 				7F48C23E244DCD5F00997684 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
+				070D622127B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */,
 				7F48C24B244DCD7100997684 /* 3.2.1.TX-lib_create_transfer.json in Resources */,
+				070D621927B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */,
 				52055F9A25541B160071F7CA /* AccountCardView.xib in Resources */,
 				7F48C20A244DCD0B00997684 /* .swiftlint.yml in Resources */,
 				7F48C24E244DCD7100997684 /* 2.3.1.TX_backend_submitCredential.json in Resources */,
+				070D625027B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				5237186F25751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
+				070D622D27B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */,
 				7F5F778D24891EA00016F8D1 /* Assets.xcassets in Resources */,
 				7FA0AECB246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				7FA0AECD246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
@@ -3191,7 +3289,9 @@
 				7F48C250244DCD7100997684 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				7F48C241244DCD7100997684 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				7F48C245244DCD7100997684 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
+				070D625427B3DD5600B6903C /* shielding_2.svg in Resources */,
 				7FF9190D250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
+				070D621527B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */,
 				7FA0AED2246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				7FA0AED4246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_fin.json in Resources */,
 				7FA0AED0246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
@@ -3202,6 +3302,7 @@
 				7F48C243244DCD7100997684 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				7F48C242244DCD7100997684 /* 1.3.1.TX-backend_request_identity.json in Resources */,
 				7FA0AED7246061AD00B7673F /* 4.2.2.RX_backend_accTransactions.json in Resources */,
+				070D620527B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */,
 				19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */,
 				7FA0AED6246061AD00B7673F /* backend_server_error.json in Resources */,
 				19C2ED9155A42125E3162055 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
@@ -3218,14 +3319,21 @@
 			files = (
 				7F85B7BE246A9A7C00ED09B8 /* LaunchScreen.storyboard in Resources */,
 				5237186D25751F2100B2BC31 /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
+				070D622327B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */,
+				070D625227B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				7F85B7BF246A9A7C00ED09B8 /* More.storyboard in Resources */,
 				52D3510F250A6AE500858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
+				070D621727B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */,
+				070D622F27B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */,
 				5237187125751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				7F5F779024891EFB0016F8D1 /* AppIconTestNet.xcassets in Resources */,
 				7F85B7C1246A9A7C00ED09B8 /* readme.md in Resources */,
 				7FF9190F250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
+				070D621B27B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */,
 				7F85B7C2246A9A7C00ED09B8 /* Widget.storyboard in Resources */,
 				7FD43604249A2D34002D2AC3 /* icon-44-58.png in Resources */,
+				070D625627B3DD5600B6903C /* shielding_2.svg in Resources */,
+				070D622B27B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */,
 				7FD43600249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				7F168A032481232400DE429E /* SendFund.storyboard in Resources */,
 				7F85B7C3246A9A7C00ED09B8 /* Account.storyboard in Resources */,
@@ -3235,7 +3343,11 @@
 				52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */,
 				7F85B7C7246A9A7C00ED09B8 /* Login.storyboard in Resources */,
 				7F5F778E24891EA80016F8D1 /* Assets.xcassets in Resources */,
+				070D625A27B3DD5600B6903C /* shielding_1.svg in Resources */,
+				070D624A27B3D67100B6903C /* style.css in Resources */,
+				070D620727B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */,
 				52055F9C25541B160071F7CA /* AccountCardView.xib in Resources */,
+				070D622727B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3249,10 +3361,20 @@
 				7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */,
 				7F85B8C1246A9AB600ED09B8 /* Widget.storyboard in Resources */,
 				7FF91910250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
+				070D625B27B3DD5600B6903C /* shielding_1.svg in Resources */,
+				070D624B27B3D67100B6903C /* style.css in Resources */,
 				7F168A042481232400DE429E /* SendFund.storyboard in Resources */,
+				070D623027B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */,
+				070D621C27B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */,
 				7FD43605249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				52055F7A2552B83D0071F7CA /* IdentityCardView.xib in Resources */,
+				070D622427B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */,
+				070D622C27B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */,
+				070D625727B3DD5600B6903C /* shielding_2.svg in Resources */,
+				070D621827B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */,
+				070D622827B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */,
 				7FD43601249A2D34002D2AC3 /* icon-22-29.png in Resources */,
+				070D625327B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				52055F9D25541B160071F7CA /* AccountCardView.xib in Resources */,
 				7F85B8C2246A9AB600ED09B8 /* Account.storyboard in Resources */,
@@ -3262,6 +3384,7 @@
 				7F85B8C6246A9AB600ED09B8 /* Login.storyboard in Resources */,
 				5237186E25751F2100B2BC31 /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
 				7F5F778B24891E9F0016F8D1 /* Assets.xcassets in Resources */,
+				070D620827B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3269,21 +3392,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				070D625927B3DD5600B6903C /* shielding_1.svg in Resources */,
+				070D621627B3C54600B6903C /* schielded_balance_onboarding_en_6.html in Resources */,
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
+				070D620627B3C54500B6903C /* schielded_balance_onboarding_en_1.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
 				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
 				06A5129823F545DA008050B4 /* Widget.storyboard in Resources */,
+				070D624927B3D67100B6903C /* style.css in Resources */,
+				070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */,
+				070D622627B3C54600B6903C /* schielded_balance_onboarding_en_5.html in Resources */,
 				7FF9190E250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				7F168A022481232400DE429E /* SendFund.storyboard in Resources */,
 				7FD43603249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */,
+				070D622A27B3C54600B6903C /* schielded_balance_onboarding_en_2.html in Resources */,
+				070D621A27B3C54600B6903C /* schielded_balance_onboarding_en_7.html in Resources */,
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
+				070D622E27B3C54600B6903C /* schielded_balance_onboarding_en_3.html in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				52055F9B25541B160071F7CA /* AccountCardView.xib in Resources */,
 				7FF07A7423EADB1200F1FC04 /* Account.storyboard in Resources */,
+				070D622227B3C54600B6903C /* schielded_balance_onboarding_en_4.html in Resources */,
 				06AA2A9A23F58C2C0001F964 /* Localizable.strings in Resources */,
 				06A5129623F545CD008050B4 /* Identity.storyboard in Resources */,
 				19C2E2845C662830D186E79E /* .swiftlint.yml in Resources */,
+				070D625527B3DD5600B6903C /* shielding_2.svg in Resources */,
 				069B9DDD23FC06D700A02A1F /* Login.storyboard in Resources */,
 				7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */,
 			);
