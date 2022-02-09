@@ -116,6 +116,49 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
     }
+
+    func showShieldedBalanceOnboarding() {
+        let onboardingCarouselViewModel = OnboardingCarouselViewModel(pages: [
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page1.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_1")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page2.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_2")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page3.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_3")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page4.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_4")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page5.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_5")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page6.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_6")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.shieldedbalance.page7.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "schielded_balance_onboarding_en_7")
+            )
+        ])
+
+        let onboardingCarouselPresenter = OnboardingCarouselPresenter(
+            delegate: self,
+            viewModel: onboardingCarouselViewModel
+        )
+
+        let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
+        onboardingCarouselViewController.hidesBottomBarWhenPushed = true
+
+        navigationController.pushViewController(onboardingCarouselViewController, animated: true)
+    }
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
@@ -155,6 +198,18 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     
     func accountDetailsClosed() {
         self.parentCoordinator?.accountDetailsClosed()
+    }
+}
+
+extension AccountDetailsCoordinator: OnboardingCarouselPresenterDelegate {
+    func onboardingCarouselSkiped() {
+        // TODO: Hook up screen
+        print("Skip pressed")
+    }
+
+    func onboardingCarouselFinished() {
+        // TODO: Hook up screen
+        print("Continue pressed")
     }
 }
 
@@ -202,6 +257,9 @@ extension AccountDetailsCoordinator: BurgerMenuPresenterDelegate {
         case .transferFilters:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showTransferFilters(account: account)
+        case .shieldedBalance:
+            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            showShieldedBalanceOnboarding()
         case .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         }

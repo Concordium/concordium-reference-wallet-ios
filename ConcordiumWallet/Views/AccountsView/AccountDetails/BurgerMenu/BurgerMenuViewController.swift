@@ -49,4 +49,8 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
     @IBAction func pressedTransferFilters(sender: Any) {
         presenter.pressedShowFilters()
     }
+
+    @IBAction func pressedShieldedBalance(_ sender: Any) {
+        presenter.pressedShowShieldedBalance()
+    }
 }
