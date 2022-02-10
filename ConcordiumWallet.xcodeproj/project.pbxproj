@@ -65,10 +65,10 @@
 		070D622E27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* shielded_balance_onboarding_en_3.html */; };
 		070D622F27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* shielded_balance_onboarding_en_3.html */; };
 		070D623027B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 070D620427B3C54500B6903C /* shielded_balance_onboarding_en_3.html */; };
-		070D624827B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
-		070D624927B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
-		070D624A27B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
-		070D624B27B3D67100B6903C /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* style.css */; };
+		070D624827B3D67100B6903C /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* shielded_balance_style.css */; };
+		070D624927B3D67100B6903C /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* shielded_balance_style.css */; };
+		070D624A27B3D67100B6903C /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* shielded_balance_style.css */; };
+		070D624B27B3D67100B6903C /* shielded_balance_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 070D624727B3D67100B6903C /* shielded_balance_style.css */; };
 		070D625027B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
 		070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
 		070D625227B3DD5600B6903C /* unshielding_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 070D624D27B3DD5600B6903C /* unshielding_1.svg */; };
@@ -1579,7 +1579,7 @@
 		070D620227B3C54500B6903C /* shielded_balance_onboarding_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_5.html; sourceTree = "<group>"; };
 		070D620327B3C54500B6903C /* shielded_balance_onboarding_en_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_2.html; sourceTree = "<group>"; };
 		070D620427B3C54500B6903C /* shielded_balance_onboarding_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shielded_balance_onboarding_en_3.html; sourceTree = "<group>"; };
-		070D624727B3D67100B6903C /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		070D624727B3D67100B6903C /* shielded_balance_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = shielded_balance_style.css; sourceTree = "<group>"; };
 		070D624D27B3DD5600B6903C /* unshielding_1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unshielding_1.svg; sourceTree = "<group>"; };
 		070D624E27B3DD5600B6903C /* shielding_2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shielding_2.svg; sourceTree = "<group>"; };
 		070D624F27B3DD5600B6903C /* shielding_1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shielding_1.svg; sourceTree = "<group>"; };
@@ -2208,7 +2208,7 @@
 		070D624627B3D67100B6903C /* styles */ = {
 			isa = PBXGroup;
 			children = (
-				070D624727B3D67100B6903C /* style.css */,
+				070D624727B3D67100B6903C /* shielded_balance_style.css */,
 			);
 			path = styles;
 			sourceTree = "<group>";
@@ -3359,7 +3359,7 @@
 				7F48C24F244DCD7100997684 /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				7FA0AED3246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
 				7F48C205244DCD0B00997684 /* readme.md in Resources */,
-				070D624827B3D67100B6903C /* style.css in Resources */,
+				070D624827B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				7F48C206244DCD0B00997684 /* Widget.storyboard in Resources */,
 				7F48C24A244DCD7100997684 /* 2.1.2.RX-backend_global.json in Resources */,
 				7FA0AECC246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
@@ -3460,7 +3460,7 @@
 				7F85B7C7246A9A7C00ED09B8 /* Login.storyboard in Resources */,
 				7F5F778E24891EA80016F8D1 /* Assets.xcassets in Resources */,
 				070D625A27B3DD5600B6903C /* shielding_1.svg in Resources */,
-				070D624A27B3D67100B6903C /* style.css in Resources */,
+				070D624A27B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				070D620727B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
@@ -3481,7 +3481,7 @@
 				07E6E28527B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FF91910250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				070D625B27B3DD5600B6903C /* shielding_1.svg in Resources */,
-				070D624B27B3D67100B6903C /* style.css in Resources */,
+				070D624B27B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				07E6E28927B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				7F168A042481232400DE429E /* SendFund.storyboard in Resources */,
 				070D623027B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
@@ -3526,7 +3526,7 @@
 				070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
 				06A5129823F545DA008050B4 /* Widget.storyboard in Resources */,
-				070D624927B3D67100B6903C /* style.css in Resources */,
+				070D624927B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				070D622627B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
 				07E6E27F27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
