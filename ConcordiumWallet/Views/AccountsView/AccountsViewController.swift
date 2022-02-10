@@ -343,9 +343,9 @@ extension AccountsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-                let view = UIView()
-                view.backgroundColor = .clear
-                return view
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
     }
 }
 
