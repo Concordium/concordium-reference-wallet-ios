@@ -11,6 +11,7 @@ import Foundation
 enum BurgerMenuAction {
     case releaseSchedule
     case transferFilters
+    case shieldedBalance
     case dismiss
 }
 
@@ -35,6 +36,7 @@ protocol BurgerMenuPresenterProtocol: AnyObject {
     
     func pressedShowRelease()
     func pressedShowFilters()
+    func pressedShowShieldedBalance()
     func pressedDismiss()
     
 }
@@ -71,6 +73,11 @@ class BurgerMenuPresenter: BurgerMenuPresenterProtocol {
     func pressedShowFilters() {
         self.delegate?.pressedOption(action: .transferFilters, account: account)
         self.dismissDelegate?.bugerMenuDismissedWithAction(_action: .transferFilters)
+    }
+
+    func pressedShowShieldedBalance() {
+        self.delegate?.pressedOption(action: .shieldedBalance, account: account)
+        self.dismissDelegate?.bugerMenuDismissedWithAction(_action: .shieldedBalance)
     }
 
     func pressedDismiss() {

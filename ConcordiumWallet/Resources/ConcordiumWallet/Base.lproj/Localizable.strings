@@ -418,6 +418,7 @@ process on-chain.";
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
+"burgermenu.showshieldedbalance" = "Show shielded balance on Main";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -441,3 +442,16 @@ concordium-backup.concordiumwallet securely.";
 "backupafterupdate.alert.message" = "Did you make a backup of your identities and accounts recently?\n\nA backup file is the only way to restore private keys if you lose your phone or re-install the wallet. Without the private keys, you cannot access your accounts. Concordium cannot recover your private keys or export password and you will lose your CCDs. You should export a new backup file EVERY time a new account is created. Protect your export password.\n\nRemember to store the file named
 concordium-backup.concordiumwallet securely.";
 "backupafterupdate.alert.action.notnow" = "Not now";
+
+"onboardingcarousel.button.skip.text" = "Skip";
+"onboardingcarousel.button.next.text" = "Next";
+"onboardingcarousel.button.back.text" = "Back";
+"onboardingcarousel.button.continue.text" = "Continue";
+"onboardingcarousel.labels.beforeyoucontinue" = "Before you continue";
+"onboardingcarousel.shieldedbalance.page1.title" = "Before you continue";
+"onboardingcarousel.shieldedbalance.page2.title" = "Before you continue";
+"onboardingcarousel.shieldedbalance.page3.title" = "The shielding transaction";
+"onboardingcarousel.shieldedbalance.page4.title" = "The shielding transaction";
+"onboardingcarousel.shieldedbalance.page5.title" = "The shielding transaction";
+"onboardingcarousel.shieldedbalance.page6.title" = "The unshielding transaction";
+"onboardingcarousel.shieldedbalance.page7.title" = "Before you continue";
