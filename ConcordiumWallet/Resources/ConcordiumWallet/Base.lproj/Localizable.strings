@@ -457,7 +457,7 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.button.next.text" = "Next";
 "onboardingcarousel.button.back.text" = "Back";
 "onboardingcarousel.button.continue.text" = "Continue";
-"onboardingcarousel.labels.beforeyoucontinue" = "Before you continue";
+
 "onboardingcarousel.shieldedbalance.page1.title" = "Before you continue";
 "onboardingcarousel.shieldedbalance.page2.title" = "Before you continue";
 "onboardingcarousel.shieldedbalance.page3.title" = "The shielding transaction";
@@ -465,3 +465,9 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.shieldedbalance.page5.title" = "The shielding transaction";
 "onboardingcarousel.shieldedbalance.page6.title" = "The unshielding transaction";
 "onboardingcarousel.shieldedbalance.page7.title" = "Before you continue";
+
+"onboardingcarousel.introflow.page1.title" = "Welcome to Concordium";
+"onboardingcarousel.introflow.page2.title" = "Verifying your identity";
+"onboardingcarousel.introflow.page3.title" = "The initial account";
+"onboardingcarousel.introflow.page4.title" = "Backup your private keys";
+"onboardingcarousel.introflow.page5.title" = "You are ready!";

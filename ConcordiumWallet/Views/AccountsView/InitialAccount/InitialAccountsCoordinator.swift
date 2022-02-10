@@ -63,6 +63,41 @@ class InitialAccountsCoordinator: Coordinator, ShowAlert {
         vc.title = initialAccountPresenter.type.getViewModel().title
         navigationController.pushViewController(vc, animated: true)
     }
+
+    func showIntoOnboardingFlow() {
+        let onboardingCarouselViewModel = OnboardingCarouselViewModel(pages: [
+            OnboardingPage(
+                title: "onboardingcarousel.introflow.page1.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_1")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.introflow.page2.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_2")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.introflow.page3.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_3")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.introflow.page4.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_4")
+            ),
+            OnboardingPage(
+                title: "onboardingcarousel.introflow.page5.title".localized,
+                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_5")
+            )
+        ])
+
+        let onboardingCarouselPresenter = OnboardingCarouselPresenter(
+            delegate: self,
+            viewModel: onboardingCarouselViewModel
+        )
+
+        let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
+        onboardingCarouselViewController.hidesBottomBarWhenPushed = true
+
+        navigationController.pushViewController(onboardingCarouselViewController, animated: true)
+    }
 }
 
 extension InitialAccountsCoordinator: CreateNewIdentityDelegate {
@@ -80,7 +115,7 @@ extension InitialAccountsCoordinator: CreateNewIdentityDelegate {
 
 extension InitialAccountsCoordinator: GettingStartedPresenterDelegate {
     func userTappedCreateAccount() {
-        showInitialAccountInfo()
+        showIntoOnboardingFlow()
     }
     func userTappedImport() {
         showImportInfo()
@@ -103,5 +138,15 @@ extension InitialAccountsCoordinator: InitialAccountInfoPresenterDelegate {
         case .welcomeScreen:
             break // no action for new account - we shouldn't reach it in this flow
         }
+    }
+}
+
+extension InitialAccountsCoordinator: OnboardingCarouselPresenterDelegate {
+    func onboardingCarouselSkiped() {
+        showCreateNewAccount()
+    }
+
+    func onboardingCarouselFinished() {
+        showCreateNewAccount()
     }
 }
