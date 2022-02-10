@@ -14,6 +14,12 @@ protocol AccountDetailsDelegate: AnyObject {
     func accountRemoved()
 }
 
+enum AccountDetailsFlowEntryPoint {
+    case details
+    case send
+    case receive
+}
+
 class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: AccountDetailsDelegate?
@@ -37,13 +43,20 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         self.navigationController.modalPresentationStyle = .fullScreen
         self.balanceType = balanceType
     }
-
-//    deinit {
-//        print("deinit")
-//    }
     
     func start() {
-        showAccountDetails(account: account)
+        start(entryPoint: .details)
+    }
+    
+    func start(entryPoint: AccountDetailsFlowEntryPoint) {
+        switch entryPoint {
+        case .details:
+            showAccountDetails(account: account)
+        case .send:
+            showSendFund()
+        case .receive:
+            showAccountAddressQR()
+        }
     }
     
     func showAccountDetails(account: AccountDataType) {

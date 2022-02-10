@@ -91,12 +91,18 @@ add_identity_data = "Reveal Identity Data";
 "accounts.noIdentityMessage" = "You need to create an identity\nbefore creating an account.";
 "accounts.balance" = "Balance";
 "accounts.shieldedbalance" = "Shielded Balance";
-"accounts.atdisposal" = "- At disposal";
+"accounts.atdisposal" = "At disposal";
 "accounts.staked" = "- Staked";
-"account.accounttotal" = "Account Total";
+"account.accounttotal" = "Total";
 "accounts.initial" = "(Initial)";
 "accounts.overview.atdisposal" = "At disposal";
 "accounts.overview.staked" = "Staked";
+"accounts.overview.readonly" = "Read-only";
+"accounts.overview.baking" = "Baking";
+"accounts.overview.delegating" = "Delegating";
+"accounts.overview.send" = "Send";
+"accounts.overview.receive" = "Receive";
+"accounts.overview.more" = "More";
 
 
 "accounts.shieldedamount" = "Shield amount";

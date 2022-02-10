@@ -53,6 +53,10 @@ extension UIColor {
         return UIColor(named: "inactiveButton") ?? UIColor.magenta
     }
     
+    class var inactiveCard: UIColor {
+        return UIColor(named: "inactiveCard") ?? UIColor.magenta
+    }
+    
     class var separator: UIColor {
         return UIColor(named: "separator") ?? UIColor.magenta
     }

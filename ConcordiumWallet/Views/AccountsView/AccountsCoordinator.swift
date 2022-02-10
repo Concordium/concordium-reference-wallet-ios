@@ -43,15 +43,14 @@ class AccountsCoordinator: Coordinator {
         navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
     }
     
-    func showAccountDetails(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
+    func show(account: AccountDataType, entryPoint: AccountDetailsFlowEntryPoint) {
         let accountDetailsCoordinator = AccountDetailsCoordinator(navigationController: navigationController,
                                                                   dependencyProvider: dependencyProvider,
                                                                   parentCoordinator: self,
                                                                   account: account,
-                                                                  balanceType: balanceType)
-        
+                                                                  balanceType: .balance)
         childCoordinators.append(accountDetailsCoordinator)
-        accountDetailsCoordinator.start()
+        accountDetailsCoordinator.start(entryPoint: entryPoint)
     }
     
     func showNewTerms() {
@@ -96,9 +95,17 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func createNewIdentity() {
         delegate?.createNewIdentity()
     }
-    
-    func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
-        showAccountDetails(account: account, balanceType: balanceType)
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        let entryPoint: AccountDetailsFlowEntryPoint!
+        switch action {
+        case .tap, .more:
+            entryPoint = .details
+        case .send:
+            entryPoint = .send
+        case .receive:
+            entryPoint = .receive
+        }
+        show(account: account, entryPoint: entryPoint)
     }
     
     func noValidIdentitiesAvailable() {
