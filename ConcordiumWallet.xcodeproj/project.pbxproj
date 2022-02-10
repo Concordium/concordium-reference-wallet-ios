@@ -189,6 +189,30 @@
 		07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
+		07E6E27627B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */; };
+		07E6E27727B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */; };
+		07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */; };
+		07E6E27927B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */; };
+		07E6E27A27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */; };
+		07E6E27B27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */; };
+		07E6E27C27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */; };
+		07E6E27D27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */; };
+		07E6E27E27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27127B558A30083A852 /* intro_flow_onboarding_en_3.html */; };
+		07E6E27F27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27127B558A30083A852 /* intro_flow_onboarding_en_3.html */; };
+		07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27127B558A30083A852 /* intro_flow_onboarding_en_3.html */; };
+		07E6E28127B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27127B558A30083A852 /* intro_flow_onboarding_en_3.html */; };
+		07E6E28227B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27227B558A30083A852 /* intro_flow_onboarding_en_2.html */; };
+		07E6E28327B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27227B558A30083A852 /* intro_flow_onboarding_en_2.html */; };
+		07E6E28427B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27227B558A30083A852 /* intro_flow_onboarding_en_2.html */; };
+		07E6E28527B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27227B558A30083A852 /* intro_flow_onboarding_en_2.html */; };
+		07E6E28627B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */; };
+		07E6E28727B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */; };
+		07E6E28827B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */; };
+		07E6E28927B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */; };
+		07E6E28A27B558A30083A852 /* intro_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27527B558A30083A852 /* intro_flow_style.css */; };
+		07E6E28B27B558A30083A852 /* intro_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27527B558A30083A852 /* intro_flow_style.css */; };
+		07E6E28C27B558A30083A852 /* intro_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27527B558A30083A852 /* intro_flow_style.css */; };
+		07E6E28D27B558A30083A852 /* intro_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 07E6E27527B558A30083A852 /* intro_flow_style.css */; };
 		07E8573426F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
@@ -1586,6 +1610,12 @@
 		079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		079F310626EB69DD00ED96D3 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
 		07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitmentsRandomness.swift; sourceTree = "<group>"; };
+		07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_5.html; sourceTree = "<group>"; };
+		07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_4.html; sourceTree = "<group>"; };
+		07E6E27127B558A30083A852 /* intro_flow_onboarding_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_3.html; sourceTree = "<group>"; };
+		07E6E27227B558A30083A852 /* intro_flow_onboarding_en_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_2.html; sourceTree = "<group>"; };
+		07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_1.html; sourceTree = "<group>"; };
+		07E6E27527B558A30083A852 /* intro_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = intro_flow_style.css; sourceTree = "<group>"; };
 		07E8573326F1D24F001FB2D2 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
 		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2086,6 +2116,7 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				07E6E26E27B558A30083A852 /* IntroductionFlowOnboarding  */,
 				070D61F727B3C54500B6903C /* SchieldedBalanceOnboarding */,
 				17A41E4E266790220079BD3A /* Entitlements */,
 				7FD435FC249A2D34002D2AC3 /* icon-22-29.png */,
@@ -2210,6 +2241,27 @@
 				074C00A426FB1D2A0090F7FE /* AddMemoPresenter.swift */,
 			);
 			path = AddMemo;
+			sourceTree = "<group>";
+		};
+		07E6E26E27B558A30083A852 /* IntroductionFlowOnboarding  */ = {
+			isa = PBXGroup;
+			children = (
+				07E6E27427B558A30083A852 /* styles */,
+				07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */,
+				07E6E27227B558A30083A852 /* intro_flow_onboarding_en_2.html */,
+				07E6E27127B558A30083A852 /* intro_flow_onboarding_en_3.html */,
+				07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */,
+				07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */,
+			);
+			path = "IntroductionFlowOnboarding ";
+			sourceTree = "<group>";
+		};
+		07E6E27427B558A30083A852 /* styles */ = {
+			isa = PBXGroup;
+			children = (
+				07E6E27527B558A30083A852 /* intro_flow_style.css */,
+			);
+			path = styles;
 			sourceTree = "<group>";
 		};
 		173768182652A72300A48758 /* TermsAndConditionsView */ = {
@@ -3321,10 +3373,12 @@
 				7FD435FE249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				7F48C24D244DCD7100997684 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
 				070D622927B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
+				07E6E27E27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				070D625827B3DD5600B6903C /* shielding_1.svg in Resources */,
 				070D626727B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7F48C23E244DCD5F00997684 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
 				070D622127B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
+				07E6E27627B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				7F48C24B244DCD7100997684 /* 3.2.1.TX-lib_create_transfer.json in Resources */,
 				070D621927B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				52055F9A25541B160071F7CA /* AccountCardView.xib in Resources */,
@@ -3334,6 +3388,7 @@
 				5237186F25751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				070D622D27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
 				7F5F778D24891EA00016F8D1 /* Assets.xcassets in Resources */,
+				07E6E27A27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7FA0AECB246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_absent.json in Resources */,
 				7FA0AECD246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_received.json in Resources */,
 				7F48C20B244DCD0B00997684 /* Login.storyboard in Resources */,
@@ -3342,6 +3397,7 @@
 				7F48C250244DCD7100997684 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				7F48C241244DCD7100997684 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				7F48C245244DCD7100997684 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
+				07E6E28227B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				070D625427B3DD5600B6903C /* shielding_2.svg in Resources */,
 				7FF9190D250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				070D621527B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
@@ -3350,11 +3406,13 @@
 				7FA0AED0246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
 				7F48C249244DCD7100997684 /* 3.2.2.RX-lib_create_transfer.json in Resources */,
 				7F48C240244DCD6C00997684 /* 1.3.2.RX-backend_request_identity.json in Resources */,
+				07E6E28627B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				52D3510D250A6AE500858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				7F5F779224891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				7F48C243244DCD7100997684 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
 				7F48C242244DCD7100997684 /* 1.3.1.TX-backend_request_identity.json in Resources */,
 				7FA0AED7246061AD00B7673F /* 4.2.2.RX_backend_accTransactions.json in Resources */,
+				07E6E28A27B558A30083A852 /* intro_flow_style.css in Resources */,
 				070D620527B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */,
 				7FA0AED6246061AD00B7673F /* backend_server_error.json in Resources */,
@@ -3384,15 +3442,19 @@
 				7FF9190F250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				070D621B27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				7F85B7C2246A9A7C00ED09B8 /* Widget.storyboard in Resources */,
+				07E6E28427B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FD43604249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				070D626927B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				070D625627B3DD5600B6903C /* shielding_2.svg in Resources */,
 				070D622B27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
+				07E6E27C27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7FD43600249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				7F168A032481232400DE429E /* SendFund.storyboard in Resources */,
 				7F85B7C3246A9A7C00ED09B8 /* Account.storyboard in Resources */,
 				7F85B7C4246A9A7C00ED09B8 /* Localizable.strings in Resources */,
 				7F85B7C5246A9A7C00ED09B8 /* Identity.storyboard in Resources */,
+				07E6E28C27B558A30083A852 /* intro_flow_style.css in Resources */,
+				07E6E28827B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				7F85B7C6246A9A7C00ED09B8 /* .swiftlint.yml in Resources */,
 				52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */,
 				7F85B7C7246A9A7C00ED09B8 /* Login.storyboard in Resources */,
@@ -3400,6 +3462,8 @@
 				070D625A27B3DD5600B6903C /* shielding_1.svg in Resources */,
 				070D624A27B3D67100B6903C /* style.css in Resources */,
 				070D620727B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
+				07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
+				07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				52055F9C25541B160071F7CA /* AccountCardView.xib in Resources */,
 				070D622727B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
 			);
@@ -3414,14 +3478,19 @@
 				5237187225751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */,
 				7F85B8C1246A9AB600ED09B8 /* Widget.storyboard in Resources */,
+				07E6E28527B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FF91910250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				070D625B27B3DD5600B6903C /* shielding_1.svg in Resources */,
 				070D624B27B3D67100B6903C /* style.css in Resources */,
+				07E6E28927B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				7F168A042481232400DE429E /* SendFund.storyboard in Resources */,
 				070D623027B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
 				070D621C27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
+				07E6E27D27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7FD43605249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				52055F7A2552B83D0071F7CA /* IdentityCardView.xib in Resources */,
+				07E6E27927B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
+				07E6E28127B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				070D626A27B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				070D622427B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				070D622C27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
@@ -3432,6 +3501,7 @@
 				070D625327B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				52055F9D25541B160071F7CA /* AccountCardView.xib in Resources */,
+				07E6E28D27B558A30083A852 /* intro_flow_style.css in Resources */,
 				7F85B8C2246A9AB600ED09B8 /* Account.storyboard in Resources */,
 				7F85B8C3246A9AB600ED09B8 /* Localizable.strings in Resources */,
 				7F85B8C4246A9AB600ED09B8 /* Identity.storyboard in Resources */,
@@ -3449,6 +3519,7 @@
 			files = (
 				070D625927B3DD5600B6903C /* shielding_1.svg in Resources */,
 				070D621627B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
+				07E6E28B27B558A30083A852 /* intro_flow_style.css in Resources */,
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
 				070D620627B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
@@ -3458,6 +3529,7 @@
 				070D624927B3D67100B6903C /* style.css in Resources */,
 				070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				070D622627B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
+				07E6E27F27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				7FF9190E250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				7F168A022481232400DE429E /* SendFund.storyboard in Resources */,
 				7FD43603249A2D34002D2AC3 /* icon-44-58.png in Resources */,
@@ -3466,14 +3538,18 @@
 				070D621A27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				070D622E27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
+				07E6E27B27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				52055F9B25541B160071F7CA /* AccountCardView.xib in Resources */,
+				07E6E28327B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FF07A7423EADB1200F1FC04 /* Account.storyboard in Resources */,
 				070D622227B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				06AA2A9A23F58C2C0001F964 /* Localizable.strings in Resources */,
+				07E6E28727B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				06A5129623F545CD008050B4 /* Identity.storyboard in Resources */,
 				19C2E2845C662830D186E79E /* .swiftlint.yml in Resources */,
 				070D625527B3DD5600B6903C /* shielding_2.svg in Resources */,
+				07E6E27727B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				069B9DDD23FC06D700A02A1F /* Login.storyboard in Resources */,
 				7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */,
 			);
