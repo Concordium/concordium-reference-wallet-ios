@@ -11,11 +11,20 @@ import Foundation
 enum BurgerMenuAction {
     case releaseSchedule
     case transferFilters
-    case shieldedBalance
+    case shieldedBalance(shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case dismiss
 }
 
 struct BurgerMenuViewModel: Hashable {
+    var shieldButtonName: String
+    
+    init(showsShielded: Bool) {
+        if showsShielded {
+            shieldButtonName = "burgermenu.hideshieldedbalance".localized
+        } else {
+            shieldButtonName = "burgermenu.showshieldedbalance".localized
+        }
+    }
 }
 
 // MARK: View
@@ -36,7 +45,7 @@ protocol BurgerMenuPresenterProtocol: AnyObject {
     
     func pressedShowRelease()
     func pressedShowFilters()
-    func pressedShowShieldedBalance()
+    func pressedShieldedBalance()
     func pressedDismiss()
     
 }
@@ -49,16 +58,19 @@ class BurgerMenuPresenter: BurgerMenuPresenterProtocol {
     weak var view: BurgerMenuViewProtocol?
     weak var delegate: BurgerMenuPresenterDelegate?
     weak var dismissDelegate: BurgerMenuDismissDelegate?
+    weak var showShieldedDelegate: ShowShieldedDelegate?
     
-    private var viewModel = BurgerMenuViewModel()
+    private var viewModel: BurgerMenuViewModel
     private var account: AccountDataType
     init(delegate: BurgerMenuPresenterDelegate,
          account: AccountDataType,
-         dismissDelegate: BurgerMenuDismissDelegate) {
+         dismissDelegate: BurgerMenuDismissDelegate,
+         showShieldedDelegate: ShowShieldedDelegate) {
         self.delegate = delegate
         self.account = account
         self.dismissDelegate = dismissDelegate
-        viewModel = BurgerMenuViewModel()
+        self.showShieldedDelegate = showShieldedDelegate
+        viewModel = BurgerMenuViewModel(showsShielded: account.showsShieldedBalance)
     }
     
     func viewDidLoad() {
@@ -75,9 +87,18 @@ class BurgerMenuPresenter: BurgerMenuPresenterProtocol {
         self.dismissDelegate?.bugerMenuDismissedWithAction(_action: .transferFilters)
     }
 
-    func pressedShowShieldedBalance() {
-        self.delegate?.pressedOption(action: .shieldedBalance, account: account)
-        self.dismissDelegate?.bugerMenuDismissedWithAction(_action: .shieldedBalance)
+    func pressedShieldedBalance() {
+        let action = BurgerMenuAction.shieldedBalance(shouldShow: !account.showsShieldedBalance, delegate: showShieldedDelegate)
+        let account: AccountDataType!
+        if self.account.showsShieldedBalance {
+            //if we are hiding it, we hide it here directly
+            account = self.account.withShowShielded(!self.account.showsShieldedBalance)
+        } else {
+            account = self.account
+        }
+        self.delegate?.pressedOption(action: action, account: account)
+        self.dismissDelegate?.bugerMenuDismissedWithAction(_action: action)
+        
     }
 
     func pressedDismiss() {

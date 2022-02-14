@@ -108,9 +108,11 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showBurgerMenuOverlay(account: AccountDataType, burgerMenuDismissDelegate: BurgerMenuDismissDelegate) {
-        let vc = BurgerMenuFactory.create(with: BurgerMenuPresenter(delegate: self, account: account, dismissDelegate: burgerMenuDismissDelegate))
+    func showBurgerMenuOverlay(account: AccountDataType, burgerMenuDismissDelegate: BurgerMenuDismissDelegate, showShieldedDelegate: ShowShieldedDelegate) {
+        let presenter = BurgerMenuPresenter(delegate: self, account: account, dismissDelegate: burgerMenuDismissDelegate, showShieldedDelegate: showShieldedDelegate)
+        let vc = BurgerMenuFactory.create(with: presenter)
         vc.modalPresentationStyle = .overFullScreen
+        presenter.view = vc
         let keyWindow = UIApplication.shared.connectedScenes
             .filter({$0.activationState == .foregroundActive})
             .map({$0 as? UIWindowScene})
@@ -130,7 +132,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showShieldedBalanceOnboarding() {
+    func showShieldedBalanceOnboarding(showShieldedDelegate: ShowShieldedDelegate?) {
         let onboardingCarouselViewModel = OnboardingCarouselViewModel(pages: [
             OnboardingPage(
                 title: "onboardingcarousel.shieldedbalance.page1.title".localized,
@@ -163,7 +165,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         ])
 
         let onboardingCarouselPresenter = OnboardingCarouselPresenter(
-            delegate: self,
+            delegate: showShieldedDelegate,
             viewModel: onboardingCarouselViewModel
         )
 
@@ -200,9 +202,9 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     }
     
     func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter) {
-//        self.parentCoordinator?.accountDetailsClosed()
-        self.showBurgerMenuOverlay(account: accountDetailsPresenter.account, burgerMenuDismissDelegate: accountDetailsPresenter)
-//        self.showReleaseSchedule(account: accountDetailsPresenter.account)
+        self.showBurgerMenuOverlay(account: accountDetailsPresenter.account,
+                                   burgerMenuDismissDelegate: accountDetailsPresenter,
+                                   showShieldedDelegate: accountDetailsPresenter)
     }
     
     func transactionSelected(viewModel: TransactionViewModel) {
@@ -216,13 +218,11 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
 
 extension AccountDetailsCoordinator: OnboardingCarouselPresenterDelegate {
     func onboardingCarouselSkiped() {
-        // TODO: Hook up screen
-        print("Skip pressed")
+        self.navigationController.popViewController(animated: true)
     }
 
     func onboardingCarouselFinished() {
-        // TODO: Hook up screen
-        print("Continue pressed")
+        self.navigationController.popViewController(animated: true)
     }
 }
 
@@ -270,9 +270,12 @@ extension AccountDetailsCoordinator: BurgerMenuPresenterDelegate {
         case .transferFilters:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showTransferFilters(account: account)
-        case .shieldedBalance:
+        case .shieldedBalance(let shouldShow, let showShieldedDelegate):
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            showShieldedBalanceOnboarding()
+            //we only go to the onboarding flow if we should show the shielded balance
+            if shouldShow {
+                showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
+            }
         case .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         }

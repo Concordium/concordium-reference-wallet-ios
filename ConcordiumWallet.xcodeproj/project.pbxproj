@@ -490,6 +490,10 @@
 		5248E7DD257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */; };
 		5248E7DE257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */; };
 		5248E7DF257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */; };
+		5251EF8D27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
+		5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
+		5251EF8F27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
+		5251EF9027BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
 		52589B1725121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */ = {isa = PBXBuildFile; fileRef = 52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */; };
 		52589B2125121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */; };
 		52589B2225121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */; };
@@ -1723,6 +1727,7 @@
 		5243C031278E2384005CAC8D /* SanityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanityChecker.swift; sourceTree = "<group>"; };
 		5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuViewController.swift; sourceTree = "<group>"; };
 		5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuPresenter.swift; sourceTree = "<group>"; };
+		5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowShieldedDelegate.swift; sourceTree = "<group>"; };
 		52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.4.1.TX_lib_decrypt_encrypted_amount.json; sourceTree = "<group>"; };
 		52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecryptAmountRequest.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -3035,6 +3040,7 @@
 				C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */,
 				19C2EF5E86364C927C5F06F4 /* AccountDetailsViewModel.swift */,
 				19C2E412525C6ED4F2F87A8C /* TransactionsLoadingHandler.swift */,
+				5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */,
 			);
 			path = AccountDetails;
 			sourceTree = "<group>";
@@ -4001,6 +4007,7 @@
 				7FB64A0D247D568500DC500E /* ExportViewController.swift in Sources */,
 				7F48C1FA244DCD0B00997684 /* SelectRecipientViewController.swift in Sources */,
 				7F48C264244E17D100997684 /* CreateTransferRequest.swift in Sources */,
+				5251EF8D27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				529531BB256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				7F48C1FB244DCD0B00997684 /* AddRecipientPresenter.swift in Sources */,
 				7F48C1FC244DCD0B00997684 /* AddRecipientViewController.swift in Sources */,
@@ -4392,6 +4399,7 @@
 				19C2E2DA4E7BFDF16D816C2E /* IdentityProviderError.swift in Sources */,
 				19C2EB8F3AE884C623861430 /* IdentityCreationStatus.swift in Sources */,
 				528EB729255ABACE00010554 /* PublicKeys.swift in Sources */,
+				5251EF8F27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				5211BABD2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
 				19C2E61D1E74081C5F756486 /* RequestExportPasswordPresenter.swift in Sources */,
 				19C2EEC653BDB392DE9D4358 /* ImportCoordinator.swift in Sources */,
@@ -4727,6 +4735,7 @@
 				19C2EA244ED1418E0D477526 /* IdentityProviderError.swift in Sources */,
 				19C2E50C93236C0F2A6F8E0E /* IdentityCreationStatus.swift in Sources */,
 				528EB72A255ABACE00010554 /* PublicKeys.swift in Sources */,
+				5251EF9027BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				5211BABE2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
 				19C2E63F49CE373C58B7CDB0 /* RequestExportPasswordPresenter.swift in Sources */,
 				19C2E9B036EA12997B62CBD3 /* ImportCoordinator.swift in Sources */,
@@ -4937,6 +4946,7 @@
 				19C2ED42EF33E1D4CDA917A8 /* IPInfo.swift in Sources */,
 				7F21398524236C0A00D2A5C4 /* CreateCredentialRequest.swift in Sources */,
 				7F5F77822487D3BD0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
+				5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				19C2EB170045945CE5D47CC8 /* IPInfoResponseElement.swift in Sources */,
 				528EB74B255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				7FD8DEA22445F9F500CA06D8 /* IdentityObjectWrapper.swift in Sources */,

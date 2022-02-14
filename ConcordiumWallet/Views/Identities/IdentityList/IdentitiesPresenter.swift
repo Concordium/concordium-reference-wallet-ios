@@ -86,7 +86,6 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
         }
     }
 
-
     override func createIdentitySelected() {
         self.delegate?.createIdentitySelected()
     }

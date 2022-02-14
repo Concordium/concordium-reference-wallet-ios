@@ -9,7 +9,7 @@ import Combine
 class TransactionsLoadingHandler {
     let storageManager: StorageManagerProtocol
     let account: AccountDataType
-    let balanceType: AccountBalanceTypeEnum
+    var balanceType: AccountBalanceTypeEnum
     let transactionsService: TransactionsServiceProtocol
 
     private var localTransactionsNotShownYet: [TransactionViewModel] = []
@@ -23,6 +23,10 @@ class TransactionsLoadingHandler {
         self.balanceType = balanceType
     }
 
+    func updateBalanceType(_ balanceType: AccountBalanceTypeEnum) {
+        self.balanceType = balanceType
+    }
+    
     private func recipientListLookup(accountAddress: String?) -> String? {
         guard let accountAddress = accountAddress else { return nil }
         return storageManager.getRecipient(withAddress: accountAddress)?.name

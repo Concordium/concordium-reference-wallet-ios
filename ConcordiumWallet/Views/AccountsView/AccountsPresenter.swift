@@ -26,7 +26,7 @@ class AccountViewModel: Hashable {
     
     var isReadOnly: Bool = false
     #warning("RNI: For the purpose of March 2022 release isDelegating will not be implemented")
-    //TODO: is delegating will need to be retreived from the network and saved in the local DB
+    // TODO: is delegating will need to be retreived from the network and saved in the local DB
     var isDelegating: Bool = false
     
     var sendTitle: String
@@ -58,9 +58,10 @@ class AccountViewModel: Hashable {
         state = account.transactionStatus ?? SubmissionStatusEnum.committed
         generalAmount = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
          
-        //TODO: this will need fixing in a future release. We currently don't show the lock
+        // TODO: this will need fixing in a future release. We currently don't show the lock
         #warning("RNI: This has been intentionally set to decrypted for the purpose of March 2022 release")
-        totalLockStatus = .decrypted //(account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
+        totalLockStatus = .decrypted
+        //totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
         
         atDisposalName = "accounts.atdisposal".localized
         
@@ -217,11 +218,15 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.identifyPendingAccounts(updatedAccounts: updatedAccounts)
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
-                let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance + $1.forecastEncryptedBalance })
-                let atDisposal = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance + $1.forecastEncryptedBalance })
+                let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
+                let atDisposal = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
                 let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.stakedAmount })
-                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
-                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
+                
+//                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
+//                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
+                #warning("RNI: Intentionally set to decrypted for MArch release")
+                // TODO: readd the lock after March release
+                self.viewModel.totalBalanceLockStatus = .decrypted
                 self.viewModel.totalBalance = GTU(intValue: totalBalance)
                 self.viewModel.atDisposal = GTU(intValue: atDisposal)
                 self.viewModel.staked = GTU(intValue: staked)

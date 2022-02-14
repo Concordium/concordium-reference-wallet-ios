@@ -52,6 +52,9 @@ class AccountTransactionsDataViewController: BaseViewController, AccountTransact
         tableView.prefetchDataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = estimatedRowHeight
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
         
         presenter?.view = self
         presenter?.viewDidLoad()
