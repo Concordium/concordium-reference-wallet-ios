@@ -57,6 +57,13 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
         presenter.view = self
         presenter.viewDidLoad()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "close_icon"),
+            style: .plain,
+            target: self,
+            action: #selector(closeButtonTapped)
+        )
+
         titleLabel.text = pageTitles.first
 
         nextButton.setTitle("onboardingcarousel.button.next.text".localized, for: .normal)
@@ -82,6 +89,10 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
         pageTitles = viewModel.pages.map { $0.title }
         onboardingCarouselPageViewController?.setup(with: viewModel.pages.map { $0.viewController })
         title = viewModel.title
+    }
+
+    @objc private func closeButtonTapped() {
+        presenter.userTappedClose()
     }
 
     @IBAction func continueButtonTapped(_ sender: Any) {

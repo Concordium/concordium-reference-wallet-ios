@@ -24,6 +24,7 @@ protocol OnboardingCarouselViewProtocol: AnyObject {
 }
 
 protocol OnboardingCarouselPresenterDelegate: AnyObject {
+    func onboardingCarouselClosed()
     func onboardingCarouselSkiped()
     func onboardingCarouselFinished()
 }
@@ -32,6 +33,7 @@ protocol OnboardingCarouselPresenterProtocol: AnyObject {
     var view: OnboardingCarouselViewProtocol? { get set }
     func viewDidLoad()
 
+    func userTappedClose()
     func userTappedSkip()
     func userTappedContinue()
 }
@@ -58,5 +60,9 @@ final class OnboardingCarouselPresenter: OnboardingCarouselPresenterProtocol {
 
     func userTappedContinue() {
         delegate?.onboardingCarouselFinished()
+    }
+
+    func userTappedClose() {
+        delegate?.onboardingCarouselClosed()
     }
 }

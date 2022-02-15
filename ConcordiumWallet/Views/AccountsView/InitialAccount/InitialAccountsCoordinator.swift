@@ -49,14 +49,7 @@ class InitialAccountsCoordinator: Coordinator, ShowAlert {
         childCoordinators.append(createIdentityCoordinator)
         createIdentityCoordinator.startInitialAccount(withDefaultValuesFrom: account)
     }
-    
-    func showInitialAccountInfo() {
-        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .firstAccount)
-        let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
-        vc.title = initialAccountPresenter.type.getViewModel().title
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
+
     func showImportInfo() {
         let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
         let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
@@ -145,6 +138,10 @@ extension InitialAccountsCoordinator: InitialAccountInfoPresenterDelegate {
 }
 
 extension InitialAccountsCoordinator: OnboardingCarouselPresenterDelegate {
+    func onboardingCarouselClosed() {
+        navigationController.popToRootViewController(animated: true)
+    }
+
     func onboardingCarouselSkiped() {
         showCreateNewAccount()
     }

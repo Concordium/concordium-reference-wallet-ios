@@ -220,6 +220,10 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
 }
 
 extension AccountDetailsCoordinator: OnboardingCarouselPresenterDelegate {
+    func onboardingCarouselClosed() {
+        navigationController.popViewController(animated: true)
+    }
+
     func onboardingCarouselSkiped() {
         self.navigationController.popViewController(animated: true)
     }
