@@ -17,13 +17,15 @@ enum BurgerMenuAction {
 
 struct BurgerMenuViewModel: Hashable {
     var shieldButtonName: String
+    var canEnableShielded: Bool
     
-    init(showsShielded: Bool) {
-        if showsShielded {
-            shieldButtonName = "burgermenu.hideshieldedbalance".localized
+    init(account: AccountDataType) {
+        if account.showsShieldedBalance {
+            shieldButtonName = String(format: "burgermenu.hideshieldedbalance".localized, account.displayName)
         } else {
-            shieldButtonName = "burgermenu.showshieldedbalance".localized
+            shieldButtonName = String(format: "burgermenu.showshieldedbalance".localized, account.displayName)
         }
+        canEnableShielded = !account.isReadOnly //if the account is readonly shielding cannot be enabled
     }
 }
 
@@ -70,7 +72,7 @@ class BurgerMenuPresenter: BurgerMenuPresenterProtocol {
         self.account = account
         self.dismissDelegate = dismissDelegate
         self.showShieldedDelegate = showShieldedDelegate
-        viewModel = BurgerMenuViewModel(showsShielded: account.showsShieldedBalance)
+        viewModel = BurgerMenuViewModel(account: account)
     }
     
     func viewDidLoad() {

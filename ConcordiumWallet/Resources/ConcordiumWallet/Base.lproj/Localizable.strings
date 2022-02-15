@@ -427,8 +427,8 @@ process on-chain.";
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
-"burgermenu.showshieldedbalance" = "Show shielded balance on Main";
-"burgermenu.hideshieldedbalance" = "Hide shielded balance on Main";
+"burgermenu.showshieldedbalance" = "Show shielded balance on %@";
+"burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
