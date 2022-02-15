@@ -14,12 +14,12 @@ start = "Start"; /*  */
 accounts_tab_title = "Accounts"; /*  */
 identities_tab_title = "Identities"; /*  */
 more_tab_title = "More"; /*  */
-identity_provider_list_title = "Initial account creation"; /*  */
+identity_provider_list_title = "Getting verified"; /*  */
 passcode_selection_title = "Select Passcode"; /*  */
 add_identity_data = "Reveal Identity Data";
 
-"identityProviders.subtitle" = "The third step:\nChoosing an identity provider";
-"identityProviders.details" =  "%@, good choice!\n\nNext you have to choose what identity provider you will request your initial account and identity from. By choosing an identity provider, you will be taken to their issuance flow, in which the provider will guide you through the issuance process. After finishing their process, you will be taken back here, so we can create your initial account.\n\nNote: More identity providers will be added later.";
+"identityProviders.subtitle" = "Choosing an identity provider";
+"identityProviders.details" =  "The identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
 "errorAlert.title" = "An error occurred";
 "errorAlert.okButton" = "OK";
 "errorAlert.cancelButton" = "Cancel";
@@ -195,9 +195,9 @@ add_identity_data = "Reveal Identity Data";
 "createAccount.tooManyAccounts" = "You already have the maximum number of accounts for this identity.";
 
 "createNickname.initialaccount.title" = "Getting verified";
-"createNickname.initialaccount.nicknameField.placeholder" = "Initial Account name";
+"createNickname.initialaccount.nicknameField.placeholder" = "Initial account name";
 "createNickname.initialaccount.subtitle" = "Name your initial account";
-"createNickname.initialaccount.details" = "For easy identification of accounts in your wallet, all accounts have a name. This name is only visible to you and you can name it whatever you want. It does not have to be your actual name. The name is not the account address.\nType the name you want to give your initial account below.";
+"createNickname.initialaccount.details" = "For easy identification of accounts in your wallet, all accounts have a name. This name is only visible to you and you can name it whatever you want. It does not have to be your actual name. The name is not the account address.\n\nType the name you want to give your initial account below.";
 "createNickname.initialaccount.button" = "Continue";
 
 
@@ -207,11 +207,11 @@ add_identity_data = "Reveal Identity Data";
 "createNickname.account.details" = "What would you like to name your account?";
 "createNickname.account.button" = "Next";
 
-"createNickname.identity.title" = "Initial account creation";
-"createNickname.identity.nicknameField.placeholder" = "Identity name";
-"createNickname.identity.subtitle" = "The second step:\nNaming your identity";
-"createNickname.identity.details" = "What would you like to name your identity?";
-"createNickname.identity.button" = "Continue to identity providers";
+"createNickname.identity.title" = "Getting verified";
+"createNickname.identity.nicknameField.placeholder" = "Identity card name";
+"createNickname.identity.subtitle" = "Name your identity card";
+"createNickname.identity.details" = "You should also give your identity card a name to easily keep track of it. Similar to the name you gave the initial account, this name is only visible to you, and you can name it whatever you want.\n\nType the name you want to give your identity card in your wallet below.";
+"createNickname.identity.button" = "Continue";
 
 "createNickname.next.title" = "Next";
 "Ok.thanks" = "Ok, thanks";
