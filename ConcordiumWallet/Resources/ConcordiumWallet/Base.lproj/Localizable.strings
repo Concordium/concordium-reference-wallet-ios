@@ -194,10 +194,10 @@ add_identity_data = "Reveal Identity Data";
 
 "createAccount.tooManyAccounts" = "You already have the maximum number of accounts for this identity.";
 
-"createNickname.initialaccount.title" = "Initial account creation";
-"createNickname.initialaccount.nicknameField.placeholder" = "Account name";
-"createNickname.initialaccount.subtitle" = "The first step:\nNaming your initial account";
-"createNickname.initialaccount.details" = "What would you like to name your \ninitial account?";
+"createNickname.initialaccount.title" = "Getting verified";
+"createNickname.initialaccount.nicknameField.placeholder" = "Initial Account name";
+"createNickname.initialaccount.subtitle" = "Name your initial account";
+"createNickname.initialaccount.details" = "For easy identification of accounts in your wallet, all accounts have a name. This name is only visible to you and you can name it whatever you want. It does not have to be your actual name. The name is not the account address.\nType the name you want to give your initial account below.";
 "createNickname.initialaccount.button" = "Continue";
 
 
