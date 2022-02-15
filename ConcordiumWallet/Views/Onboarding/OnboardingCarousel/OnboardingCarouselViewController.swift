@@ -81,6 +81,7 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
     func bind(to viewModel: OnboardingCarouselViewModel) {
         pageTitles = viewModel.pages.map { $0.title }
         onboardingCarouselPageViewController?.setup(with: viewModel.pages.map { $0.viewController })
+        title = viewModel.title
     }
 
     @IBAction func continueButtonTapped(_ sender: Any) {

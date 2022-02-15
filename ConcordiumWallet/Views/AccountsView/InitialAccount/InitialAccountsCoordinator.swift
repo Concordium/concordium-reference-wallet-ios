@@ -65,28 +65,31 @@ class InitialAccountsCoordinator: Coordinator, ShowAlert {
     }
 
     func showIntoOnboardingFlow() {
-        let onboardingCarouselViewModel = OnboardingCarouselViewModel(pages: [
-            OnboardingPage(
-                title: "onboardingcarousel.introflow.page1.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_1")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.introflow.page2.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_2")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.introflow.page3.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_3")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.introflow.page4.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_4")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.introflow.page5.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_5")
-            )
-        ])
+        let onboardingCarouselViewModel = OnboardingCarouselViewModel(
+            title: "onboardingcarousel.introflow.title".localized,
+            pages: [
+                OnboardingPage(
+                    title: "onboardingcarousel.introflow.page1.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_1")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.introflow.page2.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_2")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.introflow.page3.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_3")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.introflow.page4.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_4")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.introflow.page5.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "intro_flow_onboarding_en_5")
+                )
+            ]
+        )
 
         let onboardingCarouselPresenter = OnboardingCarouselPresenter(
             delegate: self,

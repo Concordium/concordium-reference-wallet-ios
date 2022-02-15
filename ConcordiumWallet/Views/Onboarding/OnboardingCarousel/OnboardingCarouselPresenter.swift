@@ -15,6 +15,7 @@ struct OnboardingPage {
 }
 
 struct OnboardingCarouselViewModel {
+    let title: String?
     let pages: [OnboardingPage]
 }
 
