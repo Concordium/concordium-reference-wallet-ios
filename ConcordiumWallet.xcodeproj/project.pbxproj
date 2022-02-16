@@ -835,7 +835,7 @@
 		7F48C1A3244DCD0B00997684 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC81323F2E6FC001B2975 /* TitleLabel.swift */; };
 		7F48C1A5244DCD0B00997684 /* CreateAccountButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */; };
 		7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */; };
-		7F48C1A8244DCD0B00997684 /* UITableView+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */; };
+		7F48C1A8244DCD0B00997684 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */; };
 		7F48C1A9244DCD0B00997684 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */; };
 		7F48C1AB244DCD0B00997684 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938F532241FB9B100ECAD47 /* UITextField+Extensions.swift */; };
 		7F48C1AC244DCD0B00997684 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD878552406AF7C00509BDB /* LoginCoordinator.swift */; };
@@ -1062,7 +1062,7 @@
 		7F85B748246A9A7C00ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */; };
 		7F85B749246A9A7C00ED09B8 /* MakeCreateCredentialRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21398024236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift */; };
 		7F85B74A246A9A7C00ED09B8 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */; };
-		7F85B74B246A9A7C00ED09B8 /* UITableView+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */; };
+		7F85B74B246A9A7C00ED09B8 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */; };
 		7F85B74C246A9A7C00ED09B8 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */; };
 		7F85B74E246A9A7C00ED09B8 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938F532241FB9B100ECAD47 /* UITextField+Extensions.swift */; };
 		7F85B74F246A9A7C00ED09B8 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD878552406AF7C00509BDB /* LoginCoordinator.swift */; };
@@ -1249,7 +1249,7 @@
 		7F85B847246A9AB600ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */; };
 		7F85B848246A9AB600ED09B8 /* MakeCreateCredentialRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21398024236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift */; };
 		7F85B849246A9AB600ED09B8 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */; };
-		7F85B84A246A9AB600ED09B8 /* UITableView+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */; };
+		7F85B84A246A9AB600ED09B8 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */; };
 		7F85B84B246A9AB600ED09B8 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */; };
 		7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938F532241FB9B100ECAD47 /* UITextField+Extensions.swift */; };
 		7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD878552406AF7C00509BDB /* LoginCoordinator.swift */; };
@@ -1442,7 +1442,7 @@
 		7FF07AC023EADBB100F1FC04 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */; };
 		7FF07AC123EADBB100F1FC04 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */; };
 		7FF07AC323EADBB100F1FC04 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */; };
-		7FF07AC423EADBB100F1FC04 /* UITableView+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */; };
+		7FF07AC423EADBB100F1FC04 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */; };
 		7FF07AC623EADBB100F1FC04 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */; };
 		7FF07AC923EADBB100F1FC04 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
 		7FF07AD423EADBB100F1FC04 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */; };
@@ -1930,7 +1930,7 @@
 		7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
-		7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+scroll.swift"; sourceTree = "<group>"; };
+		7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		7FF07A9F23EADBB100F1FC04 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
@@ -2977,7 +2977,7 @@
 				7FF07A9123EADBB100F1FC04 /* UIImage+Additions.swift */,
 				C924B2232430799400081E23 /* UILabel+localized.swift */,
 				7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */,
-				7FF07A9A23EADBB100F1FC04 /* UITableView+scroll.swift */,
+				7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */,
 				C938F532241FB9B100ECAD47 /* UITextField+Extensions.swift */,
 				07519F7826FB612700F4E6E3 /* UITextView+Extensions.swift */,
 				19C2EC7A96B744D007EE5D7B /* UIView+Additions.swift */,
@@ -3971,7 +3971,7 @@
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
-				7F48C1A8244DCD0B00997684 /* UITableView+scroll.swift in Sources */,
+				7F48C1A8244DCD0B00997684 /* UITableView+Extensions.swift in Sources */,
 				644BB67D25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				7F48C1A9244DCD0B00997684 /* UIColor+Additions.swift in Sources */,
 				7F85B8EE2472D39100ED09B8 /* MoreMenuPresenter.swift in Sources */,
@@ -4282,7 +4282,7 @@
 				644BB67525DFB4220086ED48 /* main.swift in Sources */,
 				52CE0C7B250FFEC70018B5D1 /* Encrypted.swift in Sources */,
 				7F85B74A246A9A7C00ED09B8 /* Storyboarded.swift in Sources */,
-				7F85B74B246A9A7C00ED09B8 /* UITableView+scroll.swift in Sources */,
+				7F85B74B246A9A7C00ED09B8 /* UITableView+Extensions.swift in Sources */,
 				529531B3256BA711004CECE4 /* Schedule.swift in Sources */,
 				7F85B74C246A9A7C00ED09B8 /* UIColor+Additions.swift in Sources */,
 				7F85B74E246A9A7C00ED09B8 /* UITextField+Extensions.swift in Sources */,
@@ -4620,7 +4620,7 @@
 				7F85B848246A9AB600ED09B8 /* MakeCreateCredentialRequest.swift in Sources */,
 				7F85B849246A9AB600ED09B8 /* Storyboarded.swift in Sources */,
 				529531B4256BA711004CECE4 /* Schedule.swift in Sources */,
-				7F85B84A246A9AB600ED09B8 /* UITableView+scroll.swift in Sources */,
+				7F85B84A246A9AB600ED09B8 /* UITableView+Extensions.swift in Sources */,
 				7F85B84B246A9AB600ED09B8 /* UIColor+Additions.swift in Sources */,
 				7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */,
@@ -4957,7 +4957,7 @@
 				7F21398E24236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
 				07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
-				7FF07AC423EADBB100F1FC04 /* UITableView+scroll.swift in Sources */,
+				7FF07AC423EADBB100F1FC04 /* UITableView+Extensions.swift in Sources */,
 				7FF07AC123EADBB100F1FC04 /* UIColor+Additions.swift in Sources */,
 				5237188025753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				C938F533241FB9B100ECAD47 /* UITextField+Extensions.swift in Sources */,

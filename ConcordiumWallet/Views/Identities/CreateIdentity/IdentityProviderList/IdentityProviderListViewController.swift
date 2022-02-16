@@ -133,19 +133,3 @@ extension IdentityProviderListViewController: UITextViewDelegate {
         return false
     }
 }
-
-public extension UITableView {
-    func sizeHeaderToFit() {
-        if let headerView = tableHeaderView {
-            headerView.setNeedsLayout()
-            headerView.layoutIfNeeded()
-            
-            let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-            var frame = headerView.frame
-            frame.size.height = height
-            headerView.frame = frame
-            
-            tableHeaderView = headerView
-        }
-    }
-}
