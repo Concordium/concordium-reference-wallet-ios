@@ -18,14 +18,16 @@ class IdentityGeneralViewModel: Hashable {
     var iconEncoded: String
     var expiresOn: String
     var privacyPolicyURL: String
+    var url: String?
 
-    init(id: Int, identityName: String, iconEncoded: String, privacyPolicyURL: String?, nickname: String? = nil, expiresOn: String? = nil) {
+    init(id: Int, identityName: String, iconEncoded: String, privacyPolicyURL: String?, nickname: String? = nil, expiresOn: String? = nil, url: String?) {
         self.id = id
         self.identityName = identityName
         self.nickname = nickname ?? ""
         self.iconEncoded = iconEncoded
         self.expiresOn = expiresOn ?? ""
         self.privacyPolicyURL = privacyPolicyURL ?? ""
+        self.url = url ?? ""
     }
 
     func hash(into hasher: inout Hasher) {
@@ -41,18 +43,21 @@ class IdentityGeneralViewModel: Hashable {
             lhs.identityName == rhs.identityName &&
             lhs.privacyPolicyURL == rhs.privacyPolicyURL &&
             lhs.iconEncoded == rhs.iconEncoded &&
-            lhs.expiresOn == rhs.expiresOn
+            lhs.expiresOn == rhs.expiresOn &&
+            lhs.url == rhs.url
     }
 }
 
 class IdentityProviderViewModel: IdentityGeneralViewModel {
+
     convenience init(ipInfo: IPInfoResponseElement) {
         let id = ipInfo.ipInfo.ipIdentity
         let name = ipInfo.ipInfo.ipDescription.name
         let encodedIcon = ipInfo.metadata.icon
+        let url = ipInfo.ipInfo.ipDescription.url
 
         let privacyPolicyURL = "https://developer.concordium.software/extra/Terms-and-conditions-Mobile-Wallet.pdf"
-        self.init(id: id, identityName: name, iconEncoded: encodedIcon, privacyPolicyURL: privacyPolicyURL)
+        self.init(id: id, identityName: name, iconEncoded: encodedIcon, privacyPolicyURL: privacyPolicyURL, url: url)
     }
 }
 
@@ -66,11 +71,13 @@ protocol IdentityProviderListPresenterProtocol: AnyObject {
     func viewDidLoad()
     func closeIdentityProviderList()
     func userSelected(identityProviderIndex: Int)
+    func userSelectedIdentitiyProviderInfo(url: URL)
     func getIdentityName() -> String
 }
 
 protocol IdentitiyProviderListPresenterDelegate: AnyObject {
     func closeIdentityProviderList()
+    func openIdentityProviderInfo(url: URL)
     func identityRequestURLGenerated(urlRequest: URLRequest, createdIdentity: IdentityCreation)
 }
 
@@ -115,6 +122,10 @@ class IdentityProviderListPresenter {
 }
 
 extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
+    func userSelectedIdentitiyProviderInfo(url: URL) {
+        delegate?.openIdentityProviderInfo(url: url)
+    }
+
     func closeIdentityProviderList() {
         self.delegate?.closeIdentityProviderList()
     }
