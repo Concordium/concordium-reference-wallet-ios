@@ -9,6 +9,17 @@ import RealmSwift
 protocol RecipientDataType {
     var name: String { get set }
     var address: String { get set }
+    func displayName() -> String
+}
+
+extension RecipientDataType {
+    func displayName() -> String {
+        if name.isEmpty {
+            return address
+        } else {
+            return name
+        }
+    }
 }
 
 struct RecipientDataTypeFactory {
@@ -26,4 +37,6 @@ class RecipientEntity: Object, RecipientDataType {
         self.name = name
         self.address = address
     }
+    
+   
 }

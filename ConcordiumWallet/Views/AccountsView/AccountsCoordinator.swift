@@ -47,8 +47,7 @@ class AccountsCoordinator: Coordinator {
         let accountDetailsCoordinator = AccountDetailsCoordinator(navigationController: navigationController,
                                                                   dependencyProvider: dependencyProvider,
                                                                   parentCoordinator: self,
-                                                                  account: account,
-                                                                  balanceType: .balance)
+                                                                  account: account)
         childCoordinators.append(accountDetailsCoordinator)
         accountDetailsCoordinator.start(entryPoint: entryPoint)
     }

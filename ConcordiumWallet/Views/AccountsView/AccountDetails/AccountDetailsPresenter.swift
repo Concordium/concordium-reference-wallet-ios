@@ -29,8 +29,8 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 protocol AccountDetailsPresenterDelegate: AnyObject, ShowShieldedDelegate {
     func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter)
 
-    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter)
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter)
+    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
+    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
@@ -75,7 +75,7 @@ class AccountDetailsPresenter {
     private let storageManager: StorageManagerProtocol
 
     var account: AccountDataType
-    private var balanceType: AccountBalanceTypeEnum
+    private var balanceType: AccountBalanceTypeEnum = .balance
     private var cancellables: [AnyCancellable] = []
     private var viewModel: AccountDetailsViewModel
 
@@ -91,13 +91,11 @@ class AccountDetailsPresenter {
     
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
-         balanceType: AccountBalanceTypeEnum,
          delegate: (AccountDetailsPresenterDelegate & RequestPasswordDelegate)? = nil) {
         self.accountsService = dependencyProvider.accountsService()
         self.storageManager = dependencyProvider.storageManager()
         self.account = account
         self.delegate = delegate
-        self.balanceType = balanceType
         
         viewModel = AccountDetailsViewModel(account: account, balanceType: balanceType)
         transactionsLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: balanceType, dependencyProvider: dependencyProvider)
@@ -199,7 +197,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] _ in
                     guard let self = self else { return }
-                    delegate.accountDetailsPresenterSend(self)
+                    delegate.accountDetailsPresenterSend(self, balanceType: self.balanceType)
                     self.shouldRefresh = true
             }).store(in: &cancellables)
     }
@@ -212,7 +210,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] _ in
                     guard let self = self else { return }
-                    delegate.accountDetailsPresenterShieldUnshield(self)
+                    delegate.accountDetailsPresenterShieldUnshield(self, balanceType: self.balanceType)
                     self.shouldRefresh = true
             }).store(in: &cancellables)
     }

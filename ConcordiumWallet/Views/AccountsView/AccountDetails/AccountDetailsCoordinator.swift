@@ -28,20 +28,19 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
 
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private var account: AccountDataType
-    private var balanceType: AccountBalanceTypeEnum
+
     private var accountDetailsPresenter: AccountDetailsPresenter?
     
     init(navigationController: UINavigationController,
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          parentCoordinator: AccountDetailsDelegate,
-         account: AccountDataType,
-         balanceType: AccountBalanceTypeEnum) {
+         account: AccountDataType) {
         self.navigationController = navigationController
         self.parentCoordinator = parentCoordinator
         self.dependencyProvider = dependencyProvider
         self.account = account
         self.navigationController.modalPresentationStyle = .fullScreen
-        self.balanceType = balanceType
+
     }
     
     func start() {
@@ -62,13 +61,12 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     func showAccountDetails(account: AccountDataType) {
         accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
                                                           account: account,
-                                                          balanceType: balanceType,
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showSendFund() {
+    func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
         let transferType: TransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
@@ -81,7 +79,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
     }
 
-    func shieldUnshieldFund() {
+    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance)  {
         let transferType: TransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
@@ -177,12 +175,12 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
-    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter) {
-        showSendFund()
+    func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
+        showSendFund(balanceType: balanceType)
     }
     
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter) {
-        shieldUnshieldFund()
+    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
+        shieldUnshieldFund(balanceType: balanceType)
     }
     
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
