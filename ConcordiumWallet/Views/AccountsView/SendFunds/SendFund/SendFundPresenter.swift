@@ -91,6 +91,7 @@ protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
     var amountPublisher: AnyPublisher<String, Never> { get }
     var recipientAddressPublisher: AnyPublisher<String, Never> { get }
     
+    func showAddressInvalid()
     func showMemoWarningAlert(_ completion: @escaping () -> Void)
 }
 
@@ -123,6 +124,7 @@ protocol SendFundPresenterProtocol: AnyObject {
     func userTappedRemoveMemo()
     func userTappedSendFund(amount: String)
     func userTappedDontShowMemoAlertAgain(_ completion: @escaping () -> Void)
+    func finishedEditingRecipientAddress()
     
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
@@ -178,24 +180,22 @@ class SendFundPresenter: SendFundPresenterProtocol {
         }.store(in: &cancellables)
         
         view?.recipientAddressPublisher.sink(receiveValue: {[weak self] address in
-            if !address.isEmpty {
                 self?.selectedRecipient = RecipientEntity(name: "", address: address)
-                self?.updateTransferCostEstimate()
-            } else {
-                self?.clearEstimatedTransferCost()
-            }
         }).store(in: &cancellables)
         
         guard let amountPublisher = view?.amountPublisher else { return }
         
         //A publisher that returns true if the amount can be transfered from the account
         //(this publisher will return true for an empty amount)
-        amountPublisher.map { [weak self] amount in
-            guard let self = self else { return false }
-            return !self.hasSufficientFunds(amount: amount)
-        }
-        .assign(to: \.insufficientFunds, on: self.viewModel)
-        .store(in: &cancellables)
+        //we combine with fee message to make sure the insufficient funds label is updated
+        //also when the fee is calculated
+        Publishers.CombineLatest(amountPublisher, viewModel.$feeMessage)
+            .map { [weak self] amount, _ in
+                guard let self = self else { return false }
+                return !self.hasSufficientFunds(amount: amount)
+            }
+            .assign(to: \.insufficientFunds, on: self.viewModel)
+            .store(in: &cancellables)
         
         //A publisher that returns true is the amount is sufficient and not empty
         let validAmountPublisher = amountPublisher.map { [weak self] amount -> Bool in
@@ -255,6 +255,16 @@ class SendFundPresenter: SendFundPresenterProtocol {
         updateTransferCostEstimate()
     }
     
+    func finishedEditingRecipientAddress() {
+        guard let address = selectedRecipient?.address else { return }
+        if !dependencyProvider.mobileWallet().check(accountAddress: address) {
+            view?.showAddressInvalid()
+            self.clearEstimatedTransferCost()
+        } else {
+            self.updateTransferCostEstimate()
+        }
+    }
+    
     func userTappedSendFund(amount: String) {
         let sendFund = { [weak self] in
             guard
@@ -269,6 +279,12 @@ class SendFundPresenter: SendFundPresenterProtocol {
             
             let recipient: RecipientDataType
             if selectedRecipient.address == self.account.address {
+                //if we try to make a simple or an encrypted transfer to own account, we show an error
+                if self.transferType == .simpleTransfer || self.transferType == .encryptedTransfer {
+                    self.view?.showToast(withMessage: "".localized, time: 1)
+                    return
+                }
+                
                 recipient = RecipientEntity(name: self.account.displayName, address: self.account.address)
             } else {
                 recipient = selectedRecipient

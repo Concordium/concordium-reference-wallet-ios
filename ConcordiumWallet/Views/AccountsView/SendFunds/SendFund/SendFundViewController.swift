@@ -19,7 +19,7 @@ class SendFundFactory {
 
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
-    var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextField.textPublisher }
+    var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
 
     @IBOutlet weak var amountTextField: UITextField!
@@ -43,7 +43,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         }
     }
     
-    @IBOutlet weak var recipientTextField: UITextView!
+    @IBOutlet weak var recipientTextView: UITextView!
     @IBOutlet weak var recipientPlacehodlerLabel: UILabel!
     @IBOutlet weak var recipientTextFieldHeight: NSLayoutConstraint!
     @IBOutlet weak var errorMessageLabel: UILabel!
@@ -149,7 +149,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         
         viewModel.$recipientAddress
             .sink(receiveValue: { [weak self] text in
-                self?.recipientTextField.text = text
+                self?.recipientTextView.text = text
                 self?.updateRecipientTextArea(text: text)
             })
             .store(in: &cancellables)
@@ -209,23 +209,37 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     }
     
     func setupRecipientTextArea() {
-        recipientTextField.textContainer.lineFragmentPadding = 0
-        recipientTextField.textContainerInset = .zero
-        recipientTextField.textPublisher.sink(receiveValue: { [weak self] text in
+        recipientTextView.textContainer.lineFragmentPadding = 0
+        recipientTextView.textContainerInset = .zero
+        recipientTextView.textPublisher.sink(receiveValue: { [weak self] text in
             guard let self = self else { return }
             self.updateRecipientTextArea(text: text)
         }).store(in: &cancellables)
     }
     
     func updateRecipientTextArea(text: String?) {
-        if let text = text, text.count > 0 {
-            self.recipientPlacehodlerLabel.isHidden = true
-            guard let font = self.recipientTextField.font else { return }
-            let height = text.height(withConstrainedWidth: self.recipientTextField.frame.width, font: font)
+        if let text = text {
+            if text.count > 0 {
+                self.recipientPlacehodlerLabel.isHidden = true
+            }
+            guard let font = self.recipientTextView.font else { return }
+            let height = text.height(withConstrainedWidth: self.recipientTextView.frame.width, font: font)
             self.recipientTextFieldHeight.constant = height
         } else {
             self.recipientPlacehodlerLabel.isHidden = false
         }
+    }
+    
+    @IBAction func recipientTextFieldEndEditing(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
+    func showAddressInvalid() {
+        showToast(withMessage: "addRecipient.addressInvalid".localized, time: 1)
+    }
+    override func didDismissKeyboard() {
+        super.didDismissKeyboard()
+        presenter.finishedEditingRecipientAddress()
     }
 }
 
@@ -252,10 +266,24 @@ extension SendFundViewController: UITextFieldDelegate {
             if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
                 return false
             }
-            
             // Allow only numbers, dot and up to six decimal points
             return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
-            
+        default:
+            return true
+        }
+    }
+}
+
+extension SendFundViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        switch textView.accessibilityIdentifier {
+        case recipientTextView.accessibilityIdentifier:
+            if text == "\n" {
+                presenter.finishedEditingRecipientAddress()
+                view.endEditing(true)
+                return false
+            }
+            return true
         default:
             return true
         }

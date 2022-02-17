@@ -15,7 +15,9 @@ protocol RecipientDataType {
 extension RecipientDataType {
     func displayName() -> String {
         if name.isEmpty {
-            return address
+            let lowerBound = address.startIndex
+            let upperBound = address.index(lowerBound, offsetBy: 8)
+            return "<" + String(address[lowerBound..<upperBound]) + ">"
         } else {
             return name
         }
@@ -37,6 +39,4 @@ class RecipientEntity: Object, RecipientDataType {
         self.name = name
         self.address = address
     }
-    
-   
 }
