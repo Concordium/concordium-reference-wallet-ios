@@ -18,6 +18,9 @@ class BurgerMenuFactory {
 
 class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast {
     
+    @IBOutlet weak var shieldedBalanceButton: UIButton!
+    @IBOutlet weak var shieldedBalanceWidgetView: WidgetView!
+    
     var presenter: BurgerMenuPresenterProtocol
     
     init?(coder: NSCoder, presenter: BurgerMenuPresenterProtocol) {
@@ -36,6 +39,8 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
     }
     
     func bind(to viewModel: BurgerMenuViewModel) {
+        self.shieldedBalanceButton.setTitle(viewModel.shieldButtonName, for: .normal)
+        self.shieldedBalanceWidgetView.isHidden = !viewModel.canEnableShielded
     }
 
     @IBAction func pressedDismiss(sender: Any) {
@@ -51,6 +56,6 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
     }
 
     @IBAction func pressedShieldedBalance(_ sender: Any) {
-        presenter.pressedShowShieldedBalance()
+        presenter.pressedShieldedBalance()
     }
 }

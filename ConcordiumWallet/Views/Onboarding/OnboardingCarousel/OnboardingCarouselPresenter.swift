@@ -42,7 +42,7 @@ final class OnboardingCarouselPresenter: OnboardingCarouselPresenterProtocol {
 
     private var viewModel: OnboardingCarouselViewModel
 
-    init(delegate: OnboardingCarouselPresenterDelegate, viewModel: OnboardingCarouselViewModel) {
+    init(delegate: OnboardingCarouselPresenterDelegate?, viewModel: OnboardingCarouselViewModel) {
         self.delegate = delegate
         self.viewModel = viewModel
     }

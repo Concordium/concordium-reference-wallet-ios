@@ -43,4 +43,10 @@ extension UIView {
             }
         )
     }
+    
+    func setHiddenIfChanged(_ value: Bool) {
+        if !isHidden && value || isHidden && !value {
+            isHidden = value
+        }
+    }
 }

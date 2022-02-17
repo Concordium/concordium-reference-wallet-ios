@@ -26,7 +26,7 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 
 // MARK: -
 // MARK: Delegate
-protocol AccountDetailsPresenterDelegate: AnyObject {
+protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter)
 
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter)
@@ -58,6 +58,8 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func pressedUnlock()
 
     func userSelectedIdentityData()
+    func userSelectedGeneral()
+    func userSelectedShieled() 
     func userSelectedTransfers()
 
     func showGTUDrop() -> Bool
@@ -98,13 +100,8 @@ class AccountDetailsPresenter {
         self.balanceType = balanceType
         
         viewModel = AccountDetailsViewModel(account: account, balanceType: balanceType)
-
         transactionsLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: balanceType, dependencyProvider: dependencyProvider)
     }
-    
-//    deinit {
-//        print("deinit")
-//    }
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
@@ -132,11 +129,27 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         shouldRefresh = refresh
     }
     
+    func showShieldedBalance(shouldShow: Bool) {
+        account = account.withShowShielded(shouldShow)
+        switchToBalanceType(self.balanceType)
+    }
+    
+    func switchToBalanceType(_ balanceType: AccountBalanceTypeEnum) {
+        self.balanceType = balanceType
+        viewModel.setAccount(account: account, balanceType: balanceType)
+        transactionsLoadingHandler.updateBalanceType(balanceType)
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        cancellables = []
+        view?.bind(to: viewModel)
+    }
+    
     func updateTransfersOnChanges() {
         if lastRefreshTime.timeIntervalSinceNow * -1 < 60 { return }
-
+        guard let delegate = delegate else { return }
         if viewModel.selectedTab == .transfers {
-            accountsService.updateAccountBalancesAndDecryptIfNeeded(account: account, balanceType: balanceType, requestPasswordDelegate: delegate!)
+            accountsService.updateAccountBalancesAndDecryptIfNeeded(account: account, balanceType: balanceType, requestPasswordDelegate: delegate)
                 .mapError(ErrorMapper.toViewError)
                 .sink(receiveError: { [weak self] error in
                     self?.view?.showErrorAlert(error)
@@ -221,17 +234,33 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     }
 
      func burgerButtonTapped() {
+        viewModel.toggleMenu()
         delegate?.accountDetailsShowBurgerMenu(self)
     }
 
     func pressedUnlock() {
-        transactionsLoadingHandler.decryptUndecryptedTransactions(requestPasswordDelegate: delegate!)
+        guard let delegate = delegate else { return }
+        transactionsLoadingHandler.decryptUndecryptedTransactions(requestPasswordDelegate: delegate)
             .mapError(ErrorMapper.toViewError)
             .sink(receiveError: {[weak self] error in
                 self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] _ in
                     self?.updateTransfers()
             }).store(in: &cancellables)
+    }
+    
+    func userSelectedShieled() {
+        if balanceType != .shielded {
+            switchToBalanceType(.shielded)
+            userSelectedTransfers()
+        }
+    }
+    
+    func userSelectedGeneral() {
+        if balanceType != .balance {
+            switchToBalanceType(.balance)
+            userSelectedTransfers()
+        }
     }
     
     func userSelectedIdentityData() {
@@ -304,8 +333,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         var transactionCall = transactionsLoadingHandler.getTransactions(startingFrom: startingFrom).eraseToAnyPublisher()
 
         if startingFrom == nil {// Only show loading indicator (blocking the view) in the first call
-            self.viewModel.setTransactions(transactions: [])
-            self.viewModel.setAllAccountTransactions(transactions: [])
             transactionCall = transactionCall.showLoadingIndicator(in: self.view).eraseToAnyPublisher()
         }
 
@@ -315,11 +342,14 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                     self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] (transactionsListFiltered, transactionListAll) in
                     guard let self = self else { return }
-
-                    self.viewModel.appendTransactions(transactions: transactionsListFiltered)
+                    if startingFrom == nil {
+                        self.viewModel.setTransactions(transactions: transactionsListFiltered)
+                        self.viewModel.setAllAccountTransactions(transactions: transactionListAll)
+                    } else {
+                        self.viewModel.appendTransactions(transactions: transactionsListFiltered)
+                        self.viewModel.appendAllAccountTransactions(transactions: transactionListAll)
+                    }
                     self.viewModel.hasTransfers = self.viewModel.transactionsList.transactions.count > 0
-                    self.viewModel.appendAllAccountTransactions(transactions: transactionListAll)
-
                     if transactionsListFiltered.count == 0 &&
                         transactionListAll.count != 0 &&
                         transactionListAll.last?.isLast != true {
@@ -335,7 +365,8 @@ extension AccountDetailsPresenter: AccountTransactionsDataPresenterDelegate {
     }
     
     func userSelectedDecryption(for transactionWithHash: String) {
-        transactionsLoadingHandler.decryptUndecryptedTransaction(withTransactionHash: transactionWithHash, requestPasswordDelegate: delegate!)
+        guard let delegate = delegate else { return }
+        transactionsLoadingHandler.decryptUndecryptedTransaction(withTransactionHash: transactionWithHash, requestPasswordDelegate: delegate)
             .mapError(ErrorMapper.toViewError)
             .sink(receiveError: {[weak self] error in
                 self?.view?.showErrorAlert(error)
@@ -357,7 +388,26 @@ extension AccountDetailsPresenter: TransactionsFetcher {
 }
 
 extension AccountDetailsPresenter: BurgerMenuDismissDelegate {
-    func bugerMenuDismissedWithAction(_action: BurgerMenuAction) {
-        self.view?.showMenuButton(iconName: "lines_close")
+    func bugerMenuDismissedWithAction(_action action: BurgerMenuAction) {
+        self.viewModel.menuState = .closed
+        if case let BurgerMenuAction.shieldedBalance(shouldShow, _ ) = action {
+            //we only take action here for hiding the shielded balance.
+            //The showing will be done after the carousel is being presented
+            if !shouldShow {
+                showShieldedBalance(shouldShow: false)
+            }
+        }
+    }
+}
+
+extension AccountDetailsPresenter: ShowShieldedDelegate {
+    func onboardingCarouselSkiped() {
+        showShieldedBalance(shouldShow: true)
+        self.delegate?.onboardingCarouselSkiped()
+    }
+    
+    func onboardingCarouselFinished() {
+        showShieldedBalance(shouldShow: true)
+        self.delegate?.onboardingCarouselFinished()
     }
 }

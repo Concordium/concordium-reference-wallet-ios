@@ -12,7 +12,9 @@ extension UIColor {
     class var primary: UIColor {
         return UIColor(named: "primary") ?? UIColor.magenta
     }
-    
+    class var primarySelected: UIColor {
+        return UIColor(named: "primarySelected") ?? UIColor.magenta
+    }
     class var secondary: UIColor {
         return UIColor(named: "secondary") ?? UIColor.magenta
     }

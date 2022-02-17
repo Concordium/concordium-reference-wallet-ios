@@ -181,7 +181,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         }.store(in: &cancellables)
         
         viewModel.$totalBalance
-                .map { $0.displayValue() }
+                .map { $0.displayValueWithGStroke() }
                 .assign(to: \.text, on: totalBalanceLabel)
                 .store(in: &cancellables)
         
@@ -201,8 +201,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             .store(in: &cancellables)
         
         viewModel.$totalBalanceLockStatus
-            .map { $0 == ShieldedAccountEncryptionStatus.decrypted ? nil : UIImage(named: "Icon_Lock_Negative")}
-            .sink { self.atDisposalLockImageView.image = $0}
+            .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
+            .assign(to: \.isHidden, on: atDisposalLockImageView)
             .store(in: &cancellables)
         
         viewModel.$totalBalanceLockStatus

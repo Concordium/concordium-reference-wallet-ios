@@ -13,7 +13,7 @@ class WidgetView: BaseView {
     override func initialize() {
         super.initialize()
 #if TARGET_INTERFACE_BUILDER
-        let edgeColor =  UIColor(red: 64/255, green:134/255, blue:171/255, alpha:1)// An IB-only stand-in color.
+        let edgeColor =  UIColor(red: 64/255, green: 134/255, blue: 171/255, alpha: 1)// An IB-only stand-in color.
 #else
         let edgeColor = UIColor.primary // The run-time color we really want.
 #endif

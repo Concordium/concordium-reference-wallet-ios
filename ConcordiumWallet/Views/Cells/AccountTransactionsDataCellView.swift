@@ -55,8 +55,10 @@ class AccountTransactionsDataCellView: UITableViewCell {
         
         if viewModel.showLock {
             lockButton.setImage(UIImage(named: "Icon_Shield"), for: .normal)
+            lockButton.setHiddenIfChanged(false)
         } else {
             lockButton.setImage(nil, for: .normal)
+            lockButton.setHiddenIfChanged(true)
         }
         layoutIfNeeded()
         
