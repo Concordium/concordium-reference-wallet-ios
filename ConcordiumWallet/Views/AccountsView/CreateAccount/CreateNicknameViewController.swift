@@ -24,7 +24,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     var cancellableArray = [AnyCancellable]()
 
     private var defaultNextButtonBottomConstraintConstant: CGFloat = 0
-    private var stackViewYConstraintDefaultConstant: CGFloat = 0
+    private var subtitleTopConstraintDefaultConstant: CGFloat = 0
 
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
@@ -32,7 +32,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     @IBOutlet weak var nicknameTextField: UITextField!
 
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var stackViewYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtitleTopConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
         self.presenter = presenter
@@ -46,7 +46,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        stackViewYConstraintDefaultConstant = stackViewYConstraint.constant
+        subtitleTopConstraintDefaultConstant = subtitleTopConstraint.constant
         defaultNextButtonBottomConstraintConstant = nextButtonBottomConstraint.constant
 
         presenter.view = self
@@ -68,7 +68,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
 
-        stackViewYConstraint.constant = -keyboardHeight
+        subtitleTopConstraint.constant = -keyboardHeight
         nextButtonBottomConstraint.constant = keyboardHeight
 
     }
@@ -76,7 +76,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
 
-        stackViewYConstraint.constant = stackViewYConstraintDefaultConstant
+        subtitleTopConstraint.constant = subtitleTopConstraintDefaultConstant
         nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraintConstant
     }
 
