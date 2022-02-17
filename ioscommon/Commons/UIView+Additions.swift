@@ -43,14 +43,10 @@ extension UIView {
             }
         )
     }
-    var isHiddenInStackView: Bool {
-            get {
-                return isHidden
-            }
-            set {
-                if isHidden != newValue {
-                    isHidden = newValue
-                }
-            }
+    
+    func setHiddenIfChanged(_ value: Bool) {
+        if !isHidden && value || isHidden && !value {
+            isHidden = value
         }
+    }
 }

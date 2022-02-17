@@ -79,10 +79,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         fatalError("init(coder:) has not been implemented")
     }
     
-    //    deinit {
-    //        print("deinit \(self.description)")
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.gtuDropView.isHidden = true
@@ -223,7 +219,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             self.shieldTypeImageView.image = (isShielded ? UIImage(named: "Icon_Unshield") : UIImage(named: "Icon_Shield_white"))
             self.isShielded = isShielded
             self.title = self.presenter.getTitle()
-            self.atDisposalView.isHiddenInStackView = isShielded
+            self.atDisposalView.setHiddenIfChanged(isShielded)
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
@@ -242,13 +238,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
         viewModel.$isShieldedEnabled.sink { [weak self] enabled in
             if enabled {
-                self?.buttonsView.isHiddenInStackView = false
-                self?.shieldView.isHiddenInStackView = false
-                self?.spacerView.isHiddenInStackView = true
+                self?.buttonsView.setHiddenIfChanged(false)
+                self?.shieldView.setHiddenIfChanged(false)
+                self?.spacerView.setHiddenIfChanged(true)
             } else {
-                self?.buttonsView.isHiddenInStackView = true
-                self?.shieldView.isHiddenInStackView = true
-                self?.spacerView.isHiddenInStackView = false
+                self?.buttonsView.setHiddenIfChanged(true)
+                self?.shieldView.setHiddenIfChanged(true)
+                self?.spacerView.setHiddenIfChanged(false)
             }
         }.store(in: &cancellables)
         
@@ -256,7 +252,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .map { (isShieldedOutput, stakedOutput) -> Bool in
                 isShieldedOutput == true || stakedOutput == false
             }.sink { [weak self](hideStaked) in
-                self?.stakedView.isHiddenInStackView = hideStaked
+                self?.stakedView.setHiddenIfChanged(hideStaked)
                 UIView.animate(withDuration: 0.3) {
                     self?.view.layoutIfNeeded()
                 }
@@ -282,7 +278,9 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
         viewModel.$isReadOnly
             .map { !$0 }
-            .assign(to: \.isHiddenInStackView, on: readOnlyView)
+            .sink(receiveValue: { [weak self] isReadOnly in
+                self?.readOnlyView.setHiddenIfChanged(isReadOnly)
+            })
             .store(in: &cancellables)
     }
     

@@ -26,7 +26,7 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 
 // MARK: -
 // MARK: Delegate
-protocol AccountDetailsPresenterDelegate: AnyObject, ShowShieldedDelegate {
+protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter)
 
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter)
