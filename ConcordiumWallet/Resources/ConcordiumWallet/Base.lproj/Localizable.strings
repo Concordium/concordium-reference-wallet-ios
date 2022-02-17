@@ -136,8 +136,8 @@ add_identity_data = "Reveal Identity Data";
 
 
 "welcomeScreen.title" = "";
-"welcomeScreen.subtitle" = "Hi, there!";
-"welcomeScreen.details" = "Before you can start using Concordium Mobile Wallet, you have to set up your passcode and biometrics, and either create your initial account, or import one or more existing accounts.\n\n\nLet’s get started!";
+"welcomeScreen.subtitle" = "Before you begin";
+"welcomeScreen.details" = "Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium is not be able to change your passcode or help you unlock your wallet if you lose your passcode.\n\nSimilarly, if someone gets your passcode, they will be able to access your accounts.\n\nSo remember to keep your passcode safe!";
 "welcomeScreen.button" = "Continue";
 
 "termsAndConditionsScreen.title" = "";

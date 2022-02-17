@@ -519,8 +519,8 @@ How would you like to continue?]</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Identity submitted!]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcP-jJ-WKx">
-                                <rect key="frame" x="82.5" y="80" width="210" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Before you begin]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcP-jJ-WKx">
+                                <rect key="frame" x="93" y="40" width="189.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="primary"/>
                                 <nil key="highlightedColor"/>
@@ -545,15 +545,19 @@ How would you like to continue?]</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTh-XR-yZH">
-                                <rect key="frame" x="0.0" y="109" width="375" height="488"/>
+                                <rect key="frame" x="0.0" y="69" width="375" height="528"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIb-5q-Esl">
-                                        <rect key="frame" x="20" y="80" width="335" height="125.5"/>
-                                        <string key="text">[Your identity object is currently being set-up.
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIb-5q-Esl">
+                                        <rect key="frame" x="35" y="80" width="305" height="251"/>
+                                        <string key="text">[Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics. 
 
-You can start using your identity object once validation of your id has been completed by the identity provider. You will be able to start using your identity object once it will be validated by the Identity provider you’ve chosen.]</string>
+It is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium is not be able to change your passcode or help you unlock your wallet if you lose your passcode.
+
+Similarly, if someone gets your passcode, they will be able to access your accounts.
+
+So remember to keep your passcode safe!]</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" name="fadedText"/>
+                                        <color key="textColor" name="text"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.text"/>
@@ -562,8 +566,8 @@ You can start using your identity object once validation of your id has been com
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="dIb-5q-Esl" firstAttribute="leading" secondItem="OTh-XR-yZH" secondAttribute="leading" constant="20" id="eav-D2-6Xm"/>
-                                    <constraint firstAttribute="trailing" secondItem="dIb-5q-Esl" secondAttribute="trailing" constant="20" id="hAr-PD-euE"/>
+                                    <constraint firstItem="dIb-5q-Esl" firstAttribute="leading" secondItem="OTh-XR-yZH" secondAttribute="leading" constant="35" id="eav-D2-6Xm"/>
+                                    <constraint firstAttribute="trailing" secondItem="dIb-5q-Esl" secondAttribute="trailing" constant="35" id="hAr-PD-euE"/>
                                     <constraint firstItem="dIb-5q-Esl" firstAttribute="top" secondItem="OTh-XR-yZH" secondAttribute="top" constant="80" id="qbU-iX-95d"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dIb-5q-Esl" secondAttribute="bottom" constant="5" id="rFt-XD-VWZ"/>
                                 </constraints>
@@ -575,7 +579,7 @@ You can start using your identity object once validation of your id has been com
                             <constraint firstItem="OTh-XR-yZH" firstAttribute="trailing" secondItem="arf-We-R8e" secondAttribute="trailing" id="4Tb-iS-xmz"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XPb-gG-l6K" secondAttribute="bottom" constant="20" id="CKX-KK-FSH"/>
                             <constraint firstItem="XPb-gG-l6K" firstAttribute="top" secondItem="OTh-XR-yZH" secondAttribute="bottom" id="Cyj-3Y-3HG"/>
-                            <constraint firstItem="bcP-jJ-WKx" firstAttribute="top" secondItem="arf-We-R8e" secondAttribute="top" constant="80" id="DiC-Wk-rJw"/>
+                            <constraint firstItem="bcP-jJ-WKx" firstAttribute="top" secondItem="arf-We-R8e" secondAttribute="top" constant="40" id="DiC-Wk-rJw"/>
                             <constraint firstItem="XPb-gG-l6K" firstAttribute="centerX" secondItem="arf-We-R8e" secondAttribute="centerX" id="UE6-Ry-kYW"/>
                             <constraint firstItem="bcP-jJ-WKx" firstAttribute="centerX" secondItem="arf-We-R8e" secondAttribute="centerX" id="VI5-VX-PWn"/>
                             <constraint firstItem="OTh-XR-yZH" firstAttribute="top" secondItem="bcP-jJ-WKx" secondAttribute="bottom" id="Zx2-h1-er8"/>
