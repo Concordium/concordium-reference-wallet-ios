@@ -73,6 +73,9 @@ class AccountDetailsViewModel {
 
     func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
+            if shouldClearPrevious {
+                transactionsList.transactions = transactions
+            } 
 //            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
 //            if transactionsList.transactions.count > 0 {
 //                transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
