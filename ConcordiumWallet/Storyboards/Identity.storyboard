@@ -619,106 +619,76 @@ You can start using your identity object once validation of your id has been com
             <objects>
                 <viewController storyboardIdentifier="IdentityConfirmedViewController" id="ptF-jc-wGF" customClass="IdentityConfirmedViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Apc-vw-hpf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="850"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hmu-Be-uFH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rfK-ov-g5R">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="681"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ja-kH-0qJ">
-                                                <rect key="frame" x="27.5" y="0.0" width="320" height="89"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Identity submitted!]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJt-Nd-Adk">
-                                                        <rect key="frame" x="0.0" y="60" width="320" height="29"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                        <color key="textColor" name="primary"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.heading"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="bJt-Nd-Adk" firstAttribute="top" secondItem="4ja-kH-0qJ" secondAttribute="top" constant="60" id="8NM-1x-Q1Z"/>
-                                                    <constraint firstAttribute="bottom" secondItem="bJt-Nd-Adk" secondAttribute="bottom" id="gS5-d7-IX4"/>
-                                                    <constraint firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" id="kn7-XG-htJ"/>
-                                                    <constraint firstItem="bJt-Nd-Adk" firstAttribute="leading" secondItem="4ja-kH-0qJ" secondAttribute="leading" id="nfH-Lr-ohe"/>
-                                                </constraints>
-                                            </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[It might take a little while for the identity provider to finish your request.]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcX-By-X67">
-                                                <rect key="frame" x="46" y="109" width="283.5" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" name="fadedText"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.text"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQo-bl-bBg" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="165" width="335" height="200"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="385" width="335" height="206"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="611" width="335" height="50"/>
-                                                <color key="backgroundColor" name="primary"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="Gm5-pO-FSG"/>
-                                                </constraints>
-                                                <state key="normal" title="[Ok, thanks]">
-                                                    <color key="titleColor" name="buttonText"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="identitySubmitted.continue"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="finishAction:" destination="ptF-jc-wGF" eventType="touchUpInside" id="DZg-k3-sVL"/>
-                                                </connections>
-                                            </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vn8-9s-Atd">
-                                                <rect key="frame" x="67.5" y="681" width="240" height="0.0"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" id="6va-2Q-OAm"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="dQo-bl-bBg" firstAttribute="width" secondItem="qQ8-TI-BZm" secondAttribute="width" id="237-Yc-Mg2"/>
-                                            <constraint firstItem="ilq-Bf-T4l" firstAttribute="width" secondItem="qQ8-TI-BZm" secondAttribute="width" id="6Kv-hn-hVk"/>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Verification request submitted!]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJt-Nd-Adk">
+                                <rect key="frame" x="20" y="30" width="335" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" name="primary"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.heading"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcX-By-X67">
+                                <rect key="frame" x="21" y="89" width="335.5" height="107.5"/>
+                                <string key="text">[Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission.
+
+You can press continue to have a look at the app, while you wait.]</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" name="text"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="identitySubmitted.text"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQo-bl-bBg" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="20" y="216.5" width="335" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="20" y="439" width="336.5" height="139"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="20" y="780" width="335" height="50"/>
+                                <color key="backgroundColor" name="primary"/>
                                 <constraints>
-                                    <constraint firstItem="dQo-bl-bBg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gIt-U5-OdV" secondAttribute="leading" constant="20" id="1a7-pC-C6l"/>
-                                    <constraint firstItem="XcX-By-X67" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gIt-U5-OdV" secondAttribute="leading" constant="20" id="Mlb-pc-eo6"/>
-                                    <constraint firstItem="rfK-ov-g5R" firstAttribute="leading" secondItem="gIt-U5-OdV" secondAttribute="leading" id="QCn-bE-5A2"/>
-                                    <constraint firstItem="rfK-ov-g5R" firstAttribute="bottom" secondItem="gIt-U5-OdV" secondAttribute="bottom" id="UjA-8x-sas"/>
-                                    <constraint firstItem="rfK-ov-g5R" firstAttribute="trailing" secondItem="gIt-U5-OdV" secondAttribute="trailing" id="WkL-xC-ozs"/>
-                                    <constraint firstItem="rfK-ov-g5R" firstAttribute="width" secondItem="rq2-gl-Hsf" secondAttribute="width" id="Yi1-zy-sh9"/>
-                                    <constraint firstItem="rfK-ov-g5R" firstAttribute="top" secondItem="gIt-U5-OdV" secondAttribute="top" id="f9d-bc-vX1"/>
+                                    <constraint firstAttribute="height" constant="50" id="Gm5-pO-FSG"/>
                                 </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="gIt-U5-OdV"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="rq2-gl-Hsf"/>
-                            </scrollView>
+                                <state key="normal" title="[Continue]">
+                                    <color key="titleColor" name="buttonText"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="identitySubmitted.continue"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="finishAction:" destination="ptF-jc-wGF" eventType="touchUpInside" id="DZg-k3-sVL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="r2b-bI-I7B"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Hmu-Be-uFH" secondAttribute="trailing" id="2fv-J9-I7W"/>
-                            <constraint firstItem="Hmu-Be-uFH" firstAttribute="top" secondItem="Apc-vw-hpf" secondAttribute="top" id="R5F-sZ-gPM"/>
-                            <constraint firstAttribute="bottom" secondItem="Hmu-Be-uFH" secondAttribute="bottom" id="YQN-qe-rbb"/>
-                            <constraint firstItem="rfK-ov-g5R" firstAttribute="height" relation="greaterThanOrEqual" secondItem="Apc-vw-hpf" secondAttribute="height" id="eSs-bd-xE6"/>
-                            <constraint firstItem="Hmu-Be-uFH" firstAttribute="leading" secondItem="Apc-vw-hpf" secondAttribute="leading" id="ffM-4m-iG2"/>
+                            <constraint firstItem="qQ8-TI-BZm" firstAttribute="top" secondItem="dQo-bl-bBg" secondAttribute="bottom" constant="22.5" id="5OL-8h-vC2"/>
+                            <constraint firstItem="XcX-By-X67" firstAttribute="top" secondItem="bJt-Nd-Adk" secondAttribute="bottom" constant="30" id="9qd-Gf-5wI"/>
+                            <constraint firstItem="bJt-Nd-Adk" firstAttribute="top" secondItem="r2b-bI-I7B" secondAttribute="top" constant="30" id="CiW-8D-bfN"/>
+                            <constraint firstItem="r2b-bI-I7B" firstAttribute="bottom" secondItem="ilq-Bf-T4l" secondAttribute="bottom" constant="20" id="FLO-T6-jLg"/>
+                            <constraint firstItem="r2b-bI-I7B" firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" constant="20" id="HJ8-uw-yAc"/>
+                            <constraint firstItem="XcX-By-X67" firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" constant="1.5" id="ILP-Do-AlM"/>
+                            <constraint firstItem="dQo-bl-bBg" firstAttribute="top" secondItem="XcX-By-X67" secondAttribute="bottom" constant="20" id="KXh-Em-VEA"/>
+                            <constraint firstItem="qQ8-TI-BZm" firstAttribute="leading" secondItem="bJt-Nd-Adk" secondAttribute="leading" id="UTC-vU-Llb"/>
+                            <constraint firstItem="dQo-bl-bBg" firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" id="VVw-U8-ge8"/>
+                            <constraint firstItem="ilq-Bf-T4l" firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" id="byf-CP-XAc"/>
+                            <constraint firstItem="qQ8-TI-BZm" firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" constant="1.5" id="caL-9g-PK7"/>
+                            <constraint firstItem="XcX-By-X67" firstAttribute="leading" secondItem="bJt-Nd-Adk" secondAttribute="leading" constant="1" id="mrG-0E-ac4"/>
+                            <constraint firstItem="bJt-Nd-Adk" firstAttribute="leading" secondItem="r2b-bI-I7B" secondAttribute="leading" constant="20" id="nPf-lY-LcS"/>
+                            <constraint firstItem="dQo-bl-bBg" firstAttribute="leading" secondItem="bJt-Nd-Adk" secondAttribute="leading" id="vLp-Pc-EwP"/>
+                            <constraint firstItem="ilq-Bf-T4l" firstAttribute="leading" secondItem="bJt-Nd-Adk" secondAttribute="leading" id="zyw-k8-4Wb"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="375" height="850"/>
                     <connections>
                         <outlet property="accountCardView" destination="qQ8-TI-BZm" id="z9O-x9-DYq"/>
                         <outlet property="details" destination="XcX-By-X67" id="5al-NX-AGb"/>
@@ -728,7 +698,7 @@ You can start using your identity object once validation of your id has been com
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpi-1i-lgs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2437.68115942029" y="1679.3478260869567"/>
+            <point key="canvasLocation" x="2437.5999999999999" y="1678.56071964018"/>
         </scene>
     </scenes>
     <designables>
