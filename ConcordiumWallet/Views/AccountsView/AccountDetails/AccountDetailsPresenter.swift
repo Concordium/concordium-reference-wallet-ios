@@ -168,7 +168,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] account in
                     // We cannot get transactions from server before we have updated our
-                    // local store o ftransactions in the updateAccountsBalances call
+                    // local store of transactions in the updateAccountsBalances call
                     self?.getTransactions()
                     if let balanceType = self?.balanceType {
                         self?.viewModel.setAccount(account: account, balanceType: balanceType)
