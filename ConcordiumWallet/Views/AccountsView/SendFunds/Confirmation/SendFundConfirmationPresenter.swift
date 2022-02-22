@@ -75,7 +75,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     func viewDidLoad() {
         let sAmount = amount.displayValueWithGStroke()
         let to = "sendFund.confirmation.line2.to".localized
-        let recipientName = recipient.name
+        let recipientName = recipient.displayName()
         if transferType == .encryptedTransfer || transferType == .simpleTransfer {
             view?.line2Text = "\(sAmount) \(to) \(recipientName)"
             let sFromAccount = "sendFund.confirmation.line3.fromAccount".localized

@@ -134,6 +134,15 @@ extension AccountDataType {
         }
         return self
     }
+    
+    func canTransfer(amount: GTU, withTransferCost cost: GTU, onBalance balanceType: AccountBalanceTypeEnum) -> Bool {
+        if balanceType == .balance {
+            let balance = self.forecastAtDisposalBalance
+            return amount.intValue + cost.intValue <= balance
+        } else {
+            return amount.intValue <= self.forecastEncryptedBalance && cost.intValue <= self.forecastBalance
+        }
+    }
 }
 
 struct AccountDataTypeFactory {
@@ -263,4 +272,6 @@ extension AccountEntity: AccountDataType {
              self.releaseScheduleEntity = newValue as? ReleaseScheduleEntity
         }
     }
+    
+    
 }

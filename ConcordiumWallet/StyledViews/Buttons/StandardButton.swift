@@ -17,7 +17,7 @@ class StandardButton: BaseButton {
         titleLabel?.font = Fonts.buttonTitle
         setTitleColor(.buttonText, for: .normal)
         backgroundColor = .primary
-        layer.cornerRadius = 4
+        layer.cornerRadius = 10
         setBackgroundColor(.inactiveButton, for: .disabled)
     }
 }

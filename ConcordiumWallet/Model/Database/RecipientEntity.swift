@@ -9,6 +9,19 @@ import RealmSwift
 protocol RecipientDataType {
     var name: String { get set }
     var address: String { get set }
+    func displayName() -> String
+}
+
+extension RecipientDataType {
+    func displayName() -> String {
+        if name.isEmpty {
+            let lowerBound = address.startIndex
+            let upperBound = address.index(lowerBound, offsetBy: 8)
+            return "<" + String(address[lowerBound..<upperBound]) + ">"
+        } else {
+            return name
+        }
+    }
 }
 
 struct RecipientDataTypeFactory {
