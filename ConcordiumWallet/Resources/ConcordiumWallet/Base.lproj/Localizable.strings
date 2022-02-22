@@ -14,12 +14,12 @@ start = "Start"; /*  */
 accounts_tab_title = "Accounts"; /*  */
 identities_tab_title = "Identities"; /*  */
 more_tab_title = "More"; /*  */
-identity_provider_list_title = "Initial account creation"; /*  */
+identity_provider_list_title = "Getting verified"; /*  */
 passcode_selection_title = "Select Passcode"; /*  */
 add_identity_data = "Reveal Identity Data";
 
-"identityProviders.subtitle" = "The third step:\nChoosing an identity provider";
-"identityProviders.details" =  "%@, good choice!\n\nNext you have to choose what identity provider you will request your initial account and identity from. By choosing an identity provider, you will be taken to their issuance flow, in which the provider will guide you through the issuance process. After finishing their process, you will be taken back here, so we can create your initial account.\n\nNote: More identity providers will be added later.";
+"identityProviders.subtitle" = "Choosing an identity provider";
+"identityProviders.details" =  "The identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
 "errorAlert.title" = "An error occurred";
 "errorAlert.okButton" = "OK";
 "errorAlert.cancelButton" = "Cancel";
@@ -116,8 +116,8 @@ add_identity_data = "Reveal Identity Data";
 "accounts.backupwarning.text" = "As your accounts are not backed up, you risk losing your tokens.";
 
 "gettingstarted.title" = "Getting started";
-"gettingstarted.subtitle" = "Are you new here?";
-"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must create an initial account. \n\nIn case this is not your first time around, you must import existing accounts to get access to them.\n\nHow would you like to continue?";
+"gettingstarted.subtitle" = "Are you new to Concordium?";
+"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must go through a verification process to obtain your Concordium identity and your initial account. You will be guided through this process in the next pages.\n\n\nIf you have previously used Concordium Mobile Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Mobile Wallet.\n\n\nHow would you like to continue?";
 "gettingstarted.newaccount" = "I want to create my initial account";
 "gettingstarted.importaccount" = "I want to import existing accounts";
 
@@ -136,8 +136,8 @@ add_identity_data = "Reveal Identity Data";
 
 
 "welcomeScreen.title" = "";
-"welcomeScreen.subtitle" = "Hi, there!";
-"welcomeScreen.details" = "Before you can start using Concordium Mobile Wallet, you have to set up your passcode and biometrics, and either create your initial account, or import one or more existing accounts.\n\n\nLet’s get started!";
+"welcomeScreen.subtitle" = "Before you begin";
+"welcomeScreen.details" = "Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium is not be able to change your passcode or help you unlock your wallet if you lose your passcode.\n\nSimilarly, if someone gets your passcode, they will be able to access your accounts.\n\nSo remember to keep your passcode safe!";
 "welcomeScreen.button" = "Continue";
 
 "termsAndConditionsScreen.title" = "";
@@ -194,10 +194,10 @@ add_identity_data = "Reveal Identity Data";
 
 "createAccount.tooManyAccounts" = "You already have the maximum number of accounts for this identity.";
 
-"createNickname.initialaccount.title" = "Initial account creation";
-"createNickname.initialaccount.nicknameField.placeholder" = "Account name";
-"createNickname.initialaccount.subtitle" = "The first step:\nNaming your initial account";
-"createNickname.initialaccount.details" = "What would you like to name your \ninitial account?";
+"createNickname.initialaccount.title" = "Getting verified";
+"createNickname.initialaccount.nicknameField.placeholder" = "Initial account name";
+"createNickname.initialaccount.subtitle" = "Name your initial account";
+"createNickname.initialaccount.details" = "For easy identification of accounts in your wallet, all accounts have a name. This name is only visible to you and you can name it whatever you want. It does not have to be your actual name. The name is not the account address.\n\nType the name you want to give your initial account below.";
 "createNickname.initialaccount.button" = "Continue";
 
 
@@ -207,11 +207,11 @@ add_identity_data = "Reveal Identity Data";
 "createNickname.account.details" = "What would you like to name your account?";
 "createNickname.account.button" = "Next";
 
-"createNickname.identity.title" = "Initial account creation";
-"createNickname.identity.nicknameField.placeholder" = "Identity name";
-"createNickname.identity.subtitle" = "The second step:\nNaming your identity";
-"createNickname.identity.details" = "What would you like to name your identity?";
-"createNickname.identity.button" = "Continue to identity providers";
+"createNickname.identity.title" = "Getting verified";
+"createNickname.identity.nicknameField.placeholder" = "Identity card name";
+"createNickname.identity.subtitle" = "Name your identity card";
+"createNickname.identity.details" = "You should also give your identity card a name to easily keep track of it. Similar to the name you gave the initial account, this name is only visible to you, and you can name it whatever you want.\n\nType the name you want to give your identity card in your wallet below.";
+"createNickname.identity.button" = "Continue";
 
 "createNickname.next.title" = "Next";
 "Ok.thanks" = "Ok, thanks";
@@ -374,9 +374,9 @@ process on-chain.";
 
 "identityData.title" = "Identity";
 "accountConfirmed.title" = "New account";
-"identitySubmitted.title" = "Account";
-"identitySubmitted.heading" = "Request submitted!";
-"identitySubmitted.details"="It might take a little while for the identity provider to finish your request.";
+"identitySubmitted.title" = "Getting verified";
+"identitySubmitted.heading" = "Verification request submitted!";
+"identitySubmitted.details"="Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission.\n\nYou can press continue to have a look at the app, while you wait.";
 "identitySubmitted.text" = "Your identity object is currently being set-up.\n\nYou can start using your identity object once validation of your id has been completed by the identity provider.";
 "identitySubmitted.alert.title" = "Identity Issuance";
 "identitySubmitted.alert.message" = "Please check back in the app regularly, until the response from the identity provider has been received. It’s usually ready within 15 minutes, and can be retrieved for up to seven days.";
@@ -457,7 +457,8 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.button.next.text" = "Next";
 "onboardingcarousel.button.back.text" = "Back";
 "onboardingcarousel.button.continue.text" = "Continue";
-"onboardingcarousel.labels.beforeyoucontinue" = "Before you continue";
+
+"onboardingcarousel.shieldedbalance.title" = "Shielded Balance";
 "onboardingcarousel.shieldedbalance.page1.title" = "Before you continue";
 "onboardingcarousel.shieldedbalance.page2.title" = "Before you continue";
 "onboardingcarousel.shieldedbalance.page3.title" = "The shielding transaction";
@@ -465,3 +466,10 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.shieldedbalance.page5.title" = "The shielding transaction";
 "onboardingcarousel.shieldedbalance.page6.title" = "The unshielding transaction";
 "onboardingcarousel.shieldedbalance.page7.title" = "Before you continue";
+
+"onboardingcarousel.introflow.title" = "Introduction";
+"onboardingcarousel.introflow.page1.title" = "Welcome to Concordium";
+"onboardingcarousel.introflow.page2.title" = "Verifying your identity";
+"onboardingcarousel.introflow.page3.title" = "The initial account";
+"onboardingcarousel.introflow.page4.title" = "Backup your private keys";
+"onboardingcarousel.introflow.page5.title" = "You are ready!";

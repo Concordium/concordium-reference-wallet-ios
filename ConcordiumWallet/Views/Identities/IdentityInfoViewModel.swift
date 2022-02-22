@@ -40,11 +40,30 @@ class IdentityInfoViewModel: IdentityGeneralViewModel {
                   state: identity.state,
                   nickname: identity.nickname,
                   expiresOn: expiresOn,
-                  privacyPolicyURL: AppConstants.PrivacyPolicy.url)
+                  privacyPolicyURL: AppConstants.PrivacyPolicy.url,
+                  url: nil)
     }
 
-    init(id: Int, name: String, iconEncoded: String, state: IdentityState, nickname: String, expiresOn: String, privacyPolicyURL: String) {
+    init(
+        id: Int,
+        name: String,
+        iconEncoded: String,
+        state: IdentityState,
+        nickname: String,
+        expiresOn: String,
+        privacyPolicyURL: String,
+        url: String?
+    ) {
         self.state = state
-        super.init(id: id, identityName: name, iconEncoded: iconEncoded, privacyPolicyURL: privacyPolicyURL, nickname: nickname, expiresOn: expiresOn)
+
+        super.init(
+            id: id,
+            identityName: name,
+            iconEncoded: iconEncoded,
+            privacyPolicyURL: privacyPolicyURL,
+            nickname: nickname,
+            expiresOn: expiresOn,
+            url: url
+        )
     }
 }

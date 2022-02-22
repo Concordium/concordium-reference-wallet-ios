@@ -401,6 +401,10 @@ extension AccountDetailsPresenter: BurgerMenuDismissDelegate {
 }
 
 extension AccountDetailsPresenter: ShowShieldedDelegate {
+    func onboardingCarouselClosed() {
+        self.delegate?.onboardingCarouselClosed()
+    }
+
     func onboardingCarouselSkiped() {
         showShieldedBalance(shouldShow: true)
         self.delegate?.onboardingCarouselSkiped()

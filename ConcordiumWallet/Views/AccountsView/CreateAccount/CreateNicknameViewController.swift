@@ -24,6 +24,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     var cancellableArray = [AnyCancellable]()
 
     private var defaultNextButtonBottomConstraintConstant: CGFloat = 0
+    private var subtitleTopConstraintDefaultConstant: CGFloat = 0
 
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
@@ -31,7 +32,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     @IBOutlet weak var nicknameTextField: UITextField!
 
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var subtitleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtitleTopConstraint: NSLayoutConstraint!
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
         self.presenter = presenter
@@ -45,6 +46,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        subtitleTopConstraintDefaultConstant = subtitleTopConstraint.constant
         defaultNextButtonBottomConstraintConstant = nextButtonBottomConstraint.constant
 
         presenter.view = self
@@ -66,7 +68,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
 
-        subtitleLabelTopConstraint.constant = -keyboardHeight
+        subtitleTopConstraint.constant = -keyboardHeight
         nextButtonBottomConstraint.constant = keyboardHeight
 
     }
@@ -74,7 +76,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
 
-        subtitleLabelTopConstraint.constant = 0
+        subtitleTopConstraint.constant = subtitleTopConstraintDefaultConstant
         nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraintConstant
     }
 
@@ -88,7 +90,11 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     }
 
     func setProperties(_ properties: CreateNicknameProperties) {
-        nicknameTextField.placeholder = properties.textFieldPlaceholder
+        nicknameTextField.attributedPlaceholder = NSAttributedString(
+            string: properties.textFieldPlaceholder,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.primary]
+        )
+
         title = properties.title
         nextButton.setTitle(properties.button, for: .normal)
         subtitleLabel.text = properties.subtitle

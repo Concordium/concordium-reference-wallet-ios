@@ -133,36 +133,39 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
 
     func showShieldedBalanceOnboarding(showShieldedDelegate: ShowShieldedDelegate?) {
-        let onboardingCarouselViewModel = OnboardingCarouselViewModel(pages: [
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page1.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_1")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page2.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_2")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page3.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_3")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page4.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_4")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page5.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_5")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page6.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_6")
-            ),
-            OnboardingPage(
-                title: "onboardingcarousel.shieldedbalance.page7.title".localized,
-                viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_7")
-            )
-        ])
+        let onboardingCarouselViewModel = OnboardingCarouselViewModel(
+            title: "onboardingcarousel.shieldedbalance.title".localized,
+            pages: [
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page1.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_1")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page2.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_2")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page3.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_3")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page4.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_4")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page5.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_5")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page6.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_6")
+                ),
+                OnboardingPage(
+                    title: "onboardingcarousel.shieldedbalance.page7.title".localized,
+                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_7")
+                )
+            ]
+        )
 
         let onboardingCarouselPresenter = OnboardingCarouselPresenter(
             delegate: showShieldedDelegate,
@@ -217,6 +220,10 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
 }
 
 extension AccountDetailsCoordinator: OnboardingCarouselPresenterDelegate {
+    func onboardingCarouselClosed() {
+        navigationController.popViewController(animated: true)
+    }
+
     func onboardingCarouselSkiped() {
         self.navigationController.popViewController(animated: true)
     }
