@@ -8,30 +8,40 @@
 
 import Foundation
 
-protocol ValidatorConvertible {
-    func isValid(_ value: String?) -> Bool
+enum ValidationType {
+    case nameLength(String)
+    case memoSize(Memo)
 }
 
-enum ValidatorType {
-    case nameLength
-}
-
-enum ValidationProvider {
-    static func validator(for type: ValidatorType) -> ValidatorConvertible {
+struct ValidationProvider {
+    static func validate(_ type: ValidationType) -> Bool {
         switch type {
-        case .nameLength:
-            return NameLengthValidator()
+        case .nameLength(let name):
+            return NameLengthValidator.isValid(name)
+        case .memoSize(let memo):
+            return MemoSizeValidator.isValid(memo)
         }
     }
 }
 
-// MARK: - Name Validator
+// MARK: - Memo Size Validator
+private struct MemoSizeValidator {
+    private static let maxBytes = 256
 
-struct NameLengthValidator: ValidatorConvertible {
+    static func isValid(_ value: Memo?) -> Bool {
+        guard let value = value else { return false }
+        return value.size <= maxBytes
+    }
+}
 
-    private let regexPattern = "^.{1,35}$" // Min 1, Max 35 characters
 
-    func isValid(_ value: String?) -> Bool {
+// MARK: - Name Length Validator
+
+private struct NameLengthValidator {
+
+    private static let regexPattern = "^.{1,35}$" // Min 1, Max 35 characters
+
+    static func isValid(_ value: String?) -> Bool {
         guard let value = value else { return false }
 
         let range = NSRange(location: 0, length: value.count)

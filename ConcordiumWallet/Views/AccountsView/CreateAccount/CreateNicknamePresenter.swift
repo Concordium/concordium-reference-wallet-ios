@@ -108,7 +108,7 @@ class CreateNicknamePresenter: CreateNicknamePresenterProtocol {
 
         viewModel.$name
             .compactMap { $0 }
-            .map { !ValidationProvider.validator(for: .nameLength).isValid($0) }
+            .map { !ValidationProvider.validate(.nameLength($0)) }
             .assign(to: \.invalidLengthError, on: viewModel)
             .store(in: &cancellables)
 
@@ -118,7 +118,7 @@ class CreateNicknamePresenter: CreateNicknamePresenterProtocol {
                 guard
                     let previous = $0.previous,
                     let current = $0.current,
-                    !ValidationProvider.validator(for: .nameLength).isValid(current)
+                    !ValidationProvider.validate(.nameLength(current))
                 else {
                     return false
                 }
@@ -130,7 +130,7 @@ class CreateNicknamePresenter: CreateNicknamePresenterProtocol {
 
         viewModel.$name
             .compactMap { $0 }
-            .map { ValidationProvider.validator(for: .nameLength).isValid($0) }
+            .map { ValidationProvider.validate(.nameLength($0)) }
             .assign(to: \.enableCtaButton, on: viewModel)
             .store(in: &cancellables)
 
