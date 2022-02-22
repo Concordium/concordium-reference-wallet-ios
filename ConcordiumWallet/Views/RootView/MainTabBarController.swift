@@ -38,6 +38,10 @@ class MainTabBarController: BaseTabBarController {
 }
 
 extension MainTabBarController: AccountsCoordinatorDelegate {
+    func showIdentities() {
+        selectedViewController = identitiesCoordinator.navigationController
+    }
+    
     func createNewAccount() {
         selectedViewController = accountsCoordinator.navigationController
         accountsCoordinator.showCreateNewAccount()

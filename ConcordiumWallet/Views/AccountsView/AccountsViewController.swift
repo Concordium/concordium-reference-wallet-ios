@@ -28,8 +28,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     private var cancellables = Set<AnyCancellable>()
 
-    @IBOutlet weak var backupWarningMessageView: RoundedCornerView!
-    @IBOutlet weak var backupWarningMessageLabel: UILabel!
+    @IBOutlet weak var warningMessageView: RoundedCornerView!
+    @IBOutlet weak var warningMessageLabel: UILabel!
+    @IBOutlet weak var warningMessageImageView: UIImageView!
+    @IBOutlet weak var warningDismissButton: UIButton!
 
     @IBOutlet weak var newIdentityMessageLabel: UILabel!
     @IBOutlet weak var noAccountsMessageLabel: UILabel!
@@ -68,9 +70,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        backupWarningMessageLabel.text = "accounts.backupwarning.text".localized
-        backupWarningMessageView.applyConcordiumEdgeStyle()
-        backupWarningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didSelectMakeBackup)))
+        warningMessageView.applyConcordiumEdgeStyle()
+        warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -100,9 +101,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    @objc private func didSelectMakeBackup() {
+    @objc private func didPressWarning() {
         HapticFeedbackHelper.generate(feedback: .light)
-        presenter?.userSelectedMakeBackup()
+        presenter?.userPressedWarning()
     }
 
     @objc func appDidBecomeActive() {
@@ -209,6 +210,18 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
         .assign(to: \.isHidden, on: lockView)
         .store(in: &cancellables)
+        
+        viewModel.$warning.sink { [weak self] warning in
+            guard let self = self else { return }
+            if let warning = warning {
+                self.warningMessageLabel.text = warning.text
+                self.warningMessageImageView.image = UIImage(named: warning.imageName)
+                self.warningDismissButton.isHidden = !warning.dismissable
+                self.showBackupWarningBanner(true)
+            } else {
+                self.showBackupWarningBanner(false)
+            }
+        }.store(in: &cancellables)
     }
     
     func showIdentityFailed(identityProviderName: String,
@@ -256,6 +269,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.userPressedCreate()
     }
 
+    @IBAction func dismissWarning(_ sender: Any) {
+        presenter?.userPressedDisimissWarning()
+    }
+    
     func showBackupWarningBanner(_ show: Bool) {
         let duration: TimeInterval = 0.25
 
@@ -265,11 +282,11 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self?.balanceViewWarningTopConstraint.isActive = true
                 self?.view.layoutIfNeeded()
             }, completion: { [weak self] _ in
-                self?.backupWarningMessageView.isHidden = false
+                self?.warningMessageView.isHidden = false
             })
         } else {
             UIView.animate(withDuration: duration, animations: { [weak self] in
-                self?.backupWarningMessageView.isHidden = true
+                self?.warningMessageView.isHidden = true
                 self?.balanceViewTopConstraint.isActive = true
                 self?.balanceViewWarningTopConstraint.isActive = false
                 self?.view.layoutIfNeeded()

@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="395.66666666666674" width="396" height="506.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="396" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
@@ -224,31 +224,43 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DvZ-dJ-gp6" userLabel="Backup Warning Message View" customClass="RoundedCornerView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="112.99999999999999" width="396" height="57.333333333333329"/>
+                                <rect key="frame" x="16" y="112.99999999999999" width="396" height="58.333333333333329"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Some accounts are not backed up. Press here to back them up.]" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWO-dI-DaY" userLabel="[Warning text]">
-                                        <rect key="frame" x="62" y="10" width="326" height="38.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlw-cc-TC5" userLabel="[Warning Icon]">
-                                        <rect key="frame" x="8" y="18" width="35" height="22.333333333333329"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SJj-Si-45W">
+                                        <rect key="frame" x="10" y="10" width="376" height="38.333333333333336"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="warning_backup" translatesAutoresizingMaskIntoConstraints="NO" id="e2Y-H7-p3s">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="38.333333333333336"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="r3J-U6-aME"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="[Some accounts are not backed up. Press here to back them up.]" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWO-dI-DaY" userLabel="[Warning text]">
+                                                <rect key="frame" x="50" y="0.0" width="266" height="38.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xFp-pP-qyq">
+                                                <rect key="frame" x="336" y="0.0" width="40" height="38.333333333333336"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="8oK-oe-gyI"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="Close_cross"/>
+                                                <connections>
+                                                    <action selector="dismissWarning:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ShK-Xk-EkZ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="vlw-cc-TC5" secondAttribute="bottom" constant="17" id="DXM-Eg-1c8"/>
-                                    <constraint firstAttribute="trailing" secondItem="UWO-dI-DaY" secondAttribute="trailing" constant="8" id="Ddv-WN-ZNF"/>
-                                    <constraint firstAttribute="bottom" secondItem="UWO-dI-DaY" secondAttribute="bottom" constant="9" id="Yvk-NP-HLq"/>
-                                    <constraint firstItem="vlw-cc-TC5" firstAttribute="top" secondItem="DvZ-dJ-gp6" secondAttribute="top" constant="18" id="bsx-4T-TT6"/>
-                                    <constraint firstItem="vlw-cc-TC5" firstAttribute="width" secondItem="DvZ-dJ-gp6" secondAttribute="height" multiplier="39:64" id="eCl-a2-peQ"/>
-                                    <constraint firstItem="vlw-cc-TC5" firstAttribute="leading" secondItem="DvZ-dJ-gp6" secondAttribute="leading" constant="8" id="oYm-Ov-UMy"/>
-                                    <constraint firstItem="UWO-dI-DaY" firstAttribute="top" secondItem="DvZ-dJ-gp6" secondAttribute="top" constant="10" id="qjz-0J-pLF"/>
-                                    <constraint firstItem="UWO-dI-DaY" firstAttribute="leading" secondItem="DvZ-dJ-gp6" secondAttribute="leading" constant="62" id="wmY-vH-j7h"/>
+                                    <constraint firstAttribute="bottom" secondItem="SJj-Si-45W" secondAttribute="bottom" constant="10" id="BLb-oL-rR1"/>
+                                    <constraint firstAttribute="trailing" secondItem="SJj-Si-45W" secondAttribute="trailing" constant="10" id="HLe-aY-dAG"/>
+                                    <constraint firstItem="SJj-Si-45W" firstAttribute="top" secondItem="DvZ-dJ-gp6" secondAttribute="top" constant="10" id="Qz5-jP-l3n"/>
+                                    <constraint firstItem="SJj-Si-45W" firstAttribute="leading" secondItem="DvZ-dJ-gp6" secondAttribute="leading" constant="10" id="qPY-TY-6eN"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -290,8 +302,6 @@
                     <connections>
                         <outlet property="atDisposalLabel" destination="JnC-Qt-6oN" id="NvC-cm-Xjc"/>
                         <outlet property="atDisposalLockImageView" destination="VR5-FX-C3E" id="XEC-32-Lgr"/>
-                        <outlet property="backupWarningMessageLabel" destination="UWO-dI-DaY" id="moQ-bV-YcF"/>
-                        <outlet property="backupWarningMessageView" destination="DvZ-dJ-gp6" id="5YV-d0-Cwf"/>
                         <outlet property="balanceViewTopConstraint" destination="j7P-Ju-sgs" id="Roe-jM-Ro4"/>
                         <outlet property="balanceViewWarningTopConstraint" destination="Ptl-SB-iB5" id="QJD-YV-QyZ"/>
                         <outlet property="createNewButton" destination="a9t-uc-NoB" id="Q7o-Q4-8m6"/>
@@ -301,6 +311,10 @@
                         <outlet property="stakedLabel" destination="dZv-ix-hxG" id="NU3-1O-QA1"/>
                         <outlet property="tableView" destination="wee-Hm-w2j" id="WR9-5s-Ffk"/>
                         <outlet property="totalBalanceLabel" destination="yAb-PT-jJM" id="qbC-dx-duN"/>
+                        <outlet property="warningDismissButton" destination="xFp-pP-qyq" id="k15-LU-Z1i"/>
+                        <outlet property="warningMessageImageView" destination="e2Y-H7-p3s" id="56N-pJ-NoY"/>
+                        <outlet property="warningMessageLabel" destination="UWO-dI-DaY" id="7H1-gK-XgT"/>
+                        <outlet property="warningMessageView" destination="DvZ-dJ-gp6" id="zyw-we-HR4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -2274,6 +2288,7 @@ process on-chain]</string>
     </designables>
     <resources>
         <image name="Background_Shield" width="75" height="89"/>
+        <image name="Close_cross" width="17" height="17"/>
         <image name="Icon_Copy" width="14" height="18"/>
         <image name="Icon_Copy_Address" width="18" height="22"/>
         <image name="Icon_Lock_Blue" width="17" height="21"/>
@@ -2288,6 +2303,7 @@ process on-chain]</string>
         <image name="problem_icon" width="45" height="45"/>
         <image name="recipient_address_qr_icon" width="38" height="38"/>
         <image name="send" width="18" height="18"/>
+        <image name="warning_backup" width="30" height="30"/>
         <namedColor name="Secondary">
             <color red="0.11372549019607843" green="0.11372549019607843" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
