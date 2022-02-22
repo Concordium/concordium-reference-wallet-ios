@@ -21,8 +21,7 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
 
 	var presenter: CreateNicknamePresenterProtocol
 
-    var cancellableArray = [AnyCancellable]()
-
+    private var cancellables = [AnyCancellable]()
     private var defaultNextButtonBottomConstraintConstant: CGFloat = 0
     private var subtitleTopConstraintDefaultConstant: CGFloat = 0
 
@@ -33,6 +32,8 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
 
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var subtitleTopConstraint: NSLayoutConstraint!
+
+    var namePublisher: AnyPublisher<String, Never> { nicknameTextField.textPublisher }
 
     init?(coder: NSCoder, presenter: CreateNicknamePresenterProtocol) {
         self.presenter = presenter
@@ -51,15 +52,8 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
 
         presenter.view = self
         presenter.viewDidLoad()
-        
-        nextButton.isEnabled = !(nicknameTextField.text?.isEmpty ?? true)
 
         nicknameTextField.clearButtonMode = .whileEditing
-        nicknameTextField.textPublisher
-            .receive(on: DispatchQueue.main)
-            .map { !$0.isEmpty }
-            .assign(to: \.isEnabled, on: nextButton)
-            .store(in: &cancellableArray)
 
         let addIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: addIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
@@ -78,6 +72,34 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
 
         subtitleTopConstraint.constant = subtitleTopConstraintDefaultConstant
         nextButtonBottomConstraint.constant = defaultNextButtonBottomConstraintConstant
+    }
+
+    func bind(to viewModel: CreateNicknameViewModel) {
+        viewModel.$invalidLengthError
+            .sink { [weak self] in
+                let color: UIColor = $0 ? .errorText : .text
+                self?.nicknameTextField.textColor = color
+            }
+            .store(in: &cancellables)
+
+        viewModel.$shakeTextView
+            .sink { [weak self] in
+                guard $0 else { return }
+                HapticFeedbackHelper.generate(feedback: .light)
+                self?.nicknameTextField.shake()
+            }
+            .store(in: &cancellables)
+
+        viewModel.$enableCtaButton
+            .assign(to: \.isEnabled, on: nextButton)
+            .store(in: &cancellables)
+
+        viewModel.$name
+            .compactMap { $0 }
+            .sink { [weak self] in
+                self?.nicknameTextField.text = $0
+            }
+            .store(in: &cancellables)
     }
 
     @objc func closeButtonTapped(_ sender: Any) {
@@ -115,11 +137,5 @@ extension CreateNicknameViewController: UITextFieldDelegate {
         view.endEditing(true)
         presenter.next(nickname: nicknameTextField.text!)
         return false
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-         guard let text = textField.text else { return true }
-         let newLength = text.count + string.count - range.length
-         return newLength <= 35
     }
 }

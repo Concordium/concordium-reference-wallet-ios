@@ -9,11 +9,22 @@
 import Foundation
 import Combine
 
+// MARK: - View Model
+
+final class CreateNicknameViewModel {
+    @Published var name: String?
+    @Published var enableCtaButton = false
+    @Published var invalidLengthError = false
+    @Published var shakeTextView = false
+}
+
 // MARK: View
 protocol CreateNicknameViewProtocol: ShowAlert {
     func setNickname(_: String)
     func setProperties(_: CreateNicknameProperties)
     func showKeyboard()
+    func bind(to viewModel: CreateNicknameViewModel)
+    var namePublisher: AnyPublisher<String, Never> { get }
 }
 
 // MARK: -
@@ -74,6 +85,9 @@ class CreateNicknamePresenter: CreateNicknamePresenterProtocol {
     weak var view: CreateNicknameViewProtocol?
     weak var delegate: CreateNicknamePresenterDelegate?
 
+    private let viewModel = CreateNicknameViewModel()
+    private var cancellables = [AnyCancellable]()
+
     private var defaultName: String?
     private var properties: CreateNicknameProperties
 
@@ -84,8 +98,43 @@ class CreateNicknamePresenter: CreateNicknamePresenterProtocol {
     }
 
     func viewDidLoad() {
-        self.view?.setNickname(defaultName ?? "")
-        self.view?.setProperties(properties)
+        view?.setNickname(defaultName ?? "")
+        view?.setProperties(properties)
+
+        view?.namePublisher
+            .compactMap { $0 }
+            .assign(to: \.name, on: viewModel)
+            .store(in: &cancellables)
+
+        viewModel.$name
+            .compactMap { $0 }
+            .map { !ValidationProvider.validator(for: .nameLength).isValid($0) }
+            .assign(to: \.invalidLengthError, on: viewModel)
+            .store(in: &cancellables)
+
+        viewModel.$name
+            .withPrevious()
+            .map {
+                guard
+                    let previous = $0.previous,
+                    let current = $0.current,
+                    !ValidationProvider.validator(for: .nameLength).isValid(current)
+                else {
+                    return false
+                }
+
+                return current.count >= (previous?.count ?? 0)
+            }
+            .assign(to: \.shakeTextView, on: viewModel)
+            .store(in: &cancellables)
+
+        viewModel.$name
+            .compactMap { $0 }
+            .map { ValidationProvider.validator(for: .nameLength).isValid($0) }
+            .assign(to: \.enableCtaButton, on: viewModel)
+            .store(in: &cancellables)
+
+        view?.bind(to: viewModel)
     }
 
     func closeButtonPressed() {
