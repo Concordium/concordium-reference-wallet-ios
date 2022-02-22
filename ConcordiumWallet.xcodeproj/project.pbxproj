@@ -185,6 +185,10 @@
 		079F310826EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
 		079F310926EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
 		079F310A26EB69DD00ED96D3 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079F310626EB69DD00ED96D3 /* SettingsHelper.swift */; };
+		07A799BB27C5108E00251603 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A799BA27C5108E00251603 /* Validator.swift */; };
+		07A799BC27C5108E00251603 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A799BA27C5108E00251603 /* Validator.swift */; };
+		07A799BD27C5108E00251603 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A799BA27C5108E00251603 /* Validator.swift */; };
+		07A799BE27C5108E00251603 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A799BA27C5108E00251603 /* Validator.swift */; };
 		07DEC16B26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
 		07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */; };
@@ -1609,6 +1613,7 @@
 		079F30FC26EA0F9600ED96D3 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		079F310126EB5A2D00ED96D3 /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		079F310626EB69DD00ED96D3 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
+		07A799BA27C5108E00251603 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitmentsRandomness.swift; sourceTree = "<group>"; };
 		07E6E26F27B558A30083A852 /* intro_flow_onboarding_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_5.html; sourceTree = "<group>"; };
 		07E6E27027B558A30083A852 /* intro_flow_onboarding_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_4.html; sourceTree = "<group>"; };
@@ -2983,6 +2988,7 @@
 				19C2EC7A96B744D007EE5D7B /* UIView+Additions.swift */,
 				7FF07A9623EADBB100F1FC04 /* UIViewController+Additions.swift */,
 				C93A752E24464813003FDBE2 /* URL+queryParameters.swift */,
+				07A799BA27C5108E00251603 /* Validator.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -3994,6 +4000,7 @@
 				C9D342BA245884AA007ED45E /* ShowAlertProtocol.swift in Sources */,
 				7F48C1B1244DCD0B00997684 /* NetworkManager.swift in Sources */,
 				642ED94325EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
+				07A799BB27C5108E00251603 /* Validator.swift in Sources */,
 				7F48C1B2244DCD0B00997684 /* IdentityInfoViewModel.swift in Sources */,
 				5211BAB6250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
 				7F48C1B3244DCD0B00997684 /* ResourceRequest.swift in Sources */,
@@ -4237,6 +4244,7 @@
 				07519F7626FB5AAB00F4E6E3 /* Memo.swift in Sources */,
 				7F85B720246A9A7C00ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				077AC5FB26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
+				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B722246A9A7C00ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
 				7FB64A0B247D568400DC500E /* ExportViewController.swift in Sources */,
@@ -4573,6 +4581,7 @@
 				07519F7726FB5AAB00F4E6E3 /* Memo.swift in Sources */,
 				7F85B81D246A9AB600ED09B8 /* AccountTransactionsDataCellView.swift in Sources */,
 				077AC5FC26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
+				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B81E246A9AB600ED09B8 /* JSONObject.swift in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				7F85B821246A9AB600ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
@@ -5076,6 +5085,7 @@
 				528EB746255C1ED900010554 /* InitialAccountSummaryPresenter.swift in Sources */,
 				19C2EC67C03A0297F505AE6C /* AccountAddressQRCoordinator.swift in Sources */,
 				19C2E32CFA409D5BA9A50A60 /* ToastLabel.swift in Sources */,
+				07A799BC27C5108E00251603 /* Validator.swift in Sources */,
 				19C2EA06B4E5D36103E1E8A5 /* Logger.swift in Sources */,
 				5243C033278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				52055F822552B8F10071F7CA /* IdentityCardView.swift in Sources */,
