@@ -22,7 +22,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
 
-
     @IBOutlet weak var mainStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainStackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var amountTextField: UITextField!
