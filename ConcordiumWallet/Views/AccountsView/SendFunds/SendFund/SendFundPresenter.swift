@@ -185,10 +185,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
         
         guard let amountPublisher = view?.amountPublisher else { return }
         
-        //A publisher that returns true if the amount can be transfered from the account
-        //(this publisher will return true for an empty amount)
-        //we combine with fee message to make sure the insufficient funds label is updated
-        //also when the fee is calculated
+        // A publisher that returns true if the amount can be transfered from the account
+        // (this publisher will return true for an empty amount)
+        // we combine with fee message to make sure the insufficient funds label is updated
+        // also when the fee is calculated
         Publishers.CombineLatest(amountPublisher, viewModel.$feeMessage)
             .map { [weak self] amount, _ in
                 guard let self = self else { return false }
@@ -197,7 +197,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .assign(to: \.insufficientFunds, on: self.viewModel)
             .store(in: &cancellables)
         
-        //A publisher that returns true is the amount is sufficient and not empty
+        // A publisher that returns true is the amount is sufficient and not empty
         let validAmountPublisher = amountPublisher.map { [weak self] amount -> Bool in
             if amount.isEmpty {
                 return false
