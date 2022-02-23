@@ -182,8 +182,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
         self.delegate = delegate
         self.warningDisplayer = WarningDisplayer()
         self.warningDisplayer.delegate = self
-        self.warningDisplayer.$shownWarningDisplay.sink { warningVM in
-            self.viewModel.warning = warningVM
+        self.warningDisplayer.$shownWarningDisplay.sink { [weak self] warningVM in
+            self?.viewModel.warning = warningVM
         }.store(in: &cancellables)
     }
     
