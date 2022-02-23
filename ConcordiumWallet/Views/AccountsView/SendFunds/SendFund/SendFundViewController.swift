@@ -149,6 +149,10 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .assign(to: \.isEnabled, on: sendFundsButton)
             .store(in: &cancellables)
 
+        viewModel.$sendAllEnabled
+            .assign(to: \.isEnabled, on: sendAllButton)
+            .store(in: &cancellables)
+
         viewModel.$showMemoRemoveButton
             .map { !$0 }
             .assign(to: \.isHidden, on: removeMemoButton)
@@ -160,7 +164,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
                 self?.updateRecipientTextArea(text: text)
             })
             .store(in: &cancellables)
-        
+
+        viewModel.$sendAllAmount
+            .compactMap { $0 }
+            .assign(to: \.text, on: amountTextField)
+            .store(in: &cancellables)
+
     }
     
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
@@ -209,9 +218,8 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         presenter.userTappedRemoveMemo()
     }
 
-
     @IBAction func sendAllTapped(_ sender: Any) {
-        
+        presenter.userTappedSendAll()
     }
 
     @IBAction func sendFundTapped(_ sender: Any) {
@@ -278,6 +286,8 @@ extension SendFundViewController: UITextFieldDelegate {
             if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
                 return false
             }
+
+            presenter.userChangedAmount()
             // Allow only numbers, dot and up to six decimal points
             return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
         default:
