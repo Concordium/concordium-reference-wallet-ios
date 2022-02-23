@@ -18,6 +18,7 @@ enum AccountDetailsFlowEntryPoint {
     case details
     case send
     case receive
+    case enableShielded
 }
 
 class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
@@ -55,6 +56,8 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
             showSendFund()
         case .receive:
             showAccountAddressQR()
+        case .enableShielded:
+            showEnableShielding()
         }
     }
     
@@ -101,13 +104,27 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         self.childCoordinators.append(accountAddressQRCoordinator)
     }
     
+    func showEnableShielding() {
+        accountDetailsPresenter = AccountDetailsPresenter(dependencyProvider: dependencyProvider,
+                                                          account: account,
+                                                          delegate: self)
+        let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
+        navigationController.pushViewController(vc, animated: false)
+        showShieldedBalanceOnboarding(showShieldedDelegate: accountDetailsPresenter)
+    }
+    
     func showTransactionDetail(viewModel: TransactionViewModel) {
         let vc = TransactionDetailFactory.create(with: TransactionDetailPresenter(delegate: self, viewModel: viewModel))
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showBurgerMenuOverlay(account: AccountDataType, burgerMenuDismissDelegate: BurgerMenuDismissDelegate, showShieldedDelegate: ShowShieldedDelegate) {
-        let presenter = BurgerMenuPresenter(delegate: self, account: account, dismissDelegate: burgerMenuDismissDelegate, showShieldedDelegate: showShieldedDelegate)
+    func showBurgerMenuOverlay(account: AccountDataType,
+                               burgerMenuDismissDelegate: BurgerMenuDismissDelegate,
+                               showShieldedDelegate: ShowShieldedDelegate) {
+        let presenter = BurgerMenuPresenter(delegate: self,
+                                            account: account,
+                                            dismissDelegate: burgerMenuDismissDelegate,
+                                            showShieldedDelegate: showShieldedDelegate)
         let vc = BurgerMenuFactory.create(with: presenter)
         vc.modalPresentationStyle = .overFullScreen
         presenter.view = vc

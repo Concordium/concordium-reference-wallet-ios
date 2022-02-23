@@ -112,6 +112,11 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
         show(account: account, entryPoint: entryPoint)
     }
     
+    func enableShielded(on account: AccountDataType) {
+        let entryPoint = AccountDetailsFlowEntryPoint.enableShielded
+        show(account: account, entryPoint: entryPoint)
+    }
+    
     func noValidIdentitiesAvailable() {
         self.delegate?.noIdentitiesFound()
     }

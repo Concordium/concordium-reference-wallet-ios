@@ -498,6 +498,10 @@
 		5251EF9F27BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
 		5251EFA027BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
 		5251EFA127BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
+		5251EFA427C6301C006991DD /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EFA327C6301C006991DD /* AlertDisplayer.swift */; };
+		5251EFA527C6301D006991DD /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EFA327C6301C006991DD /* AlertDisplayer.swift */; };
+		5251EFA627C6301D006991DD /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EFA327C6301C006991DD /* AlertDisplayer.swift */; };
+		5251EFA727C6301D006991DD /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EFA327C6301C006991DD /* AlertDisplayer.swift */; };
 		52589B1725121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */ = {isa = PBXBuildFile; fileRef = 52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */; };
 		52589B2125121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */; };
 		52589B2225121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */; };
@@ -1733,6 +1737,7 @@
 		5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuPresenter.swift; sourceTree = "<group>"; };
 		5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowShieldedDelegate.swift; sourceTree = "<group>"; };
 		5251EF9D27BE895D006991DD /* WarningDisplayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDisplayer.swift; sourceTree = "<group>"; };
+		5251EFA327C6301C006991DD /* AlertDisplayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayer.swift; sourceTree = "<group>"; };
 		52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.4.1.TX_lib_decrypt_encrypted_amount.json; sourceTree = "<group>"; };
 		52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecryptAmountRequest.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -2506,6 +2511,14 @@
 			path = Warnings;
 			sourceTree = "<group>";
 		};
+		5251EFA227C63001006991DD /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				5251EFA327C6301C006991DD /* AlertDisplayer.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
 		527DE3442571254800333E65 /* ReleaseSchedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -2982,6 +2995,7 @@
 		7FF07AE523EAE0AC00F1FC04 /* AccountsView */ = {
 			isa = PBXGroup;
 			children = (
+				5251EFA227C63001006991DD /* Alerts */,
 				5251EF9C27BE8938006991DD /* Warnings */,
 				C924B2252431D38400081E23 /* AccountDetails */,
 				C968B9EC2448C36200E31BD8 /* AccountSubmitted */,
@@ -4020,6 +4034,7 @@
 				7F48C1F9244DCD0B00997684 /* SelectRecipientPresenter.swift in Sources */,
 				7F48C282244E181800997684 /* URL+queryParameters.swift in Sources */,
 				7FB64A0D247D568500DC500E /* ExportViewController.swift in Sources */,
+				5251EFA427C6301C006991DD /* AlertDisplayer.swift in Sources */,
 				7F48C1FA244DCD0B00997684 /* SelectRecipientViewController.swift in Sources */,
 				7F48C264244E17D100997684 /* CreateTransferRequest.swift in Sources */,
 				5251EF8D27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
@@ -4261,6 +4276,7 @@
 				7F85B768246A9A7C00ED09B8 /* OriginTypeEnum.swift in Sources */,
 				07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F85B769246A9A7C00ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
+				5251EFA627C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
@@ -4598,6 +4614,7 @@
 				7F85B864246A9AB600ED09B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
 				07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */,
+				5251EFA727C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
@@ -4936,6 +4953,7 @@
 				7FA0AE9624598D6500B7673F /* OriginTypeEnum.swift in Sources */,
 				529531BC256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				075A4BBF2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
+				5251EFA527C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				7FA0AE9324598D6500B7673F /* Details.swift in Sources */,
 				52B2CE4A24F6806B0092F8EB /* ArsInfo.swift in Sources */,

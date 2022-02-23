@@ -118,6 +118,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func createNewAccount()
     func createNewIdentity()
     func userPerformed(action: AccountCardAction, on account: AccountDataType)
+    func enableShielded(on account: AccountDataType)
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func didSelectMakeBackup()
@@ -132,9 +133,6 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
                             identityProviderSupport: String,
                             reference: String,
                             completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
-    func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
-    func showShieldedTransactionsAlert(for accountName: String, acceptCompletion: @escaping () -> Void, dismissCompletion: @escaping () -> Void)
-//    func showBackupWarningBanner(_ show: Bool)
     var isOnScreen: Bool { get }
 }
 
@@ -158,6 +156,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     weak var delegate: AccountsPresenterDelegate?
     private var cancellables: [AnyCancellable] = []
     var warningDisplayer: WarningDisplayer
+    var alertDisplayer = AlertDisplayer()
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
     var accounts: [AccountDataType] = [] {
@@ -186,6 +185,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
         self.warningDisplayer.$shownWarningDisplay.sink { warningVM in
             self.viewModel.warning = warningVM
         }.store(in: &cancellables)
+        self.alertDisplayer.delegate = self
     }
     
     func viewDidLoad() {
@@ -235,6 +235,17 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
 //                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
+                //we add to the alert list all the accounts that have something in the shielded balance, but do not show a shielded balance
+                let accountsWithPendingShieldedTransactions = updatedAccounts.filter { account in
+                    account.encryptedBalanceStatus != .decrypted && !account.showsShieldedBalance
+                }
+                for account in accountsWithPendingShieldedTransactions {
+                    //we add the alert in the queue (the queue knows whether it needs to show it and when)
+                    self.alertDisplayer.enqueueAlert(.shieldedTransfer(account: account, actionCompletion: { [weak self] in
+                        self?.delegate?.enableShielded(on: account)
+                    }, dismissCompletion: {}))
+                }
+                
                 #warning("RNI: Intentionally set to decrypted for MArch release")
                 // TODO: readd the lock after March release
                 self.viewModel.totalBalanceLockStatus = .decrypted
@@ -292,15 +303,29 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if finalizedAccounts.count > 1 {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            view?.showAccountFinalizedNotification(.multiple)
+            displayBackupAlert(notification: .multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            view?.showAccountFinalizedNotification(.singleAccount(accountName: account.name ?? ""))
+            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
     }
+    
+    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
+        let alert = AlertType.backup(notification: notification) { [weak self] in
+            self?.delegate?.didSelectMakeBackup()
+        } dismissCompletion: {
+            let extraAlert = AlertType.backupExtra(notification: notification) { [weak self] in
+                self?.delegate?.didSelectMakeBackup()
+            } dismissCompletion: {
+            }
+            self.alertDisplayer.enqueueAlert(extraAlert)
+        }
+        self.alertDisplayer.enqueueAlert(alert)
+    }
+    
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)
@@ -429,6 +454,14 @@ extension AccountsPresenter: WarningDisplayerDelegate {
             delegate?.didSelectMakeBackup()
         case .identityPending(let identity):
             delegate?.didSelectPendingIdentity(identity: identity)
+        }
+    }
+}
+
+extension AccountsPresenter: AlertDisplayerDelegate {
+    func showAlert(options: AlertOptions) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.showAlert(with: options)
         }
     }
 }
