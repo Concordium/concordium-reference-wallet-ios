@@ -45,6 +45,7 @@ enum AlertType {
         }
     }
     
+    // swiftlint:disable function_body_length
     func getAlertOptions(alertDismissedCompletion: @escaping () -> Void) -> AlertOptions {
         switch self {
         case .backup(let notification, let action, let dismiss):

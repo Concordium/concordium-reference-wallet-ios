@@ -17,7 +17,7 @@ class AccountsFactory {
         }
     }
 }
-// swiftlint:disable:next type_body_length
+
 class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail, ShowIdentityFailure {
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
@@ -158,7 +158,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         cell?.cellRow = indexPath.section
         return cell
     }
-
+    
+    // swiftlint:disable:next function_body_length
     func bind(to viewModel: AccountsListViewModel) {
         viewModel.$viewState.sink {
             self.setupUI(state: $0)

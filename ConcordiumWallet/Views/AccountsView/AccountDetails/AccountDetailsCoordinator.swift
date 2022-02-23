@@ -82,7 +82,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
     }
 
-    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance)  {
+    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
         let transferType: TransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,

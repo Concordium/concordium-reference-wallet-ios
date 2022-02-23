@@ -272,6 +272,4 @@ extension AccountEntity: AccountDataType {
              self.releaseScheduleEntity = newValue as? ReleaseScheduleEntity
         }
     }
-    
-    
 }

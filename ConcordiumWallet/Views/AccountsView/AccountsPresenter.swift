@@ -314,18 +314,17 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private func displayBackupAlert(notification: FinalizedAccountsNotification) {
-        let alert = AlertType.backup(notification: notification) { [weak self] in
+        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
             self?.delegate?.didSelectMakeBackup()
-        } dismissCompletion: {
-            let extraAlert = AlertType.backupExtra(notification: notification) { [weak self] in
+        }, dismissCompletion: {
+            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
                 self?.delegate?.didSelectMakeBackup()
-            } dismissCompletion: {
-            }
+            }, dismissCompletion: {
+            })
             self.alertDisplayer.enqueueAlert(extraAlert)
-        }
+        })
         self.alertDisplayer.enqueueAlert(alert)
     }
-    
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)

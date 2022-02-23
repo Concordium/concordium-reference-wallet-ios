@@ -60,8 +60,11 @@ class SanityChecker {
         self.showValidateIdentitiesAlert(report: report, mode: mode, completion: completion)
     }
     
-    // swiftlint:disable:next line_length
-    public func showValidateIdentitiesAlert(report: [(IdentityDataType?, [AccountDataType])], mode: SanityCheckerMode, completion: @escaping () -> Void) {
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
+    public func showValidateIdentitiesAlert(report: [(IdentityDataType?, [AccountDataType])],
+                                            mode: SanityCheckerMode,
+                                            completion: @escaping () -> Void) {
         switch mode {
         case .automatic:
             if report.count == 0 || AppSettings.ignoreMissingKeysForIdsOrAccountsAtLogin == true {
