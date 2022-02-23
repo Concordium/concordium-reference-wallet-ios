@@ -26,6 +26,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBOutlet weak var addMemoLabel: UILabel!
     @IBOutlet weak var sendFundButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var costMessageLabel: UILabel!
+    @IBOutlet weak var sendAllButton: StandardButton!
     @IBOutlet weak var sendFundsButton: StandardButton!
     @IBOutlet weak var selectRecipientWidgetView: UIView!
     @IBOutlet weak var addMemoWidgetView: WidgetView!
@@ -64,6 +65,8 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         presenter.view = self
         presenter.viewDidLoad()
+
+        errorMessageLabel.alpha = 0
 
         amountTextField.attributedPlaceholder =
             NSAttributedString(string: amountTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.primary])
@@ -134,8 +137,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .store(in: &cancellables)
 
         viewModel.$insufficientFunds
-            .map { !$0 }
-            .assign(to: \.isHidden, on: errorMessageLabel)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] hasSufficientFunds  in
+                UIView.animate(withDuration: 0.25) { [weak self] in
+                    self?.errorMessageLabel.alpha = hasSufficientFunds ? 1 : 0
+                }
+            })
             .store(in: &cancellables)
 
         viewModel.$sendButtonEnabled
@@ -201,7 +208,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBAction func removeMemoTapped(_ sender: Any) {
         presenter.userTappedRemoveMemo()
     }
-    
+
+
+    @IBAction func sendAllTapped(_ sender: Any) {
+        
+    }
+
     @IBAction func sendFundTapped(_ sender: Any) {
         guard let amount = amountTextField.text else { return }
 
