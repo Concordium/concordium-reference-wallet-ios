@@ -65,7 +65,7 @@ class AddMemoPresenter {
         
         viewModel.$memo
             .compactMap { $0 }
-            .map { !$0.hasValidSize }
+            .map { !ValidationProvider.validate(.memoSize($0)) }
             .assign(to: \.invalidMemoSizeError, on: viewModel)
             .store(in: &cancellables)
         
@@ -75,7 +75,7 @@ class AddMemoPresenter {
                 guard
                     let previous = $0.previous,
                     let current = $0.current,
-                    !current.hasValidSize
+                    !ValidationProvider.validate(.memoSize(current))
                 else {
                     return false
                 }
@@ -87,7 +87,7 @@ class AddMemoPresenter {
                 
         viewModel.$memo
             .compactMap { $0 }
-            .map { !$0.displayValue.isEmpty && $0.hasValidSize }
+            .map { ValidationProvider.validate(.memoSize($0)) }
             .assign(to: \.enableAddMemoToTransferButton, on: viewModel)
             .store(in: &cancellables)
         
