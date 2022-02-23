@@ -266,7 +266,7 @@ process on-chain.";
 "sendFund.confirmation.line3.fromAccount" = "from account: ";
 "sendFund.confirmation.line3.Account" = "Account: ";
 "sendFund.confirmation.line4.estimatedTransactionFee" = "Estimated transaction fee:\n";
-"sendFund.confirmation.buttonTitle" = "Yes, send funds";
+"sendFund.confirmation.buttonTitle" = "Send funds";
 "sendFund.memo.text" = "Memo:\n %@";
 
 "sendFund.balanceAtDisposal" = "Balance (at disposal)";
@@ -276,6 +276,7 @@ process on-chain.";
 "sendFund.scanQr" = "Scan QR";
 "sendFund.addressBook" = "Address book";
 "sendFund.or" = "or";
+"sendFund.button.finish" = "Finish";
 
 
 "addMemo.pageTitle" = "Add memo";
