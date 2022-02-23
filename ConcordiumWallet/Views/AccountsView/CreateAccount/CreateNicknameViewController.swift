@@ -62,9 +62,8 @@ class CreateNicknameViewController: KeyboardDismissableBaseViewController, Creat
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
 
-        subtitleTopConstraint.constant = -keyboardHeight
+        subtitleTopConstraint.constant = -(keyboardHeight / 2)
         nextButtonBottomConstraint.constant = keyboardHeight
-
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
