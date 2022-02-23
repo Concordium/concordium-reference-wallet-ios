@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class SendFundViewModel {
     @Published var recipientAddress: String?
@@ -198,6 +199,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         // (this publisher will return true for an empty amount)
         // we combine with fee message to make sure the insufficient funds label is updated
         // also when the fee is calculated
+
         Publishers.CombineLatest(amountPublisher, viewModel.$feeMessage)
             .map { [weak self] amount, _ in
                 guard let self = self else { return false }
@@ -205,7 +207,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }
             .assign(to: \.insufficientFunds, on: self.viewModel)
             .store(in: &cancellables)
-        
+
         // A publisher that returns true is the amount is sufficient and not empty
         let validAmountPublisher = amountPublisher.map { [weak self] amount -> Bool in
             if amount.isEmpty {
@@ -336,6 +338,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 
     func userTappedSendAll() {
+        guard !viewModel.selectedSendAllDisposableAmount else { return }
         viewModel.selectedSendAllDisposableAmount = true
         sendAllFundsIfNeeded()
     }
@@ -382,9 +385,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 Logger.error(error)
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 let cost = Int(value.cost) ?? 0
-                let calculatedAmount = GTU(intValue: disposalAmount - cost)
-                self?.viewModel.sendAllAmount = calculatedAmount.displayValue()
+                let totalAmount = GTU(intValue: disposalAmount - cost).displayValue()
+                self.viewModel.sendAllAmount = totalAmount
+                self.viewModel.insufficientFunds = !self.hasSufficientFunds(amount: totalAmount)
             }).store(in: &cancellables)
 
     }
