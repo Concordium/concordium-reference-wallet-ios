@@ -22,9 +22,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
     var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
 
+
+    @IBOutlet weak var mainStackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainStackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var addMemoLabel: UILabel!
-    @IBOutlet weak var sendFundButtonBottomConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var costMessageLabel: UILabel!
     @IBOutlet weak var sendAllButton: StandardButton!
     @IBOutlet weak var sendFundsButton: StandardButton!
@@ -48,6 +51,9 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBOutlet weak var recipientPlacehodlerLabel: UILabel!
     @IBOutlet weak var recipientTextFieldHeight: NSLayoutConstraint!
     @IBOutlet weak var errorMessageLabel: UILabel!
+
+    private var defaultMainStackViewTopConstraintConstant: CGFloat = 0
+    private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
 
     private var cancellables = [AnyCancellable]()
 
@@ -76,16 +82,21 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         amountTextField.delegate = self
         setupRecipientTextArea()
+
+        defaultMainStackViewBottomConstraintConstant = mainStackViewBottomConstraint.constant
+        defaultMainStackViewTopConstraintConstant = mainStackViewTopConstraint.constant
     }
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
-        sendFundButtonBottomConstraint.constant = keyboardHeight
+        mainStackViewBottomConstraint.constant = keyboardHeight
+        mainStackViewTopConstraint.constant = -(keyboardHeight / 2)
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
-        sendFundButtonBottomConstraint.constant = .zero
+        mainStackViewTopConstraint.constant = defaultMainStackViewTopConstraintConstant
+        mainStackViewBottomConstraint.constant = defaultMainStackViewBottomConstraintConstant
     }
 
     // swiftlint:disable:next function_body_length
