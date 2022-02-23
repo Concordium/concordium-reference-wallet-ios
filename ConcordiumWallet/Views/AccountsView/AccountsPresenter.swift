@@ -133,6 +133,7 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
                             reference: String,
                             completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
+    func showShieldedTransactionsAlert(for accountName: String, acceptCompletion: @escaping () -> Void, dismissCompletion: @escaping () -> Void)
 //    func showBackupWarningBanner(_ show: Bool)
     var isOnScreen: Bool { get }
 }

@@ -293,6 +293,17 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             })
         }
     }
+    
+    func showShieldedTransactionsAlert(for accountName: String, acceptCompletion: @escaping () -> Void, dismissCompletion: @escaping () -> Void) {
+        let showActionName = String(format: "accounts.alert.shiededtransactions.show", accountName)
+        let options = AlertOptions(title: "accounts.alert.shiededtransactions.title", message: "accounts.alert.shiededtransactions.message", actions: [
+            AlertAction(name: showActionName, completion: acceptCompletion, style: .default),
+            AlertAction(name: "accounts.alert.shiededtransactions.later", completion: dismissCompletion, style: .default),
+        ])
+        DispatchQueue.main.async { [weak self] in
+            self?.showAlert(with: options)
+        }
+    }
 
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {
         let title: String
