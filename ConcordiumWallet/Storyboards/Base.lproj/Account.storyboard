@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="395.66666666666674" width="396" height="506.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="396" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
@@ -448,44 +448,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rgm-rf-tFy">
-                                <rect key="frame" x="0.0" y="230.66666666666666" width="428" height="394.66666666666674"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
-                                        <rect key="frame" x="159.66666666666666" y="0.0" width="108.99999999999997" height="109"/>
-                                        <color key="tintColor" name="primary"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="109" id="6PN-QN-6VW"/>
-                                            <constraint firstAttribute="width" secondItem="K6y-ue-05u" secondAttribute="height" multiplier="1:1" id="Adh-4r-6XN"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
-                                        <rect key="frame" x="110.66666666666667" y="137.00000000000003" width="206.66666666666663" height="26.333333333333343"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                        <color key="textColor" name="primary"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="accountConfirmed.submitted"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submitted"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="191.33333333333331" width="398" height="139.33333333333331"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
-                                        <rect key="frame" x="103.66666666666669" y="358.66666666666674" width="221" height="36"/>
-                                        <string key="text">[This may take a few minutes to 
-process on-chain]</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" name="fadedText"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submittedMessage"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
+                                <rect key="frame" x="159.66666666666666" y="197.33333333333337" width="108.99999999999997" height="109"/>
+                                <color key="tintColor" name="primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="109" id="6PN-QN-6VW"/>
+                                    <constraint firstAttribute="width" secondItem="K6y-ue-05u" secondAttribute="height" multiplier="1:1" id="Adh-4r-6XN"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
+                                <rect key="frame" x="110.66666666666669" y="341.33333333333331" width="207" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                <color key="textColor" name="primary"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="accountConfirmed.submitted"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submitted"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWM-ta-B92" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="16" y="842" width="396" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
@@ -502,18 +482,38 @@ process on-chain]</string>
                                     <action selector="finishAction:" destination="wrn-j8-zZ3" eventType="touchUpInside" id="Oep-mP-5vM"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
+                                <rect key="frame" x="103.66666666666669" y="557.66666666666663" width="221" height="36"/>
+                                <string key="text">[This may take a few minutes to 
+process on-chain]</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" name="fadedText"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submittedMessage"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="15" y="398.33333333333337" width="398" height="139.33333333333337"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xed-gh-A2i"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xed-gh-A2i" firstAttribute="bottom" secondItem="SWM-ta-B92" secondAttribute="bottom" priority="999" id="3kF-cH-Dnf"/>
-                            <constraint firstItem="Rgm-rf-tFy" firstAttribute="width" secondItem="xed-gh-A2i" secondAttribute="width" id="7IF-r6-XWe"/>
+                            <constraint firstItem="K6y-ue-05u" firstAttribute="centerX" secondItem="xed-gh-A2i" secondAttribute="centerX" id="7Ih-2g-hme"/>
                             <constraint firstItem="SWM-ta-B92" firstAttribute="leading" secondItem="xed-gh-A2i" secondAttribute="leading" constant="16" id="DC1-O5-8aX"/>
-                            <constraint firstItem="Rgm-rf-tFy" firstAttribute="centerX" secondItem="xed-gh-A2i" secondAttribute="centerX" id="VP4-XH-BW6"/>
-                            <constraint firstItem="Rgm-rf-tFy" firstAttribute="centerY" secondItem="xed-gh-A2i" secondAttribute="centerY" constant="-40" id="Y1a-32-yQB"/>
-                            <constraint firstItem="Fzx-fk-CyW" firstAttribute="leading" secondItem="xed-gh-A2i" secondAttribute="leading" constant="15" id="hHi-tl-X9w"/>
+                            <constraint firstItem="T0a-3e-lti" firstAttribute="centerX" secondItem="xed-gh-A2i" secondAttribute="centerX" id="IhL-av-Plb"/>
+                            <constraint firstItem="Fzx-fk-CyW" firstAttribute="leading" secondItem="xed-gh-A2i" secondAttribute="leading" constant="15" id="MBN-5x-XXi"/>
+                            <constraint firstItem="3Mi-xH-4cJ" firstAttribute="centerX" secondItem="Fzx-fk-CyW" secondAttribute="centerX" id="S7U-j0-nux"/>
+                            <constraint firstItem="3Mi-xH-4cJ" firstAttribute="top" secondItem="Fzx-fk-CyW" secondAttribute="bottom" constant="20" id="SIM-9p-NgX"/>
+                            <constraint firstItem="T0a-3e-lti" firstAttribute="top" secondItem="K6y-ue-05u" secondAttribute="bottom" constant="35" id="c8g-H5-zRx"/>
+                            <constraint firstItem="Fzx-fk-CyW" firstAttribute="top" secondItem="T0a-3e-lti" secondAttribute="bottom" constant="30" id="kbe-PS-uWO"/>
+                            <constraint firstItem="Fzx-fk-CyW" firstAttribute="centerX" secondItem="xed-gh-A2i" secondAttribute="centerX" id="odW-QC-rB2"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SWM-ta-B92" secondAttribute="bottom" constant="20" id="rSn-Al-Eua"/>
                             <constraint firstItem="SWM-ta-B92" firstAttribute="centerX" secondItem="xed-gh-A2i" secondAttribute="centerX" id="uby-8v-Wit"/>
+                            <constraint firstItem="Fzx-fk-CyW" firstAttribute="centerY" secondItem="xed-gh-A2i" secondAttribute="centerY" id="zhj-fs-0oq"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2262,28 +2262,28 @@ process on-chain]</string>
     </scenes>
     <designables>
         <designable name="89o-5w-snD">
-            <size key="intrinsicContentSize" width="175" height="30"/>
+            <size key="intrinsicContentSize" width="43" height="30"/>
         </designable>
         <designable name="ORm-Zf-XcW">
-            <size key="intrinsicContentSize" width="30" height="30"/>
+            <size key="intrinsicContentSize" width="31" height="30"/>
         </designable>
         <designable name="QhU-KP-8h3">
-            <size key="intrinsicContentSize" width="282" height="30"/>
+            <size key="intrinsicContentSize" width="167" height="30"/>
         </designable>
         <designable name="SWM-ta-B92">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="ZgW-9v-gsl">
-            <size key="intrinsicContentSize" width="287" height="30"/>
+            <size key="intrinsicContentSize" width="132" height="30"/>
         </designable>
         <designable name="a9t-uc-NoB">
             <size key="intrinsicContentSize" width="152" height="30"/>
         </designable>
         <designable name="c2h-uj-ha8">
-            <size key="intrinsicContentSize" width="244" height="30"/>
+            <size key="intrinsicContentSize" width="205" height="30"/>
         </designable>
         <designable name="y8I-YT-27p">
-            <size key="intrinsicContentSize" width="215" height="30"/>
+            <size key="intrinsicContentSize" width="119" height="30"/>
         </designable>
     </designables>
     <resources>
