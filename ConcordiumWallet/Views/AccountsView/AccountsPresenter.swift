@@ -36,7 +36,7 @@ class AccountViewModel: Hashable {
     var areActionsEnabled = true
     private var cancellables: [AnyCancellable] = []
     @Published var state: SubmissionStatusEnum
-
+    
     var stateUpdater: AnyPublisher<SubmissionStatusEnum, Error>? {
         didSet {
             stateUpdater?.sink(receiveError: { _ in
@@ -111,6 +111,7 @@ class AccountsListViewModel {
     @Published var totalBalanceLockStatus: ShieldedAccountEncryptionStatus  = .decrypted
     @Published var atDisposal = GTU(intValue: 0)
     @Published var staked = GTU(intValue: 0)
+    @Published var warning: WarningViewModel?
 }
 
 protocol AccountsPresenterDelegate: AnyObject {
@@ -120,6 +121,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func didSelectMakeBackup()
+    func didSelectPendingIdentity(identity: IdentityDataType)
     func newTermsAvailable()
 }
 
@@ -131,7 +133,7 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
                             reference: String,
                             completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
     func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
-    func showBackupWarningBanner(_ show: Bool)
+//    func showBackupWarningBanner(_ show: Bool)
     var isOnScreen: Bool { get }
 }
 
@@ -146,13 +148,15 @@ protocol AccountsPresenterProtocol: AnyObject {
     func userPressedCreate()
     func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
+    func userPressedWarning()
+    func userPressedDisimissWarning()
 }
 
 class AccountsPresenter: AccountsPresenterProtocol {
     weak var view: AccountsViewProtocol?
     weak var delegate: AccountsPresenterDelegate?
     private var cancellables: [AnyCancellable] = []
-
+    var warningDisplayer: WarningDisplayer
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
     var accounts: [AccountDataType] = [] {
@@ -176,6 +180,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider, delegate: AccountsPresenterDelegate) {
         self.dependencyProvider = dependencyProvider
         self.delegate = delegate
+        self.warningDisplayer = WarningDisplayer()
+        self.warningDisplayer.delegate = self
+        self.warningDisplayer.$shownWarningDisplay.sink { [weak self] warningVM in
+            self?.viewModel.warning = warningVM
+        }.store(in: &cancellables)
     }
     
     func viewDidLoad() {
@@ -199,6 +208,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func refresh(showLoadingIndicator: Bool) {
         accounts = dependencyProvider.storageManager().getAccounts()
+        self.updatePendingIdentitiesWarnings()
         var publisher = dependencyProvider.accountsService().updateAccountsBalances(accounts: accounts).eraseToAnyPublisher()
         if showLoadingIndicator {
             publisher = publisher
@@ -231,6 +241,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.viewModel.atDisposal = GTU(intValue: atDisposal)
                 self.viewModel.staked = GTU(intValue: staked)
                 self.checkForIdentityFailed()
+                self.updatePendingIdentitiesWarnings()
             }).store(in: &cancellables)
     }
     
@@ -316,7 +327,19 @@ class AccountsPresenter: AccountsPresenterProtocol {
     private func checkForBackup() {
         let finalizedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == .finalized }
         let showWarning = finalizedAccounts.isEmpty ? false : AppSettings.needsBackupWarning
-        view?.showBackupWarningBanner(showWarning)
+        warningDisplayer.clearBackupWarnings()
+        if showWarning {
+            warningDisplayer.addWarning(Warning.backup)
+        }
+    }
+    
+    private func updatePendingIdentitiesWarnings() {
+        let identities = dependencyProvider.storageManager().getIdentities()
+        let pendingIdentities = identities.filter { $0.state == .pending }
+        warningDisplayer.clearIdentityWarnings()
+        for identity in pendingIdentities {
+            warningDisplayer.addWarning(Warning.identityPending(identity: identity))
+        }
     }
     
     private func checkForIdentityFailed() {
@@ -387,5 +410,24 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func userSelectedMakeBackup() {
         delegate?.didSelectMakeBackup()
+    }
+    
+    func userPressedWarning() {
+        warningDisplayer.pressedWarning()
+    }
+    
+    func userPressedDisimissWarning() {
+        warningDisplayer.dismissedWarning()
+    }
+}
+
+extension AccountsPresenter: WarningDisplayerDelegate {
+    func performAction(for warning: Warning) {
+        switch warning {
+        case .backup:
+            delegate?.didSelectMakeBackup()
+        case .identityPending(let identity):
+            delegate?.didSelectPendingIdentity(identity: identity)
+        }
     }
 }

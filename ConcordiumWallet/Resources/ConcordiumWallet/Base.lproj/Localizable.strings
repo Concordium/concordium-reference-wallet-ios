@@ -114,6 +114,7 @@ add_identity_data = "Reveal Identity Data";
 "accounts.amountwillbeunshielded" = "Amount will be unshielded";
 
 "accounts.backupwarning.text" = "As your accounts are not backed up, you risk losing your tokens.";
+"accounts.identitywarning.text" = "Your identity %@ is still getting verified.";
 
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new to Concordium?";

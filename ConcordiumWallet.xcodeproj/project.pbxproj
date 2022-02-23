@@ -518,6 +518,10 @@
 		5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
 		5251EF8F27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
 		5251EF9027BA6803006991DD /* ShowShieldedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */; };
+		5251EF9E27BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
+		5251EF9F27BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
+		5251EFA027BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
+		5251EFA127BE895D006991DD /* WarningDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251EF9D27BE895D006991DD /* WarningDisplayer.swift */; };
 		52589B1725121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */ = {isa = PBXBuildFile; fileRef = 52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */; };
 		52589B2125121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */; };
 		52589B2225121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */; };
@@ -1758,6 +1762,7 @@
 		5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuViewController.swift; sourceTree = "<group>"; };
 		5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuPresenter.swift; sourceTree = "<group>"; };
 		5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowShieldedDelegate.swift; sourceTree = "<group>"; };
+		5251EF9D27BE895D006991DD /* WarningDisplayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDisplayer.swift; sourceTree = "<group>"; };
 		52589B1625121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.4.1.TX_lib_decrypt_encrypted_amount.json; sourceTree = "<group>"; };
 		52589B2025121FC900ADD35B /* MakeDecryptAmountRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecryptAmountRequest.swift; sourceTree = "<group>"; };
 		52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMultiBalanceCell.swift; sourceTree = "<group>"; };
@@ -2545,6 +2550,14 @@
 			path = BurgerMenu;
 			sourceTree = "<group>";
 		};
+		5251EF9C27BE8938006991DD /* Warnings */ = {
+			isa = PBXGroup;
+			children = (
+				5251EF9D27BE895D006991DD /* WarningDisplayer.swift */,
+			);
+			path = Warnings;
+			sourceTree = "<group>";
+		};
 		527DE3442571254800333E65 /* ReleaseSchedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -3021,6 +3034,7 @@
 		7FF07AE523EAE0AC00F1FC04 /* AccountsView */ = {
 			isa = PBXGroup;
 			children = (
+				5251EF9C27BE8938006991DD /* Warnings */,
 				C924B2252431D38400081E23 /* AccountDetails */,
 				C968B9EC2448C36200E31BD8 /* AccountSubmitted */,
 				074C00A126FB12AA0090F7FE /* AddMemo */,
@@ -4061,6 +4075,7 @@
 				7F48C25E244E17D100997684 /* Aci.swift in Sources */,
 				7F48C1EE244DCD0B00997684 /* OutcomeEnum.swift in Sources */,
 				7F48C1EF244DCD0B00997684 /* RequestPasswordPresenter.swift in Sources */,
+				5251EF9E27BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				52055F862552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				7F48C1F0244DCD0B00997684 /* RequestPasswordDelegate.swift in Sources */,
 				7F48C1F1244DCD0B00997684 /* GeneralError.swift in Sources */,
@@ -4463,6 +4478,7 @@
 				070D61E127B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				5211BAAE24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
+				5251EFA027BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				19C2EBBA614AB2996127C30C /* CreateExportPasswordPresenter.swift in Sources */,
 				19C2E7AA27024C4F32B39273 /* ExportPresenter.swift in Sources */,
 				079F310426EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
@@ -4799,6 +4815,7 @@
 				070D61E227B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				5211BAAF24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
+				5251EFA127BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				19C2EAAD7644A803CCE64786 /* EncryptionMetadata.swift in Sources */,
 				19C2E693A35A80A8317F32D8 /* ExportContainer.swift in Sources */,
 				079F310526EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
@@ -5151,6 +5168,7 @@
 				19C2E3613F5F49C7E38F27D0 /* ImportCoordinator.swift in Sources */,
 				19C2E7D6B87413391EF4E3F9 /* IdentityImporter.swift in Sources */,
 				19C2EA6E881AA115EE706CBC /* Importer.swift in Sources */,
+				5251EF9F27BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				642A293E25FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
 				64FD33902601FBC400563703 /* Credential.swift in Sources */,
 				077AC5F526E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,

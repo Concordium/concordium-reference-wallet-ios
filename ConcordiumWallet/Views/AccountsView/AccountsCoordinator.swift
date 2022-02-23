@@ -14,6 +14,7 @@ protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
     func createNewAccount()
     func noIdentitiesFound()
+    func showIdentities()
 }
 
 class AccountsCoordinator: Coordinator {
@@ -85,6 +86,10 @@ class AccountsCoordinator: Coordinator {
 extension AccountsCoordinator: AccountsPresenterDelegate {
     func didSelectMakeBackup() {
         showExport()
+    }
+    
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+        delegate?.showIdentities()
     }
     
     func createNewAccount() {
