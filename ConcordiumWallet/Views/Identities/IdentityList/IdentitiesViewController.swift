@@ -183,11 +183,14 @@ extension IdentitiesViewController: UITableViewDataSource {
             switch viewModel.state {
             case .confirmed:
                 cell?.identityCardView?.statusIcon.image = UIImage(named: "ok_icon")
+                cell?.identityCardView?.applyConcordiumEdgeStyle(color: UIColor.primary)
             case .pending:
                 cell?.identityCardView?.statusIcon.image = UIImage(named: "pending")
                 cell?.identityCardView?.statusIcon.tintColor = .primary
+                cell?.identityCardView?.applyConcordiumEdgeStyle(color: UIColor.fadedText)
             case .failed:
                 cell?.identityCardView?.statusIcon.image = UIImage(named: "problem_icon")
+                cell?.identityCardView?.applyConcordiumEdgeStyle(color: .error)
             }
         }
         return cell!
