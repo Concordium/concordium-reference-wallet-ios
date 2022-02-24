@@ -13,7 +13,6 @@ enum Warning {
     case backup
     case identityPending(identity: IdentityDataType)
     
-    
     func identifier() -> String {
         switch self {
         case .backup:

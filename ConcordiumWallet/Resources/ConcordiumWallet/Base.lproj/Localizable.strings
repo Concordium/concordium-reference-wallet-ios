@@ -116,6 +116,14 @@ add_identity_data = "Reveal Identity Data";
 "accounts.backupwarning.text" = "As your accounts are not backed up, you risk losing your tokens.";
 "accounts.identitywarning.text" = "Your identity %@ is still getting verified.";
 
+
+ "accounts.alert.shiededtransactions.title" = "Shielded transaction received";
+ "accounts.alert.shiededtransactions.message" = "Your account %@ has received a shielded transaction, and the shielded balance of %@ is currently hidden.\n\n
+You can show the shielded balance of the account via the option below, or later via the menu in the upper right corner of the account’s page.";
+ "accounts.alert.shiededtransactions.show" = "Show shielded balance on %@";
+ "accounts.alert.shiededtransactions.later" = "Later";
+
+
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new to Concordium?";
 "gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must go through a verification process to obtain your Concordium identity and your initial account. You will be guided through this process in the next pages.\n\n\nIf you have previously used Concordium Mobile Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Mobile Wallet.\n\n\nHow would you like to continue?";

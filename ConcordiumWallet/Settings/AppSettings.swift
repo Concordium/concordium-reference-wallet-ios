@@ -23,6 +23,7 @@ enum UserDefaultKeys: String {
     case lastKnownAppVersion
     case hasRunBefore
     case dismissedWarningIds
+    case dismissedAlertIds
 }
 
 struct AppSettings {
@@ -130,6 +131,15 @@ struct AppSettings {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.dismissedWarningIds.rawValue)
+        }
+    }
+    
+    static var dismissedAlertIds: [String] {
+        get {
+            UserDefaults.standard.array(forKey: UserDefaultKeys.dismissedAlertIds.rawValue) as? [String] ?? []
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.dismissedAlertIds.rawValue)
         }
     }
 }
