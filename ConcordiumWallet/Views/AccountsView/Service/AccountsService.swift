@@ -344,6 +344,14 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         return (sum, containsNil ? .partiallyDecrypted : .decrypted )
     }
     
+    private func getHasShieldedTransactions(balance: AccountBalance, account: AccountDataType ) -> Bool {
+        // if we don't have incoming amounts, we just return the self amount and we know its value
+        guard let incomingAmounts = balance.finalizedBalance?.accountEncryptedAmount?.incomingAmounts else {
+            return false
+        }
+        return incomingAmounts.count > 0 ? true : false
+    }
+    
     private func lookupEcryptedAmount(encryptedAmounts: [String], shieldedAmounts: [ShieldedAmountType]) -> [Int?] {
         encryptedAmounts.map { (encryptedAmount) -> Int? in
             let value = shieldedAmounts.filter { $0.encryptedValue == encryptedAmount }.first
@@ -389,12 +397,13 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 
                 guard let balance = savedBalance else { return account }
                 let (finalizedShieldedAmount, shieldedEncryptionStatus) = self.getFinalizedShieldedAmount(balance: balance, account: account)
-                
+                let hasShieldedTransactions = self.getHasShieldedTransactions(balance: balance, account: account)
                 let releaseSchedule = ReleaseScheduleEntity(from: balance.finalizedBalance?.accountReleaseSchedule)
                 return account.withUpdatedFinalizedBalance((Int(balance.finalizedBalance?.accountAmount ?? "0") ?? 0),
                                                            finalizedShieldedAmount,
                                                            shieldedEncryptionStatus,
                                                            EncryptedBalanceEntity(accountEncryptedAmount: balance.finalizedBalance?.accountEncryptedAmount),
+                                                           hasShieldedTransactions: hasShieldedTransactions,
                                                            accountNonce: balance.finalizedBalance?.accountNonce ?? 0,
                                                            bakerId: (balance.finalizedBalance?.accountBaker?.bakerID ?? -1),
                                                            staked: (Int(balance.finalizedBalance?.accountBaker?.stakedAmount ?? "0") ?? 0),
