@@ -54,7 +54,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>71</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Concordium Support Mail</key>
 	<string>idiss@concordium.software</string>
 	<key>LSApplicationCategoryType</key>
