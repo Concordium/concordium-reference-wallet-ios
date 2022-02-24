@@ -28,8 +28,7 @@ class SendFundViewModel {
     @Published var sendAllEnabled = false
     @Published var sendAllAmount: String?
     @Published var selectedSendAllDisposableAmount = false
-
-    var disposalAmount: GTU?
+    @Published var disposalAmount: GTU?
     
     func setup(account: AccountDataType, transferType: TransferType) {
         switch transferType {
@@ -227,7 +226,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .assign(to: \.sendButtonEnabled, on: self.viewModel)
             .store(in: &cancellables)
 
-        Just(viewModel.disposalAmount)
+        viewModel.$disposalAmount
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .map { $0.intValue > 0 }
@@ -303,7 +302,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             
             let recipient: RecipientDataType
             if selectedRecipient.address == self.account.address {
-                //if we try to make a simple or an encrypted transfer to own account, we show an error
+                // if we try to make a simple or an encrypted transfer to own account, we show an error
                 if self.transferType == .simpleTransfer || self.transferType == .encryptedTransfer {
                     self.view?.showToast(withMessage: "".localized, time: 1)
                     return
