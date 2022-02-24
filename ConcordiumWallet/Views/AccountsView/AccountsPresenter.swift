@@ -316,12 +316,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     private func displayBackupAlert(notification: FinalizedAccountsNotification) {
         let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
             self?.delegate?.didSelectMakeBackup()
-        }, dismissCompletion: {
+        }, dismissCompletion: { [weak self] in
             let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
                 self?.delegate?.didSelectMakeBackup()
             }, dismissCompletion: {
             })
-            self.alertDisplayer.enqueueAlert(extraAlert)
+            self?.alertDisplayer.enqueueAlert(extraAlert)
         })
         self.alertDisplayer.enqueueAlert(alert)
     }
