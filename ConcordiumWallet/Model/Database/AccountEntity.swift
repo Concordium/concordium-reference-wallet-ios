@@ -43,6 +43,7 @@ protocol AccountDataType: DataStoreProtocol {
     var transferFilters: TransferFilter? { get set }
     
     var showsShieldedBalance: Bool {get set}
+    var hasShieldedTransactions: Bool {get set}
     
     func withUpdatedForecastBalance(_ forecastBalance: Int,
                                     forecastShieldedBalance: Int,
@@ -52,6 +53,7 @@ protocol AccountDataType: DataStoreProtocol {
                                      _ finalizedEncryptedBalance: Int,
                                      _ status: ShieldedAccountEncryptionStatus,
                                      _ encryptedBalance: EncryptedBalanceDataType,
+                                     hasShieldedTransactions: Bool,
                                      accountNonce: Int,
                                      bakerId: Int,
                                      staked: Int,
@@ -79,6 +81,7 @@ extension AccountDataType {
                                      _ finalizedEncryptedBalance: Int,
                                      _ status: ShieldedAccountEncryptionStatus,
                                      _ encryptedBalance: EncryptedBalanceDataType,
+                                     hasShieldedTransactions: Bool,
                                      accountNonce: Int, bakerId: Int, staked: Int,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
         _ = write {
@@ -91,6 +94,7 @@ extension AccountDataType {
             pAccount.bakerId = bakerId
             pAccount.stakedAmount = staked
             pAccount.releaseSchedule = releaseSchedule
+            pAccount.hasShieldedTransactions = hasShieldedTransactions
         }
         return self
     }
@@ -178,6 +182,8 @@ final class AccountEntity: Object {
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
     @objc dynamic var showsShieldedBalance: Bool = false
+    @objc dynamic var hasShieldedTransactions: Bool = false
+    
     override class func primaryKey() -> String? {
         "address"
     }

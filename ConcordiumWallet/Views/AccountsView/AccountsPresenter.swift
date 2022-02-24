@@ -237,7 +237,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
 //                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
                 //we add to the alert list all the accounts that have something in the shielded balance, but do not show a shielded balance
                 let accountsWithPendingShieldedTransactions = updatedAccounts.filter { account in
-                    account.encryptedBalanceStatus != .decrypted && !account.showsShieldedBalance
+                    account.hasShieldedTransactions && !account.showsShieldedBalance
                 }
                 for account in accountsWithPendingShieldedTransactions {
                     //we add the alert in the queue (the queue knows whether it needs to show it and when)
