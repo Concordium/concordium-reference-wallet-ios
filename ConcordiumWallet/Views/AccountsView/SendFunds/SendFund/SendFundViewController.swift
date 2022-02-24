@@ -20,12 +20,20 @@ class SendFundFactory {
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
-    var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
+    var amountPublisher: AnyPublisher<String, Never> {
+        return Publishers.Merge(
+            amountTextField.textPublisher,
+            sendAllButton.tapPublisher.map { "" }
+        ).map { $0 }.eraseToAnyPublisher()
+    }
 
+    @IBOutlet weak var mainStackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainStackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var addMemoLabel: UILabel!
-    @IBOutlet weak var sendFundButtonBottomConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var costMessageLabel: UILabel!
+    @IBOutlet weak var sendAllButton: StandardButton!
     @IBOutlet weak var sendFundsButton: StandardButton!
     @IBOutlet weak var selectRecipientWidgetView: UIView!
     @IBOutlet weak var addMemoWidgetView: WidgetView!
@@ -48,6 +56,9 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBOutlet weak var recipientTextFieldHeight: NSLayoutConstraint!
     @IBOutlet weak var errorMessageLabel: UILabel!
 
+    private var defaultMainStackViewTopConstraintConstant: CGFloat = 0
+    private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
+
     private var cancellables = [AnyCancellable]()
 
     init?(coder: NSCoder, presenter: SendFundPresenterProtocol) {
@@ -65,6 +76,8 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         presenter.view = self
         presenter.viewDidLoad()
 
+        errorMessageLabel.alpha = 0
+
         amountTextField.attributedPlaceholder =
             NSAttributedString(string: amountTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.primary])
         
@@ -73,16 +86,21 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         amountTextField.delegate = self
         setupRecipientTextArea()
+
+        defaultMainStackViewBottomConstraintConstant = mainStackViewBottomConstraint.constant
+        defaultMainStackViewTopConstraintConstant = mainStackViewTopConstraint.constant
     }
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
         super.keyboardWillShow(keyboardHeight)
-        sendFundButtonBottomConstraint.constant = keyboardHeight
+        mainStackViewBottomConstraint.constant = keyboardHeight
+        mainStackViewTopConstraint.constant = -(keyboardHeight / 2)
     }
 
     override func keyboardWillHide(_ keyboardHeight: CGFloat) {
         super.keyboardWillHide(keyboardHeight)
-        sendFundButtonBottomConstraint.constant = .zero
+        mainStackViewTopConstraint.constant = defaultMainStackViewTopConstraintConstant
+        mainStackViewBottomConstraint.constant = defaultMainStackViewBottomConstraintConstant
     }
 
     // swiftlint:disable:next function_body_length
@@ -134,12 +152,20 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .store(in: &cancellables)
 
         viewModel.$insufficientFunds
-            .map { !$0 }
-            .assign(to: \.isHidden, on: errorMessageLabel)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] hasSufficientFunds  in
+                UIView.animate(withDuration: 0.25) { [weak self] in
+                    self?.errorMessageLabel.alpha = hasSufficientFunds ? 1 : 0
+                }
+            })
             .store(in: &cancellables)
 
         viewModel.$sendButtonEnabled
             .assign(to: \.isEnabled, on: sendFundsButton)
+            .store(in: &cancellables)
+
+        viewModel.$sendAllEnabled
+            .assign(to: \.isEnabled, on: sendAllButton)
             .store(in: &cancellables)
 
         viewModel.$showMemoRemoveButton
@@ -153,7 +179,11 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
                 self?.updateRecipientTextArea(text: text)
             })
             .store(in: &cancellables)
-        
+
+        viewModel.$sendAllAmount
+            .compactMap { $0 }
+            .assign(to: \.text, on: amountTextField)
+            .store(in: &cancellables)
     }
     
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
@@ -201,7 +231,11 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBAction func removeMemoTapped(_ sender: Any) {
         presenter.userTappedRemoveMemo()
     }
-    
+
+    @IBAction func sendAllTapped(_ sender: Any) {
+        presenter.userTappedSendAll()
+    }
+
     @IBAction func sendFundTapped(_ sender: Any) {
         guard let amount = amountTextField.text else { return }
 
@@ -266,6 +300,8 @@ extension SendFundViewController: UITextFieldDelegate {
             if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
                 return false
             }
+
+            presenter.userChangedAmount()
             // Allow only numbers, dot and up to six decimal points
             return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
         default:
