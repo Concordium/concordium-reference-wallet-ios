@@ -16,6 +16,7 @@ protocol IdentitiesPresenterDelegate: AnyObject {
     func createIdentitySelected()
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
+    func finishedPresentingIdentities()
 }
 
 class IdentitiesPresenter: IdentityGeneralPresenter {
@@ -31,6 +32,10 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
     init(dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider, delegate: IdentitiesPresenterDelegate? = nil) {
         self.dependencyProvider = dependencyProvider
         self.delegate = delegate
+    }
+    
+    deinit {
+        self.delegate?.finishedPresentingIdentities()
     }
     
     override func viewWillAppear() {

@@ -16,6 +16,7 @@ protocol MoreMenuViewProtocol: AnyObject {
 // MARK: -
 // MARK: Delegate
 protocol MoreMenuPresenterDelegate: AnyObject {
+    func identitiesSelected()
     func addressBookSelected()
     func importSelected()
     func exportSelected()
@@ -29,7 +30,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
 protocol MoreMenuPresenterProtocol: AnyObject {
 	var view: MoreMenuViewProtocol? { get set }
     func viewDidLoad()
-    
+    func userSelectedIdentities()
     func userSelectedAddressBook()
     func userSelectedImport()
     func userSelectedExport()
@@ -51,6 +52,10 @@ class MoreMenuPresenter {
 }
 
 extension MoreMenuPresenter: MoreMenuPresenterProtocol {
+    func userSelectedIdentities() {
+        delegate?.identitiesSelected()
+    }
+    
     func userSelectedAddressBook() {
         delegate?.addressBookSelected()
     }

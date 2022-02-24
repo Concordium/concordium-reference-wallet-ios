@@ -32,7 +32,7 @@ class ExportViewController: BaseViewController, ExportViewProtocol, Storyboarded
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "more.export".localized
+        title = "export.title".localized
         presenter.view = self
         presenter.viewDidLoad()
     }
