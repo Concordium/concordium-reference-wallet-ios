@@ -20,7 +20,12 @@ class SendFundFactory {
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
-    var amountPublisher: AnyPublisher<String, Never> { amountTextField.textPublisher }
+    var amountPublisher: AnyPublisher<String, Never> {
+        return Publishers.Merge(
+            amountTextField.textPublisher,
+            sendAllButton.tapPublisher.map { "" }
+        ).map { $0 }.eraseToAnyPublisher()
+    }
 
     @IBOutlet weak var mainStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainStackViewTopConstraint: NSLayoutConstraint!
@@ -177,7 +182,10 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         viewModel.$sendAllAmount
             .compactMap { $0 }
-            .assign(to: \.text, on: amountTextField)
+            .sink(receiveValue: { [weak self] text in
+                self?.amountTextField.text = text
+                self?.amountPublisher.append("dsada")
+            })
             .store(in: &cancellables)
 
     }

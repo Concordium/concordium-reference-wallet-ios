@@ -205,25 +205,26 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }
             .assign(to: \.insufficientFunds, on: self.viewModel)
             .store(in: &cancellables)
-
-        // A publisher that returns true is the amount is sufficient and not empty
-        let validAmountPublisher = amountPublisher.map { [weak self] amount -> Bool in
-            if amount.isEmpty {
-                return false
-            }
-            guard let self = self else { return false }
-            return self.hasSufficientFunds(amount: amount)
-        }.eraseToAnyPublisher()
         
-        Publishers.CombineLatest3(viewModel.$recipientAddress, viewModel.$feeMessage, validAmountPublisher)
+        Publishers.CombineLatest4(viewModel.$recipientAddress, viewModel.$feeMessage, amountPublisher, viewModel.$sendAllAmount)
             .receive(on: DispatchQueue.main)
-            .map { (recipientAddress, feeMessage, validAmount) in
-                !(recipientAddress ?? "").isEmpty &&
-                !(feeMessage ?? "").isEmpty &&
-                validAmount
-            }
-            .assign(to: \.sendButtonEnabled, on: self.viewModel)
+
+            .sink(receiveValue: { [weak self] (recipientAddress, feeMessage, amount, sendAllAmount) in
+                guard let self = self else { return }
+
+                let validAmount: Bool
+
+                if self.viewModel.selectedSendAllDisposableAmount, let sendAllAmount = self.viewModel.sendAllAmount {
+                    validAmount = self.hasSufficientFunds(amount: sendAllAmount)
+                } else {
+                    validAmount = self.hasSufficientFunds(amount: amount)
+                }
+
+                self.viewModel.sendButtonEnabled = !(recipientAddress ?? "").isEmpty && !(feeMessage ?? "").isEmpty && validAmount
+
+            })
             .store(in: &cancellables)
+
 
         viewModel.$disposalAmount
             .compactMap { $0 }
@@ -387,7 +388,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 let cost = Int(value.cost) ?? 0
                 let totalAmount = GTU(intValue: disposalAmount - cost).displayValue()
                 self.viewModel.sendAllAmount = totalAmount
-                self.viewModel.insufficientFunds = !self.hasSufficientFunds(amount: totalAmount)
             }).store(in: &cancellables)
 
     }
