@@ -83,18 +83,18 @@
                                             <constraint firstItem="oKn-Ar-x55" firstAttribute="leading" secondItem="Vko-5I-WRq" secondAttribute="leading" id="k5Z-fa-ux5"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-SX-eTS" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-SX-eTS" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="142" y="92.5" width="90" height="33"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="BHB-YH-8FK"/>
                                             <constraint firstAttribute="height" constant="33" id="XNN-4u-iGX"/>
                                         </constraints>
-                                        <color key="tintColor" name="buttonText"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Send all">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
-                                        </buttonConfiguration>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Send all">
+                                            <color key="titleColor" name="buttonText"/>
+                                        </state>
                                         <connections>
                                             <action selector="sendAllTapped:" destination="O2r-4W-sZC" eventType="touchUpInside" id="Afo-aH-Xz3"/>
                                         </connections>
@@ -1048,7 +1048,7 @@ is less than 0.01 cents]</string>
             <size key="intrinsicContentSize" width="158" height="30"/>
         </designable>
         <designable name="Mfp-SX-eTS">
-            <size key="intrinsicContentSize" width="81.5" height="33.5"/>
+            <size key="intrinsicContentSize" width="58" height="32"/>
         </designable>
         <designable name="Sxw-xB-mg9">
             <size key="intrinsicContentSize" width="174" height="21"/>
