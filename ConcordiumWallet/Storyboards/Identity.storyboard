@@ -402,14 +402,14 @@ How would you like to continue?]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="375" height="16"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="221"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z5F-8M-xsD" id="FHV-qe-9m3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDA-GU-4dR" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="8" width="343" height="0.0"/>
+                                                    <rect key="frame" x="16" y="8" width="343" height="205"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
                                             </subviews>
@@ -519,7 +519,7 @@ How would you like to continue?]</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Before you begin]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcP-jJ-WKx">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Before you begin]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcP-jJ-WKx">
                                 <rect key="frame" x="93" y="40" width="189.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="primary"/>
@@ -582,6 +582,7 @@ So remember to keep your passcode safe!]</string>
                             <constraint firstItem="bcP-jJ-WKx" firstAttribute="top" secondItem="arf-We-R8e" secondAttribute="top" constant="40" id="DiC-Wk-rJw"/>
                             <constraint firstItem="XPb-gG-l6K" firstAttribute="centerX" secondItem="arf-We-R8e" secondAttribute="centerX" id="UE6-Ry-kYW"/>
                             <constraint firstItem="bcP-jJ-WKx" firstAttribute="centerX" secondItem="arf-We-R8e" secondAttribute="centerX" id="VI5-VX-PWn"/>
+                            <constraint firstItem="bcP-jJ-WKx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="arf-We-R8e" secondAttribute="leading" constant="20" id="WWv-lM-OJW"/>
                             <constraint firstItem="OTh-XR-yZH" firstAttribute="top" secondItem="bcP-jJ-WKx" secondAttribute="bottom" id="Zx2-h1-er8"/>
                             <constraint firstItem="arf-We-R8e" firstAttribute="bottom" secondItem="XPb-gG-l6K" secondAttribute="bottom" priority="999" id="hWQ-2t-2hT"/>
                             <constraint firstItem="XPb-gG-l6K" firstAttribute="leading" secondItem="arf-We-R8e" secondAttribute="leading" constant="20" id="scL-99-G42"/>
@@ -650,7 +651,7 @@ You can press continue to have a look at the app, while you wait.]</string>
                                     <constraint firstAttribute="height" constant="160" id="yyj-Dk-6fH"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="376.5" width="335" height="139"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -690,22 +691,22 @@ You can press continue to have a look at the app, while you wait.]</string>
     </scenes>
     <designables>
         <designable name="MRM-MM-HP3">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="Sbp-1u-Y29">
-            <size key="intrinsicContentSize" width="112" height="30"/>
+            <size key="intrinsicContentSize" width="162" height="30"/>
         </designable>
         <designable name="XPb-gG-l6K">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="YIs-du-qey">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="h8Y-S7-jdl">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="ilq-Bf-T4l">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="186" height="30"/>
         </designable>
     </designables>
     <resources>

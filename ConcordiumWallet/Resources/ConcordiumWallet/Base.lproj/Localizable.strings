@@ -132,8 +132,8 @@ add_identity_data = "Reveal Identity Data";
 
 
 "importinfo.title" = "Import";
-"importinfo.subtitle" = "How to import on iOS";
-"importinfo.details" = "On iOS, importing works by opening the media in which you keep your exported file. By using the sharing option built into iOS, you can choose to share the file with Concordium Mobile Wallet. When doing this, Concordium Mobile Wallet will ask you for the password chosen during export, followed by the import of your accounts, identities and address book.";
+"importinfo.subtitle" = "How to restore from a backup on iOS";
+"importinfo.details" = "On iOS, restoring from a backup works by opening the media in which you keep your exported file. By using the sharing option built into iOS, you can choose to share the file with the Concordium app. When doing this, the wallet will ask you for the password chosen you made the backup, followed by the import of your accounts, identities and address book.";
 
 
 
@@ -340,6 +340,7 @@ process on-chain.";
 "more.addressBook" = "Address Book";
 "more.import" = "Restore backup";
 "more.export" = "Make backup";
+"export.title" = "Export";
 "export.explainingText" = "Here you can export your identities, accounts and the address book.\n\nThe exported data includes private keys which give access to your identities and accounts. For this reason the data will be encrypted under a password that you will be asked to select during the process. It is important that you store the password safely and securely. The password will be needed for access to exported data (e.g. if you want to import an account into the Concordium Client).";
 "export.button.continue" = "Continue";
 "export.unfinalizedAccounts" = "The following accounts are either failed or not ready on the chain, so they cannot be exported. \n";
