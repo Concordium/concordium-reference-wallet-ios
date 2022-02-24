@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import UIKit
 
 class SendFundViewModel {
     @Published var recipientAddress: String?
