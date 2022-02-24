@@ -226,10 +226,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .store(in: &cancellables)
 
         viewModel.$disposalAmount
-            .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .map { $0.intValue > 0 }
-            .assign(to: \.sendAllEnabled, on: viewModel)
+            .sink(receiveValue: { [weak self] disposalAmount in
+                self?.viewModel.sendAllEnabled = disposalAmount.intValue > 0
+            })
             .store(in: &cancellables)
 
         view?.bind(to: viewModel)
