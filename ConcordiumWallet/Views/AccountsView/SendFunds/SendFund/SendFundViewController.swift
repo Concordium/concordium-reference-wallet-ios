@@ -182,12 +182,8 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         viewModel.$sendAllAmount
             .compactMap { $0 }
-            .sink(receiveValue: { [weak self] text in
-                self?.amountTextField.text = text
-                self?.amountPublisher.append("dsada")
-            })
+            .assign(to: \.text, on: amountTextField)
             .store(in: &cancellables)
-
     }
     
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
