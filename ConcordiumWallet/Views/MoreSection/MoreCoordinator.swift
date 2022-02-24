@@ -7,15 +7,20 @@ import Foundation
 import UIKit
 import Combine
 
+protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate { }
+
 class MoreCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    private var dependencyProvider: MoreFlowCoordinatorDependencyProvider
+    private var dependencyProvider: MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
     
+    weak var delegate: MoreCoordinatorDelegate?
+    
     init(navigationController: UINavigationController,
-         dependencyProvider: MoreFlowCoordinatorDependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider) {
+         dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider & MoreFlowCoordinatorDependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
+         parentCoordinator: MoreCoordinatorDelegate) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.loginDependencyProvider = dependencyProvider
@@ -30,6 +35,23 @@ class MoreCoordinator: Coordinator, ShowAlert {
         showMenu()
     }
 
+    func showIdentities() {
+        let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
+                                                          dependencyProvider: dependencyProvider,
+                                                          parentCoordinator: self)
+        self.childCoordinators.append(identitiesCoordinator)
+        identitiesCoordinator.showInitial(animated: true)
+    }
+    
+    func showCreateNewIdentity() {
+        let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
+                                                          dependencyProvider: dependencyProvider,
+                                                          parentCoordinator: self)
+        self.childCoordinators.append(identitiesCoordinator)
+        identitiesCoordinator.start()
+        identitiesCoordinator.showCreateNewIdentity()
+    }
+    
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(delegate: self))
         vc.tabBarItem = UITabBarItem(title: "more_tab_title".localized, image: UIImage(named: "tab_bar_other_icon"), tag: 0)
@@ -71,6 +93,7 @@ class MoreCoordinator: Coordinator, ShowAlert {
     
     // MARK: Export
     func showExport() {
+        navigationController.popToRootViewController(animated: false)
         let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
         navigationController.pushViewController(vc, animated: true)
     }
@@ -110,6 +133,9 @@ class MoreCoordinator: Coordinator, ShowAlert {
 }
 
 extension MoreCoordinator: MoreMenuPresenterDelegate {
+    func identitiesSelected() {
+        showIdentities()
+    }
     func addressBookSelected() {
         showAddressBook()
     }
@@ -236,3 +262,16 @@ extension MoreCoordinator: ExportPresenterDelegate {
 extension MoreCoordinator: AboutPresenterDelegate {}
 
 extension MoreCoordinator: ImportExport {}
+
+extension MoreCoordinator: IdentitiesCoordinatorDelegate {
+    
+    func noIdentitiesFound() {
+        self.delegate?.noIdentitiesFound()
+    }
+    
+    func finishedDisplayingIdentities() {
+        self.childCoordinators.removeAll { coordinator in
+            coordinator is CreateExportPasswordCoordinator
+        }
+    }
+}

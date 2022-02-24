@@ -53,18 +53,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showMainTabbar() {
-        let identitiesCoordinator = IdentitiesCoordinator(navigationController: BaseNavigationController(),
-                                                          dependencyProvider: defaultProvider,
-                                                          parentCoordinator: self)
-        
         let accountsCoordinator = AccountsCoordinator(navigationController: BaseNavigationController(),
                                                       dependencyProvider: defaultProvider)
         
         let moreCoordinator = MoreCoordinator(navigationController: BaseNavigationController(),
-                                              dependencyProvider: defaultProvider)
+                                              dependencyProvider: defaultProvider,
+                                              parentCoordinator: self)
         
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
-                                                    identitiesCoordinator: identitiesCoordinator,
                                                     moreCoordinator: moreCoordinator)
         sanityChecker.delegate = tabBarController
         self.navigationController.setNavigationBarHidden(true, animated: false)
@@ -238,7 +234,10 @@ extension AppCoordinator: UIAdaptivePresentationControllerDelegate {
     }
 }
 
-extension AppCoordinator: IdentitiesCoordinatorDelegate {
+extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate {
+    func finishedDisplayingIdentities() {
+    }
+    
     func noIdentitiesFound() {
         self.navigationController.setNavigationBarHidden(true, animated: false)
         showInitialIdentityCreation()
