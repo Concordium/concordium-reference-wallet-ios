@@ -34,6 +34,10 @@ extension UIColor {
     class var errorText: UIColor {
         return UIColor(named: "errorText") ?? UIColor.magenta
     }
+
+    class var error: UIColor {
+        return UIColor(named: "error") ?? UIColor.magenta
+    }
     
     class var whiteText: UIColor {
         return UIColor(named: "whiteText") ?? UIColor.magenta
