@@ -94,7 +94,7 @@ class SendFundViewModel {
 // MARK: View
 protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
     func bind(to viewModel: SendFundViewModel)
-    var amountPublisher: AnyPublisher<String, Never> { get }
+    var amountSubject: PassthroughSubject<String, Never> { get }
     var recipientAddressPublisher: AnyPublisher<String, Never> { get }
     
     func showAddressInvalid()
@@ -191,14 +191,15 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self?.selectedRecipient = RecipientEntity(name: "", address: address)
         }).store(in: &cancellables)
         
-        guard let amountPublisher = view?.amountPublisher else { return }
+        guard let amountSubject = view?.amountSubject else { return }
         
         // A publisher that returns true if the amount can be transfered from the account
         // (this publisher will return true for an empty amount)
         // we combine with fee message to make sure the insufficient funds label is updated
         // also when the fee is calculated
 
-        Publishers.CombineLatest(amountPublisher, viewModel.$feeMessage)
+        Publishers.CombineLatest(amountSubject, viewModel.$feeMessage)
+            .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .map { [weak self] amount, _ in
                 guard let self = self else { return false }
                 return !self.hasSufficientFunds(amount: amount)
@@ -206,25 +207,20 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .assign(to: \.insufficientFunds, on: self.viewModel)
             .store(in: &cancellables)
         
-        Publishers.CombineLatest4(viewModel.$recipientAddress, viewModel.$feeMessage, amountPublisher, viewModel.$sendAllAmount)
+            Publishers.CombineLatest3(
+                viewModel.$recipientAddress,
+                viewModel.$feeMessage,
+                amountSubject
+            )
             .receive(on: DispatchQueue.main)
-
-            .sink(receiveValue: { [weak self] (recipientAddress, feeMessage, amount, sendAllAmount) in
-                guard let self = self else { return }
-
-                let validAmount: Bool
-
-                if self.viewModel.selectedSendAllDisposableAmount, let sendAllAmount = self.viewModel.sendAllAmount {
-                    validAmount = self.hasSufficientFunds(amount: sendAllAmount)
-                } else {
-                    validAmount = self.hasSufficientFunds(amount: amount)
-                }
-
-                self.viewModel.sendButtonEnabled = !(recipientAddress ?? "").isEmpty && !(feeMessage ?? "").isEmpty && validAmount
-
-            })
+            .map { [weak self] (recipientAddress, feeMessage, amount) in
+                guard let self = self else { return false }
+                return !(recipientAddress ?? "").isEmpty &&
+                       !(feeMessage ?? "").isEmpty &&
+                       self.hasSufficientFunds(amount: amount)
+            }
+            .assign(to: \.sendButtonEnabled, on: viewModel)
             .store(in: &cancellables)
-
 
         viewModel.$disposalAmount
             .compactMap { $0 }
@@ -387,6 +383,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 guard let self = self else { return }
                 let cost = Int(value.cost) ?? 0
                 let totalAmount = GTU(intValue: disposalAmount - cost).displayValue()
+                self.view?.amountSubject.send(totalAmount)
                 self.viewModel.sendAllAmount = totalAmount
             }).store(in: &cancellables)
 
