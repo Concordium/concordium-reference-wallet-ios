@@ -119,9 +119,9 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showBurgerMenuOverlay(account: AccountDataType,
-                               burgerMenuDismissDelegate: BurgerMenuDismissDelegate,
+                               burgerMenuDismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
                                showShieldedDelegate: ShowShieldedDelegate) {
-        let presenter = BurgerMenuPresenter(delegate: self,
+        let presenter = BurgerMenuAccountDetailsPresenter(delegate: self,
                                             account: account,
                                             dismissDelegate: burgerMenuDismissDelegate,
                                             showShieldedDelegate: showShieldedDelegate)
@@ -276,8 +276,9 @@ extension AccountDetailsCoordinator: TransactionDetailPresenterDelegate {
     
 }
 
-extension AccountDetailsCoordinator: BurgerMenuPresenterDelegate {
-    func pressedOption(action: BurgerMenuAction, account: AccountDataType) {
+extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
+    typealias Action = BurgerMenuAccountDetailsAction
+    func pressedOption(action: BurgerMenuAccountDetailsAction, account: AccountDataType) {
         let keyWindow = UIApplication.shared.connectedScenes
             .filter({$0.activationState == .foregroundActive})
             .map({$0 as? UIWindowScene})
@@ -292,7 +293,7 @@ extension AccountDetailsCoordinator: BurgerMenuPresenterDelegate {
         case .transferFilters:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showTransferFilters(account: account)
-        case .shieldedBalance(let shouldShow, let showShieldedDelegate):
+        case .shieldedBalance(_, let shouldShow, let showShieldedDelegate):
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             //we only go to the onboarding flow if we should show the shielded balance
             if shouldShow {

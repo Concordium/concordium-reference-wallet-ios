@@ -1242,7 +1242,7 @@ process on-chain]</string>
                                                     <rect key="frame" x="16" y="17.666666666666671" width="306.66666666666669" height="36"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="on3-pT-G6S">
-                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="36"/>
+                                                            <rect key="frame" x="0.0" y="7.6666666666666643" width="20" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="yhL-t3-R7n"/>
                                                             </constraints>
@@ -1624,107 +1624,75 @@ process on-chain]</string>
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bh3-Js-vRv" userLabel="Release Widget Button" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="15" y="114" width="398" height="58"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccx-gP-HLE">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="58"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="[Release schedule]">
-                                            <color key="titleColor" name="text"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="burgermenu.releaseschedule"/>
-                                        </userDefinedRuntimeAttributes>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Hf8-Vy-nFR">
+                                <rect key="frame" x="0.0" y="114" width="428" height="778"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BurgerMenuOptionCell" id="9xT-ao-oF0" customClass="BurgerMenuOptionCell" customModule="Mock" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9xT-ao-oF0" id="qre-dR-f6f">
+                                            <rect key="frame" x="0.0" y="0.0" width="428" height="68"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUd-2T-RcF" userLabel="Release Widget Button" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="5" width="398" height="58"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRb-M8-kut">
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="58"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <state key="normal" title="[OPTION]">
+                                                                <color key="titleColor" name="text"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="buttonPressed:" destination="9xT-ao-oF0" eventType="touchUpInside" id="ynJ-jb-Tkk"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="BRb-M8-kut" firstAttribute="top" secondItem="SUd-2T-RcF" secondAttribute="top" id="44P-qh-l0r"/>
+                                                        <constraint firstAttribute="trailing" secondItem="BRb-M8-kut" secondAttribute="trailing" id="PkR-oH-406"/>
+                                                        <constraint firstAttribute="bottom" secondItem="BRb-M8-kut" secondAttribute="bottom" id="V1b-Dd-4JZ"/>
+                                                        <constraint firstAttribute="height" constant="58" id="VdK-uh-y5w"/>
+                                                        <constraint firstItem="BRb-M8-kut" firstAttribute="leading" secondItem="SUd-2T-RcF" secondAttribute="leading" id="aBf-hy-zVT"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SUd-2T-RcF" firstAttribute="leading" secondItem="qre-dR-f6f" secondAttribute="leading" constant="15" id="1Bo-qo-xVe"/>
+                                                <constraint firstItem="SUd-2T-RcF" firstAttribute="top" secondItem="qre-dR-f6f" secondAttribute="top" constant="5" id="t9V-ds-lMb"/>
+                                                <constraint firstAttribute="bottom" secondItem="SUd-2T-RcF" secondAttribute="bottom" constant="5" id="uWJ-nj-0XI"/>
+                                                <constraint firstAttribute="trailing" secondItem="SUd-2T-RcF" secondAttribute="trailing" constant="15" id="xAw-Wh-LSD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <action selector="pressedReleaseScheduleWithSender:" destination="ezT-gf-3hm" eventType="touchUpInside" id="NmD-o3-QIN"/>
+                                            <outlet property="optionButton" destination="BRb-M8-kut" id="763-R0-4fT"/>
                                         </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="ODW-iA-RvN"/>
-                                    <constraint firstAttribute="trailing" secondItem="ccx-gP-HLE" secondAttribute="trailing" id="cfE-ic-L2k"/>
-                                    <constraint firstItem="ccx-gP-HLE" firstAttribute="leading" secondItem="bh3-Js-vRv" secondAttribute="leading" id="lKw-zD-MLk"/>
-                                    <constraint firstItem="ccx-gP-HLE" firstAttribute="top" secondItem="bh3-Js-vRv" secondAttribute="top" id="oFo-cE-p19"/>
-                                    <constraint firstAttribute="bottom" secondItem="ccx-gP-HLE" secondAttribute="bottom" id="xy2-ka-8K3"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvP-S0-EAx" userLabel="Transfer Widget Button" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="15" y="180" width="398" height="58"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5e6-po-SKW">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="58"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="[Transfer Filters]">
-                                            <color key="titleColor" name="text"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="burgermenu.transferfilters"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="pressedTransferFiltersWithSender:" destination="ezT-gf-3hm" eventType="touchUpInside" id="MX3-Vn-zpO"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="5e6-po-SKW" firstAttribute="top" secondItem="jvP-S0-EAx" secondAttribute="top" id="5SY-pv-bSO"/>
-                                    <constraint firstAttribute="bottom" secondItem="5e6-po-SKW" secondAttribute="bottom" id="Zin-FO-4g2"/>
-                                    <constraint firstAttribute="trailing" secondItem="5e6-po-SKW" secondAttribute="trailing" id="dam-AD-p7G"/>
-                                    <constraint firstAttribute="height" constant="58" id="e0g-al-UvI"/>
-                                    <constraint firstItem="5e6-po-SKW" firstAttribute="leading" secondItem="jvP-S0-EAx" secondAttribute="leading" id="fgc-ig-9sg"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noe-eY-68P" userLabel="Show shielded balance on Main Button" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="15" y="246" width="398" height="58"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzB-7d-yIf">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="58"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="[Show shielded balance on Main]">
-                                            <color key="titleColor" name="text"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="burgermenu.showshieldedbalance"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="pressedShieldedBalance:" destination="ezT-gf-3hm" eventType="touchUpInside" id="RCk-EU-jkZ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="fzB-7d-yIf" firstAttribute="top" secondItem="noe-eY-68P" secondAttribute="top" id="3sg-aq-Vww"/>
-                                    <constraint firstAttribute="trailing" secondItem="fzB-7d-yIf" secondAttribute="trailing" id="jVj-FJ-AhB"/>
-                                    <constraint firstItem="fzB-7d-yIf" firstAttribute="leading" secondItem="noe-eY-68P" secondAttribute="leading" id="tor-Tx-WLG"/>
-                                    <constraint firstAttribute="bottom" secondItem="fzB-7d-yIf" secondAttribute="bottom" id="yam-Qc-L1Z"/>
-                                    <constraint firstAttribute="height" constant="58" id="zWH-EG-Uin"/>
-                                </constraints>
-                            </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ezT-gf-3hm" id="KVN-2u-ERS"/>
+                                    <outlet property="delegate" destination="ezT-gf-3hm" id="kez-Lb-EcC"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EEG-nY-ckZ"/>
                         <color key="backgroundColor" name="backgroundBurgerMenu"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="bh3-Js-vRv" secondAttribute="trailing" constant="15" id="0ht-UG-ggo"/>
-                            <constraint firstItem="jvP-S0-EAx" firstAttribute="top" secondItem="bh3-Js-vRv" secondAttribute="bottom" constant="8" symbolic="YES" id="GGI-IJ-xEV"/>
-                            <constraint firstItem="jvP-S0-EAx" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="15" id="Jzc-y2-Z0R"/>
-                            <constraint firstItem="noe-eY-68P" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="15" id="LFL-iw-ncH"/>
-                            <constraint firstItem="noe-eY-68P" firstAttribute="top" secondItem="5e6-po-SKW" secondAttribute="bottom" constant="8" symbolic="YES" id="MLZ-dv-QAd"/>
-                            <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="jvP-S0-EAx" secondAttribute="trailing" constant="15" id="Nid-pj-pgO"/>
-                            <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="noe-eY-68P" secondAttribute="trailing" constant="15" id="Njc-1J-LGL"/>
-                            <constraint firstItem="bh3-Js-vRv" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" constant="15" id="bOG-77-dac"/>
-                            <constraint firstItem="bh3-Js-vRv" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="70" id="jys-St-GiJ"/>
+                            <constraint firstItem="Hf8-Vy-nFR" firstAttribute="leading" secondItem="EEG-nY-ckZ" secondAttribute="leading" id="1eJ-iX-GsM"/>
+                            <constraint firstItem="EEG-nY-ckZ" firstAttribute="trailing" secondItem="Hf8-Vy-nFR" secondAttribute="trailing" id="PMU-TM-HOU"/>
+                            <constraint firstItem="Hf8-Vy-nFR" firstAttribute="bottom" secondItem="EEG-nY-ckZ" secondAttribute="bottom" id="S7F-t3-C2b"/>
+                            <constraint firstItem="Hf8-Vy-nFR" firstAttribute="top" secondItem="EEG-nY-ckZ" secondAttribute="top" constant="70" id="xU2-kr-Mfe"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="I0C-4b-ufK" appends="YES" id="DY3-PT-jTk"/>
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="shieldedBalanceButton" destination="fzB-7d-yIf" id="qAq-1k-PSd"/>
-                        <outlet property="shieldedBalanceWidgetView" destination="noe-eY-68P" id="cHP-UL-LUv"/>
+                        <outlet property="tableView" destination="Hf8-Vy-nFR" id="K9F-P2-xYN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vtO-xm-tYa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1995,7 +1963,7 @@ process on-chain]</string>
                                                     <rect key="frame" x="16" y="10" width="69.333333333333329" height="45"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-2M-Gz7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="45"/>
+                                                            <rect key="frame" x="0.0" y="12" width="20" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="fXR-G3-f7f"/>
                                                             </constraints>
@@ -2285,7 +2253,7 @@ process on-chain]</string>
         <image name="checkmark" width="38" height="38"/>
         <image name="confirm" width="195" height="195"/>
         <image name="ok_x2" width="60" height="38"/>
-        <image name="problem_icon" width="45" height="45"/>
+        <image name="problem_icon" width="21" height="21"/>
         <image name="recipient_address_qr_icon" width="38" height="38"/>
         <image name="send" width="18" height="18"/>
         <image name="warning_backup" width="30" height="30"/>
