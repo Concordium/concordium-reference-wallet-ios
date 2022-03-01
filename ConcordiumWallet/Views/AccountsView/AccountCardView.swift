@@ -140,7 +140,7 @@ class AccountCardView: UIView, NibLoadable {
         self.accountName.text = accountName
         self.accountOwner.text = accountOwner
         
-        self.totalAmount.text = totalAmount
+        self.totalAmount.text = publicBalanceAmount
         self.atDisposalAmount.text = atDisposalAmount
         
         initialAccountLabel.isHidden = !isInitialAccount
