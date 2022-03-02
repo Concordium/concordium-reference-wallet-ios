@@ -25,6 +25,7 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case transferFilters
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case dismiss
+    case decrypt
     
     func getDisplayName() -> String {
         switch self {
@@ -38,6 +39,8 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             } else {
                 return String(format: "burgermenu.hideshieldedbalance".localized, accountName)
             }
+        case .decrypt:
+            return "burgermenu.decrypt".localized
         case .dismiss:
             return "" //this will not be shown in the ui
         }
@@ -56,6 +59,8 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     private var account: AccountDataType
     init(delegate: BurgerMenuAccountDetailsPresenterDelegate,
          account: AccountDataType,
+         balance: AccountBalanceTypeEnum,
+         showsDecrypt: Bool,
          dismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
          showShieldedDelegate: ShowShieldedDelegate) {
         self.delegate = delegate
@@ -65,9 +70,25 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
             self.actions = [.releaseSchedule,
                             .transferFilters]
         } else {
-            self.actions = [.releaseSchedule,
-                            .transferFilters,
-                            .shieldedBalance(accountName: account.displayName, shouldShow: !account.showsShieldedBalance, delegate: showShieldedDelegate)]
+            if balance == .balance {
+                self.actions = [.releaseSchedule,
+                                .transferFilters,
+                                .shieldedBalance(accountName: account.displayName,
+                                                 shouldShow: !account.showsShieldedBalance,
+                                                 delegate: showShieldedDelegate)]
+            } else {
+                if showsDecrypt {
+                    self.actions = [.decrypt,
+                                    .shieldedBalance(accountName: account.displayName,
+                                                     shouldShow: !account.showsShieldedBalance,
+                                                     delegate: showShieldedDelegate)]
+                } else {
+                    self.actions = [.shieldedBalance(accountName: account.displayName,
+                                                     shouldShow: !account.showsShieldedBalance,
+                                                     delegate: showShieldedDelegate)]
+                }
+            }
+            
         }
     }
     

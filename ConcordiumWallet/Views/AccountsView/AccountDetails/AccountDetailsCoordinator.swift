@@ -119,12 +119,16 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showBurgerMenuOverlay(account: AccountDataType,
+                               balanceType: AccountBalanceTypeEnum,
+                               showsDecrypt: Bool,
                                burgerMenuDismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
                                showShieldedDelegate: ShowShieldedDelegate) {
         let presenter = BurgerMenuAccountDetailsPresenter(delegate: self,
-                                            account: account,
-                                            dismissDelegate: burgerMenuDismissDelegate,
-                                            showShieldedDelegate: showShieldedDelegate)
+                                                          account: account,
+                                                          balance: balanceType,
+                                                          showsDecrypt: showsDecrypt,
+                                                          dismissDelegate: burgerMenuDismissDelegate,
+                                                          showShieldedDelegate: showShieldedDelegate)
         let vc = BurgerMenuFactory.create(with: presenter)
         vc.modalPresentationStyle = .overFullScreen
         presenter.view = vc
@@ -219,8 +223,12 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         parentCoordinator?.accountRemoved()
     }
     
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter) {
+    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
+                                      balanceType: AccountBalanceTypeEnum,
+                                      showsDecrypt: Bool) {
         self.showBurgerMenuOverlay(account: accountDetailsPresenter.account,
+                                   balanceType: balanceType,
+                                   showsDecrypt: showsDecrypt,
                                    burgerMenuDismissDelegate: accountDetailsPresenter,
                                    showShieldedDelegate: accountDetailsPresenter)
     }
@@ -299,7 +307,7 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
             if shouldShow {
                 showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
             }
-        case .dismiss:
+        case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         }
     }

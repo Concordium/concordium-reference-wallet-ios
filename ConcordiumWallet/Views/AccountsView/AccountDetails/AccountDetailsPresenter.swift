@@ -27,7 +27,9 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 // MARK: -
 // MARK: Delegate
 protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter)
+    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
+                                      balanceType: AccountBalanceTypeEnum,
+                                      showsDecrypt: Bool)
 
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
     func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
@@ -231,9 +233,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         delegate?.accountDetailsPresenter(self, removeFailedAccount: account)
     }
 
-     func burgerButtonTapped() {
+    func burgerButtonTapped() {
         viewModel.toggleMenu()
-        delegate?.accountDetailsShowBurgerMenu(self)
+        delegate?.accountDetailsShowBurgerMenu(self, balanceType: self.balanceType, showsDecrypt: viewModel.showUnlockButton)
     }
 
     func pressedUnlock() {
@@ -394,6 +396,8 @@ extension AccountDetailsPresenter: BurgerMenuAccountDetailsDismissDelegate {
             if !shouldShow {
                 showShieldedBalance(shouldShow: false)
             }
+        } else if case BurgerMenuAccountDetailsAction.decrypt = action {
+            pressedUnlock()
         }
     }
 }
