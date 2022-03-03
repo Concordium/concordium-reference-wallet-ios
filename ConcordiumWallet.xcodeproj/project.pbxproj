@@ -125,14 +125,6 @@
 		07519F9E26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
 		07519F9F26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
 		07519FA026FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */; };
-		075A070927C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070827C7DE6E009F15B8 /* UIControl+Extensions.swift */; };
-		075A070A27C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070827C7DE6E009F15B8 /* UIControl+Extensions.swift */; };
-		075A070B27C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070827C7DE6E009F15B8 /* UIControl+Extensions.swift */; };
-		075A070C27C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070827C7DE6E009F15B8 /* UIControl+Extensions.swift */; };
-		075A070E27C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070D27C7DE9F009F15B8 /* UIButton+Extensions.swift */; };
-		075A070F27C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070D27C7DE9F009F15B8 /* UIButton+Extensions.swift */; };
-		075A071027C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070D27C7DE9F009F15B8 /* UIButton+Extensions.swift */; };
-		075A071127C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A070D27C7DE9F009F15B8 /* UIButton+Extensions.swift */; };
 		075A4BB92719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BB82719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift */; };
 		075A4BBA2719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BB82719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift */; };
 		075A4BBB2719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A4BB82719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift */; };
@@ -1614,8 +1606,6 @@
 		07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Additions.swift"; sourceTree = "<group>"; };
 		07519F9126FCBF6C00F4E6E3 /* HashingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingHelper.swift; sourceTree = "<group>"; };
 		07519F9C26FDC0EB00F4E6E3 /* EncodingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingProtocol.swift; sourceTree = "<group>"; };
-		075A070827C7DE6E009F15B8 /* UIControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
-		075A070D27C7DE9F009F15B8 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		075A4BB82719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyReferenceInfoWidgetPresenter.swift; sourceTree = "<group>"; };
 		075A4BBD2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyReferenceInfoWidgetViewController.swift; sourceTree = "<group>"; };
 		075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowIdentityFailureProtocol.swift; sourceTree = "<group>"; };
@@ -3012,10 +3002,8 @@
 				7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */,
 				077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */,
 				529457C0274EB7440027EAA2 /* TermsHelper.swift */,
-				075A070D27C7DE9F009F15B8 /* UIButton+Extensions.swift */,
 				C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */,
 				7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */,
-				075A070827C7DE6E009F15B8 /* UIControl+Extensions.swift */,
 				6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */,
 				7FF07A9123EADBB100F1FC04 /* UIImage+Additions.swift */,
 				C924B2232430799400081E23 /* UILabel+localized.swift */,
@@ -3891,7 +3879,6 @@
 				074C00A326FB12F20090F7FE /* AddMemoViewController.swift in Sources */,
 				64DB66BA25DE649D00F4C605 /* AboutPresenter.swift in Sources */,
 				528EB759256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
-				075A070927C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */,
 				527DE3462571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				7F48C146244DCD0B00997684 /* ScanAddressQRPresenter.swift in Sources */,
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
@@ -3939,7 +3926,6 @@
 				7F48C160244DCD0B00997684 /* IdentityChoosePresenter.swift in Sources */,
 				7F48C161244DCD0B00997684 /* KeychainWrapper.swift in Sources */,
 				7F48C163244DCD0B00997684 /* UIButton+StoryboardLocalization.swift in Sources */,
-				075A070E27C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */,
 				077AC5FE26E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				7F48C25B244E17D100997684 /* AccNonce.swift in Sources */,
 				7F48C164244DCD0B00997684 /* LoadProtocol.swift in Sources */,
@@ -4378,7 +4364,6 @@
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
-				075A070B27C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */,
 				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */,
@@ -4481,7 +4466,6 @@
 				07519F9F26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				7F85B7B5246A9A7C00ED09B8 /* SubmissionStatusService.swift in Sources */,
 				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
-				075A071027C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */,
 				07519F7126FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				7F85B7B6246A9A7C00ED09B8 /* AddRecipientCoordinatorHelper.swift in Sources */,
 				19C2ED08234E0F5A4507E2AF /* ShowToastProtocol.swift in Sources */,
@@ -4719,7 +4703,6 @@
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
-				075A070C27C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */,
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F85B869246A9AB600ED09B8 /* Details.swift in Sources */,
 				7F85B86A246A9AB600ED09B8 /* Description.swift in Sources */,
@@ -4822,7 +4805,6 @@
 				07519FA026FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
 				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
-				075A071127C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */,
 				07519F7026FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				7F85B8B3246A9AB600ED09B8 /* TransactionsService.swift in Sources */,
 				7F85B8B4246A9AB600ED09B8 /* SubmissionStatusService.swift in Sources */,
@@ -4909,7 +4891,6 @@
 				07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				075A4BC4271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F21399824236ECB00D2A5C4 /* SubmissionStatus.swift in Sources */,
-				075A070A27C7DE6E009F15B8 /* UIControl+Extensions.swift in Sources */,
 				C93D092724275C5A0022250B /* AccountConfirmedPresenter.swift in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
 				067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */,
@@ -5198,7 +5179,6 @@
 				19C2E6DE1910B724444819F5 /* RecipientEntity.swift in Sources */,
 				7FB64A0C247D568500DC500E /* ExportViewController.swift in Sources */,
 				07519F9B26FCC93200F4E6E3 /* Memo.swift in Sources */,
-				075A070F27C7DE9F009F15B8 /* UIButton+Extensions.swift in Sources */,
 				19C2EC21D98697C47A31F7F4 /* AccountEntity.swift in Sources */,
 				077FD7DD269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				19C2E4A1182C18A689D74D4B /* TransferEntity.swift in Sources */,

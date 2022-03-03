@@ -20,12 +20,7 @@ class SendFundFactory {
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
 	var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
-    var amountPublisher: AnyPublisher<String, Never> {
-        return Publishers.Merge(
-            amountTextField.textPublisher,
-            sendAllButton.tapPublisher.map { "" }
-        ).map { $0 }.eraseToAnyPublisher()
-    }
+    var amountSubject = PassthroughSubject<String, Never>()
 
     @IBOutlet weak var mainStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainStackViewTopConstraint: NSLayoutConstraint!
@@ -89,6 +84,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         defaultMainStackViewBottomConstraintConstant = mainStackViewBottomConstraint.constant
         defaultMainStackViewTopConstraintConstant = mainStackViewTopConstraint.constant
+
+        amountTextField.textPublisher
+            .sink(receiveValue: { [weak self] text in
+                self?.amountSubject.send(text)
+            })
+            .store(in: &cancellables)
     }
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
