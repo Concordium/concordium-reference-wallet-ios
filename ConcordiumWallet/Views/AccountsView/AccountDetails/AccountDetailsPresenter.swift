@@ -131,7 +131,11 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func showShieldedBalance(shouldShow: Bool) {
         account = account.withShowShielded(shouldShow)
-        switchToBalanceType(self.balanceType)
+        if shouldShow {
+            switchToBalanceType(.shielded)
+        } else {
+            switchToBalanceType(.balance)
+        }
     }
     
     func switchToBalanceType(_ balanceType: AccountBalanceTypeEnum) {

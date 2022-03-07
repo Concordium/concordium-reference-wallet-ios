@@ -239,7 +239,7 @@ process on-chain.";
 "accountDetails.send" = "SEND";
 "accountDetails.shield" = "SHIELD";
 "accountDetails.unshield" = "UNSHIELD";
-"accountDetails.address" = "ADDRESS";
+"accountDetails.address" = "RECEIVE";
 "accountDetails.noTransfers" = "This balance has no transactions yet.";
 "accountDetails.noIdentities" = "This account has no revealed identity data.";
 "accountDetails.bakerId" = "Baker ID:";
