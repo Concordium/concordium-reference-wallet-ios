@@ -15,7 +15,7 @@ protocol BurgerMenuOptionCellDelegate: AnyObject {
 
 class BurgerMenuOptionCell: UITableViewCell {
 
-    private var cellRow: Int! = 0
+    private var cellRow: Int = 0
     private weak var delegate: BurgerMenuOptionCellDelegate?
     
     @IBOutlet weak var optionButton: UIButton!
