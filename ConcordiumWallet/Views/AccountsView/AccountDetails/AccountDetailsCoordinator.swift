@@ -146,6 +146,10 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
+//    func showStakeAmountInput() {
+//        navigationController.pushViewController(vc, animated: true)
+//    }
+    
     func showTransferFilters(account: AccountDataType) {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)

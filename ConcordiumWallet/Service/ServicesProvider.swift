@@ -34,6 +34,10 @@ protocol ImportDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
+protocol StakeCoordinatorDependencyProvider : WalletAndStorageDependencyProvider {
+    func transactionsService() -> TransactionsServiceProtocol
+}
+
 class ServicesProvider {
     private let _mobileWallet: MobileWalletProtocol
     private let _networkManager: NetworkManagerProtocol

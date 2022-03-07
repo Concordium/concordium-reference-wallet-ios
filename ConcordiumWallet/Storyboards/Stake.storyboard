@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Stake Amount Input View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="StakeAmountInputViewController" id="Y6W-OH-hqX" customClass="StakeAmountInputViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yu6-gQ-okf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bKa-mu-xv9">
+                                        <rect key="frame" x="15" y="10" width="384" height="364"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JIM-WE-LEU" userLabel="Top Amounts">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="64"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="[Current amounts on your account:]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgU-rM-Dte">
+                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="18"/>
+                                                        <color key="tintColor" name="primary"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="stake.inputamount.currentamounts"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcV-lT-5rN" userLabel="Balance">
+                                                        <rect key="frame" x="0.0" y="23" width="384" height="18"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAH-Wn-IOe">
+                                                                <rect key="frame" x="0.0" y="0.0" width="346.5" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z88-1m-cRZ">
+                                                                <rect key="frame" x="346.5" y="0.0" width="37.5" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ot8-UC-iSB" userLabel="Staked Balance">
+                                                        <rect key="frame" x="0.0" y="46" width="384" height="18"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PeY-Qv-YcG">
+                                                                <rect key="frame" x="0.0" y="0.0" width="346.5" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyF-np-SgN">
+                                                                <rect key="frame" x="346.5" y="0.0" width="37.5" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fxA-g3-3Fk" userLabel="Amount Input">
+                                                <rect key="frame" x="0.0" y="94" width="384" height="145.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Amount message]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lud-rm-HXU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ͼ0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-w9-AYr">
+                                                        <rect key="frame" x="0.0" y="22" width="384" height="38.5"/>
+                                                        <color key="textColor" name="primary"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Error message]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Px9-MP-ntb">
+                                                        <rect key="frame" x="0.0" y="65.5" width="384" height="14.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" name="errorText"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rwI-2i-hHa">
+                                                        <rect key="frame" x="0.0" y="85" width="384" height="41"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rt-L5-eMA" userLabel="Current pool limit">
+                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="18"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4EQ-M7-URF">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="346.5" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txu-Ew-HmI">
+                                                                        <rect key="frame" x="346.5" y="0.0" width="37.5" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zny-FL-42e" userLabel="Pool limit">
+                                                                <rect key="frame" x="0.0" y="23" width="384" height="18"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muJ-QE-hy1">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="346.5" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lV3-SL-HGi">
+                                                                        <rect key="frame" x="346.5" y="0.0" width="37.5" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Transaction fee]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqw-aH-Vo5">
+                                                        <rect key="frame" x="0.0" y="131" width="384" height="14.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" name="fadedText"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aI0-2b-17D">
+                                                <rect key="frame" x="0.0" y="269.5" width="384" height="33.5"/>
+                                                <string key="text">[Multiple row
+Explanation label for Stake]</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ht1-tZ-qTO">
+                                                <rect key="frame" x="0.0" y="333" width="384" height="32"/>
+                                                <segments>
+                                                    <segment title="First"/>
+                                                    <segment title="Second"/>
+                                                </segments>
+                                                <color key="selectedSegmentTintColor" name="primary"/>
+                                                <connections>
+                                                    <action selector="restakeValueChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="cdN-RZ-fyc"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="bKa-mu-xv9" firstAttribute="leading" secondItem="vkg-zo-oSw" secondAttribute="leading" constant="15" id="BPE-v3-N44"/>
+                                    <constraint firstItem="bKa-mu-xv9" firstAttribute="top" secondItem="OE8-tj-szo" secondAttribute="top" constant="10" id="EQK-Ni-bI4"/>
+                                    <constraint firstItem="vkg-zo-oSw" firstAttribute="trailing" secondItem="bKa-mu-xv9" secondAttribute="trailing" constant="15" id="Jb3-sF-h91"/>
+                                    <constraint firstItem="OE8-tj-szo" firstAttribute="height" secondItem="bKa-mu-xv9" secondAttribute="height" constant="10" id="KYY-vx-fUo"/>
+                                    <constraint firstItem="bKa-mu-xv9" firstAttribute="width" secondItem="OE8-tj-szo" secondAttribute="width" constant="30" id="Rrm-ba-i9G"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="OE8-tj-szo"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="vkg-zo-oSw"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDP-rx-n6T" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="15" y="812" width="384" height="50"/>
+                                <color key="backgroundColor" name="primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="hb6-LI-8LE"/>
+                                </constraints>
+                                <color key="tintColor" name="buttonText"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="[Continue]"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="stake.inputamount.continue"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wDP-rx-n6T" firstAttribute="top" secondItem="yu6-gQ-okf" secondAttribute="bottom" id="8lD-f1-4kR"/>
+                            <constraint firstItem="yu6-gQ-okf" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="D9k-mq-DwC"/>
+                            <constraint firstItem="wDP-rx-n6T" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Ghb-3n-mUb"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="wDP-rx-n6T" secondAttribute="trailing" constant="15" id="Oj6-P4-tyd"/>
+                            <constraint firstItem="yu6-gQ-okf" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="bPn-jB-BHU"/>
+                            <constraint firstItem="bKa-mu-xv9" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" constant="-30" id="hdP-9Y-VVX"/>
+                            <constraint firstItem="wDP-rx-n6T" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="lMG-ar-lk5"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="yu6-gQ-okf" secondAttribute="trailing" id="zBQ-LI-oU0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="amountMessage" destination="Lud-rm-HXU" id="BBQ-D4-Dte"/>
+                        <outlet property="amountTextField" destination="a8e-w9-AYr" id="jsZ-KS-6d5"/>
+                        <outlet property="bottomConstraint" destination="Ghb-3n-mUb" id="M1e-SC-xTY"/>
+                        <outlet property="bottomDescription" destination="aI0-2b-17D" id="jSH-TR-VuD"/>
+                        <outlet property="errorLabel" destination="Px9-MP-ntb" id="Umx-21-7SL"/>
+                        <outlet property="firstBalanceLabel" destination="nAH-Wn-IOe" id="veA-w3-0he"/>
+                        <outlet property="firstBalanceValue" destination="Z88-1m-cRZ" id="oly-5a-ocO"/>
+                        <outlet property="fourthBalanceLabel" destination="muJ-QE-hy1" id="sWO-LO-8RD"/>
+                        <outlet property="fourthBalanceValue" destination="lV3-SL-HGi" id="Vso-Ex-Dva"/>
+                        <outlet property="optionalBalancesView" destination="rwI-2i-hHa" id="W86-zo-hXr"/>
+                        <outlet property="restakeController" destination="ht1-tZ-qTO" id="SGp-2C-pPY"/>
+                        <outlet property="secondBalanceLabel" destination="PeY-Qv-YcG" id="den-li-xXh"/>
+                        <outlet property="secondBalanceValue" destination="xyF-np-SgN" id="prE-8j-79J"/>
+                        <outlet property="thirdBalanceLabel" destination="4EQ-M7-URF" id="tP9-8n-mHp"/>
+                        <outlet property="thirdBalanceValue" destination="txu-Ew-HmI" id="RKc-4V-Dvu"/>
+                        <outlet property="transactionFeeLabel" destination="bqw-aH-Vo5" id="xJK-sN-ZlE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60.869565217391312" y="81.696428571428569"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="wDP-rx-n6T">
+            <size key="intrinsicContentSize" width="93" height="31"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="buttonText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="errorText">
+            <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="fadedText">
+            <color red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.26666666666666666" green="0.52549019607843139" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

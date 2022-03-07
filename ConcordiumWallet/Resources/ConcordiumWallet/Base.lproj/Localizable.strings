@@ -498,3 +498,23 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.introflow.page3.title" = "The initial account";
 "onboardingcarousel.introflow.page4.title" = "Backup your private keys";
 "onboardingcarousel.introflow.page5.title" = "You are ready!";
+
+
+"stake.inputamount.currentamounts" = "Current amounts on your account:";
+"stake.inputamount.continue" = "Continue";
+"stake.inputamount.yesrestake" = "Yes, restake";
+"stake.inputamount.norestake" = "No, don’t restake";
+"stake.inputamount.transactionfee" = "Estimated transaction fee: \n%@";
+"delegation.inputamount.bottommessage" = "Do you want to automatically add your delegation rewards to your delegated amount?\n\nIf you choose to not restake your rewards, the amounts will be at disposal on your account balance at each pay day.";
+"stake.inputAmount.error.minAmount" = "Minimum stake: %@";
+"stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
+"stake.inputAmount.error.funds" = "Not enough funds";
+"stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
+
+
+
+
+"delegation.inputamount.balance" = "Balance";
+"delegation.inputamount.delegationstake" = "Delegation";
+"delegation.inputamount.currentpool" = "Current pool";
+"delegation.inputamount.poollimit" = "Pool limit";
