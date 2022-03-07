@@ -27,7 +27,9 @@ protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
 // MARK: -
 // MARK: Delegate
 protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter)
+    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
+                                      balanceType: AccountBalanceTypeEnum,
+                                      showsDecrypt: Bool)
 
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
     func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum)
@@ -231,9 +233,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         delegate?.accountDetailsPresenter(self, removeFailedAccount: account)
     }
 
-     func burgerButtonTapped() {
+    func burgerButtonTapped() {
         viewModel.toggleMenu()
-        delegate?.accountDetailsShowBurgerMenu(self)
+        delegate?.accountDetailsShowBurgerMenu(self, balanceType: self.balanceType, showsDecrypt: viewModel.showUnlockButton)
     }
 
     func pressedUnlock() {
@@ -385,15 +387,17 @@ extension AccountDetailsPresenter: TransactionsFetcher {
     }
 }
 
-extension AccountDetailsPresenter: BurgerMenuDismissDelegate {
-    func bugerMenuDismissedWithAction(_action action: BurgerMenuAction) {
+extension AccountDetailsPresenter: BurgerMenuAccountDetailsDismissDelegate {
+    func bugerMenuDismissedWithAction(_action action: BurgerMenuAccountDetailsAction) {
         self.viewModel.menuState = .closed
-        if case let BurgerMenuAction.shieldedBalance(shouldShow, _ ) = action {
+        if case let BurgerMenuAccountDetailsAction.shieldedBalance(_, shouldShow, _ ) = action {
             //we only take action here for hiding the shielded balance.
             //The showing will be done after the carousel is being presented
             if !shouldShow {
                 showShieldedBalance(shouldShow: false)
             }
+        } else if case BurgerMenuAccountDetailsAction.decrypt = action {
+            pressedUnlock()
         }
     }
 }

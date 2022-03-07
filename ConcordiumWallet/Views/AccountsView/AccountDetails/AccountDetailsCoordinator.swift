@@ -119,12 +119,16 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showBurgerMenuOverlay(account: AccountDataType,
-                               burgerMenuDismissDelegate: BurgerMenuDismissDelegate,
+                               balanceType: AccountBalanceTypeEnum,
+                               showsDecrypt: Bool,
+                               burgerMenuDismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
                                showShieldedDelegate: ShowShieldedDelegate) {
-        let presenter = BurgerMenuPresenter(delegate: self,
-                                            account: account,
-                                            dismissDelegate: burgerMenuDismissDelegate,
-                                            showShieldedDelegate: showShieldedDelegate)
+        let presenter = BurgerMenuAccountDetailsPresenter(delegate: self,
+                                                          account: account,
+                                                          balance: balanceType,
+                                                          showsDecrypt: showsDecrypt,
+                                                          dismissDelegate: burgerMenuDismissDelegate,
+                                                          showShieldedDelegate: showShieldedDelegate)
         let vc = BurgerMenuFactory.create(with: presenter)
         vc.modalPresentationStyle = .overFullScreen
         presenter.view = vc
@@ -219,8 +223,12 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         parentCoordinator?.accountRemoved()
     }
     
-    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter) {
+    func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
+                                      balanceType: AccountBalanceTypeEnum,
+                                      showsDecrypt: Bool) {
         self.showBurgerMenuOverlay(account: accountDetailsPresenter.account,
+                                   balanceType: balanceType,
+                                   showsDecrypt: showsDecrypt,
                                    burgerMenuDismissDelegate: accountDetailsPresenter,
                                    showShieldedDelegate: accountDetailsPresenter)
     }
@@ -276,8 +284,9 @@ extension AccountDetailsCoordinator: TransactionDetailPresenterDelegate {
     
 }
 
-extension AccountDetailsCoordinator: BurgerMenuPresenterDelegate {
-    func pressedOption(action: BurgerMenuAction, account: AccountDataType) {
+extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
+    typealias Action = BurgerMenuAccountDetailsAction
+    func pressedOption(action: BurgerMenuAccountDetailsAction, account: AccountDataType) {
         let keyWindow = UIApplication.shared.connectedScenes
             .filter({$0.activationState == .foregroundActive})
             .map({$0 as? UIWindowScene})
@@ -292,13 +301,13 @@ extension AccountDetailsCoordinator: BurgerMenuPresenterDelegate {
         case .transferFilters:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showTransferFilters(account: account)
-        case .shieldedBalance(let shouldShow, let showShieldedDelegate):
+        case .shieldedBalance(_, let shouldShow, let showShieldedDelegate):
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             //we only go to the onboarding flow if we should show the shielded balance
             if shouldShow {
                 showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
             }
-        case .dismiss:
+        case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         }
     }

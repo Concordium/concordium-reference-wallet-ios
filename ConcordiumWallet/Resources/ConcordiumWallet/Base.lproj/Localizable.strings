@@ -451,6 +451,7 @@ process on-chain.";
 "burgermenu.transferfilters" = "Transfer Filters";
 "burgermenu.showshieldedbalance" = "Show shielded balance on %@";
 "burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
+"burgermenu.decrypt" = "Decrypt";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";

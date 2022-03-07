@@ -7,21 +7,23 @@
 //
 
 import UIKit
+import Combine
 
 class BurgerMenuFactory {
-    class func create(with presenter: BurgerMenuPresenter) -> BurgerMenuViewController {
+    class func create(with presenter: BurgerMenuAccountDetailsPresenter) -> BurgerMenuViewController {
         BurgerMenuViewController.instantiate(fromStoryboard: "Account") { coder in
             return BurgerMenuViewController(coder: coder, presenter: presenter)
         }
     }
 }
 
-class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast {
+class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast  {
     
-    @IBOutlet weak var shieldedBalanceButton: UIButton!
-    @IBOutlet weak var shieldedBalanceWidgetView: WidgetView!
+    @IBOutlet weak var tableView: UITableView!
     
     var presenter: BurgerMenuPresenterProtocol
+    var dataSource: UITableViewDiffableDataSource<String, String>?
+    private var cancellables: [AnyCancellable] = []
     
     init?(coder: NSCoder, presenter: BurgerMenuPresenterProtocol) {
         self.presenter = presenter
@@ -34,28 +36,42 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = CGFloat.zero
+        }
+        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: createCell)
         self.presenter.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
     
+    private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: String) -> UITableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BurgerMenuOptionCell", for: indexPath) as? BurgerMenuOptionCell
+        cell?.setup(cellRow: indexPath.row, title: viewModel, delegate: self)
+        return cell
+    }
+    
     func bind(to viewModel: BurgerMenuViewModel) {
-        self.shieldedBalanceButton.setTitle(viewModel.shieldButtonName, for: .normal)
-        self.shieldedBalanceWidgetView.isHidden = !viewModel.canEnableShielded
+        
+        viewModel.$displayActions.sink { [weak self] in
+            var snapshot = NSDiffableDataSourceSnapshot<String, String>()
+            snapshot.appendSections([""])
+            snapshot.appendItems($0, toSection: "")
+            if $0.count > 0 {
+                self?.dataSource?.apply(snapshot)
+            }
+            self?.tableView.reloadData()
+        }.store(in: &cancellables)
     }
 
     @IBAction func pressedDismiss(sender: Any) {
         presenter.pressedDismiss()
     }
+}
 
-    @IBAction func pressedReleaseSchedule(sender: Any) {
-        presenter.pressedShowRelease()
-    }
-
-    @IBAction func pressedTransferFilters(sender: Any) {
-        presenter.pressedShowFilters()
-    }
-
-    @IBAction func pressedShieldedBalance(_ sender: Any) {
-        presenter.pressedShieldedBalance()
+extension BurgerMenuViewController: BurgerMenuOptionCellDelegate {
+    func selectedCellAt(row: Int) {
+        presenter.selectedAction(at: row)
     }
 }

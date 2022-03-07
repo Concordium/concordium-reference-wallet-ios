@@ -188,29 +188,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .compactMap { $0 }
             .assign(to: \.text, on: balanceLabel)
             .store(in: &cancellables)
-        
-        viewModel.$showUnlockButton.sink { [weak self](showUnlock) in
-            if viewModel.isShielded {
-                if showUnlock {
-                    self?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Lock_Unlocked"),
-                                                                              style: .plain,
-                                                                              target: self,
-                                                                              action: #selector(self?.pressedUnlock(_:)))
-                } else {
-                    self?.navigationItem.rightBarButtonItem = nil
-                }
-            }
-        }.store(in: &cancellables)
-        
+    
         viewModel.$menuState.sink {[weak self](state) in
             guard let self = self else { return }
-            if !viewModel.isShielded {
-                switch state {
-                case .open:
-                    self.showMenuButton(iconName: "lines_open")
-                case .closed:
-                    self.showMenuButton(iconName: "lines_close")
-                }
+            switch state {
+            case .open:
+                self.showMenuButton(iconName: "lines_open")
+            case .closed:
+                self.showMenuButton(iconName: "lines_close")
             }
         }.store(in: &cancellables)
         

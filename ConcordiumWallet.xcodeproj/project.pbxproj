@@ -669,6 +669,14 @@
 		52D35113250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35111250AA46400858AC6 /* PublicEncriptionKey.swift */; };
 		52D35114250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35111250AA46400858AC6 /* PublicEncriptionKey.swift */; };
 		52D35115250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35111250AA46400858AC6 /* PublicEncriptionKey.swift */; };
+		52DCA9F627CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */; };
+		52DCA9F727CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */; };
+		52DCA9F827CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */; };
+		52DCA9F927CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */; };
+		52DCAA0027CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
+		52DCAA0127CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
+		52DCAA0227CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
+		52DCAA0327CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
 		58097F2EAC5FCC65050C155D /* Pods_ProdMainNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F737C6EA3FC15A5F95047B /* Pods_ProdMainNet.framework */; };
 		6426D91C260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */; };
 		6426D91D260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */; };
@@ -1809,6 +1817,8 @@
 		52D0CF1F2518C4680074D3C4 /* EncryptedDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedDetails.swift; sourceTree = "<group>"; };
 		52D3510C250A6AE400858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.3.2.RX_backend_accEncryptionKey.json; sourceTree = "<group>"; };
 		52D35111250AA46400858AC6 /* PublicEncriptionKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicEncriptionKey.swift; sourceTree = "<group>"; };
+		52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuOptionCell.swift; sourceTree = "<group>"; };
+		52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuAccountDetailsPresenter.swift; sourceTree = "<group>"; };
 		5766FABEF0289C6E2DE533F3 /* Pods-MOCK ConcordiumWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOCK ConcordiumWallet.release.xcconfig"; path = "Target Support Files/Pods-MOCK ConcordiumWallet/Pods-MOCK ConcordiumWallet.release.xcconfig"; sourceTree = "<group>"; };
 		6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+JailBroken.swift"; sourceTree = "<group>"; };
 		642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
@@ -2556,6 +2566,8 @@
 			children = (
 				5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */,
 				5248E7DB257A611B00E4F6EC /* BurgerMenuPresenter.swift */,
+				52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */,
+				52DCAA0927CDFDF900CDF85E /* AccountDetailsBurgerMenu */,
 			);
 			path = BurgerMenu;
 			sourceTree = "<group>";
@@ -2597,6 +2609,14 @@
 				528EB73F255C1EC600010554 /* InitialAccountSummaryViewController.swift */,
 			);
 			path = InitialAccount;
+			sourceTree = "<group>";
+		};
+		52DCAA0927CDFDF900CDF85E /* AccountDetailsBurgerMenu */ = {
+			isa = PBXGroup;
+			children = (
+				52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */,
+			);
+			path = AccountDetailsBurgerMenu;
 			sourceTree = "<group>";
 		};
 		642ED92325E8DF0600A09BB3 /* TransferFilters */ = {
@@ -3999,6 +4019,7 @@
 				7F48C1A1244DCD0B00997684 /* CreateAccountCoordinator.swift in Sources */,
 				7F85B8F42472D39800ED09B8 /* MoreMenuViewController.swift in Sources */,
 				7FA0AE9D246047BB00B7673F /* Details.swift in Sources */,
+				52DCAA0027CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				7F48C1A2244DCD0B00997684 /* BaseNavigationController.swift in Sources */,
 				7F48C1A3244DCD0B00997684 /* TitleLabel.swift in Sources */,
 				7F48C1A5244DCD0B00997684 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
@@ -4020,6 +4041,7 @@
 				64FD333A25FF8A7C00563703 /* KeyList.swift in Sources */,
 				7F48C1AD244DCD0B00997684 /* AccountsCoordinator.swift in Sources */,
 				07519F9226FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
+				52DCA9F627CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				07519F9D26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				7F48C1AE244DCD0B00997684 /* MobileWalletFacade.swift in Sources */,
 				7F48C1AF244DCD0B00997684 /* MobileWallet.swift in Sources */,
@@ -4241,6 +4263,7 @@
 				1737681C2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F85B6FF246A9A7C00ED09B8 /* LoadProtocol.swift in Sources */,
 				7F85B700246A9A7C00ED09B8 /* BaseButton.swift in Sources */,
+				52DCA9F827CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				7F85B701246A9A7C00ED09B8 /* BaseLabel.swift in Sources */,
 				7F85B702246A9A7C00ED09B8 /* ArDatum.swift in Sources */,
 				7F85B704246A9A7C00ED09B8 /* IdentityRevokersWidgetPresenter.swift in Sources */,
@@ -4464,6 +4487,7 @@
 				7F85B7B4246A9A7C00ED09B8 /* TransactionsService.swift in Sources */,
 				642ED94525EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				07519F9F26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
+				52DCAA0227CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				7F85B7B5246A9A7C00ED09B8 /* SubmissionStatusService.swift in Sources */,
 				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
 				07519F7126FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
@@ -4580,6 +4604,7 @@
 				1737681D2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F85B7FD246A9AB600ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
 				7F85B7FE246A9AB600ED09B8 /* LoadProtocol.swift in Sources */,
+				52DCA9F927CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				7F85B7FF246A9AB600ED09B8 /* BaseButton.swift in Sources */,
 				7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */,
 				7F85B801246A9AB600ED09B8 /* ArDatum.swift in Sources */,
@@ -4803,6 +4828,7 @@
 				7F85B8B1246A9AB600ED09B8 /* TransactionsLoadingHandler.swift in Sources */,
 				642ED94625EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				07519FA026FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
+				52DCAA0327CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
 				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
 				07519F7026FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
@@ -4937,6 +4963,7 @@
 				642ED93325E8F12300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7FF07AC023EADBB100F1FC04 /* UIViewController+Additions.swift in Sources */,
 				64DB66C525DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
+				52DCA9F727CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				C96632502459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
 				527DE34C2571257600333E65 /* ReleaseSchedulePresenter.swift in Sources */,
 				642A28A625FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
@@ -5068,6 +5095,7 @@
 				7F5F77822487D3BD0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
 				5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				19C2EB170045945CE5D47CC8 /* IPInfoResponseElement.swift in Sources */,
+				52DCAA0127CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				528EB74B255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				7FD8DEA22445F9F500CA06D8 /* IdentityObjectWrapper.swift in Sources */,
 				642ED94425EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
