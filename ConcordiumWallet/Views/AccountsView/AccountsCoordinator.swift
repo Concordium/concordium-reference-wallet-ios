@@ -23,9 +23,9 @@ class AccountsCoordinator: Coordinator {
 
     weak var delegate: AccountsCoordinatorDelegate?
 
-    private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider
 
-    init(navigationController: UINavigationController, dependencyProvider: AccountsFlowCoordinatorDependencyProvider) {
+    init(navigationController: UINavigationController, dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
     }

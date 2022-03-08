@@ -123,7 +123,8 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .assign(to: \.text, on: transactionFeeLabel)
             .store(in: &cancellables)
         
-        viewModel.$amountErrorMessage.sink { errorMessage in
+        viewModel.$amountErrorMessage.sink { [weak self] errorMessage in
+            guard let self = self else { return }
             if let errorMessage = errorMessage {
                 self.errorLabel.text = errorMessage
                 self.errorLabel.isHidden = false

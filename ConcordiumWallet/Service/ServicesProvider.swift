@@ -81,6 +81,9 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
     }
 }
 
+extension ServicesProvider: StakeCoordinatorDependencyProvider {
+}
+
 extension ServicesProvider: LoginDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol {
         _keychainWrapper

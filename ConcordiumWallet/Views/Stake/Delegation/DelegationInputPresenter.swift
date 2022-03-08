@@ -12,7 +12,7 @@ import Combine
 // MARK: -
 // MARK: Delegate
 protocol DelegationAmountInputPresenterDelegate: AnyObject {
-    
+    func finishedDelegation()
 }
 
 enum RestakeOption {
@@ -96,14 +96,18 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                               poolLimit: GTU(intValue: 250000))
     }
     
+    deinit {
+        self.delegate?.finishedDelegation()
+    }
+    
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
-        
+
         self.view?.restakeOptionPublisher.sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self] isRestaking in
             self?.restake = isRestaking ? .yes : .no
         }).store(in: &cancellables)
-        
+
         self.view?.amountPublisher.map { amount -> GTU in
             let intVal = Int(amount) ?? 0
             return GTU(intValue: intVal)

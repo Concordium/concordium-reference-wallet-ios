@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 
-protocol DelegationCoordinatorDelegate: AnyObject {
+protocol DelegationCoordinatorDelegate: Coordinator {
     func finished()
 }
+
 
 
 class DelegationCoordinator: Coordinator {
@@ -19,15 +20,15 @@ class DelegationCoordinator: Coordinator {
     var navigationController: UINavigationController
     
     weak var delegate: DelegationCoordinatorDelegate?
-    
     private var account: AccountDataType
     
     private var dependencyProvider: StakeCoordinatorDependencyProvider
     
-    init(navigationController: UINavigationController, dependencyProvider: StakeCoordinatorDependencyProvider, account: AccountDataType) {
+    init(navigationController: UINavigationController, dependencyProvider: StakeCoordinatorDependencyProvider, account: AccountDataType, parentCoordinator: DelegationCoordinatorDelegate) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.account = account
+        self.delegate = parentCoordinator
     }
     
     func start() {
@@ -42,5 +43,7 @@ class DelegationCoordinator: Coordinator {
 }
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
-    
+    func finishedDelegation() {
+        self.delegate?.finished()
+    }
 }
