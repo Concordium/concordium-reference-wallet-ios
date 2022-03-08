@@ -215,7 +215,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .receive(on: DispatchQueue.main)
             .map { [weak self] (recipientAddress, feeMessage, amount) in
                 guard let self = self else { return false }
-                return !(recipientAddress ?? "").isEmpty &&
+                guard let recipientAddress = recipientAddress else { return false }
+                let isAddressValid: Bool = (!recipientAddress.isEmpty) && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
+               
+                return isAddressValid &&
                        !(feeMessage ?? "").isEmpty &&
                        self.hasSufficientFunds(amount: amount)
             }
@@ -382,7 +385,14 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }, receiveValue: { [weak self] value in
                 guard let self = self else { return }
                 let cost = Int(value.cost) ?? 0
-                let totalAmount = GTU(intValue: disposalAmount - cost).displayValue()
+                let totalAmount: String!
+                if self.balanceType == .shielded {
+                    //the cost is always deducted from the public balance, not
+                    //from the shielded
+                    totalAmount = GTU(intValue: disposalAmount).displayValue()
+                } else {
+                    totalAmount = GTU(intValue: disposalAmount - cost).displayValue()
+                }
                 self.view?.amountSubject.send(totalAmount)
                 self.viewModel.sendAllAmount = totalAmount
             }).store(in: &cancellables)
