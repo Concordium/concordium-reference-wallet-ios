@@ -171,11 +171,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
         // Note: Handle consuming transfers and keeping the current account state
         viewModel.$selectedTab.sink { [weak self]selectedTab in
+            guard let self = self else { return }
             switch selectedTab {
             case .transfers:
-                self?.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
+                self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
+                self.detailsTabBar.setSelectedItem(self.detailsTabBar.items.first, animated: true)
             case .identityData:
-                self?.showIdentityData()
+                self.showIdentityData()
             }
         }.store(in: &cancellables)
         

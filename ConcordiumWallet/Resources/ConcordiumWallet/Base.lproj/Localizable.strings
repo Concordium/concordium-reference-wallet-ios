@@ -347,7 +347,7 @@ process on-chain.";
 
 "more.identities" = "Your identity cards";
 "more.addressBook" = "Address Book";
-"more.import" = "Restore backup";
+"more.import" = "Restore from backup";
 "more.export" = "Make backup";
 "export.title" = "Export";
 "export.explainingText" = "Here you can export your identities, accounts and the address book.\n\nThe exported data includes private keys which give access to your identities and accounts. For this reason the data will be encrypted under a password that you will be asked to select during the process. It is important that you store the password safely and securely. The password will be needed for access to exported data (e.g. if you want to import an account into the Concordium Client).";
