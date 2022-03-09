@@ -159,6 +159,10 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter) {
         self.parentCoordinator?.sendFundsCoordinatorFinished()
     }
+    
+    func dismissQR() {
+        self.navigationController.popViewController(animated: true)
+    }
 }
 
 extension SendFundsCoordinator: AddMemoPresenterDelegate {
