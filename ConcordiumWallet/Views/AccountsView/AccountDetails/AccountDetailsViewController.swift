@@ -212,8 +212,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
-            self.generalButton.backgroundColor = isShielded ? UIColor.primarySelected : UIColor.primary
-            self.shieldedButton.backgroundColor = isShielded ? UIColor.primary : UIColor.primarySelected
+            self.generalButton.backgroundColor = isShielded ? UIColor.primary : UIColor.primarySelected
+            self.shieldedButton.backgroundColor = isShielded ? UIColor.primarySelected : UIColor.primary
             
             if isShielded {
                 self.balanceNameLabel.text =  String(format: ("accounts.overview.shieldedtotal".localized), viewModel.name ?? "")
