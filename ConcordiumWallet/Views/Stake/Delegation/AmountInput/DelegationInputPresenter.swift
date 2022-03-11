@@ -13,6 +13,7 @@ import Combine
 // MARK: Delegate
 protocol DelegationAmountInputPresenterDelegate: AnyObject {
     func finishedDelegation()
+    func finishedAmountInput()
 }
 
 enum RestakeOption {
@@ -70,23 +71,27 @@ struct StakeAmountInputValidator {
 }
 
 class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
-    
+
     weak var view: StakeAmountInputViewProtocol?
     weak var delegate: DelegationAmountInputPresenterDelegate?
     
     var account: AccountDataType
     var viewModel = StakeAmountInputViewModel()
-    var validAmount: GTU?
+    
+    
+    @Published private var validAmount: GTU?
+    private var isInCooldown:Bool = false //TODO: calculate this based on the account state
     var restake: RestakeOption = .yes
     
+    private var dataHandler: DelegationDataHandler
     private var cancellables = Set<AnyCancellable>()
     
     let validator: StakeAmountInputValidator
     
-    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil) {
+    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil, dataHandler: DelegationDataHandler) {
         self.account = account
         self.delegate = delegate
-        viewModel.setup(account: account, amount: validAmount)
+        self.dataHandler = dataHandler
         
         //TODO: add limits to the validator
         validator = StakeAmountInputValidator(minimumValue: GTU(intValue: 1),
@@ -94,6 +99,9 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                               atDisposal: GTU(intValue: 200000),
                                               currentPool: GTU(intValue: 200000),
                                               poolLimit: GTU(intValue: 250000))
+        let amountData: AmountDelegationData? = dataHandler.getCurrentEntry()
+        self.validAmount = amountData?.amount
+        viewModel.setup(account: account, currentAmount: amountData?.amount, isInCooldown: isInCooldown)
     }
     
     deinit {
@@ -107,20 +115,26 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         }, receiveValue: { [weak self] isRestaking in
             self?.restake = isRestaking ? .yes : .no
         }).store(in: &cancellables)
-
+        
         self.view?.amountPublisher.map { amount -> GTU in
             let intVal = Int(amount) ?? 0
             return GTU(intValue: intVal)
         }
         .flatMap { [weak self] amount -> AnyPublisher<Result<GTU, StakeError>, Never> in
             guard let self = self else { return .just(Result.failure(StakeError.internalError))}
+            var error: StakeError? = nil
             return self.validator.validate(amount: amount)
                 .mapError { [weak self] error -> StakeError in
                     self?.viewModel.amountErrorMessage = error.localizedDescription
                     return error
                 }.map { amount in
                     return Result<GTU, StakeError>.success(amount)
-                }.replaceError(with: Result.failure(StakeError.internalError))
+                }.replaceError(with: {
+                    if let error = error {
+                        return Result<GTU, StakeError>.failure(error)
+                    }
+                    return Result<GTU, StakeError>.failure(StakeError.internalError)
+                }())
                 .eraseToAnyPublisher()
         }
         .sink(receiveCompletion: { completion in
@@ -128,14 +142,31 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             if case Result.success(let amount) = result {
                 self?.validAmount = amount
                 self?.viewModel.amountErrorMessage = nil
+            } else {
+                self?.validAmount = nil
             }
         })
         .store(in: &cancellables)
+        
+        self.$validAmount.sink { [weak self] amount in
+            guard let self = self else { return }
+            self.viewModel.isAmountValid = (amount != nil) || self.viewModel.isAmountLocked
+        }.store(in: &cancellables)
+        
     }
+    
+    func pressedContinue() {
+        if let validAmount = validAmount {
+            self.dataHandler.add(entry: AmountDelegationData(amount: validAmount))
+        }
+        
+        self.delegate?.finishedAmountInput()
+    }
+    
 }
 
 fileprivate extension StakeAmountInputViewModel {
-    func setup (account: AccountDataType, amount: GTU?) {
+    func setup (account: AccountDataType, currentAmount: GTU?, isInCooldown: Bool) {
         let atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
         self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
                                              value: atDisposal.displayValueWithGStroke())
@@ -148,6 +179,23 @@ fileprivate extension StakeAmountInputViewModel {
                                           value: "TBD")
         self.transactionFee = String(format: "stake.inputamount.transactionfee".localized, "TBD")
         self.bottomMessage = "delegation.inputamount.bottommessage".localized
-        self.amount = amount?.displayValue() ?? ""
+        
+        self.isAmountLocked = isInCooldown
+        
+        //having a current amount means we are editing
+        if let currentAmount = currentAmount {
+            if !isInCooldown {
+                //we don't set the value if it is in cooldown
+                self.amount = currentAmount.displayValue()
+                self.amountMessage = "delegation.inputamount.optionalamount".localized
+            } else {
+                self.amountMessage = "delegation.inputamount.lockedamountmessage".localized
+            }
+            self.title = "delegation.inputamount.title.update".localized
+            
+        } else {
+            self.title = "delegation.inputamount.title.create".localized
+        }
+        
     }
 }

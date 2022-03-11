@@ -44,6 +44,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     
     @IBOutlet weak var bottomDescription: UILabel!
     @IBOutlet weak var restakeController: UISegmentedControl!
+    @IBOutlet weak var continueButton: StandardButton!
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
@@ -135,10 +136,30 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             }
         }.store(in: &cancellables)
         
+        viewModel.$amount
+            .compactMap { $0 }
+            .assign(to: \.text, on: amountTextField)
+            .store(in: &cancellables)
+        
         viewModel.$bottomMessage
             .compactMap { $0 }
             .assign(to: \.text, on: bottomDescription)
             .store(in: &cancellables)
+        
+        viewModel.$isAmountValid
+            .compactMap { $0 }
+            .assign(to: \.isEnabled, on: continueButton)
+            .store(in: &cancellables)
+        
+        viewModel.$isAmountLocked.sink { [weak self] isAmountLocked in
+            if isAmountLocked {
+                self?.amountTextField.placeholder = "stake.inputAmount.amountlockedplaceholder".localized
+                self?.amountTextField.isUserInteractionEnabled = false
+            } else {
+                self?.amountTextField.placeholder = "stake.inputAmount.amountplaceholder".localized
+                self?.amountTextField.isUserInteractionEnabled = true
+            }
+        }.store(in: &cancellables)
     }
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
@@ -153,5 +174,9 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     
     @IBAction func restakeValueChanged(_ sender: UISegmentedControl) {
         restakeOptionPublisher.send(sender.selectedSegmentIndex == 0)
+    }
+    
+    @IBAction func pressedContinue(_ sender: UIButton) {
+        presenter.pressedContinue()
     }
 }

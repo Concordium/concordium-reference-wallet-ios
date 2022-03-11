@@ -23,6 +23,7 @@ class DelegationCoordinator: Coordinator {
     private var account: AccountDataType
     
     private var dependencyProvider: StakeCoordinatorDependencyProvider
+    private var delegationDataHandler = DelegationDataHandler()
     
     init(navigationController: UINavigationController, dependencyProvider: StakeCoordinatorDependencyProvider, account: AccountDataType, parentCoordinator: DelegationCoordinatorDelegate) {
         self.navigationController = navigationController
@@ -36,14 +37,29 @@ class DelegationCoordinator: Coordinator {
     }
     
     func showAmountInput() {
-        let vc = StakeAmountInputFactory.create(with: DelegationAmountInputPresenter(account: account, delegate: self))
+        let presenter = DelegationAmountInputPresenter(account: account, delegate: self, dataHandler: delegationDataHandler)
+        let vc = StakeAmountInputFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func showPoolSelection() {
+        let presenter = DelegationPoolSelectionPresenter(delegate: self, dataHandler: delegationDataHandler)
+        let vc = DelegationPoolSelectionFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
     func finishedDelegation() {
         self.delegate?.finished()
+    }
+    func finishedAmountInput() {
+        self.showPoolSelection()
+    }
+}
+
+extension DelegationCoordinator: DelegationPoolSelectionPresenterDelegate {
+    func finishedPoolSelection() {
+        
     }
 }

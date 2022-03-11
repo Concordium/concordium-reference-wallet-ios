@@ -1515,6 +1515,10 @@
 		9074C71027D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */; };
 		9074C71127D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */; };
 		9074C71227D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */; };
+		9074C71427D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
+		9074C71527D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
+		9074C71627D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
+		9074C71727D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
 		AC3BFE9E3A0F824DD7CFCC0A /* Pods_ConcordiumWalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C8D8E9C9B9CA2D0668D94F5 /* Pods_ConcordiumWalletTests.framework */; };
 		C916DAE92467F481008EA16A /* MenuItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916DAE82467F480008EA16A /* MenuItemCellView.swift */; };
 		C924B2242430799400081E23 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
@@ -2006,6 +2010,7 @@
 		7FF919172511505B00B1032B /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
 		9074C70927D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionPresenter.swift; sourceTree = "<group>"; };
 		9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionViewController.swift; sourceTree = "<group>"; };
+		9074C71327D9314B00B2DFD8 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
 		A945987512D55A75AE6C2D67 /* Pods-MOCK ConcordiumWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOCK ConcordiumWallet.debug.xcconfig"; path = "Target Support Files/Pods-MOCK ConcordiumWallet/Pods-MOCK ConcordiumWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		C916DAE82467F480008EA16A /* MenuItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCellView.swift; sourceTree = "<group>"; };
 		C924B2232430799400081E23 /* UILabel+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+localized.swift"; sourceTree = "<group>"; };
@@ -2661,9 +2666,7 @@
 			isa = PBXGroup;
 			children = (
 				52D10F3027D0CB120025ED5D /* Delegation */,
-				52A0A0BA27D0B38E001C162D /* StakeAmountInputPresenterProtocol.swift */,
-				52A0A0BB27D0B38E001C162D /* StakeAmountInputViewController.swift */,
-				52D10F3727D0F51A0025ED5D /* DelegationCoordinator.swift */,
+				9074C71A27DA2B7800B2DFD8 /* Common */,
 			);
 			path = Stake;
 			sourceTree = "<group>";
@@ -2671,9 +2674,10 @@
 		52D10F3027D0CB120025ED5D /* Delegation */ = {
 			isa = PBXGroup;
 			children = (
-				52D10F3227D0CB5F0025ED5D /* DelegationInputPresenter.swift */,
-				9074C70927D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift */,
-				9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */,
+				52D10F3727D0F51A0025ED5D /* DelegationCoordinator.swift */,
+				9074C71327D9314B00B2DFD8 /* TransactionData.swift */,
+				9074C71927DA2B4D00B2DFD8 /* AmountInput */,
+				9074C71827DA088800B2DFD8 /* PoolSelection */,
 			);
 			path = Delegation;
 			sourceTree = "<group>";
@@ -3189,6 +3193,32 @@
 				19C2ECB3E92DF9562DF9E217 /* StorageManager.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		9074C71827DA088800B2DFD8 /* PoolSelection */ = {
+			isa = PBXGroup;
+			children = (
+				9074C70927D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift */,
+				9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */,
+			);
+			path = PoolSelection;
+			sourceTree = "<group>";
+		};
+		9074C71927DA2B4D00B2DFD8 /* AmountInput */ = {
+			isa = PBXGroup;
+			children = (
+				52D10F3227D0CB5F0025ED5D /* DelegationInputPresenter.swift */,
+			);
+			path = AmountInput;
+			sourceTree = "<group>";
+		};
+		9074C71A27DA2B7800B2DFD8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				52A0A0BA27D0B38E001C162D /* StakeAmountInputPresenterProtocol.swift */,
+				52A0A0BB27D0B38E001C162D /* StakeAmountInputViewController.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		C924B2252431D38400081E23 /* AccountDetails */ = {
@@ -3978,6 +4008,7 @@
 				7F48C14E244DCD0B00997684 /* LoginInfoLabel.swift in Sources */,
 				7F48C26F244E17D100997684 /* IPInfoResponseElement.swift in Sources */,
 				1737681F2652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
+				9074C71427D9314B00B2DFD8 /* TransactionData.swift in Sources */,
 				7F48C267244E17D100997684 /* Description.swift in Sources */,
 				64FD334E25FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				7F48C14F244DCD0B00997684 /* String+Additions.swift in Sources */,
@@ -4526,6 +4557,7 @@
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
 				077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B7A0246A9A7C00ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
+				9074C71627D9314B00B2DFD8 /* TransactionData.swift in Sources */,
 				7F85B7A1246A9A7C00ED09B8 /* ToastLabel.swift in Sources */,
 				642ED93525E8F12300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D3F24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
@@ -4873,6 +4905,7 @@
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
 				077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B89D246A9AB600ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
+				9074C71727D9314B00B2DFD8 /* TransactionData.swift in Sources */,
 				7F85B89E246A9AB600ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				642ED93725E8F12400A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D4024A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
@@ -5154,6 +5187,7 @@
 				C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				7FA0AE9324598D6500B7673F /* Details.swift in Sources */,
 				52B2CE4A24F6806B0092F8EB /* ArsInfo.swift in Sources */,
+				9074C71527D9314B00B2DFD8 /* TransactionData.swift in Sources */,
 				19C2E6C9E6A23B6A3A72AF23 /* Description.swift in Sources */,
 				7F85B8F32472D39800ED09B8 /* MoreMenuViewController.swift in Sources */,
 				7FA0AE9424598D6500B7673F /* RemoteTransactions.swift in Sources */,

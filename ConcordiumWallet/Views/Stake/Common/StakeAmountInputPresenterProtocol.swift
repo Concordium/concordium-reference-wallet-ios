@@ -53,6 +53,7 @@ class StakeAmountInputViewModel {
     @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "")
     
     @Published var bottomMessage: String = ""
+    @Published var isAmountValid: Bool = false
 }
 
 // MARK: -
@@ -60,4 +61,5 @@ class StakeAmountInputViewModel {
 protocol StakeAmountInputPresenterProtocol: AnyObject {
 	var view: StakeAmountInputViewProtocol? { get set }
     func viewDidLoad()
+    func pressedContinue()
 }

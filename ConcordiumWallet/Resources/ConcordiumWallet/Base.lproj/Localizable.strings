@@ -511,11 +511,41 @@ concordium-backup.concordiumwallet securely.";
 "stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
 "stake.inputAmount.error.funds" = "Not enough funds";
 "stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
+"stake.inputAmount.amountlockedplaceholder" = "Amount locked";
+"stake.inputAmount.amountplaceholder" = "Ͼ0.00";
 
 
-
-
+"delegation.inputamount.title.create" = "Register delegation";
+"delegation.inputamount.title.update" = "Update delegation";
+"delegation.inputamount.optionalamount" = "Optional: Enter new delegation amount";
+"delegation.inputamount.lockedamountmessage" = "Delegation amount cannot be changed when it already has pending changes.";
+"delegation.inputamount.title.update" = "Update delegation";
 "delegation.inputamount.balance" = "Balance";
 "delegation.inputamount.delegationstake" = "Delegation";
 "delegation.inputamount.currentpool" = "Current pool";
 "delegation.inputamount.poollimit" = "Pool limit";
+
+"delegation.pool.title.create" = "Register delegation";
+"delegation.pool.title.update" = "Update delegation";
+"delegation.pool.current" = "Current target %@";
+"delegation.pool.message" = "You can delegate to a specific open pool of your choice, or you can delegate to the L-pool. ";
+"delegation.pool.bottommessage" = "If you don’t already know what target baker pool you want to delegate an amount to, you can read more about how to find one here:
+
+developer.concordium.software";
+
+"delegation.pool.baker" = "Baker";
+"delegation.pool.lpool" = "L-pool";
+"delegation.pool.idplaceholder.create" = "Enter target baker pool ID";
+"delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
+"delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+
+"delegation.receipt.accounttodelegate" = "Account to delegate from";
+"delegation.receipt.delegationamount" = "Delegation amount";
+"delegation.receipt.tagetbakerpool" = "Target baker pool ID";
+"delegation.receipt.restake" = "Rewards will be";
+
+
+"delegation.receipt.lpoolvalue" = "L-pool";
+"delegation.receipt.bakerpoolvalue" = "Baker id %@";
+"delegation.receipt.addedtodelegation" = "Added to delegation amount";
+"delegation.receipt.notaddedtodelegation" = "";
