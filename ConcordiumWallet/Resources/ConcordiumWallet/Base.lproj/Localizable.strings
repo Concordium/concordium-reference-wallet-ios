@@ -514,6 +514,11 @@ concordium-backup.concordiumwallet securely.";
 "stake.inputAmount.amountlockedplaceholder" = "Amount locked";
 "stake.inputAmount.amountplaceholder" = "Ͼ0.00";
 
+"stake.receipt.transactionsubmitted" = "Transaction submitted!";
+"stake.receipt.finish" = "Finish";
+"stake.receipt.restake" = "Rewards will be";
+
+
 
 "delegation.inputamount.title.create" = "Register delegation";
 "delegation.inputamount.title.update" = "Update delegation";
@@ -542,10 +547,54 @@ developer.concordium.software";
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.delegationamount" = "Delegation amount";
 "delegation.receipt.tagetbakerpool" = "Target baker pool ID";
-"delegation.receipt.restake" = "Rewards will be";
+
 
 
 "delegation.receipt.lpoolvalue" = "L-pool";
 "delegation.receipt.bakerpoolvalue" = "Baker id %@";
 "delegation.receipt.addedtodelegation" = "Added to delegation amount";
 "delegation.receipt.notaddedtodelegation" = "";
+
+"delegation.receiptconfirmation.title.update" = "Update delegation";
+"delegation.receiptconfirmation.title.create" = "Register delegation";
+"delegation.receiptconfirmation.registertext" = "You are about to submit a delegation transaction. This will lock your delegation amount for at least %@.";
+"delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take affect after %@ and the delegation amount cannot be changed during this period of time.";
+"delegation.receiptconfirmation.submit"  = "Submit delegation transaction";
+
+"delegation.receiptconfirmation.transactionfee" = "Estimated transaction fee: \n%@";
+"delegation.receipt.transactionfee" = "Transaction fee: \n%@";
+
+"delegation.receipt.updatedelegation" = "Transaction: Update delegation";
+"delegation.receipt.registerdelegation" = "Transaction: Register delegation";
+
+"baker.receiptconfirmation.title.update" = "Update baker stake";
+"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take affact immediately.
+
+The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
+
+
+
+"baking.poolsettings.title.create" = "Register baker";
+"baking.poolsettings.title.update" = "Update pool settings";
+"baking.poolsettings.text.create" = "You have the option to open your baker as a pool for others to delegate their CCD to.
+
+If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
+
+If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
+"baking.poolsettings.text.update" = "You have the option to open your baker as a pool for others to delegate their CCD to.
+
+If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
+
+If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
+"baking.poolsettings.current" = "Current status";
+
+"baking.keeppoolclosed" = "Keep the pool closed";
+"baking.openfordelegators" = "Open pool for delegators";
+"baking.closedfornewdelegators" = "Close for new delegators";
+
+"baking.open" = "Open";
+"baking.closed" = "Closed";
+"baking.closedfornew" = "Closed for new";
+
+"baking.receipt.poolstatus" = "Delegation pool status";
+"baking.receipt.bakerstake" = "Baker stake";

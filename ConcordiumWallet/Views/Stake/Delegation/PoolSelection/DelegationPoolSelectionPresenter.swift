@@ -69,10 +69,10 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     var viewModel: DelegationPoolViewModel
     @Published private var validSelectedPool: BakerPool?
 
-    private var dataHandler: DelegationDataHandler
+    private var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
     
-    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil, dataHandler: DelegationDataHandler) {
+    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
         self.delegate = delegate
         let currentPoolData: PoolDelegationData? = dataHandler.getCurrentEntry()
         self.viewModel = DelegationPoolViewModel(currentPool: currentPoolData?.pool)

@@ -23,13 +23,15 @@ class DelegationCoordinator: Coordinator {
     private var account: AccountDataType
     
     private var dependencyProvider: StakeCoordinatorDependencyProvider
-    private var delegationDataHandler = DelegationDataHandler()
+    private var delegationDataHandler: StakeDataHandler
     
     init(navigationController: UINavigationController, dependencyProvider: StakeCoordinatorDependencyProvider, account: AccountDataType, parentCoordinator: DelegationCoordinatorDelegate) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.account = account
         self.delegate = parentCoordinator
+        //TODO: figure out from account whether we are editing or registering
+        self.delegationDataHandler = StakeDataHandler(transactionType: .registerDelegation)
     }
     
     func start() {
@@ -47,6 +49,18 @@ class DelegationCoordinator: Coordinator {
         let vc = DelegationPoolSelectionFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showConfirmation() {
+        let presenter = DelegationReceiptConfirmationPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self, dataHandler: delegationDataHandler)
+        let vc = StakeReceiptFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showSubmissionReceipt() {
+        let presenter = DelegationReceiptPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self, dataHandler: delegationDataHandler)
+        let vc = StakeReceiptFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
@@ -60,6 +74,18 @@ extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
 
 extension DelegationCoordinator: DelegationPoolSelectionPresenterDelegate {
     func finishedPoolSelection() {
-        
+        self.showConfirmation()
+    }
+}
+
+extension DelegationCoordinator: DelegationReceiptConfirmationPresenterDelegate {
+    func confirmedTransaction() {
+        self.showSubmissionReceipt()
+    }
+}
+
+extension DelegationCoordinator: DelegationReceiptPresenterDelegate {
+    func finishedShowingReceipt() {
+        self.navigationController.popToRootViewController(animated: true)
     }
 }

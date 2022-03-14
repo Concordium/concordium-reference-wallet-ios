@@ -16,11 +16,6 @@ protocol DelegationAmountInputPresenterDelegate: AnyObject {
     func finishedAmountInput()
 }
 
-enum RestakeOption {
-    case yes
-    case no
-}
-
 struct StakeAmountInputValidator {
     var minimumValue: GTU
     var maximumValue: GTU
@@ -81,14 +76,14 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     @Published private var validAmount: GTU?
     private var isInCooldown:Bool = false //TODO: calculate this based on the account state
-    var restake: RestakeOption = .yes
+    var restake: Bool = true
     
-    private var dataHandler: DelegationDataHandler
+    private var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
     
     let validator: StakeAmountInputValidator
     
-    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil, dataHandler: DelegationDataHandler) {
+    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
         self.account = account
         self.delegate = delegate
         self.dataHandler = dataHandler
@@ -113,7 +108,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
 
         self.view?.restakeOptionPublisher.sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self] isRestaking in
-            self?.restake = isRestaking ? .yes : .no
+            self?.restake = isRestaking
         }).store(in: &cancellables)
         
         self.view?.amountPublisher.map { amount -> GTU in
@@ -156,6 +151,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     func pressedContinue() {
+        self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
         if let validAmount = validAmount {
             self.dataHandler.add(entry: AmountDelegationData(amount: validAmount))
         }
