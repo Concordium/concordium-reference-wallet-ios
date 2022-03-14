@@ -74,7 +74,7 @@ class SendFundViewModel {
             //for transfers from the public account, we show Total and at disposal for the public balance
             firstBalanceName = "sendFund.total".localized
             secondBalanceName = "sendFund.atDisposal".localized
-            firstBalance = GTU(intValue: account.totalForecastBalance).displayValueWithGStroke()
+            firstBalance = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
         case .encryptedTransfer, .transferToPublic:
@@ -115,6 +115,7 @@ protocol SendFundPresenterDelegate: AnyObject {
                            memo: Memo?,
                            cost: GTU,
                            transferType: TransferType)
+    func dismissQR()
 }
 
 // MARK: -
@@ -409,5 +410,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
 extension SendFundPresenter: ScanAddressQRPresenterDelegate {
     func scanAddressQr(didScanAddress: String) {
         self.selectedRecipient = RecipientEntity(name: "", address: didScanAddress)
+        self.delegate?.dismissQR()
     }
 }
