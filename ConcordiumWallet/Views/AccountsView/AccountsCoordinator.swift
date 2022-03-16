@@ -145,7 +145,9 @@ extension AccountsCoordinator: CreateNewAccountDelegate {
 extension AccountsCoordinator: AccountDetailsDelegate {
     func accountDetailsClosed() {
         navigationController.dismiss(animated: true, completion: nil)
-        childCoordinators.removeAll(where: { $0 is AccountDetailsCoordinator })
+        if let lastOccurenceIndex = childCoordinators.lastIndex(where: { $0 is AccountDetailsCoordinator }) {
+            childCoordinators.remove(at: lastOccurenceIndex)
+        }
     }
     
     func retryCreateAccount(failedAccount: AccountDataType) {

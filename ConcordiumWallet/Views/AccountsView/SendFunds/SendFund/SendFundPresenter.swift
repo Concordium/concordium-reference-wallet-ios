@@ -409,7 +409,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
 extension SendFundPresenter: ScanAddressQRPresenterDelegate {
     func scanAddressQr(didScanAddress: String) {
-        self.selectedRecipient = RecipientEntity(name: "", address: didScanAddress)
+        self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: didScanAddress))
         self.delegate?.dismissQR()
     }
 }

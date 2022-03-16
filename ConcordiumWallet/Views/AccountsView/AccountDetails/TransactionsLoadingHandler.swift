@@ -49,11 +49,15 @@ class TransactionsLoadingHandler {
         let matchingTransaction = self.undecryptedTransactions.filter { $0.transactionHash == withTransactionHash }
         return transactionsService.decryptEncryptedTransferAmounts(transactions: matchingTransaction,
                                                                    from: account,
-                                                                   requestPasswordDelegate: requestPasswordDelegate)
+                                                                   requestPasswordDelegate: requestPasswordDelegate).map { [weak self] result in
+            self?.undecryptedTransactions = []
+            return result
+        }.eraseToAnyPublisher()
     }
 
     func getTransactions(startingFrom: TransactionViewModel? = nil) -> AnyPublisher<([TransactionViewModel], [TransactionViewModel]), Error> {
         if startingFrom == nil {
+            undecryptedTransactions = []
             loadLocalTransfers()
         }
         return transactionsService.getTransactions(for: account, startingFrom: startingFrom?.source as? Transaction)
@@ -133,11 +137,12 @@ class TransactionsLoadingHandler {
             let association: [(Transaction, String?, Int?)] = filteredRawTransactions.map { (transaction) -> (Transaction, String?, Int?) in
                 (transaction, transaction.encrypted?.encryptedAmount, self.encryptedAmopuntLookup(encryptedAmount: transaction.encrypted?.encryptedAmount))
             }
-            undecryptedTransactions = association.filter { (_, encrypted, value) -> Bool in
+            let newUndecrypted = association.filter { (_, encrypted, value) -> Bool in
                 value == nil && encrypted != nil
             }.map { (transaction, _, _) -> Transaction in
                 return transaction
             }
+            undecryptedTransactions = undecryptedTransactions + newUndecrypted
         }
         
         let remoteTransactionsVM: [TransactionViewModel] = filteredRawTransactions.map {

@@ -136,6 +136,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         } else {
             switchToBalanceType(.balance)
         }
+        userSelectedTransfers()
     }
     
     func switchToBalanceType(_ balanceType: AccountBalanceTypeEnum) {
@@ -168,7 +169,8 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     }
     
     fileprivate func updateTransfers() {
-        accountsService.updateAccountBalancesAndDecryptIfNeeded(account: account, balanceType: balanceType, requestPasswordDelegate: delegate!)
+        guard let delegate = delegate else { return }
+        accountsService.updateAccountBalancesAndDecryptIfNeeded(account: account, balanceType: balanceType, requestPasswordDelegate: delegate)
             .mapError(ErrorMapper.toViewError)
             .sink(receiveError: { [weak self] error in
                 self?.view?.showErrorAlert(error)
@@ -249,6 +251,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             .sink(receiveError: {[weak self] error in
                 self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] _ in
+                    self?.switchToBalanceType(.shielded)
                     self?.updateTransfers()
             }).store(in: &cancellables)
     }
