@@ -133,8 +133,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         account = account.withShowShielded(shouldShow)
         if shouldShow {
             switchToBalanceType(.shielded)
+            userSelectedTransfers()
         } else {
             switchToBalanceType(.balance)
+            userSelectedTransfers()
         }
     }
     
@@ -249,6 +251,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             .sink(receiveError: {[weak self] error in
                 self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] _ in
+                    self?.switchToBalanceType(.shielded)
                     self?.updateTransfers()
             }).store(in: &cancellables)
     }
