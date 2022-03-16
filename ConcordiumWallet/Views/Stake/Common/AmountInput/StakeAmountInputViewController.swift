@@ -8,9 +8,10 @@
 
 import UIKit
 import Combine
+import CryptoKit
 
 // MARK: View
-protocol StakeAmountInputViewProtocol: AnyObject {
+protocol StakeAmountInputViewProtocol: AnyObject, ShowAlert {
     func bind(viewModel: StakeAmountInputViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
     var restakeOptionPublisher: PassthroughSubject<Bool, Error> { get }
@@ -97,7 +98,9 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             self.secondBalanceValue.text = balanceVM.value
         }.store(in: &cancellables)
         
-        viewModel.$showsPoolLimits.assign(to: \.isHidden, on: optionalBalancesView)
+        viewModel.$showsPoolLimits
+            .compactMap { !$0 }
+            .assign(to: \.isHidden, on: optionalBalancesView)
             .store(in: &cancellables)
         
         viewModel.$currentPoolLimit.sink { [weak self] balanceVM in
@@ -146,6 +149,14 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .assign(to: \.text, on: bottomDescription)
             .store(in: &cancellables)
         
+        viewModel.$isRestakeSelected.sink { [weak self] isRestakeSelected in
+            if isRestakeSelected {
+                self?.restakeController.selectedSegmentIndex = 0
+            } else {
+                self?.restakeController.selectedSegmentIndex = 1
+            }
+        }.store(in: &cancellables)
+        
         viewModel.$isAmountValid
             .compactMap { $0 }
             .assign(to: \.isEnabled, on: continueButton)
@@ -180,3 +191,33 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         presenter.pressedContinue()
     }
 }
+
+
+// MARK: - UITextFieldDelegate
+extension StakeAmountInputViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString: String) -> Bool {
+        let text = (textField.text ?? "") as NSString
+        
+        let updatedText = text.replacingCharacters(
+            in: range,
+            with: replacementString
+        )
+        
+        if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
+            return false
+        }
+        // Allow only numbers, dot and up to six decimal points
+        return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
+        
+    }
+}
+
+//extension StakeAmountInputViewController: UITextViewDelegate {
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if text == "\n" {
+//            view.endEditing(true)
+//            return false
+//        }
+//        return true
+//    }
+//}

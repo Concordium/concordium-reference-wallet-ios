@@ -52,6 +52,8 @@ class StakeAmountInputViewModel {
     @Published var currentPoolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "")
     @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "")
     
+    @Published var isRestakeSelected: Bool = true
+    
     @Published var bottomMessage: String = ""
     @Published var isAmountValid: Bool = false
 }

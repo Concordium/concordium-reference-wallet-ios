@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol StakeReceiptViewProtocol: AnyObject {
+protocol StakeReceiptViewProtocol: ShowAlert {
     func bind(viewModel: StakeReceiptViewModel)
 }
 
@@ -67,7 +67,15 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
             }.store(in: &cancellables)
         
         viewModel.$text
-            .assign(to: \.text, on: topTextLabel)
+            .sink(receiveValue: { [weak self] text in
+                guard let self = self else { return }
+                if let text = text  {
+                    self.topTextLabel.text = text
+                    self.topTextLabel.isHidden = false
+                } else {
+                    self.topTextLabel.isHidden = true
+                }
+            })
             .store(in: &cancellables)
         
         viewModel.$showsSubmitted

@@ -31,11 +31,11 @@ class DelegationCoordinator: Coordinator {
         self.account = account
         self.delegate = parentCoordinator
         //TODO: figure out from account whether we are editing or registering
-        self.delegationDataHandler = StakeDataHandler(transactionType: .registerDelegation)
+        self.delegationDataHandler = StakeDataHandler()
     }
     
     func start() {
-        showAmountInput()
+        showPoolSelection()
     }
     
     func showAmountInput() {
@@ -64,17 +64,18 @@ class DelegationCoordinator: Coordinator {
 }
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
-    func finishedDelegation() {
-        self.delegate?.finished()
-    }
+    //TODO: readd cleanup
+//    func finishedDelegation() {
+//        self.delegate?.finished()
+//    }
     func finishedAmountInput() {
-        self.showPoolSelection()
+        self.showConfirmation()
     }
 }
 
 extension DelegationCoordinator: DelegationPoolSelectionPresenterDelegate {
     func finishedPoolSelection() {
-        self.showConfirmation()
+        showAmountInput()
     }
 }
 

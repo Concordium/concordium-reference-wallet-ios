@@ -76,6 +76,12 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         self.delegate = delegate
         let currentPoolData: PoolDelegationData? = dataHandler.getCurrentEntry()
         self.viewModel = DelegationPoolViewModel(currentPool: currentPoolData?.pool)
+        if let pool = currentPoolData?.pool {
+            self.validSelectedPool = pool
+            if case BakerPool.lpool = pool {
+                self.viewModel.selectedPoolIndex = 1
+            }
+        }
         self.dataHandler = dataHandler
     }
 

@@ -48,7 +48,16 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
     }
     
     func pressedButton() {
-        self.delegate?.finishedShowingReceipt()
+        if dataHandler.isLoweringStake() {
+            let fineAction = AlertAction(name: "delegation.receiptlowering.ok".localized, completion: { [weak self] in
+                self?.delegate?.finishedShowingReceipt()
+            }, style: .default)
+            //TODO: update grace period
+            let alertOptions = AlertOptions(title: "delegation.receiptlowering.title".localized, message: String(format: "delegation.receiptlowering.message".localized, "<TBD>"), actions: [ fineAction])
+            self.view?.showAlert(with: alertOptions)
+        } else {
+            self.delegate?.finishedShowingReceipt()
+        }
     }
 }
 

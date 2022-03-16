@@ -34,7 +34,7 @@ enum Field: Hashable {
         case .delegationAccount:
             return "delegation.receipt.accounttodelegate".localized
         case .pool:
-            return "delegation.receipt.tagetbakerpoolid".localized
+            return "delegation.receipt.tagetbakerpool".localized
         case .amount:
             return "delegation.receipt.delegationamount".localized
       
@@ -174,7 +174,7 @@ class AmountDelegationData: StakeData{
         super.init(field: .amount)
     }
     override func getDisplayValue() -> String {
-        return amount.displayValue()
+        return amount.displayValueWithGStroke()
     }
 }
 
@@ -195,16 +195,15 @@ class RestakeDelegationData: StakeData {
     }
 }
 
-enum StakeTransactionType {
-    case registerBaker
-    case updateBaker
-    case registerDelegation
-    case updateDelegation
-}
+//enum StakeTransactionType {
+//    case registerBaker
+//    case updateBaker
+//    case registerDelegation
+//    case updateDelegation
+//}
 
 class StakeDataHandler {
     
-    private var transactionType: StakeTransactionType
     
     //this is the data that is currently on the chain
     private var currentData: Set<StakeData>? = nil
@@ -212,19 +211,21 @@ class StakeDataHandler {
     //this is what we are now changing
     private var data: Set<StakeData> = Set()
 
-    init(transactionType: StakeTransactionType) {
-        self.transactionType = transactionType
+    init() {
         currentData = Set()
         currentData?.update(with: AmountDelegationData(amount: GTU(intValue: 45)))
         currentData?.update(with: PoolDelegationData(pool: BakerPool.lpool))
+        currentData?.update(with: RestakeDelegationData(restake: false))
     }
     
+    /// Remove an entry by field
     func remove(field: Field) {
         if let entry = data.filter({ $0.field == field}).first {
             data.remove(entry)
         }
     }
-    
+    /// An entry is added only if its value is changed compared to the data that is being updated
+    /// An entry is always added in case of new registration
     func add(entry: StakeData) {
         let isValueUnchanged = currentData?.contains(where: { data in
             data === entry
@@ -238,24 +239,29 @@ class StakeDataHandler {
         data.update(with: entry)
     }
     
+    /// Retrieves an entry from the currently saved value
     func getCurrentEntry<T:StakeData>() -> T? {
         return currentData?.filter({ $0 is T}).first as? T
     }
     
-    private func getNewEntry<T:StakeData>() -> T? {
+    /// Retrieves an entry from the updated values (current trasnaction)
+    func getNewEntry<T:StakeData>() -> T? {
         return data.filter({ $0 is T}).first as? T
     }
     
+    /// Checks if we are updating
     func hasCurrentData() -> Bool {
-        self.currentData == nil
+        self.currentData != nil
     }
     
+    /// Retrieves all the fields that were changed sorted in the right order for display
     func getAllOrdered() -> [StakeData] {
         return data.sorted { lhs, rhs in
             lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
         }
     }
     
+    /// Checks if the amount we are now selecting is lower that the previous amount
     func isLoweringStake() -> Bool {
         guard let currentAmount: AmountDelegationData = getCurrentEntry() else {
             return false
@@ -267,5 +273,22 @@ class StakeDataHandler {
             return true
         }
         return false
+    }
+    
+    func moreThan95(atDisposal: Int) -> Bool {
+        guard let currentAmount: AmountDelegationData = getCurrentEntry() else {
+            return false
+        }
+        if Double(currentAmount.amount.intValue) > Double(atDisposal) * 0.95 {
+            return true
+        }
+        return false
+    }
+    
+    /// Checks if there are any changes to the stake data
+    func containsChanges() -> Bool {
+        // we remove the account data and see if there are any actual changes
+        let res = data.filter({ !($0 is AccountDelegationData)}).count
+        return res != 0
     }
 }

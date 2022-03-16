@@ -546,19 +546,19 @@ developer.concordium.software";
 
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.delegationamount" = "Delegation amount";
-"delegation.receipt.tagetbakerpool" = "Target baker pool ID";
+"delegation.receipt.tagetbakerpool" = "Current target";
 
 
 
 "delegation.receipt.lpoolvalue" = "L-pool";
 "delegation.receipt.bakerpoolvalue" = "Baker id %@";
 "delegation.receipt.addedtodelegation" = "Added to delegation amount";
-"delegation.receipt.notaddedtodelegation" = "";
+"delegation.receipt.notaddedtodelegation" = "Added to balance";
 
 "delegation.receiptconfirmation.title.update" = "Update delegation";
 "delegation.receiptconfirmation.title.create" = "Register delegation";
 "delegation.receiptconfirmation.registertext" = "You are about to submit a delegation transaction. This will lock your delegation amount for at least %@.";
-"delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take affect after %@ and the delegation amount cannot be changed during this period of time.";
+"delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take effect after %@ and the delegation amount cannot be changed during this period of time.";
 "delegation.receiptconfirmation.submit"  = "Submit delegation transaction";
 
 "delegation.receiptconfirmation.transactionfee" = "Estimated transaction fee: \n%@";
@@ -566,9 +566,31 @@ developer.concordium.software";
 
 "delegation.receipt.updatedelegation" = "Transaction: Update delegation";
 "delegation.receipt.registerdelegation" = "Transaction: Register delegation";
+"delegation.receiptlowering.title" = "Notice";
+"delegation.receiptlowering.message" = "Your decrease to the delegation amount will take effect after a cool down of approximately %@.
+
+All other updates will take effect at the next pay day. ";
+"delegation.receiptlowering.ok" = "Okay";
+
+"delegation.loweringamountwarning.title" = "Important";
+"delegation.loweringamountwarning.message" = "Reducing the delegation amount will lock the total delegation amount for a cool down period. No changes can be made to the amount during this period, and the withdrawal will not take effect before the cool down is over.";
+"delegation.loweringamountwarning.change" = "Let me change my amount";
+"delegation.loweringamountwarning.fine" = "That’s fine";
+
+
+"delegation.morethan95.title" = "Warning";
+"delegation.morethan95.message" = "You are about to lock more than 95% of your total balance in a delegation stake.
+
+If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees. ";
+"delegation.morethan95.continue" = "Continue";
+"delegation.morethan95.newstake" = "Enter new delegation stake";
+
+"delegation.nochanges.title" = "Notice";
+"delegation.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
+"delegation.nochanges.ok" = "Okay";
 
 "baker.receiptconfirmation.title.update" = "Update baker stake";
-"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take affact immediately.
+"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
 
 The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
 
