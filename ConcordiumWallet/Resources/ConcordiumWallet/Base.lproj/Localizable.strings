@@ -122,7 +122,7 @@ add_identity_data = "Reveal Identity Data";
  "accounts.alert.shiededtransactions.message" = "Your account %@ has received a shielded transaction, and the shielded balance of %@ is currently hidden.\n\n
 You can show the shielded balance of the account via the option below, or later via the menu in the upper right corner of the account’s page.";
  "accounts.alert.shiededtransactions.show" = "Show shielded balance on %@";
- "accounts.alert.shiededtransactions.later" = "Later";
+ "accounts.alert.shiededtransactions.later" = "Don't show again";
 
 
 "gettingstarted.title" = "Getting started";
