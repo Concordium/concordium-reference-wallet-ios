@@ -119,7 +119,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>RobotoMono-VariableFont_wght.ttf</string>
+		<string>RobotoMono.ttf</string>
 	</array>
 </dict>
 </plist>
