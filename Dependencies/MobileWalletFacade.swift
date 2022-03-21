@@ -36,6 +36,18 @@ class MobileWalletFacade {
         try call(cFunction: create_encrypted_transfer, with: input, debugTitle: "createEncrypted")
     }
     
+    func createConfigureDelegation(input: String) throws -> String {
+        try call(cFunction: create_configure_delegation_transaction, with: input, debugTitle: "createConfigureDelegation")
+    }
+    
+    func createConfigureBaker(input: String) throws -> String {
+        try call(cFunction: create_configure_baker_transaction, with: input, debugTitle: "createConfigureBaker")
+    }
+    
+    func generateBakerKeys() throws -> String {
+        try callNoParams(cFunction: generate_baker_keys, debugTitle: "generateBakerKeys")
+    }
+    
     func decryptEncryptedAmount(input: String) throws -> Int {
          try callIntFunction(cFunction: decrypt_encrypted_amount, with: input, debugTitle: "decryptEncryptedAmount")
     }
@@ -79,6 +91,29 @@ class MobileWalletFacade {
 
     }
 
+    private func callNoParams(cFunction: (UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,
+                              debugTitle: String) throws -> String {
+        Logger.debug("TX \(debugTitle):\n")
+        var responseString = ""
+        
+        var returnCode: UInt8 = 0
+        guard let responsePtr = cFunction(&returnCode) else {
+            throw WalletError.noResponse
+        }
+        responseString = String(cString: responsePtr)
+        free_response_string(responsePtr)
+        
+        guard returnCode == 1 else {
+            Logger.error("RX Error: \(responseString)")
+            throw WalletError.failed(responseString)
+        }
+        
+        Logger.debug("RX \(debugTitle):\n\(responseString)")
+        return responseString
+
+    }
+    
+    
     private func callTwoParameterFunction(cFunction: (UnsafePointer<Int8>?,
                                                       UnsafePointer<Int8>?,
                                                       UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,

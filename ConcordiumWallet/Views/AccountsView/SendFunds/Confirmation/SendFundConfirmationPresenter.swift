@@ -104,7 +104,10 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         case .transferToSecret:
             view?.line1Text = "sendFund.confirmation.shield".localized
             view?.buttonText = "accounts.shieldedamount".localized
-            
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            break
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            break
         }
 
         let estimateTransactionFee = "sendFund.confirmation.line4.estimatedTransactionFee".localized

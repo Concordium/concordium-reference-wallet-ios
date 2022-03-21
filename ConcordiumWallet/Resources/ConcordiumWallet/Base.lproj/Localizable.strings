@@ -553,7 +553,7 @@ developer.concordium.software";
 "delegation.receipt.lpoolvalue" = "L-pool";
 "delegation.receipt.bakerpoolvalue" = "Baker id %@";
 "delegation.receipt.addedtodelegation" = "Added to delegation amount";
-"delegation.receipt.notaddedtodelegation" = "Added to balance";
+"delegation.receipt.notaddedtodelegation" = "At disposal";
 
 "delegation.receiptconfirmation.title.update" = "Update delegation";
 "delegation.receiptconfirmation.title.create" = "Register delegation";

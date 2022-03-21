@@ -57,6 +57,10 @@ extension TransferDataType {
                 balanceChange = -(Int(amount) ?? 0) + (Int(cost) ?? 0)
             case .encryptedTransfer:
                 balanceChange = (Int(cost) ?? 0)
+            case .registerDelegation, .removeDelegation, .updateDelegation:
+                balanceChange = 0
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+                balanceChange = 0
             }
         }
         
@@ -80,6 +84,10 @@ extension TransferDataType {
                 balanceChange = -(Int(amount) ?? 0)// shielding is included even if not finalized
             case .encryptedTransfer, .transferToPublic:
                 balanceChange = (Int(amount) ?? 0) + 0 // the cost is taken from the public balance
+            case .registerDelegation, .removeDelegation, .updateDelegation:
+                balanceChange = 0
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+                balanceChange = 0
             }
             
         }

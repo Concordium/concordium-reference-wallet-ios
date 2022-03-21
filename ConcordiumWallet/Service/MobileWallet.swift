@@ -234,6 +234,10 @@ class MobileWallet: MobileWalletProtocol {
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
         case .encryptedTransfer:
              return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         }
     }
 

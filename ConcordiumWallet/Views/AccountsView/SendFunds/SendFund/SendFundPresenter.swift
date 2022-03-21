@@ -37,7 +37,12 @@ class SendFundViewModel {
         case .transferToSecret, .transferToPublic:
             // We hide the memo and recipient for shielding or unshielding
             showMemoAndRecipient = false
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            break
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            break
         }
+        
         setPageAndSendButtonTitle(transferType: transferType)
         setBalancesFor(transferType: transferType, account: account)
     }
@@ -66,6 +71,10 @@ class SendFundViewModel {
         case .transferToSecret:
             pageTitle = "sendFund.pageTitle.shieldAmount".localized
             buttonTitle = "sendFund.buttonTitle.shieldAmount".localized
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            break
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            break
         }
     }
     private func setBalancesFor(transferType: TransferType, account: AccountDataType) {
@@ -86,6 +95,10 @@ class SendFundViewModel {
             firstBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke() + (showLock ? " + " : "")
             disposalAmount = GTU(intValue: account.finalizedEncryptedBalance)
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            break
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            break
         }
     }
     

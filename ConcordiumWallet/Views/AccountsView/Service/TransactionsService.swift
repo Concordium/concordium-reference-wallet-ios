@@ -40,6 +40,10 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .encryptedTransfer:
             return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
     
@@ -280,6 +284,86 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             }
             .eraseToAnyPublisher()
     }
+    
+    
+    private func performDelegationTransfer(_ pTransfer: TransferDataType,
+                                       from account: AccountDataType,
+                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+        
+        var transfer = pTransfer
+        let tenMinutes: TimeInterval = 60 * 10
+        let expiry = Date(timeIntervalSinceNow: tenMinutes)
+        transfer.expiry = expiry
+        transfer.createdAt = Date()
+        return getAccountNonce(for: transfer.fromAddress)
+            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
+                transfer.nonce = nonce.nonce
+                return self.mobileWallet.createTransfer(from: account,
+                                                        to: transfer.toAddress,
+                                                        amount: Int(transfer.amount) ?? 0,
+                                                        nonce: nonce,
+                                                        memo: transfer.memo,
+                                                        expiry: expiry,
+                                                        energy: transfer.energy,
+                                                        transferType: transfer.transferType,
+                                                        requestPasswordDelegate: requestPasswordDelegate,
+                                                        global: nil,
+                                                        inputEncryptedAmount: nil,
+                                                        receiverPublicKey: nil
+                )
+            }
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { (submissionStatus: SubmissionStatus) in
+                transfer.transactionStatus = submissionStatus.status
+                transfer.outcome = submissionStatus.outcome
+                return transfer
+            }
+            .eraseToAnyPublisher()
+        
+    }
+    
+    private func performBakerTransfer(_ pTransfer: TransferDataType,
+                                       from account: AccountDataType,
+                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+        
+        var transfer = pTransfer
+        let tenMinutes: TimeInterval = 60 * 10
+        let expiry = Date(timeIntervalSinceNow: tenMinutes)
+        transfer.expiry = expiry
+        transfer.createdAt = Date()
+        return getAccountNonce(for: transfer.fromAddress)
+            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
+                transfer.nonce = nonce.nonce
+                return self.mobileWallet.createTransfer(from: account,
+                                                        to: transfer.toAddress,
+                                                        amount: Int(transfer.amount) ?? 0,
+                                                        nonce: nonce,
+                                                        memo: transfer.memo,
+                                                        expiry: expiry,
+                                                        energy: transfer.energy,
+                                                        transferType: transfer.transferType,
+                                                        requestPasswordDelegate: requestPasswordDelegate,
+                                                        global: nil,
+                                                        inputEncryptedAmount: nil,
+                                                        receiverPublicKey: nil
+                )
+            }
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { (submissionStatus: SubmissionStatus) in
+                transfer.transactionStatus = submissionStatus.status
+                transfer.outcome = submissionStatus.outcome
+                return transfer
+            }
+            .eraseToAnyPublisher()
+        
+    }
+    
     
     func getTransactions(for account: AccountDataType, startingFrom: Transaction? = nil) -> AnyPublisher<RemoteTransactions, Error> {
         var params = ["order": "descending"]
