@@ -1,0 +1,23 @@
+{
+    "capitalBound": 0.25,
+    "transactionCommissionLPool": 0.1,
+    "leverageBound": {
+        "denominator": 1,
+        "numerator": 3
+    },
+    "finalizationCommissionLPool": 1.0,
+    "bakingCommissionRange": {
+        "max": 5.0e-2,
+        "min": 5.0e-2
+    },
+    "bakingCommissionLPool": 0.1,
+    "finalizationCommissionRange": {
+        "max": 1.0,
+        "min": 1.0
+    },
+    "transactionCommissionRange": {
+        "max": 5.0e-2,
+        "min": 5.0e-2
+    },
+    "minimumEquityCapital": "14000"
+}

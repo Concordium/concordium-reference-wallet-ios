@@ -12,6 +12,15 @@ struct MakeCreateTransferRequest: Codable {
     let expiry: Int?
     let nonce: Int?
     let memo: String?
+    let capital: String?
+    let restakeEarnings: Bool?
+    let delegationTarget: DelegationTarget?
+    let openStatus: String?
+    let metadataURL: String?
+    let transactionFeeCommission: Int?
+    let bakingRewardCommission: Int?
+    let finalizationRewardCommission: Int?
+    let bakerKeys: BakerKeys?
     let keys: AccountKeys?
     let energy: Int?
     let amount: String?
@@ -26,6 +35,15 @@ struct MakeCreateTransferRequest: Codable {
         case expiry = "expiry"
         case nonce = "nonce"
         case memo = "memo"
+        case capital = "capital"
+        case restakeEarnings = "restakeEarnings"
+        case delegationTarget = "delegationTarget"
+        case openStatus = "openStatus"
+        case metadataURL = "metadataUrl"
+        case transactionFeeCommission = "transactionFeeCommission"
+        case bakingRewardCommission = "bakingRewardCommission"
+        case finalizationRewardCommission = "finalizationRewardCommission"
+        case bakerKeys = "bakerKeys"
         case keys = "keys"
         case energy = "energy"
         case amount = "amount"
@@ -60,6 +78,15 @@ extension MakeCreateTransferRequest {
         expiry: Int?? = nil,
         nonce: Int?? = nil,
         memo: String?? = nil,
+        capital: String?? = nil,
+        restakeEarnings: Bool?? = nil,
+        delegationTarget: DelegationTarget?? = nil,
+        openStatus: String?? = nil,
+        metadataURL: String?? = nil,
+        transactionFeeCommission: Int?? = nil,
+        bakingRewardCommission: Int?? = nil,
+        finalizationRewardCommission: Int?? = nil,
+        bakerKeys: BakerKeys?? = nil,
         keys: AccountKeys?? = nil,
         energy: Int?? = nil,
         amount: String?? = nil,
@@ -74,6 +101,15 @@ extension MakeCreateTransferRequest {
             expiry: expiry ?? self.expiry,
             nonce: nonce ?? self.nonce,
             memo: memo ?? self.memo,
+            capital: capital ?? self.capital,
+            restakeEarnings: restakeEarnings ?? self.restakeEarnings,
+            delegationTarget: delegationTarget ?? self.delegationTarget,
+            openStatus: openStatus ?? self.openStatus,
+            metadataURL: metadataURL ?? self.metadataURL,
+            transactionFeeCommission: transactionFeeCommission ?? self.transactionFeeCommission,
+            bakingRewardCommission: bakingRewardCommission ?? self.bakingRewardCommission,
+            finalizationRewardCommission: finalizationRewardCommission ?? self.finalizationRewardCommission,
+            bakerKeys: bakerKeys ?? self.bakerKeys,
             keys: keys ?? self.keys,
             energy: energy ?? self.energy,
             amount: amount ?? self.amount,

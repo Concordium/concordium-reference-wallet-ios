@@ -13,8 +13,6 @@ protocol DelegationCoordinatorDelegate: Coordinator {
     func finished()
 }
 
-
-
 class DelegationCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -31,7 +29,7 @@ class DelegationCoordinator: Coordinator {
         self.account = account
         self.delegate = parentCoordinator
         //TODO: figure out from account whether we are editing or registering
-        self.delegationDataHandler = StakeDataHandler()
+        self.delegationDataHandler = StakeDataHandler(transferType: .registerDelegation)
     }
     
     func start() {
@@ -39,13 +37,13 @@ class DelegationCoordinator: Coordinator {
     }
     
     func showAmountInput() {
-        let presenter = DelegationAmountInputPresenter(account: account, delegate: self, dataHandler: delegationDataHandler)
+        let presenter = DelegationAmountInputPresenter(account: account, delegate: self, dependencyProvider: dependencyProvider, dataHandler: delegationDataHandler)
         let vc = StakeAmountInputFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showPoolSelection() {
-        let presenter = DelegationPoolSelectionPresenter(delegate: self, dataHandler: delegationDataHandler)
+        let presenter = DelegationPoolSelectionPresenter(delegate: self, dependencyProvider: dependencyProvider, dataHandler: delegationDataHandler)
         let vc = DelegationPoolSelectionFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }

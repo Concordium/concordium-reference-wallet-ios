@@ -167,7 +167,7 @@ class BakerPoolSettingsData: StakeData {
     }
 }
 
-class AmountDelegationData: StakeData{
+class AmountData: StakeData {
     var amount: GTU
     init(amount: GTU) {
         self.amount = amount
@@ -195,15 +195,8 @@ class RestakeDelegationData: StakeData {
     }
 }
 
-//enum StakeTransactionType {
-//    case registerBaker
-//    case updateBaker
-//    case registerDelegation
-//    case updateDelegation
-//}
-
 class StakeDataHandler {
-    
+    let transferType: TransferType
     
     //this is the data that is currently on the chain
     private var currentData: Set<StakeData>? = nil
@@ -211,11 +204,12 @@ class StakeDataHandler {
     //this is what we are now changing
     private var data: Set<StakeData> = Set()
 
-    init() {
-        currentData = Set()
-        currentData?.update(with: AmountDelegationData(amount: GTU(intValue: 45)))
-        currentData?.update(with: PoolDelegationData(pool: BakerPool.lpool))
-        currentData?.update(with: RestakeDelegationData(restake: false))
+    init(transferType: TransferType) {
+        self.transferType = transferType
+//        currentData = Set()
+//        currentData?.update(with: AmountData(amount: GTU(intValue: 45)))
+//        currentData?.update(with: PoolDelegationData(pool: BakerPool.lpool))
+//        currentData?.update(with: RestakeDelegationData(restake: false))
     }
     
     /// Remove an entry by field
@@ -263,10 +257,10 @@ class StakeDataHandler {
     
     /// Checks if the amount we are now selecting is lower that the previous amount
     func isLoweringStake() -> Bool {
-        guard let currentAmount: AmountDelegationData = getCurrentEntry() else {
+        guard let currentAmount: AmountData = getCurrentEntry() else {
             return false
         }
-        guard let newAmount: AmountDelegationData = getNewEntry() else {
+        guard let newAmount: AmountData = getNewEntry() else {
             return false
         }
         if newAmount.amount.intValue < currentAmount.amount.intValue {
@@ -276,7 +270,7 @@ class StakeDataHandler {
     }
     
     func moreThan95(atDisposal: Int) -> Bool {
-        guard let currentAmount: AmountDelegationData = getCurrentEntry() else {
+        guard let currentAmount: AmountData = getCurrentEntry() else {
             return false
         }
         if Double(currentAmount.amount.intValue) > Double(atDisposal) * 0.95 {
@@ -291,4 +285,27 @@ class StakeDataHandler {
         let res = data.filter({ !($0 is AccountDelegationData)}).count
         return res != 0
     }
+    
+    func getCostParameters() -> [TransferCostParameter] {
+        data.compactMap { data in
+            switch data {
+            case is AmountData:
+                return .amount
+            case is RestakeDelegationData:
+                return .restake
+            case let poolData as PoolDelegationData:
+                switch poolData.pool {
+                case .lpool:
+                    return .lpool
+                case .bakerPool:
+                    return .target
+                }
+            //TODO cost calculation for baking
+            default:
+                return nil
+            }
+        }
+    }
+    
 }
+

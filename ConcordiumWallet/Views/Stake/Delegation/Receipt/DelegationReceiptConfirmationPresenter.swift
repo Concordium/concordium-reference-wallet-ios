@@ -25,6 +25,7 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
     
     private var dataHandler: StakeDataHandler
     private var transactionsService: TransactionsServiceProtocol
+    private var stakeService: StakeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     init(account: AccountDataType, dependencyProvider: StakeCoordinatorDependencyProvider, delegate: DelegationReceiptConfirmationPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
@@ -33,6 +34,7 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         self.dataHandler = dataHandler
         self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler)
         self.transactionsService = dependencyProvider.transactionsService()
+        self.stakeService = dependencyProvider.stakeService()
         let isLoweringStake = dataHandler.isLoweringStake()
         //TODO: fill in grace period
         self.viewModel.setup(isUpdate: dataHandler.hasCurrentData(), isLoweringStake: isLoweringStake, gracePeriod: "[[<current grace period>]]")

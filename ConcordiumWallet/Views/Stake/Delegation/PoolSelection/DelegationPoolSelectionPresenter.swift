@@ -71,9 +71,11 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
 
     private var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
+    private var stakeService: StakeServiceProtocol
     
-    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
+    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil, dependencyProvider: StakeCoordinatorDependencyProvider, dataHandler: StakeDataHandler) {
         self.delegate = delegate
+        self.stakeService = dependencyProvider.stakeService()
         let currentPoolData: PoolDelegationData? = dataHandler.getCurrentEntry()
         self.viewModel = DelegationPoolViewModel(currentPool: currentPoolData?.pool)
         if let pool = currentPoolData?.pool {
@@ -90,12 +92,20 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         self.view?.bakerIdPublisher
             .flatMap { [weak self] bakerId -> AnyPublisher<Result<String, DelegationPoolBakerIdError>, Never> in
                 self?.viewModel.bakerId = bakerId
-                
-            //TODO: check if the baker id is valid
-                if bakerId == "4" {
+                guard let self = self else {
                     return .just(Result.failure(DelegationPoolBakerIdError.invalid))
                 }
-            return .just(.success(bakerId)).eraseToAnyPublisher()
+                guard let bakerIdInt = Int(bakerId) else {
+                    return .just(Result.failure(DelegationPoolBakerIdError.invalid))
+                }
+               
+                return self.stakeService.getBakerPool(bakerId: bakerIdInt)
+                    .map { _ in
+                        return Result<String, DelegationPoolBakerIdError>.success(bakerId)
+                    }.replaceError(with: {
+                        return Result<String, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
+                    }())
+                    .eraseToAnyPublisher()
         } .sink(receiveCompletion: { completion in
         }, receiveValue: { [weak self]  result in
             switch result {

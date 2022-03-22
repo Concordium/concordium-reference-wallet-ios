@@ -33,6 +33,15 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var encryptedDetails: EncryptedDetailsDataType? { get set }
     var nonce: Int { get set}
     var memo: String? { get set }
+    var capital: String? { get set }
+    var restakeEarnings: Bool { get set }
+    var delegationType: String? { get set }
+    var delegationTargetBaker: Int { get set }
+    var openStatus: String? { get set }
+    var metadataURL: String? { get set }
+    var transactionFeeCommission: Int { get set }
+    var bakingRewardCommission: Int { get set }
+    var finalizationRewardCommission: Int { get set }
     
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
@@ -127,6 +136,16 @@ final class TransferEntity: Object {
     @objc dynamic var energy: Int = 0
     @objc dynamic var encryptedDetailsEntity: EncryptedDetailsEntity?
     @objc dynamic var nonce: Int = 0
+    @objc dynamic var capital: String? = ""
+    @objc dynamic var restakeEarnings: Bool  = false
+    @objc dynamic var delegationType: String?
+    @objc dynamic var delegationTargetBaker: Int = -1
+    @objc dynamic var openStatus: String?
+    @objc dynamic var metadataURL: String?
+    @objc dynamic var transactionFeeCommission: Int = -1
+    @objc dynamic var bakingRewardCommission: Int = -1
+    @objc dynamic var finalizationRewardCommission: Int = -1
+    
 }
 
 extension TransferEntity: TransferDataType {

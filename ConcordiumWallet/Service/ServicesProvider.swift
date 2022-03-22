@@ -36,6 +36,7 @@ protocol ImportDependencyProvider {
 
 protocol StakeCoordinatorDependencyProvider : WalletAndStorageDependencyProvider {
     func transactionsService() -> TransactionsServiceProtocol
+    func stakeService() -> StakeServiceProtocol
 }
 
 class ServicesProvider {
@@ -78,6 +79,10 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
 
     func transactionsService() -> TransactionsServiceProtocol {
         TransactionsService(networkManager: _networkManager, mobileWallet: _mobileWallet, storageManager: _storageManager)
+    }
+    
+    func stakeService() -> StakeServiceProtocol {
+        StakeService(networkManager: _networkManager)
     }
 }
 
