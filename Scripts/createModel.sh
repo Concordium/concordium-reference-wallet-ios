@@ -108,6 +108,7 @@ cat $SERVER_ERROR | quicktype --multi-file-output --density normal -o $DEST/Serv
 cat $ACC_NONCE_JSON | quicktype --multi-file-output --density normal -o $DEST/acc_nonce.swift
 cat $CREATE_TRANSFER_JSON | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/make_create_transfer_request.swift
 replaceType "MakeCreateTransferRequest.MakeCreateTransferRequestKeys" "AccountKeys"
+renameType "MakeCreateTransferRequest.DelegationTarget" "TransferRequestDelegationTarget"
 cat $DECRYPT_AMOUNT_JSON | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/make_decrypt_amount_request.swift
 cat $CREATE_TRANSFER_RESPONSE_JSON | quicktype --multi-file-output --density normal -o $DEST/create_transfer_request.swift
 renameType "CreateTransferRequest.Signatures" "[Int: [Int: String]]"

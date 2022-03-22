@@ -1,26 +1,26 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let delegationTarget = try DelegationTarget(json)
+//   let delegationTarget = try TransferRequestDelegationTarget(json)
 
 import Foundation
 
-// MARK: - DelegationTarget
-struct DelegationTarget: Codable {
-    let delegatorType: String?
-    let bakerID: JSONNull?
+// MARK: - TransferRequestDelegationTarget
+struct TransferRequestDelegationTarget: Codable {
+    let type: String?
+    let targetBaker: Int?
 
     enum CodingKeys: String, CodingKey {
-        case delegatorType = "delegatorType"
-        case bakerID = "bakerId"
+        case type = "type"
+        case targetBaker = "targetBaker"
     }
 }
 
-// MARK: DelegationTarget convenience initializers and mutators
+// MARK: TransferRequestDelegationTarget convenience initializers and mutators
 
-extension DelegationTarget {
+extension TransferRequestDelegationTarget {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(DelegationTarget.self, from: data)
+        self = try newJSONDecoder().decode(TransferRequestDelegationTarget.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -35,12 +35,12 @@ extension DelegationTarget {
     }
 
     func with(
-        delegatorType: String?? = nil,
-        bakerID: JSONNull?? = nil
-    ) -> DelegationTarget {
-        return DelegationTarget(
-            delegatorType: delegatorType ?? self.delegatorType,
-            bakerID: bakerID ?? self.bakerID
+        type: String?? = nil,
+        targetBaker: Int?? = nil
+    ) -> TransferRequestDelegationTarget {
+        return TransferRequestDelegationTarget(
+            type: type ?? self.type,
+            targetBaker: targetBaker ?? self.targetBaker
         )
     }
 

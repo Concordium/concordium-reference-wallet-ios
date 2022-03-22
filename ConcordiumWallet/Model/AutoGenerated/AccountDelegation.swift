@@ -1,34 +1,28 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let accountBaker = try AccountBaker(json)
+//   let accountDelegation = try AccountDelegation(json)
 
 import Foundation
 
-// MARK: - AccountBaker
-struct AccountBaker: Codable {
-    let bakerID: Int?
+// MARK: - AccountDelegation
+struct AccountDelegation: Codable {
     let stakedAmount: String?
     let restakeEarnings: Bool?
-    let bakerAggregationVerifyKey: String?
-    let bakerElectionVerifyKey: String?
-    let bakerSignatureVerifyKey: String?
+    let delegationTarget: DelegationTarget?
 
     enum CodingKeys: String, CodingKey {
-        case bakerID = "bakerId"
         case stakedAmount = "stakedAmount"
         case restakeEarnings = "restakeEarnings"
-        case bakerAggregationVerifyKey = "bakerAggregationVerifyKey"
-        case bakerElectionVerifyKey = "bakerElectionVerifyKey"
-        case bakerSignatureVerifyKey = "bakerSignatureVerifyKey"
+        case delegationTarget = "delegationTarget"
     }
 }
 
-// MARK: AccountBaker convenience initializers and mutators
+// MARK: AccountDelegation convenience initializers and mutators
 
-extension AccountBaker {
+extension AccountDelegation {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(AccountBaker.self, from: data)
+        self = try newJSONDecoder().decode(AccountDelegation.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -43,20 +37,14 @@ extension AccountBaker {
     }
 
     func with(
-        bakerID: Int?? = nil,
         stakedAmount: String?? = nil,
         restakeEarnings: Bool?? = nil,
-        bakerAggregationVerifyKey: String?? = nil,
-        bakerElectionVerifyKey: String?? = nil,
-        bakerSignatureVerifyKey: String?? = nil
-    ) -> AccountBaker {
-        return AccountBaker(
-            bakerID: bakerID ?? self.bakerID,
+        delegationTarget: DelegationTarget?? = nil
+    ) -> AccountDelegation {
+        return AccountDelegation(
             stakedAmount: stakedAmount ?? self.stakedAmount,
             restakeEarnings: restakeEarnings ?? self.restakeEarnings,
-            bakerAggregationVerifyKey: bakerAggregationVerifyKey ?? self.bakerAggregationVerifyKey,
-            bakerElectionVerifyKey: bakerElectionVerifyKey ?? self.bakerElectionVerifyKey,
-            bakerSignatureVerifyKey: bakerSignatureVerifyKey ?? self.bakerSignatureVerifyKey
+            delegationTarget: delegationTarget ?? self.delegationTarget
         )
     }
 

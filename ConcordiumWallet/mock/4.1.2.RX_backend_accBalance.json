@@ -17,8 +17,13 @@
         },
         "accountBaker": {
             "bakerId": 3,
-            "stakedAmount": "50000000"
-        }
+            "stakedAmount": "50000000",
+            "restakeEarnings": true,
+            "bakerAggregationVerifyKey" : "",
+            "bakerElectionVerifyKey" : "",
+            "bakerSignatureVerifyKey" : ""
+        },
+        "accountDelegation": null
     },
     "finalizedBalance": {
         "accountAmount": "100000000",
@@ -38,9 +43,14 @@
             }],
             "total": "100000000"
         },
-        "accountBaker": {
-            "bakerId": 3,
-            "stakedAmount": "50000000"
+        "accountBaker": null,
+        "accountDelegation": {
+            "stakedAmount": "50000000",
+            "restakeEarnings": true,
+            "delegationTarget": {
+                    "delegatorType": "delegateToLPool",
+                    "bakerId": null
+            }
         }
     }
 }
