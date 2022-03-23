@@ -118,10 +118,12 @@ cat $SUBMISSION_STATUS_JSON | quicktype --multi-file-output  --all-properties-op
 cat $TRANSFER_COST | quicktype --multi-file-output --density normal -o $DEST/TransferCost.swift
 cat $ACCOUNT_BALANCE | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/AccountBalance.swift
 replaceType "AccountEncryptedAmount.JSONAny" "JSONObject"
+replaceType "DelegationTarget.JSONNull" "Int"
 cat $ACCOUNT_TRANSACTIONS | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/RemoteTransactions.swift
 cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/PublicEncriptionKey.swift
 cat $BAKER_POOL_JSON | quicktype --multi-file-output --density normal -o $DEST/baker_pool_response.swift
 cat $POOL_PARAMETERS_JSON | quicktype --multi-file-output --density normal -o $DEST/pool_parameters_response.swift
+
 
 
 

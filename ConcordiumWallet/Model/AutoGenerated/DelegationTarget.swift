@@ -8,7 +8,7 @@ import Foundation
 // MARK: - DelegationTarget
 struct DelegationTarget: Codable {
     let delegatorType: String?
-    let bakerID: JSONNull?
+    let bakerID: Int?
 
     enum CodingKeys: String, CodingKey {
         case delegatorType = "delegatorType"
@@ -36,7 +36,7 @@ extension DelegationTarget {
 
     func with(
         delegatorType: String?? = nil,
-        bakerID: JSONNull?? = nil
+        bakerID: Int?? = nil
     ) -> DelegationTarget {
         return DelegationTarget(
             delegatorType: delegatorType ?? self.delegatorType,

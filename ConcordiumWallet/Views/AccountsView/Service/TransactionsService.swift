@@ -353,7 +353,7 @@ extension TransactionsService {
                                                 memo: transfer.memo,
                                                 capital: transfer.capital,
                                                 restakeEarnings: transfer.restakeEarnings,
-                                                delegationTarget: DelegationTarget(type: transfer.delegationType, targetBaker: transfer.delegationTargetBaker),
+                                                delegationTarget: TransferRequestDelegationTarget(type: transfer.delegationType, targetBaker: transfer.delegationTargetBaker),
                                                 openStatus: transfer.openStatus,
                                                 metadataURL: transfer.metadataURL,
                                                 transactionFeeCommission: transfer.transactionFeeCommission,
