@@ -25,8 +25,6 @@ class AccountViewModel: Hashable {
     var atDisposalAmount: String
     
     var isReadOnly: Bool = false
-    #warning("RNI: For the purpose of March 2022 release isDelegating will not be implemented")
-    // TODO: is delegating will need to be retreived from the network and saved in the local DB
     var isDelegating: Bool = false
     
     var sendTitle: String
@@ -77,7 +75,8 @@ class AccountViewModel: Hashable {
         
         owner = account.identity?.nickname
         isInitialAccount = account.credential?.value.credential.type == "initial"
-        isBaking = account.bakerId > 0
+        isBaking = account.baker != nil
+        isDelegating = account.delegation != nil
         atDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
         isReadOnly = account.isReadOnly
     }
@@ -230,8 +229,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
                 let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
-                let atDisposal = updatedAccounts.filter {!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
-                let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.stakedAmount })
+                let atDisposal = updatedAccounts.filter{!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
+                let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + ($1.baker?.stakedAmount ?? 0) })
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
 //                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted

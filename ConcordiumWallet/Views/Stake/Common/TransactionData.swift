@@ -14,12 +14,14 @@ enum Field: Hashable {
     
     //delegation
     case delegationAccount
+    case delegationStopAccount
     case pool
     case amount
     
     //baking
     case poolSettings
     case bakerStake
+    case bakerMetadataURL
     case bakerAccountCreate
     case bakerAccountUpdate
     
@@ -33,6 +35,8 @@ enum Field: Hashable {
         //delegation
         case .delegationAccount:
             return "delegation.receipt.accounttodelegate".localized
+        case .delegationStopAccount:
+            return "delegation.receipt.accounttostop".localized
         case .pool:
             return "delegation.receipt.tagetbakerpool".localized
         case .amount:
@@ -47,6 +51,8 @@ enum Field: Hashable {
             return "baking.receipt.accountcreate".localized
         case .bakerAccountUpdate:
             return "baking.receipt.accountupdate".localized
+        case .bakerMetadataURL:
+            return "baking.receipt.metadataurl".localized
         }
     }
 
@@ -58,6 +64,8 @@ enum Field: Hashable {
             
         //delegation
         case .delegationAccount:
+            return 0
+        case .delegationStopAccount:
             return 0
         case .pool:
             return 2
@@ -73,19 +81,26 @@ enum Field: Hashable {
             return 0
         case .bakerAccountUpdate:
             return 0
+        case .bakerMetadataURL:
+            return 4
         }
     }
     
     static func == (lhs: Field, rhs: Field) -> Bool {
         switch (lhs, rhs) {
+        case (restake, restake): return true
+            
         case (delegationAccount, delegationAccount): return true
+        case (delegationStopAccount, delegationStopAccount): return true
         case (pool, pool): return true
         case (amount, amount): return true
-        case (restake, restake): return true
+        
+        
         case (poolSettings, poolSettings): return true
         case (bakerStake, bakerStake): return true
         case (bakerAccountCreate, bakerAccountCreate): return true
         case (bakerAccountUpdate, bakerAccountUpdate): return true
+        case (bakerMetadataURL, bakerMetadataURL): return true
         default: return false
         }
     }
@@ -130,9 +145,15 @@ class BakerUpdateAccountData: AccountDelegationData {
     }
 }
 
-class DelegatioonAccountData: AccountDelegationData {
+class DelegationAccountData: AccountDelegationData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .delegationAccount)
+    }
+}
+
+class DelegationStopAccountData: AccountDelegationData {
+    init(accountAddress: String) {
+        super.init(accountAddress: accountAddress, field: .delegationStopAccount)
     }
 }
 
@@ -167,6 +188,18 @@ class BakerPoolSettingsData: StakeData {
     }
 }
 
+class BakerMetadataURLData: StakeData {
+    var metadataURL: String
+    init(metadataURL: String) {
+        self.metadataURL = metadataURL
+        super.init(field: .bakerMetadataURL)
+    }
+    override func getDisplayValue() -> String {
+        return metadataURL
+    }
+}
+
+
 class AmountData: StakeData {
     var amount: GTU
     init(amount: GTU) {
@@ -199,7 +232,7 @@ class StakeDataHandler {
     let transferType: TransferType
     
     //this is the data that is currently on the chain
-    private var currentData: Set<StakeData>? = nil
+    internal var currentData: Set<StakeData>? = nil
     
     //this is what we are now changing
     private var data: Set<StakeData> = Set()
@@ -226,6 +259,8 @@ class StakeDataHandler {
         }) ?? false
         
         if isValueUnchanged {
+            //remove current value from current data
+            self.remove(field: entry.field)
             return
         }
         //we add or update to the set for the specific field
@@ -307,5 +342,39 @@ class StakeDataHandler {
         }
     }
     
+    func getTransferObject() -> TransferDataType {
+        var transfer = TransferDataTypeFactory.create()
+        transfer.transferType = transferType
+        data.forEach { data in
+            switch data {
+            case let data as AmountData:
+                transfer.capital = String(data.amount.intValue)
+            case let data as RestakeDelegationData:
+                transfer.restakeEarnings = data.restake
+            case let poolData as PoolDelegationData:
+                switch poolData.pool {
+                case .lpool:
+                    transfer.delegationType = "delegateToLPool"
+                case .bakerPool(let bakerId):
+                    transfer.delegationType = "delegateToBaker"
+                    transfer.delegationTargetBaker = bakerId
+                }
+            case let openStatusData as BakerPoolSettingsData:
+                switch openStatusData.poolSettings {
+                case .open:
+                    transfer.openStatus = "openForAll"
+                case .closed:
+                    transfer.openStatus = "closedForAll"
+                case .closedForNew:
+                    transfer.openStatus = "closedForNew"
+                }
+            //TODO cost calculation for baking
+            default:
+               break
+            }
+        }
+        return transfer
+    }
 }
+
 

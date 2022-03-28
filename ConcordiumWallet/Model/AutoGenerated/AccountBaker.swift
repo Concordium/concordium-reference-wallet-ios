@@ -7,12 +7,12 @@ import Foundation
 
 // MARK: - AccountBaker
 struct AccountBaker: Codable {
-    let bakerID: Int?
-    let stakedAmount: String?
-    let restakeEarnings: Bool?
-    let bakerAggregationVerifyKey: String?
-    let bakerElectionVerifyKey: String?
-    let bakerSignatureVerifyKey: String?
+    let bakerID: Int
+    let stakedAmount: String
+    let restakeEarnings: Bool
+    let bakerAggregationVerifyKey: String
+    let bakerElectionVerifyKey: String
+    let bakerSignatureVerifyKey: String
 
     enum CodingKeys: String, CodingKey {
         case bakerID = "bakerId"
@@ -43,12 +43,12 @@ extension AccountBaker {
     }
 
     func with(
-        bakerID: Int?? = nil,
-        stakedAmount: String?? = nil,
-        restakeEarnings: Bool?? = nil,
-        bakerAggregationVerifyKey: String?? = nil,
-        bakerElectionVerifyKey: String?? = nil,
-        bakerSignatureVerifyKey: String?? = nil
+        bakerID: Int? = nil,
+        stakedAmount: String? = nil,
+        restakeEarnings: Bool? = nil,
+        bakerAggregationVerifyKey: String? = nil,
+        bakerElectionVerifyKey: String? = nil,
+        bakerSignatureVerifyKey: String? = nil
     ) -> AccountBaker {
         return AccountBaker(
             bakerID: bakerID ?? self.bakerID,

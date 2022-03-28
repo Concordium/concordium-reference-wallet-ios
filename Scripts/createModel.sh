@@ -119,6 +119,15 @@ cat $TRANSFER_COST | quicktype --multi-file-output --density normal -o $DEST/Tra
 cat $ACCOUNT_BALANCE | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/AccountBalance.swift
 replaceType "AccountEncryptedAmount.JSONAny" "JSONObject"
 replaceType "DelegationTarget.JSONNull" "Int"
+replaceType "AccountBaker.: String?" ": String"
+replaceType "AccountBaker.Int?" "Int"
+replaceType "AccountBaker.Bool?" "Bool"
+
+replaceType "AccountDelegation.Bool?" "Bool"
+replaceType "AccountDelegation.: String?" ": String"
+replaceType "AccountDelegation.DelegationTarget?" "DelegationTarget"
+replaceType "DelegationTarget.: String?" ": String"
+
 cat $ACCOUNT_TRANSACTIONS | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/RemoteTransactions.swift
 cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/PublicEncriptionKey.swift
 cat $BAKER_POOL_JSON | quicktype --multi-file-output --density normal -o $DEST/baker_pool_response.swift

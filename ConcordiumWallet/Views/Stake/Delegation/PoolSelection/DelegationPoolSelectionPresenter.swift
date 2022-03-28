@@ -10,12 +10,13 @@ import Foundation
 import Combine
 
 enum DelegationPoolBakerIdError: Error {
+    case empty
     case invalid
 }
 
 enum BakerPool {
     case lpool
-    case bakerPool(bakerId: String)
+    case bakerPool(bakerId: Int)
     
     func getDisplayValue() -> String {
         switch self {
@@ -25,12 +26,20 @@ enum BakerPool {
             return String(format: "delegation.receipt.bakerpoolvalue".localized, bakerId)
         }
     }
+    
+    static func from(delegationType: String, bakerId: Int?) -> BakerPool {
+        if let bakerId = bakerId, delegationType == "delegateToBaker" {
+            return .bakerPool(bakerId: bakerId)
+        } else {
+            return .lpool
+        }
+    }
 }
 
 // MARK: -
 // MARK: Delegate
 protocol DelegationPoolSelectionPresenterDelegate: AnyObject {
-    func finishedPoolSelection()
+    func finishedPoolSelection(bakerPoolResponse: BakerPoolResponse?)
 }
 
 // MARK: -
@@ -68,6 +77,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
 
     var viewModel: DelegationPoolViewModel
     @Published private var validSelectedPool: BakerPool?
+    @Published private var bakerPoolResponse: BakerPoolResponse?
 
     private var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
@@ -90,20 +100,26 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
         self.view?.bakerIdPublisher
-            .flatMap { [weak self] bakerId -> AnyPublisher<Result<String, DelegationPoolBakerIdError>, Never> in
+            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+            .flatMap { [weak self] bakerId -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> in
                 self?.viewModel.bakerId = bakerId
                 guard let self = self else {
                     return .just(Result.failure(DelegationPoolBakerIdError.invalid))
+                }
+                if bakerId.isEmpty {
+                    return .just(Result.failure(DelegationPoolBakerIdError.empty))
                 }
                 guard let bakerIdInt = Int(bakerId) else {
                     return .just(Result.failure(DelegationPoolBakerIdError.invalid))
                 }
                
                 return self.stakeService.getBakerPool(bakerId: bakerIdInt)
-                    .map { _ in
-                        return Result<String, DelegationPoolBakerIdError>.success(bakerId)
+                    .showLoadingIndicator(in: self.view)
+                    .map { [weak self] response in
+                        self?.bakerPoolResponse = response
+                        return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
                     }.replaceError(with: {
-                        return Result<String, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
+                        return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
                     }())
                     .eraseToAnyPublisher()
         } .sink(receiveCompletion: { completion in
@@ -112,9 +128,15 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             case Result.success(let bakerId):
                 self?.validSelectedPool = .bakerPool(bakerId: bakerId)
                 self?.viewModel.bakerIdErrorMessage = nil
-            case .failure(_):
+            case .failure(let error):
                 self?.validSelectedPool = nil
-                self?.viewModel.bakerIdErrorMessage = "delegation.pool.invalidbakerid".localized
+                switch error {
+                case .empty:
+                    self?.viewModel.bakerIdErrorMessage = nil
+                case .invalid:
+                    self?.viewModel.bakerIdErrorMessage = "delegation.pool.invalidbakerid".localized
+                }
+                
             }
         }).store(in: &cancellables)
         
@@ -133,10 +155,10 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             }
         }).store(in: &cancellables)
         
-        self.$validSelectedPool.sink { pool in
+        self.$validSelectedPool
+            .sink { pool in
             self.viewModel.isPoolValid = (pool != nil)
         }.store(in: &cancellables)
-        
     }
     
     func pressedContinue() {
@@ -145,6 +167,23 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         guard let validPool = self.validSelectedPool else { return }
         self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
         
-        self.delegate?.finishedPoolSelection()
+        if case .bakerPool(let bakerId) = validPool {
+            // we use whichever is available first, either the variable or
+            // the response from the network
+            Publishers.Merge(self.stakeService.getBakerPool(bakerId: bakerId)
+                                .showLoadingIndicator(in: self.view),
+                             self.$bakerPoolResponse
+                                .compactMap { $0 }
+                                .setFailureType(to: Error.self))
+                .first()
+                .sink(receiveError: { error in
+                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                }, receiveValue: { bakerPoolResponse in
+                    self.delegate?.finishedPoolSelection(bakerPoolResponse: bakerPoolResponse)
+                })
+                .store(in: &cancellables)
+        } else {
+            self.delegate?.finishedPoolSelection(bakerPoolResponse: nil)
+        }
     }
 }

@@ -28,16 +28,37 @@ class DelegationCoordinator: Coordinator {
         self.dependencyProvider = dependencyProvider
         self.account = account
         self.delegate = parentCoordinator
-        //TODO: figure out from account whether we are editing or registering
-        self.delegationDataHandler = StakeDataHandler(transferType: .registerDelegation)
+        self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: false)
     }
     
     func start() {
+        if account.delegation == nil {
+            showCarousel()
+        } else {
+            showStatus()
+        }
+    }
+    
+    func showCarousel() {
+        //TODO: show carousel and at the end of carousel display pool selection
         showPoolSelection()
     }
     
-    func showAmountInput() {
-        let presenter = DelegationAmountInputPresenter(account: account, delegate: self, dependencyProvider: dependencyProvider, dataHandler: delegationDataHandler)
+    func showStatus() {
+        //TODO: show status here and only show pool if the user chooses edit
+        showPoolSelection()
+    }
+    
+    func stopDelegation(cost: GTU, energy: Int) {
+        self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: true)
+        //TODO: show carousel and then ask for confirmation
+        showRequestConfirmation(cost: cost, energy: energy)
+    }
+    
+    
+    
+    func showAmountInput(bakerPoolResponse: BakerPoolResponse?) {
+        let presenter = DelegationAmountInputPresenter(account: account, delegate: self, dependencyProvider: dependencyProvider, dataHandler: delegationDataHandler, bakerPoolResponse: bakerPoolResponse)
         let vc = StakeAmountInputFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -48,8 +69,15 @@ class DelegationCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showConfirmation() {
-        let presenter = DelegationReceiptConfirmationPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self, dataHandler: delegationDataHandler)
+    func showRequestConfirmation(cost: GTU,
+                          energy: Int) {
+        let presenter = DelegationReceiptConfirmationPresenter(account: account,
+                                                               dependencyProvider: dependencyProvider,
+                                                               delegate: self,
+                                                               cost: cost,
+                                                               
+                                                               energy: energy,
+                                                               dataHandler: delegationDataHandler)
         let vc = StakeReceiptFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -66,14 +94,14 @@ extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
 //    func finishedDelegation() {
 //        self.delegate?.finished()
 //    }
-    func finishedAmountInput() {
-        self.showConfirmation()
+    func finishedAmountInput(cost: GTU, energy: Int) {
+        self.showRequestConfirmation(cost: cost, energy: energy)
     }
 }
 
 extension DelegationCoordinator: DelegationPoolSelectionPresenterDelegate {
-    func finishedPoolSelection() {
-        showAmountInput()
+    func finishedPoolSelection(bakerPoolResponse: BakerPoolResponse?) {
+        showAmountInput(bakerPoolResponse: bakerPoolResponse)
     }
 }
 
@@ -87,4 +115,8 @@ extension DelegationCoordinator: DelegationReceiptPresenterDelegate {
     func finishedShowingReceipt() {
         self.navigationController.popToRootViewController(animated: true)
     }
+}
+
+extension DelegationCoordinator: RequestPasswordDelegate {
+    
 }

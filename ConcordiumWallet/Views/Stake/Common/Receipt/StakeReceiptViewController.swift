@@ -34,7 +34,7 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
     @IBOutlet weak var receiptFooterLabel: UILabel!
     @IBOutlet weak var nextButton: StandardButton!
     
-    var dataSource: UITableViewDiffableDataSource<String, StakeReceiptRowViewModel>?
+    var dataSource: UITableViewDiffableDataSource<String, StakeRowViewModel>?
     
     var presenter: StakeReceiptPresenterProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -51,7 +51,7 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dataSource = UITableViewDiffableDataSource<String, StakeReceiptRowViewModel>(tableView: tableView, cellProvider: createCell)
+        dataSource = UITableViewDiffableDataSource<String, StakeRowViewModel>(tableView: tableView, cellProvider: createCell)
         dataSource?.defaultRowAnimation = .none
         
         presenter.view = self
@@ -106,7 +106,7 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
             .store(in: &cancellables)
         
         viewModel.$rows.sink { rows in
-            var snapshot = NSDiffableDataSourceSnapshot<String, StakeReceiptRowViewModel>()
+            var snapshot = NSDiffableDataSourceSnapshot<String, StakeRowViewModel>()
             snapshot.appendSections([""])
             snapshot.appendItems(rows, toSection: "")
 
@@ -117,8 +117,8 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
         }.store(in: &cancellables)
     }
 
-    private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: StakeReceiptRowViewModel) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StakeReceiptCell", for: indexPath) as? StakeReceiptCell
+    private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: StakeRowViewModel) -> UITableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StakeEntryCell", for: indexPath) as? StakeEntryCell
         cell?.headerLabel.text = viewModel.headerLabel
         cell?.valueLabel.text = viewModel.valueLabel
         return cell

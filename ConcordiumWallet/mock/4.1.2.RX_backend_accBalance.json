@@ -48,7 +48,7 @@
             "stakedAmount": "50000000",
             "restakeEarnings": true,
             "delegationTarget": {
-                    "delegatorType": "delegateToLPool",
+                    "delegateType": "delegateToLPool",
                     "bakerId": null
             }
         }

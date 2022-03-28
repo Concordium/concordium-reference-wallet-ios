@@ -1,5 +1,5 @@
 //
-//  StakeReceiptCell.swift
+//  StakeEntryCell.swift
 //  ConcordiumWallet
 //
 //  Created by Ruxandra Nistor on 11/03/2022.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StakeReceiptCell: UITableViewCell {
+class StakeEntryCell: UITableViewCell {
 
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
@@ -24,5 +24,4 @@ class StakeReceiptCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

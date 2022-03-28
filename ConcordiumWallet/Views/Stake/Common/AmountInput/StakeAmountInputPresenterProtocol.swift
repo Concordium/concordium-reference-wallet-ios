@@ -55,7 +55,7 @@ class StakeAmountInputViewModel {
     @Published var isRestakeSelected: Bool = true
     
     @Published var bottomMessage: String = ""
-    @Published var isAmountValid: Bool = false
+    @Published var isContinueEnabled: Bool = false
 }
 
 // MARK: -

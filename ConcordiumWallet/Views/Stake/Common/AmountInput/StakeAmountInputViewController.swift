@@ -11,7 +11,7 @@ import Combine
 import CryptoKit
 
 // MARK: View
-protocol StakeAmountInputViewProtocol: AnyObject, ShowAlert {
+protocol StakeAmountInputViewProtocol: Loadable , ShowAlert {
     func bind(viewModel: StakeAmountInputViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
     var restakeOptionPublisher: PassthroughSubject<Bool, Error> { get }
@@ -25,7 +25,7 @@ class StakeAmountInputFactory {
     }
 }
 
-class StakeAmountInputViewController: KeyboardDismissableBaseViewController, StakeAmountInputViewProtocol, Storyboarded {
+class StakeAmountInputViewController: KeyboardDismissableBaseViewController, StakeAmountInputViewProtocol, Storyboarded, Loadable {
 
     @IBOutlet weak var firstBalanceLabel: UILabel!
     @IBOutlet weak var firstBalanceValue: UILabel!
@@ -157,7 +157,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             }
         }.store(in: &cancellables)
         
-        viewModel.$isAmountValid
+        viewModel.$isContinueEnabled
             .compactMap { $0 }
             .assign(to: \.isEnabled, on: continueButton)
             .store(in: &cancellables)

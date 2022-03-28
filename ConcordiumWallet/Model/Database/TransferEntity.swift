@@ -49,6 +49,11 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
 }
 
 extension TransferDataType {
+    private func amountAsInt() -> Int {
+        return Int(amount) ?? 0
+    }
+    
+    
     func getPublicBalanceChange() -> Int {
         if .absent == transactionStatus {
             return 0
@@ -61,9 +66,9 @@ extension TransferDataType {
         default:
             switch transferType {
             case .simpleTransfer, .transferToSecret: // transfer to public is included even if not finalized
-                balanceChange = (Int(amount) ?? 0) + (Int(cost) ?? 0)
+                balanceChange = amountAsInt() + (Int(cost) ?? 0)
             case .transferToPublic:
-                balanceChange = -(Int(amount) ?? 0) + (Int(cost) ?? 0)
+                balanceChange = -amountAsInt() + (Int(cost) ?? 0)
             case .encryptedTransfer:
                 balanceChange = (Int(cost) ?? 0)
             case .registerDelegation, .removeDelegation, .updateDelegation:
@@ -90,9 +95,9 @@ extension TransferDataType {
             case .simpleTransfer:
                 balanceChange = 0
             case .transferToSecret:
-                balanceChange = -(Int(amount) ?? 0)// shielding is included even if not finalized
+                balanceChange = -amountAsInt()// shielding is included even if not finalized
             case .encryptedTransfer, .transferToPublic:
-                balanceChange = (Int(amount) ?? 0) + 0 // the cost is taken from the public balance
+                balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
@@ -122,9 +127,9 @@ struct TransferDataTypeFactory {
 
 final class TransferEntity: Object {
     @objc dynamic var id: String = UUID().uuidString
-    @objc dynamic var amount = "0"
+    @objc dynamic var amount: String = ""
     @objc dynamic var fromAddress = ""
-    @objc dynamic var toAddress = ""
+    @objc dynamic var toAddress: String = ""
     @objc dynamic var expiry: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var submissionId: String? = ""

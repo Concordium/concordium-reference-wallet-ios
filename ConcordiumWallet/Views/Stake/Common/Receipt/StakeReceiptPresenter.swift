@@ -8,31 +8,6 @@
 
 import Foundation
 
-//Add this to your coordinator:
-//    func showStakeReceipt() {
-//        let vc = StakeReceiptFactory.create(with: StakeReceiptPresenter(delegate: self))
-//        navigationController.pushViewController(vc, animated: false)
-//    }
-
-class StakeReceiptRowViewModel: Hashable {
-    var headerLabel: String
-    var valueLabel: String
-    private var field: Field
-    
-    init(entry: StakeData) {
-        headerLabel = entry.getKeyLabel()
-        valueLabel = entry.getDisplayValue()
-        field = entry.field
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(field.getLabelText())
-    }
-    static func == (lhs: StakeReceiptRowViewModel, rhs: StakeReceiptRowViewModel) -> Bool {
-        return lhs.field == rhs.field
-    }
-}
-
 class StakeReceiptViewModel {
     @Published var title: String = ""
     @Published var text: String?
@@ -42,11 +17,11 @@ class StakeReceiptViewModel {
     
     @Published var showsSubmitted: Bool = false
     @Published var buttonLabel: String = ""
-    @Published var rows: [StakeReceiptRowViewModel]
+    @Published var rows: [StakeRowViewModel]
     
     
     init(dataHandler: StakeDataHandler) {
-        rows = dataHandler.getAllOrdered().map { StakeReceiptRowViewModel(entry: $0) }
+        rows = dataHandler.getAllOrdered().map { StakeRowViewModel(entry: $0) }
     }
 }
 

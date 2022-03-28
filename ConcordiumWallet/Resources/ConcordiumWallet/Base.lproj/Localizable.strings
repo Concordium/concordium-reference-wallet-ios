@@ -545,13 +545,14 @@ developer.concordium.software";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
 
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
+"delegation.receipt.accounttostop" = "Account to stop delegating";
 "delegation.receipt.delegationamount" = "Delegation amount";
 "delegation.receipt.tagetbakerpool" = "Current target";
 
 
 
 "delegation.receipt.lpoolvalue" = "L-pool";
-"delegation.receipt.bakerpoolvalue" = "Baker id %@";
+"delegation.receipt.bakerpoolvalue" = "Baker id %d";
 "delegation.receipt.addedtodelegation" = "Added to delegation amount";
 "delegation.receipt.notaddedtodelegation" = "At disposal";
 
@@ -618,5 +619,9 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.closed" = "Closed";
 "baking.closedfornew" = "Closed for new";
 
+
+"baking.receipt.accountcreate" = "Account to register as baker";
+"baking.receipt.accountupdate" = "Account to make baker update";
 "baking.receipt.poolstatus" = "Delegation pool status";
 "baking.receipt.bakerstake" = "Baker stake";
+"baking.receipt.metadataurl" = "Metadata URL";

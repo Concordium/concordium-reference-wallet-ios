@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol DelegationPoolSelectionViewProtocol: AnyObject {
+protocol DelegationPoolSelectionViewProtocol: ShowAlert, Loadable {
     func bind(viewModel: DelegationPoolViewModel)
     var poolOption: PassthroughSubject<Int, Error> { get }
     var bakerIdPublisher: AnyPublisher<String, Never> { get }

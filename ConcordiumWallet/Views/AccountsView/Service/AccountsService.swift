@@ -243,7 +243,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.baker?.stakedAmount ?? 0,
                                                                                                            account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
@@ -264,7 +264,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.baker?.stakedAmount ?? 0,
                                                                                                            account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
@@ -399,14 +399,28 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (finalizedShieldedAmount, shieldedEncryptionStatus) = self.getFinalizedShieldedAmount(balance: balance, account: account)
                 let hasShieldedTransactions = self.getHasShieldedTransactions(balance: balance, account: account)
                 let releaseSchedule = ReleaseScheduleEntity(from: balance.finalizedBalance?.accountReleaseSchedule)
+                let delegation: DelegationDataType?
+                if let accountDelegation = balance.finalizedBalance?.accountDelegation {
+                    delegation = DelegationEntity(accountDelegationModel: accountDelegation)
+                } else {
+                    delegation = nil
+                }
+                let baker: BakerDataType?
+                if let accountBaker = balance.finalizedBalance?.accountBaker {
+                    baker = BakerEntity(accountBakerModel: accountBaker)
+                } else {
+                    baker = nil
+                }
+                
                 return account.withUpdatedFinalizedBalance((Int(balance.finalizedBalance?.accountAmount ?? "0") ?? 0),
                                                            finalizedShieldedAmount,
                                                            shieldedEncryptionStatus,
                                                            EncryptedBalanceEntity(accountEncryptedAmount: balance.finalizedBalance?.accountEncryptedAmount),
                                                            hasShieldedTransactions: hasShieldedTransactions,
                                                            accountNonce: balance.finalizedBalance?.accountNonce ?? 0,
-                                                           bakerId: (balance.finalizedBalance?.accountBaker?.bakerID ?? -1),
-                                                           staked: (Int(balance.finalizedBalance?.accountBaker?.stakedAmount ?? "0") ?? 0),
+                                                           delegation:
+                                                            delegation,
+                                                           baker: baker,
                                                            releaseSchedule: releaseSchedule)
             }).eraseToAnyPublisher()
     }

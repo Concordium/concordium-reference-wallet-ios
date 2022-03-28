@@ -17,8 +17,8 @@ protocol MobileWalletProtocol {
     func createCredential(global: GlobalWrapper, account: AccountDataType, pwHash: String, expiry: Date)
                     -> AnyPublisher<CreateCredentialRequest, Error>
     func createTransfer(from fromAccount: AccountDataType,
-                        to toAccount: String,
-                        amount: Int,
+                        to toAccount: String?,
+                        amount: String?,
                         nonce: Int,
                         memo: String?,
                         capital: String?,
@@ -171,8 +171,8 @@ class MobileWallet: MobileWalletProtocol {
     }
 
     func createTransfer(from fromAccount: AccountDataType,
-                        to toAccount: String,
-                        amount: Int,
+                        to toAccount: String?,
+                        amount: String?,
                         nonce: Int,
                         memo: String?,
                         capital: String?,
@@ -218,9 +218,9 @@ class MobileWallet: MobileWalletProtocol {
     }
 
     private func createTransfer(fromAccount: AccountDataType,
-                                toAccount: String,
+                                toAccount: String?,
                                 expiry: Date,
-                                amount: Int,
+                                amount: String?,
                                 nonce: Int,
                                 memo: String?,
                                 capital: String?,
@@ -246,6 +246,7 @@ class MobileWallet: MobileWalletProtocol {
         if transferType == .transferToPublic || transferType == .encryptedTransfer {
             secretEncryptionKey = try getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
         }
+     
         let makeCreateTransferRequest = MakeCreateTransferRequest(from: fromAccount.address,
                                                                   to: toAccount,
                                                                   expiry: Int(expiry.timeIntervalSince1970),
@@ -262,7 +263,7 @@ class MobileWallet: MobileWalletProtocol {
                                                                   bakerKeys: bakerKeys,
                                                                   keys: privateAccountKeys,
                                                                   energy: energy,
-                                                                  amount: String(amount),
+                                                                  amount: amount,
                                                                   global: global?.value,
                                                                   senderSecretKey: secretEncryptionKey,
                                                                   inputEncryptedAmount: inputEncryptedAmount,

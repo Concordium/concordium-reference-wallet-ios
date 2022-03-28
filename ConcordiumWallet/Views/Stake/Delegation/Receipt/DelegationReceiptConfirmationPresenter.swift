@@ -19,17 +19,27 @@ protocol DelegationReceiptConfirmationPresenterDelegate: AnyObject {
 class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
 
     weak var view: StakeReceiptViewProtocol?
-    weak var delegate: DelegationReceiptConfirmationPresenterDelegate?
+    weak var delegate: (DelegationReceiptConfirmationPresenterDelegate & RequestPasswordDelegate)?
     var account: AccountDataType
     var viewModel : StakeReceiptViewModel
+    
+    private var cost: GTU
+    private var energy: Int
     
     private var dataHandler: StakeDataHandler
     private var transactionsService: TransactionsServiceProtocol
     private var stakeService: StakeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    init(account: AccountDataType, dependencyProvider: StakeCoordinatorDependencyProvider, delegate: DelegationReceiptConfirmationPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
+    init(account: AccountDataType,
+         dependencyProvider: StakeCoordinatorDependencyProvider,
+         delegate: (DelegationReceiptConfirmationPresenterDelegate & RequestPasswordDelegate)?,
+         cost: GTU,
+         energy: Int,
+         dataHandler: StakeDataHandler) {
         self.account = account
+        self.cost = cost
+        self.energy = energy
         self.delegate = delegate
         self.dataHandler = dataHandler
         self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler)
@@ -47,7 +57,21 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         
     }
     func pressedButton() {
-        self.delegate?.confirmedTransaction()
+        guard let delegate = delegate else {
+            return
+        }
+
+        var transfer = dataHandler.getTransferObject()
+        transfer.fromAddress = account.address
+        transfer.cost = String(cost.intValue)
+        transfer.energy = energy
+        
+        self.transactionsService.performTransfer(transfer, from: account, requestPasswordDelegate: delegate)
+            .sink { error in
+                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            } receiveValue: { [weak self] transfer in
+                self?.delegate?.confirmedTransaction()
+            }.store(in: &cancellables)
     }
 }
 

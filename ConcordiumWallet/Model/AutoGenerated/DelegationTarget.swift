@@ -7,11 +7,11 @@ import Foundation
 
 // MARK: - DelegationTarget
 struct DelegationTarget: Codable {
-    let delegatorType: String?
+    let delegateType: String
     let bakerID: Int?
 
     enum CodingKeys: String, CodingKey {
-        case delegatorType = "delegatorType"
+        case delegateType = "delegateType"
         case bakerID = "bakerId"
     }
 }
@@ -35,11 +35,11 @@ extension DelegationTarget {
     }
 
     func with(
-        delegatorType: String?? = nil,
+        delegateType: String? = nil,
         bakerID: Int?? = nil
     ) -> DelegationTarget {
         return DelegationTarget(
-            delegatorType: delegatorType ?? self.delegatorType,
+            delegateType: delegateType ?? self.delegateType,
             bakerID: bakerID ?? self.bakerID
         )
     }

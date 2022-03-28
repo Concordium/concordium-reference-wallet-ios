@@ -52,11 +52,18 @@ class AccountDetailsViewModel {
         } else {
             isShielded = false
             balance = GTU(intValue: account.forecastBalance).displayValue()
-            bakerId = (account.bakerId == -1) ? nil : String(account.bakerId)
+            if let bakerId = account.baker?.bakerID, bakerId != -1 {
+                self.bakerId = String(bakerId)
+            } else {
+                bakerId = nil
+            }
         }
         atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
-        staked = GTU(intValue: account.stakedAmount).displayValueWithGStroke()
-        hasStaked = account.stakedAmount != 0
+        if let stakedAmount = account.baker?.stakedAmount, stakedAmount != 0 {
+            staked = GTU(intValue: stakedAmount).displayValueWithGStroke()
+        } else {
+            hasStaked = false
+        }
     }
 
     func toggleMenu() {

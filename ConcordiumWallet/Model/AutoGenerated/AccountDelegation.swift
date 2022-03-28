@@ -7,9 +7,9 @@ import Foundation
 
 // MARK: - AccountDelegation
 struct AccountDelegation: Codable {
-    let stakedAmount: String?
-    let restakeEarnings: Bool?
-    let delegationTarget: DelegationTarget?
+    let stakedAmount: String
+    let restakeEarnings: Bool
+    let delegationTarget: DelegationTarget
 
     enum CodingKeys: String, CodingKey {
         case stakedAmount = "stakedAmount"
@@ -37,9 +37,9 @@ extension AccountDelegation {
     }
 
     func with(
-        stakedAmount: String?? = nil,
-        restakeEarnings: Bool?? = nil,
-        delegationTarget: DelegationTarget?? = nil
+        stakedAmount: String? = nil,
+        restakeEarnings: Bool? = nil,
+        delegationTarget: DelegationTarget? = nil
     ) -> AccountDelegation {
         return AccountDelegation(
             stakedAmount: stakedAmount ?? self.stakedAmount,

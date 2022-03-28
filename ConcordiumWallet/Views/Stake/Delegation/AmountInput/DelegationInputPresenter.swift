@@ -12,15 +12,16 @@ import Combine
 // MARK: -
 // MARK: Delegate
 protocol DelegationAmountInputPresenterDelegate: AnyObject {
-    func finishedAmountInput()
+    func finishedAmountInput(cost: GTU, energy: Int)
 }
 
 struct StakeAmountInputValidator {
     var minimumValue: GTU
-    var maximumValue: GTU
+    var maximumValue: GTU?
     var atDisposal: GTU
     var currentPool: GTU?
     var poolLimit: GTU?
+    var previouslyStakedInPool: GTU
     
     func validate(amount: GTU) -> AnyPublisher<GTU, StakeError> {
         .just(amount).flatMap {
@@ -32,12 +33,13 @@ struct StakeAmountInputValidator {
         }.flatMap {
             checkPoolLimit(amount: $0)
         }.eraseToAnyPublisher()
-        
     }
     
     func checkMaximum(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        if amount.intValue > maximumValue.intValue {
-            return .fail(.maximumAmount(maximumValue))
+        if let maximumValue = maximumValue {
+            if amount.intValue > maximumValue.intValue {
+                return .fail(.maximumAmount(maximumValue))
+            }
         }
         return .just(amount)
     }
@@ -57,7 +59,7 @@ struct StakeAmountInputValidator {
         guard let currentPool = currentPool, let poolLimit = poolLimit else {
             return .just(amount)
         }
-        if amount.intValue + currentPool.intValue > poolLimit.intValue {
+        if amount.intValue + currentPool.intValue - previouslyStakedInPool.intValue > poolLimit.intValue {
             return .fail(.poolLimitReached(currentPool, poolLimit))
         }
         return .just(amount)
@@ -72,8 +74,11 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     var account: AccountDataType
     var viewModel = StakeAmountInputViewModel()
     
-    
+    @Published private var bakerPoolResponse: BakerPoolResponse?
     @Published private var validAmount: GTU?
+    @Published private var cost: GTU?
+    @Published private var energy: Int?
+    
     private var isInCooldown:Bool = false //TODO: calculate this based on the account state
     var restake: Bool = true
     
@@ -83,35 +88,30 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     private var transactionService: TransactionsServiceProtocol
     let validator: StakeAmountInputValidator
     
-    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil, dependencyProvider: StakeCoordinatorDependencyProvider, dataHandler: StakeDataHandler) {
+    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil, dependencyProvider: StakeCoordinatorDependencyProvider, dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?) {
         self.account = account
         self.delegate = delegate
         self.dataHandler = dataHandler
+        self.bakerPoolResponse = bakerPoolResponse
         self.stakeService = dependencyProvider.stakeService()
         self.transactionService = dependencyProvider.transactionsService()
-        //TODO: add limits to the validator
-        validator = StakeAmountInputValidator(minimumValue: GTU(intValue: 1),
-                                              maximumValue: GTU(intValue: 10000000),
-                                              atDisposal: GTU(intValue: 20000000),
-                                              currentPool: GTU(intValue: 20000000),
-                                              poolLimit: GTU(intValue: 25000000))
-        let amountData: AmountData? = dataHandler.getCurrentEntry()
-        self.validAmount = amountData?.amount
-        let restakeData: RestakeDelegationData? = dataHandler.getCurrentEntry()
-        self.restake = restakeData?.restake ?? true
+        
+        let previouslyStakedInSelectedPool: Int
         let newPool: PoolDelegationData? = dataHandler.getNewEntry()
         let existingPool: PoolDelegationData? = dataHandler.getCurrentEntry()
         let showsPoolLimits: Bool!
-        
         //If we are updating delegation and we dont't change the pool,
         // we need to check the existing value of the pool
         let pool:BakerPool!
         if let newPool = newPool?.pool {
             pool = newPool
+            previouslyStakedInSelectedPool = Int((self.account.delegation?.stakedAmount) ?? "0") ?? 0
         } else if let existingPool = existingPool?.pool {
             pool = existingPool
+            previouslyStakedInSelectedPool = 0
         } else {
             pool = .lpool
+            previouslyStakedInSelectedPool = 0
         }
         
         if case .lpool = pool {
@@ -119,16 +119,38 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         } else {
             showsPoolLimits = true
         }
-
+        
+        let currentPool: GTU?
+        let poolLimit: GTU?
+        if let poolResponse = bakerPoolResponse {
+            currentPool = GTU(intValue: Int(poolResponse.delegatedCapital))
+            poolLimit = GTU(intValue: Int(poolResponse.delegatedCapitalCap))
+        } else {
+            currentPool = nil
+            poolLimit = nil
+        }
+        
+        validator = StakeAmountInputValidator(minimumValue: GTU(intValue: 1),
+                                              maximumValue: nil,
+                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                                              currentPool:currentPool,
+                                              poolLimit: poolLimit,
+                                              previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool) )
+        let amountData: AmountData? = dataHandler.getCurrentEntry()
+        self.validAmount = amountData?.amount
+        let restakeData: RestakeDelegationData? = dataHandler.getCurrentEntry()
+        self.restake = restakeData?.restake ?? true
+        
         viewModel.setup(account: account, currentAmount: amountData?.amount, currentRestakeValue: self.restake, isInCooldown: isInCooldown, validator: validator, showsPoolLimits: showsPoolLimits)
     }
     
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
-
+       
         self.view?.restakeOptionPublisher.sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self] isRestaking in
             self?.restake = isRestaking
+            self?.dataHandler.add(entry: RestakeDelegationData(restake: isRestaking))
         }).store(in: &cancellables)
         
         self.view?.amountPublisher.map { amount -> GTU in
@@ -159,39 +181,57 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self?.viewModel.amountErrorMessage = nil
             } else {
                 self?.validAmount = nil
+                self?.viewModel.isContinueEnabled = false
             }
         })
         .store(in: &cancellables)
         
-        self.$validAmount.sink { [weak self] amount in
-            guard let self = self else { return }
-            self.viewModel.isAmountValid = (amount != nil) || self.viewModel.isAmountLocked
-        }.store(in: &cancellables)
+       
+        let validAmountPublisher = self.$validAmount
+            .compactMap { $0 }
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
         
         //calculate transaction fee
-        if let restakePublisher = self.view?.restakeOptionPublisher.eraseToAnyPublisher() {
-            let validAmountPublisher = self.$validAmount.setFailureType(to: Error.self).eraseToAnyPublisher()
-            let feePublisher = transactionService.getTransferCost(transferType: dataHandler.transferType, costParameters: dataHandler.getCostParameters())
-            Publishers.CombineLatest3(validAmountPublisher, restakePublisher, feePublisher)
-                .sink(receiveError: { error in
-                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                    self.viewModel.transactionFee = nil
-                }, receiveValue: { (_, _, fee) in
-                    self.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, fee.cost)
-                    
-                }).store(in: &cancellables)
-            }
+        self.view?.restakeOptionPublisher
+            .combineLatest(validAmountPublisher)
+            .flatMap({ [weak self] (restake, amount) -> AnyPublisher<TransferCost, Error> in
+                guard let self = self else {
+                    return .fail(StakeError.internalError)
+                }
+                self.viewModel.isContinueEnabled = false//we wait until we get the updated cost
+                let costParams = self.dataHandler.getCostParameters()
+                return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
+                                                               costParameters: costParams)
+                    .showLoadingIndicator(in: self.view)
+                    .eraseToAnyPublisher()
+            })
+            .sink(receiveError: {[weak self] error in
+                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            }, receiveValue: { [weak self] fee in
+                self?.cost =  GTU(intValue: Int(fee.cost) ?? 0)
+                self?.energy = fee.energy
+                self?.viewModel.isContinueEnabled = true
+                self?.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, fee.cost)
+            }).store(in: &cancellables)
+        
+
+        self.view?.restakeOptionPublisher.send(viewModel.isRestakeSelected)
     }
     
     func pressedContinue() {
-        self.dataHandler.add(entry: RestakeDelegationData(restake: self.restake))
-        self.dataHandler.add(entry: DelegatioonAccountData(accountAddress: self.account.address))
         if let validAmount = self.validAmount {
             self.dataHandler.add(entry: AmountData(amount: validAmount))
         }
         checkForWarnings { [weak self] in
             guard let self = self else { return }
-            self.delegate?.finishedAmountInput()
+            guard let cost = self.cost else {
+                return
+            }
+            guard let energy = self.energy else {
+                return
+            }
+            self.delegate?.finishedAmountInput(cost: cost, energy: energy)
         }
     }
     
@@ -226,11 +266,11 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
 fileprivate extension StakeAmountInputViewModel {
     func setup (account: AccountDataType, currentAmount: GTU?, currentRestakeValue: Bool?, isInCooldown: Bool, validator: StakeAmountInputValidator, showsPoolLimits: Bool) {
         let atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
+        let staked = GTU(intValue: Int(account.delegation?.stakedAmount ?? "0") ?? 0)
         self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
                                              value: atDisposal.displayValueWithGStroke())
-        // TODO: update values
         self.secondBalance = BalanceViewModel(label: "delegation.inputamount.delegationstake".localized,
-                                              value: "TBD DELEGATION STAKE")
+                                              value: staked.displayValueWithGStroke())
         self.currentPoolLimit = BalanceViewModel(label: "delegation.inputamount.currentpool".localized,
                                                  value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke())
         self.poolLimit = BalanceViewModel(label: "delegation.inputamount.poollimit".localized,

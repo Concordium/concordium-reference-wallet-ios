@@ -23,7 +23,6 @@ protocol AccountDataType: DataStoreProtocol {
     var finalizedBalance: Int { get set }
     var forecastBalance: Int { get set }
     var forecastAtDisposalBalance: Int {get set}
-    var stakedAmount: Int { get set}
     
     var finalizedEncryptedBalance: Int { get set }
     var forecastEncryptedBalance: Int { get set }
@@ -36,9 +35,12 @@ protocol AccountDataType: DataStoreProtocol {
     
     var credential: Credential? { get set }
     var createdTime: Date { get }
-    var usedIncomingAmountIndex: Int { get set}
+    var usedIncomingAmountIndex: Int { get set }
     var isReadOnly: Bool { get set }
-    var bakerId: Int { get set }
+   
+    var baker: BakerDataType? { get set }
+    var delegation: DelegationDataType? { get set }
+    
     var releaseSchedule: ReleaseScheduleDataType? { get set }
     var transferFilters: TransferFilter? { get set }
     
@@ -55,8 +57,8 @@ protocol AccountDataType: DataStoreProtocol {
                                      _ encryptedBalance: EncryptedBalanceDataType,
                                      hasShieldedTransactions: Bool,
                                      accountNonce: Int,
-                                     bakerId: Int,
-                                     staked: Int,
+                                     delegation: DelegationDataType?,
+                                     baker: BakerDataType?,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType
     
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
@@ -82,7 +84,9 @@ extension AccountDataType {
                                      _ status: ShieldedAccountEncryptionStatus,
                                      _ encryptedBalance: EncryptedBalanceDataType,
                                      hasShieldedTransactions: Bool,
-                                     accountNonce: Int, bakerId: Int, staked: Int,
+                                     accountNonce: Int,
+                                     delegation: DelegationDataType?,
+                                     baker: BakerDataType?,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
         _ = write {
             var pAccount = $0
@@ -91,8 +95,8 @@ extension AccountDataType {
             pAccount.encryptedBalanceStatus = status
             pAccount.encryptedBalance = encryptedBalance
             pAccount.accountNonce = accountNonce
-            pAccount.bakerId = bakerId
-            pAccount.stakedAmount = staked
+            pAccount.delegation = delegation
+            pAccount.baker = baker
             pAccount.releaseSchedule = releaseSchedule
             pAccount.hasShieldedTransactions = hasShieldedTransactions
         }
@@ -169,7 +173,6 @@ final class AccountEntity: Object {
     @objc dynamic var finalizedBalance: Int = 0
     @objc dynamic var forecastBalance: Int = 0
     @objc dynamic var forecastAtDisposalBalance: Int = 0
-    @objc dynamic var stakedAmount: Int = 0
     @objc dynamic var forecastEncryptedBalance: Int = 0
     @objc dynamic var finalizedEncryptedBalance: Int = 0
     @objc dynamic var accountNonce: Int = 0
@@ -177,8 +180,12 @@ final class AccountEntity: Object {
     @objc dynamic var credentialJson = ""
     @objc dynamic var usedIncomingAmountIndex: Int = 0
     @objc dynamic var isReadOnly: Bool = false
-    @objc dynamic var bakerId: Int = -1
+ 
     @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity?
+    @objc dynamic var bakerEntity: BakerEntity?
+    @objc dynamic var delegationEntity: DelegationEntity?
+    
+    
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
     @objc dynamic var showsShieldedBalance: Bool = false
@@ -276,6 +283,23 @@ extension AccountEntity: AccountDataType {
         }
         set {
              self.releaseScheduleEntity = newValue as? ReleaseScheduleEntity
+        }
+    }
+    
+    var delegation: DelegationDataType? {
+        get {
+            return delegationEntity
+        }
+        set {
+             self.delegationEntity = newValue as? DelegationEntity
+        }
+    }
+    var baker: BakerDataType? {
+        get {
+            return bakerEntity
+        }
+        set {
+             self.bakerEntity = newValue as? BakerEntity
         }
     }
 }
