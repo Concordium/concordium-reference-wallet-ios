@@ -1603,6 +1603,38 @@
 		901F7F5F27EB501200C46741 /* DelegationStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F5D27EB501200C46741 /* DelegationStatusPresenter.swift */; };
 		901F7F6027EB501200C46741 /* DelegationStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F5D27EB501200C46741 /* DelegationStatusPresenter.swift */; };
 		901F7F6127EB501200C46741 /* DelegationStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F5D27EB501200C46741 /* DelegationStatusPresenter.swift */; };
+		901F7F6527F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6427F1D5CF00C46741 /* registerdelegation_flow_style.css */; };
+		901F7F6627F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6427F1D5CF00C46741 /* registerdelegation_flow_style.css */; };
+		901F7F6727F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6427F1D5CF00C46741 /* registerdelegation_flow_style.css */; };
+		901F7F6827F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6427F1D5CF00C46741 /* registerdelegation_flow_style.css */; };
+		901F7F7027F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6927F1D5DD00C46741 /* delegation_intro_flow_en_1.html */; };
+		901F7F7127F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6927F1D5DD00C46741 /* delegation_intro_flow_en_1.html */; };
+		901F7F7227F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6927F1D5DD00C46741 /* delegation_intro_flow_en_1.html */; };
+		901F7F7327F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6927F1D5DD00C46741 /* delegation_intro_flow_en_1.html */; };
+		901F7F7427F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6A27F1D5DD00C46741 /* delegation_intro_flow_en_2.html */; };
+		901F7F7527F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6A27F1D5DD00C46741 /* delegation_intro_flow_en_2.html */; };
+		901F7F7627F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6A27F1D5DD00C46741 /* delegation_intro_flow_en_2.html */; };
+		901F7F7727F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6A27F1D5DD00C46741 /* delegation_intro_flow_en_2.html */; };
+		901F7F7827F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6B27F1D5DD00C46741 /* delegation_intro_flow_en_6.html */; };
+		901F7F7927F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6B27F1D5DD00C46741 /* delegation_intro_flow_en_6.html */; };
+		901F7F7A27F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6B27F1D5DD00C46741 /* delegation_intro_flow_en_6.html */; };
+		901F7F7B27F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6B27F1D5DD00C46741 /* delegation_intro_flow_en_6.html */; };
+		901F7F7C27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6C27F1D5DD00C46741 /* delegation_intro_flow_en_3.html */; };
+		901F7F7D27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6C27F1D5DD00C46741 /* delegation_intro_flow_en_3.html */; };
+		901F7F7E27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6C27F1D5DD00C46741 /* delegation_intro_flow_en_3.html */; };
+		901F7F7F27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6C27F1D5DD00C46741 /* delegation_intro_flow_en_3.html */; };
+		901F7F8027F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */; };
+		901F7F8127F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */; };
+		901F7F8227F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */; };
+		901F7F8327F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */; };
+		901F7F8427F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */; };
+		901F7F8527F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */; };
+		901F7F8627F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */; };
+		901F7F8727F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */; };
+		901F7F8827F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
+		901F7F8927F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
+		901F7F8A27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
+		901F7F8B27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
 		9024FB5927E09B830057EA91 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9024FB5827E09B830057EA91 /* RobotoMono.ttf */; };
 		9024FB5A27E09B830057EA91 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9024FB5827E09B830057EA91 /* RobotoMono.ttf */; };
 		9024FB5B27E09B830057EA91 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9024FB5827E09B830057EA91 /* RobotoMono.ttf */; };
@@ -2164,6 +2196,14 @@
 		901F7F4E27EB4EA900C46741 /* StakeStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeStatusViewController.swift; sourceTree = "<group>"; };
 		901F7F5727EB4F7800C46741 /* StakeRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeRowViewModel.swift; sourceTree = "<group>"; };
 		901F7F5D27EB501200C46741 /* DelegationStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationStatusPresenter.swift; sourceTree = "<group>"; };
+		901F7F6427F1D5CF00C46741 /* registerdelegation_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = registerdelegation_flow_style.css; sourceTree = "<group>"; };
+		901F7F6927F1D5DD00C46741 /* delegation_intro_flow_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_1.html; sourceTree = "<group>"; };
+		901F7F6A27F1D5DD00C46741 /* delegation_intro_flow_en_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_2.html; sourceTree = "<group>"; };
+		901F7F6B27F1D5DD00C46741 /* delegation_intro_flow_en_6.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_6.html; sourceTree = "<group>"; };
+		901F7F6C27F1D5DD00C46741 /* delegation_intro_flow_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_3.html; sourceTree = "<group>"; };
+		901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_7.html; sourceTree = "<group>"; };
+		901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_4.html; sourceTree = "<group>"; };
+		901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_5.html; sourceTree = "<group>"; };
 		9024FB5827E09B830057EA91 /* RobotoMono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RobotoMono.ttf; sourceTree = "<group>"; };
 		9074C70927D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionPresenter.swift; sourceTree = "<group>"; };
 		9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionViewController.swift; sourceTree = "<group>"; };
@@ -2346,6 +2386,7 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				901F7F6227F1D5A100C46741 /* RegisterDelegationOnboarding */,
 				9024FB5827E09B830057EA91 /* RobotoMono.ttf */,
 				07E6E26E27B558A30083A852 /* IntroductionFlowOnboarding  */,
 				070D61F727B3C54500B6903C /* SchieldedBalanceOnboarding */,
@@ -3400,6 +3441,29 @@
 			path = Status;
 			sourceTree = "<group>";
 		};
+		901F7F6227F1D5A100C46741 /* RegisterDelegationOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				901F7F6327F1D5B800C46741 /* styles */,
+				901F7F6927F1D5DD00C46741 /* delegation_intro_flow_en_1.html */,
+				901F7F6A27F1D5DD00C46741 /* delegation_intro_flow_en_2.html */,
+				901F7F6C27F1D5DD00C46741 /* delegation_intro_flow_en_3.html */,
+				901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */,
+				901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */,
+				901F7F6B27F1D5DD00C46741 /* delegation_intro_flow_en_6.html */,
+				901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */,
+			);
+			path = RegisterDelegationOnboarding;
+			sourceTree = "<group>";
+		};
+		901F7F6327F1D5B800C46741 /* styles */ = {
+			isa = PBXGroup;
+			children = (
+				901F7F6427F1D5CF00C46741 /* registerdelegation_flow_style.css */,
+			);
+			path = styles;
+			sourceTree = "<group>";
+		};
 		9074C71827DA088800B2DFD8 /* PoolSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -3744,6 +3808,8 @@
 				7F168A012481232400DE429E /* SendFund.storyboard in Resources */,
 				7FD43602249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				C92C64F6244EE5AF00675ECE /* 2.5.2.RX_backend_transferCost.json in Resources */,
+				901F7F7827F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */,
+				901F7F8027F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
 				070D622527B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
 				7F48C203244DCD0B00997684 /* LaunchScreen.storyboard in Resources */,
 				7F48C24F244DCD7100997684 /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
@@ -3753,6 +3819,7 @@
 				070D624827B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				7F48C206244DCD0B00997684 /* Widget.storyboard in Resources */,
 				7F48C24A244DCD7100997684 /* 2.1.2.RX-backend_global.json in Resources */,
+				901F7F8827F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
 				7FA0AECC246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
 				7F48C248244DCD7100997684 /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				7F48C207244DCD0B00997684 /* Account.storyboard in Resources */,
@@ -3777,6 +3844,7 @@
 				7F48C20A244DCD0B00997684 /* .swiftlint.yml in Resources */,
 				901F7F2627EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */,
 				7F48C24E244DCD7100997684 /* 2.3.1.TX_backend_submitCredential.json in Resources */,
+				901F7F7C27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				070D625027B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				5237186F25751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				070D622D27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
@@ -3787,6 +3855,7 @@
 				7F48C20B244DCD0B00997684 /* Login.storyboard in Resources */,
 				7FA0AED5246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_rec.json in Resources */,
 				5237186B25751F2100B2BC31 /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
+				901F7F7027F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */,
 				7F48C250244DCD7100997684 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				7F48C241244DCD7100997684 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				7F48C245244DCD7100997684 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
@@ -3800,6 +3869,9 @@
 				7F48C249244DCD7100997684 /* 3.2.2.RX-lib_create_transfer.json in Resources */,
 				7F48C240244DCD6C00997684 /* 1.3.2.RX-backend_request_identity.json in Resources */,
 				07E6E28627B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
+				901F7F7427F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
+				901F7F8427F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
+				901F7F6527F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */,
 				52D3510D250A6AE500858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				7F5F779224891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				7F48C243244DCD7100997684 /* 1.2.2.RX-lib_create_id_request_and_private_data.json in Resources */,
@@ -3830,18 +3902,23 @@
 				52D3510F250A6AE500858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				070D621727B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
 				070D622F27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
+				901F7F8227F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
 				5237187125751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				52A0A0C727D0B4E8001C162D /* Stake.storyboard in Resources */,
 				7F5F779024891EFB0016F8D1 /* AppIconTestNet.xcassets in Resources */,
 				7F85B7C1246A9A7C00ED09B8 /* readme.md in Resources */,
 				7FF9190F250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
+				901F7F7A27F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */,
 				070D621B27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				7F85B7C2246A9A7C00ED09B8 /* Widget.storyboard in Resources */,
 				07E6E28427B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FD43604249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				070D626927B40C2D00B6903C /* Onboarding.storyboard in Resources */,
+				901F7F8A27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
+				901F7F7227F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */,
 				070D625627B3DD5600B6903C /* shielding_2.svg in Resources */,
 				070D622B27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
+				901F7F8627F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
 				901F7F2C27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */,
 				07E6E27C27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7FD43600249A2D34002D2AC3 /* icon-22-29.png in Resources */,
@@ -3849,15 +3926,18 @@
 				7F85B7C3246A9A7C00ED09B8 /* Account.storyboard in Resources */,
 				7F85B7C4246A9A7C00ED09B8 /* Localizable.strings in Resources */,
 				7F85B7C5246A9A7C00ED09B8 /* Identity.storyboard in Resources */,
+				901F7F7627F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
 				9024FB5B27E09B830057EA91 /* RobotoMono.ttf in Resources */,
 				07E6E28C27B558A30083A852 /* intro_flow_style.css in Resources */,
 				07E6E28827B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
+				901F7F6727F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */,
 				7F85B7C6246A9A7C00ED09B8 /* .swiftlint.yml in Resources */,
 				52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */,
 				7F85B7C7246A9A7C00ED09B8 /* Login.storyboard in Resources */,
 				7F5F778E24891EA80016F8D1 /* Assets.xcassets in Resources */,
 				070D625A27B3DD5600B6903C /* shielding_1.svg in Resources */,
 				070D624A27B3D67100B6903C /* shielded_balance_style.css in Resources */,
+				901F7F7E27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				070D620727B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
@@ -3877,6 +3957,7 @@
 				7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */,
 				7F85B8C1246A9AB600ED09B8 /* Widget.storyboard in Resources */,
 				07E6E28527B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
+				901F7F6827F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */,
 				7FF91910250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				070D625B27B3DD5600B6903C /* shielding_1.svg in Resources */,
 				070D624B27B3D67100B6903C /* shielded_balance_style.css in Resources */,
@@ -3884,6 +3965,8 @@
 				7F168A042481232400DE429E /* SendFund.storyboard in Resources */,
 				070D623027B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
 				070D621C27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
+				901F7F7F27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
+				901F7F8B27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
 				07E6E27D27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7FD43605249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				52055F7A2552B83D0071F7CA /* IdentityCardView.xib in Resources */,
@@ -3901,9 +3984,12 @@
 				070D625327B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				901F7F2D27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */,
 				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
+				901F7F7727F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
 				52055F9D25541B160071F7CA /* AccountCardView.xib in Resources */,
+				901F7F8327F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
 				07E6E28D27B558A30083A852 /* intro_flow_style.css in Resources */,
 				7F85B8C2246A9AB600ED09B8 /* Account.storyboard in Resources */,
+				901F7F8727F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
 				7F85B8C3246A9AB600ED09B8 /* Localizable.strings in Resources */,
 				7F85B8C4246A9AB600ED09B8 /* Identity.storyboard in Resources */,
 				7F85B8C5246A9AB600ED09B8 /* .swiftlint.yml in Resources */,
@@ -3912,6 +3998,8 @@
 				5237186E25751F2100B2BC31 /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
 				7F5F778B24891E9F0016F8D1 /* Assets.xcassets in Resources */,
 				070D620827B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
+				901F7F7B27F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */,
+				901F7F7327F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3924,11 +4012,14 @@
 				07E6E28B27B558A30083A852 /* intro_flow_style.css in Resources */,
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
 				070D620627B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
+				901F7F8127F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
+				901F7F6627F1D5CF00C46741 /* registerdelegation_flow_style.css in Resources */,
 				070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
 				06A5129823F545DA008050B4 /* Widget.storyboard in Resources */,
 				070D624927B3D67100B6903C /* shielded_balance_style.css in Resources */,
+				901F7F7927F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */,
 				070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				9024FB5A27E09B830057EA91 /* RobotoMono.ttf in Resources */,
 				070D622627B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
@@ -3945,19 +4036,24 @@
 				901F7F2727EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				52055F9B25541B160071F7CA /* AccountCardView.xib in Resources */,
+				901F7F7D27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				07E6E28327B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
+				901F7F8527F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
 				7FF07A7423EADB1200F1FC04 /* Account.storyboard in Resources */,
 				070D622227B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				52A0A0C627D0B4E8001C162D /* Stake.storyboard in Resources */,
 				06AA2A9A23F58C2C0001F964 /* Localizable.strings in Resources */,
 				07E6E28727B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
+				901F7F8927F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
 				06A5129623F545CD008050B4 /* Identity.storyboard in Resources */,
 				19C2E2845C662830D186E79E /* .swiftlint.yml in Resources */,
 				070D625527B3DD5600B6903C /* shielding_2.svg in Resources */,
 				901F7F2B27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */,
+				901F7F7527F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
 				07E6E27727B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				069B9DDD23FC06D700A02A1F /* Login.storyboard in Resources */,
 				7F5F778C24891EA00016F8D1 /* Assets.xcassets in Resources */,
+				901F7F7127F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

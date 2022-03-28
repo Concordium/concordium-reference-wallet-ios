@@ -55,6 +55,8 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         super.viewDidLoad()
         stopWidgetButton.applyConcordiumEdgeStyle(color: .error)
         
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0,  bottom: 10, right: 0)
+        
         dataSource = UITableViewDiffableDataSource<String, StakeRowViewModel>(tableView: tableView, cellProvider: createCell)
         dataSource?.defaultRowAnimation = .none
         

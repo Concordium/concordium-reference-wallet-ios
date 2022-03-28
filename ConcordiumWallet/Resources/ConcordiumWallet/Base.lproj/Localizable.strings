@@ -625,3 +625,12 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.receipt.poolstatus" = "Delegation pool status";
 "baking.receipt.bakerstake" = "Baker stake";
 "baking.receipt.metadataurl" = "Metadata URL";
+
+"onboardingcarousel.registerdelegation.title" = "Delegation";
+"onboardingcarousel.registerdelegation.page1.title" = "Delegation";
+"onboardingcarousel.registerdelegation.page2.title" = "Two types of pools";
+"onboardingcarousel.registerdelegation.page3.title" = "Baker pools";
+"onboardingcarousel.registerdelegation.page4.title" = "The L-pool";
+"onboardingcarousel.registerdelegation.page5.title" = "Pay days";
+"onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
+"onboardingcarousel.registerdelegation.page7.title" = "The status page";
