@@ -12,7 +12,7 @@ import Combine
 // MARK: -
 // MARK: Delegate
 protocol DelegationReceiptConfirmationPresenterDelegate: AnyObject {
-    func confirmedTransaction()
+    func confirmedTransaction(transfer: TransferDataType)
 }
 
 
@@ -47,14 +47,11 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         self.stakeService = dependencyProvider.stakeService()
         let isLoweringStake = dataHandler.isLoweringStake()
         //TODO: fill in grace period
-        self.viewModel.setup(isUpdate: dataHandler.hasCurrentData(), isLoweringStake: isLoweringStake, gracePeriod: "[[<current grace period>]]")
+        self.viewModel.setup(isUpdate: dataHandler.hasCurrentData(), isLoweringStake: isLoweringStake, gracePeriod: "[[<current grace period>]]", transferCost: cost)
     }
 
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
-        
-        //setup transaction fee -> "delegation.receiptconfirmation.transactionfee"
-        
     }
     func pressedButton() {
         guard let delegate = delegate else {
@@ -70,13 +67,13 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
             .sink { error in
                 self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             } receiveValue: { [weak self] transfer in
-                self?.delegate?.confirmedTransaction()
+                self?.delegate?.confirmedTransaction(transfer: transfer)
             }.store(in: &cancellables)
     }
 }
 
 fileprivate extension StakeReceiptViewModel {
-    func setup(isUpdate: Bool, isLoweringStake: Bool, gracePeriod: String) {
+    func setup(isUpdate: Bool, isLoweringStake: Bool, gracePeriod: String, transferCost: GTU) {
         receiptFooterText = nil
         showsSubmitted = false
         buttonLabel = "delegation.receiptconfirmation.submit".localized
@@ -93,5 +90,6 @@ fileprivate extension StakeReceiptViewModel {
             receiptHeaderText = "delegation.receipt.registerdelegation".localized
             text = String(format: "delegation.receiptconfirmation.registertext".localized, gracePeriod)
         }
+        transactionFeeText = String(format: "delegation.receiptconfirmation.transactionfee".localized, transferCost.displayValueWithGStroke())
     }
 }

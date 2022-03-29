@@ -1,12 +1,12 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let leverageBound = try LeverageBound(json)
+//   let euroPerEnergy = try EuroPerEnergy(json)
 
 import Foundation
 
-// MARK: - LeverageBound
-struct LeverageBound: Codable {
+// MARK: - EuroPerEnergy
+struct EuroPerEnergy: Codable {
     let denominator: Int
     let numerator: Int
 
@@ -16,11 +16,11 @@ struct LeverageBound: Codable {
     }
 }
 
-// MARK: LeverageBound convenience initializers and mutators
+// MARK: EuroPerEnergy convenience initializers and mutators
 
-extension LeverageBound {
+extension EuroPerEnergy {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(LeverageBound.self, from: data)
+        self = try newJSONDecoder().decode(EuroPerEnergy.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -37,8 +37,8 @@ extension LeverageBound {
     func with(
         denominator: Int? = nil,
         numerator: Int? = nil
-    ) -> LeverageBound {
-        return LeverageBound(
+    ) -> EuroPerEnergy {
+        return EuroPerEnergy(
             denominator: denominator ?? self.denominator,
             numerator: numerator ?? self.numerator
         )

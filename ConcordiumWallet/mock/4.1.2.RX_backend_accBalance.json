@@ -21,7 +21,12 @@
             "restakeEarnings": true,
             "bakerAggregationVerifyKey" : "",
             "bakerElectionVerifyKey" : "",
-            "bakerSignatureVerifyKey" : ""
+            "bakerSignatureVerifyKey" : "",
+            "pendingChange": {
+                "change":"ReduceStake",
+                "newStake": null,
+                "effectiveTime":1648563555500
+                }
         },
         "accountDelegation": null
     },
@@ -48,8 +53,13 @@
             "stakedAmount": "50000000",
             "restakeEarnings": true,
             "delegationTarget": {
-                    "delegateType": "delegateToLPool",
+                    "delegateType": "L-Pool",
                     "bakerId": null
+            },
+            "pendingChange":{
+                "change":"ReduceStake",
+                "newStake":"1000000000",
+                "effectiveTime":1648563555500
             }
         }
     }

@@ -10,11 +10,13 @@ struct AccountDelegation: Codable {
     let stakedAmount: String
     let restakeEarnings: Bool
     let delegationTarget: DelegationTarget
+    let pendingChange: PendingChange?
 
     enum CodingKeys: String, CodingKey {
         case stakedAmount = "stakedAmount"
         case restakeEarnings = "restakeEarnings"
         case delegationTarget = "delegationTarget"
+        case pendingChange = "pendingChange"
     }
 }
 
@@ -39,12 +41,14 @@ extension AccountDelegation {
     func with(
         stakedAmount: String? = nil,
         restakeEarnings: Bool? = nil,
-        delegationTarget: DelegationTarget? = nil
+        delegationTarget: DelegationTarget? = nil,
+        pendingChange: PendingChange?? = nil
     ) -> AccountDelegation {
         return AccountDelegation(
             stakedAmount: stakedAmount ?? self.stakedAmount,
             restakeEarnings: restakeEarnings ?? self.restakeEarnings,
-            delegationTarget: delegationTarget ?? self.delegationTarget
+            delegationTarget: delegationTarget ?? self.delegationTarget,
+            pendingChange: pendingChange ?? self.pendingChange
         )
     }
 

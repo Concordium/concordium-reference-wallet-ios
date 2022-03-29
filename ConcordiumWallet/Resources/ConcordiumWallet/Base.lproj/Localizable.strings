@@ -634,3 +634,17 @@ If your pool is already open, you can also close it for new delegators, or you c
 "onboardingcarousel.registerdelegation.page5.title" = "Pay days";
 "onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
 "onboardingcarousel.registerdelegation.page7.title" = "The status page";
+
+"delegation.status.title" = "Delegation status";
+"delegation.status.registered.header" = "Your delegation is registered.";
+"delegation.status.waiting.placeholder" = "Waiting for transaction to finalize";
+"delegation.status.waiting.header" = "Waiting for delegation transaction to finalize.";
+"delegation.status.nodelegation.placeholder" = "This account has no delegation registered. You can register a delegation with the button below.";
+"delegation.status.nodelegation.header" = "This account is not currently delegating any CCDs.";
+"delegation.status.registerbutton" = "Register delegation";
+"delegation.status.updatebutton" = "Update current delegation";
+"delegation.status.stopbutton" = "Stop delegation";
+"delegation.status.newamount" = "New delegation amount";
+"delegation.status.graceperiod" = "The following changes will take effect in approximately %d days ";
+"delegation.status.delegationwillstop" = "The delegation will be stopped, and the delegation amount will be unlocked on the public balance of the account.";
+"delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking after it’s cool down has ended in %d";

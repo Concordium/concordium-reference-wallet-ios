@@ -34,7 +34,7 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var nonce: Int { get set}
     var memo: String? { get set }
     var capital: String? { get set }
-    var restakeEarnings: Bool { get set }
+    var restakeEarnings: Bool? { get set }
     var delegationType: String? { get set }
     var delegationTargetBaker: Int { get set }
     var openStatus: String? { get set }
@@ -142,7 +142,7 @@ final class TransferEntity: Object {
     @objc dynamic var encryptedDetailsEntity: EncryptedDetailsEntity?
     @objc dynamic var nonce: Int = 0
     @objc dynamic var capital: String? = ""
-    @objc dynamic var restakeEarnings: Bool  = false
+    @objc dynamic var restakeEarningsBool: Int = -1 //empty
     @objc dynamic var delegationType: String?
     @objc dynamic var delegationTargetBaker: Int = -1
     @objc dynamic var openStatus: String?
@@ -162,6 +162,24 @@ extension TransferEntity: TransferDataType {
             self.encryptedDetailsEntity = newValue as? EncryptedDetailsEntity
         }
     }
+    
+    var restakeEarnings: Bool? {
+        get {
+            restakeEarningsBool == -1 ? nil : (restakeEarningsBool == 1)
+        }
+        set {
+            if let restakeEarnings = newValue {
+                if restakeEarnings {
+                    self.restakeEarningsBool = 1
+                } else {
+                    self.restakeEarningsBool = 0
+                }
+            } else {
+                self.restakeEarningsBool = -1
+            }
+        }
+    }
+    
     
     var transactionStatus: SubmissionStatusEnum? {
         get {

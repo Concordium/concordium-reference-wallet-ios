@@ -1,23 +1,54 @@
 {
-    "capitalBound": 0.25,
+    "mintPerPayday": 7.48246766e-6,
+    "rewardParameters": {
+        "mintDistribution": {
+            "bakingReward": 0.45,
+            "finalizationReward": 0.35
+        },
+        "transactionFeeDistribution": {
+            "gasAccount": 0.45,
+            "baker": 0.45
+        },
+        "gASRewards": {
+            "chainUpdate": 5.0e-3,
+            "accountCreation": 2.0e-3,
+            "baker": 0.25,
+            "finalizationProof": 5.0e-3
+        }
+    },
+    "poolOwnerCooldown": 10801,
+    "capitalBound": 0.3,
+    "microGTUPerEuro": {
+        "denominator": 58433945727,
+        "numerator": 1468275604309659776
+    },
+    "rewardPeriodLength": 3,
     "transactionCommissionLPool": 0.1,
     "leverageBound": {
         "denominator": 1,
-        "numerator": 3
+        "numerator": 2
     },
+    "foundationAccountIndex": 5,
     "finalizationCommissionLPool": 1.0,
+    "delegatorCooldown": 7201,
     "bakingCommissionRange": {
         "max": 5.0e-2,
         "min": 5.0e-2
     },
     "bakingCommissionLPool": 0.1,
+    "accountCreationLimit": 10,
     "finalizationCommissionRange": {
         "max": 1.0,
         "min": 1.0
+    },
+    "electionDifficulty": 2.5e-2,
+    "euroPerEnergy": {
+        "denominator": 1000000,
+        "numerator": 1
     },
     "transactionCommissionRange": {
         "max": 5.0e-2,
         "min": 5.0e-2
     },
-    "minimumEquityCapital": "14000"
+    "minimumEquityCapital": "1000000000"
 }

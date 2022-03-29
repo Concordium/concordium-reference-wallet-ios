@@ -38,7 +38,7 @@ class DelegationCoordinator: Coordinator {
             showStatus()
         }
     }
-
+    
     func showCarousel() {
         let onboardingCarouselViewModel = OnboardingCarouselViewModel(
             title: "onboardingcarousel.registerdelegation.title".localized,
@@ -73,22 +73,25 @@ class DelegationCoordinator: Coordinator {
                 )
             ]
         )
-
+        
         let onboardingCarouselPresenter = OnboardingCarouselPresenter(
             delegate: self,
             viewModel: onboardingCarouselViewModel
         )
-
+        
         let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
         onboardingCarouselViewController.hidesBottomBarWhenPushed = true
-
+        
         navigationController.pushViewController(onboardingCarouselViewController, animated: true)
     }
     
     
     func showStatus() {
-        //TODO: show status here and only show pool if the user chooses edit
-        showPoolSelection()
+        let presenter = DelegationStatusPresenter(dataHandler: delegationDataHandler,
+                                                  dependencyProvider: dependencyProvider,
+                                                  delegate: self)
+        let vc = StakeStatusFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func stopDelegation(cost: GTU, energy: Int) {
@@ -112,7 +115,7 @@ class DelegationCoordinator: Coordinator {
     }
     
     func showRequestConfirmation(cost: GTU,
-                          energy: Int) {
+                                 energy: Int) {
         let presenter = DelegationReceiptConfirmationPresenter(account: account,
                                                                dependencyProvider: dependencyProvider,
                                                                delegate: self,
@@ -124,8 +127,8 @@ class DelegationCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showSubmissionReceipt() {
-        let presenter = DelegationReceiptPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self, dataHandler: delegationDataHandler)
+    func showSubmissionReceipt(transfer: TransferDataType) {
+        let presenter = DelegationReceiptPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self, dataHandler: delegationDataHandler, transfer: transfer)
         let vc = StakeReceiptFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -133,9 +136,9 @@ class DelegationCoordinator: Coordinator {
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
     //TODO: readd cleanup
-//    func finishedDelegation() {
-//        self.delegate?.finished()
-//    }
+    //    func finishedDelegation() {
+    //        self.delegate?.finished()
+    //    }
     func finishedAmountInput(cost: GTU, energy: Int) {
         self.showRequestConfirmation(cost: cost, energy: energy)
     }
@@ -148,8 +151,8 @@ extension DelegationCoordinator: DelegationPoolSelectionPresenterDelegate {
 }
 
 extension DelegationCoordinator: DelegationReceiptConfirmationPresenterDelegate {
-    func confirmedTransaction() {
-        self.showSubmissionReceipt()
+    func confirmedTransaction(transfer: TransferDataType) {
+        self.showSubmissionReceipt(transfer: transfer)
     }
 }
 
@@ -170,10 +173,19 @@ extension DelegationCoordinator: OnboardingCarouselPresenterDelegate {
     }
     
     func onboardingCarouselSkiped() {
-        showPoolSelection()
+        showStatus()
     }
     
     func onboardingCarouselFinished() {
+        showStatus()
+    }
+}
+
+extension DelegationCoordinator: DelegationStatusPresenterDelegate {
+    func pressedStop(cost: GTU, energy: Int) {
+        stopDelegation(cost: cost, energy: energy)
+    }
+    func pressedRegisterOrUpdate() {
         showPoolSelection()
     }
 }

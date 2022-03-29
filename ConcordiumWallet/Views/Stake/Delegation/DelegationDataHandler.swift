@@ -13,17 +13,20 @@ class DelegationDataHandler : StakeDataHandler {
         if let delegation = account.delegation {
             if isRemoving {
                 super.init(transferType: .removeDelegation)
+                self.add(entry: DelegationStopAccountData(accountAddress: account.address))
             } else {
                 super.init(transferType: .updateDelegation)
                 currentData = Set()
+                currentData?.update(with: DelegationAccountData(accountAddress: account.address))
                 currentData?.update(with: AmountData(amount: GTU(intValue: Int(delegation.stakedAmount) ?? 0)))
                 currentData?.update(with: RestakeDelegationData(restake: delegation.restakeEarnings))
                 currentData?.update(with: PoolDelegationData(pool: BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)))
+                self.add(entry: DelegationAccountData(accountAddress: account.address))
             }
         } else {
             //register delegation
             super.init(transferType: .registerDelegation)
+            self.add(entry: DelegationAccountData(accountAddress: account.address))
         }
-        self.add(entry: DelegationAccountData(accountAddress: account.address))
     }
 }

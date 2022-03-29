@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol StakeStatusViewProtocol: AnyObject {
+protocol StakeStatusViewProtocol: Loadable, ShowAlert {
     func bind(viewModel: StakeStatusViewModel)
 }
 
@@ -26,6 +26,7 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     @IBOutlet weak var topTextLabel: UILabel!
     @IBOutlet weak var topImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var gracePeriodLabel: UILabel!
     @IBOutlet weak var warningTextLabel: UILabel!
     @IBOutlet weak var importantTextLabel: UILabel!
@@ -65,6 +66,10 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     }
 
     func bind(viewModel: StakeStatusViewModel) {
+        viewModel.$title.sink { [weak self] title in
+            self?.title = title
+        }.store(in: &cancellables)
+        
         viewModel.$topText
             .compactMap { $0 }
             .assign(to: \.text, on: topTextLabel)
@@ -75,15 +80,22 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
             .assign(to: \.image, on: topImageView)
             .store(in: &cancellables)
         
+        viewModel.$placeholderText.sink { [weak self] text in
+            if let text = text {
+                self?.placeholderLabel.isHidden = false
+                self?.placeholderLabel.text = text
+            } else {
+                self?.placeholderLabel.isHidden = true
+            }
+        }.store(in: &cancellables)
+        
         
         viewModel.$rows.sink { rows in
             var snapshot = NSDiffableDataSourceSnapshot<String, StakeRowViewModel>()
             snapshot.appendSections([""])
             snapshot.appendItems(rows, toSection: "")
-
-            if rows.count > 0 {
-                self.dataSource?.apply(snapshot)
-            }
+            self.dataSource?.apply(snapshot)
+            
             self.tableView.reloadData()
         }.store(in: &cancellables)
         
@@ -139,7 +151,11 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
             .store(in: &cancellables)
         
         viewModel.$stopButtonShown
-            .assign(to: \.isHidden, on: stopButton)
+            .sink(receiveValue: { [weak self] shown in
+                self?.stopWidgetButton.isHidden = !shown
+                self?.stopButton.isHidden = !shown
+                
+            })
             .store(in: &cancellables)
         
         viewModel.$stopButtonEnabled
@@ -149,6 +165,14 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         viewModel.$updateButtonEnabled
             .assign(to: \.isEnabled, on: nextButton)
             .store(in: &cancellables)
+        
+        viewModel.$buttonLabel.sink(receiveValue: { [weak self] text in
+            self?.nextButton.setTitle(text, for: .normal)
+        }).store(in: &cancellables)
+        
+        viewModel.$stopButtonLabel.sink(receiveValue: { [weak self] text in
+            self?.stopButton.setTitle(text, for: .normal)
+        }).store(in: &cancellables)
     }
     
     
@@ -157,5 +181,13 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         cell?.headerLabel.text = viewModel.headerLabel
         cell?.valueLabel.text = viewModel.valueLabel
         return cell
+    }
+    
+    @IBAction func pressedButton(_ sender: UIButton) {
+        presenter.pressedButton()
+    }
+    
+    @IBAction func pressedStop( sender: UIButton) {
+        presenter.pressedStopButton()
     }
 }

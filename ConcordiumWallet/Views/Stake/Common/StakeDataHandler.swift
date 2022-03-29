@@ -1,5 +1,5 @@
 //
-//  TransactionData.swift
+//  StakeDataHandler.swift
 //  ConcordiumWallet
 //
 //  Created by Ruxandra Nistor on 09/03/2022.
@@ -239,10 +239,6 @@ class StakeDataHandler {
 
     init(transferType: TransferType) {
         self.transferType = transferType
-//        currentData = Set()
-//        currentData?.update(with: AmountData(amount: GTU(intValue: 45)))
-//        currentData?.update(with: PoolDelegationData(pool: BakerPool.lpool))
-//        currentData?.update(with: RestakeDelegationData(restake: false))
     }
     
     /// Remove an entry by field
@@ -290,6 +286,12 @@ class StakeDataHandler {
         }
     }
     
+    func getCurrentOrdered() -> [StakeData] {
+        return currentData?.sorted { lhs, rhs in
+            lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
+        } ?? []
+    }
+    
     /// Checks if the amount we are now selecting is lower that the previous amount
     func isLoweringStake() -> Bool {
         guard let currentAmount: AmountData = getCurrentEntry() else {
@@ -304,11 +306,12 @@ class StakeDataHandler {
         return false
     }
     
+    /// Checks is the new delegation amount is using over 95% of funds
     func moreThan95(atDisposal: Int) -> Bool {
-        guard let currentAmount: AmountData = getCurrentEntry() else {
+        guard let newAmount: AmountData = getNewEntry() else {
             return false
         }
-        if Double(currentAmount.amount.intValue) > Double(atDisposal) * 0.95 {
+        if Double(newAmount.amount.intValue) > Double(atDisposal) * 0.95 {
             return true
         }
         return false
@@ -354,8 +357,10 @@ class StakeDataHandler {
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
                 case .lpool:
+                    //TODO: update to L-Pool after lib update
                     transfer.delegationType = "delegateToLPool"
                 case .bakerPool(let bakerId):
+                    //TODO: update to Baker after lib update
                     transfer.delegationType = "delegateToBaker"
                     transfer.delegationTargetBaker = bakerId
                 }

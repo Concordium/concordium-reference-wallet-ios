@@ -13,6 +13,7 @@ struct AccountBaker: Codable {
     let bakerAggregationVerifyKey: String
     let bakerElectionVerifyKey: String
     let bakerSignatureVerifyKey: String
+    let pendingChange: PendingChange?
 
     enum CodingKeys: String, CodingKey {
         case bakerID = "bakerId"
@@ -21,6 +22,7 @@ struct AccountBaker: Codable {
         case bakerAggregationVerifyKey = "bakerAggregationVerifyKey"
         case bakerElectionVerifyKey = "bakerElectionVerifyKey"
         case bakerSignatureVerifyKey = "bakerSignatureVerifyKey"
+        case pendingChange = "pendingChange"
     }
 }
 
@@ -48,7 +50,8 @@ extension AccountBaker {
         restakeEarnings: Bool? = nil,
         bakerAggregationVerifyKey: String? = nil,
         bakerElectionVerifyKey: String? = nil,
-        bakerSignatureVerifyKey: String? = nil
+        bakerSignatureVerifyKey: String? = nil,
+        pendingChange: PendingChange?? = nil
     ) -> AccountBaker {
         return AccountBaker(
             bakerID: bakerID ?? self.bakerID,
@@ -56,7 +59,8 @@ extension AccountBaker {
             restakeEarnings: restakeEarnings ?? self.restakeEarnings,
             bakerAggregationVerifyKey: bakerAggregationVerifyKey ?? self.bakerAggregationVerifyKey,
             bakerElectionVerifyKey: bakerElectionVerifyKey ?? self.bakerElectionVerifyKey,
-            bakerSignatureVerifyKey: bakerSignatureVerifyKey ?? self.bakerSignatureVerifyKey
+            bakerSignatureVerifyKey: bakerSignatureVerifyKey ?? self.bakerSignatureVerifyKey,
+            pendingChange: pendingChange ?? self.pendingChange
         )
     }
 

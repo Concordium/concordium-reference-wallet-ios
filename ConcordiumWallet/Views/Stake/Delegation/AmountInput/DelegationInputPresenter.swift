@@ -150,7 +150,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.view?.restakeOptionPublisher.sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self] isRestaking in
             self?.restake = isRestaking
-            self?.dataHandler.add(entry: RestakeDelegationData(restake: isRestaking))
+            
         }).store(in: &cancellables)
         
         self.view?.amountPublisher.map { amount -> GTU in
@@ -199,6 +199,9 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 guard let self = self else {
                     return .fail(StakeError.internalError)
                 }
+                self.dataHandler.add(entry: AmountData(amount: amount))
+                
+                self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
                 self.viewModel.isContinueEnabled = false//we wait until we get the updated cost
                 let costParams = self.dataHandler.getCostParameters()
                 return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
@@ -209,10 +212,11 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .sink(receiveError: {[weak self] error in
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] fee in
-                self?.cost =  GTU(intValue: Int(fee.cost) ?? 0)
+                let cost = GTU(intValue: Int(fee.cost) ?? 0)
+                self?.cost = cost
                 self?.energy = fee.energy
                 self?.viewModel.isContinueEnabled = true
-                self?.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, fee.cost)
+                self?.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
             }).store(in: &cancellables)
         
 
@@ -220,9 +224,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     func pressedContinue() {
-        if let validAmount = self.validAmount {
-            self.dataHandler.add(entry: AmountData(amount: validAmount))
-        }
+        
         checkForWarnings { [weak self] in
             guard let self = self else { return }
             guard let cost = self.cost else {

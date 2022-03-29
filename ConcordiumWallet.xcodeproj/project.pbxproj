@@ -1551,10 +1551,6 @@
 		901F7F1D27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
 		901F7F1E27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
 		901F7F1F27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
-		901F7F2027EA0F1B00C46741 /* LeverageBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1727EA0F1B00C46741 /* LeverageBound.swift */; };
-		901F7F2127EA0F1B00C46741 /* LeverageBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1727EA0F1B00C46741 /* LeverageBound.swift */; };
-		901F7F2227EA0F1B00C46741 /* LeverageBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1727EA0F1B00C46741 /* LeverageBound.swift */; };
-		901F7F2327EA0F1B00C46741 /* LeverageBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1727EA0F1B00C46741 /* LeverageBound.swift */; };
 		901F7F2627EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
 		901F7F2727EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
 		901F7F2827EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
@@ -1635,6 +1631,30 @@
 		901F7F8927F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
 		901F7F8A27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
 		901F7F8B27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */; };
+		901F7F9227F33C8800C46741 /* RewardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8C27F33C8800C46741 /* RewardParameters.swift */; };
+		901F7F9327F33C8800C46741 /* RewardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8C27F33C8800C46741 /* RewardParameters.swift */; };
+		901F7F9427F33C8800C46741 /* RewardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8C27F33C8800C46741 /* RewardParameters.swift */; };
+		901F7F9527F33C8800C46741 /* RewardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8C27F33C8800C46741 /* RewardParameters.swift */; };
+		901F7F9627F33C8800C46741 /* MintDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8D27F33C8800C46741 /* MintDistribution.swift */; };
+		901F7F9727F33C8800C46741 /* MintDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8D27F33C8800C46741 /* MintDistribution.swift */; };
+		901F7F9827F33C8800C46741 /* MintDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8D27F33C8800C46741 /* MintDistribution.swift */; };
+		901F7F9927F33C8800C46741 /* MintDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8D27F33C8800C46741 /* MintDistribution.swift */; };
+		901F7F9A27F33C8800C46741 /* GASRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8E27F33C8800C46741 /* GASRewards.swift */; };
+		901F7F9B27F33C8800C46741 /* GASRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8E27F33C8800C46741 /* GASRewards.swift */; };
+		901F7F9C27F33C8800C46741 /* GASRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8E27F33C8800C46741 /* GASRewards.swift */; };
+		901F7F9D27F33C8800C46741 /* GASRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8E27F33C8800C46741 /* GASRewards.swift */; };
+		901F7F9E27F33C8800C46741 /* PendingChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8F27F33C8800C46741 /* PendingChange.swift */; };
+		901F7F9F27F33C8800C46741 /* PendingChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8F27F33C8800C46741 /* PendingChange.swift */; };
+		901F7FA027F33C8800C46741 /* PendingChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8F27F33C8800C46741 /* PendingChange.swift */; };
+		901F7FA127F33C8800C46741 /* PendingChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F8F27F33C8800C46741 /* PendingChange.swift */; };
+		901F7FA227F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */; };
+		901F7FA327F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */; };
+		901F7FA427F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */; };
+		901F7FA527F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */; };
+		901F7FA627F33C8800C46741 /* EuroPerEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9127F33C8800C46741 /* EuroPerEnergy.swift */; };
+		901F7FA727F33C8800C46741 /* EuroPerEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9127F33C8800C46741 /* EuroPerEnergy.swift */; };
+		901F7FA827F33C8800C46741 /* EuroPerEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9127F33C8800C46741 /* EuroPerEnergy.swift */; };
+		901F7FA927F33C8800C46741 /* EuroPerEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F9127F33C8800C46741 /* EuroPerEnergy.swift */; };
 		9024FB5927E09B830057EA91 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9024FB5827E09B830057EA91 /* RobotoMono.ttf */; };
 		9024FB5A27E09B830057EA91 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9024FB5827E09B830057EA91 /* RobotoMono.ttf */; };
 		9024FB5B27E09B830057EA91 /* RobotoMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9024FB5827E09B830057EA91 /* RobotoMono.ttf */; };
@@ -1647,10 +1667,10 @@
 		9074C71027D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */; };
 		9074C71127D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */; };
 		9074C71227D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */; };
-		9074C71427D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
-		9074C71527D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
-		9074C71627D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
-		9074C71727D9314B00B2DFD8 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* TransactionData.swift */; };
+		9074C71427D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
+		9074C71527D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
+		9074C71627D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
+		9074C71727D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
 		90C371BF27DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371BD27DB87FC0046F05E /* StakeReceiptPresenter.swift */; };
 		90C371C027DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371BD27DB87FC0046F05E /* StakeReceiptPresenter.swift */; };
 		90C371C127DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371BD27DB87FC0046F05E /* StakeReceiptPresenter.swift */; };
@@ -2183,7 +2203,6 @@
 		901F7F0027EA0D5C00C46741 /* PoolInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolInfo.swift; sourceTree = "<group>"; };
 		901F7F1527EA0F1A00C46741 /* CommissionRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionRange.swift; sourceTree = "<group>"; };
 		901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolParametersResponse.swift; sourceTree = "<group>"; };
-		901F7F1727EA0F1B00C46741 /* LeverageBound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeverageBound.swift; sourceTree = "<group>"; };
 		901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.2.2.RX_backend_pool_parameters.json; sourceTree = "<group>"; };
 		901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.1.2.RX_backend_baker_pool.json; sourceTree = "<group>"; };
 		901F7F2E27EB023100C46741 /* AccountDelegation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDelegation.swift; sourceTree = "<group>"; };
@@ -2204,10 +2223,16 @@
 		901F7F6D27F1D5DD00C46741 /* delegation_intro_flow_en_7.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_7.html; sourceTree = "<group>"; };
 		901F7F6E27F1D5DD00C46741 /* delegation_intro_flow_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_4.html; sourceTree = "<group>"; };
 		901F7F6F27F1D5DE00C46741 /* delegation_intro_flow_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = delegation_intro_flow_en_5.html; sourceTree = "<group>"; };
+		901F7F8C27F33C8800C46741 /* RewardParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardParameters.swift; sourceTree = "<group>"; };
+		901F7F8D27F33C8800C46741 /* MintDistribution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MintDistribution.swift; sourceTree = "<group>"; };
+		901F7F8E27F33C8800C46741 /* GASRewards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASRewards.swift; sourceTree = "<group>"; };
+		901F7F8F27F33C8800C46741 /* PendingChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingChange.swift; sourceTree = "<group>"; };
+		901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionFeeDistribution.swift; sourceTree = "<group>"; };
+		901F7F9127F33C8800C46741 /* EuroPerEnergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EuroPerEnergy.swift; sourceTree = "<group>"; };
 		9024FB5827E09B830057EA91 /* RobotoMono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RobotoMono.ttf; sourceTree = "<group>"; };
 		9074C70927D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionPresenter.swift; sourceTree = "<group>"; };
 		9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionViewController.swift; sourceTree = "<group>"; };
-		9074C71327D9314B00B2DFD8 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
+		9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeDataHandler.swift; sourceTree = "<group>"; };
 		90C371BD27DB87FC0046F05E /* StakeReceiptPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeReceiptPresenter.swift; sourceTree = "<group>"; };
 		90C371BE27DB87FC0046F05E /* StakeReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeReceiptViewController.swift; sourceTree = "<group>"; };
 		90C371C727DB90770046F05E /* StakeEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeEntryCell.swift; sourceTree = "<group>"; };
@@ -2662,10 +2687,15 @@
 		19C2E7F4B87DC43D5967FF79 /* AutoGenerated */ = {
 			isa = PBXGroup;
 			children = (
+				901F7F9127F33C8800C46741 /* EuroPerEnergy.swift */,
+				901F7F8E27F33C8800C46741 /* GASRewards.swift */,
+				901F7F8D27F33C8800C46741 /* MintDistribution.swift */,
+				901F7F8F27F33C8800C46741 /* PendingChange.swift */,
+				901F7F8C27F33C8800C46741 /* RewardParameters.swift */,
+				901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */,
 				901F7F2E27EB023100C46741 /* AccountDelegation.swift */,
 				901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */,
 				901F7F1527EA0F1A00C46741 /* CommissionRange.swift */,
-				901F7F1727EA0F1B00C46741 /* LeverageBound.swift */,
 				901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */,
 				901F7EFE27EA0D5C00C46741 /* BakerPoolResponse.swift */,
 				901F7EFD27EA0D5C00C46741 /* BakerStakePendingChange.swift */,
@@ -3485,7 +3515,7 @@
 			isa = PBXGroup;
 			children = (
 				901F7F4C27EB4E8A00C46741 /* Status */,
-				9074C71327D9314B00B2DFD8 /* TransactionData.swift */,
+				9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */,
 				90C371E227DF68490046F05E /* Receipt */,
 				90C371E327DF68540046F05E /* AmountInput */,
 				901F7F5727EB4F7800C46741 /* StakeRowViewModel.swift */,
@@ -4363,7 +4393,7 @@
 				7F48C14E244DCD0B00997684 /* LoginInfoLabel.swift in Sources */,
 				7F48C26F244E17D100997684 /* IPInfoResponseElement.swift in Sources */,
 				1737681F2652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
-				9074C71427D9314B00B2DFD8 /* TransactionData.swift in Sources */,
+				9074C71427D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
 				7F48C267244E17D100997684 /* Description.swift in Sources */,
 				64FD334E25FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				7F48C14F244DCD0B00997684 /* String+Additions.swift in Sources */,
@@ -4400,6 +4430,8 @@
 				7F48C161244DCD0B00997684 /* KeychainWrapper.swift in Sources */,
 				7F48C163244DCD0B00997684 /* UIButton+StoryboardLocalization.swift in Sources */,
 				077AC5FE26E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
+				901F7F9A27F33C8800C46741 /* GASRewards.swift in Sources */,
+				901F7F9E27F33C8800C46741 /* PendingChange.swift in Sources */,
 				90C371C827DB90770046F05E /* StakeEntryCell.swift in Sources */,
 				7F48C25B244E17D100997684 /* AccNonce.swift in Sources */,
 				7F48C164244DCD0B00997684 /* LoadProtocol.swift in Sources */,
@@ -4422,7 +4454,6 @@
 				901F7F0927EA0D5C00C46741 /* BakerPoolResponse.swift in Sources */,
 				5248E7D7257A60F600E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				7F48C170244DCD0B00997684 /* EnterPasswordViewController.swift in Sources */,
-				901F7F2027EA0F1B00C46741 /* LeverageBound.swift in Sources */,
 				7F48C277244E17D100997684 /* Policy.swift in Sources */,
 				077AC5EF26E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
 				5236EA4125134C4900214174 /* IdentityWrapperShell.swift in Sources */,
@@ -4488,6 +4519,7 @@
 				7F48C1A2244DCD0B00997684 /* BaseNavigationController.swift in Sources */,
 				7F48C1A3244DCD0B00997684 /* TitleLabel.swift in Sources */,
 				7F48C1A5244DCD0B00997684 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
+				901F7FA627F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
@@ -4594,6 +4626,7 @@
 				7F48C25E244E17D100997684 /* Aci.swift in Sources */,
 				901F7F3E27EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F48C1EE244DCD0B00997684 /* OutcomeEnum.swift in Sources */,
+				901F7F9227F33C8800C46741 /* RewardParameters.swift in Sources */,
 				7F48C1EF244DCD0B00997684 /* RequestPasswordPresenter.swift in Sources */,
 				5251EF9E27BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				52055F862552C1D90071F7CA /* NibLoadable.swift in Sources */,
@@ -4685,11 +4718,13 @@
 				19C2E20D7EF1DAB5982527B6 /* IdentityProviderError.swift in Sources */,
 				19C2E17F08E36E724B4D04EC /* IdentityCreationStatus.swift in Sources */,
 				52589B2125121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
+				901F7FA227F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
 				19C2E32D43EC41DA5D3C80B6 /* RequestExportPasswordPresenter.swift in Sources */,
 				19C2E36B98F54908910BDA78 /* ImportCoordinator.swift in Sources */,
 				901F7EF327E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
 				901F7F1127EA0D5C00C46741 /* PoolInfo.swift in Sources */,
 				19C2EC8929F409BF6C6AEFFD /* IdentityImporter.swift in Sources */,
+				901F7F9627F33C8800C46741 /* MintDistribution.swift in Sources */,
 				19C2E87534C4640E23457B73 /* Importer.swift in Sources */,
 				19C2E8C0C9B9183072676B88 /* ImportService.swift in Sources */,
 			);
@@ -4805,6 +4840,7 @@
 				7F85B732246A9A7C00ED09B8 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
 				901F7F3627EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */,
 				7F85B8EC2472D39000ED09B8 /* MoreMenuPresenter.swift in Sources */,
+				901F7F9427F33C8800C46741 /* RewardParameters.swift in Sources */,
 				070D61DD27B290E400B6903C /* OnboardingCarouselViewController.swift in Sources */,
 				644BB67F25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				7F85B733246A9A7C00ED09B8 /* TransferCost.swift in Sources */,
@@ -4820,6 +4856,7 @@
 				52D0CF1D25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				90C371E727DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */,
 				90C371DB27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
+				901F7FA427F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
 				7F85B740246A9A7C00ED09B8 /* Policy.swift in Sources */,
 				173768212652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				7F85B741246A9A7C00ED09B8 /* IdentitiesCoordinator.swift in Sources */,
@@ -4841,6 +4878,7 @@
 				901F7F3B27EB07AE00C46741 /* BakerEntity.swift in Sources */,
 				7F85B74B246A9A7C00ED09B8 /* UITableView+Extensions.swift in Sources */,
 				529531B3256BA711004CECE4 /* Schedule.swift in Sources */,
+				901F7FA827F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				7F85B74C246A9A7C00ED09B8 /* UIColor+Additions.swift in Sources */,
 				7F85B74E246A9A7C00ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B74F246A9A7C00ED09B8 /* LoginCoordinator.swift in Sources */,
@@ -4910,7 +4948,6 @@
 				07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B77B246A9A7C00ED09B8 /* IPInfo.swift in Sources */,
 				7F85B77C246A9A7C00ED09B8 /* CreateCredentialRequest.swift in Sources */,
-				901F7F2227EA0F1B00C46741 /* LeverageBound.swift in Sources */,
 				7F85B77D246A9A7C00ED09B8 /* IPInfoResponseElement.swift in Sources */,
 				7F85B77E246A9A7C00ED09B8 /* IdentityObjectWrapper.swift in Sources */,
 				7F85B8F22472D39700ED09B8 /* MoreMenuViewController.swift in Sources */,
@@ -4930,11 +4967,13 @@
 				7F85B78A246A9A7C00ED09B8 /* IdentitiesPresenter.swift in Sources */,
 				7F85B78B246A9A7C00ED09B8 /* IdentitiesViewController.swift in Sources */,
 				7F85B78C246A9A7C00ED09B8 /* IdentitiesService.swift in Sources */,
+				901F7F9827F33C8800C46741 /* MintDistribution.swift in Sources */,
 				7F85B78D246A9A7C00ED09B8 /* AppSettings.swift in Sources */,
 				074917D1273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				7F85B78E246A9A7C00ED09B8 /* UIView+Additions.swift in Sources */,
 				7F85B78F246A9A7C00ED09B8 /* PasswordFieldViewController.swift in Sources */,
 				529531B8256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
+				901F7F9C27F33C8800C46741 /* GASRewards.swift in Sources */,
 				7F85B790246A9A7C00ED09B8 /* Sizes.swift in Sources */,
 				7F85B791246A9A7C00ED09B8 /* SubmissionStatusEnum.swift in Sources */,
 				7F85B792246A9A7C00ED09B8 /* Result+Additions.swift in Sources */,
@@ -4959,7 +4998,7 @@
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
 				077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B7A0246A9A7C00ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
-				9074C71627D9314B00B2DFD8 /* TransactionData.swift in Sources */,
+				9074C71627D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
 				7F85B7A1246A9A7C00ED09B8 /* ToastLabel.swift in Sources */,
 				642ED93525E8F12300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D3F24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
@@ -5037,6 +5076,7 @@
 				19C2EC63A85A68BCD35F05F7 /* RecipientEntity.swift in Sources */,
 				19C2E7114A1C0B1787CE13E0 /* AccountEntity.swift in Sources */,
 				19C2E343797022555302D931 /* TransferEntity.swift in Sources */,
+				901F7FA027F33C8800C46741 /* PendingChange.swift in Sources */,
 				19C2EF544001916518739E1F /* DataStoreProtocol.swift in Sources */,
 				9074C70D27D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				7F5F77832487D3BD0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
@@ -5183,6 +5223,7 @@
 				7F85B830246A9AB600ED09B8 /* CreateNicknameViewController.swift in Sources */,
 				901F7F3727EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */,
 				7F85B831246A9AB600ED09B8 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
+				901F7F9527F33C8800C46741 /* RewardParameters.swift in Sources */,
 				070D61D927B290E300B6903C /* OnboardingCarouselViewController.swift in Sources */,
 				644BB68025DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				7F85B832246A9AB600ED09B8 /* TransferCost.swift in Sources */,
@@ -5198,6 +5239,7 @@
 				52D0CF1E25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				90C371E827DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */,
 				90C371DC27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
+				901F7FA527F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
 				7F85B83D246A9AB600ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
 				173768222652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				7F85B83F246A9AB600ED09B8 /* Policy.swift in Sources */,
@@ -5219,6 +5261,7 @@
 				901F7F3C27EB07AE00C46741 /* BakerEntity.swift in Sources */,
 				7F85B849246A9AB600ED09B8 /* Storyboarded.swift in Sources */,
 				529531B4256BA711004CECE4 /* Schedule.swift in Sources */,
+				901F7FA927F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				7F85B84A246A9AB600ED09B8 /* UITableView+Extensions.swift in Sources */,
 				7F85B84B246A9AB600ED09B8 /* UIColor+Additions.swift in Sources */,
 				7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */,
@@ -5288,7 +5331,6 @@
 				07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B874246A9AB600ED09B8 /* CreateTransferRequest.swift in Sources */,
 				7F85B877246A9AB600ED09B8 /* TransactionDetailPresenter.swift in Sources */,
-				901F7F2327EA0F1B00C46741 /* LeverageBound.swift in Sources */,
 				7F85B878246A9AB600ED09B8 /* MakeCreateTransferRequest.swift in Sources */,
 				7F85B879246A9AB600ED09B8 /* IPArDatum.swift in Sources */,
 				7F85B87A246A9AB600ED09B8 /* IPInfo.swift in Sources */,
@@ -5308,11 +5350,13 @@
 				7F85B886246A9AB600ED09B8 /* LetterSpacingLabel.swift in Sources */,
 				7F85B887246A9AB600ED09B8 /* IdentityConfirmedPresenter.swift in Sources */,
 				7F85B888246A9AB600ED09B8 /* IdentityConfirmedViewController.swift in Sources */,
+				901F7F9927F33C8800C46741 /* MintDistribution.swift in Sources */,
 				7F85B889246A9AB600ED09B8 /* IdentitiesPresenter.swift in Sources */,
 				074917D2273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				7F85B88A246A9AB600ED09B8 /* IdentitiesViewController.swift in Sources */,
 				7F85B88B246A9AB600ED09B8 /* IdentitiesService.swift in Sources */,
 				529531B9256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
+				901F7F9D27F33C8800C46741 /* GASRewards.swift in Sources */,
 				7F85B88C246A9AB600ED09B8 /* AppSettings.swift in Sources */,
 				7F85B88D246A9AB600ED09B8 /* UIView+Additions.swift in Sources */,
 				7F85B88E246A9AB600ED09B8 /* PasswordFieldViewController.swift in Sources */,
@@ -5337,7 +5381,7 @@
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
 				077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B89D246A9AB600ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
-				9074C71727D9314B00B2DFD8 /* TransactionData.swift in Sources */,
+				9074C71727D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
 				7F85B89E246A9AB600ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				642ED93725E8F12400A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D4024A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
@@ -5415,6 +5459,7 @@
 				19C2ED4301780B820D431C19 /* IdentityEntity.swift in Sources */,
 				19C2EA3D8011D47B75D8A51A /* IdentityProviderEntity.swift in Sources */,
 				19C2EDAB16ACC40067A463AD /* RecipientEntity.swift in Sources */,
+				901F7FA127F33C8800C46741 /* PendingChange.swift in Sources */,
 				19C2EB3C1EF056EA8B89D916 /* AccountEntity.swift in Sources */,
 				9074C70E27D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift in Sources */,
 				7F5F77842487D3BE0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
@@ -5576,7 +5621,6 @@
 				52D0CF1C25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				7FD8785A2406AF7C00509BDB /* CreatePasswordPresenter.swift in Sources */,
 				06AEE69323F4065800D14834 /* WidgetView.swift in Sources */,
-				901F7F2127EA0F1B00C46741 /* LeverageBound.swift in Sources */,
 				52A6A77A24F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				7F85B8ED2472D39100ED09B8 /* MoreMenuPresenter.swift in Sources */,
 				06AEE69123F4064A00D14834 /* BaseView.swift in Sources */,
@@ -5598,6 +5642,7 @@
 				7F21398E24236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift in Sources */,
 				901F7F5027EB4EA900C46741 /* StakeStatusPresenter.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
+				901F7F9F27F33C8800C46741 /* PendingChange.swift in Sources */,
 				07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7FF07AC423EADBB100F1FC04 /* UITableView+Extensions.swift in Sources */,
 				7FF07AC123EADBB100F1FC04 /* UIColor+Additions.swift in Sources */,
@@ -5616,6 +5661,7 @@
 				7FCC0E8224200A2E007030EC /* LoginErrorLabel.swift in Sources */,
 				19C2E66625B60EA8C948B385 /* NetworkManagerProtocol.swift in Sources */,
 				19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */,
+				901F7F9727F33C8800C46741 /* MintDistribution.swift in Sources */,
 				7F21398B24236C0A00D2A5C4 /* AccNonce.swift in Sources */,
 				528EB736255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
 				7FA0AE8A245712C100B7673F /* AccountBalance.swift in Sources */,
@@ -5639,10 +5685,11 @@
 				529531BC256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				075A4BBF2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				5251EFA527C6301D006991DD /* AlertDisplayer.swift in Sources */,
+				901F7FA727F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				7FA0AE9324598D6500B7673F /* Details.swift in Sources */,
 				52B2CE4A24F6806B0092F8EB /* ArsInfo.swift in Sources */,
-				9074C71527D9314B00B2DFD8 /* TransactionData.swift in Sources */,
+				9074C71527D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
 				19C2E6C9E6A23B6A3A72AF23 /* Description.swift in Sources */,
 				901F7F3A27EB07AE00C46741 /* BakerEntity.swift in Sources */,
 				7F85B8F32472D39800ED09B8 /* MoreMenuViewController.swift in Sources */,
@@ -5708,6 +5755,7 @@
 				642ED99125F2334E00A09BB3 /* UpdatePasswordCoordinator.swift in Sources */,
 				19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
+				901F7F9327F33C8800C46741 /* RewardParameters.swift in Sources */,
 				19C2EEE659B30FE50532DE54 /* PasswordFieldViewController.swift in Sources */,
 				19C2EEC684BF75B9E3F9EADD /* Sizes.swift in Sources */,
 				52B2CE5E24F68B4A0092F8EB /* GlobalWrapper.swift in Sources */,
@@ -5773,6 +5821,7 @@
 				C94ED727246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
 				19C2E2E6817B5D3C16E135CE /* TransactionsLoadingHandler.swift in Sources */,
 				52D10F3427D0CB5F0025ED5D /* DelegationInputPresenter.swift in Sources */,
+				901F7F9B27F33C8800C46741 /* GASRewards.swift in Sources */,
 				19C2E12895547B11D377B76F /* AccountsService.swift in Sources */,
 				19C2E2BCDEA276F9C368C149 /* TransactionsService.swift in Sources */,
 				19C2E1DE4F6A92CFF0B84390 /* SubmissionStatusService.swift in Sources */,
@@ -5797,6 +5846,7 @@
 				19C2E474975BA2FA750F1C83 /* IdentityEntity.swift in Sources */,
 				07519F9E26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
 				19C2EFA2750D7BD1DE605A0C /* IdentityProviderEntity.swift in Sources */,
+				901F7FA327F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
 				644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				19C2E6DE1910B724444819F5 /* RecipientEntity.swift in Sources */,
 				7FB64A0C247D568500DC500E /* ExportViewController.swift in Sources */,

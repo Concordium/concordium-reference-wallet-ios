@@ -22,18 +22,19 @@ class StakeStatusViewModel {
     @Published var newAmountLabel: String?
     
     
-    @Published var transactionFeeText: String = ""
-    @Published var receiptFooterText: String?
     
-    @Published var stopButtonEnabled: Bool = false
-    @Published var stopButtonShown: Bool = false
+    @Published var stopButtonEnabled: Bool = true
+    @Published var stopButtonShown: Bool = true
+    @Published var stopButtonLabel: String = ""
     
-    @Published var updateButtonEnabled: Bool = false
+    
+    @Published var updateButtonEnabled: Bool = true
     @Published var buttonLabel: String = ""
+    
     @Published var rows: [StakeRowViewModel]
     
     init(dataHandler: StakeDataHandler) {
-        rows = dataHandler.getAllOrdered().map { StakeRowViewModel(entry: $0) }
+        rows = dataHandler.getCurrentOrdered().map { StakeRowViewModel(entry: $0) }
     }
 }
 
@@ -43,5 +44,7 @@ class StakeStatusViewModel {
 protocol StakeStatusPresenterProtocol: AnyObject {
 	var view: StakeStatusViewProtocol? { get set }
     func viewDidLoad()
+    func pressedButton()
+    func pressedStopButton()
 }
 

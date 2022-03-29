@@ -28,7 +28,7 @@ enum BakerPool {
     }
     
     static func from(delegationType: String, bakerId: Int?) -> BakerPool {
-        if let bakerId = bakerId, delegationType == "delegateToBaker" {
+        if let bakerId = bakerId, delegationType == "Baker" {
             return .bakerPool(bakerId: bakerId)
         } else {
             return .lpool

@@ -43,7 +43,7 @@ struct ApiConstants {
     static let gtuDrop = proxyUrl.appendingPathComponent("/v0/testnetGTUDrop")
     
     static let bakerPool = proxyUrl.appendingPathComponent("/v0/bakerPool")
-    static let poolParameters = proxyUrl.appendingPathComponent("/v0/poolParameters")
+    static let poolParameters = proxyUrl.appendingPathComponent("/v0/chainParameters ")
     
     /// Generate a callback URI associated with an identifier
     static func callbackUri(with identityCreationID: String) -> String {

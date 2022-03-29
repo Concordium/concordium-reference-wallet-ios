@@ -127,6 +127,8 @@ replaceType "AccountDelegation.Bool?" "Bool"
 replaceType "AccountDelegation.: String?" ": String"
 replaceType "AccountDelegation.DelegationTarget?" "DelegationTarget"
 replaceType "DelegationTarget.: String?" ": String"
+replaceType "PendingChange.: Int?" ": Int"
+replaceType "PendingChange.change: String?" "change: String"
 
 cat $ACCOUNT_TRANSACTIONS | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/RemoteTransactions.swift
 cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/PublicEncriptionKey.swift
