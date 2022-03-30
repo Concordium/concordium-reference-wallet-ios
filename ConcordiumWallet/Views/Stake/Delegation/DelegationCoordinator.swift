@@ -132,6 +132,11 @@ class DelegationCoordinator: Coordinator {
         let vc = StakeReceiptFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showUpdateDelegation() {
+        self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: false)
+        showPoolSelection()
+    }
 }
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
@@ -186,6 +191,6 @@ extension DelegationCoordinator: DelegationStatusPresenterDelegate {
         stopDelegation(cost: cost, energy: energy)
     }
     func pressedRegisterOrUpdate() {
-        showPoolSelection()
+        showUpdateDelegation()
     }
 }

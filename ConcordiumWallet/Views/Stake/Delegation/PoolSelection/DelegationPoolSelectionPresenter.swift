@@ -100,6 +100,10 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
         self.view?.bakerIdPublisher
+            .compactMap { [weak self] bakerId -> String in
+                self?.validSelectedPool = nil
+                return bakerId
+            }
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .flatMap { [weak self] bakerId -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> in
                 self?.viewModel.bakerId = bakerId
@@ -170,12 +174,12 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         if case .bakerPool(let bakerId) = validPool {
             // we use whichever is available first, either the variable or
             // the response from the network
-            Publishers.Merge(self.stakeService.getBakerPool(bakerId: bakerId)
-                                .showLoadingIndicator(in: self.view),
+            Publishers.Merge(self.stakeService.getBakerPool(bakerId: bakerId),
                              self.$bakerPoolResponse
                                 .compactMap { $0 }
                                 .setFailureType(to: Error.self))
                 .first()
+                .showLoadingIndicator(in: self.view)
                 .sink(receiveError: { error in
                     self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                 }, receiveValue: { bakerPoolResponse in

@@ -133,31 +133,31 @@ class StakeData: Hashable {
 }
 
 //MARK: --
-class BakerCreateAccountData: AccountDelegationData {
+class BakerCreateAccountData: AccountData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .bakerAccountCreate)
     }
 }
 
-class BakerUpdateAccountData: AccountDelegationData {
+class BakerUpdateAccountData: AccountData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .bakerAccountUpdate)
     }
 }
 
-class DelegationAccountData: AccountDelegationData {
+class DelegationAccountData: AccountData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .delegationAccount)
     }
 }
 
-class DelegationStopAccountData: AccountDelegationData {
+class DelegationStopAccountData: AccountData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .delegationStopAccount)
     }
 }
 
-class AccountDelegationData: StakeData {
+class AccountData: StakeData {
     var accountAddress: String = ""
     fileprivate init(accountAddress: String, field: Field) {
         self.accountAddress = accountAddress
@@ -254,7 +254,8 @@ class StakeDataHandler {
             data === entry
         }) ?? false
         
-        if isValueUnchanged {
+        //we always allow the account to be in the new data
+        if isValueUnchanged && !(entry is AccountData){
             //remove current value from current data
             self.remove(field: entry.field)
             return
@@ -320,7 +321,7 @@ class StakeDataHandler {
     /// Checks if there are any changes to the stake data
     func containsChanges() -> Bool {
         // we remove the account data and see if there are any actual changes
-        let res = data.filter({ !($0 is AccountDelegationData)}).count
+        let res = data.filter({ !($0 is AccountData)}).count
         return res != 0
     }
     
