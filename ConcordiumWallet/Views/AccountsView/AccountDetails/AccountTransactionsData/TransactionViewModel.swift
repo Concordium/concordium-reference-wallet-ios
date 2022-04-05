@@ -142,11 +142,16 @@ extension TransactionViewModel {
                 source: transfer)
         } else {
             let title: String
-            if transfer.transferType == .transferToPublic {
+            switch transfer.transferType {
+            case .transferToPublic:
                 title = "transaction.unshieldedAmount".localized
-            } else if transfer.transferType == .transferToSecret {
+            case .transferToSecret:
                 title = "transaction.shieldedAmount".localized
-            } else {
+            case .registerDelegation, .updateDelegation, .removeDelegation:
+                title = "transaction.configuredelegation".localized
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+                title = "transaction.configurebaker".localized
+            default:
                 title = recipientListLookup(transfer.toAddress) ?? AddressDisplay.string(from: transfer.toAddress)
             }
             

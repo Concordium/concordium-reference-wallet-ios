@@ -185,7 +185,6 @@ final class AccountEntity: Object {
     @objc dynamic var bakerEntity: BakerEntity?
     @objc dynamic var delegationEntity: DelegationEntity?
     
-    
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
     @objc dynamic var showsShieldedBalance: Bool = false

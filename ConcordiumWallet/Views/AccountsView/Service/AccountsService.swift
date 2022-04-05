@@ -18,6 +18,7 @@ protocol AccountsServiceProtocol {
     func recalculateAccountBalance(account: AccountDataType, balanceType: AccountBalanceTypeEnum) -> AnyPublisher<AccountDataType, Error>
     func gtuDrop(for accountAddress: String) -> AnyPublisher<TransferDataType, Error>
     func checkAccountExistance(accounts: [String]) -> AnyPublisher<[String], Error>
+    func getLocalTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error>
 }
 
 // swiftlint:disable type_body_length
@@ -254,7 +255,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     private func addingBalanceEffectFromTransfers(for account: AccountDataType) -> AnyPublisher<AccountDataType, Error> {
         let transfers: [TransferDataType] = self.storageManager.getTransfers(for: account.address)
         let balanceChangeArray: [AnyPublisher<(Int, Int), Error>] = transfers.map { transfer in
-            self.getTransferWithUpdatedStatus(transfer: transfer, for: account)
+            self.getLocalTransferWithUpdatedStatus(transfer: transfer, for: account)
                 .map { ($0.getPublicBalanceChange(), $0.getShieldedBalanceChange()) }
                 .eraseToAnyPublisher()
         }
@@ -296,7 +297,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         }
     }
     
-    private func getTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error> {
+    func getLocalTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error> {
         guard let id = transfer.submissionId else { return .just(transfer) }
         return submissionStatus(submissionId: id).compactMap { (submissionStatus) -> TransferDataType? in
             if let encryptedAmount = submissionStatus.encryptedAmount {

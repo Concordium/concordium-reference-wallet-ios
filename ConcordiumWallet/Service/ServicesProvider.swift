@@ -34,9 +34,10 @@ protocol ImportDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
-protocol StakeCoordinatorDependencyProvider : WalletAndStorageDependencyProvider {
+protocol StakeCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
     func transactionsService() -> TransactionsServiceProtocol
     func stakeService() -> StakeServiceProtocol
+    func accountsService() -> AccountsServiceProtocol
 }
 
 class ServicesProvider {

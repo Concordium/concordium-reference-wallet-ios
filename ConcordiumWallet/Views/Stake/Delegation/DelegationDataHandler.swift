@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DelegationDataHandler : StakeDataHandler {
+class DelegationDataHandler: StakeDataHandler {
     init(account: AccountDataType, isRemoving: Bool) {
         if let delegation = account.delegation {
             if isRemoving {
@@ -20,13 +20,22 @@ class DelegationDataHandler : StakeDataHandler {
                 currentData?.update(with: DelegationAccountData(accountAddress: account.address))
                 currentData?.update(with: AmountData(amount: GTU(intValue: Int(delegation.stakedAmount) ?? 0)))
                 currentData?.update(with: RestakeDelegationData(restake: delegation.restakeEarnings))
-                currentData?.update(with: PoolDelegationData(pool: BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)))
+                let bakerPool = BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+                currentData?.update(with: PoolDelegationData(pool: bakerPool))
                 self.add(entry: DelegationAccountData(accountAddress: account.address))
             }
         } else {
-            //register delegation
+            // register delegation
             super.init(transferType: .registerDelegation)
             self.add(entry: DelegationAccountData(accountAddress: account.address))
         }
+    }
+    override func getTransferObject() -> TransferDataType {
+        if isNewAmountZero() {
+            var transfer = TransferDataTypeFactory.create()
+            transfer.transferType = .removeDelegation
+            return transfer
+        }
+        return super.getTransferObject()
     }
 }

@@ -7,8 +7,8 @@ import Foundation
 
 // MARK: - EuroPerEnergy
 struct EuroPerEnergy: Codable {
-    let denominator: Int
-    let numerator: Int
+    let denominator: UInt64
+    let numerator: UInt64
 
     enum CodingKeys: String, CodingKey {
         case denominator = "denominator"
@@ -35,8 +35,8 @@ extension EuroPerEnergy {
     }
 
     func with(
-        denominator: Int? = nil,
-        numerator: Int? = nil
+        denominator: UInt64? = nil,
+        numerator: UInt64? = nil
     ) -> EuroPerEnergy {
         return EuroPerEnergy(
             denominator: denominator ?? self.denominator,

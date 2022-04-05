@@ -11,29 +11,27 @@ import Foundation
 enum TransferCostParameter {
     case memoSize(Int)
     
-    case amount //only for updateDelegation updateBakerStake or configureBaker
-    case restake //only for updateDelegation, updateBakerStake or configureBaker
-    case lpool //only for registerDelegation or updateDelegation
-    case target //only for updateDelegation
+    case amount // only for updateDelegation updateBakerStake or configureBaker
+    case restake // only for updateDelegation, updateBakerStake or configureBaker
+    case lpool // only for registerDelegation or updateDelegation
+    case target // only for updateDelegation
     
-    case metadataSize(Int) //only for registerBaker, updateBakerPool or configureBaker
+    case metadataSize(Int) // only for registerBaker, updateBakerPool or configureBaker
     case openStatus
     case transactionCommission // only for updateBakerPool or configureBaker
     case bakerRewardCommission // only for updateBakerPool or configureBaker
     case finalizationRewardCommission // only for updateBakerPool or configureBaker
     
-    
     var name: String {
         switch self {
         case .memoSize:
             return "memoSize"
-        
         case .amount:
             return "amount"
         case .restake:
             return "restake"
         case .lpool:
-            return "lpool"
+            return "lPool"
         case .target:
             return "target"
         case .metadataSize:

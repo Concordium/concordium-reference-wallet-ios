@@ -68,6 +68,9 @@ protocol StorageManagerProtocol {
     func getPendingAccountsAddresses() -> [String]
     func storePendingAccount(with address: String)
     func removePendingAccount(with address: String)
+    
+    func updateChainParms(_ chainParams: ChainParametersDataType) throws -> ChainParametersDataType
+    func getChainParams() -> ChainParametersEntity?
 }
 
 enum StorageError: Error {
@@ -494,5 +497,30 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         } catch let error {
             Logger.debug("Unable to exclude folder from backup due to error: \(error)")
         }
+    }
+    
+    func updateChainParms(_ chainParams: ChainParametersDataType) throws -> ChainParametersDataType {
+        if let existingChainParams = getChainParams() {
+            try realm.write {
+                existingChainParams.delegatorCooldown = chainParams.delegatorCooldown
+                existingChainParams.poolOwnerCooldown = chainParams.poolOwnerCooldown
+            }
+            return existingChainParams
+        }
+        
+        if let chainParamsEntity = chainParams as? ChainParametersEntity {
+            do {
+                try realm.write {
+                    realm.add(chainParamsEntity)
+                }
+            } catch {
+                Logger.error("ERROR storing chain params \(chainParams)")
+                throw StorageError.writeError(error: error)
+            }
+        }
+        return chainParams
+    }
+    func getChainParams() -> ChainParametersEntity? {
+        Array(realm.objects(ChainParametersEntity.self)).first
     }
 }

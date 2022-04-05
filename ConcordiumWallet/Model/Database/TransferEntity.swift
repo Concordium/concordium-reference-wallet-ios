@@ -52,8 +52,7 @@ extension TransferDataType {
     private func amountAsInt() -> Int {
         return Int(amount) ?? 0
     }
-    
-    
+
     func getPublicBalanceChange() -> Int {
         if .absent == transactionStatus {
             return 0
@@ -142,7 +141,7 @@ final class TransferEntity: Object {
     @objc dynamic var encryptedDetailsEntity: EncryptedDetailsEntity?
     @objc dynamic var nonce: Int = 0
     @objc dynamic var capital: String? = ""
-    @objc dynamic var restakeEarningsBool: Int = -1 //empty
+    @objc dynamic var restakeEarningsBool: Int = -1 // empty
     @objc dynamic var delegationType: String?
     @objc dynamic var delegationTargetBaker: Int = -1
     @objc dynamic var openStatus: String?
@@ -179,7 +178,6 @@ extension TransferEntity: TransferDataType {
             }
         }
     }
-    
     
     var transactionStatus: SubmissionStatusEnum? {
         get {

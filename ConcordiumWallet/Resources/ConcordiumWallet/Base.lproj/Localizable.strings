@@ -97,7 +97,7 @@ add_identity_data = "Reveal Identity Data";
 "accounts.staked" = "Staked";
 "account.accounttotal" = "Total";
 "accounts.initial" = "(Initial)";
-"accounts.overview.staked" = "Stake with baker %@";
+
 "accounts.overview.readonly" = "Read-only";
 "accounts.overview.baking" = "Baking";
 "accounts.overview.delegating" = "Delegating";
@@ -242,9 +242,11 @@ process on-chain.";
 "accountDetails.address" = "RECEIVE";
 "accountDetails.noTransfers" = "This balance has no transactions yet.";
 "accountDetails.noIdentities" = "This account has no revealed identity data.";
-"accountDetails.bakerId" = "Baker ID:";
 "identityFailed.title" = "Identity issuance failed!";
-
+"accountDetails.bakingstakelabel" = "Stake with baker %@";
+"accountDetails.delegationstakeLabel" = "Delegation with %@";
+"accountDetails.lpoolvalue" = "L-Pool";
+"accountDetails.bakerpoolvalue" = "baker pool %d";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.shieldAmount" = "Shield Amount";
@@ -330,6 +332,8 @@ process on-chain.";
 "transactions.shieledtransactionfee" = "Shielded transaction fee";
 "transaction.shieldedAmount" = "Shielded amount";
 "transaction.unshieldedAmount" = "Unshielded amount";
+"transaction.configuredelegation" = "Configure delegation";
+"transaction.configurebaker" = "Configure baker";
 
 "accountDetails.generalbalance" = "Balance";
 "accountDetails.generalshieldedbalance" = "Shielded Balance";
@@ -558,8 +562,11 @@ developer.concordium.software";
 
 "delegation.receiptconfirmation.title.update" = "Update delegation";
 "delegation.receiptconfirmation.title.create" = "Register delegation";
+"delegation.receiptconfirmation.title.remove" = "Remove delegation";
 "delegation.receiptconfirmation.registertext" = "You are about to submit a delegation transaction. This will lock your delegation amount for at least %@.";
 "delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take effect after %@ and the delegation amount cannot be changed during this period of time.";
+"delegation.receiptconfirmation.updatetext" = "Are you sure you want to make the following delegation?";
+"delegation.receipt.removedelegation" = "Are you sure you want to remove your delegation?";
 "delegation.receiptconfirmation.submit"  = "Submit delegation transaction";
 
 "delegation.receiptconfirmation.transactionfee" = "Estimated transaction fee: \n%@";
@@ -585,6 +592,14 @@ All other updates will take effect at the next pay day. ";
 If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees. ";
 "delegation.morethan95.continue" = "Continue";
 "delegation.morethan95.newstake" = "Enter new delegation stake";
+
+"delegation.amountzero.title" = "Important";
+"delegation.amountzero.message" = "Setting your delegated amount to 0 will remove the delegation all together.
+
+Do you want to remove your delegation?";
+"delegation.amountzero.continue" = "Yes. Remove the delegation.";
+"delegation.amountzero.newstake" = "No. Set another value.";
+
 
 "delegation.nochanges.title" = "Notice";
 "delegation.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
@@ -635,6 +650,15 @@ If your pool is already open, you can also close it for new delegators, or you c
 "onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
 "onboardingcarousel.registerdelegation.page7.title" = "The status page";
 
+"onboardingcarousel.updatedelegation.title" = "Delegation";
+"onboardingcarousel.updatedelegation.page1.title" = "Updating your delegation";
+"onboardingcarousel.updatedelegation.page2.title" = "Pay day updates";
+"onboardingcarousel.updatedelegation.page3.title" = "Updates with longer cool-downs";
+
+"onboardingcarousel.removedelegation.title" = "Delegation";
+"onboardingcarousel.removedelegation.page1.title" = "Stop your delegation";
+"onboardingcarousel.removedelegation.page2.title" = "Update during the cool-down period";
+
 "delegation.status.title" = "Delegation status";
 "delegation.status.registered.header" = "Your delegation is registered.";
 "delegation.status.waiting.placeholder" = "Waiting for transaction to finalize";
@@ -645,6 +669,7 @@ If your pool is already open, you can also close it for new delegators, or you c
 "delegation.status.updatebutton" = "Update current delegation";
 "delegation.status.stopbutton" = "Stop delegation";
 "delegation.status.newamount" = "New delegation amount";
-"delegation.status.graceperiod" = "The following changes will take effect in approximately %d days ";
+"delegation.status.graceperiod" = "The following changes will take effect on %@";
 "delegation.status.delegationwillstop" = "The delegation will be stopped, and the delegation amount will be unlocked on the public balance of the account.";
-"delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking after it’s cool down has ended in %d";
+"delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking on %@";
+"delegation.graceperiod.format" = "%d days";

@@ -11,7 +11,7 @@ import Combine
 import CryptoKit
 
 // MARK: View
-protocol StakeAmountInputViewProtocol: Loadable , ShowAlert {
+protocol StakeAmountInputViewProtocol: Loadable, ShowAlert {
     func bind(viewModel: StakeAmountInputViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
     var restakeOptionPublisher: PassthroughSubject<Bool, Error> { get }
@@ -51,8 +51,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     
 	var presenter: StakeAmountInputPresenterProtocol
     private var cancellables = Set<AnyCancellable>()
-    
-    
+  
     var amountPublisher: AnyPublisher<String, Never> {
         return amountTextField.textPublisher
             .eraseToAnyPublisher()
@@ -71,7 +70,10 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0,  bottom: 10, right: 0)
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0,
+                                                     left: 0,
+                                                     bottom: 10,
+                                                     right: 0)
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
         restakeController.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
@@ -81,8 +83,19 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
 
         presenter.view = self
         presenter.viewDidLoad()
+        showCloseButton()
+        
+    }
+    func showCloseButton() {
+        let closeIcon = UIImage(named: "close_icon")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
     }
 
+    @objc func closeButtonTapped() {
+        presenter.closeButtonTapped()
+    }
+
+    // swiftlint:disable function_body_length
     func bind(viewModel: StakeAmountInputViewModel) {
         viewModel.$title.sink { [weak self] title in
             self?.title = title
@@ -194,7 +207,6 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     }
 }
 
-
 // MARK: - UITextFieldDelegate
 extension StakeAmountInputViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString: String) -> Bool {
@@ -213,13 +225,3 @@ extension StakeAmountInputViewController: UITextFieldDelegate {
         
     }
 }
-
-//extension StakeAmountInputViewController: UITextViewDelegate {
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        if text == "\n" {
-//            view.endEditing(true)
-//            return false
-//        }
-//        return true
-//    }
-//}

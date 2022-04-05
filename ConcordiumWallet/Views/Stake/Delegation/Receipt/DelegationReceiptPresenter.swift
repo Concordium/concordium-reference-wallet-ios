@@ -13,20 +13,21 @@ import Combine
 // MARK: Delegate
 protocol DelegationReceiptPresenterDelegate: AnyObject {
     func finishedShowingReceipt()
+    func pressedClose()
 }
-
 
 class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
 
     weak var view: StakeReceiptViewProtocol?
     weak var delegate: DelegationReceiptPresenterDelegate?
     var account: AccountDataType
-    var viewModel : StakeReceiptViewModel
+    var viewModel: StakeReceiptViewModel
     
     private var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
     private var transfer: TransferDataType
     private var transactionsService: TransactionsServiceProtocol
+    private var storageManager: StorageManagerProtocol
     
     init(account: AccountDataType,
          dependencyProvider: StakeCoordinatorDependencyProvider,
@@ -39,9 +40,12 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
         self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler)
         self.transfer = transfer
         self.transactionsService = dependencyProvider.transactionsService()
-        
+        self.storageManager = dependencyProvider.storageManager()
         let isLoweringStake = dataHandler.isLoweringStake()
-        self.viewModel.setup(isUpdate: dataHandler.hasCurrentData(), isLoweringStake: isLoweringStake, transactionHash: transfer.submissionId ?? "", cost: GTU(intValue: Int(transfer.cost) ?? 0))
+        self.viewModel.setup(isUpdate: dataHandler.hasCurrentData(),
+                             isLoweringStake: isLoweringStake,
+                             transactionHash: transfer.submissionId ?? "",
+                             cost: GTU(intValue: Int(transfer.cost) ?? 0))
     }
 
     func viewDidLoad() {
@@ -53,17 +57,28 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
             let fineAction = AlertAction(name: "delegation.receiptlowering.ok".localized, completion: { [weak self] in
                 self?.delegate?.finishedShowingReceipt()
             }, style: .default)
-            //TODO: update grace period
-            let alertOptions = AlertOptions(title: "delegation.receiptlowering.title".localized, message: String(format: "delegation.receiptlowering.message".localized, "<TBD>"), actions: [ fineAction])
+            let chainParams = self.storageManager.getChainParams()
+            
+            let gracePeriod = String(format:
+                                        "delegation.graceperiod.format".localized,
+                                     GeneralFormatter.secondsToDays(seconds: chainParams?.delegatorCooldown ?? 0))
+            
+            let alertOptions = AlertOptions(title: "delegation.receiptlowering.title".localized,
+                                            message: String(format: "delegation.receiptlowering.message".localized, gracePeriod),
+                                            actions: [ fineAction])
             self.view?.showAlert(with: alertOptions)
         } else {
             self.delegate?.finishedShowingReceipt()
         }
     }
+    func closeButtonTapped() {
+        self.delegate?.pressedClose()
+    }
 }
 
 fileprivate extension StakeReceiptViewModel {
     func setup(isUpdate: Bool, isLoweringStake: Bool, transactionHash: String, cost: GTU) {
+        showsBackButton = false
         receiptFooterText = transactionHash
         showsSubmitted = true
         text = nil

@@ -505,13 +505,14 @@ Explanation label for Stake]</string>
                                         <rect key="frame" x="0.0" y="0.0" width="384" height="688"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DaO-zy-Eku">
-                                                <rect key="frame" x="20" y="20" width="344" height="482.5"/>
+                                                <rect key="frame" x="20" y="20" width="344" height="473.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ewI-Tj-TEV">
                                                         <rect key="frame" x="0.0" y="0.0" width="344" height="50"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_rotating_arrows" translatesAutoresizingMaskIntoConstraints="NO" id="I8b-1I-Uw4">
                                                                 <rect key="frame" x="29" y="1" width="38" height="38"/>
+                                                                <color key="tintColor" name="primary"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="38" id="Tad-V5-HeF"/>
                                                                     <constraint firstAttribute="width" constant="38" id="srh-0J-ViL"/>
@@ -584,7 +585,7 @@ Explanation label for Stake]</string>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mVF-Zc-tgl">
                                                         <rect key="frame" x="0.0" y="350" width="344" height="24.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eg-rP-lEj" userLabel="transaction fee">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eg-rP-lEj" userLabel="transaction fee">
                                                                 <rect key="frame" x="15" y="5" width="314" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" name="fadedText"/>
@@ -600,18 +601,18 @@ Explanation label for Stake]</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M3D-Fj-yuU">
-                                                        <rect key="frame" x="0.0" y="374.5" width="344" height="59"/>
+                                                        <rect key="frame" x="0.0" y="374.5" width="344" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDV-H5-KE0" userLabel="transaction fee">
-                                                                <rect key="frame" x="15" y="10" width="314" height="14.5"/>
+                                                                <rect key="frame" x="15" y="10" width="314" height="4"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" name="fadedText"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woT-ZG-z2c" userLabel="transaction fee">
-                                                                <rect key="frame" x="15" y="34.5" width="314" height="14.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" name="fadedText"/>
+                                                                <rect key="frame" x="15" y="24" width="314" height="16"/>
+                                                                <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="12"/>
+                                                                <color key="textColor" name="primary"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -627,7 +628,7 @@ Explanation label for Stake]</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4XP-Vl-Ae4">
-                                                        <rect key="frame" x="0.0" y="433.5" width="344" height="24.5"/>
+                                                        <rect key="frame" x="0.0" y="424.5" width="344" height="24.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDx-1H-INf" userLabel="ReceiptHeader">
                                                                 <rect key="frame" x="0.0" y="5" width="344" height="14.5"/>
@@ -645,7 +646,7 @@ Explanation label for Stake]</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H4G-kh-F84">
-                                                        <rect key="frame" x="0.0" y="458" width="344" height="24.5"/>
+                                                        <rect key="frame" x="0.0" y="449" width="344" height="24.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUV-E1-C60" userLabel="ReceiptHeader">
                                                                 <rect key="frame" x="0.0" y="5" width="344" height="14.5"/>

@@ -37,7 +37,6 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var nextButton: StandardButton!
     
-    
     var dataSource: UITableViewDiffableDataSource<String, StakeRowViewModel>?
     var presenter: StakeStatusPresenterProtocol
 
@@ -54,17 +53,27 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        stopWidgetButton.applyConcordiumEdgeStyle(color: .error)
-        
-        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0,  bottom: 10, right: 0)
+ 
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         
         dataSource = UITableViewDiffableDataSource<String, StakeRowViewModel>(tableView: tableView, cellProvider: createCell)
         dataSource?.defaultRowAnimation = .none
         
         presenter.view = self
         presenter.viewDidLoad()
+        showCloseButton()
+        
+    }
+    func showCloseButton() {
+        let closeIcon = UIImage(named: "close_icon")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
     }
 
+    @objc func closeButtonTapped() {
+        presenter.closeButtonTapped()
+    }
+
+    // swiftlint:disable function_body_length
     func bind(viewModel: StakeStatusViewModel) {
         viewModel.$title.sink { [weak self] title in
             self?.title = title
@@ -89,7 +98,6 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
             }
         }.store(in: &cancellables)
         
-        
         viewModel.$rows.sink { rows in
             var snapshot = NSDiffableDataSourceSnapshot<String, StakeRowViewModel>()
             snapshot.appendSections([""])
@@ -98,7 +106,6 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
             
             self.tableView.reloadData()
         }.store(in: &cancellables)
-        
         
         viewModel.$bottomImportantMessage
             .sink(receiveValue: { [weak self] text in
@@ -110,7 +117,6 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
                 }
             })
             .store(in: &cancellables)
-        
         
         viewModel.$bottomInfoMessage
             .sink(receiveValue: { [weak self] text in
@@ -158,9 +164,14 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
             })
             .store(in: &cancellables)
         
-        viewModel.$stopButtonEnabled
-            .assign(to: \.isEnabled, on: stopButton)
-            .store(in: &cancellables)
+        viewModel.$stopButtonEnabled.sink(receiveValue: { [weak self] enabled in
+            self?.stopButton.isEnabled = enabled
+            if enabled {
+                self?.stopWidgetButton.applyConcordiumEdgeStyle(color: .error)
+            } else {
+                self?.stopWidgetButton.applyConcordiumEdgeStyle(color: .fadedText)
+            }
+        }).store(in: &cancellables)
         
         viewModel.$updateButtonEnabled
             .assign(to: \.isEnabled, on: nextButton)
@@ -174,7 +185,6 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
             self?.stopButton.setTitle(text, for: .normal)
         }).store(in: &cancellables)
     }
-    
     
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: StakeRowViewModel) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StakeEntryCell", for: indexPath) as? StakeEntryCell

@@ -8,9 +8,13 @@ import Foundation
 // MARK: - BakerStakePendingChange
 struct BakerStakePendingChange: Codable {
     let pendingChangeType: String
+    let bakerEquityCapital: String?
+    let effectiveTime: String?
 
     enum CodingKeys: String, CodingKey {
         case pendingChangeType = "pendingChangeType"
+        case bakerEquityCapital = "bakerEquityCapital"
+        case effectiveTime = "effectiveTime"
     }
 }
 
@@ -33,10 +37,14 @@ extension BakerStakePendingChange {
     }
 
     func with(
-        pendingChangeType: String? = nil
+        pendingChangeType: String? = nil,
+        bakerEquityCapital: String?? = nil,
+        effectiveTime: String?? = nil
     ) -> BakerStakePendingChange {
         return BakerStakePendingChange(
-            pendingChangeType: pendingChangeType ?? self.pendingChangeType
+            pendingChangeType: pendingChangeType ?? self.pendingChangeType,
+            bakerEquityCapital: bakerEquityCapital ?? self.bakerEquityCapital,
+            effectiveTime: effectiveTime ?? self.effectiveTime
         )
     }
 

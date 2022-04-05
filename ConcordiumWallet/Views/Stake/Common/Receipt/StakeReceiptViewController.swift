@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol StakeReceiptViewProtocol: ShowAlert {
+protocol StakeReceiptViewProtocol: ShowAlert, Loadable {
     func bind(viewModel: StakeReceiptViewModel)
 }
 
@@ -51,15 +51,26 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0,  bottom: 10, right: 0)
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         
         dataSource = UITableViewDiffableDataSource<String, StakeRowViewModel>(tableView: tableView, cellProvider: createCell)
         dataSource?.defaultRowAnimation = .none
         
         presenter.view = self
         presenter.viewDidLoad()
+//        showCloseButton()
+        
+    }
+    func showCloseButton() {
+        let closeIcon = UIImage(named: "close_icon")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
+    }
+
+    @objc func closeButtonTapped() {
+        presenter.closeButtonTapped()
     }
     
+    // swiftlint:disable function_body_length
     func bind(viewModel: StakeReceiptViewModel) {
         viewModel.$title
             .sink { [weak self] title in
@@ -69,7 +80,7 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
         viewModel.$text
             .sink(receiveValue: { [weak self] text in
                 guard let self = self else { return }
-                if let text = text  {
+                if let text = text {
                     self.topTextLabel.text = text
                     self.topTextLabel.isHidden = false
                 } else {
@@ -79,12 +90,12 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
             .store(in: &cancellables)
         
         viewModel.$showsSubmitted
-            .compactMap{ !$0 }
+            .compactMap { !$0 }
             .assign(to: \.isHidden, on: submittedView)
             .store(in: &cancellables)
         
         viewModel.$receiptHeaderText
-            .compactMap{ $0 }
+            .compactMap { $0 }
             .assign(to: \.text, on: receiptHeaderLabel)
             .store(in: &cancellables)
         
@@ -101,7 +112,7 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
             .store(in: &cancellables)
         
         viewModel.$transactionFeeText
-            .compactMap{ $0 }
+            .compactMap { $0 }
             .assign(to: \.text, on: transactionFeeLabel)
             .store(in: &cancellables)
         
@@ -115,6 +126,17 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
             }
             self.tableView.reloadData()
         }.store(in: &cancellables)
+        
+        viewModel.$showsBackButton.sink { [weak self] showBack in
+           
+            if showBack {
+                self?.showCloseButton()
+                self?.navigationItem.setHidesBackButton(false, animated: true)
+            } else {
+                self?.navigationItem.rightBarButtonItem = nil
+                self?.navigationItem.setHidesBackButton(true, animated: true)
+            }
+        }.store(in: &cancellables)
     }
 
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: StakeRowViewModel) -> UITableViewCell? {
@@ -123,8 +145,7 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
         cell?.valueLabel.text = viewModel.valueLabel
         return cell
     }
-    
-    
+
     @IBAction func pressedButton(_ sender: UIButton) {
         presenter.pressedButton()
     }

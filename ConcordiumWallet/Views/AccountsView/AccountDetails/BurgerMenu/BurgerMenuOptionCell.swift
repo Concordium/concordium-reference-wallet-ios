@@ -13,7 +13,6 @@ protocol BurgerMenuOptionCellDelegate: AnyObject {
 }
 
 class BurgerMenuOptionCell: UITableViewCell {
-
     private var cellRow: Int = 0
     private weak var delegate: BurgerMenuOptionCellDelegate?
     
@@ -26,8 +25,6 @@ class BurgerMenuOptionCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setup(cellRow: Int, title: String, delegate: BurgerMenuOptionCellDelegate) {

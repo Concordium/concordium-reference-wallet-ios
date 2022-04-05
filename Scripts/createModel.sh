@@ -134,11 +134,9 @@ cat $ACCOUNT_TRANSACTIONS | quicktype --multi-file-output --all-properties-optio
 cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/PublicEncriptionKey.swift
 cat $BAKER_POOL_JSON | quicktype --multi-file-output --density normal -o $DEST/baker_pool_response.swift
 cat $POOL_PARAMETERS_JSON | quicktype --multi-file-output --density normal -o $DEST/pool_parameters_response.swift
-
-
-
-
-
+replaceType "BakerStakePendingChange.bakerEquityCapital: String" "bakerEquityCapital: String?"
+replaceType "EuroPerEnergy.Int" "UInt64"
+replaceType "BakerStakePendingChange.effectiveTime: String" "effectiveTime: String?"
 
 replacePropertyName()
 {

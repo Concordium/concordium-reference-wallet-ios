@@ -8,11 +8,6 @@
 
 import Foundation
 import Combine
-//Add this to your coordinator:
-//    func showBakerPoolSettings() {
-//        let vc = BakerPoolSettingsFactory.create(with: BakerPoolSettingsPresenter(delegate: self))
-//        navigationController.pushViewController(vc, animated: false)
-//    }
 
 enum BakerPoolSetting {
     case open
@@ -35,11 +30,11 @@ class BakerPoolSettingsViewModel {
     @Published var title: String
     @Published var text: String
     @Published var selectedPoolSettingIndex: Int = 0
-    @Published var currentValue: String? = nil
+    @Published var currentValue: String?
     
     init(currentSettings: BakerPoolSetting?) {
         if let currentSettings = currentSettings {
-            currentValue = String(format:"baking.poolsettings.current".localized, currentSettings.getDisplayValue())
+            currentValue = String(format: "baking.poolsettings.current".localized, currentSettings.getDisplayValue())
             title = "baking.poolsettings.title.update".localized
             text = "baking.poolsettings.text.update".localized
         } else {
@@ -49,7 +44,6 @@ class BakerPoolSettingsViewModel {
     }
     
 }
-
 
 // MARK: -
 // MARK: Delegate

@@ -13,7 +13,9 @@
         "metadataUrl": ""
     },
     "bakerStakePendingChange": {
-        "pendingChangeType": "NoChange"
+        "pendingChangeType": "ReduceBakerCapital",
+        "bakerEquityCapital": "1000000000",
+        "effectiveTime": "2022-03-30T16:43:53.5Z"
     },
     "bakerAddress": "2zmRFpd7g12oBAZHSDqnbJ3Eg5HGr2sE9aFCL6mD3pyUSsiDSJ",
     "delegatedCapital": "1511793416",

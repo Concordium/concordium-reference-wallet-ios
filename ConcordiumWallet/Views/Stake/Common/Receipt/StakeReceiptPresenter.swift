@@ -16,10 +16,10 @@ class StakeReceiptViewModel {
     @Published var receiptFooterText: String?
     
     @Published var showsSubmitted: Bool = false
+    @Published var showsBackButton: Bool = true
     @Published var buttonLabel: String = ""
     @Published var rows: [StakeRowViewModel]
-    
-    
+
     init(dataHandler: StakeDataHandler) {
         rows = dataHandler.getAllOrdered().map { StakeRowViewModel(entry: $0) }
     }
@@ -31,6 +31,5 @@ protocol StakeReceiptPresenterProtocol: AnyObject {
 	var view: StakeReceiptViewProtocol? { get set }
     func viewDidLoad()
     func pressedButton()
-    
+    func closeButtonTapped()
 }
-

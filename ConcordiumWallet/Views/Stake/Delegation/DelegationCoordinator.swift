@@ -23,8 +23,12 @@ class DelegationCoordinator: Coordinator {
     private var dependencyProvider: StakeCoordinatorDependencyProvider
     private var delegationDataHandler: StakeDataHandler
     
-    init(navigationController: UINavigationController, dependencyProvider: StakeCoordinatorDependencyProvider, account: AccountDataType, parentCoordinator: DelegationCoordinatorDelegate) {
+    init(navigationController: UINavigationController,
+         dependencyProvider: StakeCoordinatorDependencyProvider,
+         account: AccountDataType,
+         parentCoordinator: DelegationCoordinatorDelegate) {
         self.navigationController = navigationController
+        self.navigationController.modalPresentationStyle = .fullScreen
         self.dependencyProvider = dependencyProvider
         self.account = account
         self.delegate = parentCoordinator
@@ -32,62 +36,33 @@ class DelegationCoordinator: Coordinator {
     }
     
     func start() {
-        if account.delegation == nil {
-            showCarousel()
-        } else {
+        // if we have delegation we go to status
+        if account.delegation != nil {
             showStatus()
+            return
+        }
+        
+        // if we don't have delegation, we check whether there is a pending transaction for delegation
+        let transfers = self.dependencyProvider.storageManager().getTransfers(for: account.address).filter { transfer in
+            transfer.transferType == .removeDelegation || transfer.transferType == .updateDelegation || transfer.transferType == .registerDelegation
+        }
+        
+        if transfers.count > 0 {
+            self.showStatus()
+        } else {
+            self.showCarousel(mode: .register)
         }
     }
     
-    func showCarousel() {
-        let onboardingCarouselViewModel = OnboardingCarouselViewModel(
-            title: "onboardingcarousel.registerdelegation.title".localized,
-            pages: [
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page1.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_1")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page2.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_2")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page3.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_3")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page4.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_4")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page5.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_5")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page6.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_6")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.registerdelegation.page7.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "delegation_intro_flow_en_7")
-                )
-            ]
-        )
-        
-        let onboardingCarouselPresenter = OnboardingCarouselPresenter(
-            delegate: self,
-            viewModel: onboardingCarouselViewModel
-        )
-        
-        let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
-        onboardingCarouselViewController.hidesBottomBarWhenPushed = true
-        
-        navigationController.pushViewController(onboardingCarouselViewController, animated: true)
+    func showCarousel(mode: DelegationOnboardingMode) {
+        let onboardingDelegator = DelegationOnboardingCoordinator(navigationController: navigationController, parentCoordinator: self, mode: mode)
+        childCoordinators.append(onboardingDelegator)
+        onboardingDelegator.start()
     }
-    
-    
+
     func showStatus() {
-        let presenter = DelegationStatusPresenter(dataHandler: delegationDataHandler,
+        let presenter = DelegationStatusPresenter(account: account,
+                                                  dataHandler: delegationDataHandler,
                                                   dependencyProvider: dependencyProvider,
                                                   delegate: self)
         let vc = StakeStatusFactory.create(with: presenter)
@@ -96,14 +71,16 @@ class DelegationCoordinator: Coordinator {
     
     func stopDelegation(cost: GTU, energy: Int) {
         self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: true)
-        //TODO: show carousel and then ask for confirmation
+        // TODO: show carousel and then ask for confirmation
         showRequestConfirmation(cost: cost, energy: energy)
     }
-    
-    
-    
+      
     func showAmountInput(bakerPoolResponse: BakerPoolResponse?) {
-        let presenter = DelegationAmountInputPresenter(account: account, delegate: self, dependencyProvider: dependencyProvider, dataHandler: delegationDataHandler, bakerPoolResponse: bakerPoolResponse)
+        let presenter = DelegationAmountInputPresenter(account: account,
+                                                       delegate: self,
+                                                       dependencyProvider: dependencyProvider,
+                                                       dataHandler: delegationDataHandler,
+                                                       bakerPoolResponse: bakerPoolResponse)
         let vc = StakeAmountInputFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -120,7 +97,6 @@ class DelegationCoordinator: Coordinator {
                                                                dependencyProvider: dependencyProvider,
                                                                delegate: self,
                                                                cost: cost,
-                                                               
                                                                energy: energy,
                                                                dataHandler: delegationDataHandler)
         let vc = StakeReceiptFactory.create(with: presenter)
@@ -128,7 +104,11 @@ class DelegationCoordinator: Coordinator {
     }
     
     func showSubmissionReceipt(transfer: TransferDataType) {
-        let presenter = DelegationReceiptPresenter(account: account, dependencyProvider: dependencyProvider, delegate: self, dataHandler: delegationDataHandler, transfer: transfer)
+        let presenter = DelegationReceiptPresenter(account: account,
+                                                   dependencyProvider: dependencyProvider,
+                                                   delegate: self,
+                                                   dataHandler: delegationDataHandler,
+                                                   transfer: transfer)
         let vc = StakeReceiptFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -137,10 +117,22 @@ class DelegationCoordinator: Coordinator {
         self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: false)
         showPoolSelection()
     }
+    
+    func cleanup() {
+        childCoordinators.removeAll(where: { $0 is DelegationOnboardingCoordinator })
+        self.delegate?.finished()
+    }
 }
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
-    //TODO: readd cleanup
+    func switchToRemoveDelegator(cost: GTU, energy: Int) {
+        stopDelegation(cost: cost, energy: energy)
+        self.navigationController.viewControllers = self.navigationController.viewControllers.filter {
+            !($0 is StakeAmountInputViewController || $0 is DelegationPoolSelectionViewController)
+        }
+    }
+    
+    // TODO: readd cleanup
     //    func finishedDelegation() {
     //        self.delegate?.finished()
     //    }
@@ -163,34 +155,42 @@ extension DelegationCoordinator: DelegationReceiptConfirmationPresenterDelegate 
 
 extension DelegationCoordinator: DelegationReceiptPresenterDelegate {
     func finishedShowingReceipt() {
-        self.navigationController.popToRootViewController(animated: true)
+        cleanup()
+        self.delegate?.finished()
     }
 }
 
 extension DelegationCoordinator: RequestPasswordDelegate {
-    
-}
-
-extension DelegationCoordinator: OnboardingCarouselPresenterDelegate {
-    func onboardingCarouselClosed() {
-        self.navigationController.popViewController(animated: true)
-        self.delegate?.finished()
-    }
-    
-    func onboardingCarouselSkiped() {
-        showStatus()
-    }
-    
-    func onboardingCarouselFinished() {
-        showStatus()
-    }
 }
 
 extension DelegationCoordinator: DelegationStatusPresenterDelegate {
+    func pressedClose() {
+        cleanup()
+        self.delegate?.finished()
+    }
+    
     func pressedStop(cost: GTU, energy: Int) {
-        stopDelegation(cost: cost, energy: energy)
+        showCarousel(mode: .remove(cost: cost, energy: energy))
     }
     func pressedRegisterOrUpdate() {
-        showUpdateDelegation()
+        showCarousel(mode: .update)
+    }
+}
+
+extension DelegationCoordinator: DelegationOnboardingCoordinatorDelegate {
+    func finished(mode: DelegationOnboardingMode) {
+        switch mode {
+        case .register:
+            showPoolSelection()
+        case .update:
+            showUpdateDelegation()
+        case .remove(let cost, let energy):
+            stopDelegation(cost: cost, energy: energy)
+        }
+    }
+    
+    func closed() {
+        cleanup()
+        self.delegate?.finished()
     }
 }

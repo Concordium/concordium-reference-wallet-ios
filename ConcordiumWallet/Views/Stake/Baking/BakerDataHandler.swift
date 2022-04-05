@@ -8,16 +8,25 @@
 
 import Foundation
 
-class BakerDataHandler : StakeDataHandler {
-    //TODO: option can be a menu option
+class BakerDataHandler: StakeDataHandler {
+    // TODO: option can be a menu option
     init(account: AccountDataType, option: Bool) {
-        if let baker = account.baker {
-           //TODO: switch on the option to figure out what to do
+        if account.baker != nil {
+           // TODO: switch on the option to figure out what to do
             super.init(transferType: .removeBaker)
         } else {
-            //register baker
+            // register baker
             super.init(transferType: .registerBaker)
         }
         self.add(entry: DelegationAccountData(accountAddress: account.address))
+    }
+    
+    override func getTransferObject() -> TransferDataType {
+        if isNewAmountZero() {
+            var transfer = TransferDataTypeFactory.create()
+            transfer.transferType = .removeBaker
+            return transfer
+        }
+        return super.getTransferObject()
     }
 }

@@ -7,14 +7,6 @@
 //
 
 import Foundation
-
-//let stakedAmount: String?
-//let restakeEarnings: Bool?
-//let delegationTarget: DelegationTarget?
-////let delegatorType: String?
-////let bakerID: Int?
-
-import Foundation
 import RealmSwift
 
 protocol DelegationDataType: DataStoreProtocol {
@@ -22,6 +14,7 @@ protocol DelegationDataType: DataStoreProtocol {
     var restakeEarnings: Bool { get set}
     var delegationTargetType: String { get set}
     var delegationTargetBakerID: Int { get set}
+    var pendingChange: PendingChangeDataType? { get set }
 }
 
 final class DelegationEntity: Object {
@@ -29,6 +22,7 @@ final class DelegationEntity: Object {
     @objc dynamic var restakeEarnings: Bool = false
     @objc dynamic var delegationTargetType: String = ""
     @objc dynamic var delegationTargetBakerID: Int = -1
+    @objc dynamic var pendingChangeEntity: PendingChangeEntity?
     
     convenience init(accountDelegationModel: AccountDelegation) {
         self.init()
@@ -36,8 +30,17 @@ final class DelegationEntity: Object {
         self.restakeEarnings = accountDelegationModel.restakeEarnings
         self.delegationTargetType = accountDelegationModel.delegationTarget.delegateType
         self.delegationTargetBakerID = accountDelegationModel.delegationTarget.bakerID ?? -1
+        self.pendingChangeEntity = PendingChangeEntity(pendingChange: accountDelegationModel.pendingChange)
     }
 }
 
 extension DelegationEntity: DelegationDataType {
+    var pendingChange: PendingChangeDataType? {
+        get {
+            pendingChangeEntity
+        }
+        set {
+            self.pendingChangeEntity = newValue as? PendingChangeEntity
+        }
+    }
 }

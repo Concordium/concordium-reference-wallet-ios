@@ -25,7 +25,8 @@ class AccountsCoordinator: Coordinator {
 
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider
 
-    init(navigationController: UINavigationController, dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider) {
+    init(navigationController: UINavigationController,
+         dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
     }

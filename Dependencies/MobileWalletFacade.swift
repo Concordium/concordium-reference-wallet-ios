@@ -110,10 +110,8 @@ class MobileWalletFacade {
         
         Logger.debug("RX \(debugTitle):\n\(responseString)")
         return responseString
-
     }
-    
-    
+
     private func callTwoParameterFunction(cFunction: (UnsafePointer<Int8>?,
                                                       UnsafePointer<Int8>?,
                                                       UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,

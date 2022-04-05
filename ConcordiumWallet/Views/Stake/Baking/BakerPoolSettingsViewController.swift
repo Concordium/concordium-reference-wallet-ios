@@ -51,7 +51,6 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
         poolControl.setTitle("baking.openfordelegators".localized, forSegmentAt: 0)
         poolControl.setTitle("baking.keeppoolclosed".localized, forSegmentAt: 1)
         
-                
         presenter.view = self
         presenter.viewDidLoad()
     }
@@ -69,7 +68,9 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
         viewModel.$currentValue.sink { [weak self] currentValue in
             guard let self = self else { return }
             if let currentValue = currentValue {
-                self.poolControl.insertSegment(withTitle: "baking.closedfornewdelegators".localized, at: 1, animated: false) //we addd an extra option
+                self.poolControl.insertSegment(withTitle: "baking.closedfornewdelegators".localized,
+                                               at: 1,
+                                               animated: false) // we addd an extra option
                 self.currentValueLabel.text = currentValue
                 self.currentValueLabel.isHidden = false
             } else {

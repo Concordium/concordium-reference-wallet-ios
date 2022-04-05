@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ContentSizedTableView: UITableView {
-    open override var contentSize:CGSize {
+    open override var contentSize: CGSize {
         didSet {
             invalidateIntrinsicContentSize()
         }

@@ -96,7 +96,6 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     func viewDidLoad() {
         viewModel.setup(actions: actions)
         view?.bind(to: viewModel)
-        
     }
     
     func selectedAction(at index: Int) {

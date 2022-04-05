@@ -21,9 +21,9 @@ enum StakeError: Error {
             return String(format: "stake.inputAmount.error.minAmount".localized, min.displayValueWithGStroke())
         case .maximumAmount(let max):
             return String(format: "stake.inputAmount.error.maxAmount".localized, max.displayValueWithGStroke())
-        case .notEnoughFund(_):
+        case .notEnoughFund:
             return "stake.inputAmount.error.funds".localized
-        case .poolLimitReached(_, _):
+        case .poolLimitReached:
             return "stake.inputAmount.error.poolLimit".localized
         case .internalError:
             return ""
@@ -45,7 +45,7 @@ class StakeAmountInputViewModel {
     @Published var amountMessage: String = ""
     @Published var amount: String = ""
     @Published var isAmountLocked: Bool = false
-    @Published var amountErrorMessage: String? = nil
+    @Published var amountErrorMessage: String?
     @Published var transactionFee: String? = ""
     
     @Published var showsPoolLimits: Bool = false
@@ -64,4 +64,5 @@ protocol StakeAmountInputPresenterProtocol: AnyObject {
 	var view: StakeAmountInputViewProtocol? { get set }
     func viewDidLoad()
     func pressedContinue()
+    func closeButtonTapped()
 }

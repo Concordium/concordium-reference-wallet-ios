@@ -49,4 +49,14 @@ class GeneralFormatter {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
+     
+    static func dateFrom(timestampUTC: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return formatter.date(from: timestampUTC) ?? Date()
+    }
+    
+    static func secondsToDays(seconds: Int) -> Int {
+        return (seconds / 86400)
+    }
 }

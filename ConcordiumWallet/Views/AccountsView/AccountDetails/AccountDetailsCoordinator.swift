@@ -147,14 +147,14 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showDelegation() {
-        let delegationCoordinator = DelegationCoordinator(navigationController: navigationController,
+        let coordinator = DelegationCoordinator(navigationController: BaseNavigationController(),
                                                           dependencyProvider: dependencyProvider ,
                                                           account: account,
                                                           parentCoordinator: self)
-        
-        childCoordinators.append(delegationCoordinator)
-        //TODO: remove from childcoordinators when presenter is deallocated
-        delegationCoordinator.start()
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        // TODO: remove from childcoordinators when presenter is deallocated
+        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
     }
 
     func showTransferFilters(account: AccountDataType) {

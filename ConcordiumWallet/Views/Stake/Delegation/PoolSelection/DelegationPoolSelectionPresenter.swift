@@ -40,6 +40,7 @@ enum BakerPool {
 // MARK: Delegate
 protocol DelegationPoolSelectionPresenterDelegate: AnyObject {
     func finishedPoolSelection(bakerPoolResponse: BakerPoolResponse?)
+    func pressedClose() 
 }
 
 // MARK: -
@@ -48,6 +49,7 @@ protocol DelegationPoolSelectionPresenterProtocol: AnyObject {
 	var view: DelegationPoolSelectionViewProtocol? { get set }
     func viewDidLoad()
     func pressedContinue()
+    func closeButtonTapped()
 }
 
 class DelegationPoolViewModel {
@@ -55,14 +57,14 @@ class DelegationPoolViewModel {
     @Published var message: String = "delegation.pool.message".localized
     @Published var bottomMessage: String = "delegation.pool.bottommessage".localized
     @Published var selectedPoolIndex: Int = 0
-    @Published var currentValue: String? = nil
+    @Published var currentValue: String?
     @Published var bakerId: String = ""
-    @Published var bakerIdErrorMessage: String? = nil
+    @Published var bakerIdErrorMessage: String?
     @Published var isPoolValid: Bool = false
     
     init(currentPool: BakerPool?) {
         if let currentPool = currentPool {
-            currentValue = String(format:"delegation.pool.current".localized, currentPool.getDisplayValue())
+            currentValue = String(format: "delegation.pool.current".localized, currentPool.getDisplayValue())
             title = "delegation.pool.title.update".localized
         } else {
             title = "delegation.pool.title.create".localized
@@ -83,7 +85,9 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     private var cancellables = Set<AnyCancellable>()
     private var stakeService: StakeServiceProtocol
     
-    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil, dependencyProvider: StakeCoordinatorDependencyProvider, dataHandler: StakeDataHandler) {
+    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil,
+         dependencyProvider: StakeCoordinatorDependencyProvider,
+         dataHandler: StakeDataHandler) {
         self.delegate = delegate
         self.stakeService = dependencyProvider.stakeService()
         let currentPoolData: PoolDelegationData? = dataHandler.getCurrentEntry()
@@ -97,6 +101,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         self.dataHandler = dataHandler
     }
 
+    // swiftlint:disable function_body_length
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
         self.view?.bakerIdPublisher
@@ -126,7 +131,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                         return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
                     }())
                     .eraseToAnyPublisher()
-        } .sink(receiveCompletion: { completion in
+        } .sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self]  result in
             switch result {
             case Result.success(let bakerId):
@@ -153,8 +158,8 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                 self.validSelectedPool = .lpool
                 self.viewModel.bakerId = ""
             } else {
-                //we only have a valid baker pool after a valid baker id is set
-                //for the baker pool
+                // we only have a valid baker pool after a valid baker id is set
+                // for the baker pool
                 self.validSelectedPool = nil
             }
         }).store(in: &cancellables)
@@ -166,8 +171,8 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     }
     
     func pressedContinue() {
-        //the pool will be valid at this point as the buttonn is only enabled
-        //if the pool is valid
+        // the pool will be valid at this point as the buttonn is only enabled
+        // if the pool is valid
         guard let validPool = self.validSelectedPool else { return }
         self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
         
@@ -189,5 +194,8 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         } else {
             self.delegate?.finishedPoolSelection(bakerPoolResponse: nil)
         }
+    }
+    func closeButtonTapped() {
+        self.delegate?.pressedClose()
     }
 }

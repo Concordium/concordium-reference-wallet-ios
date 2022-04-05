@@ -14,6 +14,11 @@ struct TransferRequestDelegationTarget: Codable {
         case type = "type"
         case targetBaker = "targetBaker"
     }
+    
+    init(type: String?, targetBaker: Int?) {
+        self.type = type
+        self.targetBaker = targetBaker == -1 ? nil : targetBaker
+    }
 }
 
 // MARK: TransferRequestDelegationTarget convenience initializers and mutators

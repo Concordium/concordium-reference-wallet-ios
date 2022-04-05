@@ -26,7 +26,6 @@ extension TransactionsServiceProtocol {
     }
 }
 
-// swiftlint:disable type_body_length
 class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService {
     var networkManager: NetworkManagerProtocol
     private let mobileWallet: MobileWalletProtocol
@@ -81,8 +80,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                                       parameters: params)
         return networkManager.load(request)
     }
-    
-    
+  
     func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
         var params: [String: CustomStringConvertible?] = ["type": transferType.rawValue]
         
@@ -94,6 +92,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         return networkManager.load(request)
     }
     
+    // swiftlint:disable function_body_length
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error> {
@@ -188,7 +187,6 @@ extension TransactionsService {
             .eraseToAnyPublisher()
     }
 
-    // swiftlint:disable function_body_length
     private func performShielding(_ pTransfer: TransferDataType,
                                   from account: AccountDataType,
                                   requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
@@ -235,8 +233,11 @@ extension TransactionsService {
                                            global: global,
                                            inputEncryptedAmount: inputEncryptedAmount,
                                            receiverPublicKey: nil)
-            }.map{ [weak self] (transferRequest) -> CreateTransferRequest in
-                transfer = self?.updateLocalTransfer(transfer, withUnshieldingRequest: transferRequest, andInputEncryptedAmount: inputEncryptedAmount, forAccount: account) ?? transfer
+            }.map { [weak self] (transferRequest) -> CreateTransferRequest in
+                transfer = self?.updateLocalTransfer(transfer,
+                                                     withUnshieldingRequest: transferRequest,
+                                                     andInputEncryptedAmount: inputEncryptedAmount,
+                                                     forAccount: account) ?? transfer
                 return transferRequest
             }
             .flatMap(submitTransfer)
@@ -269,7 +270,10 @@ extension TransactionsService {
                                            inputEncryptedAmount: inputEncryptedAmount,
                                            receiverPublicKey: receiverPublicKey.accountEncryptionKey)
             }.map({ [weak self] (transferRequest) -> CreateTransferRequest in
-                transfer = self?.updateLocalTransfer(transfer, withEncryptedTransferRequest: transferRequest, andInputEncryptedAmount: inputEncryptedAmount, forAccount: account) ?? transfer
+                transfer = self?.updateLocalTransfer(transfer,
+                                                     withEncryptedTransferRequest: transferRequest,
+                                                     andInputEncryptedAmount: inputEncryptedAmount,
+                                                     forAccount: account) ?? transfer
                 return transferRequest
             })
             .flatMap(submitTransfer)
@@ -283,10 +287,9 @@ extension TransactionsService {
             .eraseToAnyPublisher()
     }
     
-    
     private func performDelegationTransfer(_ pTransfer: TransferDataType,
-                                       from account: AccountDataType,
-                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+                                           from account: AccountDataType,
+                                           requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         
         var transfer = updateLocalTransferWithExpiration(pTransfer)
         return getAccountNonce(for: transfer.fromAddress)
@@ -313,9 +316,9 @@ extension TransactionsService {
     }
     
     private func performBakerTransfer(_ pTransfer: TransferDataType,
-                                       from account: AccountDataType,
-                                       bakerKeys: BakerKeys?,
-                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
+                                      from account: AccountDataType,
+                                      bakerKeys: BakerKeys?,
+                                      requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         var transfer = updateLocalTransferWithExpiration(pTransfer)
         return getAccountNonce(for: transfer.fromAddress)
             .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
@@ -346,6 +349,9 @@ extension TransactionsService {
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
                                 receiverPublicKey: String? = nil) -> AnyPublisher<CreateTransferRequest, Error> {
+        let transactionFeeCommission = (transfer.transactionFeeCommission == -1) ? nil : transfer.transactionFeeCommission
+        let bakingRewardCommission = (transfer.bakingRewardCommission == -1) ? nil : transfer.bakingRewardCommission
+        let finalizationRewardCommission = (transfer.finalizationRewardCommission == -1) ? nil : transfer.finalizationRewardCommission
         return self.mobileWallet.createTransfer(from: account,
                                                 to: transfer.toAddress == "" ? nil : transfer.toAddress,
                                                 amount: transfer.amount == "" ? nil : transfer.amount,
@@ -353,12 +359,14 @@ extension TransactionsService {
                                                 memo: transfer.memo,
                                                 capital: transfer.capital == "" ? nil : transfer.capital,
                                                 restakeEarnings: transfer.restakeEarnings,
-                                                delegationTarget: transfer.delegationType == nil ? nil : TransferRequestDelegationTarget(type: transfer.delegationType, targetBaker: transfer.delegationTargetBaker),
+                                                delegationTarget: transfer.delegationType == nil ? nil : TransferRequestDelegationTarget(
+                                                    type: transfer.delegationType,
+                                                    targetBaker: transfer.delegationTargetBaker),
                                                 openStatus: transfer.openStatus,
                                                 metadataURL: transfer.metadataURL,
-                                                transactionFeeCommission: (transfer.transactionFeeCommission == -1) ? nil : transfer.transactionFeeCommission,
-                                                bakingRewardCommission: (transfer.bakingRewardCommission == -1) ? nil : transfer.bakingRewardCommission ,
-                                                finalizationRewardCommission: (transfer.finalizationRewardCommission == -1) ? nil : transfer.finalizationRewardCommission,
+                                                transactionFeeCommission: transactionFeeCommission,
+                                                bakingRewardCommission: bakingRewardCommission,
+                                                finalizationRewardCommission: finalizationRewardCommission,
                                                 bakerKeys: bakerKeys,
                                                 expiry: transfer.expiry,
                                                 energy: transfer.energy,
@@ -370,7 +378,7 @@ extension TransactionsService {
         )
     }
     
-    //MARK: Network helpers
+    // MARK: Network helpers
     private func getAccountNonce(for address: String) -> AnyPublisher<AccNonce, Error> {
         networkManager.load(ResourceRequest(url: ApiConstants.accNonce.appendingPathComponent(address)))
     }
@@ -457,7 +465,9 @@ extension TransactionsService {
     }
     
     // MARK: Update local transfer helpers
-    private func updateLocalTransfer (_ ptransfer: TransferDataType, withShieldingRequest transferRequest: CreateTransferRequest, forAccount account: AccountDataType) -> TransferDataType {
+    private func updateLocalTransfer (_ ptransfer: TransferDataType,
+                                      withShieldingRequest transferRequest: CreateTransferRequest,
+                                      forAccount account: AccountDataType) -> TransferDataType {
         var transfer = ptransfer
         if let transaction = storageManager.getLastEncryptedBalanceTransfer(for: account.address),
            let encryptedDetails = transaction.encryptedDetails,
@@ -502,7 +512,10 @@ extension TransactionsService {
         return transfer
     }
     
-    private func updateLocalTransfer (_ ptransfer: TransferDataType, withUnshieldingRequest transferRequest: CreateTransferRequest, andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount, forAccount account: AccountDataType) -> TransferDataType {
+    private func updateLocalTransfer (_ ptransfer: TransferDataType,
+                                      withUnshieldingRequest transferRequest: CreateTransferRequest,
+                                      andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount,
+                                      forAccount account: AccountDataType) -> TransferDataType {
         var transfer = ptransfer
         if let aggAmount = inputEncryptedAmount.aggAmount,
            let remainingSelfAmount = transferRequest.remaining,
@@ -524,7 +537,10 @@ extension TransactionsService {
         return transfer
     }
     
-    private func updateLocalTransfer (_ ptransfer: TransferDataType, withEncryptedTransferRequest transferRequest: CreateTransferRequest, andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount, forAccount account: AccountDataType) -> TransferDataType {
+    private func updateLocalTransfer (_ ptransfer: TransferDataType,
+                                      withEncryptedTransferRequest transferRequest: CreateTransferRequest,
+                                      andInputEncryptedAmount inputEncryptedAmount: InputEncryptedAmount,
+                                      forAccount account: AccountDataType) -> TransferDataType {
         var transfer = ptransfer
         if let aggAmount = inputEncryptedAmount.aggAmount,
            let remainingSelfAmount = transferRequest.remaining,
@@ -544,7 +560,6 @@ extension TransactionsService {
         }
         return transfer
     }
-    
     
     private func updateLocalTransfer(_ pTransfer: TransferDataType, withSubmissionStatus submissionStatus: SubmissionStatus) -> TransferDataType {
         var transfer = pTransfer

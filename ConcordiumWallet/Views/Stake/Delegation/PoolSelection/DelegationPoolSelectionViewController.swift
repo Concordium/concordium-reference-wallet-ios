@@ -58,7 +58,10 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0,  bottom: 10, right: 0)
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0,
+                                                     left: 0,
+                                                     bottom: 10,
+                                                     right: 0)
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
         poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
@@ -68,6 +71,16 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
         
         presenter.view = self
         presenter.viewDidLoad()
+        showCloseButton()
+        
+    }
+    func showCloseButton() {
+        let closeIcon = UIImage(named: "close_icon")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
+    }
+
+    @objc func closeButtonTapped() {
+        presenter.closeButtonTapped()
     }
     
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {
@@ -79,6 +92,8 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
         bottomConstraint.constant = 0
         view.layoutIfNeeded()
     }
+    
+    // swiftlint:disable function_body_length
     func bind(viewModel: DelegationPoolViewModel) {
         viewModel.$title.sink { [weak self] title in
             self?.title = title

@@ -9,7 +9,7 @@ import Foundation
 struct PendingChange: Codable {
     let change: String
     let newStake: String?
-    let effectiveTime: Int
+    let effectiveTime: String?
 
     enum CodingKeys: String, CodingKey {
         case change = "change"
@@ -39,7 +39,7 @@ extension PendingChange {
     func with(
         change: String? = nil,
         newStake: String?? = nil,
-        effectiveTime: Int? = nil
+        effectiveTime: String?? = nil
     ) -> PendingChange {
         return PendingChange(
             change: change ?? self.change,

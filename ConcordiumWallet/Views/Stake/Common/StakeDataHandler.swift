@@ -9,30 +9,29 @@
 import Foundation
 
 enum Field: Hashable {
-    //common for both delegation and baking
+    // common for both delegation and baking
     case restake
     
-    //delegation
+    // delegation
     case delegationAccount
     case delegationStopAccount
     case pool
     case amount
     
-    //baking
+    // baking
     case poolSettings
     case bakerStake
     case bakerMetadataURL
     case bakerAccountCreate
     case bakerAccountUpdate
-    
-    
+ 
     func getLabelText() -> String {
         switch self {
-        //common
+        // common
         case .restake:
             return "stake.receipt.restake".localized
             
-        //delegation
+        // delegation
         case .delegationAccount:
             return "delegation.receipt.accounttodelegate".localized
         case .delegationStopAccount:
@@ -42,7 +41,7 @@ enum Field: Hashable {
         case .amount:
             return "delegation.receipt.delegationamount".localized
       
-        //baking
+        // baking
         case .poolSettings:
             return "baking.receipt.poolstatus".localized
         case .bakerStake:
@@ -58,11 +57,11 @@ enum Field: Hashable {
 
     func getOrderIndex() -> Int {
         switch self {
-        //common
+        // common
         case .restake:
             return 3
             
-        //delegation
+        // delegation
         case .delegationAccount:
             return 0
         case .delegationStopAccount:
@@ -72,7 +71,7 @@ enum Field: Hashable {
         case .amount:
             return 1
       
-        //baking
+        // baking
         case .poolSettings:
             return 2
         case .bakerStake:
@@ -85,17 +84,18 @@ enum Field: Hashable {
             return 4
         }
     }
-    
+    // swiftlint:disable cyclomatic_complexity
     static func == (lhs: Field, rhs: Field) -> Bool {
         switch (lhs, rhs) {
         case (restake, restake): return true
             
+        // --- DELEGATION ---
         case (delegationAccount, delegationAccount): return true
         case (delegationStopAccount, delegationStopAccount): return true
         case (pool, pool): return true
         case (amount, amount): return true
-        
-        
+
+        // --- BAKER ---
         case (poolSettings, poolSettings): return true
         case (bakerStake, bakerStake): return true
         case (bakerAccountCreate, bakerAccountCreate): return true
@@ -132,7 +132,7 @@ class StakeData: Hashable {
     }
 }
 
-//MARK: --
+// MARK: - BAKER data
 class BakerCreateAccountData: AccountData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .bakerAccountCreate)
@@ -142,41 +142,6 @@ class BakerCreateAccountData: AccountData {
 class BakerUpdateAccountData: AccountData {
     init(accountAddress: String) {
         super.init(accountAddress: accountAddress, field: .bakerAccountUpdate)
-    }
-}
-
-class DelegationAccountData: AccountData {
-    init(accountAddress: String) {
-        super.init(accountAddress: accountAddress, field: .delegationAccount)
-    }
-}
-
-class DelegationStopAccountData: AccountData {
-    init(accountAddress: String) {
-        super.init(accountAddress: accountAddress, field: .delegationStopAccount)
-    }
-}
-
-class AccountData: StakeData {
-    var accountAddress: String = ""
-    fileprivate init(accountAddress: String, field: Field) {
-        self.accountAddress = accountAddress
-        super.init(field: field)
-    }
-    
-    override func getDisplayValue() -> String {
-        return accountAddress
-    }
-}
-
-class PoolDelegationData: StakeData {
-    var pool: BakerPool
-    init(pool: BakerPool) {
-        self.pool = pool
-        super.init(field: .pool)
-    }
-    override func getDisplayValue() -> String {
-        return pool.getDisplayValue()
     }
 }
 
@@ -199,6 +164,42 @@ class BakerMetadataURLData: StakeData {
     }
 }
 
+// MARK: - DELEGATION data
+class DelegationAccountData: AccountData {
+    init(accountAddress: String) {
+        super.init(accountAddress: accountAddress, field: .delegationAccount)
+    }
+}
+
+class DelegationStopAccountData: AccountData {
+    init(accountAddress: String) {
+        super.init(accountAddress: accountAddress, field: .delegationStopAccount)
+    }
+}
+
+class PoolDelegationData: StakeData {
+    var pool: BakerPool
+    init(pool: BakerPool) {
+        self.pool = pool
+        super.init(field: .pool)
+    }
+    override func getDisplayValue() -> String {
+        return pool.getDisplayValue()
+    }
+}
+
+// MARK: - Common data
+class AccountData: StakeData {
+    var accountAddress: String = ""
+    fileprivate init(accountAddress: String, field: Field) {
+        self.accountAddress = accountAddress
+        super.init(field: field)
+    }
+    
+    override func getDisplayValue() -> String {
+        return accountAddress
+    }
+}
 
 class AmountData: StakeData {
     var amount: GTU
@@ -231,10 +232,10 @@ class RestakeDelegationData: StakeData {
 class StakeDataHandler {
     let transferType: TransferType
     
-    //this is the data that is currently on the chain
-    internal var currentData: Set<StakeData>? = nil
+    // this is the data that is currently on the chain
+    internal var currentData: Set<StakeData>?
     
-    //this is what we are now changing
+    // this is what we are now changing
     private var data: Set<StakeData> = Set()
 
     init(transferType: TransferType) {
@@ -254,24 +255,24 @@ class StakeDataHandler {
             data === entry
         }) ?? false
         
-        //we always allow the account to be in the new data
-        if isValueUnchanged && !(entry is AccountData){
-            //remove current value from current data
+        // we always allow the account to be in the new data
+        if isValueUnchanged && !(entry is AccountData) {
+            // remove current value from current data
             self.remove(field: entry.field)
             return
         }
-        //we add or update to the set for the specific field
-        //only one entry per field, as the == is overwritten
+        // we add or update to the set for the specific field
+        // only one entry per field, as the == is overwritten
         data.update(with: entry)
     }
     
     /// Retrieves an entry from the currently saved value
-    func getCurrentEntry<T:StakeData>() -> T? {
+    func getCurrentEntry<T: StakeData>() -> T? {
         return currentData?.filter({ $0 is T}).first as? T
     }
     
     /// Retrieves an entry from the updated values (current trasnaction)
-    func getNewEntry<T:StakeData>() -> T? {
+    func getNewEntry<T: StakeData>() -> T? {
         return data.filter({ $0 is T}).first as? T
     }
     
@@ -307,6 +308,16 @@ class StakeDataHandler {
         return false
     }
     
+    func isNewAmountZero() -> Bool {
+        guard let newAmount: AmountData = getNewEntry() else {
+            return false
+        }
+        if newAmount.amount.intValue == 0 {
+            return true
+        }
+        return false
+    }
+  
     /// Checks is the new delegation amount is using over 95% of funds
     func moreThan95(atDisposal: Int) -> Bool {
         guard let newAmount: AmountData = getNewEntry() else {
@@ -329,21 +340,21 @@ class StakeDataHandler {
         data.compactMap { data in
             switch data {
             case is AmountData:
-                return .amount
+                return [.amount]
             case is RestakeDelegationData:
-                return .restake
+                return [.restake]
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
                 case .lpool:
-                    return .lpool
+                    return [.lpool, .target]
                 case .bakerPool:
-                    return .target
+                    return [.target]
                 }
-            //TODO cost calculation for baking
+            // TODO: cost calculation for baking
             default:
                 return nil
             }
-        }
+        }.reduce([], +)
     }
     
     func getTransferObject() -> TransferDataType {
@@ -358,10 +369,10 @@ class StakeDataHandler {
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
                 case .lpool:
-                    //TODO: update to L-Pool after lib update
+                    // TODO: update to L-Pool after lib update
                     transfer.delegationType = "delegateToLPool"
                 case .bakerPool(let bakerId):
-                    //TODO: update to Baker after lib update
+                    // TODO: update to Baker after lib update
                     transfer.delegationType = "delegateToBaker"
                     transfer.delegationTargetBaker = bakerId
                 }
@@ -374,7 +385,7 @@ class StakeDataHandler {
                 case .closedForNew:
                     transfer.openStatus = "closedForNew"
                 }
-            //TODO cost calculation for baking
+            // TODO: cost calculation for baking
             default:
                break
             }
@@ -382,5 +393,3 @@ class StakeDataHandler {
         return transfer
     }
 }
-
-

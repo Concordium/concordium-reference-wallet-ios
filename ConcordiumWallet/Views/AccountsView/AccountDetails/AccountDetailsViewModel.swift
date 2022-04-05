@@ -30,8 +30,8 @@ class AccountDetailsViewModel {
     @Published var isReadOnly = false
     @Published var isShielded = false
     @Published var atDisposal: String = ""
-    @Published var staked: String = ""
-    @Published var bakerId: String?
+    @Published var stakedValue: String = ""
+    @Published var stakedLabel: String?
     @Published var hasStaked: Bool = false
     @Published var isShieldedEnabled: Bool = true
     @Published var menuState: AccountMenuState = .closed
@@ -49,21 +49,26 @@ class AccountDetailsViewModel {
         if balanceType == .shielded {
             isShielded = true
             balance = GTU(intValue: account.forecastEncryptedBalance).displayValue()
+            hasStaked = false
         } else {
             isShielded = false
             balance = GTU(intValue: account.forecastBalance).displayValue()
-            if let bakerId = account.baker?.bakerID, bakerId != -1 {
-                self.bakerId = String(bakerId)
+            if let baker = account.baker, baker.bakerID != -1 {
+                self.hasStaked = true
+                self.stakedLabel = String(format: "accountDetails.bakingstakelabel".localized, String(baker.bakerID))
+                self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValueWithGStroke()
+                
+            } else if let delegation = account.delegation {
+                let pool = BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+                self.hasStaked = true
+                self.stakedLabel = String(format: "accountDetails.delegationstakeLabel".localized, pool.getDisplayValueForAccountDetails())
+                self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ?? 0).displayValueWithGStroke()
             } else {
-                bakerId = nil
+                self.hasStaked = false
+                stakedLabel = nil
             }
         }
         atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
-        if let stakedAmount = account.baker?.stakedAmount, stakedAmount != 0 {
-            staked = GTU(intValue: stakedAmount).displayValueWithGStroke()
-        } else {
-            hasStaked = false
-        }
     }
 
     func toggleMenu() {
@@ -113,6 +118,17 @@ class AccountDetailsViewModel {
             } else {
                 allAccountTransactionsList.transactions.append(contentsOf: transactions)
             }
+        }
+    }
+}
+
+extension BakerPool {
+    fileprivate func getDisplayValueForAccountDetails() -> String {
+        switch self {
+        case .lpool:
+            return "accountDetails.lpoolvalue".localized
+        case .bakerPool(let bakerId):
+            return String(format: "accountDetails.bakerpoolvalue".localized, bakerId)
         }
     }
 }

@@ -9,10 +9,8 @@
 import UIKit
 
 class StakeEntryCell: UITableViewCell {
-
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

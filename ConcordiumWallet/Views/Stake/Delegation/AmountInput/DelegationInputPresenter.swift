@@ -13,6 +13,8 @@ import Combine
 // MARK: Delegate
 protocol DelegationAmountInputPresenterDelegate: AnyObject {
     func finishedAmountInput(cost: GTU, energy: Int)
+    func switchToRemoveDelegator(cost: GTU, energy: Int)
+    func pressedClose()
 }
 
 struct StakeAmountInputValidator {
@@ -49,7 +51,7 @@ struct StakeAmountInputValidator {
         }
         return .just(amount)
     }
-    func checkAtDisposal(amount:GTU) -> AnyPublisher<GTU, StakeError> {
+    func checkAtDisposal(amount: GTU) -> AnyPublisher<GTU, StakeError> {
         if amount.intValue > atDisposal.intValue {
             return .fail(.notEnoughFund(atDisposal))
         }
@@ -79,7 +81,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     @Published private var cost: GTU?
     @Published private var energy: Int?
     
-    private var isInCooldown:Bool = false //TODO: calculate this based on the account state
+    private var isInCooldown: Bool = false
     var restake: Bool = true
     
     private var dataHandler: StakeDataHandler
@@ -88,30 +90,41 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     private var transactionService: TransactionsServiceProtocol
     let validator: StakeAmountInputValidator
     
-    init(account: AccountDataType, delegate: DelegationAmountInputPresenterDelegate? = nil, dependencyProvider: StakeCoordinatorDependencyProvider, dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?) {
+    // swiftlint:disable function_body_length
+    init(account: AccountDataType,
+         delegate: DelegationAmountInputPresenterDelegate? = nil,
+         dependencyProvider: StakeCoordinatorDependencyProvider,
+         dataHandler: StakeDataHandler,
+         bakerPoolResponse: BakerPoolResponse?) {
         self.account = account
         self.delegate = delegate
         self.dataHandler = dataHandler
         self.bakerPoolResponse = bakerPoolResponse
         self.stakeService = dependencyProvider.stakeService()
         self.transactionService = dependencyProvider.transactionsService()
-        
+    
+        if self.account.delegation?.pendingChange?.change != .NoChange {
+            isInCooldown = true
+        } else {
+            isInCooldown = false
+        }
         let previouslyStakedInSelectedPool: Int
         let newPool: PoolDelegationData? = dataHandler.getNewEntry()
         let existingPool: PoolDelegationData? = dataHandler.getCurrentEntry()
         let showsPoolLimits: Bool!
-        //If we are updating delegation and we dont't change the pool,
+        // If we are updating delegation and we dont't change the pool,
         // we need to check the existing value of the pool
-        let pool:BakerPool!
+        let pool: BakerPool
         if let newPool = newPool?.pool {
             pool = newPool
-            previouslyStakedInSelectedPool = Int((self.account.delegation?.stakedAmount) ?? "0") ?? 0
+            // if pool is changed, then the previously staked is incorrect
+            previouslyStakedInSelectedPool = 0
         } else if let existingPool = existingPool?.pool {
             pool = existingPool
-            previouslyStakedInSelectedPool = 0
+            previouslyStakedInSelectedPool = Int((self.account.delegation?.stakedAmount) ?? "0") ?? 0
         } else {
             pool = .lpool
-            previouslyStakedInSelectedPool = 0
+            previouslyStakedInSelectedPool = Int((self.account.delegation?.stakedAmount) ?? "0") ?? 0
         }
         
         if case .lpool = pool {
@@ -130,10 +143,17 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             poolLimit = nil
         }
         
-        validator = StakeAmountInputValidator(minimumValue: GTU(intValue: 1),
+        let minValue: GTU
+        if dataHandler.hasCurrentData() {
+            minValue = GTU(intValue: 0)
+        } else {
+            minValue = GTU(intValue: 1)
+        }
+        
+        validator = StakeAmountInputValidator(minimumValue: minValue,
                                               maximumValue: nil,
                                               atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
-                                              currentPool:currentPool,
+                                              currentPool: currentPool,
                                               poolLimit: poolLimit,
                                               previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool) )
         let amountData: AmountData? = dataHandler.getCurrentEntry()
@@ -141,7 +161,12 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         let restakeData: RestakeDelegationData? = dataHandler.getCurrentEntry()
         self.restake = restakeData?.restake ?? true
         
-        viewModel.setup(account: account, currentAmount: amountData?.amount, currentRestakeValue: self.restake, isInCooldown: isInCooldown, validator: validator, showsPoolLimits: showsPoolLimits)
+        viewModel.setup(account: account,
+                        currentAmount: amountData?.amount,
+                        currentRestakeValue: self.restake,
+                        isInCooldown: isInCooldown,
+                        validator: validator,
+                        showsPoolLimits: showsPoolLimits)
     }
     
     func viewDidLoad() {
@@ -158,7 +183,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         }
         .flatMap { [weak self] amount -> AnyPublisher<Result<GTU, StakeError>, Never> in
             guard let self = self else { return .just(Result.failure(StakeError.internalError))}
-            var stakeError: StakeError? = nil
+            var stakeError: StakeError?
             return self.validator.validate(amount: amount)
                 .mapError { [weak self] error -> StakeError in
                     self?.viewModel.amountErrorMessage = error.localizedDescription
@@ -174,7 +199,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 }())
                 .eraseToAnyPublisher()
         }
-        .sink(receiveCompletion: { completion in
+        .sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self]  result in
             if case Result.success(let amount) = result {
                 self?.validAmount = amount
@@ -185,14 +210,13 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             }
         })
         .store(in: &cancellables)
-        
-       
+
         let validAmountPublisher = self.$validAmount
             .compactMap { $0 }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
         
-        //calculate transaction fee
+        // calculate transaction fee
         self.view?.restakeOptionPublisher
             .combineLatest(validAmountPublisher)
             .flatMap({ [weak self] (restake, amount) -> AnyPublisher<TransferCost, Error> in
@@ -202,7 +226,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self.dataHandler.add(entry: AmountData(amount: amount))
                 
                 self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
-                self.viewModel.isContinueEnabled = false//we wait until we get the updated cost
+                self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
                 let costParams = self.dataHandler.getCostParameters()
                 return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
                                                                costParameters: costParams)
@@ -218,13 +242,11 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self?.viewModel.isContinueEnabled = true
                 self?.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
             }).store(in: &cancellables)
-        
 
         self.view?.restakeOptionPublisher.send(viewModel.isRestakeSelected)
     }
     
     func pressedContinue() {
-        
         checkForWarnings { [weak self] in
             guard let self = self else { return }
             guard let cost = self.cost else {
@@ -233,48 +255,84 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             guard let energy = self.energy else {
                 return
             }
-            self.delegate?.finishedAmountInput(cost: cost, energy: energy)
+            if self.dataHandler.isNewAmountZero() {
+                self.transactionService.getTransferCost(transferType: .removeDelegation, costParameters: [])
+                    .showLoadingIndicator(in: self.view).sink { [weak self] error in
+                        self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    } receiveValue: {[weak self] transferCost in
+                        let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
+                        self?.delegate?.switchToRemoveDelegator(cost: cost, energy: energy)
+                    }.store(in: &self.cancellables)
+            } else {
+                self.delegate?.finishedAmountInput(cost: cost, energy: energy)
+            }
+            
         }
     }
     
     func checkForWarnings(completion: (() -> Void)?) {
-        //blocking warning if there are no changes
+        // blocking warning if there are no changes
         if !dataHandler.containsChanges() {
             let okAction = AlertAction(name: "delegation.nochanges.ok".localized, completion: nil, style: .default)
             
-            let alertOptions = AlertOptions(title: "delegation.nochanges.title".localized, message: "delegation.nochanges.message".localized, actions: [okAction])
+            let alertOptions = AlertOptions(title: "delegation.nochanges.title".localized,
+                                            message: "delegation.nochanges.message".localized,
+                                            actions: [okAction])
             self.view?.showAlert(with: alertOptions)
-    } else if self.dataHandler.isLoweringStake() {
-        //warning for lowering stake
+        } else if self.dataHandler.isLoweringStake() {
+            // warning for lowering stake
             let changeAction = AlertAction(name: "delegation.loweringamountwarning.change".localized, completion: nil, style: .default)
-            let fineAction = AlertAction(name: "delegation.loweringamountwarning.fine".localized, completion:completion, style: .default)
-            let alertOptions = AlertOptions(title: "delegation.loweringamountwarning.title".localized, message: "delegation.loweringamountwarning.message".localized, actions: [changeAction, fineAction])
+            let fineAction = AlertAction(name: "delegation.loweringamountwarning.fine".localized,
+                                         completion: completion, style: .default)
+            let alertOptions = AlertOptions(title: "delegation.loweringamountwarning.title".localized,
+                                            message: "delegation.loweringamountwarning.message".localized,
+                                            actions: [changeAction, fineAction])
+            self.view?.showAlert(with: alertOptions)
+        } else if dataHandler.moreThan95(atDisposal: account.forecastAtDisposalBalance) {
+            // warning for more than 95% of funds used
+            let continueAction = AlertAction(name: "delegation.morethan95.continue".localized, completion: completion, style: .default)
+            let newStakeAction = AlertAction(name: "delegation.morethan95.newstake".localized,
+                                             completion: nil,
+                                             style: .default)
+            let alertOptions = AlertOptions(title: "delegation.morethan95.title".localized,
+                                            message: "delegation.morethan95.message".localized,
+                                            actions: [continueAction, newStakeAction])
+            self.view?.showAlert(with: alertOptions)
+        } else if dataHandler.isNewAmountZero() {
+            // warning for more zero amount = removeDelegation
+            let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
+            let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
+                                           completion: nil,
+                                           style: .default)
+            let alertOptions = AlertOptions(title: "delegation.amountzero.title".localized,
+                                            message: "delegation.amountzero.message".localized,
+                                            actions: [cancelAction, continueAction])
             self.view?.showAlert(with: alertOptions)
         } else {
-            //warning for more than 95% of funds used
-            if dataHandler.moreThan95(atDisposal: account.forecastAtDisposalBalance) {
-                let continueAction = AlertAction(name: "delegation.morethan95.continue".localized, completion: completion, style: .default)
-                let newStakeAction = AlertAction(name: "delegation.morethan95.newstake".localized, completion:nil, style: .default)
-                let alertOptions = AlertOptions(title: "delegation.morethan95.title".localized, message: "delegation.morethan95.message".localized, actions: [continueAction, newStakeAction])
-                self.view?.showAlert(with: alertOptions)
-            } else {
-                completion?()
-            }
+            completion?()
         }
     }
-    
+    func closeButtonTapped() {
+        self.delegate?.pressedClose()
+    }
 }
 
 fileprivate extension StakeAmountInputViewModel {
-    func setup (account: AccountDataType, currentAmount: GTU?, currentRestakeValue: Bool?, isInCooldown: Bool, validator: StakeAmountInputValidator, showsPoolLimits: Bool) {
+    func setup (account: AccountDataType,
+                currentAmount: GTU?,
+                currentRestakeValue: Bool?,
+                isInCooldown: Bool,
+                validator: StakeAmountInputValidator,
+                showsPoolLimits: Bool) {
         let atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
         let staked = GTU(intValue: Int(account.delegation?.stakedAmount ?? "0") ?? 0)
         self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
                                              value: atDisposal.displayValueWithGStroke())
         self.secondBalance = BalanceViewModel(label: "delegation.inputamount.delegationstake".localized,
                                               value: staked.displayValueWithGStroke())
-        self.currentPoolLimit = BalanceViewModel(label: "delegation.inputamount.currentpool".localized,
-                                                 value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke())
+        self.currentPoolLimit = BalanceViewModel(
+            label: "delegation.inputamount.currentpool".localized,
+            value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke())
         self.poolLimit = BalanceViewModel(label: "delegation.inputamount.poollimit".localized,
                                           value: validator.poolLimit?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke())
         
@@ -284,10 +342,10 @@ fileprivate extension StakeAmountInputViewModel {
         
         self.isRestakeSelected = currentRestakeValue ?? true
         self.showsPoolLimits = showsPoolLimits
-        //having a current amount means we are editing
+        // having a current amount means we are editing
         if let currentAmount = currentAmount {
             if !isInCooldown {
-                //we don't set the value if it is in cooldown
+                // we don't set the value if it is in cooldown
                 self.amount = currentAmount.displayValue()
                 self.amountMessage = "delegation.inputamount.optionalamount".localized
             } else {
