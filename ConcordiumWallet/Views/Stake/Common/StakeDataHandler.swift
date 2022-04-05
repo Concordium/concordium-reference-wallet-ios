@@ -201,18 +201,6 @@ class AccountData: StakeData {
     }
 }
 
-class BakerMetadataURLData: StakeData {
-    var metadataURL: String
-    init(metadataURL: String) {
-        self.metadataURL = metadataURL
-        super.init(field: .bakerMetadataURL)
-    }
-    override func getDisplayValue() -> String {
-        return metadataURL
-    }
-}
-
-
 class AmountData: StakeData {
     var amount: GTU
     init(amount: GTU) {
