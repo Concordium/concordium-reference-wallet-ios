@@ -16,15 +16,9 @@ protocol MemoDataType {
     var data: Data { get }
     /// Size of a memo
     var size: Int { get }
-    /// Validity of a memo size
-    var hasValidSize: Bool { get }
 }
 
 struct Memo: MemoDataType {
-    private enum Constants {
-        static let maxSize = 256
-    }
-    
     var data: Data {
         Data(bytes: encoded, count: encoded.count)
     }
@@ -32,8 +26,6 @@ struct Memo: MemoDataType {
     var displayValue: String
     
     var size: Int { encoded.count }
-    
-    var hasValidSize: Bool { size <= Memo.Constants.maxSize }
     
     init(_ rawValue: String) {
         self.displayValue = rawValue

@@ -26,8 +26,9 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
 
 	var presenter: IdentityProviderListPresenterProtocol
 
-    @IBOutlet weak var detailsLabel: UILabel!
+    @IBOutlet weak var detailsTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
+
     var dataSource: UITableViewDiffableDataSource<SingleSection, IdentityProviderViewModel>?
     private var cancellables: [AnyCancellable] = []
 
@@ -46,8 +47,9 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
         presenter.view = self
         presenter.viewDidLoad()
 
+        detailsTextView.delegate = self
+
         title = "identity_provider_list_title".localized
-        detailsLabel.text = String(format: "identityProviders.details".localized, presenter.getIdentityName())
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
         dataSource = UITableViewDiffableDataSource<SingleSection, IdentityProviderViewModel>(
@@ -69,11 +71,39 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
         return cell
     }
 
+    private func setIdentityProviderLinksIfNeeded(identities: [IdentityProviderViewModel]) {
+        guard !identities.isEmpty else { return }
+
+        let identitiesList = identities.map { $0.identityName }.joined(separator: "\n\n")
+        let originalText = "identityProviders.details".localized + "\n\n" + identitiesList
+        let attributedOriginalText = NSMutableAttributedString(string: originalText)
+
+        let style = NSMutableParagraphStyle()
+        style.alignment = .justified
+
+        for identity in identities {
+            let linkRange = attributedOriginalText.mutableString.range(of: identity.identityName)
+            let fullRange = NSRange(location: 0, length: attributedOriginalText.length)
+            attributedOriginalText.addAttribute(.link, value: identity.url ?? "", range: linkRange)
+            attributedOriginalText.addAttribute(.paragraphStyle, value: style, range: fullRange)
+            attributedOriginalText.addAttribute(.font, value: UIFont.systemFont(ofSize: 14), range: fullRange)
+            attributedOriginalText.addAttribute(.foregroundColor, value: UIColor.text, range: fullRange)
+        }
+
+        detailsTextView.linkTextAttributes = [
+            .underlineColor: UIColor.text,
+            .underlineStyle: 1
+        ]
+        detailsTextView.attributedText = attributedOriginalText
+        tableView.sizeHeaderToFit()
+    }
+
     @objc func closeButtonTapped() {
         presenter.closeIdentityProviderList()
     }
 }
 
+// MARK: - IdentityProviderListViewProtocol
 extension IdentityProviderListViewController: IdentityProviderListViewProtocol {
     func bind(to viewModel: IdentityProviderListViewModel) {
         viewModel.$identityProviders.sink { [weak self] in
@@ -83,28 +113,23 @@ extension IdentityProviderListViewController: IdentityProviderListViewProtocol {
             snapshot.appendItems($0)
             self.dataSource?.apply(snapshot)
             self.tableView.reloadData()
+            self.setIdentityProviderLinksIfNeeded(identities: $0)
         }.store(in: &cancellables)
     }
 }
 
+// MARK: - UITableViewDelegate
 extension IdentityProviderListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.userSelected(identityProviderIndex: indexPath.row)
     }
 }
 
-public extension UITableView {
-    func sizeHeaderToFit() {
-        if let headerView = tableHeaderView {
-            headerView.setNeedsLayout()
-            headerView.layoutIfNeeded()
-            
-            let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-            var frame = headerView.frame
-            frame.size.height = height
-            headerView.frame = frame
-            
-            tableHeaderView = headerView
-        }
+// MARK: - UITextViewDelegate
+extension IdentityProviderListViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        guard !URL.absoluteString.isEmpty else { return false }
+        presenter.userSelectedIdentitiyProviderInfo(url: URL)
+        return false
     }
 }

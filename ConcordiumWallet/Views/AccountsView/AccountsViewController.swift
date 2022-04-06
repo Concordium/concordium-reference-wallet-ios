@@ -17,7 +17,7 @@ class AccountsFactory {
         }
     }
 }
-// swiftlint:disable:next type_body_length
+
 class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail, ShowIdentityFailure {
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
@@ -28,8 +28,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     private var cancellables = Set<AnyCancellable>()
 
-    @IBOutlet weak var backupWarningMessageView: RoundedCornerView!
-    @IBOutlet weak var backupWarningMessageLabel: UILabel!
+    @IBOutlet weak var warningMessageView: RoundedCornerView!
+    @IBOutlet weak var warningMessageLabel: UILabel!
+    @IBOutlet weak var warningMessageImageView: UIImageView!
+    @IBOutlet weak var warningDismissButton: UIButton!
 
     @IBOutlet weak var newIdentityMessageLabel: UILabel!
     @IBOutlet weak var noAccountsMessageLabel: UILabel!
@@ -68,9 +70,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        backupWarningMessageLabel.text = "accounts.backupwarning.text".localized
-        backupWarningMessageView.applyConcordiumEdgeStyle()
-        backupWarningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didSelectMakeBackup)))
+        warningMessageView.applyConcordiumEdgeStyle()
+        warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -100,9 +101,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    @objc private func didSelectMakeBackup() {
+    @objc private func didPressWarning() {
         HapticFeedbackHelper.generate(feedback: .light)
-        presenter?.userSelectedMakeBackup()
+        presenter?.userPressedWarning()
     }
 
     @objc func appDidBecomeActive() {
@@ -152,41 +153,13 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                  }
              })
         cell?.cancellables.append(stateCancelable)
-        
-        let isExpandedCancelable = viewModel.expandedChanged.sink { (isExpanded) in
-            cell?.setExpanded(isExpanded)
-            if let snap = self.dataSource?.snapshot() {
-                DispatchQueue.main.async {
-                    self.dataSource?.apply(snap, animatingDifferences: true)
-                }
-            }
-        }
-        cell?.cancellables.append(isExpandedCancelable)
-        let showLock = (viewModel.shieldedLockStatus == .partiallyDecrypted || viewModel.shieldedLockStatus == .encrypted )
-        
-        cell?.setupStaticStrings(accountTotal: viewModel.totalName,
-                                 publicBalance: viewModel.generalName,
-                                 atDisposal: viewModel.atDisposalName,
-                                 staked: viewModel.stakedName,
-                                 shieldedBalance: viewModel.shieldedName)
-        cell?.setup(accountName: viewModel.name,
-                    accountOwner: viewModel.owner,
-                    isInitialAccount: viewModel.isInitialAccount,
-                    isBaking: viewModel.isBaking,
-                    isReadOnly: viewModel.isReadOnly,
-                    totalAmount: viewModel.totalAmount,
-                    showLock: showLock,
-                    publicBalanceAmount: viewModel.generalAmount,
-                    atDisposalAmount: viewModel.atDisposalAmount,
-                    stakedAmount: viewModel.stakedAmount,
-                    shieldedAmount: viewModel.shieldedAmount,
-                    isExpanded: viewModel.isExpanded,
-                    isExpandable: true)
+        cell?.setup(accountViewModel: viewModel)
         cell?.delegate = self
         cell?.cellRow = indexPath.section
         return cell
     }
-
+    
+    // swiftlint:disable:next function_body_length
     func bind(to viewModel: AccountsListViewModel) {
         viewModel.$viewState.sink {
             self.setupUI(state: $0)
@@ -210,7 +183,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         }.store(in: &cancellables)
         
         viewModel.$totalBalance
-                .map { $0.displayValue() }
+                .map { $0.displayValueWithGStroke() }
                 .assign(to: \.text, on: totalBalanceLabel)
                 .store(in: &cancellables)
         
@@ -230,14 +203,26 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             .store(in: &cancellables)
         
         viewModel.$totalBalanceLockStatus
-            .map { $0 == ShieldedAccountEncryptionStatus.decrypted ? nil : UIImage(named: "Icon_Lock_Negative")}
-            .sink { self.atDisposalLockImageView.image = $0}
+            .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
+            .assign(to: \.isHidden, on: atDisposalLockImageView)
             .store(in: &cancellables)
         
         viewModel.$totalBalanceLockStatus
             .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
         .assign(to: \.isHidden, on: lockView)
         .store(in: &cancellables)
+        
+        viewModel.$warning.sink { [weak self] warning in
+            guard let self = self else { return }
+            if let warning = warning {
+                self.warningMessageLabel.text = warning.text
+                self.warningMessageImageView.image = UIImage(named: warning.imageName)
+                self.warningDismissButton.isHidden = !warning.dismissable
+                self.showBackupWarningBanner(true)
+            } else {
+                self.showBackupWarningBanner(false)
+            }
+        }.store(in: &cancellables)
     }
     
     func showIdentityFailed(identityProviderName: String,
@@ -285,7 +270,11 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.userPressedCreate()
     }
 
-    func showBackupWarningBanner(_ show: Bool) {
+    @IBAction func dismissWarning(_ sender: Any) {
+        presenter?.userPressedDisimissWarning()
+    }
+    
+    private func showBackupWarningBanner(_ show: Bool) {
         let duration: TimeInterval = 0.25
 
         if show {
@@ -294,87 +283,26 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self?.balanceViewWarningTopConstraint.isActive = true
                 self?.view.layoutIfNeeded()
             }, completion: { [weak self] _ in
-                self?.backupWarningMessageView.isHidden = false
+                self?.warningMessageView.isHidden = false
             })
         } else {
             UIView.animate(withDuration: duration, animations: { [weak self] in
-                self?.backupWarningMessageView.isHidden = true
+                self?.warningMessageView.isHidden = true
                 self?.balanceViewTopConstraint.isActive = true
                 self?.balanceViewWarningTopConstraint.isActive = false
                 self?.view.layoutIfNeeded()
             })
         }
     }
-
-    func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification) {
-        let title: String
-        let message: String
-
-        switch notification {
-        case .singleAccount(let accountName):
-            title = "accountfinalized.single.alert.title".localized
-            message = String(format: "accountfinalized.single.alert.message".localized, accountName)
-        case .multiple:
-            title = "accountfinalized.multiple.alert.title".localized
-            message = "accountfinalized.multiple.alert.message".localized
-        }
-
-        let options = AlertOptions(
-            title: title,
-            message: message,
-            actions: [
-                AlertAction(
-                    name: "ok".localized,
-                    completion: { [weak self] in
-                        let options = AlertOptions(
-                            title: "accountfinalized.extrabackup.alert.title".localized,
-                            message: "accountfinalized.extrabackup.alert.message".localized,
-                            actions: [
-                                AlertAction(
-                                    name: "accountfinalized.extrabackup.alert.action.dismiss".localized,
-                                    completion: nil,
-                                    style: .destructive
-                                ),
-                                AlertAction(
-                                    name: "accountfinalized.alert.action.backup".localized,
-                                    completion: { [weak self] in
-                                        self?.presenter?.userSelectedMakeBackup()
-                                    },
-                                    style: .default
-                                )
-                            ]
-                        )
-
-                        self?.showAlert(with: options)
-                    },
-                    style: .default
-                ),
-                AlertAction(
-                    name: "accountfinalized.alert.action.backup".localized,
-                    completion: { [weak self] in
-                        self?.presenter?.userSelectedMakeBackup()
-                    },
-                    style: .default
-                )
-            ]
-        )
-
-        DispatchQueue.main.async { [weak self] in
-            self?.showAlert(with: options)
-        }
-    }
 }
 
 extension AccountsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.userSelected(accountIndex: indexPath.section, balanceIndex: indexPath.row)
-    }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 15
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .clear
         return view
@@ -382,12 +310,8 @@ extension AccountsViewController: UITableViewDelegate {
 }
 
 extension AccountsViewController: AccountCellDelegate {
-     func cellCheckTapped(cellRow: Int, index: Int) {
-        presenter?.userSelected(accountIndex: cellRow, balanceIndex: index)
-    }
-    
-    func tappedExpanded(cellRow: Int) {
-        presenter?.toggleExpand(accountIndex: cellRow)
+    func perform(onCellRow: Int, action: AccountCardAction) {
+        presenter?.userPerformed(action: action, on: onCellRow)
     }
 }
 

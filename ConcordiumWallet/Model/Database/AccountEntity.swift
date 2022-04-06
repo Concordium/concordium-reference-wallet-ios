@@ -42,6 +42,9 @@ protocol AccountDataType: DataStoreProtocol {
     var releaseSchedule: ReleaseScheduleDataType? { get set }
     var transferFilters: TransferFilter? { get set }
     
+    var showsShieldedBalance: Bool {get set}
+    var hasShieldedTransactions: Bool {get set}
+    
     func withUpdatedForecastBalance(_ forecastBalance: Int,
                                     forecastShieldedBalance: Int,
                                     forecastAtDisposalBalance: Int) -> AccountDataType
@@ -50,6 +53,7 @@ protocol AccountDataType: DataStoreProtocol {
                                      _ finalizedEncryptedBalance: Int,
                                      _ status: ShieldedAccountEncryptionStatus,
                                      _ encryptedBalance: EncryptedBalanceDataType,
+                                     hasShieldedTransactions: Bool,
                                      accountNonce: Int,
                                      bakerId: Int,
                                      staked: Int,
@@ -59,6 +63,7 @@ protocol AccountDataType: DataStoreProtocol {
     func withUpdatedStatus(status: SubmissionStatusEnum) -> AccountDataType
     func withTransferFilters(filters: TransferFilter) -> AccountDataType
     func withMarkAsReadOnly(_ isReadOnly: Bool) -> AccountDataType
+    func withShowShielded(_ showsShieled: Bool) -> AccountDataType
 }
 
 extension AccountDataType {
@@ -76,6 +81,7 @@ extension AccountDataType {
                                      _ finalizedEncryptedBalance: Int,
                                      _ status: ShieldedAccountEncryptionStatus,
                                      _ encryptedBalance: EncryptedBalanceDataType,
+                                     hasShieldedTransactions: Bool,
                                      accountNonce: Int, bakerId: Int, staked: Int,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
         _ = write {
@@ -88,6 +94,7 @@ extension AccountDataType {
             pAccount.bakerId = bakerId
             pAccount.stakedAmount = staked
             pAccount.releaseSchedule = releaseSchedule
+            pAccount.hasShieldedTransactions = hasShieldedTransactions
         }
         return self
     }
@@ -108,6 +115,13 @@ extension AccountDataType {
         }
         return self
     }
+    func withShowShielded(_ showsShieled: Bool) -> AccountDataType {
+        _ = write {
+            var pAccount = $0
+            pAccount.showsShieldedBalance = showsShieled
+        }
+        return self
+    }
 
     func withTransferFilters(filters: TransferFilter) -> AccountDataType {
         _ = write {
@@ -123,6 +137,15 @@ extension AccountDataType {
             pAccount.isReadOnly = isReadOnly
         }
         return self
+    }
+    
+    func canTransfer(amount: GTU, withTransferCost cost: GTU, onBalance balanceType: AccountBalanceTypeEnum) -> Bool {
+        if balanceType == .balance {
+            let balance = self.forecastAtDisposalBalance
+            return amount.intValue + cost.intValue <= balance
+        } else {
+            return amount.intValue <= self.forecastEncryptedBalance && cost.intValue <= self.forecastBalance
+        }
     }
 }
 
@@ -158,7 +181,9 @@ final class AccountEntity: Object {
     @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity?
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
-
+    @objc dynamic var showsShieldedBalance: Bool = false
+    @objc dynamic var hasShieldedTransactions: Bool = false
+    
     override class func primaryKey() -> String? {
         "address"
     }

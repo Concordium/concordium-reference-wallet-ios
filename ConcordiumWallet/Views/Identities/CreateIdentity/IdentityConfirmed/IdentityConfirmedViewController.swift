@@ -39,24 +39,8 @@ class IdentityConfirmedViewController: BaseViewController, IdentityConfirmedView
         self.subtitle.text = subtitle
         self.details.text = details
 
-        accountCardView.setupStaticStrings(accountTotal: accountViewModel.totalName,
-                                           publicBalance: accountViewModel.generalName,
-                                           atDisposal: accountViewModel.atDisposalName,
-                                           staked: accountViewModel.stakedName,
-                                           shieldedBalance: accountViewModel.shieldedName)
-        accountCardView.setup(accountName: accountViewModel.name,
-                              accountOwner: accountViewModel.owner,
-                              isInitialAccount: accountViewModel.isInitialAccount,
-                              isBaking: accountViewModel.isBaking,
-                              isReadOnly: accountViewModel.isReadOnly,
-                              totalAmount: accountViewModel.totalAmount,
-                              showLock: false,
-                              publicBalanceAmount: accountViewModel.generalAmount,
-                              atDisposalAmount: accountViewModel.atDisposalAmount,
-                              stakedAmount: accountViewModel.stakedAmount,
-                              shieldedAmount: accountViewModel.shieldedAmount,
-                              isExpanded: true,
-                              isExpandable: false)
+        accountCardView.setup(accountViewModel: accountViewModel)
+
         accountCardView.showStatusImage(nil)
         identityCardView.titleLabel?.text = identityViewModel.nickname
         identityCardView.iconImageView?.image = UIImage.decodeBase64(toImage: identityViewModel.encodedImage)

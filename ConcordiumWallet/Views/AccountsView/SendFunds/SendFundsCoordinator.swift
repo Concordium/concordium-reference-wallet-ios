@@ -81,8 +81,8 @@ class SendFundsCoordinator: Coordinator {
         showModally(vc, from: navigationController)
     }
 
-    func showScanAddressQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
+    func showScanAddressQR(delegate: ScanAddressQRPresenterDelegate) {
+        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: delegate))
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -151,9 +151,17 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType) {
         showSelectRecipient(balanceType: balanceType, currentAccount: currentAccount)
     }
+    
+    func sendFundPresenterShowScanQRCode(delegate: ScanAddressQRPresenterDelegate) {
+        showScanAddressQR(delegate: delegate)
+    }
 
     func sendFundPresenterClosed(_ presenter: SendFundPresenter) {
         self.parentCoordinator?.sendFundsCoordinatorFinished()
+    }
+    
+    func dismissQR() {
+        self.navigationController.popViewController(animated: true)
     }
 }
 
@@ -173,7 +181,7 @@ extension SendFundsCoordinator: SelectRecipientPresenterDelegate {
     }
 
     func selectRecipientDidSelectQR() {
-        showScanAddressQR()
+        showScanAddressQR(delegate: self)
     }
 }
 
@@ -183,7 +191,7 @@ extension SendFundsCoordinator: AddRecipientPresenterDelegate {
     }
 
     func addRecipientDidSelectQR() {
-        showScanAddressQR()
+        showScanAddressQR(delegate: self)
     }
 }
 

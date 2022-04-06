@@ -236,6 +236,11 @@ extension CreateIdentityCoordinator: CreateNicknamePresenterDelegate {
 }
 
 extension CreateIdentityCoordinator: IdentitiyProviderListPresenterDelegate {
+    func openIdentityProviderInfo(url: URL) {
+        let sfSafariViewController = SFSafariViewController(url: url)
+        navigationController.present(sfSafariViewController, animated: true)
+    }
+
     func closeIdentityProviderList() {
         cleanupIdentityCreations()
         parentCoordinator?.createNewIdentityCancelled()

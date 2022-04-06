@@ -12,7 +12,9 @@ extension UIColor {
     class var primary: UIColor {
         return UIColor(named: "primary") ?? UIColor.magenta
     }
-    
+    class var primarySelected: UIColor {
+        return UIColor(named: "primarySelected") ?? UIColor.magenta
+    }
     class var secondary: UIColor {
         return UIColor(named: "secondary") ?? UIColor.magenta
     }
@@ -31,6 +33,10 @@ extension UIColor {
     
     class var errorText: UIColor {
         return UIColor(named: "errorText") ?? UIColor.magenta
+    }
+
+    class var error: UIColor {
+        return UIColor(named: "error") ?? UIColor.magenta
     }
     
     class var whiteText: UIColor {
@@ -51,6 +57,10 @@ extension UIColor {
     
     class var inactiveButton: UIColor {
         return UIColor(named: "inactiveButton") ?? UIColor.magenta
+    }
+    
+    class var inactiveCard: UIColor {
+        return UIColor(named: "inactiveCard") ?? UIColor.magenta
     }
     
     class var separator: UIColor {

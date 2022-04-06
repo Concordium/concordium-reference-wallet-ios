@@ -25,7 +25,11 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
         didSet {
             let version = AppSettings.appVersion
             let buildNo = AppSettings.buildNumber
-            versionLabel.text = "\(version).\(buildNo)"
+#if MAINNET
+            versionLabel.text = "\(version)"
+#else
+            versionLabel.text = "\(version) (\(buildNo))"
+#endif
         }
     }
     

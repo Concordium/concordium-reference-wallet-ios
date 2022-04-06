@@ -40,6 +40,7 @@ class IdentityBaseInfoWidgetViewController: BaseViewController, IdentityBaseInfo
         identityCardView.iconImageView?.image = UIImage.decodeBase64(toImage: presenter.identityViewModel.encodedImage)
         identityCardView.expirationDateLabel?.text = presenter.identityViewModel.bottomLabel
         identityCardView.statusIcon.image = UIImage(named: presenter.identityViewModel.bottomIcon)
+        identityCardView.applyConcordiumEdgeStyle(color: presenter.identityViewModel.widgetColor)
 
     }
 }

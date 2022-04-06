@@ -9,29 +9,43 @@ class TransactionsListViewModel {
     @Published var transactions = [TransactionViewModel]()
 }
 
+enum AccountMenuState {
+    case open
+    case closed
+}
+
 class AccountDetailsViewModel {
-    @Published var selectedTab: AccountDetailTab = .transfers
-    @Published var accountState: SubmissionStatusEnum
     var name: String?
     var address: String?
-    @Published var balance: String
+    
+    @Published var selectedTab: AccountDetailTab = .transfers
+    @Published var selectedBalance: AccountBalanceTypeEnum = .balance
+    
+    @Published var accountState: SubmissionStatusEnum = .committed
+    @Published var balance: String = ""
     @Published var hasTransfers = true // assume transfers exists to avoid showing placeholders until we know about it
     @Published var transactionsList = TransactionsListViewModel()
     @Published var allAccountTransactionsList = TransactionsListViewModel()
     @Published var showUnlockButton = false
     @Published var isReadOnly = false
     @Published var isShielded = false
-    @Published var atDisposal: String
-    @Published var staked: String
+    @Published var atDisposal: String = ""
+    @Published var staked: String = ""
     @Published var bakerId: String?
     @Published var hasStaked: Bool = false
+    @Published var isShieldedEnabled: Bool = true
+    @Published var menuState: AccountMenuState = .closed
     
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
+        setAccount(account: account, balanceType: balanceType)
+    }
+    
+    func setAccount(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
         accountState = account.transactionStatus ?? .committed
-        name = account.name
+        name = account.displayName
         address = account.address
         isReadOnly = account.isReadOnly
-        
+        isShieldedEnabled = account.showsShieldedBalance
         if balanceType == .shielded {
             isShielded = true
             balance = GTU(intValue: account.forecastEncryptedBalance).displayValue()
@@ -45,38 +59,33 @@ class AccountDetailsViewModel {
         hasStaked = account.stakedAmount != 0
     }
 
-    func setAccount(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
-        accountState = account.transactionStatus ?? .committed
-        name = account.name
-        address = account.address
-        if balanceType == .shielded {
-            balance = GTU(intValue: account.forecastEncryptedBalance).displayValue()
-        } else {
-            balance = GTU(intValue: account.forecastBalance).displayValue()
-        }
-        atDisposal = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
-        staked = GTU(intValue: account.stakedAmount).displayValueWithGStroke()
-        hasStaked = account.stakedAmount != 0
+    func toggleMenu() {
+        menuState = menuState == .closed ? .open : .closed
     }
-
+    
     func setTransactions(transactions: [TransactionViewModel]) {
-        transactionsList.transactions = []
-        appendTransactions(transactions: transactions)
+        appendTransactions(transactions: transactions, shouldClearPrevious: true)
     }
     
     func setAllAccountTransactions(transactions: [TransactionViewModel]) {
-        allAccountTransactionsList.transactions = []
-        appendAllAccountTransactions(transactions: transactions)
+        appendAllAccountTransactions(transactions: transactions, shouldClearPrevious: true)
     }
 
-    func appendTransactions(transactions: [TransactionViewModel]) {
+    func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
+            if shouldClearPrevious {
+                transactionsList.transactions = transactions
+            } 
 //            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
 //            if transactionsList.transactions.count > 0 {
 //                transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
 //            }
         } else {
-            transactionsList.transactions.append(contentsOf: transactions)
+            if shouldClearPrevious {
+                transactionsList.transactions = transactions
+            } else {
+                transactionsList.transactions.append(contentsOf: transactions)
+            }
         }
         
         let containsLockedTransaction = transactionsList.transactions.contains {
@@ -85,14 +94,18 @@ class AccountDetailsViewModel {
         showUnlockButton = containsLockedTransaction
     }
     
-    func appendAllAccountTransactions(transactions: [TransactionViewModel]) {
+    func appendAllAccountTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
 //            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
 //            if allAccountTransactionsList.transactions.count > 0 {
 //                allAccountTransactionsList.transactions[allAccountTransactionsList.transactions.count - 1].isLast = true
 //            }
         } else {
-            allAccountTransactionsList.transactions.append(contentsOf: transactions)
+            if shouldClearPrevious {
+                allAccountTransactionsList.transactions = transactions
+            } else {
+                allAccountTransactionsList.transactions.append(contentsOf: transactions)
+            }
         }
     }
 }

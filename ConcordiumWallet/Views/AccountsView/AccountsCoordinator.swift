@@ -14,6 +14,7 @@ protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
     func createNewAccount()
     func noIdentitiesFound()
+    func showIdentities()
 }
 
 class AccountsCoordinator: Coordinator {
@@ -43,15 +44,13 @@ class AccountsCoordinator: Coordinator {
         navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
     }
     
-    func showAccountDetails(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
+    func show(account: AccountDataType, entryPoint: AccountDetailsFlowEntryPoint) {
         let accountDetailsCoordinator = AccountDetailsCoordinator(navigationController: navigationController,
                                                                   dependencyProvider: dependencyProvider,
                                                                   parentCoordinator: self,
-                                                                  account: account,
-                                                                  balanceType: balanceType)
-        
+                                                                  account: account)
         childCoordinators.append(accountDetailsCoordinator)
-        accountDetailsCoordinator.start()
+        accountDetailsCoordinator.start(entryPoint: entryPoint)
     }
     
     func showNewTerms() {
@@ -89,6 +88,10 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
         showExport()
     }
     
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+        delegate?.showIdentities()
+    }
+    
     func createNewAccount() {
         delegate?.createNewAccount()
     }
@@ -96,9 +99,22 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func createNewIdentity() {
         delegate?.createNewIdentity()
     }
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        let entryPoint: AccountDetailsFlowEntryPoint!
+        switch action {
+        case .tap, .more:
+            entryPoint = .details
+        case .send:
+            entryPoint = .send
+        case .receive:
+            entryPoint = .receive
+        }
+        show(account: account, entryPoint: entryPoint)
+    }
     
-    func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
-        showAccountDetails(account: account, balanceType: balanceType)
+    func enableShielded(on account: AccountDataType) {
+        let entryPoint = AccountDetailsFlowEntryPoint.enableShielded
+        show(account: account, entryPoint: entryPoint)
     }
     
     func noValidIdentitiesAvailable() {
@@ -129,7 +145,9 @@ extension AccountsCoordinator: CreateNewAccountDelegate {
 extension AccountsCoordinator: AccountDetailsDelegate {
     func accountDetailsClosed() {
         navigationController.dismiss(animated: true, completion: nil)
-        childCoordinators.removeAll(where: { $0 is AccountDetailsCoordinator })
+        if let lastOccurenceIndex = childCoordinators.lastIndex(where: { $0 is AccountDetailsCoordinator }) {
+            childCoordinators.remove(at: lastOccurenceIndex)
+        }
     }
     
     func retryCreateAccount(failedAccount: AccountDataType) {

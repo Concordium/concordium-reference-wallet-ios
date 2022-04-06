@@ -13,16 +13,9 @@ class AccountViewModel: Hashable {
     var address: String
     var name: String
     var totalName: String
-    var totalAmount: String
-    
-    var generalName: String
-    var generalAmount: String
-    
-    var shieldedName: String
-    var shieldedAmount: String
-    
+    var totalAmount: String //total amount = public + everything decrypted from shielded
+    var generalAmount: String //public balance
     var totalLockStatus: ShieldedAccountEncryptionStatus
-    var shieldedLockStatus: ShieldedAccountEncryptionStatus
     
     var owner: String?
     var isBaking: Bool = false
@@ -31,17 +24,18 @@ class AccountViewModel: Hashable {
     var atDisposalName: String
     var atDisposalAmount: String
     
-    var stakedName: String
-    var stakedAmount: String
-    
     var isReadOnly: Bool = false
+    #warning("RNI: For the purpose of March 2022 release isDelegating will not be implemented")
+    // TODO: is delegating will need to be retreived from the network and saved in the local DB
+    var isDelegating: Bool = false
     
-    @Published var isExpanded: Bool = false
-    @Published var state: SubmissionStatusEnum
+    var sendTitle: String
+    var receiveTitle: String
+    var moreTitle: String
     
+    var areActionsEnabled = true
     private var cancellables: [AnyCancellable] = []
-    
-    var expandedChanged = PassthroughSubject<Bool, Never>()
+    @Published var state: SubmissionStatusEnum
     
     var stateUpdater: AnyPublisher<SubmissionStatusEnum, Error>? {
         didSet {
@@ -53,44 +47,37 @@ class AccountViewModel: Hashable {
     }
     
     init(account: AccountDataType, createMode: Bool = false) {
+        sendTitle = "accounts.overview.send".localized.uppercased()
+        receiveTitle = "accounts.overview.receive".localized.uppercased()
+        moreTitle = "accounts.overview.more".localized.uppercased()
         address = account.address
-        //        self.balanceType = balanceType
-        
         name = account.displayName
         
         totalName = "account.accounttotal".localized
         totalAmount = GTU(intValue: account.totalForecastBalance).displayValueWithGStroke()
         state = account.transactionStatus ?? SubmissionStatusEnum.committed
-        
-        generalName = "accounts.balance".localized
         generalAmount = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
-        
-        shieldedName = "accounts.shieldedbalance".localized
-        shieldedAmount = GTU(intValue: account.forecastEncryptedBalance).displayValueWithGStroke()
-        shieldedLockStatus = account.encryptedBalanceStatus ?? .encrypted
-                
-        totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
+         
+        // TODO: this will need fixing in a future release. We currently don't show the lock
+        #warning("RNI: This has been intentionally set to decrypted for the purpose of March 2022 release")
+        totalLockStatus = .decrypted
+        //totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
         
         atDisposalName = "accounts.atdisposal".localized
-        stakedName = "accounts.staked".localized
         
         if !createMode {
-            if shieldedLockStatus == .encrypted {
-                shieldedAmount = ""
-            } else if shieldedLockStatus == .partiallyDecrypted {
-                shieldedAmount += " + "
-            }
+            areActionsEnabled = !account.isReadOnly //actions are enabled if the account is not readonly
             if totalLockStatus != .decrypted {
                 totalAmount += " + "
             }
         } else {
             state = SubmissionStatusEnum.finalized
+            areActionsEnabled = false
         }
         
         owner = account.identity?.nickname
         isInitialAccount = account.credential?.value.credential.type == "initial"
         isBaking = account.bakerId > 0
-        stakedAmount = GTU(intValue: account.stakedAmount).displayValueWithGStroke()
         atDisposalAmount = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
         isReadOnly = account.isReadOnly
     }
@@ -124,15 +111,18 @@ class AccountsListViewModel {
     @Published var totalBalanceLockStatus: ShieldedAccountEncryptionStatus  = .decrypted
     @Published var atDisposal = GTU(intValue: 0)
     @Published var staked = GTU(intValue: 0)
+    @Published var warning: WarningViewModel?
 }
 
 protocol AccountsPresenterDelegate: AnyObject {
     func createNewAccount()
     func createNewIdentity()
-    func userSelected(account: AccountDataType, balanceType: AccountBalanceTypeEnum)
+    func userPerformed(action: AccountCardAction, on account: AccountDataType)
+    func enableShielded(on account: AccountDataType)
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func didSelectMakeBackup()
+    func didSelectPendingIdentity(identity: IdentityDataType)
     func newTermsAvailable()
 }
 
@@ -143,8 +133,6 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
                             identityProviderSupport: String,
                             reference: String,
                             completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
-    func showAccountFinalizedNotification(_ notification: FinalizedAccountsNotification)
-    func showBackupWarningBanner(_ show: Bool)
     var isOnScreen: Bool { get }
 }
 
@@ -157,16 +145,18 @@ protocol AccountsPresenterProtocol: AnyObject {
     func refresh()
     
     func userPressedCreate()
-    func userSelected(accountIndex: Int, balanceIndex: Int)
-    func toggleExpand(accountIndex: Int)
+    func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
+    func userPressedWarning()
+    func userPressedDisimissWarning()
 }
 
 class AccountsPresenter: AccountsPresenterProtocol {
     weak var view: AccountsViewProtocol?
     weak var delegate: AccountsPresenterDelegate?
     private var cancellables: [AnyCancellable] = []
-
+    var warningDisplayer: WarningDisplayer
+    var alertDisplayer = AlertDisplayer()
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
     var accounts: [AccountDataType] = [] {
@@ -190,6 +180,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     init(dependencyProvider: AccountsFlowCoordinatorDependencyProvider, delegate: AccountsPresenterDelegate) {
         self.dependencyProvider = dependencyProvider
         self.delegate = delegate
+        self.warningDisplayer = WarningDisplayer()
+        self.warningDisplayer.delegate = self
+        self.warningDisplayer.$shownWarningDisplay.sink { [weak self] warningVM in
+            self?.viewModel.warning = warningVM
+        }.store(in: &cancellables)
+        self.alertDisplayer.delegate = self
     }
     
     func viewDidLoad() {
@@ -213,6 +209,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func refresh(showLoadingIndicator: Bool) {
         accounts = dependencyProvider.storageManager().getAccounts()
+        self.updatePendingIdentitiesWarnings()
         var publisher = dependencyProvider.accountsService().updateAccountsBalances(accounts: accounts).eraseToAnyPublisher()
         if showLoadingIndicator {
             publisher = publisher
@@ -232,15 +229,31 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.identifyPendingAccounts(updatedAccounts: updatedAccounts)
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
-                let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance + $1.forecastEncryptedBalance })
-                let atDisposal = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance + $1.forecastEncryptedBalance })
+                let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
+                let atDisposal = updatedAccounts.filter{!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
                 let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.stakedAmount })
-                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
-                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
+                
+//                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
+//                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
+                //we add to the alert list all the non read-only accounts that have something in the shielded balance, but do not show a shielded balance 
+                let accountsWithPendingShieldedTransactions = updatedAccounts.filter { account in
+                    (account.hasShieldedTransactions && !account.showsShieldedBalance && !account.isReadOnly)
+                }
+                for account in accountsWithPendingShieldedTransactions {
+                    //we add the alert in the queue (the queue knows whether it needs to show it and when)
+                    self.alertDisplayer.enqueueAlert(.shieldedTransfer(account: account, actionCompletion: { [weak self] in
+                        self?.delegate?.enableShielded(on: account)
+                    }, dismissCompletion: {}))
+                }
+                
+                #warning("RNI: Intentionally set to decrypted for MArch release")
+                // TODO: readd the lock after March release
+                self.viewModel.totalBalanceLockStatus = .decrypted
                 self.viewModel.totalBalance = GTU(intValue: totalBalance)
                 self.viewModel.atDisposal = GTU(intValue: atDisposal)
                 self.viewModel.staked = GTU(intValue: staked)
                 self.checkForIdentityFailed()
+                self.updatePendingIdentitiesWarnings()
             }).store(in: &cancellables)
     }
     
@@ -290,14 +303,27 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if finalizedAccounts.count > 1 {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            view?.showAccountFinalizedNotification(.multiple)
+            displayBackupAlert(notification: .multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            view?.showAccountFinalizedNotification(.singleAccount(accountName: account.name ?? ""))
+            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
+    }
+    
+    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
+        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
+            self?.delegate?.didSelectMakeBackup()
+        }, dismissCompletion: { [weak self] in
+            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
+                self?.delegate?.didSelectMakeBackup()
+            }, dismissCompletion: {
+            })
+            self?.alertDisplayer.enqueueAlert(extraAlert)
+        })
+        self.alertDisplayer.enqueueAlert(alert)
     }
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
@@ -326,7 +352,19 @@ class AccountsPresenter: AccountsPresenterProtocol {
     private func checkForBackup() {
         let finalizedAccounts = dependencyProvider.storageManager().getAccounts().filter { $0.transactionStatus == .finalized }
         let showWarning = finalizedAccounts.isEmpty ? false : AppSettings.needsBackupWarning
-        view?.showBackupWarningBanner(showWarning)
+        warningDisplayer.clearBackupWarnings()
+        if showWarning {
+            warningDisplayer.addWarning(Warning.backup)
+        }
+    }
+    
+    private func updatePendingIdentitiesWarnings() {
+        let identities = dependencyProvider.storageManager().getIdentities()
+        let pendingIdentities = identities.filter { $0.state == .pending }
+        warningDisplayer.clearIdentityWarnings()
+        for identity in pendingIdentities {
+            warningDisplayer.addWarning(Warning.identityPending(identity: identity))
+        }
     }
     
     private func checkForIdentityFailed() {
@@ -358,7 +396,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
             }
         }
     }
-    
     
     func createAccountViewModelWithUpdatedStatus(accounts: [AccountDataType]) -> [AccountViewModel] {
         accounts.map { account in
@@ -392,23 +429,38 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }
     }
     
-    func userSelected(accountIndex: Int, balanceIndex: Int) {
-        if balanceIndex == 1 {
-            delegate?.userSelected(account: accounts[accountIndex], balanceType: .balance)
-        } else if balanceIndex == 2 {
-            delegate?.userSelected(account: accounts[accountIndex], balanceType: .shielded)
-        }
-    }
-    
-    func toggleExpand(accountIndex: Int) {
-        let account = accounts[accountIndex]
-        if let accountVM = self.viewModel.accounts.first(where: {$0.address == account.address}) {
-            accountVM.isExpanded = !accountVM.isExpanded
-            accountVM.expandedChanged.send(accountVM.isExpanded)
-        }
+    func userPerformed(action: AccountCardAction, on accountIndex: Int) {
+        delegate?.userPerformed(action: action, on: accounts[accountIndex])
     }
     
     func userSelectedMakeBackup() {
         delegate?.didSelectMakeBackup()
+    }
+    
+    func userPressedWarning() {
+        warningDisplayer.pressedWarning()
+    }
+    
+    func userPressedDisimissWarning() {
+        warningDisplayer.dismissedWarning()
+    }
+}
+
+extension AccountsPresenter: WarningDisplayerDelegate {
+    func performAction(for warning: Warning) {
+        switch warning {
+        case .backup:
+            delegate?.didSelectMakeBackup()
+        case .identityPending(let identity):
+            delegate?.didSelectPendingIdentity(identity: identity)
+        }
+    }
+}
+
+extension AccountsPresenter: AlertDisplayerDelegate {
+    func showAlert(options: AlertOptions) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.showAlert(with: options)
+        }
     }
 }

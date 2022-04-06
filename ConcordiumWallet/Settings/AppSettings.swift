@@ -22,6 +22,8 @@ enum UserDefaultKeys: String {
     case needsBackupWarning
     case lastKnownAppVersion
     case hasRunBefore
+    case dismissedWarningIds
+    case dismissedAlertIds
 }
 
 struct AppSettings {
@@ -121,5 +123,23 @@ struct AppSettings {
     
     static var buildNumber: String {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+    }
+    
+    static var dismissedWarningIds: [String] {
+        get {
+            UserDefaults.standard.array(forKey: UserDefaultKeys.dismissedWarningIds.rawValue) as? [String] ?? []
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.dismissedWarningIds.rawValue)
+        }
+    }
+    
+    static var dismissedAlertIds: [String] {
+        get {
+            UserDefaults.standard.array(forKey: UserDefaultKeys.dismissedAlertIds.rawValue) as? [String] ?? []
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.dismissedAlertIds.rawValue)
+        }
     }
 }

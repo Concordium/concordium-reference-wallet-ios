@@ -10,6 +10,7 @@ import UIKit
 
 // For future use, other cell types will be added
 enum MenuCell: Hashable {
+    case identities(title: String)
     case addressBook(title: String)
     case import_(title: String)
     case export(title: String)
@@ -69,6 +70,8 @@ extension MoreMenuViewController: UITableViewDelegate {
         }
         let menuCell = moreMenuDataSource.snapshot().itemIdentifiers[indexPath.row]
         switch menuCell {
+        case .identities:
+            presenter.userSelectedIdentities()
         case .addressBook:
             presenter.userSelectedAddressBook()
         case .import_:
@@ -89,9 +92,10 @@ extension MoreMenuViewController {
     private func setupUI() {
         var snapshot = NSDiffableDataSourceSnapshot<SingleSection, MenuCell>()
         snapshot.appendSections([.main])
+        snapshot.appendItems([.identities(title: "more.identities".localized)])
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
-        snapshot.appendItems([.import_(title: "more.import".localized)])
         snapshot.appendItems([.export(title: "more.export".localized)])
+        snapshot.appendItems([.import_(title: "more.import".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
         snapshot.appendItems([.validate(title: "more.validateIdsAndAccounts".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
@@ -103,12 +107,14 @@ extension MoreMenuViewController {
 
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: MenuCell) -> UITableViewCell? {
         switch viewModel {
-        case .addressBook(let title),
-             .import_(let title),
-             .export(let title),
-             .update(let title),
-             .validate(let title),
-             .about(let title):
+        case
+                .identities(let title),
+                .addressBook(let title),
+                .import_(let title),
+                .export(let title),
+                .update(let title),
+                .validate(let title),
+                .about(let title):
             // swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemCellView", for: indexPath) as! MenuItemCellView
             cell.menuItemTitleLabel?.text = title

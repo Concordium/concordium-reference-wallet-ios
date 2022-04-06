@@ -9,7 +9,7 @@ import Combine
 class TransactionsLoadingHandler {
     let storageManager: StorageManagerProtocol
     let account: AccountDataType
-    let balanceType: AccountBalanceTypeEnum
+    var balanceType: AccountBalanceTypeEnum
     let transactionsService: TransactionsServiceProtocol
 
     private var localTransactionsNotShownYet: [TransactionViewModel] = []
@@ -23,6 +23,10 @@ class TransactionsLoadingHandler {
         self.balanceType = balanceType
     }
 
+    func updateBalanceType(_ balanceType: AccountBalanceTypeEnum) {
+        self.balanceType = balanceType
+    }
+    
     private func recipientListLookup(accountAddress: String?) -> String? {
         guard let accountAddress = accountAddress else { return nil }
         return storageManager.getRecipient(withAddress: accountAddress)?.name
@@ -45,11 +49,15 @@ class TransactionsLoadingHandler {
         let matchingTransaction = self.undecryptedTransactions.filter { $0.transactionHash == withTransactionHash }
         return transactionsService.decryptEncryptedTransferAmounts(transactions: matchingTransaction,
                                                                    from: account,
-                                                                   requestPasswordDelegate: requestPasswordDelegate)
+                                                                   requestPasswordDelegate: requestPasswordDelegate).map { [weak self] result in
+            self?.undecryptedTransactions = []
+            return result
+        }.eraseToAnyPublisher()
     }
 
     func getTransactions(startingFrom: TransactionViewModel? = nil) -> AnyPublisher<([TransactionViewModel], [TransactionViewModel]), Error> {
         if startingFrom == nil {
+            undecryptedTransactions = []
             loadLocalTransfers()
         }
         return transactionsService.getTransactions(for: account, startingFrom: startingFrom?.source as? Transaction)
@@ -129,11 +137,12 @@ class TransactionsLoadingHandler {
             let association: [(Transaction, String?, Int?)] = filteredRawTransactions.map { (transaction) -> (Transaction, String?, Int?) in
                 (transaction, transaction.encrypted?.encryptedAmount, self.encryptedAmopuntLookup(encryptedAmount: transaction.encrypted?.encryptedAmount))
             }
-            undecryptedTransactions = association.filter { (_, encrypted, value) -> Bool in
+            let newUndecrypted = association.filter { (_, encrypted, value) -> Bool in
                 value == nil && encrypted != nil
             }.map { (transaction, _, _) -> Transaction in
                 return transaction
             }
+            undecryptedTransactions = undecryptedTransactions + newUndecrypted
         }
         
         let remoteTransactionsVM: [TransactionViewModel] = filteredRawTransactions.map {

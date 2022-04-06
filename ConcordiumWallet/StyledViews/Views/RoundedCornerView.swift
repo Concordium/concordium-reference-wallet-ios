@@ -12,9 +12,21 @@ import UIKit
 
 @IBDesignable
 class RoundedCornerView: BaseView {
-
+    
     override func initialize() {
         super.initialize()
-        layer.cornerRadius = 4
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
     }
+    
+    func disable() {
+        isUserInteractionEnabled = false
+        alpha = 0.4
+    }
+    
+    func enable() {
+        isUserInteractionEnabled = true
+        alpha = 1
+    }
+    
 }

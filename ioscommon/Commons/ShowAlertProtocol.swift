@@ -133,7 +133,6 @@ extension ShowAlert where Self: Coordinator {
         navigationController.present(alert, animated: true)
     }
     
-    
     func showAlert(with options: AlertOptions) {
         let alert = UIAlertController(
             title: options.title,

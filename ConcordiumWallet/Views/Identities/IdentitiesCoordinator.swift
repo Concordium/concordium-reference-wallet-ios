@@ -11,6 +11,7 @@ import UIKit
 
 protocol IdentitiesCoordinatorDelegate: AnyObject {
     func noIdentitiesFound()
+    func finishedDisplayingIdentities()
 }
 
 class IdentitiesCoordinator: Coordinator {
@@ -32,11 +33,11 @@ class IdentitiesCoordinator: Coordinator {
         showInitial()
     }
 
-    func showInitial() {
+    func showInitial(animated: Bool = false) {
         let identitiesPresenter = IdentitiesPresenter(dependencyProvider: dependencyProvider, delegate: self)
         let vc = IdentitiesFactory.create(with: identitiesPresenter, flow: .show)
         vc.tabBarItem = UITabBarItem(title: "identities_tab_title".localized, image: UIImage(named: "tab_bar_identities_icon"), tag: 0)
-        navigationController.pushViewController(vc, animated: false)
+        navigationController.pushViewController(vc, animated: animated)
     }
 
     func showIdentity(identity: IdentityDataType) {
@@ -130,6 +131,10 @@ extension IdentitiesCoordinator: IdentitiesPresenterDelegate {
     
     func tryAgainIdentity() {
         showCreateNewIdentity()
+    }
+    
+    func finishedPresentingIdentities() {
+        self.delegate?.finishedDisplayingIdentities()
     }
 }
 

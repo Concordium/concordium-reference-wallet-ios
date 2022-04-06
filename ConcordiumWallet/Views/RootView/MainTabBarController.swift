@@ -11,13 +11,24 @@ import UIKit
 class MainTabBarController: BaseTabBarController {
 
     let accountsCoordinator: AccountsCoordinator
-    let identitiesCoordinator: IdentitiesCoordinator
     let moreCoordinator: MoreCoordinator
 
-    init(accountsCoordinator: AccountsCoordinator, identitiesCoordinator: IdentitiesCoordinator,
+    // Override selectedViewController for User initiated changes
+    override var selectedViewController: UIViewController? {
+        didSet {
+            //if the selectedViewController is not a navigationController, it means it is the export tab
+            //switch to the morecoordinator and display the export screen
+            if !(selectedViewController is UINavigationController) {
+                selectedViewController = moreCoordinator.navigationController
+                moreCoordinator.showExport()
+            }
+        }
+    }
+    
+    init(accountsCoordinator: AccountsCoordinator,
          moreCoordinator: MoreCoordinator) {
         self.accountsCoordinator = accountsCoordinator
-        self.identitiesCoordinator = identitiesCoordinator
+  
         self.moreCoordinator = moreCoordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,30 +42,39 @@ class MainTabBarController: BaseTabBarController {
 
         accountsCoordinator.delegate = self
         accountsCoordinator.start()
-        identitiesCoordinator.start()
+       
+        let exportVC = UIViewController() //this will never be shown - we just use it to have a tab
+        exportVC.tabBarItem = UITabBarItem(title: "backup_tab_title".localized, image: UIImage(named: "tab_bar_backup_icon"), tag: 0)
         moreCoordinator.start()
-        viewControllers = [accountsCoordinator.navigationController, identitiesCoordinator.navigationController, moreCoordinator.navigationController]
+        viewControllers = [exportVC, accountsCoordinator.navigationController, moreCoordinator.navigationController]
+        selectedViewController = accountsCoordinator.navigationController
     }
 }
 
 extension MainTabBarController: AccountsCoordinatorDelegate {
+    func showIdentities() {
+        selectedViewController = moreCoordinator.navigationController
+        moreCoordinator.navigationController.popToRootViewController(animated: false)
+        moreCoordinator.showIdentities()
+    }
+    
     func createNewAccount() {
         selectedViewController = accountsCoordinator.navigationController
         accountsCoordinator.showCreateNewAccount()
     }
 
     func createNewIdentity() {
-        selectedViewController = identitiesCoordinator.navigationController
-        identitiesCoordinator.showCreateNewIdentity()
+//        selectedViewController = identitiesCoordinator.navigationController
+//        identitiesCoordinator.showCreateNewIdentity()
     }
     
     func noIdentitiesFound() {
-        identitiesCoordinator.delegate?.noIdentitiesFound()
+        moreCoordinator.delegate?.noIdentitiesFound()
     }
     
     func showCreateNewIdentity() {
-        selectedViewController = identitiesCoordinator.navigationController
-        identitiesCoordinator.showCreateNewIdentity()
+        selectedViewController = moreCoordinator.navigationController
+        moreCoordinator.showCreateNewIdentity()
     }
 }
 

@@ -18,7 +18,8 @@ struct IdentityDetailsInfoViewModel {
     var bottomLabel: String
     var encodedImage: String
     var bottomIconTintColor: UIColor?
-    
+    var widgetColor: UIColor
+
     var data: [ChosenAttributeFormattedTuple]
 
     init(identity: IdentityDataType) {
@@ -31,13 +32,18 @@ struct IdentityDetailsInfoViewModel {
             bottomLabel = "Expires on " + GeneralFormatter.formatISO8601Date(date: identity.identityObject?.attributeList.validTo ?? "")
             bottomIcon = "ok_icon"
             bottomIconTintColor = .text
+            widgetColor = .primary
         case .pending:
             bottomLabel = "" // "identityStatus.pending".localized
             bottomIcon = "pending"
             bottomIconTintColor = .primary
+            widgetColor = .fadedText
+
         case .failed:
             bottomLabel = "identityDetails.identityStatus.failed".localized
             bottomIcon = "problem_icon"
+            widgetColor = .error
+
         }
         encodedImage = identity.identityProvider?.icon ?? ""
         data =
