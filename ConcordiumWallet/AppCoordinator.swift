@@ -66,7 +66,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
-            //reload accounts tab
+            // reload accounts tab
             accountsCoordinator.start()
         })
     }

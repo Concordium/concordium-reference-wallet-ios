@@ -38,7 +38,7 @@ class ContactSupportButtonWidgetPresenter: ContactSupportButtonWidgetPresenterPr
     
     func contactSupportButtonTapped() {
         guard let reference = identity.hashedIpStatusUrl else { return }
-        //if no ip support email is present, we use Concordium's
+        // if no ip support email is present, we use Concordium's
         let supportEmail = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
         view?.launchSupport(to: supportEmail, with: reference)
         delegate?.contactSupportButtonWidgetDidContactSupport()

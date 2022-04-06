@@ -398,8 +398,8 @@ extension AccountDetailsPresenter: BurgerMenuAccountDetailsDismissDelegate {
     func bugerMenuDismissedWithAction(_action action: BurgerMenuAccountDetailsAction) {
         self.viewModel.menuState = .closed
         if case let BurgerMenuAccountDetailsAction.shieldedBalance(_, shouldShow, _ ) = action {
-            //we only take action here for hiding the shielded balance.
-            //The showing will be done after the carousel is being presented
+            // we only take action here for hiding the shielded balance.
+            // The showing will be done after the carousel is being presented
             if !shouldShow {
                 showShieldedBalance(shouldShow: false)
             }

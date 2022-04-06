@@ -73,7 +73,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
                 let identityProviderName = identity.identityProviderName ?? ""
-                //if no ip support email is present, we use Concordium's
+                // if no ip support email is present, we use Concordium's
                 let identityProviderSupport = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
                                          identityProviderSupportEmail: identityProviderSupport,
@@ -82,7 +82,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                     case .tryAgain:
                         self?.delegate?.tryAgainIdentity()
                     case .support, .copy, .cancel:
-                        //no need to refresh because the identities are not updated
+                        // no need to refresh because the identities are not updated
                         break
                     }
                 }

@@ -12,7 +12,6 @@ protocol BurgerMenuOptionCellDelegate: AnyObject {
     func selectedCellAt(row: Int)
 }
 
-
 class BurgerMenuOptionCell: UITableViewCell {
 
     private var cellRow: Int = 0
@@ -30,7 +29,6 @@ class BurgerMenuOptionCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
     
     func setup(cellRow: Int, title: String, delegate: BurgerMenuOptionCellDelegate) {
         self.cellRow = cellRow

@@ -49,7 +49,7 @@ extension Publisher {
 
     static func just(_ output: Output) -> AnyPublisher<Output, Failure> {
         return Just(output)
-                .catch { _ in AnyPublisher<Output, Failure>.empty() }
+            	.setFailureType(to: Failure.self)
                 .eraseToAnyPublisher()
     }
 

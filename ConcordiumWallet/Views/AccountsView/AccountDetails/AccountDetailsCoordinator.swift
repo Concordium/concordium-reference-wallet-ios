@@ -303,7 +303,7 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
             showTransferFilters(account: account)
         case .shieldedBalance(_, let shouldShow, let showShieldedDelegate):
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            //we only go to the onboarding flow if we should show the shielded balance
+            // we only go to the onboarding flow if we should show the shielded balance
             if shouldShow {
                 showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
             }

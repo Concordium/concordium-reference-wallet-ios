@@ -8,17 +8,14 @@
 
 import Foundation
 
-
 // MARK: Delegate
 protocol BurgerMenuAccountDetailsPresenterDelegate: AnyObject {
     func pressedOption(action: BurgerMenuAccountDetailsAction, account: AccountDataType)
 }
 
-
 protocol BurgerMenuAccountDetailsDismissDelegate: AnyObject {
     func bugerMenuDismissedWithAction(_action: BurgerMenuAccountDetailsAction)
 }
-
 
 enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
@@ -42,7 +39,7 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
         case .decrypt:
             return "burgermenu.decrypt".localized
         case .dismiss:
-            return "" //this will not be shown in the ui
+            return "" // this will not be shown in the ui
         }
     }
 }
@@ -96,7 +93,6 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
         viewModel.setup(actions: actions)
         view?.bind(to: viewModel)
         
-        
     }
     
     func selectedAction(at index: Int) {
@@ -107,7 +103,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     func selectedAction(_ action: BurgerMenuAccountDetailsAction) {
         let account: AccountDataType!
         if case .shieldedBalance = action, self.account.showsShieldedBalance {
-            //if we are hiding it, we hide it here directly
+            // if we are hiding it, we hide it here directly
             account = self.account.withShowShielded(!self.account.showsShieldedBalance)
         } else {
             account = self.account

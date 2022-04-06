@@ -20,7 +20,15 @@ class IdentityGeneralViewModel: Hashable {
     var privacyPolicyURL: String
     var url: String?
 
-    init(id: Int, identityName: String, iconEncoded: String, privacyPolicyURL: String?, nickname: String? = nil, expiresOn: String? = nil, url: String?) {
+    init(
+        id: Int,
+        identityName: String,
+        iconEncoded: String,
+        privacyPolicyURL: String?,
+        nickname: String? = nil,
+        expiresOn: String? = nil,
+        url: String?
+    ) {
         self.id = id
         self.identityName = identityName
         self.nickname = nickname ?? ""
