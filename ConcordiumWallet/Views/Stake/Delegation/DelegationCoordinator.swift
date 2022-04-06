@@ -71,7 +71,6 @@ class DelegationCoordinator: Coordinator {
     
     func stopDelegation(cost: GTU, energy: Int) {
         self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: true)
-        // TODO: show carousel and then ask for confirmation
         showRequestConfirmation(cost: cost, energy: energy)
     }
       
@@ -131,11 +130,7 @@ extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
             !($0 is StakeAmountInputViewController || $0 is DelegationPoolSelectionViewController)
         }
     }
-    
-    // TODO: readd cleanup
-    //    func finishedDelegation() {
-    //        self.delegate?.finished()
-    //    }
+
     func finishedAmountInput(cost: GTU, energy: Int) {
         self.showRequestConfirmation(cost: cost, energy: energy)
     }

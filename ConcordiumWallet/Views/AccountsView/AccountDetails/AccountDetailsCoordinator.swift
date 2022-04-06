@@ -153,7 +153,6 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
                                                           parentCoordinator: self)
         coordinator.start()
         childCoordinators.append(coordinator)
-        // TODO: remove from childcoordinators when presenter is deallocated
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
     }
 
