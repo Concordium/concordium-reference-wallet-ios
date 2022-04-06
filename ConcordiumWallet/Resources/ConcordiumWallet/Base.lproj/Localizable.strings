@@ -577,8 +577,19 @@ developer.concordium.software";
 "delegation.receiptlowering.title" = "Notice";
 "delegation.receiptlowering.message" = "Your decrease to the delegation amount will take effect after a cool down of approximately %@.
 
+
 All other updates will take effect at the next pay day. ";
 "delegation.receiptlowering.ok" = "Okay";
+
+"delegation.receiptnextpayday.title" = "Notice";
+"delegation.receiptnextpayday.message" = "Once your transaction has succesfully finalized, the delegation will take effect from the next pay day.";
+"delegation.receiptnextpayday.ok" = "Okay";
+
+"delegation.receiptremove.title" = "Notice";
+"delegation.receiptremove.message" = "Once your transaction has finalized, the delegation will be stopped after a cool down of %@.";
+"delegation.receiptremove.ok" = "Okay";
+
+
 
 "delegation.loweringamountwarning.title" = "Important";
 "delegation.loweringamountwarning.message" = "Reducing the delegation amount will lock the total delegation amount for a cool down period. No changes can be made to the amount during this period, and the withdrawal will not take effect before the cool down is over.";
