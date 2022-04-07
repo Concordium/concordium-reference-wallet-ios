@@ -435,6 +435,9 @@ process on-chain.";
 "identityfailed.copyreference" = "Copy reference";
 "identityfailed.contactsupport" = "Contact Support";
 
+"identityCreation.hasPending" = "Identity issuance pending";
+"identityCreation.hasPending.message" = "Please wait for the pending issuance to complete before creating another";
+
 "releaseschedule.title" = "Release Schedule";
 "releaseschedule.dateandtime" = "Release date and time";
 "releaseschedule.amount" = "Amount";
