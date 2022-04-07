@@ -94,8 +94,8 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
     override func createIdentitySelected() {
         guard !identities.contains(where: { $0.state == .pending }) else {
             view?.showAlert(with: AlertOptions(
-                title: "identityCreation.hasPending".localized, 
-                message: "identityCreation.hasPending.message".localized,
+                title: nil,
+                message: "identityCreation.hasPending".localized,
                 actions: [
                     AlertAction(name: "OK".localized, completion: nil, style: .default)
                 ]
