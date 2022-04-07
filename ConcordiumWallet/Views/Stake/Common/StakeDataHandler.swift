@@ -370,10 +370,10 @@ class StakeDataHandler {
                 switch poolData.pool {
                 case .lpool:
                     // TODO: update to L-Pool after lib update
-                    transfer.delegationType = "delegateToLPool"
+                    transfer.delegationType = "L-Pool"
                 case .bakerPool(let bakerId):
                     // TODO: update to Baker after lib update
-                    transfer.delegationType = "delegateToBaker"
+                    transfer.delegationType = "Baker"
                     transfer.delegationTargetBaker = bakerId
                 }
             case let openStatusData as BakerPoolSettingsData:
@@ -389,6 +389,9 @@ class StakeDataHandler {
             default:
                break
             }
+        }
+        if transfer.transferType == .removeDelegation || transfer.transferType == .removeBaker {
+            transfer.capital = "0"
         }
         return transfer
     }

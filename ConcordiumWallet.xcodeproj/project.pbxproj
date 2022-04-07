@@ -1563,10 +1563,6 @@
 		901F7F3127EB023100C46741 /* AccountDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2E27EB023100C46741 /* AccountDelegation.swift */; };
 		901F7F3227EB023100C46741 /* AccountDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2E27EB023100C46741 /* AccountDelegation.swift */; };
 		901F7F3327EB023100C46741 /* AccountDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2E27EB023100C46741 /* AccountDelegation.swift */; };
-		901F7F3427EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */; };
-		901F7F3527EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */; };
-		901F7F3627EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */; };
-		901F7F3727EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */; };
 		901F7F3927EB07AE00C46741 /* BakerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F3827EB07AE00C46741 /* BakerEntity.swift */; };
 		901F7F3A27EB07AE00C46741 /* BakerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F3827EB07AE00C46741 /* BakerEntity.swift */; };
 		901F7F3B27EB07AE00C46741 /* BakerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F3827EB07AE00C46741 /* BakerEntity.swift */; };
@@ -2254,7 +2250,6 @@
 		901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.2.2.RX_backend_pool_parameters.json; sourceTree = "<group>"; };
 		901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.1.2.RX_backend_baker_pool.json; sourceTree = "<group>"; };
 		901F7F2E27EB023100C46741 /* AccountDelegation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDelegation.swift; sourceTree = "<group>"; };
-		901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferRequestDelegationTarget.swift; sourceTree = "<group>"; };
 		901F7F3827EB07AE00C46741 /* BakerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerEntity.swift; sourceTree = "<group>"; };
 		901F7F3D27EB07B800C46741 /* DelegationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationEntity.swift; sourceTree = "<group>"; };
 		901F7F4227EB4D0700C46741 /* DelegationDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationDataHandler.swift; sourceTree = "<group>"; };
@@ -2756,7 +2751,6 @@
 				901F7F8C27F33C8800C46741 /* RewardParameters.swift */,
 				901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */,
 				901F7F2E27EB023100C46741 /* AccountDelegation.swift */,
-				901F7F2F27EB023100C46741 /* TransferRequestDelegationTarget.swift */,
 				901F7F1527EA0F1A00C46741 /* CommissionRange.swift */,
 				901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */,
 				901F7EFE27EA0D5C00C46741 /* BakerPoolResponse.swift */,
@@ -2967,16 +2961,6 @@
 			path = InitialAccount;
 			sourceTree = "<group>";
 		};
-
-		52DCAA0927CDFDF900CDF85E /* AccountDetailsBurgerMenu */ = {
-			isa = PBXGroup;
-			children = (
-				52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */,
-			);
-			path = AccountDetailsBurgerMenu;
-	sourceTree = "<group>";
-		};
-
 		52A0A0B927D0B376001C162D /* Stake */ = {
 			isa = PBXGroup;
 			children = (
@@ -2999,6 +2983,14 @@
 				90434C8627FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift */,
 			);
 			path = Delegation;
+			sourceTree = "<group>";
+		};
+		52DCAA0927CDFDF900CDF85E /* AccountDetailsBurgerMenu */ = {
+			isa = PBXGroup;
+			children = (
+				52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */,
+			);
+			path = AccountDetailsBurgerMenu;
 			sourceTree = "<group>";
 		};
 		642ED92325E8DF0600A09BB3 /* TransferFilters */ = {
@@ -4773,7 +4765,6 @@
 				529531B6256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
 				7F48C1F3244DCD0B00997684 /* AccountAddressQRViewController.swift in Sources */,
 				7F5F77802487D19B0016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
-				901F7F3427EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */,
 				642ED92525E8DF6100A09BB3 /* TransferFiltersViewController.swift in Sources */,
 				901F7FAB27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				7F48C1F4244DCD0B00997684 /* AccountAddressQRCoordinator.swift in Sources */,
@@ -4976,7 +4967,6 @@
 				7F85B730246A9A7C00ED09B8 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				7F85B731246A9A7C00ED09B8 /* CreateNicknameViewController.swift in Sources */,
 				7F85B732246A9A7C00ED09B8 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
-				901F7F3627EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */,
 				7F85B8EC2472D39000ED09B8 /* MoreMenuPresenter.swift in Sources */,
 				901F7F9427F33C8800C46741 /* RewardParameters.swift in Sources */,
 				070D61DD27B290E400B6903C /* OnboardingCarouselViewController.swift in Sources */,
@@ -5364,7 +5354,6 @@
 				7F85B82D246A9AB600ED09B8 /* IdentitiesPresenterProtocol.swift in Sources */,
 				7F85B82F246A9AB600ED09B8 /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				7F85B830246A9AB600ED09B8 /* CreateNicknameViewController.swift in Sources */,
-				901F7F3727EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */,
 				7F85B831246A9AB600ED09B8 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
 				901F7F9527F33C8800C46741 /* RewardParameters.swift in Sources */,
 				070D61D927B290E300B6903C /* OnboardingCarouselViewController.swift in Sources */,
@@ -5885,7 +5874,6 @@
 				19C2E0C30D862D2C66E6B677 /* PrivateIDObjectData.swift in Sources */,
 				5236EA4225134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F168A0924812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
-				901F7F3527EB023100C46741 /* TransferRequestDelegationTarget.swift in Sources */,
 				19C2E7F578FD29A78E374B5C /* CreateIDRequest.swift in Sources */,
 				19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */,
 				19C2ECCEF3CDA2AEA44CCC76 /* IdentityConfirmedPresenter.swift in Sources */,

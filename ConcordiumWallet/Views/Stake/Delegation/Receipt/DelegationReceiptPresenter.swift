@@ -53,17 +53,22 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
     }
     
     func pressedButton() {
+        let chainParams = self.storageManager.getChainParams()
+        
+        let gracePeriod = String(format:
+                                    "delegation.graceperiod.format".localized,
+                                 GeneralFormatter.secondsToDays(seconds: chainParams?.delegatorCooldown ?? 0))
         let title: String
         let message: String
         let ok: String
         if dataHandler.isLoweringStake() {
             ok = "delegation.receiptlowering.ok".localized
             title = "delegation.receiptlowering.title".localized
-            message = "delegation.receiptlowering.message".localized
+            message = String(format: "delegation.receiptlowering.message".localized, gracePeriod)
         } else if dataHandler.transferType == .removeDelegation {
             ok = "delegation.receiptremove.ok".localized
             title = "delegation.receiptremove.title".localized
-            message = "delegation.receiptremove.message".localized
+            message = String(format: "delegation.receiptremove.message".localized, gracePeriod)
         } else {
             ok = "delegation.receiptnextpayday.ok".localized
             title = "delegation.receiptnextpayday.title".localized
@@ -72,14 +77,9 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
         let fineAction = AlertAction(name: ok, completion: { [weak self] in
             self?.delegate?.finishedShowingReceipt()
         }, style: .default)
-        let chainParams = self.storageManager.getChainParams()
-        
-        let gracePeriod = String(format:
-                                    "delegation.graceperiod.format".localized,
-                                 GeneralFormatter.secondsToDays(seconds: chainParams?.delegatorCooldown ?? 0))
-        
+       
         let alertOptions = AlertOptions(title: title,
-                                        message: String(format: message.localized, gracePeriod),
+                                        message: String(format: message, gracePeriod),
                                         actions: [ fineAction])
         self.view?.showAlert(with: alertOptions)
     }

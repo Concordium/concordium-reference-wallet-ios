@@ -50,9 +50,9 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         case .encryptedTransfer:
             return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
-            return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerDelegation, .removeDelegation, .updateDelegation:
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
    
@@ -352,6 +352,15 @@ extension TransactionsService {
         let transactionFeeCommission = (transfer.transactionFeeCommission == -1) ? nil : transfer.transactionFeeCommission
         let bakingRewardCommission = (transfer.bakingRewardCommission == -1) ? nil : transfer.bakingRewardCommission
         let finalizationRewardCommission = (transfer.finalizationRewardCommission == -1) ? nil : transfer.finalizationRewardCommission
+        let delegationTarget: DelegationTarget?
+        if let delegationType = transfer.delegationType {
+            delegationTarget = DelegationTarget(
+                delegateType: delegationType,
+                bakerID: transfer.delegationTargetBaker)
+        } else {
+            delegationTarget = nil
+        }
+        
         return self.mobileWallet.createTransfer(from: account,
                                                 to: transfer.toAddress == "" ? nil : transfer.toAddress,
                                                 amount: transfer.amount == "" ? nil : transfer.amount,
@@ -359,9 +368,7 @@ extension TransactionsService {
                                                 memo: transfer.memo,
                                                 capital: transfer.capital == "" ? nil : transfer.capital,
                                                 restakeEarnings: transfer.restakeEarnings,
-                                                delegationTarget: transfer.delegationType == nil ? nil : TransferRequestDelegationTarget(
-                                                    type: transfer.delegationType,
-                                                    targetBaker: transfer.delegationTargetBaker),
+                                                delegationTarget: delegationTarget,
                                                 openStatus: transfer.openStatus,
                                                 metadataURL: transfer.metadataURL,
                                                 transactionFeeCommission: transactionFeeCommission,

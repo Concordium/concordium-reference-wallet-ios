@@ -103,7 +103,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.stakeService = dependencyProvider.stakeService()
         self.transactionService = dependencyProvider.transactionsService()
     
-        if self.account.delegation?.pendingChange?.change != .NoChange {
+        if let delegation = self.account.delegation, delegation.pendingChange?.change != .NoChange {
             isInCooldown = true
         } else {
             isInCooldown = false

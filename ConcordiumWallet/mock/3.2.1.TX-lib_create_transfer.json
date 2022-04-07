@@ -7,8 +7,8 @@
   "capital": "1000000",
   "restakeEarnings": true,
   "delegationTarget": {
-      "type": "delegateToBaker",
-      "targetBaker": 100
+      "delegateType": "delegateToBaker",
+      "bakerId": 100
   },
   "openStatus": "openForAll",
   "metadataUrl": "http://example",
