@@ -224,8 +224,8 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     return .fail(StakeError.internalError)
                 }
                 self.dataHandler.add(entry: AmountData(amount: amount))
-                
                 self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
+                
                 self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
                 let costParams = self.dataHandler.getCostParameters()
                 return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
