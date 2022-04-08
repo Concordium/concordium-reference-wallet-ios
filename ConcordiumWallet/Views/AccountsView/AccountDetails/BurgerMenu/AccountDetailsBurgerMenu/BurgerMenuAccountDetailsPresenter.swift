@@ -21,6 +21,7 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
     case transferFilters
     case delegation
+    case baking
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case dismiss
     case decrypt
@@ -39,6 +40,8 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             }
         case .delegation:
             return "burgermenu.delegation".localized
+        case .baking:
+            return "burgermenu.baking".localized
         case .decrypt:
             return "burgermenu.decrypt".localized
         case .dismiss:
@@ -74,6 +77,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                 self.actions = [.releaseSchedule,
                                 .transferFilters,
                                 .delegation,
+                                .baking,
                                 .shieldedBalance(accountName: account.displayName,
                                                  shouldShow: !account.showsShieldedBalance,
                                                  delegate: showShieldedDelegate)]
