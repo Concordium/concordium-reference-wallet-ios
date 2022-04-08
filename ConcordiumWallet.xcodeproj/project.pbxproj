@@ -2362,6 +2362,7 @@
 		89E1A75727FF1073008C761B /* BakingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingCoordinator.swift; sourceTree = "<group>"; };
 		89E1A75C27FF1C2D008C761B /* String+Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Lines.swift"; sourceTree = "<group>"; };
 		89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedBakerKeys.swift; sourceTree = "<group>"; };
+		89E1A75727FF1073008C761B /* BakingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingCoordinator.swift; sourceTree = "<group>"; };
 		89EB9F4C27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolGenerateKeyPresenter.swift; sourceTree = "<group>"; };
 		89EB9F4D27FEDCF5005F8633 /* BakerPoolGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolGenerateKeyViewController.swift; sourceTree = "<group>"; };
 		89EB9F5627FEE495005F8633 /* 5.3.2.RX_generate_baker_keys.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.3.2.RX_generate_baker_keys.json; sourceTree = "<group>"; };
