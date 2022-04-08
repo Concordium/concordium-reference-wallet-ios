@@ -51,7 +51,7 @@ class RecipientListViewModel {
 }
 
 // MARK: View
-protocol SelectRecipientViewProtocol: AnyObject {
+protocol SelectRecipientViewProtocol: ShowAlert {
     func bind(to viewModel: RecipientListViewModel)
 }
 
@@ -162,7 +162,22 @@ extension SelectRecipientPresenter: SelectRecipientPresenterProtocol {
     }
 
     func scanQrTapped() {
-        delegate?.selectRecipientDidSelectQR()
+        PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
+            guard let self = self else { return }
+            
+            guard permissionGranted else {
+                self.view?.showRecoverableErrorAlert(
+                    .cameraAccessDeniedError,
+                    recoverActionTitle: "errorAlert.continueButton".localized,
+                    hasCancel: true
+                ) {
+                    SettingsHelper.openAppSettings()
+                }
+                return
+            }
+
+            self.delegate?.selectRecipientDidSelectQR()
+        }
     }
     
     func userDelete(recipientVM: RecipientViewModel) {
