@@ -47,6 +47,7 @@ protocol MobileWalletProtocol {
                                         privateIDObjectData: PrivateIDObjectData,
                                         startingFrom: Int,
                                         pwHash: String) throws -> Result<[MakeGenerateAccountsResponseElement], Error>
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error>
     
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error>
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
@@ -305,6 +306,16 @@ class MobileWallet: MobileWalletProtocol {
             account.encryptedPrivateKey = try self.storageManager.storePrivateEncryptionKey(data.encryptionSecretKey, pwHash: pwHash).get()
             
             return .success(data.with())
+        } catch {
+            return .failure(error)
+        }
+    }
+    
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {
+        do {
+            let keys = try GeneratedBakerKeys(try walletFacade.generateBakerKeys())
+            
+            return .success(keys)
         } catch {
             return .failure(error)
         }
