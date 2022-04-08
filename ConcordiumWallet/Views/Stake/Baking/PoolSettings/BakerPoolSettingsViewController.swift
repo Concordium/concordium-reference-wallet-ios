@@ -45,6 +45,13 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "close_icon"),
+            style: .plain,
+            target: self,
+            action: #selector(pressedClose)
+        )
+        
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
         poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
         poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .selected)
@@ -91,4 +98,7 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
         presenter.pressedContinue()
     }
     
+    @objc func pressedClose() {
+        presenter.pressedClose()
+    }
 }

@@ -49,6 +49,7 @@ class BakerPoolSettingsViewModel {
 // MARK: Delegate
 protocol BakerPoolSettingsPresenterDelegate: AnyObject {
     func finishedPoolSettings()
+    func closedPoolSettings()
 }
 
 // MARK: -
@@ -57,6 +58,7 @@ protocol BakerPoolSettingsPresenterProtocol: AnyObject {
 	var view: BakerPoolSettingsViewProtocol? { get set }
     func viewDidLoad()
     func pressedContinue()
+    func pressedClose()
 }
 
 class BakerPoolSettingsPresenter: BakerPoolSettingsPresenterProtocol {
@@ -80,5 +82,9 @@ class BakerPoolSettingsPresenter: BakerPoolSettingsPresenterProtocol {
     
     func pressedContinue() {
         self.delegate?.finishedPoolSettings()
+    }
+    
+    func pressedClose() {
+        self.delegate?.closedPoolSettings()
     }
 }
