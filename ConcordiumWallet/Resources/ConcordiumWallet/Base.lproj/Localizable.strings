@@ -244,7 +244,7 @@ process on-chain.";
 "accountDetails.noIdentities" = "This account has no revealed identity data.";
 "identityFailed.title" = "Identity issuance failed!";
 "accountDetails.bakingstakelabel" = "Stake with baker %@";
-"accountDetails.delegationstakeLabel" = "Delegation with %@";
+"accountDetails.delegationstakeLabel" = "Delegation to %@";
 "accountDetails.lpoolvalue" = "L-Pool";
 "accountDetails.bakerpoolvalue" = "baker pool %d";
 
