@@ -19,16 +19,30 @@ struct ExportService {
     init(storageManager: StorageManagerProtocol) {
         self.storageManager = storageManager
     }
+    
+    private enum FileHandle {
+        case backup
+        case bakerKeys
+        
+        var pathComponent: String {
+            switch self {
+            case .backup:
+                return "concordium-backup.concordiumwallet"
+            case .bakerKeys:
+                return "baker-credentials.json"
+            }
+        }
+    }
 
-    func urlForFile() -> URL {
+    private func urlForFile(_ fileHandle: FileHandle) -> URL {
         let documentDirectory = FileManager.default.urls(for: .documentationDirectory, in: .userDomainMask).first!
         // it appears that the documentation directory does not necessarily exist in advance - create it if it doesn't
         try? FileManager.default.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
-        return documentDirectory.appendingPathComponent("concordium-backup.concordiumwallet")
+        return documentDirectory.appendingPathComponent(fileHandle.pathComponent)
     }
 
     func deleteExportFile() throws {
-        try FileManager.default.removeItem(at: urlForFile())
+        try FileManager.default.removeItem(at: urlForFile(.backup))
     }
 
     func export(pwHash: String, exportPassword: String) throws -> URL {
@@ -39,9 +53,21 @@ struct ExportService {
 //        Logger.debug("json: \(json)")
         
         let exportDataWithEncryption = try encryptExport(exportObjectData, exportPassword: exportPassword)
-        let url = urlForFile()
+        let url = urlForFile(.backup)
         Logger.trace("write export to file \(url)")
         try exportDataWithEncryption.write(to: url, options: .completeFileProtection)
+        return url
+    }
+    
+    func deleteBakerKeys() throws {
+        try FileManager.default.removeItem(at: urlForFile(.bakerKeys))
+    }
+    
+    func export(bakerKeys: ExportedBakerKeys) throws -> URL {
+        let keyData = try bakerKeys.jsonData()
+        let url = urlForFile(.bakerKeys)
+        
+        try keyData.write(to: url, options: .completeFileProtection)
         return url
     }
 
