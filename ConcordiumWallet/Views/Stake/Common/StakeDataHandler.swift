@@ -369,10 +369,8 @@ class StakeDataHandler {
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
                 case .lpool:
-                    // TODO: update to L-Pool after lib update
                     transfer.delegationType = "L-Pool"
                 case .bakerPool(let bakerId):
-                    // TODO: update to Baker after lib update
                     transfer.delegationType = "Baker"
                     transfer.delegationTargetBaker = bakerId
                 }
@@ -385,7 +383,7 @@ class StakeDataHandler {
                 case .closedForNew:
                     transfer.openStatus = "closedForNew"
                 }
-            // TODO: cost calculation for baking
+            // TODO: setup transfer object for baking
             default:
                break
             }
