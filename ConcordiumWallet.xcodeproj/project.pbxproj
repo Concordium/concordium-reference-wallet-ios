@@ -1527,6 +1527,10 @@
 		89E1A75E27FF1C2D008C761B /* String+Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75C27FF1C2D008C761B /* String+Lines.swift */; };
 		89E1A75F27FF1C2D008C761B /* String+Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75C27FF1C2D008C761B /* String+Lines.swift */; };
 		89E1A76027FF1C2D008C761B /* String+Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75C27FF1C2D008C761B /* String+Lines.swift */; };
+		89E1A76E280EADB4008C761B /* ExportedBakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */; };
+		89E1A76F280EADB4008C761B /* ExportedBakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */; };
+		89E1A770280EADB4008C761B /* ExportedBakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */; };
+		89E1A771280EADB4008C761B /* ExportedBakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */; };
 		89EB9F4E27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EB9F4C27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift */; };
 		89EB9F4F27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EB9F4C27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift */; };
 		89EB9F5027FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EB9F4C27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift */; };
@@ -2332,6 +2336,7 @@
 		89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainParametersResponse.swift; sourceTree = "<group>"; };
 		89E1A75727FF1073008C761B /* BakingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingCoordinator.swift; sourceTree = "<group>"; };
 		89E1A75C27FF1C2D008C761B /* String+Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Lines.swift"; sourceTree = "<group>"; };
+		89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedBakerKeys.swift; sourceTree = "<group>"; };
 		89EB9F4C27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolGenerateKeyPresenter.swift; sourceTree = "<group>"; };
 		89EB9F4D27FEDCF5005F8633 /* BakerPoolGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolGenerateKeyViewController.swift; sourceTree = "<group>"; };
 		89EB9F5627FEE495005F8633 /* 5.3.2.RX_generate_baker_keys.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.3.2.RX_generate_baker_keys.json; sourceTree = "<group>"; };
@@ -3344,6 +3349,7 @@
 				901F7EF227E9D98C00C46741 /* TransferCostParameters.swift */,
 				909EAF2227F72058001930AE /* AccountPendingChangeType.swift */,
 				909EAF2727F721BF001930AE /* PoolPendingChangeType.swift */,
+				89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4913,6 +4919,7 @@
 				7F48C1B3244DCD0B00997684 /* ResourceRequest.swift in Sources */,
 				901F7F0D27EA0D5C00C46741 /* CurrentPaydayStatus.swift in Sources */,
 				7F48C1B4244DCD0B00997684 /* LoginErrorLabel.swift in Sources */,
+				89E1A76E280EADB4008C761B /* ExportedBakerKeys.swift in Sources */,
 				077AC5F426E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				7F48C1B5244DCD0B00997684 /* NetworkManagerProtocol.swift in Sources */,
 				7F48C1B6244DCD0B00997684 /* Publisher+Utils.swift in Sources */,
@@ -5280,6 +5287,7 @@
 				5237188525753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
 				52A6A78024F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				7F85B762246A9A7C00ED09B8 /* CredentialHolderInformation.swift in Sources */,
+				89E1A770280EADB4008C761B /* ExportedBakerKeys.swift in Sources */,
 				7F85B763246A9A7C00ED09B8 /* AttributeList.swift in Sources */,
 				7F85B764246A9A7C00ED09B8 /* IdentityDataSelectionCell.swift in Sources */,
 				7F85B765246A9A7C00ED09B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
@@ -5675,6 +5683,7 @@
 				5237188625753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
 				52A6A78124F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				7F85B85D246A9AB600ED09B8 /* IdentityObject.swift in Sources */,
+				89E1A771280EADB4008C761B /* ExportedBakerKeys.swift in Sources */,
 				7F85B85F246A9AB600ED09B8 /* ChoiceArData.swift in Sources */,
 				7F85B860246A9AB600ED09B8 /* AccountCell.swift in Sources */,
 				7F85B861246A9AB600ED09B8 /* CredentialHolderInformation.swift in Sources */,
@@ -6073,6 +6082,7 @@
 				7FA0AE9624598D6500B7673F /* OriginTypeEnum.swift in Sources */,
 				529531BC256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				075A4BBF2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
+				89E1A76F280EADB4008C761B /* ExportedBakerKeys.swift in Sources */,
 				5251EFA527C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				901F7FA727F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */,

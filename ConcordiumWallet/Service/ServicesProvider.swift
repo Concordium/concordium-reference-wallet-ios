@@ -38,6 +38,7 @@ protocol StakeCoordinatorDependencyProvider: WalletAndStorageDependencyProvider 
     func transactionsService() -> TransactionsServiceProtocol
     func stakeService() -> StakeServiceProtocol
     func accountsService() -> AccountsServiceProtocol
+    func exportService() -> ExportService
 }
 
 class ServicesProvider {
@@ -83,7 +84,7 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
     }
     
     func stakeService() -> StakeServiceProtocol {
-        StakeService(networkManager: _networkManager)
+        StakeService(networkManager: _networkManager, mobileWallet: _mobileWallet)
     }
 }
 
