@@ -126,7 +126,12 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                     .showLoadingIndicator(in: self.view)
                     .map { [weak self] response in
                         self?.bakerPoolResponse = response
-                        return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
+                        let currentBakerId = self?.getCurrentBakerId()
+                        if (response.poolInfo.openStatus == "openForAll") || (response.poolInfo.openStatus == "closedForNew" && currentBakerId == bakerIdInt) {
+                            return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
+                        } else {
+                            return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
+                        }
                     }.replaceError(with: {
                         return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
                     }())
@@ -197,5 +202,16 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     }
     func closeButtonTapped() {
         self.delegate?.pressedClose()
+    }
+    
+    // MARK: - Helper methods
+    func getCurrentBakerId() -> Int {
+        let poolData: PoolDelegationData? = self?.dataHandler.getCurrentEntry()
+        let bakerPool = poolData?.pool
+        var currentBakerId: Int?
+        if case let .bakerPool(bakerId) = bakerPool {
+            currentBakerId = bakerId
+        }
+        return currentBakerId
     }
 }
