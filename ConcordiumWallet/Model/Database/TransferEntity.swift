@@ -71,9 +71,9 @@ extension TransferDataType {
             case .encryptedTransfer:
                 balanceChange = (Int(cost) ?? 0)
             case .registerDelegation, .removeDelegation, .updateDelegation:
-                balanceChange = 0
+                balanceChange = (Int(cost) ?? 0)
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
-                balanceChange = 0
+                balanceChange = (Int(cost) ?? 0)
             }
         }
         
