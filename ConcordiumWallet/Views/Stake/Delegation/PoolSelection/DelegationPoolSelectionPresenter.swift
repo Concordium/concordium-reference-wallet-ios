@@ -205,8 +205,8 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     }
     
     // MARK: - Helper methods
-    func getCurrentBakerId() -> Int {
-        let poolData: PoolDelegationData? = self?.dataHandler.getCurrentEntry()
+    func getCurrentBakerId() -> Int? {
+        let poolData: PoolDelegationData? = self.dataHandler.getCurrentEntry()
         let bakerPool = poolData?.pool
         var currentBakerId: Int?
         if case let .bakerPool(bakerId) = bakerPool {

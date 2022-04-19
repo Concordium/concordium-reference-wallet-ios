@@ -18,7 +18,7 @@ class DelegationDataHandler: StakeDataHandler {
                 super.init(transferType: .updateDelegation)
                 currentData = Set()
                 currentData?.update(with: DelegationAccountData(accountAddress: account.address))
-                currentData?.update(with: AmountData(amount: GTU(intValue: Int(delegation.stakedAmount) ?? 0)))
+                currentData?.update(with: AmountData(amount: GTU(intValue: delegation.stakedAmount)))
                 currentData?.update(with: RestakeDelegationData(restake: delegation.restakeEarnings))
                 let bakerPool = BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
                 currentData?.update(with: PoolDelegationData(pool: bakerPool))
