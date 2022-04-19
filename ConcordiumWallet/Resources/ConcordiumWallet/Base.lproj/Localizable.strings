@@ -574,6 +574,7 @@ developer.concordium.software";
 
 "delegation.receipt.updatedelegation" = "Transaction: Update delegation";
 "delegation.receipt.registerdelegation" = "Transaction: Register delegation";
+"delegation.receipt.removedelegationheader" = "Transaction: Remove delegation";
 "delegation.receiptlowering.title" = "Notice";
 "delegation.receiptlowering.message" = "Your decrease to the delegation amount will take effect after a cool down of approximately %@.
 

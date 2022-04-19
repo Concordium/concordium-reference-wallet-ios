@@ -101,6 +101,7 @@ fileprivate extension StakeReceiptViewModel {
         } else if isRemoving {
             title = "delegation.receiptconfirmation.title.remove".localized
             text = "delegation.receipt.removedelegation".localized
+            receiptHeaderText = "delegation.receipt.removedelegationheader".localized
         } else {
             title = "delegation.receiptconfirmation.title.create".localized
             receiptHeaderText = "delegation.receipt.registerdelegation".localized
