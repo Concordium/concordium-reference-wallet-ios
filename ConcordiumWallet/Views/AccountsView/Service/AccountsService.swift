@@ -18,6 +18,7 @@ protocol AccountsServiceProtocol {
     func recalculateAccountBalance(account: AccountDataType, balanceType: AccountBalanceTypeEnum) -> AnyPublisher<AccountDataType, Error>
     func gtuDrop(for accountAddress: String) -> AnyPublisher<TransferDataType, Error>
     func checkAccountExistance(accounts: [String]) -> AnyPublisher<[String], Error>
+    func getLocalTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error>
 }
 
 // swiftlint:disable type_body_length
@@ -243,7 +244,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                let stakedAmount = account.baker?.stakedAmount ?? (account.delegation?.stakedAmount ?? 0)
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(stakedAmount,
                                                                                                            account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
@@ -254,7 +256,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
     private func addingBalanceEffectFromTransfers(for account: AccountDataType) -> AnyPublisher<AccountDataType, Error> {
         let transfers: [TransferDataType] = self.storageManager.getTransfers(for: account.address)
         let balanceChangeArray: [AnyPublisher<(Int, Int), Error>] = transfers.map { transfer in
-            self.getTransferWithUpdatedStatus(transfer: transfer, for: account)
+            self.getLocalTransferWithUpdatedStatus(transfer: transfer, for: account)
                 .map { ($0.getPublicBalanceChange(), $0.getShieldedBalanceChange()) }
                 .eraseToAnyPublisher()
         }
@@ -264,7 +266,9 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.stakedAmount,
+                let stakedAmount = account.baker?.stakedAmount ?? (account.delegation?.stakedAmount ?? 0)
+                
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(stakedAmount,
                                                                                                            account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
@@ -296,7 +300,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
         }
     }
     
-    private func getTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error> {
+    func getLocalTransferWithUpdatedStatus(transfer: TransferDataType, for account: AccountDataType) -> AnyPublisher<TransferDataType, Error> {
         guard let id = transfer.submissionId else { return .just(transfer) }
         return submissionStatus(submissionId: id).compactMap { (submissionStatus) -> TransferDataType? in
             if let encryptedAmount = submissionStatus.encryptedAmount {
@@ -399,14 +403,28 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (finalizedShieldedAmount, shieldedEncryptionStatus) = self.getFinalizedShieldedAmount(balance: balance, account: account)
                 let hasShieldedTransactions = self.getHasShieldedTransactions(balance: balance, account: account)
                 let releaseSchedule = ReleaseScheduleEntity(from: balance.finalizedBalance?.accountReleaseSchedule)
+                let delegation: DelegationDataType?
+                if let accountDelegation = balance.finalizedBalance?.accountDelegation {
+                    delegation = DelegationEntity(accountDelegationModel: accountDelegation)
+                } else {
+                    delegation = nil
+                }
+                let baker: BakerDataType?
+                if let accountBaker = balance.finalizedBalance?.accountBaker {
+                    baker = BakerEntity(accountBakerModel: accountBaker)
+                } else {
+                    baker = nil
+                }
+                
                 return account.withUpdatedFinalizedBalance((Int(balance.finalizedBalance?.accountAmount ?? "0") ?? 0),
                                                            finalizedShieldedAmount,
                                                            shieldedEncryptionStatus,
                                                            EncryptedBalanceEntity(accountEncryptedAmount: balance.finalizedBalance?.accountEncryptedAmount),
                                                            hasShieldedTransactions: hasShieldedTransactions,
                                                            accountNonce: balance.finalizedBalance?.accountNonce ?? 0,
-                                                           bakerId: (balance.finalizedBalance?.accountBaker?.bakerID ?? -1),
-                                                           staked: (Int(balance.finalizedBalance?.accountBaker?.stakedAmount ?? "0") ?? 0),
+                                                           delegation:
+                                                            delegation,
+                                                           baker: baker,
                                                            releaseSchedule: releaseSchedule)
             }).eraseToAnyPublisher()
     }

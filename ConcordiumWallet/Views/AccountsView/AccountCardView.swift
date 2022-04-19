@@ -89,6 +89,8 @@ class AccountCardView: UIView, NibLoadable {
         let state: AccountCardViewState!
         if accountViewModel.isBaking {
             state = .baking
+        } else if accountViewModel.isDelegating {
+            state = .delegating
         } else if accountViewModel.isReadOnly {
             state = .readonly
         } else {

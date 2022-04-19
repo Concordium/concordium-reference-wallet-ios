@@ -17,9 +17,19 @@ protocol MobileWalletProtocol {
     func createCredential(global: GlobalWrapper, account: AccountDataType, pwHash: String, expiry: Date)
                     -> AnyPublisher<CreateCredentialRequest, Error>
     func createTransfer(from fromAccount: AccountDataType,
-                        to toAccount: String,
-                        amount: Int, nonce: AccNonce,
+                        to toAccount: String?,
+                        amount: String?,
+                        nonce: Int,
                         memo: String?,
+                        capital: String?,
+                        restakeEarnings: Bool?,
+                        delegationTarget: DelegationTarget?,
+                        openStatus: String?,
+                        metadataURL: String?,
+                        transactionFeeCommission: Int?,
+                        bakingRewardCommission: Int?,
+                        finalizationRewardCommission: Int?,
+                        bakerKeys: BakerKeys?,
                         expiry: Date, energy: Int,
                         transferType: TransferType,
                         requestPasswordDelegate: RequestPasswordDelegate,
@@ -161,10 +171,19 @@ class MobileWallet: MobileWalletProtocol {
     }
 
     func createTransfer(from fromAccount: AccountDataType,
-                        to toAccount: String,
-                        amount: Int,
-                        nonce: AccNonce,
+                        to toAccount: String?,
+                        amount: String?,
+                        nonce: Int,
                         memo: String?,
+                        capital: String?,
+                        restakeEarnings: Bool?,
+                        delegationTarget: DelegationTarget?,
+                        openStatus: String?,
+                        metadataURL: String?,
+                        transactionFeeCommission: Int?,
+                        bakingRewardCommission: Int?,
+                        finalizationRewardCommission: Int?,
+                        bakerKeys: BakerKeys?,
                         expiry: Date,
                         energy: Int,
                         transferType: TransferType,
@@ -180,6 +199,15 @@ class MobileWallet: MobileWalletProtocol {
                                     amount: amount,
                                     nonce: nonce,
                                     memo: memo,
+                                    capital: capital,
+                                    restakeEarnings: restakeEarnings,
+                                    delegationTarget: delegationTarget,
+                                    openStatus: openStatus,
+                                    metadataURL: metadataURL,
+                                    transactionFeeCommission: transactionFeeCommission,
+                                    bakingRewardCommission: bakingRewardCommission,
+                                    finalizationRewardCommission: finalizationRewardCommission,
+                                    bakerKeys: bakerKeys,
                                     energy: energy,
                                     transferType: transferType,
                                     pwHash: pwHash,
@@ -190,11 +218,20 @@ class MobileWallet: MobileWalletProtocol {
     }
 
     private func createTransfer(fromAccount: AccountDataType,
-                                toAccount: String,
+                                toAccount: String?,
                                 expiry: Date,
-                                amount: Int,
-                                nonce: AccNonce,
+                                amount: String?,
+                                nonce: Int,
                                 memo: String?,
+                                capital: String?,
+                                restakeEarnings: Bool?,
+                                delegationTarget: DelegationTarget?,
+                                openStatus: String?,
+                                metadataURL: String?,
+                                transactionFeeCommission: Int?,
+                                bakingRewardCommission: Int?,
+                                finalizationRewardCommission: Int?,
+                                bakerKeys: BakerKeys?,
                                 energy: Int,
                                 transferType: TransferType,
                                 pwHash: String,
@@ -209,14 +246,24 @@ class MobileWallet: MobileWalletProtocol {
         if transferType == .transferToPublic || transferType == .encryptedTransfer {
             secretEncryptionKey = try getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
         }
+     
         let makeCreateTransferRequest = MakeCreateTransferRequest(from: fromAccount.address,
                                                                   to: toAccount,
                                                                   expiry: Int(expiry.timeIntervalSince1970),
-                                                                  nonce: nonce.nonce,
+                                                                  nonce: nonce,
                                                                   memo: memo,
+                                                                  capital: capital,
+                                                                  restakeEarnings: restakeEarnings,
+                                                                  delegationTarget: delegationTarget,
+                                                                  openStatus: openStatus,
+                                                                  metadataURL: metadataURL,
+                                                                  transactionFeeCommission: transactionFeeCommission,
+                                                                  bakingRewardCommission: bakingRewardCommission,
+                                                                  finalizationRewardCommission: finalizationRewardCommission,
+                                                                  bakerKeys: bakerKeys,
                                                                   keys: privateAccountKeys,
                                                                   energy: energy,
-                                                                  amount: String(amount),
+                                                                  amount: amount,
                                                                   global: global?.value,
                                                                   senderSecretKey: secretEncryptionKey,
                                                                   inputEncryptedAmount: inputEncryptedAmount,
@@ -234,6 +281,10 @@ class MobileWallet: MobileWalletProtocol {
              return try CreateTransferRequest(walletFacade.createUnshielding(input: input))
         case .encryptedTransfer:
              return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
+        case .registerDelegation, .removeDelegation, .updateDelegation:
+            return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         }
     }
 

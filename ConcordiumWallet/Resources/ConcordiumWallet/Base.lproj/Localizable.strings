@@ -97,7 +97,7 @@ add_identity_data = "Reveal Identity Data";
 "accounts.staked" = "Staked";
 "account.accounttotal" = "Total";
 "accounts.initial" = "(Initial)";
-"accounts.overview.staked" = "Stake with baker %@";
+
 "accounts.overview.readonly" = "Read-only";
 "accounts.overview.baking" = "Baking";
 "accounts.overview.delegating" = "Delegating";
@@ -242,9 +242,11 @@ process on-chain.";
 "accountDetails.address" = "RECEIVE";
 "accountDetails.noTransfers" = "This balance has no transactions yet.";
 "accountDetails.noIdentities" = "This account has no revealed identity data.";
-"accountDetails.bakerId" = "Baker ID:";
 "identityFailed.title" = "Identity issuance failed!";
-
+"accountDetails.bakingstakelabel" = "Stake with baker %@";
+"accountDetails.delegationstakeLabel" = "Delegation with %@";
+"accountDetails.lpoolvalue" = "L-Pool";
+"accountDetails.bakerpoolvalue" = "baker pool %d";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.shieldAmount" = "Shield Amount";
@@ -330,6 +332,8 @@ process on-chain.";
 "transactions.shieledtransactionfee" = "Shielded transaction fee";
 "transaction.shieldedAmount" = "Shielded amount";
 "transaction.unshieldedAmount" = "Unshielded amount";
+"transaction.configuredelegation" = "Configure delegation";
+"transaction.configurebaker" = "Configure baker";
 
 "accountDetails.generalbalance" = "Balance";
 "accountDetails.generalshieldedbalance" = "Shielded Balance";
@@ -454,6 +458,7 @@ process on-chain.";
 "burgermenu.showshieldedbalance" = "Show shielded balance on %@";
 "burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
 "burgermenu.decrypt" = "Decrypt";
+"burgermenu.delegation" = "Delegation";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -498,3 +503,184 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.introflow.page3.title" = "The initial account";
 "onboardingcarousel.introflow.page4.title" = "Backup your private keys";
 "onboardingcarousel.introflow.page5.title" = "You are ready!";
+
+
+"stake.inputamount.currentamounts" = "Current amounts on your account:";
+"stake.inputamount.continue" = "Continue";
+"stake.inputamount.yesrestake" = "Yes, restake";
+"stake.inputamount.norestake" = "No, don’t restake";
+"stake.inputamount.transactionfee" = "Estimated transaction fee: \n%@";
+"delegation.inputamount.bottommessage" = "Do you want to automatically add your delegation rewards to your delegated amount?\n\nIf you choose to not restake your rewards, the amounts will be at disposal on your account balance at each pay day.";
+"stake.inputAmount.error.minAmount" = "Minimum stake: %@";
+"stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
+"stake.inputAmount.error.funds" = "Not enough funds";
+"stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
+"stake.inputAmount.amountlockedplaceholder" = "Amount locked";
+"stake.inputAmount.amountplaceholder" = "Ͼ0.00";
+
+"stake.receipt.transactionsubmitted" = "Transaction submitted!";
+"stake.receipt.finish" = "Finish";
+"stake.receipt.restake" = "Rewards will be";
+
+
+
+"delegation.inputamount.title.create" = "Register delegation";
+"delegation.inputamount.title.update" = "Update delegation";
+"delegation.inputamount.optionalamount" = "Optional: Enter new delegation amount";
+"delegation.inputamount.lockedamountmessage" = "Delegation amount cannot be changed when it already has pending changes.";
+"delegation.inputamount.title.update" = "Update delegation";
+"delegation.inputamount.balance" = "Balance";
+"delegation.inputamount.delegationstake" = "Delegation";
+"delegation.inputamount.currentpool" = "Current pool";
+"delegation.inputamount.poollimit" = "Pool limit";
+
+"delegation.pool.title.create" = "Register delegation";
+"delegation.pool.title.update" = "Update delegation";
+"delegation.pool.current" = "Current target %@";
+"delegation.pool.message" = "You can delegate to a specific open pool of your choice, or you can delegate to the L-pool. ";
+"delegation.pool.bottommessage" = "If you don’t already know what target baker pool you want to delegate an amount to, you can read more about how to find one here:
+
+developer.concordium.software";
+
+"delegation.pool.baker" = "Baker";
+"delegation.pool.lpool" = "L-pool";
+"delegation.pool.idplaceholder.create" = "Enter target baker pool ID";
+"delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
+"delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+
+"delegation.receipt.accounttodelegate" = "Account to delegate from";
+"delegation.receipt.accounttostop" = "Account to stop delegating";
+"delegation.receipt.delegationamount" = "Delegation amount";
+"delegation.receipt.tagetbakerpool" = "Current target";
+
+
+
+"delegation.receipt.lpoolvalue" = "L-pool";
+"delegation.receipt.bakerpoolvalue" = "Baker id %d";
+"delegation.receipt.addedtodelegation" = "Added to delegation amount";
+"delegation.receipt.notaddedtodelegation" = "At disposal";
+
+"delegation.receiptconfirmation.title.update" = "Update delegation";
+"delegation.receiptconfirmation.title.create" = "Register delegation";
+"delegation.receiptconfirmation.title.remove" = "Remove delegation";
+"delegation.receiptconfirmation.registertext" = "You are about to submit a delegation transaction. This will lock your delegation amount for at least %@.";
+"delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take effect after %@ and the delegation amount cannot be changed during this period of time.";
+"delegation.receiptconfirmation.updatetext" = "Are you sure you want to make the following delegation?";
+"delegation.receipt.removedelegation" = "Are you sure you want to remove your delegation?";
+"delegation.receiptconfirmation.submit"  = "Submit delegation transaction";
+
+"delegation.receiptconfirmation.transactionfee" = "Estimated transaction fee: \n%@";
+"delegation.receipt.transactionfee" = "Transaction fee: \n%@";
+
+"delegation.receipt.updatedelegation" = "Transaction: Update delegation";
+"delegation.receipt.registerdelegation" = "Transaction: Register delegation";
+"delegation.receiptlowering.title" = "Notice";
+"delegation.receiptlowering.message" = "Your decrease to the delegation amount will take effect after a cool down of approximately %@.
+
+
+All other updates will take effect at the next pay day. ";
+"delegation.receiptlowering.ok" = "Okay";
+
+"delegation.receiptnextpayday.title" = "Notice";
+"delegation.receiptnextpayday.message" = "Once your transaction has succesfully finalized, the delegation will take effect from the next pay day.";
+"delegation.receiptnextpayday.ok" = "Okay";
+
+"delegation.receiptremove.title" = "Notice";
+"delegation.receiptremove.message" = "Once your transaction has finalized, the delegation will be stopped after a cool down of %@.";
+"delegation.receiptremove.ok" = "Okay";
+
+
+
+"delegation.loweringamountwarning.title" = "Important";
+"delegation.loweringamountwarning.message" = "Reducing the delegation amount will lock the total delegation amount for a cool down period. No changes can be made to the amount during this period, and the withdrawal will not take effect before the cool down is over.";
+"delegation.loweringamountwarning.change" = "Let me change my amount";
+"delegation.loweringamountwarning.fine" = "That’s fine";
+
+
+"delegation.morethan95.title" = "Warning";
+"delegation.morethan95.message" = "You are about to lock more than 95% of your total balance in a delegation stake.
+
+If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees. ";
+"delegation.morethan95.continue" = "Continue";
+"delegation.morethan95.newstake" = "Enter new delegation stake";
+
+"delegation.amountzero.title" = "Important";
+"delegation.amountzero.message" = "Setting your delegated amount to 0 will remove the delegation all together.
+
+Do you want to remove your delegation?";
+"delegation.amountzero.continue" = "Yes. Remove the delegation.";
+"delegation.amountzero.newstake" = "No. Set another value.";
+
+
+"delegation.nochanges.title" = "Notice";
+"delegation.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
+"delegation.nochanges.ok" = "Okay";
+
+"baker.receiptconfirmation.title.update" = "Update baker stake";
+"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
+
+The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
+
+
+
+"baking.poolsettings.title.create" = "Register baker";
+"baking.poolsettings.title.update" = "Update pool settings";
+"baking.poolsettings.text.create" = "You have the option to open your baker as a pool for others to delegate their CCD to.
+
+If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
+
+If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
+"baking.poolsettings.text.update" = "You have the option to open your baker as a pool for others to delegate their CCD to.
+
+If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
+
+If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
+"baking.poolsettings.current" = "Current status";
+
+"baking.keeppoolclosed" = "Keep the pool closed";
+"baking.openfordelegators" = "Open pool for delegators";
+"baking.closedfornewdelegators" = "Close for new delegators";
+
+"baking.open" = "Open";
+"baking.closed" = "Closed";
+"baking.closedfornew" = "Closed for new";
+
+
+"baking.receipt.accountcreate" = "Account to register as baker";
+"baking.receipt.accountupdate" = "Account to make baker update";
+"baking.receipt.poolstatus" = "Delegation pool status";
+"baking.receipt.bakerstake" = "Baker stake";
+"baking.receipt.metadataurl" = "Metadata URL";
+
+"onboardingcarousel.registerdelegation.title" = "Delegation";
+"onboardingcarousel.registerdelegation.page1.title" = "Delegation";
+"onboardingcarousel.registerdelegation.page2.title" = "Two types of pools";
+"onboardingcarousel.registerdelegation.page3.title" = "Baker pools";
+"onboardingcarousel.registerdelegation.page4.title" = "The L-pool";
+"onboardingcarousel.registerdelegation.page5.title" = "Pay days";
+"onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
+"onboardingcarousel.registerdelegation.page7.title" = "The status page";
+
+"onboardingcarousel.updatedelegation.title" = "Delegation";
+"onboardingcarousel.updatedelegation.page1.title" = "Updating your delegation";
+"onboardingcarousel.updatedelegation.page2.title" = "Pay day updates";
+"onboardingcarousel.updatedelegation.page3.title" = "Updates with longer cool-downs";
+
+"onboardingcarousel.removedelegation.title" = "Delegation";
+"onboardingcarousel.removedelegation.page1.title" = "Stop your delegation";
+"onboardingcarousel.removedelegation.page2.title" = "Update during the cool-down period";
+
+"delegation.status.title" = "Delegation status";
+"delegation.status.registered.header" = "Your delegation is registered.";
+"delegation.status.waiting.placeholder" = "Waiting for transaction to finalize";
+"delegation.status.waiting.header" = "Waiting for delegation transaction to finalize.";
+"delegation.status.nodelegation.placeholder" = "This account has no delegation registered. You can register a delegation with the button below.";
+"delegation.status.nodelegation.header" = "This account is not currently delegating any CCDs.";
+"delegation.status.registerbutton" = "Register delegation";
+"delegation.status.updatebutton" = "Update current delegation";
+"delegation.status.stopbutton" = "Stop delegation";
+"delegation.status.newamount" = "New delegation amount";
+"delegation.status.graceperiod" = "The following changes will take effect on %@";
+"delegation.status.delegationwillstop" = "The delegation will be stopped, and the delegation amount will be unlocked on the public balance of the account.";
+"delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking on %@";
+"delegation.graceperiod.format" = "%d days";

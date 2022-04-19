@@ -168,7 +168,12 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         if let toAddressValue = viewModel.details.toAddressValue {
             let title = "accountDetails.toAddress".localized + (viewModel.details.toAddressName ?? "")
             let value = toAddressValue
-            let displayValue = String(value[..<value.index(value.startIndex, offsetBy: 8)])
+            let displayValue: String
+            if value.count >= 8 {
+                displayValue = String(value[..<value.index(value.startIndex, offsetBy: 8)])
+            } else {
+                displayValue = value
+            }
             let displayVM = TransactionDetailItemViewModel(title: title, value: value, displayValue: displayValue)
             return [.to(displayVM)]
         }

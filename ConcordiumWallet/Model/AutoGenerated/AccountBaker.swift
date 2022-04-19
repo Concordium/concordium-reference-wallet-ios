@@ -7,12 +7,22 @@ import Foundation
 
 // MARK: - AccountBaker
 struct AccountBaker: Codable {
-    let bakerID: Int?
-    let stakedAmount: String?
+    let bakerID: Int
+    let stakedAmount: String
+    let restakeEarnings: Bool
+    let bakerAggregationVerifyKey: String
+    let bakerElectionVerifyKey: String
+    let bakerSignatureVerifyKey: String
+    let pendingChange: PendingChange?
 
     enum CodingKeys: String, CodingKey {
         case bakerID = "bakerId"
         case stakedAmount = "stakedAmount"
+        case restakeEarnings = "restakeEarnings"
+        case bakerAggregationVerifyKey = "bakerAggregationVerifyKey"
+        case bakerElectionVerifyKey = "bakerElectionVerifyKey"
+        case bakerSignatureVerifyKey = "bakerSignatureVerifyKey"
+        case pendingChange = "pendingChange"
     }
 }
 
@@ -35,12 +45,22 @@ extension AccountBaker {
     }
 
     func with(
-        bakerID: Int?? = nil,
-        stakedAmount: String?? = nil
+        bakerID: Int? = nil,
+        stakedAmount: String? = nil,
+        restakeEarnings: Bool? = nil,
+        bakerAggregationVerifyKey: String? = nil,
+        bakerElectionVerifyKey: String? = nil,
+        bakerSignatureVerifyKey: String? = nil,
+        pendingChange: PendingChange?? = nil
     ) -> AccountBaker {
         return AccountBaker(
             bakerID: bakerID ?? self.bakerID,
-            stakedAmount: stakedAmount ?? self.stakedAmount
+            stakedAmount: stakedAmount ?? self.stakedAmount,
+            restakeEarnings: restakeEarnings ?? self.restakeEarnings,
+            bakerAggregationVerifyKey: bakerAggregationVerifyKey ?? self.bakerAggregationVerifyKey,
+            bakerElectionVerifyKey: bakerElectionVerifyKey ?? self.bakerElectionVerifyKey,
+            bakerSignatureVerifyKey: bakerSignatureVerifyKey ?? self.bakerSignatureVerifyKey,
+            pendingChange: pendingChange ?? self.pendingChange
         )
     }
 

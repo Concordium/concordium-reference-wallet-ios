@@ -46,8 +46,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var stakedView: UIView!
     
     @IBOutlet weak var atDisposalLabel: UILabel!
+    @IBOutlet weak var stakedValueLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
-    @IBOutlet weak var bakerIdLabel: UILabel!
     @IBOutlet weak var sendImageView: UIImageView!
     
     @IBOutlet weak var shieldTypeLabel: UILabel!
@@ -250,16 +250,19 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .assign(to: \.text, on: atDisposalLabel)
             .store(in: &cancellables)
         
-        viewModel.$staked
+        viewModel.$stakedValue
             .compactMap { $0 }
-            .assign(to: \.text, on: stakedLabel)
+            .assign(to: \.text, on: stakedValueLabel)
             .store(in: &cancellables)
         
-        viewModel.$bakerId
-            .sink { [weak self](id) in
-                if let bakerid = id {
-                    self?.bakerIdLabel.text = String(format: "accounts.overview.staked".localized, bakerid)
+        viewModel.$stakedLabel
+            .sink { [weak self](text) in
+                if text == nil {
+                    self?.stakedView.isHidden = true
+                } else {
+                    self?.stakedView.isHidden = false
                 }
+                self?.stakedLabel.text = text
             }
             .store(in: &cancellables)
         

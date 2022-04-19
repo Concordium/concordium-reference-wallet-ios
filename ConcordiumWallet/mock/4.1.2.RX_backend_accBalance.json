@@ -17,8 +17,18 @@
         },
         "accountBaker": {
             "bakerId": 3,
-            "stakedAmount": "50000000"
-        }
+            "stakedAmount": "50000000",
+            "restakeEarnings": true,
+            "bakerAggregationVerifyKey" : "",
+            "bakerElectionVerifyKey" : "",
+            "bakerSignatureVerifyKey" : "",
+            "pendingChange": {
+                "change":"ReduceStake",
+                "newStake": null,
+                "effectiveTime": "2022-03-30T16:43:53.5Z"
+                }
+        },
+        "accountDelegation": null
     },
     "finalizedBalance": {
         "accountAmount": "100000000",
@@ -38,9 +48,19 @@
             }],
             "total": "100000000"
         },
-        "accountBaker": {
-            "bakerId": 3,
-            "stakedAmount": "50000000"
+        "accountBaker": null,
+        "accountDelegation": {
+            "stakedAmount": "50000000",
+            "restakeEarnings": true,
+            "delegationTarget": {
+                    "delegateType": "L-Pool",
+                    "bakerId": null
+            },
+            "pendingChange":{
+                "change":"ReduceStake",
+                "newStake":"1000000000",
+                "effectiveTime": "2022-03-30T16:43:53.5Z"
+            }
         }
     }
 }

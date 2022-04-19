@@ -20,6 +20,7 @@ protocol BurgerMenuAccountDetailsDismissDelegate: AnyObject {
 enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
     case transferFilters
+    case delegation
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case dismiss
     case decrypt
@@ -36,6 +37,8 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             } else {
                 return String(format: "burgermenu.hideshieldedbalance".localized, accountName)
             }
+        case .delegation:
+            return "burgermenu.delegation".localized
         case .decrypt:
             return "burgermenu.decrypt".localized
         case .dismiss:
@@ -70,6 +73,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
             if balance == .balance {
                 self.actions = [.releaseSchedule,
                                 .transferFilters,
+                                .delegation,
                                 .shieldedBalance(accountName: account.displayName,
                                                  shouldShow: !account.showsShieldedBalance,
                                                  delegate: showShieldedDelegate)]
@@ -92,7 +96,6 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     func viewDidLoad() {
         viewModel.setup(actions: actions)
         view?.bind(to: viewModel)
-        
     }
     
     func selectedAction(at index: Int) {

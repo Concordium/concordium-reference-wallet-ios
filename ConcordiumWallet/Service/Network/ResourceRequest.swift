@@ -8,7 +8,7 @@ enum HttpMethod: String {
 
 struct ResourceRequest {
     let url: URL
-    let parameters: [String: CustomStringConvertible]
+    let parameters: [String: CustomStringConvertible?]
     let httpMethod: HttpMethod
     let body: Data?
 
@@ -17,7 +17,7 @@ struct ResourceRequest {
             return nil
         }
         components.queryItems = parameters.keys.map { key in
-            URLQueryItem(name: key, value: parameters[key]?.description)
+            URLQueryItem(name: key, value: parameters[key]??.description)
         }
         guard let url = components.url else {
             return nil
@@ -37,7 +37,7 @@ struct ResourceRequest {
         return urlRequest
     }
 
-    init(url: URL, httpMethod: HttpMethod = .get, parameters: [String: CustomStringConvertible] = [:], body: Data? = nil) {
+    init(url: URL, httpMethod: HttpMethod = .get, parameters: [String: CustomStringConvertible?] = [:], body: Data? = nil) {
         self.url = url
         self.parameters = parameters
         self.httpMethod = httpMethod

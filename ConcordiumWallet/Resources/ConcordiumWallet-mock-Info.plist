@@ -132,5 +132,9 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>RobotoMono.ttf</string>
+	</array>
 </dict>
 </plist>

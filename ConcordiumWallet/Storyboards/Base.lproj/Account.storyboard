@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="395.66666666666674" width="396" height="506.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="396" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
@@ -1108,7 +1108,6 @@ process on-chain]</string>
                         <outlet property="atDisposalLabel" destination="E2Z-ra-eF7" id="Xxe-Cc-tv3"/>
                         <outlet property="atDisposalView" destination="J8w-sO-FrM" id="2Af-bd-AdG"/>
                         <outlet property="backgroundShield" destination="aZE-3Y-BSl" id="031-83-hai"/>
-                        <outlet property="bakerIdLabel" destination="7f8-Oi-MDJ" id="vHT-jz-0Fu"/>
                         <outlet property="balanceLabel" destination="P4D-VI-fx0" id="U4X-YD-3RG"/>
                         <outlet property="balanceNameLabel" destination="dcn-iW-JNg" id="aHh-qO-unf"/>
                         <outlet property="buttonsView" destination="NJy-DT-HxY" id="byy-Ou-Fa2"/>
@@ -1127,7 +1126,8 @@ process on-chain]</string>
                         <outlet property="shieldView" destination="lc6-Fc-flU" id="sOj-3Z-FHq"/>
                         <outlet property="shieldedButton" destination="0aU-RM-8yy" id="C7V-vo-9KG"/>
                         <outlet property="spacerView" destination="KX5-A8-WDd" id="MKi-EQ-K7a"/>
-                        <outlet property="stakedLabel" destination="d4e-hB-BZ5" id="c0p-gx-hzS"/>
+                        <outlet property="stakedLabel" destination="7f8-Oi-MDJ" id="vHT-jz-0Fu"/>
+                        <outlet property="stakedValueLabel" destination="d4e-hB-BZ5" id="c0p-gx-hzS"/>
                         <outlet property="stakedView" destination="4Xu-WP-N8o" id="h7P-q8-hLa"/>
                         <outlet property="statusImageView" destination="2Nh-Of-O1G" id="IBg-wX-dFJ"/>
                         <outlet property="topSpacingStackViewConstraint" destination="WHI-Ig-f4y" id="UZk-jA-kYS"/>
@@ -1350,7 +1350,7 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="124.66666603088379" width="388" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">

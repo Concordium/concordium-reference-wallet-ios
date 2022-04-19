@@ -33,6 +33,15 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var encryptedDetails: EncryptedDetailsDataType? { get set }
     var nonce: Int { get set}
     var memo: String? { get set }
+    var capital: String? { get set }
+    var restakeEarnings: Bool? { get set }
+    var delegationType: String? { get set }
+    var delegationTargetBaker: Int { get set }
+    var openStatus: String? { get set }
+    var metadataURL: String? { get set }
+    var transactionFeeCommission: Int { get set }
+    var bakingRewardCommission: Int { get set }
+    var finalizationRewardCommission: Int { get set }
     
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
@@ -40,6 +49,10 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
 }
 
 extension TransferDataType {
+    private func amountAsInt() -> Int {
+        return Int(amount) ?? 0
+    }
+
     func getPublicBalanceChange() -> Int {
         if .absent == transactionStatus {
             return 0
@@ -52,10 +65,14 @@ extension TransferDataType {
         default:
             switch transferType {
             case .simpleTransfer, .transferToSecret: // transfer to public is included even if not finalized
-                balanceChange = (Int(amount) ?? 0) + (Int(cost) ?? 0)
+                balanceChange = amountAsInt() + (Int(cost) ?? 0)
             case .transferToPublic:
-                balanceChange = -(Int(amount) ?? 0) + (Int(cost) ?? 0)
+                balanceChange = -amountAsInt() + (Int(cost) ?? 0)
             case .encryptedTransfer:
+                balanceChange = (Int(cost) ?? 0)
+            case .registerDelegation, .removeDelegation, .updateDelegation:
+                balanceChange = (Int(cost) ?? 0)
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
                 balanceChange = (Int(cost) ?? 0)
             }
         }
@@ -77,9 +94,13 @@ extension TransferDataType {
             case .simpleTransfer:
                 balanceChange = 0
             case .transferToSecret:
-                balanceChange = -(Int(amount) ?? 0)// shielding is included even if not finalized
+                balanceChange = -amountAsInt()// shielding is included even if not finalized
             case .encryptedTransfer, .transferToPublic:
-                balanceChange = (Int(amount) ?? 0) + 0 // the cost is taken from the public balance
+                balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
+            case .registerDelegation, .removeDelegation, .updateDelegation:
+                balanceChange = 0
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+                balanceChange = 0
             }
             
         }
@@ -105,9 +126,9 @@ struct TransferDataTypeFactory {
 
 final class TransferEntity: Object {
     @objc dynamic var id: String = UUID().uuidString
-    @objc dynamic var amount = "0"
+    @objc dynamic var amount: String = ""
     @objc dynamic var fromAddress = ""
-    @objc dynamic var toAddress = ""
+    @objc dynamic var toAddress: String = ""
     @objc dynamic var expiry: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var submissionId: String? = ""
@@ -119,6 +140,16 @@ final class TransferEntity: Object {
     @objc dynamic var energy: Int = 0
     @objc dynamic var encryptedDetailsEntity: EncryptedDetailsEntity?
     @objc dynamic var nonce: Int = 0
+    @objc dynamic var capital: String? = ""
+    @objc dynamic var restakeEarningsBool: Int = -1 // empty
+    @objc dynamic var delegationType: String?
+    @objc dynamic var delegationTargetBaker: Int = -1
+    @objc dynamic var openStatus: String?
+    @objc dynamic var metadataURL: String?
+    @objc dynamic var transactionFeeCommission: Int = -1
+    @objc dynamic var bakingRewardCommission: Int = -1
+    @objc dynamic var finalizationRewardCommission: Int = -1
+    
 }
 
 extension TransferEntity: TransferDataType {
@@ -128,6 +159,23 @@ extension TransferEntity: TransferDataType {
         }
         set {
             self.encryptedDetailsEntity = newValue as? EncryptedDetailsEntity
+        }
+    }
+    
+    var restakeEarnings: Bool? {
+        get {
+            restakeEarningsBool == -1 ? nil : (restakeEarningsBool == 1)
+        }
+        set {
+            if let restakeEarnings = newValue {
+                if restakeEarnings {
+                    self.restakeEarningsBool = 1
+                } else {
+                    self.restakeEarningsBool = 0
+                }
+            } else {
+                self.restakeEarningsBool = -1
+            }
         }
     }
     
