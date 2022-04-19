@@ -62,7 +62,7 @@ class AccountDetailsViewModel {
                 let pool = BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
                 self.hasStaked = true
                 self.stakedLabel = String(format: "accountDetails.delegationstakeLabel".localized, pool.getDisplayValueForAccountDetails())
-                self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ?? 0).displayValueWithGStroke()
+                self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValueWithGStroke()
             } else {
                 self.hasStaked = false
                 stakedLabel = nil

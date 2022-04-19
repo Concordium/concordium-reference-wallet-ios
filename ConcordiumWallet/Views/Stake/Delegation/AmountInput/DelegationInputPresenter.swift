@@ -121,10 +121,10 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             previouslyStakedInSelectedPool = 0
         } else if let existingPool = existingPool?.pool {
             pool = existingPool
-            previouslyStakedInSelectedPool = Int((self.account.delegation?.stakedAmount) ?? "0") ?? 0
+            previouslyStakedInSelectedPool = self.account.delegation?.stakedAmount ?? 0
         } else {
             pool = .lpool
-            previouslyStakedInSelectedPool = Int((self.account.delegation?.stakedAmount) ?? "0") ?? 0
+            previouslyStakedInSelectedPool = self.account.delegation?.stakedAmount ?? 0
         }
         
         if case .lpool = pool {
@@ -324,10 +324,10 @@ fileprivate extension StakeAmountInputViewModel {
                 isInCooldown: Bool,
                 validator: StakeAmountInputValidator,
                 showsPoolLimits: Bool) {
-        let atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
-        let staked = GTU(intValue: Int(account.delegation?.stakedAmount ?? "0") ?? 0)
+        let balance = GTU(intValue: account.forecastBalance)
+        let staked = GTU(intValue: account.delegation?.stakedAmount ?? 0)
         self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
-                                             value: atDisposal.displayValueWithGStroke())
+                                             value: balance.displayValueWithGStroke())
         self.secondBalance = BalanceViewModel(label: "delegation.inputamount.delegationstake".localized,
                                               value: staked.displayValueWithGStroke())
         self.currentPoolLimit = BalanceViewModel(

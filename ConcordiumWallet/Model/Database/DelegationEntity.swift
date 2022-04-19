@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 protocol DelegationDataType: DataStoreProtocol {
-    var stakedAmount: String { get set}
+    var stakedAmount: Int { get set}
     var restakeEarnings: Bool { get set}
     var delegationTargetType: String { get set}
     var delegationTargetBakerID: Int { get set}
@@ -18,7 +18,7 @@ protocol DelegationDataType: DataStoreProtocol {
 }
 
 final class DelegationEntity: Object {
-    @objc dynamic var stakedAmount: String = ""
+    @objc dynamic var stakedAmount: Int = 0
     @objc dynamic var restakeEarnings: Bool = false
     @objc dynamic var delegationTargetType: String = ""
     @objc dynamic var delegationTargetBakerID: Int = -1
@@ -26,7 +26,7 @@ final class DelegationEntity: Object {
     
     convenience init(accountDelegationModel: AccountDelegation) {
         self.init()
-        self.stakedAmount = accountDelegationModel.stakedAmount
+        self.stakedAmount = Int(accountDelegationModel.stakedAmount) ?? 0
         self.restakeEarnings = accountDelegationModel.restakeEarnings
         self.delegationTargetType = accountDelegationModel.delegationTarget.delegateType
         self.delegationTargetBakerID = accountDelegationModel.delegationTarget.bakerID ?? -1

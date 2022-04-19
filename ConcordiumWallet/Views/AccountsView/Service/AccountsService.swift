@@ -244,7 +244,8 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.baker?.stakedAmount ?? 0,
+                let stakedAmount = account.baker?.stakedAmount ?? (account.delegation?.stakedAmount ?? 0)
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(stakedAmount,
                                                                                                            account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
@@ -265,7 +266,9 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(account.baker?.stakedAmount ?? 0,
+                let stakedAmount = account.baker?.stakedAmount ?? (account.delegation?.stakedAmount ?? 0)
+                
+                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(stakedAmount,
                                                                                                            account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
