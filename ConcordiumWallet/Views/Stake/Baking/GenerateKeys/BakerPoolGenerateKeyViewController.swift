@@ -26,7 +26,6 @@ class BakerPoolGenerateKeyViewController: BaseViewController, BakerPoolGenerateK
 
 	var presenter: BakerPoolGenerateKeyPresenterProtocol
     @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var keyStack: UIStackView!
     @IBOutlet weak var electionKeyLabel: UILabel!
     @IBOutlet weak var electionContentLabel: UILabel!
     @IBOutlet weak var signatureKeyLabel: UILabel!

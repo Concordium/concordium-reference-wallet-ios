@@ -797,7 +797,7 @@ Explanation label for Stake]</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="baking.generatekeys.export"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="pressedExport:" destination="ebl-XB-hvY" eventType="touchUpInside" id="m57-fp-k2f"/>
+                                    <action selector="pressedExport:" destination="ebl-XB-hvY" eventType="touchUpInside" id="39N-Dp-451"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89b-xt-5HM">
@@ -883,7 +883,6 @@ Explanation label for Stake]</string>
                         <outlet property="electionContentLabel" destination="oQM-g8-THN" id="neB-5b-YRc"/>
                         <outlet property="electionKeyLabel" destination="9Ea-da-24e" id="7Lt-nx-sRR"/>
                         <outlet property="infoLabel" destination="89b-xt-5HM" id="Bwc-cU-okT"/>
-                        <outlet property="keyStack" destination="brz-E0-bdx" id="Pwf-hc-az6"/>
                         <outlet property="signatureContentLabel" destination="AKR-Gf-5TC" id="Ezl-M6-B4V"/>
                         <outlet property="signatureKeyLabel" destination="DrY-qA-D1a" id="hXU-zM-cKi"/>
                     </connections>

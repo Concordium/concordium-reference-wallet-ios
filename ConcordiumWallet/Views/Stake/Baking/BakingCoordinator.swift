@@ -49,7 +49,7 @@ class BakingCoordinator: Coordinator {
     }
     
     func showGenerateKey() {
-        let presenter = BakerPoolGenerateKeyPresenter(delegate: self, dependencyProvider: dependencyProvider)
+        let presenter = BakerPoolGenerateKeyPresenter(delegate: self, dependencyProvider: dependencyProvider, account: account)
         
         let viewController = BakerPoolGenerateKeyFactory.create(with: presenter)
         
@@ -68,11 +68,16 @@ extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
 }
 
 extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
-    func pressedClose() {
-        self.delegate?.finishedBakingCoordinator()
+    func shareExportedFile(url: URL, completion: @escaping () -> Void) {
+        self.share(items: [url], from: self.navigationController) { completed in
+            completion()
+            if completed {
+                self.delegate?.finishedBakingCoordinator()
+            }
+        }
     }
     
-    func pressedExportKeys(keys: GeneratedBakerKeys) {
-        
+    func pressedClose() {
+        self.delegate?.finishedBakingCoordinator()
     }
 }

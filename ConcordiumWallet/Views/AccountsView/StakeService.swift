@@ -12,13 +12,16 @@ import Combine
 protocol StakeServiceProtocol {
     func getBakerPool(bakerId: Int) -> AnyPublisher<BakerPoolResponse, Error>
     func getChainParameters() -> AnyPublisher<ChainParametersResponse, Error>
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error>
 }
 
 class StakeService: StakeServiceProtocol {
-    var networkManager: NetworkManagerProtocol
-    init(networkManager: NetworkManagerProtocol) {
+    let networkManager: NetworkManagerProtocol
+    let mobileWallet: MobileWalletProtocol
+    
+    init(networkManager: NetworkManagerProtocol, mobileWallet: MobileWalletProtocol) {
         self.networkManager = networkManager
-
+        self.mobileWallet = mobileWallet
     }
     
     func getChainParameters() -> AnyPublisher<ChainParametersResponse, Error> {
@@ -29,5 +32,9 @@ class StakeService: StakeServiceProtocol {
     func getBakerPool(bakerId: Int) -> AnyPublisher<BakerPoolResponse, Error> {
         let request = ResourceRequest(url: ApiConstants.bakerPool.appendingPathComponent("\(bakerId)"))
         return networkManager.load(request)
+    }
+    
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {
+        return mobileWallet.generateBakerKeys()
     }
 }

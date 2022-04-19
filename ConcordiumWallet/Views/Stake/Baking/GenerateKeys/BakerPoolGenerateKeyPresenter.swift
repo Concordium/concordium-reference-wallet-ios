@@ -15,27 +15,20 @@ import Combine
 //        navigationController.pushViewController(vc, animated: false)
 //    }
 
-enum BakerPoolGenerateKeyAction {
-    case export
-    case close
-}
-
 class BakerPoolGenerateKeyViewModel {
-    @Published private(set) var title: String
-    @Published private(set) var info: String
-    @Published private(set) var electionKeyTitle: String
+    @Published private(set) var title = "baking.generatekeys.title".localized
+    @Published private(set) var info = "baking.generatekeys.info".localized
+    @Published private(set) var electionKeyTitle = "baking.generatekeys.electionkey".localized
     @Published private(set) var electionKeyContent: String
-    @Published private(set) var signatureKeyTitle: String
+    @Published private(set) var signatureKeyTitle = "baking.generatekeys.signaturekey".localized
     @Published private(set) var signatureKeyContent: String
-    @Published private(set) var aggregationKeyTitle: String
+    @Published private(set) var aggregationKeyTitle = "baking.generatekeys.aggregationkey".localized
     @Published private(set) var aggregationKeyContent: String
     
+    let keyResult: Result<GeneratedBakerKeys, Error>
+    
     fileprivate init(keyResult: Result<GeneratedBakerKeys, Error>) {
-        title = "baking.generatekeys.title".localized
-        info = "baking.generatekeys.info".localized
-        electionKeyTitle = "baking.generatekeys.electionkey".localized
-        signatureKeyTitle = "baking.generatekeys.signaturekey".localized
-        aggregationKeyTitle = "baking.generatekeys.aggregationkey".localized
+        self.keyResult = keyResult
         
         if case let .success(keys) = keyResult {
             electionKeyContent = keys.electionVerifyKey.splitInto(lines: 2)
@@ -53,7 +46,7 @@ class BakerPoolGenerateKeyViewModel {
 // MARK: Delegate
 protocol BakerPoolGenerateKeyPresenterDelegate: AnyObject {
     func pressedClose()
-    func pressedExportKeys(keys: GeneratedBakerKeys)
+    func shareExportedFile(url: URL, completion: @escaping () -> Void)
 }
 
 // MARK: -
@@ -71,17 +64,21 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
     weak var view: BakerPoolGenerateKeyViewProtocol?
     weak var delegate: BakerPoolGenerateKeyPresenterDelegate?
     
-    private var viewModel: BakerPoolGenerateKeyViewModel
-    private let keys: Result<GeneratedBakerKeys, Error>
+    private let viewModel: BakerPoolGenerateKeyViewModel
+    private let stakeService: StakeServiceProtocol
+    private let exportService: ExportService
+    private let account: AccountDataType
 
     init(
         delegate: BakerPoolGenerateKeyPresenterDelegate? = nil,
-        dependencyProvider: StakeCoordinatorDependencyProvider
+        dependencyProvider: StakeCoordinatorDependencyProvider,
+        account: AccountDataType
     ) {
         self.delegate = delegate
-        let generatedKeys = dependencyProvider.mobileWallet().generateBakerKeys()
-        self.keys = generatedKeys
-        self.viewModel = BakerPoolGenerateKeyViewModel(keyResult: generatedKeys)
+        self.stakeService = dependencyProvider.stakeService()
+        self.exportService = dependencyProvider.exportService()
+        self.account = account
+        self.viewModel = BakerPoolGenerateKeyViewModel(keyResult: dependencyProvider.stakeService().generateBakerKeys())
     }
 
     func viewDidLoad() {
@@ -92,7 +89,7 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
                 message: "baking.generatekeys.notice.message".localized,
                 actions: [
                     AlertAction(
-                        name: "OK".localized,
+                        name: "ok".localized,
                         completion: nil,
                         style: .default
                     )
@@ -102,8 +99,21 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
     }
     
     func handleExport() {
-        if case let .success(keys) = self.keys {
-            delegate?.pressedExportKeys(keys: keys)
+        if case let .success(keys) = viewModel.keyResult {
+            do {
+                let exportedKeys = ExportedBakerKeys(bakerId: account.baker?.bakerID ?? 0, generatedKeys: keys)
+                let fileUrl = try exportService.export(bakerKeys: exportedKeys)
+                self.delegate?.shareExportedFile(url: fileUrl, completion: {
+                    do {
+                        try self.exportService.deleteBakerKeys()
+                    } catch {
+                        Logger.warn(error)
+                        self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    }
+                })
+            } catch {
+                Logger.error(error)
+            }
         }
     }
     
