@@ -17,7 +17,7 @@ class BurgerMenuFactory {
     }
 }
 
-class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast  {
+class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast {
     
     @IBOutlet weak var tableView: UITableView!
     

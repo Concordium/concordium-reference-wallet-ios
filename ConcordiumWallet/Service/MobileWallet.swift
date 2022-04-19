@@ -366,14 +366,14 @@ class MobileWallet: MobileWalletProtocol {
         
         var report: [(IdentityDataType?, [AccountDataType])] = []
         
-        //the identity is invalid if the privateIdObjectData cannot be retrieved from storage
+        // the identity is invalid if the privateIdObjectData cannot be retrieved from storage
         let allIdentities = storageManager.getIdentities()
         let invalidIdentities = allIdentities.filter { identity in
             if let key = identity.encryptedPrivateIdObjectData,
                 (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
-                return false //it is not invalid because we have privateIdObjectData
+                return false // it is not invalid because we have privateIdObjectData
             }
-            return true //invalid becaut privateIdObjectData could not be retrieved
+            return true // invalid becaut privateIdObjectData could not be retrieved
         }
         for identity in allIdentities {
             let identityAccounts = storageManager.getAccounts(for: identity)
@@ -385,13 +385,13 @@ class MobileWallet: MobileWalletProtocol {
                     return true
                 }
             }
-            //we add to the report invalid identities (even if their accounts are valid) and valid identities with invalid accounts
+            // we add to the report invalid identities (even if their accounts are valid) and valid identities with invalid accounts
             if(invalidIdentities.contains(where: { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub  == identity.identityObject?.preIdentityObject.pubInfoForIP.idCredPub }) || invalidAccountNames.count > 0) {
                 report.append((identity, invalidAccountNames))
             }
         }
         
-        //we add to the report any dangling accounts
+        // we add to the report any dangling accounts
         let allAccounts = storageManager.getAccounts()
         let invalidAccounts = allAccounts.filter {
             return (try? verifyPasscode(for: $0, pwHash: pwHash).get()) == nil

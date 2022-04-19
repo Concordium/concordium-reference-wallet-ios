@@ -18,7 +18,6 @@ class AccountDetailsFactory {
     }
 }
 
-// swiftlint:disable:next type_body_length
 class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtocol, Storyboarded, ShowAlert {
     
     var presenter: AccountDetailsPresenterProtocol
@@ -165,7 +164,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     }
     
     // swiftlint:disable function_body_length
-    // swiftlint:disable cyclomatic_complexity
     func bind(to viewModel: AccountDetailsViewModel) {
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
         

@@ -20,9 +20,9 @@ class IdentityImporter {
                         importReport: inout ImportedItemsReport) -> IdentityDataType? {
         do {
             if let existingEntity = storageManager.getIdentity(matching: identityDataToImport.identityObject) {
-                //Here we have an identity stored.
-                //We check whether the identity has its keys and if it does, we try to
-                //import its accounts and mark it as duplicate in the report
+                // Here we have an identity stored.
+                // We check whether the identity has its keys and if it does, we try to
+                // import its accounts and mark it as duplicate in the report
                
                 if let key = existingEntity.encryptedPrivateIdObjectData,
                    (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
@@ -31,7 +31,7 @@ class IdentityImporter {
                     importReport.duplicateIdentities.append(importedIdentity)
                     return existingEntity
                 } else {
-                    //we delete the stored unusable identity
+                    // we delete the stored unusable identity
                     storageManager.removeIdentity(existingEntity)
                 }
             }
@@ -79,7 +79,7 @@ class IdentityImporter {
         if let storedAccount = existingAccount,
             let key = storedAccount.encryptedPrivateKey,
            (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
-            //if the privateIdObject is NOT nil, it means the account contains keys
+            // if the privateIdObject is NOT nil, it means the account contains keys
             accountContainsKeys = true
         } else {
             accountContainsKeys = false
@@ -125,7 +125,7 @@ class IdentityImporter {
     private func importReadOnlyAccount(_ readOnlyAccount: MakeGenerateAccountsResponseElement, relatedIdentity: IdentityDataType, pwHash: String) {
         let existingAccount = storageManager.getAccount(withAddress: readOnlyAccount.accountAddress)
         guard existingAccount == nil else {
-            //we don't import a read-only account if the account is already saved locally
+            // we don't import a read-only account if the account is already saved locally
             return
         }
         do {

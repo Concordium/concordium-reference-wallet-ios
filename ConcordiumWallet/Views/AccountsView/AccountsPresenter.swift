@@ -13,8 +13,8 @@ class AccountViewModel: Hashable {
     var address: String
     var name: String
     var totalName: String
-    var totalAmount: String //total amount = public + everything decrypted from shielded
-    var generalAmount: String //public balance
+    var totalAmount: String // total amount = public + everything decrypted from shielded
+    var generalAmount: String // public balance
     var totalLockStatus: ShieldedAccountEncryptionStatus
     
     var owner: String?
@@ -61,12 +61,12 @@ class AccountViewModel: Hashable {
         // TODO: this will need fixing in a future release. We currently don't show the lock
         #warning("RNI: This has been intentionally set to decrypted for the purpose of March 2022 release")
         totalLockStatus = .decrypted
-        //totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
+        // totalLockStatus = (account.encryptedBalanceStatus == ShieldedAccountEncryptionStatus.decrypted) ? .decrypted : .partiallyDecrypted
         
         atDisposalName = "accounts.atdisposal".localized
         
         if !createMode {
-            areActionsEnabled = !account.isReadOnly //actions are enabled if the account is not readonly
+            areActionsEnabled = !account.isReadOnly // actions are enabled if the account is not readonly
             if totalLockStatus != .decrypted {
                 totalAmount += " + "
             }
@@ -230,17 +230,18 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
                 let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
-                let atDisposal = updatedAccounts.filter{!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
+                let atDisposal = updatedAccounts.filter {!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
                 let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.stakedAmount })
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
 //                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
-                //we add to the alert list all the non read-only accounts that have something in the shielded balance, but do not show a shielded balance 
+                // we add to the alert list all the non read-only accounts that have something in the shielded balance,
+                // but do not show a shielded balance
                 let accountsWithPendingShieldedTransactions = updatedAccounts.filter { account in
                     (account.hasShieldedTransactions && !account.showsShieldedBalance && !account.isReadOnly)
                 }
                 for account in accountsWithPendingShieldedTransactions {
-                    //we add the alert in the queue (the queue knows whether it needs to show it and when)
+                    // we add the alert in the queue (the queue knows whether it needs to show it and when)
                     self.alertDisplayer.enqueueAlert(.shieldedTransfer(account: account, actionCompletion: { [weak self] in
                         self?.delegate?.enableShielded(on: account)
                     }, dismissCompletion: {}))
@@ -380,7 +381,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
             if let account = dependencyProvider.storageManager().getAccounts(for: identity).first {
                 dependencyProvider.storageManager().removeAccount(account: account)
                 let identityProviderName = identity.identityProviderName ?? ""
-                //if no ip support email is present, we use Concordium's
+                // if no ip support email is present, we use Concordium's
                 let identityProviderSupportEmail = identity.identityProvider?.support ?? AppConstants.Support.concordiumSupportMail
                 view?.showIdentityFailed(identityProviderName: identityProviderName,
                                          identityProviderSupport: identityProviderSupportEmail,

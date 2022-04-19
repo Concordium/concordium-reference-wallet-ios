@@ -71,14 +71,14 @@ class SendFundViewModel {
     private func setBalancesFor(transferType: TransferType, account: AccountDataType) {
         switch transferType {
         case .simpleTransfer, .transferToSecret:
-            //for transfers from the public account, we show Total and at disposal for the public balance
+            // for transfers from the public account, we show Total and at disposal for the public balance
             firstBalanceName = "sendFund.total".localized
             secondBalanceName = "sendFund.atDisposal".localized
             firstBalance = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
         case .encryptedTransfer, .transferToPublic:
-            //for transfers from the shielded account we should the public at disposal and the shielded balance
+            // for transfers from the shielded account we should the public at disposal and the shielded balance
             let showLock = account.encryptedBalanceStatus == .partiallyDecrypted || account.encryptedBalanceStatus == .encrypted
             showShieldedLock = showLock
             firstBalanceName = "sendFund.balanceAtDisposal".localized
@@ -217,7 +217,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .map { [weak self] (recipientAddress, feeMessage, amount) in
                 guard let self = self else { return false }
                 guard let recipientAddress = recipientAddress else { return false }
-                let isAddressValid: Bool = (!recipientAddress.isEmpty) && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
+                let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
                
                 return isAddressValid &&
                        !(feeMessage ?? "").isEmpty &&
@@ -388,8 +388,8 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 let cost = Int(value.cost) ?? 0
                 let totalAmount: String!
                 if self.balanceType == .shielded {
-                    //the cost is always deducted from the public balance, not
-                    //from the shielded
+                    // the cost is always deducted from the public balance, not
+                    // from the shielded
                     totalAmount = GTU(intValue: disposalAmount).displayValue()
                 } else {
                     totalAmount = GTU(intValue: disposalAmount - cost).displayValue()

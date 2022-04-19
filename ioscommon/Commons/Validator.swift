@@ -34,7 +34,6 @@ private struct MemoSizeValidator {
     }
 }
 
-
 // MARK: - Name Length Validator
 
 private struct NameLengthValidator {

@@ -33,7 +33,7 @@ class TermsAndConditionsPresenter {
 
 extension TermsAndConditionsPresenter: TermsAndConditionsPresenterProtocol {
     func userTappedAcceptTerms() {
-        //save the hash of the accepted terms
+        // save the hash of the accepted terms
         AppSettings.acceptedTermsHash = HashingHelper.hash(TermsHelper.currentTerms)
         self.delegate?.userTappedAcceptTerms()
     }
