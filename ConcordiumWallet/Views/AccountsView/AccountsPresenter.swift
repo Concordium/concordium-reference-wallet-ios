@@ -229,7 +229,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
                 let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
-                let atDisposal = updatedAccounts.filter{!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
+                let atDisposal = updatedAccounts
+                    .filter {!$0.isReadOnly}
+                    .reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
                 let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + ($1.baker?.stakedAmount ?? 0) })
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
