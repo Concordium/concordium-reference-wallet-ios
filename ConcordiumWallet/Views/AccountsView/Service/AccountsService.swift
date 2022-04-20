@@ -422,6 +422,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                                                            EncryptedBalanceEntity(accountEncryptedAmount: balance.finalizedBalance?.accountEncryptedAmount),
                                                            hasShieldedTransactions: hasShieldedTransactions,
                                                            accountNonce: balance.finalizedBalance?.accountNonce ?? 0,
+                                                           accountIndex: balance.finalizedBalance?.accountIndex ?? 0,
                                                            delegation:
                                                             delegation,
                                                            baker: baker,

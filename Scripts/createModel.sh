@@ -129,6 +129,7 @@ replaceType "AccountDelegation.DelegationTarget?" "DelegationTarget"
 replaceType "DelegationTarget.: String?" ": String"
 replaceType "PendingChange.: Int?" ": Int"
 replaceType "PendingChange.change: String?" "change: String"
+replaceType "Balance.accountIndex: Int?" "accountIndex: Int"
 
 cat $ACCOUNT_TRANSACTIONS | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/RemoteTransactions.swift
 cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/PublicEncriptionKey.swift

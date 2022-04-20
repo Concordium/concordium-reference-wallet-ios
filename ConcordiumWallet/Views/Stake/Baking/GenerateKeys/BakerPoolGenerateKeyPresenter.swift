@@ -101,7 +101,7 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
     func handleExport() {
         if case let .success(keys) = viewModel.keyResult {
             do {
-                let exportedKeys = ExportedBakerKeys(bakerId: account.baker?.bakerID ?? 0, generatedKeys: keys)
+                let exportedKeys = ExportedBakerKeys(bakerId: account.accountIndex, generatedKeys: keys)
                 let fileUrl = try exportService.export(bakerKeys: exportedKeys)
                 self.delegate?.shareExportedFile(url: fileUrl, completion: {
                     do {
