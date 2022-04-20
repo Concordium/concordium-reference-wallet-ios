@@ -526,6 +526,7 @@ concordium-backup.concordiumwallet securely.";
 
 "delegation.inputamount.title.create" = "Register delegation";
 "delegation.inputamount.title.update" = "Update delegation";
+"delegation.inputamount.createamount" = "Enter the amount you want to delegate";
 "delegation.inputamount.optionalamount" = "Optional: Enter new delegation amount";
 "delegation.inputamount.lockedamountmessage" = "Delegation amount cannot be changed when it already has pending changes.";
 "delegation.inputamount.title.update" = "Update delegation";

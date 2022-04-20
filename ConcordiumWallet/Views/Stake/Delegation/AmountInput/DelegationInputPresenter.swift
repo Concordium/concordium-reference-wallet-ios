@@ -355,6 +355,7 @@ fileprivate extension StakeAmountInputViewModel {
             
         } else {
             self.title = "delegation.inputamount.title.create".localized
+            self.amountMessage = "delegation.inputamount.createamount".localized
         }
     }
 }
