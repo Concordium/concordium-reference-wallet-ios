@@ -312,13 +312,7 @@ class MobileWallet: MobileWalletProtocol {
     }
     
     func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {
-        do {
-            let keys = try GeneratedBakerKeys(try walletFacade.generateBakerKeys())
-            
-            return .success(keys)
-        } catch {
-            return .failure(error)
-        }
+        return Result { try GeneratedBakerKeys(try walletFacade.generateBakerKeys()) }
     }
     
     private func getCommitmentsRandomness(for account: AccountDataType, pwHash: String) -> Result<CommitmentsRandomness, Error> {
