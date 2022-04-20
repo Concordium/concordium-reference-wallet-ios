@@ -1703,6 +1703,58 @@
 		9074C71527D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
 		9074C71627D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
 		9074C71727D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */; };
+		9078542D28101BFC00B655EB /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542228101BFC00B655EB /* baker_update_flow_en_1.html */; };
+		9078542E28101BFC00B655EB /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542228101BFC00B655EB /* baker_update_flow_en_1.html */; };
+		9078542F28101BFC00B655EB /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542228101BFC00B655EB /* baker_update_flow_en_1.html */; };
+		9078543028101BFC00B655EB /* baker_update_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542228101BFC00B655EB /* baker_update_flow_en_1.html */; };
+		9078543128101BFC00B655EB /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542328101BFC00B655EB /* baker_update_flow_en_3.html */; };
+		9078543228101BFC00B655EB /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542328101BFC00B655EB /* baker_update_flow_en_3.html */; };
+		9078543328101BFC00B655EB /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542328101BFC00B655EB /* baker_update_flow_en_3.html */; };
+		9078543428101BFC00B655EB /* baker_update_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542328101BFC00B655EB /* baker_update_flow_en_3.html */; };
+		9078543528101BFC00B655EB /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542428101BFC00B655EB /* baker_update_flow_en_4.html */; };
+		9078543628101BFC00B655EB /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542428101BFC00B655EB /* baker_update_flow_en_4.html */; };
+		9078543728101BFC00B655EB /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542428101BFC00B655EB /* baker_update_flow_en_4.html */; };
+		9078543828101BFC00B655EB /* baker_update_flow_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542428101BFC00B655EB /* baker_update_flow_en_4.html */; };
+		9078543928101BFC00B655EB /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542528101BFC00B655EB /* baker_update_flow_en_5.html */; };
+		9078543A28101BFC00B655EB /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542528101BFC00B655EB /* baker_update_flow_en_5.html */; };
+		9078543B28101BFC00B655EB /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542528101BFC00B655EB /* baker_update_flow_en_5.html */; };
+		9078543C28101BFC00B655EB /* baker_update_flow_en_5.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542528101BFC00B655EB /* baker_update_flow_en_5.html */; };
+		9078543D28101BFC00B655EB /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542628101BFC00B655EB /* baker_update_flow_en_2.html */; };
+		9078543E28101BFC00B655EB /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542628101BFC00B655EB /* baker_update_flow_en_2.html */; };
+		9078543F28101BFC00B655EB /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542628101BFC00B655EB /* baker_update_flow_en_2.html */; };
+		9078544028101BFC00B655EB /* baker_update_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542628101BFC00B655EB /* baker_update_flow_en_2.html */; };
+		9078544128101BFC00B655EB /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542728101BFC00B655EB /* bakerupdate_flow_style.css */; };
+		9078544228101BFC00B655EB /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542728101BFC00B655EB /* bakerupdate_flow_style.css */; };
+		9078544328101BFC00B655EB /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542728101BFC00B655EB /* bakerupdate_flow_style.css */; };
+		9078544428101BFC00B655EB /* bakerupdate_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542728101BFC00B655EB /* bakerupdate_flow_style.css */; };
+		9078544528101BFC00B655EB /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542928101BFC00B655EB /* registerbaker_flow_style.css */; };
+		9078544628101BFC00B655EB /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542928101BFC00B655EB /* registerbaker_flow_style.css */; };
+		9078544728101BFC00B655EB /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542928101BFC00B655EB /* registerbaker_flow_style.css */; };
+		9078544828101BFC00B655EB /* registerbaker_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078542928101BFC00B655EB /* registerbaker_flow_style.css */; };
+		9078544928101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542A28101BFC00B655EB /* baker_intro_flow_en_1.html */; };
+		9078544A28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542A28101BFC00B655EB /* baker_intro_flow_en_1.html */; };
+		9078544B28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542A28101BFC00B655EB /* baker_intro_flow_en_1.html */; };
+		9078544C28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542A28101BFC00B655EB /* baker_intro_flow_en_1.html */; };
+		9078544D28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542B28101BFC00B655EB /* baker_intro_flow_en_2.html */; };
+		9078544E28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542B28101BFC00B655EB /* baker_intro_flow_en_2.html */; };
+		9078544F28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542B28101BFC00B655EB /* baker_intro_flow_en_2.html */; };
+		9078545028101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542B28101BFC00B655EB /* baker_intro_flow_en_2.html */; };
+		9078545128101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542C28101BFC00B655EB /* baker_intro_flow_en_3.html */; };
+		9078545228101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542C28101BFC00B655EB /* baker_intro_flow_en_3.html */; };
+		9078545328101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542C28101BFC00B655EB /* baker_intro_flow_en_3.html */; };
+		9078545428101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078542C28101BFC00B655EB /* baker_intro_flow_en_3.html */; };
+		9078545828102BD000B655EB /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078545628102BD000B655EB /* baker_remove_flow_en_1.html */; };
+		9078545928102BD000B655EB /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078545628102BD000B655EB /* baker_remove_flow_en_1.html */; };
+		9078545A28102BD000B655EB /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078545628102BD000B655EB /* baker_remove_flow_en_1.html */; };
+		9078545B28102BD000B655EB /* baker_remove_flow_en_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 9078545628102BD000B655EB /* baker_remove_flow_en_1.html */; };
+		9078545C28102BD000B655EB /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078545728102BD000B655EB /* bakerremove_flow_style.css */; };
+		9078545D28102BD000B655EB /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078545728102BD000B655EB /* bakerremove_flow_style.css */; };
+		9078545E28102BD000B655EB /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078545728102BD000B655EB /* bakerremove_flow_style.css */; };
+		9078545F28102BD000B655EB /* bakerremove_flow_style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9078545728102BD000B655EB /* bakerremove_flow_style.css */; };
+		9078546128102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
+		9078546228102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
+		9078546328102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
+		9078546428102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
 		909EAF1E27F71FAD001930AE /* PendingChangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */; };
 		909EAF1F27F71FAD001930AE /* PendingChangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */; };
 		909EAF2027F71FAD001930AE /* PendingChangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */; };
@@ -2285,6 +2337,19 @@
 		9074C70927D7E70F00B2DFD8 /* DelegationPoolSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionPresenter.swift; sourceTree = "<group>"; };
 		9074C70A27D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationPoolSelectionViewController.swift; sourceTree = "<group>"; };
 		9074C71327D9314B00B2DFD8 /* StakeDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeDataHandler.swift; sourceTree = "<group>"; };
+		9078542228101BFC00B655EB /* baker_update_flow_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_update_flow_en_1.html; sourceTree = "<group>"; };
+		9078542328101BFC00B655EB /* baker_update_flow_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_update_flow_en_3.html; sourceTree = "<group>"; };
+		9078542428101BFC00B655EB /* baker_update_flow_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_update_flow_en_4.html; sourceTree = "<group>"; };
+		9078542528101BFC00B655EB /* baker_update_flow_en_5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_update_flow_en_5.html; sourceTree = "<group>"; };
+		9078542628101BFC00B655EB /* baker_update_flow_en_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_update_flow_en_2.html; sourceTree = "<group>"; };
+		9078542728101BFC00B655EB /* bakerupdate_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bakerupdate_flow_style.css; sourceTree = "<group>"; };
+		9078542928101BFC00B655EB /* registerbaker_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = registerbaker_flow_style.css; sourceTree = "<group>"; };
+		9078542A28101BFC00B655EB /* baker_intro_flow_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_intro_flow_en_1.html; sourceTree = "<group>"; };
+		9078542B28101BFC00B655EB /* baker_intro_flow_en_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_intro_flow_en_2.html; sourceTree = "<group>"; };
+		9078542C28101BFC00B655EB /* baker_intro_flow_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_intro_flow_en_3.html; sourceTree = "<group>"; };
+		9078545628102BD000B655EB /* baker_remove_flow_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_remove_flow_en_1.html; sourceTree = "<group>"; };
+		9078545728102BD000B655EB /* bakerremove_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bakerremove_flow_style.css; sourceTree = "<group>"; };
+		9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingOnboardingCoordinator.swift; sourceTree = "<group>"; };
 		909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingChangeEntity.swift; sourceTree = "<group>"; };
 		909EAF2227F72058001930AE /* AccountPendingChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPendingChangeType.swift; sourceTree = "<group>"; };
 		909EAF2727F721BF001930AE /* PoolPendingChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolPendingChangeType.swift; sourceTree = "<group>"; };
@@ -2466,6 +2531,9 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9078545528102BD000B655EB /* BakerRemoveOnboarding */,
+				9078542828101BFC00B655EB /* BakerRegisterOnboarding */,
+				9078542128101BFC00B655EB /* BakerUpdateOnboarding */,
 				90434C6227FB103500E4DBAA /* RemoveDelegationOnboarding */,
 				90434C6127FB102600E4DBAA /* UpdateDelegationOnboarding */,
 				901F7F6227F1D5A100C46741 /* RegisterDelegationOnboarding */,
@@ -3620,12 +3688,46 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		9078542128101BFC00B655EB /* BakerUpdateOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				9078542228101BFC00B655EB /* baker_update_flow_en_1.html */,
+				9078542628101BFC00B655EB /* baker_update_flow_en_2.html */,
+				9078542328101BFC00B655EB /* baker_update_flow_en_3.html */,
+				9078542428101BFC00B655EB /* baker_update_flow_en_4.html */,
+				9078542528101BFC00B655EB /* baker_update_flow_en_5.html */,
+				9078542728101BFC00B655EB /* bakerupdate_flow_style.css */,
+			);
+			path = BakerUpdateOnboarding;
+			sourceTree = "<group>";
+		};
+		9078542828101BFC00B655EB /* BakerRegisterOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				9078542928101BFC00B655EB /* registerbaker_flow_style.css */,
+				9078542A28101BFC00B655EB /* baker_intro_flow_en_1.html */,
+				9078542B28101BFC00B655EB /* baker_intro_flow_en_2.html */,
+				9078542C28101BFC00B655EB /* baker_intro_flow_en_3.html */,
+			);
+			path = BakerRegisterOnboarding;
+			sourceTree = "<group>";
+		};
+		9078545528102BD000B655EB /* BakerRemoveOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				9078545628102BD000B655EB /* baker_remove_flow_en_1.html */,
+				9078545728102BD000B655EB /* bakerremove_flow_style.css */,
+			);
+			path = BakerRemoveOnboarding;
+			sourceTree = "<group>";
+		};
 		90C371CC27DF24D10046F05E /* Baking */ = {
 			isa = PBXGroup;
 			children = (
 				90C371CD27DF24F00046F05E /* BakerPoolSettingsPresenter.swift */,
 				90C371CE27DF24F00046F05E /* BakerPoolSettingsViewController.swift */,
 				901F7F4727EB4D6A00C46741 /* BakerDataHandler.swift */,
+				9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */,
 			);
 			path = Baking;
 			sourceTree = "<group>";
@@ -3944,6 +4046,7 @@
 				9024FB5927E09B830057EA91 /* RobotoMono.ttf in Resources */,
 				7FA0AED3246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
 				7F48C205244DCD0B00997684 /* readme.md in Resources */,
+				9078543128101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				070D624827B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				7F48C206244DCD0B00997684 /* Widget.storyboard in Resources */,
 				7F48C24A244DCD7100997684 /* 2.1.2.RX-backend_global.json in Resources */,
@@ -3951,14 +4054,19 @@
 				7FA0AECC246061AD00B7673F /* 2.4.2.RX_backend_submissionStatus_committed.json in Resources */,
 				7F48C248244DCD7100997684 /* 2.3.2.RX_backend_submitCredential.json in Resources */,
 				7F48C207244DCD0B00997684 /* Account.storyboard in Resources */,
+				9078545C28102BD000B655EB /* bakerremove_flow_style.css in Resources */,
 				52589B1725121E8F00ADD35B /* 4.4.1.TX_lib_decrypt_encrypted_amount.json in Resources */,
 				7F48C208244DCD0B00997684 /* Localizable.strings in Resources */,
 				7FA0AECF246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_abs.json in Resources */,
+				9078543D28101BFC00B655EB /* baker_update_flow_en_2.html in Resources */,
 				90434CA927FB2D4200E4DBAA /* removedelegation_flow_style.css in Resources */,
 				7F48C247244DCD7100997684 /* 2.2.1.TX-lib_create_credential.json in Resources */,
 				7F48C209244DCD0B00997684 /* Identity.storyboard in Resources */,
+				9078544928101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */,
+				9078545128101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */,
 				7FD435FE249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				7F48C24D244DCD7100997684 /* 3.4.2.RX_backend_submissionStatus.json in Resources */,
+				9078543528101BFC00B655EB /* baker_update_flow_en_4.html in Resources */,
 				070D622927B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				07E6E27E27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				070D625827B3DD5600B6903C /* shielding_1.svg in Resources */,
@@ -3974,6 +4082,7 @@
 				7F48C20A244DCD0B00997684 /* .swiftlint.yml in Resources */,
 				901F7F2627EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				7F48C24E244DCD7100997684 /* 2.3.1.TX_backend_submitCredential.json in Resources */,
+				9078543928101BFC00B655EB /* baker_update_flow_en_5.html in Resources */,
 				901F7F7C27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				070D625027B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				5237186F25751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
@@ -3996,12 +4105,15 @@
 				070D621527B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
 				7FA0AED2246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_com.json in Resources */,
 				90434C9E27FB2D2800E4DBAA /* updatedelegation_flow_style.css in Resources */,
+				9078544128101BFC00B655EB /* bakerupdate_flow_style.css in Resources */,
 				7FA0AED4246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_fin.json in Resources */,
 				7FA0AED0246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_com_amb.json in Resources */,
+				9078544528101BFC00B655EB /* registerbaker_flow_style.css in Resources */,
 				7F48C249244DCD7100997684 /* 3.2.2.RX-lib_create_transfer.json in Resources */,
 				7F48C240244DCD6C00997684 /* 1.3.2.RX-backend_request_identity.json in Resources */,
 				07E6E28627B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				901F7F7427F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
+				9078542D28101BFC00B655EB /* baker_update_flow_en_1.html in Resources */,
 				901F7F8427F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
 				52D3510D250A6AE500858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				7F5F779224891F220016F8D1 /* AppIcon.xcassets in Resources */,
@@ -4010,10 +4122,12 @@
 				7FA0AED7246061AD00B7673F /* 4.2.2.RX_backend_accTransactions.json in Resources */,
 				07E6E28A27B558A30083A852 /* intro_flow_style.css in Resources */,
 				070D620527B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
+				9078544D28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */,
 				19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */,
 				7FA0AED6246061AD00B7673F /* backend_server_error.json in Resources */,
 				19C2ED9155A42125E3162055 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
 				90434C6A27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
+				9078545828102BD000B655EB /* baker_remove_flow_en_1.html in Resources */,
 				52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */,
 				901F7F2A27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */,
 				90434C8227FB111B00E4DBAA /* delegation_update_flow_en_1.html in Resources */,
@@ -4033,6 +4147,7 @@
 				070D622327B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				070D625227B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				7F85B7BF246A9A7C00ED09B8 /* More.storyboard in Resources */,
+				9078543B28101BFC00B655EB /* baker_update_flow_en_5.html in Resources */,
 				90434CAB27FB2D4200E4DBAA /* removedelegation_flow_style.css in Resources */,
 				52D3510F250A6AE500858AC6 /* 4.3.2.RX_backend_accEncryptionKey.json in Resources */,
 				070D621727B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
@@ -4042,6 +4157,7 @@
 				90434CA027FB2D2800E4DBAA /* updatedelegation_flow_style.css in Resources */,
 				52A0A0C727D0B4E8001C162D /* Stake.storyboard in Resources */,
 				7F5F779024891EFB0016F8D1 /* AppIconTestNet.xcassets in Resources */,
+				9078544B28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */,
 				7F85B7C1246A9A7C00ED09B8 /* readme.md in Resources */,
 				7FF9190F250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				90434C6C27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
@@ -4053,15 +4169,20 @@
 				070D626927B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				901F7F8A27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
 				901F7F7227F1D5DE00C46741 /* delegation_intro_flow_en_1.html in Resources */,
+				9078545E28102BD000B655EB /* bakerremove_flow_style.css in Resources */,
 				070D625627B3DD5600B6903C /* shielding_2.svg in Resources */,
 				070D622B27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				901F7F8627F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
+				9078543F28101BFC00B655EB /* baker_update_flow_en_2.html in Resources */,
 				901F7F2C27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */,
 				07E6E27C27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				7FD43600249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				7F168A032481232400DE429E /* SendFund.storyboard in Resources */,
 				7F85B7C3246A9A7C00ED09B8 /* Account.storyboard in Resources */,
+				9078544F28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */,
+				9078544728101BFC00B655EB /* registerbaker_flow_style.css in Resources */,
 				7F85B7C4246A9A7C00ED09B8 /* Localizable.strings in Resources */,
+				9078544328101BFC00B655EB /* bakerupdate_flow_style.css in Resources */,
 				7F85B7C5246A9A7C00ED09B8 /* Identity.storyboard in Resources */,
 				901F7F7627F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
 				9024FB5B27E09B830057EA91 /* RobotoMono.ttf in Resources */,
@@ -4072,16 +4193,21 @@
 				90434C9427FB2CDA00E4DBAA /* registerdelegation_flow_style.css in Resources */,
 				7F85B7C7246A9A7C00ED09B8 /* Login.storyboard in Resources */,
 				7F5F778E24891EA80016F8D1 /* Assets.xcassets in Resources */,
+				9078545328101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */,
 				070D625A27B3DD5600B6903C /* shielding_1.svg in Resources */,
 				90434C7C27FB111B00E4DBAA /* delegation_update_flow_en_2.html in Resources */,
 				90434C7027FB108D00E4DBAA /* delegation_remove_flow_en_2.html in Resources */,
 				070D624A27B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				901F7F7E27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				070D620727B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
+				9078543328101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
+				9078545A28102BD000B655EB /* baker_remove_flow_en_1.html in Resources */,
 				90434C8427FB111B00E4DBAA /* delegation_update_flow_en_1.html in Resources */,
 				901F7F2827EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
+				9078542F28101BFC00B655EB /* baker_update_flow_en_1.html in Resources */,
+				9078543728101BFC00B655EB /* baker_update_flow_en_4.html in Resources */,
 				52055F9C25541B160071F7CA /* AccountCardView.xib in Resources */,
 				070D622727B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
 			);
@@ -4092,10 +4218,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F85B8BD246A9AB600ED09B8 /* LaunchScreen.storyboard in Resources */,
+				9078543028101BFC00B655EB /* baker_update_flow_en_1.html in Resources */,
 				7F85B8BE246A9AB600ED09B8 /* More.storyboard in Resources */,
 				5237187225751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
 				7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */,
 				7F85B8C1246A9AB600ED09B8 /* Widget.storyboard in Resources */,
+				9078544428101BFC00B655EB /* bakerupdate_flow_style.css in Resources */,
 				07E6E28527B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				7FF91910250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				070D625B27B3DD5600B6903C /* shielding_1.svg in Resources */,
@@ -4105,34 +4233,44 @@
 				7F168A042481232400DE429E /* SendFund.storyboard in Resources */,
 				070D623027B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
 				90434C8127FB111B00E4DBAA /* delegation_update_flow_en_3.html in Resources */,
+				9078545428101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */,
 				070D621C27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				90434C9527FB2CDA00E4DBAA /* registerdelegation_flow_style.css in Resources */,
 				90434C6D27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
+				9078544028101BFC00B655EB /* baker_update_flow_en_2.html in Resources */,
 				901F7F7F27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				901F7F8B27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
 				07E6E27D27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
+				9078544828101BFC00B655EB /* registerbaker_flow_style.css in Resources */,
 				7FD43605249A2D34002D2AC3 /* icon-44-58.png in Resources */,
+				9078543C28101BFC00B655EB /* baker_update_flow_en_5.html in Resources */,
 				52055F7A2552B83D0071F7CA /* IdentityCardView.xib in Resources */,
 				07E6E27927B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				52A0A0C827D0B4E8001C162D /* Stake.storyboard in Resources */,
 				07E6E28127B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				90434C7127FB108D00E4DBAA /* delegation_remove_flow_en_2.html in Resources */,
 				070D626A27B40C2D00B6903C /* Onboarding.storyboard in Resources */,
+				9078543828101BFC00B655EB /* baker_update_flow_en_4.html in Resources */,
 				070D622427B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				901F7F2927EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				070D622C27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				070D625727B3DD5600B6903C /* shielding_2.svg in Resources */,
+				9078545028101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */,
+				9078545F28102BD000B655EB /* bakerremove_flow_style.css in Resources */,
 				90434CAC27FB2D4200E4DBAA /* removedelegation_flow_style.css in Resources */,
+				9078544C28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */,
 				070D621827B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
 				070D622827B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
 				7FD43601249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				070D625327B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				90434CA127FB2D2800E4DBAA /* updatedelegation_flow_style.css in Resources */,
+				9078543428101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				901F7F2D27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */,
 				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				901F7F7727F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
 				90434C7D27FB111B00E4DBAA /* delegation_update_flow_en_2.html in Resources */,
 				52055F9D25541B160071F7CA /* AccountCardView.xib in Resources */,
+				9078545B28102BD000B655EB /* baker_remove_flow_en_1.html in Resources */,
 				901F7F8327F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
 				07E6E28D27B558A30083A852 /* intro_flow_style.css in Resources */,
 				7F85B8C2246A9AB600ED09B8 /* Account.storyboard in Resources */,
@@ -4158,10 +4296,12 @@
 				070D621627B3C54600B6903C /* shielded_balance_onboarding_en_6.html in Resources */,
 				07E6E28B27B558A30083A852 /* intro_flow_style.css in Resources */,
 				7FF07A7923EADB1400F1FC04 /* LaunchScreen.storyboard in Resources */,
+				9078543A28101BFC00B655EB /* baker_update_flow_en_5.html in Resources */,
 				070D620627B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				901F7F8127F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
 				90434C7B27FB111B00E4DBAA /* delegation_update_flow_en_2.html in Resources */,
 				90434C7F27FB111B00E4DBAA /* delegation_update_flow_en_3.html in Resources */,
+				9078543228101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
 				070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
@@ -4171,23 +4311,31 @@
 				070D625127B3DD5600B6903C /* unshielding_1.svg in Resources */,
 				9024FB5A27E09B830057EA91 /* RobotoMono.ttf in Resources */,
 				070D622627B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
+				9078545928102BD000B655EB /* baker_remove_flow_en_1.html in Resources */,
 				07E6E27F27B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				7FF9190E250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				7F168A022481232400DE429E /* SendFund.storyboard in Resources */,
 				7FD43603249A2D34002D2AC3 /* icon-44-58.png in Resources */,
 				52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */,
+				9078542E28101BFC00B655EB /* baker_update_flow_en_1.html in Resources */,
+				9078544E28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */,
 				070D622A27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				070D621A27B3C54600B6903C /* shielded_balance_onboarding_en_7.html in Resources */,
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
+				9078544A28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */,
+				9078544228101BFC00B655EB /* bakerupdate_flow_style.css in Resources */,
 				90434C9F27FB2D2800E4DBAA /* updatedelegation_flow_style.css in Resources */,
 				070D622E27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
 				07E6E27B27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				90434C6B27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
 				901F7F2727EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
+				9078543628101BFC00B655EB /* baker_update_flow_en_4.html in Resources */,
 				52055F9B25541B160071F7CA /* AccountCardView.xib in Resources */,
 				901F7F7D27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
+				9078545228101BFC00B655EB /* baker_intro_flow_en_3.html in Resources */,
 				90434CAA27FB2D4200E4DBAA /* removedelegation_flow_style.css in Resources */,
+				9078543E28101BFC00B655EB /* baker_update_flow_en_2.html in Resources */,
 				07E6E28327B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				901F7F8527F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
 				7FF07A7423EADB1200F1FC04 /* Account.storyboard in Resources */,
@@ -4198,6 +4346,8 @@
 				06AA2A9A23F58C2C0001F964 /* Localizable.strings in Resources */,
 				07E6E28727B558A30083A852 /* intro_flow_onboarding_en_1.html in Resources */,
 				901F7F8927F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
+				9078544628101BFC00B655EB /* registerbaker_flow_style.css in Resources */,
+				9078545D28102BD000B655EB /* bakerremove_flow_style.css in Resources */,
 				06A5129623F545CD008050B4 /* Identity.storyboard in Resources */,
 				19C2E2845C662830D186E79E /* .swiftlint.yml in Resources */,
 				070D625527B3DD5600B6903C /* shielding_2.svg in Resources */,
@@ -4635,6 +4785,7 @@
 				901F7F3027EB023100C46741 /* AccountDelegation.swift in Sources */,
 				7F48C19B244DCD0B00997684 /* BaseView.swift in Sources */,
 				7F48C19C244DCD0B00997684 /* BiometricsEnablingPresenter.swift in Sources */,
+				9078546128102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				642ED97725F21FB300A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				7F48C19F244DCD0B00997684 /* IdentitiesCoordinator.swift in Sources */,
 				901F7F4827EB4D6A00C46741 /* BakerDataHandler.swift in Sources */,
@@ -4960,6 +5111,7 @@
 				7F85B727246A9A7C00ED09B8 /* AccountsPresenter.swift in Sources */,
 				7F85B72A246A9A7C00ED09B8 /* CreateIdentityCoordinator.swift in Sources */,
 				7F85B72B246A9A7C00ED09B8 /* TransparentNavigationController.swift in Sources */,
+				9078546328102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				7F85B72D246A9A7C00ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				7F85B72E246A9A7C00ED09B8 /* IdentitiesPresenterProtocol.swift in Sources */,
 				077AC60026E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
@@ -5347,6 +5499,7 @@
 				7F85B824246A9AB600ED09B8 /* RoundedCornerView.swift in Sources */,
 				7F85B826246A9AB600ED09B8 /* AccountsPresenter.swift in Sources */,
 				7F85B829246A9AB600ED09B8 /* CreateIdentityCoordinator.swift in Sources */,
+				9078546428102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				7F85B82A246A9AB600ED09B8 /* TransparentNavigationController.swift in Sources */,
 				7F85B82C246A9AB600ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				077AC60126E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
@@ -5861,6 +6014,7 @@
 				5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				19C2EB170045945CE5D47CC8 /* IPInfoResponseElement.swift in Sources */,
 				52DCAA0127CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
+				9078546228102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				528EB74B255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				7FD8DEA22445F9F500CA06D8 /* IdentityObjectWrapper.swift in Sources */,
 				642ED94425EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
