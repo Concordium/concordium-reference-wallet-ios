@@ -28,6 +28,7 @@ enum Field: Hashable {
     case bakerSignatureVerifyKey
     case bakerAggregationVerifyKey
  
+    // swiftlint:disable cyclomatic_complexity
     func getLabelText() -> String {
         switch self {
         // common
@@ -64,6 +65,7 @@ enum Field: Hashable {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     func getOrderIndex() -> Int {
         switch self {
         // common

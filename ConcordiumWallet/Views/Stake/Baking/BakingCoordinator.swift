@@ -40,7 +40,6 @@ class BakingCoordinator: Coordinator {
     func start() {
         // TODO: Implement actual navigation flow
         
-        
         showPoolSettings()
     }
     
