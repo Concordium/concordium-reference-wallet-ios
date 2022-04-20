@@ -679,6 +679,9 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.receipt.poolstatus" = "Delegation pool status";
 "baking.receipt.bakerstake" = "Baker stake";
 "baking.receipt.metadataurl" = "Metadata URL";
+"baking.receipt.electionverifykey" = "Election verify key";
+"baking.receipt.signatureverifykey" = "Signature verify key";
+"baking.receipt.aggregationverifykey" = "Aggregation verify key";
 
 
 "onboardingcarousel.registerbaker.title" = "Become a baker";
