@@ -21,6 +21,8 @@ class BakingCoordinator: Coordinator {
     private let account: AccountDataType
     private let dependencyProvider: StakeCoordinatorDependencyProvider
     
+    private let bakingDataHandler: StakeDataHandler
+    
     init(
         navigationController: UINavigationController,
         dependencyProvider: StakeCoordinatorDependencyProvider,
@@ -32,16 +34,18 @@ class BakingCoordinator: Coordinator {
         self.account = account
         self.delegate = parentCoordinator
         self.dependencyProvider = dependencyProvider
+        self.bakingDataHandler = BakerDataHandler(account: account, action: .register)
     }
     
     func start() {
         // TODO: Implement actual navigation flow
         
-        showPoolSettings(transferType: .registerBaker)
+        
+        showPoolSettings()
     }
     
-    func showPoolSettings(transferType: TransferType) {
-        let presenter = BakerPoolSettingsPresenter(delegate: self, dataHandler: StakeDataHandler(transferType: transferType))
+    func showPoolSettings() {
+        let presenter = BakerPoolSettingsPresenter(delegate: self, dataHandler: bakingDataHandler)
         
         let viewController = BakerPoolSettingsFactory.create(with: presenter)
         
@@ -49,7 +53,12 @@ class BakingCoordinator: Coordinator {
     }
     
     func showGenerateKey() {
-        let presenter = BakerPoolGenerateKeyPresenter(delegate: self, dependencyProvider: dependencyProvider, account: account)
+        let presenter = BakerPoolGenerateKeyPresenter(
+            delegate: self,
+            dependencyProvider: dependencyProvider,
+            account: account,
+            dataHandler: bakingDataHandler
+        )
         
         let viewController = BakerPoolGenerateKeyFactory.create(with: presenter)
         

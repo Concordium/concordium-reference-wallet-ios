@@ -9,13 +9,14 @@
 import Foundation
 
 class BakerDataHandler: StakeDataHandler {
-    // TODO: option can be a menu option
-    init(account: AccountDataType, option: Bool) {
-        if account.baker != nil {
-           // TODO: switch on the option to figure out what to do
-            super.init(transferType: .removeBaker)
-        } else {
-            // register baker
+    enum Action {
+        case register // TODO: Add missing cases
+        
+    }
+    
+    init(account: AccountDataType, action: Action) {
+        switch action {
+        case .register:
             super.init(transferType: .registerBaker)
         }
         self.add(entry: DelegationAccountData(accountAddress: account.address))
