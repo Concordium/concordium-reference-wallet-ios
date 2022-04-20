@@ -72,11 +72,12 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         self.transactionsService.performTransfer(transfer, from: account, requestPasswordDelegate: delegate)
             .showLoadingIndicator(in: view)
             .tryMap(self.storeManager.storeTransfer)
-            .sink { error in
+            .sink(receiveError: { error in
+                if case GeneralError.userCancelled = error { return }
                 self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            } receiveValue: { [weak self] transfer in
+            }, receiveValue: { [weak self] transfer in
                 self?.delegate?.confirmedTransaction(transfer: transfer)
-            }.store(in: &cancellables)
+            }).store(in: &cancellables)
     }
     func closeButtonTapped() {
         self.delegate?.pressedClose()
@@ -101,6 +102,7 @@ fileprivate extension StakeReceiptViewModel {
         } else if isRemoving {
             title = "delegation.receiptconfirmation.title.remove".localized
             text = "delegation.receipt.removedelegation".localized
+            receiptHeaderText = "delegation.receipt.removedelegationheader".localized
         } else {
             title = "delegation.receiptconfirmation.title.create".localized
             receiptHeaderText = "delegation.receipt.registerdelegation".localized

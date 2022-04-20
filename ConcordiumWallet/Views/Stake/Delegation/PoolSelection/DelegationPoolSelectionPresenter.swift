@@ -12,6 +12,7 @@ import Combine
 enum DelegationPoolBakerIdError: Error {
     case empty
     case invalid
+    case closed
 }
 
 enum BakerPool {
@@ -130,7 +131,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                         if (response.poolInfo.openStatus == "openForAll") || (response.poolInfo.openStatus == "closedForNew" && currentBakerId == bakerIdInt) {
                             return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
                         } else {
-                            return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
+                            return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.closed)
                         }
                     }.replaceError(with: {
                         return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
@@ -149,6 +150,8 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                     self?.viewModel.bakerIdErrorMessage = nil
                 case .invalid:
                     self?.viewModel.bakerIdErrorMessage = "delegation.pool.invalidbakerid".localized
+                case .closed:
+                    self?.viewModel.bakerIdErrorMessage = "delegation.pool.closedpool".localized
                 }
                 
             }

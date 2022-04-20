@@ -244,7 +244,7 @@ process on-chain.";
 "accountDetails.noIdentities" = "This account has no revealed identity data.";
 "identityFailed.title" = "Identity issuance failed!";
 "accountDetails.bakingstakelabel" = "Stake with baker %@";
-"accountDetails.delegationstakeLabel" = "Delegation with %@";
+"accountDetails.delegationstakeLabel" = "Delegation to %@";
 "accountDetails.lpoolvalue" = "L-Pool";
 "accountDetails.bakerpoolvalue" = "baker pool %d";
 
@@ -547,6 +547,7 @@ developer.concordium.software";
 "delegation.pool.idplaceholder.create" = "Enter target baker pool ID";
 "delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+"delegation.pool.closedpool" = "This pool is closed";
 
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.accounttostop" = "Account to stop delegating";
@@ -574,6 +575,7 @@ developer.concordium.software";
 
 "delegation.receipt.updatedelegation" = "Transaction: Update delegation";
 "delegation.receipt.registerdelegation" = "Transaction: Register delegation";
+"delegation.receipt.removedelegationheader" = "Transaction: Remove delegation";
 "delegation.receiptlowering.title" = "Notice";
 "delegation.receiptlowering.message" = "Your decrease to the delegation amount will take effect after a cool down of approximately %@.
 

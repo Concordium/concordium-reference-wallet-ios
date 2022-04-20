@@ -44,6 +44,7 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
         let isLoweringStake = dataHandler.isLoweringStake()
         self.viewModel.setup(isUpdate: dataHandler.hasCurrentData(),
                              isLoweringStake: isLoweringStake,
+                             isRemoving: dataHandler.transferType == .removeDelegation,
                              transactionHash: transfer.submissionId ?? "",
                              cost: GTU(intValue: Int(transfer.cost) ?? 0))
     }
@@ -90,7 +91,7 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
 }
 
 fileprivate extension StakeReceiptViewModel {
-    func setup(isUpdate: Bool, isLoweringStake: Bool, transactionHash: String, cost: GTU) {
+    func setup(isUpdate: Bool, isLoweringStake: Bool, isRemoving: Bool, transactionHash: String, cost: GTU) {
         showsBackButton = false
         receiptFooterText = transactionHash
         showsSubmitted = true
@@ -99,6 +100,9 @@ fileprivate extension StakeReceiptViewModel {
         if isUpdate {
             title = "delegation.receiptconfirmation.title.update".localized
             receiptHeaderText = "delegation.receipt.updatedelegation".localized
+        } else if isRemoving {
+            title = "delegation.receiptconfirmation.title.remove".localized
+            receiptHeaderText = "delegation.receipt.removedelegationheader".localized
         } else {
             title = "delegation.receiptconfirmation.title.create".localized
             receiptHeaderText = "delegation.receipt.registerdelegation".localized
