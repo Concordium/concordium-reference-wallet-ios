@@ -670,6 +670,22 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.receipt.bakerstake" = "Baker stake";
 "baking.receipt.metadataurl" = "Metadata URL";
 
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
+
 "onboardingcarousel.registerdelegation.title" = "Delegation";
 "onboardingcarousel.registerdelegation.page1.title" = "Delegation";
 "onboardingcarousel.registerdelegation.page2.title" = "Delegation models";
