@@ -68,16 +68,19 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
     private let stakeService: StakeServiceProtocol
     private let exportService: ExportService
     private let account: AccountDataType
+    private let dataHandler: StakeDataHandler
 
     init(
         delegate: BakerPoolGenerateKeyPresenterDelegate? = nil,
         dependencyProvider: StakeCoordinatorDependencyProvider,
-        account: AccountDataType
+        account: AccountDataType,
+        dataHandler: StakeDataHandler
     ) {
         self.delegate = delegate
         self.stakeService = dependencyProvider.stakeService()
         self.exportService = dependencyProvider.exportService()
         self.account = account
+        self.dataHandler = dataHandler
         self.viewModel = BakerPoolGenerateKeyViewModel(keyResult: dependencyProvider.stakeService().generateBakerKeys())
     }
 
@@ -105,6 +108,9 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
                 let fileUrl = try exportService.export(bakerKeys: exportedKeys)
                 self.delegate?.shareExportedFile(url: fileUrl, completion: {
                     do {
+                        self.dataHandler.add(entry: BakerKeyData(electionVerifyKey: keys.electionVerifyKey))
+                        self.dataHandler.add(entry: BakerKeyData(signatureVerifyKey: keys.signatureVerifyKey))
+                        self.dataHandler.add(entry: BakerKeyData(aggregationVerifyKey: keys.aggregationVerifyKey))
                         try self.exportService.deleteBakerKeys()
                     } catch {
                         Logger.warn(error)

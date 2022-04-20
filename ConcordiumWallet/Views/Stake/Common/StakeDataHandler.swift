@@ -24,6 +24,9 @@ enum Field: Hashable {
     case bakerMetadataURL
     case bakerAccountCreate
     case bakerAccountUpdate
+    case bakerElectionVerifyKey
+    case bakerSignatureVerifyKey
+    case bakerAggregationVerifyKey
  
     func getLabelText() -> String {
         switch self {
@@ -52,6 +55,12 @@ enum Field: Hashable {
             return "baking.receipt.accountupdate".localized
         case .bakerMetadataURL:
             return "baking.receipt.metadataurl".localized
+        case .bakerElectionVerifyKey:
+            return "baking.receipt.electionverifykey".localized
+        case .bakerSignatureVerifyKey:
+            return "baking.receipt.signatureverifykey".localized
+        case .bakerAggregationVerifyKey:
+            return "baking.receipt.aggregationverifykey".localized
         }
     }
 
@@ -82,6 +91,12 @@ enum Field: Hashable {
             return 0
         case .bakerMetadataURL:
             return 4
+        case .bakerElectionVerifyKey:
+            return 5
+        case .bakerSignatureVerifyKey:
+            return 6
+        case .bakerAggregationVerifyKey:
+            return 7
         }
     }
     // swiftlint:disable cyclomatic_complexity
@@ -161,6 +176,32 @@ class BakerMetadataURLData: StakeData {
     }
     override func getDisplayValue() -> String {
         return metadataURL
+    }
+}
+
+class BakerKeyData: StakeData {
+    let key: String
+    init(electionVerifyKey: String) {
+        self.key = electionVerifyKey
+        super.init(field: .bakerElectionVerifyKey)
+    }
+    
+    init(signatureVerifyKey: String) {
+        self.key = signatureVerifyKey
+        super.init(field: .bakerSignatureVerifyKey)
+    }
+    
+    init(aggregationVerifyKey: String) {
+        self.key = aggregationVerifyKey
+        super.init(field: .bakerAggregationVerifyKey)
+    }
+    
+    override func getDisplayValue() -> String {
+        if case .bakerAggregationVerifyKey = field {
+            return key.splitInto(lines: 6)
+        } else {
+            return key.splitInto(lines: 2)
+        }
     }
 }
 
