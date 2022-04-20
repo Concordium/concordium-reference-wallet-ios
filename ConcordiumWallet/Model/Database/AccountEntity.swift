@@ -10,6 +10,7 @@ protocol AccountDataType: DataStoreProtocol {
     var name: String? { get set }
     var displayName: String { get }
     var address: String { get set }
+    var accountIndex: Int { get set }
     var submissionId: String? { get set }
     var transactionStatus: SubmissionStatusEnum? { get set }
     
@@ -57,6 +58,7 @@ protocol AccountDataType: DataStoreProtocol {
                                      _ encryptedBalance: EncryptedBalanceDataType,
                                      hasShieldedTransactions: Bool,
                                      accountNonce: Int,
+                                     accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType
@@ -85,6 +87,7 @@ extension AccountDataType {
                                      _ encryptedBalance: EncryptedBalanceDataType,
                                      hasShieldedTransactions: Bool,
                                      accountNonce: Int,
+                                     accountIndex: Int,
                                      delegation: DelegationDataType?,
                                      baker: BakerDataType?,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
@@ -95,6 +98,7 @@ extension AccountDataType {
             pAccount.encryptedBalanceStatus = status
             pAccount.encryptedBalance = encryptedBalance
             pAccount.accountNonce = accountNonce
+            pAccount.accountIndex = accountIndex
             pAccount.delegation = delegation
             pAccount.baker = baker
             pAccount.releaseSchedule = releaseSchedule
@@ -162,6 +166,7 @@ struct AccountDataTypeFactory {
 final class AccountEntity: Object {
     @objc dynamic var name: String? = ""
     @objc dynamic var address: String = ""
+    @objc dynamic var accountIndex: Int = 0
     @objc dynamic var submissionId: String? = ""
     @objc dynamic var transactionStatusString: String? = ""
     @objc dynamic var encryptedBalanceStatusString: String? = ""

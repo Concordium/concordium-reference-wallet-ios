@@ -189,7 +189,3 @@ extension DelegationCoordinator: DelegationOnboardingCoordinatorDelegate {
         self.delegate?.finished()
     }
 }
-
-extension DelegationCoordinator: RequestPasswordDelegate {
-    
-}
