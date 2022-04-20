@@ -547,6 +547,7 @@ developer.concordium.software";
 "delegation.pool.idplaceholder.create" = "Enter target baker pool ID";
 "delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
+"delegation.pool.closedpool" = "This pool is closed";
 
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.accounttostop" = "Account to stop delegating";
