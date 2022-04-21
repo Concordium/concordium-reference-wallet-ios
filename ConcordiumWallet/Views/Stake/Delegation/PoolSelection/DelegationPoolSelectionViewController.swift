@@ -109,6 +109,7 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
                 self?.bakerIdTextField.isHidden = false
             } else {
                 self?.bakerIdTextField.isHidden = true
+                self?.bakerIdTextField.resignFirstResponder()
             }
         }.store(in: &cancellables)
         

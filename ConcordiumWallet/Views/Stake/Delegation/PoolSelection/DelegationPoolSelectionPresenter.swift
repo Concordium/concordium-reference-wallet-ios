@@ -117,7 +117,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                     return .just(Result.failure(DelegationPoolBakerIdError.invalid))
                 }
                 if bakerId.isEmpty {
-                    return .just(Result.failure(DelegationPoolBakerIdError.empty))
+                    return .just(self.resetToCurrentBakerPool())
                 }
                 guard let bakerIdInt = Int(bakerId) else {
                     return .just(Result.failure(DelegationPoolBakerIdError.invalid))
@@ -166,9 +166,9 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                 self.validSelectedPool = .lpool
                 self.viewModel.bakerId = ""
             } else {
-                // we only have a valid baker pool after a valid baker id is set
-                // for the baker pool
-                self.validSelectedPool = nil
+                // we reset to the current baker pool
+                self.viewModel.bakerId = ""
+                _ = self.resetToCurrentBakerPool()
             }
         }).store(in: &cancellables)
         
@@ -216,5 +216,19 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             currentBakerId = bakerId
         }
         return currentBakerId
+    }
+    
+    func resetToCurrentBakerPool() -> Result<Int, DelegationPoolBakerIdError> {
+        guard let currentPoolData: PoolDelegationData = dataHandler.getCurrentEntry() else {
+            self.validSelectedPool = nil
+            return .failure(.empty)
+        }
+        if case let BakerPool.bakerPool(bakerId) = currentPoolData.pool {
+            self.validSelectedPool = currentPoolData.pool
+            return Result.success(bakerId)
+        } else {
+            self.validSelectedPool = nil
+            return Result.failure(.empty)
+        }
     }
 }

@@ -823,7 +823,7 @@ Explanation label for Stake]</string>
                                                         <rect key="frame" x="0.0" y="23.5" width="384" height="34"/>
                                                         <color key="textColor" name="primary"/>
                                                         <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VoP-vX-7yH">
                                                         <rect key="frame" x="0.0" y="62.5" width="384" height="29"/>
