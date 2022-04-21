@@ -654,7 +654,7 @@ If your pool is already open, you can also close it for new delegators, or you c
 If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
 
 If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
-"baking.poolsettings.current" = "Current status";
+"baking.poolsettings.current" = "Current status: %@";
 
 "baking.keeppoolclosed" = "Keep the pool closed";
 "baking.openfordelegators" = "Open pool for delegators";

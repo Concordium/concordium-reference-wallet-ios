@@ -1061,25 +1061,25 @@ Explanation label for Stake]</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F57-vy-fap">
-                                        <rect key="frame" x="0.0" y="50" width="384" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="50" width="384" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qb2-jI-cCJ">
-                                        <rect key="frame" x="0.0" y="70.5" width="384" height="639.5"/>
+                                        <rect key="frame" x="0.0" y="67" width="384" height="643"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FBX-KP-HFW">
-                                                <rect key="frame" x="0.0" y="289.5" width="384" height="60.5"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FBX-KP-HFW">
+                                                <rect key="frame" x="0.0" y="287.5" width="384" height="68.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vu0-Tt-PSQ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vu0-Tt-PSQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="18.5"/>
+                                                        <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RJC-dB-FVh">
-                                                        <rect key="frame" x="0.0" y="20.5" width="384" height="41"/>
+                                                        <rect key="frame" x="0.0" y="28.5" width="384" height="41"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="Buk-rG-ylq"/>
                                                         </constraints>
@@ -1087,6 +1087,7 @@ Explanation label for Stake]</string>
                                                             <segment title="First"/>
                                                             <segment title="Second"/>
                                                         </segments>
+                                                        <color key="selectedSegmentTintColor" name="primary"/>
                                                         <connections>
                                                             <action selector="restakeValueChanged:" destination="iCU-H3-txL" eventType="valueChanged" id="BAK-Aq-QWr"/>
                                                         </connections>
@@ -1133,19 +1134,19 @@ Explanation label for Stake]</string>
             <size key="intrinsicContentSize" width="190" height="30"/>
         </designable>
         <designable name="QRD-9m-G69">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="amF-dD-Lbb">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="fsH-NK-CxZ">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="lTR-SH-AHo">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="wDP-rx-n6T">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
     </designables>
     <resources>
