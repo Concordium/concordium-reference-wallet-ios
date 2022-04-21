@@ -584,3 +584,17 @@ extension TransactionsService {
         return transfer
     }
 }
+
+extension TransactionsServiceProtocol {
+    func getBakingTransferCostRange(parameters: [TransferCostParameter]) -> AnyPublisher<TransferCostRange, Error> {
+        let minPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(0)])
+        let maxPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(2048)])
+        
+        return minPublisher
+            .combineLatest(maxPublisher)
+            .map { (min, max) in
+                TransferCostRange(min: min, max: max)
+            }
+            .eraseToAnyPublisher()
+    }
+}

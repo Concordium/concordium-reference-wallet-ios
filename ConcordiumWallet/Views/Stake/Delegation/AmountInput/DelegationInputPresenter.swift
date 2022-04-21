@@ -17,57 +17,6 @@ protocol DelegationAmountInputPresenterDelegate: AnyObject {
     func pressedClose()
 }
 
-struct StakeAmountInputValidator {
-    var minimumValue: GTU
-    var maximumValue: GTU?
-    var atDisposal: GTU
-    var currentPool: GTU?
-    var poolLimit: GTU?
-    var previouslyStakedInPool: GTU
-    
-    func validate(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        .just(amount).flatMap {
-            checkMaximum(amount: $0)
-        }.flatMap {
-            checkMinimum(amount: $0)
-        }.flatMap {
-            checkAtDisposal(amount: $0)
-        }.flatMap {
-            checkPoolLimit(amount: $0)
-        }.eraseToAnyPublisher()
-    }
-    
-    func checkMaximum(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        if let maximumValue = maximumValue {
-            if amount.intValue > maximumValue.intValue {
-                return .fail(.maximumAmount(maximumValue))
-            }
-        }
-        return .just(amount)
-    }
-    func checkMinimum(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        if amount.intValue < minimumValue.intValue {
-            return .fail(.minimumAmount(minimumValue))
-        }
-        return .just(amount)
-    }
-    func checkAtDisposal(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        if amount.intValue > atDisposal.intValue {
-            return .fail(.notEnoughFund(atDisposal))
-        }
-        return .just(amount)
-    }
-    func checkPoolLimit(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        guard let currentPool = currentPool, let poolLimit = poolLimit else {
-            return .just(amount)
-        }
-        if amount.intValue + currentPool.intValue - previouslyStakedInPool.intValue > poolLimit.intValue {
-            return .fail(.poolLimitReached(currentPool, poolLimit))
-        }
-        return .just(amount)
-    }
-}
-
 class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
 
     weak var view: StakeAmountInputViewProtocol?
@@ -181,32 +130,19 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.view?.amountPublisher.map { amount -> GTU in
             GTU(displayValue: amount)
         }
-        .flatMap { [weak self] amount -> AnyPublisher<Result<GTU, StakeError>, Never> in
-            guard let self = self else { return .just(Result.failure(StakeError.internalError))}
-            var stakeError: StakeError?
-            return self.validator.validate(amount: amount)
-                .mapError { [weak self] error -> StakeError in
-                    self?.viewModel.amountErrorMessage = error.localizedDescription
-                    stakeError = error
-                    return error
-                }.map { amount in
-                    return Result<GTU, StakeError>.success(amount)
-                }.replaceError(with: {
-                    if let error = stakeError {
-                        return Result<GTU, StakeError>.failure(error)
-                    }
-                    return Result<GTU, StakeError>.failure(StakeError.internalError)
-                }())
-                .eraseToAnyPublisher()
+        .map { [weak self] amount -> Result<GTU, StakeError> in
+            return self?.validator.validate(amount: amount) ?? .failure(.internalError)
         }
         .sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self]  result in
-            if case Result.success(let amount) = result {
+            switch result {
+            case let .success(amount):
                 self?.validAmount = amount
                 self?.viewModel.amountErrorMessage = nil
-            } else {
+            case let .failure(error):
                 self?.validAmount = nil
                 self?.viewModel.isContinueEnabled = false
+                self?.viewModel.amountErrorMessage = error.localizedDescription
             }
         })
         .store(in: &cancellables)
@@ -218,6 +154,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         // calculate transaction fee
         self.view?.restakeOptionPublisher
+            .setFailureType(to: Error.self)
             .combineLatest(validAmountPublisher)
             .flatMap({ [weak self] (restake, amount) -> AnyPublisher<TransferCost, Error> in
                 guard let self = self else {

@@ -207,6 +207,23 @@ class BakerKeyData: StakeData {
     }
 }
 
+class RestakeBakerData: StakeData {
+    var restake: Bool
+    
+    init(restake: Bool) {
+        self.restake = restake
+        super.init(field: .restake)
+    }
+    
+    override func getDisplayValue() -> String {
+        if restake {
+            return "baking.receipt.addedtostake".localized
+        } else {
+            return "baking.receipt.notaddettostake".localized
+        }
+    }
+}
+
 // MARK: - DELEGATION data
 class DelegationAccountData: AccountData {
     init(accountAddress: String) {
@@ -272,6 +289,14 @@ class RestakeDelegationData: StakeData {
     }
 }
 
+enum StakeWarning {
+    case noChanges
+    case loweringStake
+    case moreThan95
+    case amountZero
+    case none
+}
+
 class StakeDataHandler {
     let transferType: TransferType
     
@@ -314,6 +339,10 @@ class StakeDataHandler {
         return currentData?.filter({ $0 is T}).first as? T
     }
     
+    func getCurrentEntry<T: StakeData>(_ type: T.Type) -> T? {
+        return currentData?.filter({ $0 is T }).first as? T
+    }
+    
     /// Retrieves an entry from the updated values (current trasnaction)
     func getNewEntry<T: StakeData>() -> T? {
         return data.filter({ $0 is T}).first as? T
@@ -335,6 +364,20 @@ class StakeDataHandler {
         return currentData?.sorted { lhs, rhs in
             lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
         } ?? []
+    }
+    
+    func getCurrentWarning(atDisposal balance: Int) -> StakeWarning {
+        if !containsChanges() {
+            return .noChanges
+        } else if isLoweringStake() {
+            return .loweringStake
+        } else if moreThan95(atDisposal: balance) {
+            return .moreThan95
+        } else if isNewAmountZero() {
+            return .amountZero
+        } else {
+            return .none
+        }
     }
     
     /// Checks if the amount we are now selecting is lower that the previous amount
@@ -385,6 +428,8 @@ class StakeDataHandler {
             case is AmountData:
                 return [.amount]
             case is RestakeDelegationData:
+                return [.restake]
+            case is RestakeBakerData:
                 return [.restake]
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
