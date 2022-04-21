@@ -672,6 +672,21 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.open" = "Open";
 "baking.closed" = "Closed";
 "baking.closedfornew" = "Closed for new";
+"baking.metadata.current" = "Current: \n %@";
+
+"baking.metadata.title.create" = "Register baker";
+"baking.metadata.text.create" = "You can choose to add a URL with metadata about your baker. Leave it blank if you don’t have any.
+
+You can read more about the metadata URL on
+
+developer.concordium.software";
+
+"baking.metadata.title.update" = "Update pool settings";
+"baking.metadata.text.update" = "If you want to set a new metadata URL, you can do so by pasting it below. It’s optional, so you can just leave it blank if you don’t want to make any changes.
+
+You can read more about the metadata URL on
+
+developer.concordium.software";
 
 
 "baking.receipt.accountcreate" = "Account to register as baker";
