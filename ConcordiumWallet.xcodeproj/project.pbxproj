@@ -1791,6 +1791,14 @@
 		9078546228102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
 		9078546328102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
 		9078546428102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */; };
+		9078546728116A7600B655EB /* BakerMetadataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546528116A7600B655EB /* BakerMetadataPresenter.swift */; };
+		9078546828116A7600B655EB /* BakerMetadataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546528116A7600B655EB /* BakerMetadataPresenter.swift */; };
+		9078546928116A7600B655EB /* BakerMetadataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546528116A7600B655EB /* BakerMetadataPresenter.swift */; };
+		9078546A28116A7600B655EB /* BakerMetadataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546528116A7600B655EB /* BakerMetadataPresenter.swift */; };
+		9078546B28116A7600B655EB /* BakerMetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546628116A7600B655EB /* BakerMetadataViewController.swift */; };
+		9078546C28116A7600B655EB /* BakerMetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546628116A7600B655EB /* BakerMetadataViewController.swift */; };
+		9078546D28116A7600B655EB /* BakerMetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546628116A7600B655EB /* BakerMetadataViewController.swift */; };
+		9078546E28116A7600B655EB /* BakerMetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9078546628116A7600B655EB /* BakerMetadataViewController.swift */; };
 		909EAF1E27F71FAD001930AE /* PendingChangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */; };
 		909EAF1F27F71FAD001930AE /* PendingChangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */; };
 		909EAF2027F71FAD001930AE /* PendingChangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */; };
@@ -2402,6 +2410,8 @@
 		9078545628102BD000B655EB /* baker_remove_flow_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = baker_remove_flow_en_1.html; sourceTree = "<group>"; };
 		9078545728102BD000B655EB /* bakerremove_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bakerremove_flow_style.css; sourceTree = "<group>"; };
 		9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingOnboardingCoordinator.swift; sourceTree = "<group>"; };
+		9078546528116A7600B655EB /* BakerMetadataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerMetadataPresenter.swift; sourceTree = "<group>"; };
+		9078546628116A7600B655EB /* BakerMetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerMetadataViewController.swift; sourceTree = "<group>"; };
 		909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingChangeEntity.swift; sourceTree = "<group>"; };
 		909EAF2227F72058001930AE /* AccountPendingChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPendingChangeType.swift; sourceTree = "<group>"; };
 		909EAF2727F721BF001930AE /* PoolPendingChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolPendingChangeType.swift; sourceTree = "<group>"; };
@@ -3797,11 +3807,21 @@
 			path = BakerRemoveOnboarding;
 			sourceTree = "<group>";
 		};
+		9078546F28116A8600B655EB /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				9078546528116A7600B655EB /* BakerMetadataPresenter.swift */,
+				9078546628116A7600B655EB /* BakerMetadataViewController.swift */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
 		90C371CC27DF24D10046F05E /* Baking */ = {
 			isa = PBXGroup;
 			children = (
 				89E1A76727FFF5D1008C761B /* PoolSettings */,
 				89E1A76627FFF5BC008C761B /* GenerateKeys */,
+				9078546F28116A8600B655EB /* Metadata */,
 				901F7F4727EB4D6A00C46741 /* BakerDataHandler.swift */,
 				9078546028102C3500B655EB /* BakingOnboardingCoordinator.swift */,
 				89E1A75727FF1073008C761B /* BakingCoordinator.swift */,
@@ -4828,6 +4848,7 @@
 				7F48C17B244DCD0B00997684 /* AccountsViewController.swift in Sources */,
 				90C371CF27DF24F00046F05E /* BakerPoolSettingsPresenter.swift in Sources */,
 				7F32341324691B540019A351 /* MenuItemCellView.swift in Sources */,
+				9078546B28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				5211BAA324FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
 				079F310226EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				07519F7E26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
@@ -4835,6 +4856,7 @@
 				7F48C181244DCD0B00997684 /* IdentityProviderListViewController.swift in Sources */,
 				C96632562459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */,
 				52CE0C79250FFEC70018B5D1 /* Encrypted.swift in Sources */,
+				9078546728116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				7F48C182244DCD0B00997684 /* JSONObject.swift in Sources */,
 				7F48C27A244E17D100997684 /* ServerErrorMessage.swift in Sources */,
 				7FA0AE9C246047B400B7673F /* Origin.swift in Sources */,
@@ -5244,6 +5266,7 @@
 				7F85B748246A9A7C00ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				90C371C527DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
 				7F85B749246A9A7C00ED09B8 /* MakeCreateCredentialRequest.swift in Sources */,
+				9078546D28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				64FD335025FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				644BB67525DFB4220086ED48 /* main.swift in Sources */,
 				52CE0C7B250FFEC70018B5D1 /* Encrypted.swift in Sources */,
@@ -5256,6 +5279,7 @@
 				7F85B74E246A9A7C00ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B74F246A9A7C00ED09B8 /* LoginCoordinator.swift in Sources */,
 				7F85B750246A9A7C00ED09B8 /* AccountsCoordinator.swift in Sources */,
+				9078546928116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				7F85B751246A9A7C00ED09B8 /* MobileWalletFacade.swift in Sources */,
 				07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				075A4BC5271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
@@ -5640,6 +5664,7 @@
 				7F85B845246A9AB600ED09B8 /* TitleLabel.swift in Sources */,
 				90C371C627DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
 				7F85B847246A9AB600ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
+				9078546E28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				64FD335125FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				644BB67625DFB4220086ED48 /* main.swift in Sources */,
 				52CE0C7C250FFEC70018B5D1 /* Encrypted.swift in Sources */,
@@ -5652,6 +5677,7 @@
 				7F85B84B246A9AB600ED09B8 /* UIColor+Additions.swift in Sources */,
 				7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */,
+				9078546A28116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				7F85B84F246A9AB600ED09B8 /* AccountsCoordinator.swift in Sources */,
 				07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				075A4BC6271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
@@ -6019,6 +6045,7 @@
 				52D0CF1C25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				7FD8785A2406AF7C00509BDB /* CreatePasswordPresenter.swift in Sources */,
 				06AEE69323F4065800D14834 /* WidgetView.swift in Sources */,
+				9078546828116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				52A6A77A24F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				7F85B8ED2472D39100ED09B8 /* MoreMenuPresenter.swift in Sources */,
 				06AEE69123F4064A00D14834 /* BaseView.swift in Sources */,
@@ -6174,6 +6201,7 @@
 				64FD333B25FF8A7C00563703 /* KeyList.swift in Sources */,
 				52589B2225121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				52D35113250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
+				9078546C28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				5248E7DD257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				19C2E13661957027A06ED585 /* OutcomeEnum.swift in Sources */,
 				07619A82269C810B009B79E2 /* Digest+Additions.swift in Sources */,
