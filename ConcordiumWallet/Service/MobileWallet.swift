@@ -47,6 +47,7 @@ protocol MobileWalletProtocol {
                                         privateIDObjectData: PrivateIDObjectData,
                                         startingFrom: Int,
                                         pwHash: String) throws -> Result<[MakeGenerateAccountsResponseElement], Error>
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error>
     
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error>
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
@@ -308,6 +309,10 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return .failure(error)
         }
+    }
+    
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {
+        return Result { try GeneratedBakerKeys(try walletFacade.generateBakerKeys()) }
     }
     
     private func getCommitmentsRandomness(for account: AccountDataType, pwHash: String) -> Result<CommitmentsRandomness, Error> {
