@@ -279,6 +279,16 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.nochanges.message".localized,
                                             actions: [okAction])
             self.view?.showAlert(with: alertOptions)
+        }  else if dataHandler.isNewAmountZero() {
+            // warning for more zero amount = removeDelegation
+            let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
+            let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
+                                           completion: nil,
+                                           style: .default)
+            let alertOptions = AlertOptions(title: "delegation.amountzero.title".localized,
+                                            message: "delegation.amountzero.message".localized,
+                                            actions: [cancelAction, continueAction])
+            self.view?.showAlert(with: alertOptions)
         } else if self.dataHandler.isLoweringStake() {
             // warning for lowering stake
             let changeAction = AlertAction(name: "delegation.loweringamountwarning.change".localized, completion: nil, style: .default)
@@ -297,16 +307,6 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             let alertOptions = AlertOptions(title: "delegation.morethan95.title".localized,
                                             message: "delegation.morethan95.message".localized,
                                             actions: [continueAction, newStakeAction])
-            self.view?.showAlert(with: alertOptions)
-        } else if dataHandler.isNewAmountZero() {
-            // warning for more zero amount = removeDelegation
-            let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
-            let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
-                                           completion: nil,
-                                           style: .default)
-            let alertOptions = AlertOptions(title: "delegation.amountzero.title".localized,
-                                            message: "delegation.amountzero.message".localized,
-                                            actions: [cancelAction, continueAction])
             self.view?.showAlert(with: alertOptions)
         } else {
             completion?()
