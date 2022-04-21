@@ -40,7 +40,17 @@ class BakingCoordinator: Coordinator {
     func start() {
         // TODO: Implement actual navigation flow
         
-        showPoolSettings()
+        showCarousel(mode: .register)
+    }
+    
+    func showCarousel(mode: BakingOnboardingMode) {
+        let onboardingCoordinator = BakingOnboardingCoordinator(
+            navigationController: navigationController,
+            parentCoordinator: self,
+            mode: mode
+        )
+        childCoordinators.append(onboardingCoordinator)
+        onboardingCoordinator.start()
     }
     
     func showPoolSettings() {
@@ -62,6 +72,22 @@ class BakingCoordinator: Coordinator {
         let viewController = BakerPoolGenerateKeyFactory.create(with: presenter)
         
         navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
+    func finished(mode: BakingOnboardingMode) {
+        switch mode {
+        case .register:
+            showPoolSettings()
+        default:
+            break
+        }
+    }
+    
+    func closed() {
+        self.childCoordinators.removeAll(where: { $0 is BakingOnboardingCoordinator })
+        self.delegate?.finishedBakingCoordinator()
     }
 }
 
