@@ -13,7 +13,7 @@ import CryptoKit
 // MARK: View
 protocol StakeAmountInputViewProtocol: Loadable, ShowAlert {
     func bind(viewModel: StakeAmountInputViewModel)
-    var amountPublisher: PassthroughSubject<String, Never> { get }
+    var amountPublisher: AnyPublisher<String, Never> { get }
     var restakeOptionPublisher: PassthroughSubject<Bool, Never> { get }
 }
 
@@ -52,7 +52,10 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
 	var presenter: StakeAmountInputPresenterProtocol
     private var cancellables = Set<AnyCancellable>()
   
-    var amountPublisher = PassthroughSubject<String, Never>()
+    var amountPublisher: AnyPublisher<String, Never> {
+        return amountTextField.textPublisher
+            .eraseToAnyPublisher()
+    }
     var restakeOptionPublisher = PassthroughSubject<Bool, Never>()
     
     init?(coder: NSCoder, presenter: StakeAmountInputPresenterProtocol) {
@@ -94,13 +97,6 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
 
     // swiftlint:disable function_body_length
     func bind(viewModel: StakeAmountInputViewModel) {
-        amountTextField
-            .textPublisher
-            .sink { [weak self] amount in
-                self?.amountPublisher.send(amount)
-            }
-            .store(in: &cancellables)
-        
         
         viewModel.$title.sink { [weak self] title in
             self?.title = title
@@ -162,6 +158,10 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
                 self.amountTextField.textColor = .primary
             }
         }.store(in: &cancellables)
+        
+        amountTextField.textPublisher
+            .assignNoRetain(to: \.amount, on: viewModel)
+            .store(in: &cancellables)
         
         viewModel.$amount
             .compactMap { $0 }
