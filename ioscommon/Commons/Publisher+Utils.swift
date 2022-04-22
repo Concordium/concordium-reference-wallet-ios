@@ -68,7 +68,7 @@ struct ResultPublisher<Upstream>: Publisher where Upstream: Publisher {
         self.upstream = upstream
     }
     
-    func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Result<Upstream.Output, Upstream.Failure> == S.Input {
+    func receive<S>(subscriber: S) where S: Subscriber, Never == S.Failure, Result<Upstream.Output, Upstream.Failure> == S.Input {
         upstream
             .map { .success($0) }
             .catch { AnyPublisher.just(.failure($0)) }
