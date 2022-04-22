@@ -587,11 +587,11 @@ extension TransactionsService {
 
 extension TransactionsServiceProtocol {
     func getBakingTransferCostRange(parameters: [TransferCostParameter]) -> AnyPublisher<TransferCostRange, Error> {
-        let minPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(0)])
-        let maxPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(2048)])
+        let minPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(0)]).first()
+        let maxPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(2048)]).first()
         
         return minPublisher
-            .combineLatest(maxPublisher)
+            .zip(maxPublisher)
             .map { (min, max) in
                 TransferCostRange(min: min, max: max)
             }

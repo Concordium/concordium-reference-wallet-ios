@@ -294,7 +294,6 @@ enum StakeWarning {
     case loweringStake
     case moreThan95
     case amountZero
-    case none
 }
 
 class StakeDataHandler {
@@ -366,7 +365,7 @@ class StakeDataHandler {
         } ?? []
     }
     
-    func getCurrentWarning(atDisposal balance: Int) -> StakeWarning {
+    func getCurrentWarning(atDisposal balance: Int) -> StakeWarning? {
         if !containsChanges() {
             return .noChanges
         } else if isLoweringStake() {
@@ -376,7 +375,7 @@ class StakeDataHandler {
         } else if isNewAmountZero() {
             return .amountZero
         } else {
-            return .none
+            return nil
         }
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TransferCostParameter {
+enum TransferCostParameter: Equatable {
     case memoSize(Int)
     
     case amount // only for updateDelegation updateBakerStake or configureBaker
