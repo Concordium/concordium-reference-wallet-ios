@@ -54,7 +54,6 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
   
     var amountPublisher: AnyPublisher<String, Never> {
         return amountTextField.textPublisher
-            .eraseToAnyPublisher()
     }
     var restakeOptionPublisher = PassthroughSubject<Bool, Never>()
     
@@ -142,6 +141,11 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .assign(to: \.text, on: amountMessage)
             .store(in: &cancellables)
         
+        amountTextField
+            .textPublisher
+            .assignNoRetain(to: \.amount, on: viewModel)
+            .store(in: &cancellables)
+        
         viewModel.$transactionFee
             .compactMap { $0 }
             .assign(to: \.text, on: transactionFeeLabel)
@@ -180,6 +184,10 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
                 self?.restakeController.selectedSegmentIndex = 1
             }
         }.store(in: &cancellables)
+        
+        restakeOptionPublisher
+            .assignNoRetain(to: \.isRestakeSelected, on: viewModel)
+            .store(in: &cancellables)
         
         viewModel.$isContinueEnabled
             .compactMap { $0 }

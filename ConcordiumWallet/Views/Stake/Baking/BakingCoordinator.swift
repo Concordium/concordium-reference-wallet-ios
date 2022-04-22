@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 protocol BakingCoordinatorDelegate: Coordinator {
     func finishedBakingCoordinator()
@@ -21,7 +22,12 @@ class BakingCoordinator: Coordinator {
     private let account: AccountDataType
     private let dependencyProvider: StakeCoordinatorDependencyProvider
     
+    private lazy var stakeService: StakeServiceProtocol = {
+        self.dependencyProvider.stakeService()
+    }()
+    
     private let bakingDataHandler: StakeDataHandler
+    private var cancellables = Set<AnyCancellable>()
     
     init(
         navigationController: UINavigationController,
@@ -79,13 +85,25 @@ class BakingCoordinator: Coordinator {
         let vc = BakerMetadataFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showAmountInput() {
+        let presenter = BakerAmountInputPresenter(
+            account: self.account,
+            delegate: self,
+            dependencyProvider: self.dependencyProvider,
+            dataHandler: self.bakingDataHandler
+        )
+        
+        let vc = StakeAmountInputFactory.create(with: presenter)
+        self.navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
     func finished(mode: BakingOnboardingMode) {
         switch mode {
         case .register:
-            showPoolSettings()
+            showAmountInput()
         default:
             break
         }
@@ -121,6 +139,7 @@ extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
         self.delegate?.finishedBakingCoordinator()
     }
 }
+
 extension BakingCoordinator: BakerMetadataPresenterDelegate {
     func finishedMetadata() {
         // TODO: handle finishing of metadata (for update we show receipt; For created we show keys)
@@ -128,5 +147,15 @@ extension BakingCoordinator: BakerMetadataPresenterDelegate {
     
     func closedMetadata() {
         self.delegate?.finishedBakingCoordinator()
+    }
+}
+
+extension BakingCoordinator: BakerAmountInputPresenterDelegate {
+    func finishedAmountInput() {
+        self.showPoolSettings()
+    }
+    
+    func switchToRemoveBaker(cost: GTU, energy: Int) {
+        // TODO: Delegate to remove
     }
 }
