@@ -650,27 +650,17 @@ If you choose to not restake your rewards, the amounts will be at disposal on yo
 "baking.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
 "baking.nochanges.ok" = "Okay";
 
-"baking.loweringamountwarning.title" = "";
-"baking.loweringamountwarning.message" = "";
-"baking.loweringamountwarning.change" = "";
-"baking.loweringamountwarning.fine" = "";
+"baking.morethan95.title" = "Warning";
+"baking.morethan95.message" = "You are about to lock more than 95% of your total balance in a baker stake.
 
-"baking.morethan95.title" = "";
-"baking.morethan95.message" = "";
-"baking.morethan95.continue" = "";
-"baking.morethan95.newstake" = "";
-
-"baking.amountzero.title" = "";
-"baking.amountzero.message" = "";
-"baking.amountzero.continue" = "";
-"baking.amountzero.newstake" = "";
+If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees.";
+"baking.morethan95.continue" = "Continue";
+"baking.morethan95.newstake" = "Enter new baker stake";
 
 "baker.receiptconfirmation.title.update" = "Update baker stake";
 "baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
 
 The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
-
-
 
 "baking.poolsettings.title.create" = "Register baker";
 "baking.poolsettings.title.update" = "Update pool settings";
