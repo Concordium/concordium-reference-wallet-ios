@@ -27,14 +27,13 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     private let transactionService: TransactionsServiceProtocol
     private let stakeService: StakeServiceProtocol
-    private var transferCostRange: TransferCostRange?
     
     private var cancellables = Set<AnyCancellable>()
     
     private var validatedAmount: AnyPublisher<Result<GTU, StakeError>, Never> {
         viewModel.$amount
             .map { [weak self] amount in
-                self?.validator.validate(amount: GTU(displayValue: amount)) ?? .failure(.internalError)
+                return self?.validator.validate(amount: GTU(displayValue: amount)) ?? .failure(.internalError)
             }
             .eraseToAnyPublisher()
     }
@@ -76,6 +75,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .sink { [weak self] result in
                 switch result {
                 case .success:
+                    self?.viewModel.isContinueEnabled = true
                     self?.viewModel.amountErrorMessage = nil
                 case let .failure(error):
                     self?.viewModel.isContinueEnabled = false
@@ -113,8 +113,6 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 case let .failure(error):
                     self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                 case let .success(range):
-                    self?.transferCostRange = range
-                    self?.viewModel.isContinueEnabled = true
                     self?.viewModel.transactionFee = range.formattedTransactionFee
                 }
             }
@@ -129,7 +127,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .sink { [weak self] error in
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             } receiveValue: { [weak self] poolParameters in
-                self?.validator.minimumValue = GTU(intValue: Int(poolParameters.bakingCommissionRange.max))
+                self?.validator.minimumValue = GTU(intValue: Int(poolParameters.minimumEquityCapital) ?? 0)
             }
             .store(in: &cancellables)
     }
@@ -183,12 +181,7 @@ private extension StakeWarning {
                                             message: "baking.nochanges.message".localized,
                                             actions: [okAction])
         case .loweringStake:
-            let changeAction = AlertAction(name: "baking.loweringamountwarning.change".localized, completion: nil, style: .default)
-            let fineAction = AlertAction(name: "baking.loweringamountwarning.fine".localized,
-                                         completion: completion, style: .default)
-            return AlertOptions(title: "baking.loweringamountwarning.title".localized,
-                                            message: "baking.loweringamountwarning.message".localized,
-                                            actions: [changeAction, fineAction])
+            return nil
         case .moreThan95:
             let continueAction = AlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .default)
             let newStakeAction = AlertAction(name: "baking.morethan95.newstake".localized,
@@ -198,13 +191,7 @@ private extension StakeWarning {
                                             message: "baking.morethan95.message".localized,
                                             actions: [continueAction, newStakeAction])
         case .amountZero:
-            let continueAction = AlertAction(name: "baking.amountzero.continue".localized, completion: completion, style: .default)
-            let cancelAction = AlertAction(name: "baking.amountzero.newstake".localized,
-                                           completion: nil,
-                                           style: .default)
-            return AlertOptions(title: "baking.amountzero.title".localized,
-                                            message: "baking.amountzero.message".localized,
-                                            actions: [cancelAction, continueAction])
+            return nil
         }
     }
 }
