@@ -228,10 +228,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self?.buttonsView.setHiddenIfChanged(false)
                 self?.shieldView.setHiddenIfChanged(false)
                 self?.spacerView.setHiddenIfChanged(true)
+                self?.stakedValueLabel.setHiddenIfChanged(true)
+                self?.stakedLabel.setHiddenIfChanged(true)
             } else {
                 self?.buttonsView.setHiddenIfChanged(true)
                 self?.shieldView.setHiddenIfChanged(true)
                 self?.spacerView.setHiddenIfChanged(false)
+                self?.stakedValueLabel.setHiddenIfChanged(false)
+                self?.stakedLabel.setHiddenIfChanged(false)
             }
         }.store(in: &cancellables)
         
