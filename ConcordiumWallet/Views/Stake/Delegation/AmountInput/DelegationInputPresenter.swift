@@ -181,8 +181,9 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         guard let view = self.view else { return }
         
-        self.view?.amountPublisher.map { amount -> GTU in
-            GTU(displayValue: amount)
+        self.view?.amountPublisher.map { [weak self] amount -> GTU in
+            self?.viewModel.isContinueEnabled = false
+            return GTU(displayValue: amount)
         }
         .combineLatest(view.restakeOptionPublisher)
         .flatMap { [weak self] (amount, restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in

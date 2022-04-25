@@ -340,7 +340,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         var transactionCall = transactionsLoadingHandler.getTransactions(startingFrom: startingFrom).eraseToAnyPublisher()
 
         if startingFrom == nil {// Only show loading indicator (blocking the view) in the first call
-            transactionCall = transactionCall.showLoadingIndicator(in: self.view).eraseToAnyPublisher()
+            transactionCall = transactionCall
+                .showLoadingIndicator(in: self.view)
+                .eraseToAnyPublisher()
         }
 
         transactionCall
