@@ -14,7 +14,7 @@ import CryptoKit
 protocol StakeAmountInputViewProtocol: Loadable, ShowAlert {
     func bind(viewModel: StakeAmountInputViewModel)
     var amountPublisher: AnyPublisher<String, Never> { get }
-    var restakeOptionPublisher: PassthroughSubject<Bool, Error> { get }
+    var restakeOptionPublisher: PassthroughSubject<Bool, Never> { get }
 }
 
 class StakeAmountInputFactory {
@@ -56,7 +56,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         return amountTextField.textPublisher
             .eraseToAnyPublisher()
     }
-    var restakeOptionPublisher = PassthroughSubject<Bool, Error>()
+    var restakeOptionPublisher = PassthroughSubject<Bool, Never>()
     
     init?(coder: NSCoder, presenter: StakeAmountInputPresenterProtocol) {
         self.presenter = presenter
