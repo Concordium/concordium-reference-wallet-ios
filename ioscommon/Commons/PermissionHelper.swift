@@ -26,7 +26,9 @@ struct PermissionHelper {
                 completionHandler(false)
             case .restricted, .notDetermined:
                 AVCaptureDevice.requestAccess(for: .video) { granted in
-                    completionHandler(granted)
+                    DispatchQueue.main.async {
+                        completionHandler(granted)
+                    }
                 }
             default:
                 return

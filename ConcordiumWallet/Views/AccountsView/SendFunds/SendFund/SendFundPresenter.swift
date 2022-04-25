@@ -274,7 +274,22 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
     
     func userTappedScanQR() {
-        delegate?.sendFundPresenterShowScanQRCode(delegate: self)
+        PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
+            guard let self = self else { return }
+            
+            guard permissionGranted else {
+                self.view?.showRecoverableErrorAlert(
+                    .cameraAccessDeniedError,
+                    recoverActionTitle: "errorAlert.continueButton".localized,
+                    hasCancel: true
+                ) {
+                    SettingsHelper.openAppSettings()
+                }
+                return
+            }
+
+            self.delegate?.sendFundPresenterShowScanQRCode(delegate: self)
+        }
     }
     
     func setSelectedRecipient(recipient: RecipientDataType) {
