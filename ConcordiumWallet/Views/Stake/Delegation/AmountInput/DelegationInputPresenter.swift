@@ -20,7 +20,7 @@ protocol DelegationAmountInputPresenterDelegate: AnyObject {
 struct StakeAmountInputValidator {
     var minimumValue: GTU
     var maximumValue: GTU?
-    var atDisposal: GTU
+    var balance: GTU
     var currentPool: GTU?
     var poolLimit: GTU?
     var previouslyStakedInPool: GTU
@@ -31,7 +31,7 @@ struct StakeAmountInputValidator {
         }.flatMap {
             checkMinimum(amount: $0)
         }.flatMap {
-            checkAtDisposal(amount: $0)
+            checkBalance(amount: $0)
         }.flatMap {
             checkPoolLimit(amount: $0)
         }.eraseToAnyPublisher()
@@ -51,9 +51,9 @@ struct StakeAmountInputValidator {
         }
         return .just(amount)
     }
-    func checkAtDisposal(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        if amount.intValue > atDisposal.intValue {
-            return .fail(.notEnoughFund(atDisposal))
+    func checkBalance(amount: GTU) -> AnyPublisher<GTU, StakeError> {
+        if amount.intValue > balance.intValue {
+            return .fail(.notEnoughFund(balance))
         }
         return .just(amount)
     }
@@ -152,7 +152,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         validator = StakeAmountInputValidator(minimumValue: minValue,
                                               maximumValue: nil,
-                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                                              balance: GTU(intValue: account.forecastBalance),
                                               currentPool: currentPool,
                                               poolLimit: poolLimit,
                                               previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool) )
