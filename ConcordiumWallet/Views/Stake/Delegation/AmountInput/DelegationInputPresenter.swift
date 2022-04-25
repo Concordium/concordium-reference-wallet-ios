@@ -179,15 +179,13 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             
         }).store(in: &cancellables)
         
-        
         guard let view = self.view else { return }
-        
         
         self.view?.amountPublisher.map { amount -> GTU in
             GTU(displayValue: amount)
         }
         .combineLatest(view.restakeOptionPublisher)
-        .flatMap { [weak self] (amount,restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in
+        .flatMap { [weak self] (amount, restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in
             guard let self = self else { return .just(Result.failure(StakeError.internalError))}
             
             self.dataHandler.add(entry: AmountData(amount: amount))
@@ -235,62 +233,8 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             }
         }).store(in: &cancellables)
         
-        
-//
-//        .flatMap { [weak self] (amount, restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in
-//            guard let self = self else { return .just(Result.failure(StakeError.internalError))}
-//
-//            return self.validator.validate(amount: amount)
-//                .mapError { [weak self] error -> StakeError in
-//                    self?.viewModel.amountErrorMessage = error.localizedDescription
-//                    stakeError = error
-//                    return error
-//                }.map { amount in
-//                    return Result<GTU, StakeError>.success(amount)
-//                }.replaceError(with: {
-//                    if let error = stakeError {
-//                        return Result<GTU, StakeError>.failure(error)
-//                    }
-//                    return Result<GTU, StakeError>.failure(StakeError.internalError)
-//                }())
-//                .eraseToAnyPublisher()
-//        }
-//
-//        .store(in: &cancellables)
-//
-//        let validAmountPublisher = self.$validAmount
-//            .compactMap { $0 }
-//            .setFailureType(to: Error.self)
-//            .eraseToAnyPublisher()
-//
-//        // calculate transaction fee
-//        self.view?.restakeOptionPublisher
-//            .combineLatest(validAmountPublisher)
-//            .flatMap({ [weak self] (restake, amount) -> AnyPublisher<TransferCost, Error> in
-//                guard let self = self else {
-//                    return .fail(StakeError.internalError)
-//                }
-//                self.dataHandler.add(entry: AmountData(amount: amount))
-//                self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
-//
-//                self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
-//                let costParams = self.dataHandler.getCostParameters()
-//                return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
-//                                                               costParameters: costParams)
-//                    .showLoadingIndicator(in: self.view)
-//                    .eraseToAnyPublisher()
-//            })
-//            .sink(receiveError: {[weak self] error in
-//                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-//            }, receiveValue: { [weak self] fee in
-//                let cost = GTU(intValue: Int(fee.cost) ?? 0)
-//                self?.cost = cost
-//                self?.energy = fee.energy
-//                self?.viewModel.isContinueEnabled = true
-//                self?.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
-//            }).store(in: &cancellables)
-
         self.view?.restakeOptionPublisher.send(viewModel.isRestakeSelected)
+        self.view?.amountPublisher.send(viewModel.amount)
     }
     
     func pressedContinue() {
