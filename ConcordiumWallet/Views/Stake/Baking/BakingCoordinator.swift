@@ -97,6 +97,32 @@ class BakingCoordinator: Coordinator {
         let vc = StakeAmountInputFactory.create(with: presenter)
         self.navigationController.pushViewController(vc, animated: true)
     }
+
+    func showRequestConfirmation(cost: GTU, energy: Int) {
+        let presenter = BakerPoolReceiptConfirmationPresenter(
+            account: account,
+            dependencyProvider: dependencyProvider,
+            delegate: self,
+            cost: cost,
+            energy: energy,
+            dataHandler: bakingDataHandler
+        )
+        
+        let vc = StakeReceiptFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showSubmissionReceipt(transfer: TransferDataType) {
+        let presenter = BakerPoolReceiptPresenter(
+            account: account,
+            dependencyProvider: dependencyProvider,
+            dataHandler: bakingDataHandler,
+            transfer: transfer
+        )
+        
+        let vc = StakeReceiptFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
@@ -126,19 +152,19 @@ extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
 }
 
 extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
-    func shareExportedFile(url: URL, completion: @escaping () -> Void) {
-        self.share(items: [url], from: self.navigationController) { completed in
-            completion()
-            if completed {
-                self.delegate?.finishedBakingCoordinator()
-            }
-        }
+    func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void) {
+        self.share(items: [url], from: self.navigationController, completion: completion)
+    }
+    
+    func goToConfirmation(cost: GTU, energy: Int) {
+        self.showRequestConfirmation(cost: cost, energy: energy)
     }
     
     func pressedClose() {
         self.delegate?.finishedBakingCoordinator()
     }
 }
+
 
 extension BakingCoordinator: BakerMetadataPresenterDelegate {
     func finishedMetadata() {
@@ -159,3 +185,11 @@ extension BakingCoordinator: BakerAmountInputPresenterDelegate {
         // TODO: Delegate to remove
     }
 }
+
+extension BakingCoordinator: BakerPoolReceiptConfirmationPresenterDelegate {
+    func confirmedTransaction(transfer: TransferDataType) {
+        self.showSubmissionReceipt(transfer: transfer)
+    }
+}
+
+extension BakingCoordinator: RequestPasswordDelegate {}

@@ -168,6 +168,10 @@ class BakerPoolSettingsData: StakeData {
         self.poolSettings = poolSettings
         super.init(field: .poolSettings)
     }
+    
+    override func getDisplayValue() -> String {
+        poolSettings.getDisplayValue()
+    }
 }
 
 class BakerMetadataURLData: StakeData {
