@@ -41,6 +41,7 @@ enum BakerPool {
 // MARK: Delegate
 protocol DelegationPoolSelectionPresenterDelegate: AnyObject {
     func finishedPoolSelection(bakerPoolResponse: BakerPoolResponse?)
+    func switchToRemoveDelegator(cost: GTU, energy: Int)
     func pressedClose() 
 }
 
@@ -82,15 +83,20 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     @Published private var validSelectedPool: BakerPool?
     @Published private var bakerPoolResponse: BakerPoolResponse?
 
+    private let account: AccountDataType
     private var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
     private var stakeService: StakeServiceProtocol
+    private let transactionService: TransactionsServiceProtocol
     
-    init(delegate: DelegationPoolSelectionPresenterDelegate? = nil,
+    init(account: AccountDataType,
+         delegate: DelegationPoolSelectionPresenterDelegate? = nil,
          dependencyProvider: StakeCoordinatorDependencyProvider,
          dataHandler: StakeDataHandler) {
+        self.account = account
         self.delegate = delegate
         self.stakeService = dependencyProvider.stakeService()
+        self.transactionService = dependencyProvider.transactionsService()
         let currentPoolData: PoolDelegationData? = dataHandler.getCurrentEntry()
         self.viewModel = DelegationPoolViewModel(currentPool: currentPoolData?.pool)
         if let pool = currentPoolData?.pool {
@@ -196,13 +202,69 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                 .sink(receiveError: { error in
                     self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                 }, receiveValue: { bakerPoolResponse in
-                    self.delegate?.finishedPoolSelection(bakerPoolResponse: bakerPoolResponse)
+                    if self.shouldShowPoolSizeWarning(response: bakerPoolResponse) {
+                        self.showPoolSizeWarning(response: bakerPoolResponse)
+                    } else {
+                        self.delegate?.finishedPoolSelection(bakerPoolResponse: bakerPoolResponse)
+                    }
                 })
                 .store(in: &cancellables)
         } else {
             self.delegate?.finishedPoolSelection(bakerPoolResponse: nil)
         }
     }
+    
+    private func shouldShowPoolSizeWarning(response: BakerPoolResponse) -> Bool {
+        // The alert should only be shown if you are not currently in cooldown
+        guard let delegation = self.account.delegation, delegation.pendingChange?.change != .NoChange else {
+            return false
+        }
+        
+        guard let poolLimit = GTU(intValue: Int(response.delegatedCapitalCap)) else {
+            return false
+        }
+        
+        return GTU(intValue: delegation.stakedAmount) > poolLimit
+    }
+    
+    private func showPoolSizeWarning(response: BakerPoolResponse) {
+        let lowerAmountAction = AlertAction(
+            name: "delegation.pool.sizewarning.loweramount".localized,
+            completion: {
+                self.delegate?.finishedPoolSelection(bakerPoolResponse: response)
+            }, style: .default
+        )
+        let stopDelegationAction = AlertAction(
+            name: "delegation.pool.sizewarning.stopdelegation".localized,
+            completion: {
+                self.transactionService
+                    .getTransferCost(transferType: .removeDelegation, costParameters: [])
+                    .showLoadingIndicator(in: self.view)
+                    .sink { error in
+                        self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                    } receiveValue: { transferCost in
+                        let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
+                        self.delegate?.switchToRemoveDelegator(cost: cost, energy: transferCost.energy)
+                    }
+                    .store(in: &self.cancellables)
+
+            }, style: .default
+        )
+        let cancelAction = AlertAction(
+            name: "delegation.pool.sizewarning.cancel".localized,
+            completion: nil,
+            style: .default
+        )
+        
+        let alertOptions = AlertOptions(
+            title: "delegation.pool.sizewarning.title".localized,
+            message: "delegation.pool.sizewarning.message".localized,
+            actions: [lowerAmountAction, stopDelegationAction, cancelAction]
+        )
+        
+        self.view?.showAlert(with: alertOptions)
+    }
+    
     func closeButtonTapped() {
         self.delegate?.pressedClose()
     }
