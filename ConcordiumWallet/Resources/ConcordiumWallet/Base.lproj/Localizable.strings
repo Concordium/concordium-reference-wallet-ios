@@ -515,6 +515,7 @@ concordium-backup.concordiumwallet securely.";
 "stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
 "stake.inputAmount.error.funds" = "Not enough funds";
 "stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
+"stake.inputAmount.error.amountTooLarge" = "Your delegation amount is too large for this pool";
 "stake.inputAmount.amountlockedplaceholder" = "Amount locked";
 "stake.inputAmount.amountplaceholder" = "Ͼ0.00";
 
