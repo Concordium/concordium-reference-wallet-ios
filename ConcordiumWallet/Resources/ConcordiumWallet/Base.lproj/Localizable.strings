@@ -619,6 +619,14 @@ Do you want to remove your delegation?";
 "delegation.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
 "delegation.nochanges.ok" = "Okay";
 
+"delegation.closewarning.title" = "Delegation update";
+"delegation.closewarning.message" = "The target pools of the following accounts will close soon. If you don’t actively change the target pool, your account will keep earning rewards as a passive delegator after the cooldown.
+
+You can however already change your target pool via the delegation status menu, if you would rather do that.
+
+Affected delegator accounts:\n%@";
+"delegation.closewarning.remindmeaction" = "Remind me next time I open the wallet";
+
 "baker.receiptconfirmation.title.update" = "Update baker stake";
 "baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
 

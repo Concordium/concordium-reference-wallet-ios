@@ -68,7 +68,49 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
             // reload accounts tab
             accountsCoordinator.start()
+            self.showDelegationWarningIfNeeded()
         })
+    }
+    
+    private func showDelegationWarningIfNeeded() {
+        defaultProvider
+            .storageManager()
+            .getAccounts()
+            .publisher
+            .flatMap { account -> AnyPublisher<AccountDataType, Never> in
+                guard let poolId = account.delegation?.delegationTargetBakerID else {
+                    return .empty()
+                }
+                
+                return self.defaultProvider
+                    .stakeService()
+                    .getBakerPool(bakerId: poolId)
+                    .filter { $0.bakerStakePendingChange.pendingChangeType == "RemovePool" }
+                    .map { _ in account }
+                    .catch { _ in AnyPublisher.empty() }
+                    .eraseToAnyPublisher()
+            }
+            .collect()
+            .sink { accounts in
+                guard !accounts.isEmpty else {
+                    return
+                }
+                
+                let remindMeAction = AlertAction(
+                    name: "delegation.closewarning.remindmeaction".localized,
+                    completion: nil,
+                    style: .default
+                )
+                
+                let alertOptions = AlertOptions(
+                    title: "delegation.closewarning.title".localized,
+                    message: String(format: "delegation.closewarning.message".localized, accounts.map({ $0.displayName }).joined(separator: "\n")),
+                    actions: [remindMeAction]
+                )
+                
+                self.showAlert(with: alertOptions)
+            }
+            .store(in: &cancellables)
     }
 
     func importWallet(from url: URL) {
