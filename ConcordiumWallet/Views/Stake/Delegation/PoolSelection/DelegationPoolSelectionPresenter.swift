@@ -188,7 +188,6 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         // the pool will be valid at this point as the buttonn is only enabled
         // if the pool is valid
         guard let validPool = self.validSelectedPool else { return }
-        self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
         
         if case .bakerPool(let bakerId) = validPool {
             // we use whichever is available first, either the variable or
@@ -205,11 +204,13 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                     if self.shouldShowPoolSizeWarning(response: bakerPoolResponse) {
                         self.showPoolSizeWarning(response: bakerPoolResponse)
                     } else {
+                        self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
                         self.delegate?.finishedPoolSelection(bakerPoolResponse: bakerPoolResponse)
                     }
                 })
                 .store(in: &cancellables)
         } else {
+            self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
             self.delegate?.finishedPoolSelection(bakerPoolResponse: nil)
         }
     }

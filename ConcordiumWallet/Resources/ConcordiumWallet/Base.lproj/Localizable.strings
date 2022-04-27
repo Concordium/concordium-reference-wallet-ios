@@ -551,6 +551,12 @@ developer.concordium.software";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
 "delegation.pool.closedpool" = "This pool is closed";
 
+"delegation.pool.sizewarning.title" = "Current delegation amount too large";
+"delegation.pool.sizewarning.message" = "Your current delegation amount will breach the new pool’s limits. To delegate to this pool you must first lower or stop your delegation and then wait for the cool down to pass.";
+"delegation.pool.sizewarning.loweramount" = "Lower delegation amount and stay with current pool";
+"delegation.pool.sizewarning.stopdelegation" = "Stop current delegation";
+"delegation.pool.sizewarning.cancel" = "Cancel";
+
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.accounttostop" = "Account to stop delegating";
 "delegation.receipt.delegationamount" = "Delegation amount";
