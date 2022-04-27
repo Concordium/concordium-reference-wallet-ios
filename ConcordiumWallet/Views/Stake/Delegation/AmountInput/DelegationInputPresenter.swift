@@ -20,23 +20,23 @@ protocol DelegationAmountInputPresenterDelegate: AnyObject {
 struct StakeAmountInputValidator {
     var minimumValue: GTU
     var maximumValue: GTU?
+    var balance: GTU
     var atDisposal: GTU
     var currentPool: GTU?
     var poolLimit: GTU?
     var previouslyStakedInPool: GTU
     
-    func validate(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        .just(amount).flatMap {
-            checkMaximum(amount: $0)
-        }.flatMap {
-            checkMinimum(amount: $0)
-        }.flatMap {
-            checkAtDisposal(amount: $0)
-        }.flatMap {
-            checkPoolLimit(amount: $0)
-        }.eraseToAnyPublisher()
+    func validate(amount: GTU, fee: GTU) -> AnyPublisher<GTU, StakeError> {
+        .just(amount)
+        .flatMap(checkMaximum(amount: ))
+        .flatMap(checkMinimum(amount: ))
+        .flatMap {_ in
+            checkBalance(amount: amount, fee: fee)
+        }
+        .flatMap(checkPoolLimit(amount: ))
+        .eraseToAnyPublisher()
     }
-    
+
     func checkMaximum(amount: GTU) -> AnyPublisher<GTU, StakeError> {
         if let maximumValue = maximumValue {
             if amount.intValue > maximumValue.intValue {
@@ -51,9 +51,9 @@ struct StakeAmountInputValidator {
         }
         return .just(amount)
     }
-    func checkAtDisposal(amount: GTU) -> AnyPublisher<GTU, StakeError> {
-        if amount.intValue > atDisposal.intValue {
-            return .fail(.notEnoughFund(atDisposal))
+    func checkBalance(amount: GTU, fee: GTU) -> AnyPublisher<GTU, StakeError> {
+        if amount.intValue + fee.intValue > balance.intValue || fee.intValue > atDisposal.intValue {
+            return .fail(.notEnoughFund(balance))
         }
         return .just(amount)
     }
@@ -152,6 +152,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         validator = StakeAmountInputValidator(minimumValue: minValue,
                                               maximumValue: nil,
+                                              balance: GTU(intValue: account.forecastBalance),
                                               atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
                                               currentPool: currentPool,
                                               poolLimit: poolLimit,
@@ -178,20 +179,42 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             
         }).store(in: &cancellables)
         
-        self.view?.amountPublisher.map { amount -> GTU in
-            GTU(displayValue: amount)
+        guard let view = self.view else { return }
+        
+        self.view?.amountPublisher.map { [weak self] amount -> GTU in
+            self?.viewModel.isContinueEnabled = false
+            return GTU(displayValue: amount)
         }
-        .flatMap { [weak self] amount -> AnyPublisher<Result<GTU, StakeError>, Never> in
+        .combineLatest(view.restakeOptionPublisher)
+        .flatMap { [weak self] (amount, restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in
             guard let self = self else { return .just(Result.failure(StakeError.internalError))}
+            
+            self.dataHandler.add(entry: AmountData(amount: amount))
+            self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
+            
+            self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
+            let costParams = self.dataHandler.getCostParameters()
             var stakeError: StakeError?
-            return self.validator.validate(amount: amount)
-                .mapError { [weak self] error -> StakeError in
-                    self?.viewModel.amountErrorMessage = error.localizedDescription
-                    stakeError = error
-                    return error
-                }.map { amount in
-                    return Result<GTU, StakeError>.success(amount)
-                }.replaceError(with: {
+            return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
+                                                           costParameters: costParams)
+                .showLoadingIndicator(in: self.view)
+                .flatMap { [weak self] fee -> AnyPublisher<Result<GTU, StakeError>, Error> in
+                    guard let self = self else { return .just(Result.failure(StakeError.internalError))}
+                    let cost = GTU(intValue: Int(fee.cost) ?? 0)
+                    self.cost = cost
+                    self.energy = fee.energy
+                    self.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
+                    return self.validator.validate(amount: amount, fee: cost)
+                        .mapError { [weak self] error -> StakeError in
+                            self?.viewModel.amountErrorMessage = error.localizedDescription
+                            stakeError = error
+                            return error
+                        }.map { amount in
+                            return Result<GTU, StakeError>.success(amount)
+                        }
+                        .eraseToAnyPublisher()
+                }
+                .replaceError(with: {
                     if let error = stakeError {
                         return Result<GTU, StakeError>.failure(error)
                     }
@@ -204,46 +227,15 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             if case Result.success(let amount) = result {
                 self?.validAmount = amount
                 self?.viewModel.amountErrorMessage = nil
+                self?.viewModel.isContinueEnabled = true
             } else {
                 self?.validAmount = nil
                 self?.viewModel.isContinueEnabled = false
             }
-        })
-        .store(in: &cancellables)
-
-        let validAmountPublisher = self.$validAmount
-            .compactMap { $0 }
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        }).store(in: &cancellables)
         
-        // calculate transaction fee
-        self.view?.restakeOptionPublisher
-            .combineLatest(validAmountPublisher)
-            .flatMap({ [weak self] (restake, amount) -> AnyPublisher<TransferCost, Error> in
-                guard let self = self else {
-                    return .fail(StakeError.internalError)
-                }
-                self.dataHandler.add(entry: AmountData(amount: amount))
-                self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
-                
-                self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
-                let costParams = self.dataHandler.getCostParameters()
-                return self.transactionService.getTransferCost(transferType: self.dataHandler.transferType,
-                                                               costParameters: costParams)
-                    .showLoadingIndicator(in: self.view)
-                    .eraseToAnyPublisher()
-            })
-            .sink(receiveError: {[weak self] error in
-                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            }, receiveValue: { [weak self] fee in
-                let cost = GTU(intValue: Int(fee.cost) ?? 0)
-                self?.cost = cost
-                self?.energy = fee.energy
-                self?.viewModel.isContinueEnabled = true
-                self?.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
-            }).store(in: &cancellables)
-
         self.view?.restakeOptionPublisher.send(viewModel.isRestakeSelected)
+        self.view?.amountPublisher.send(viewModel.amount)
     }
     
     func pressedContinue() {
@@ -279,6 +271,16 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.nochanges.message".localized,
                                             actions: [okAction])
             self.view?.showAlert(with: alertOptions)
+        }  else if dataHandler.isNewAmountZero() {
+            // warning for more zero amount = removeDelegation
+            let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
+            let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
+                                           completion: nil,
+                                           style: .default)
+            let alertOptions = AlertOptions(title: "delegation.amountzero.title".localized,
+                                            message: "delegation.amountzero.message".localized,
+                                            actions: [cancelAction, continueAction])
+            self.view?.showAlert(with: alertOptions)
         } else if self.dataHandler.isLoweringStake() {
             // warning for lowering stake
             let changeAction = AlertAction(name: "delegation.loweringamountwarning.change".localized, completion: nil, style: .default)
@@ -297,16 +299,6 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             let alertOptions = AlertOptions(title: "delegation.morethan95.title".localized,
                                             message: "delegation.morethan95.message".localized,
                                             actions: [continueAction, newStakeAction])
-            self.view?.showAlert(with: alertOptions)
-        } else if dataHandler.isNewAmountZero() {
-            // warning for more zero amount = removeDelegation
-            let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
-            let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
-                                           completion: nil,
-                                           style: .default)
-            let alertOptions = AlertOptions(title: "delegation.amountzero.title".localized,
-                                            message: "delegation.amountzero.message".localized,
-                                            actions: [cancelAction, continueAction])
             self.view?.showAlert(with: alertOptions)
         } else {
             completion?()
@@ -355,6 +347,7 @@ fileprivate extension StakeAmountInputViewModel {
             
         } else {
             self.title = "delegation.inputamount.title.create".localized
+            self.amountMessage = "delegation.inputamount.createamount".localized
         }
     }
 }

@@ -207,20 +207,28 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             self.isShielded = isShielded
             self.title = self.presenter.getTitle()
             self.atDisposalView.setHiddenIfChanged(isShielded)
-            UIView.animate(withDuration: 0.3) {
-                self.view.layoutIfNeeded()
-            }
+            
             self.generalButton.backgroundColor = isShielded ? UIColor.primary : UIColor.primarySelected
             self.shieldedButton.backgroundColor = isShielded ? UIColor.primarySelected : UIColor.primary
             
+            
             if isShielded {
                 self.balanceNameLabel.text =  String(format: ("accounts.overview.shieldedtotal".localized), viewModel.name ?? "")
+                self.stakedView.setHiddenIfChanged(true)
             } else {
                 self.balanceNameLabel.text = "accounts.overview.generaltotal".localized
+                if viewModel.hasStaked {
+                    self.stakedView.setHiddenIfChanged(false)
+                } else {
+                    self.stakedView.setHiddenIfChanged(true)
+                }
             }
             self.backgroundShield.isHidden = !isShielded
             self.totalsStackView.spacing = isShielded ? 35 : 15
             self.topSpacingStackViewConstraint.constant = isShielded ? 20 : 10
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
         }.store(in: &cancellables)
         
         viewModel.$isShieldedEnabled.sink { [weak self] enabled in
@@ -228,22 +236,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self?.buttonsView.setHiddenIfChanged(false)
                 self?.shieldView.setHiddenIfChanged(false)
                 self?.spacerView.setHiddenIfChanged(true)
+                
             } else {
                 self?.buttonsView.setHiddenIfChanged(true)
                 self?.shieldView.setHiddenIfChanged(true)
                 self?.spacerView.setHiddenIfChanged(false)
+
             }
         }.store(in: &cancellables)
-        
-        Publishers.CombineLatest(viewModel.$isShielded, viewModel.$hasStaked)
-            .map { (isShieldedOutput, stakedOutput) -> Bool in
-                isShieldedOutput == true || stakedOutput == false
-            }.sink { [weak self](hideStaked) in
-                self?.stakedView.setHiddenIfChanged(hideStaked)
-                UIView.animate(withDuration: 0.3) {
-                    self?.view.layoutIfNeeded()
-                }
-            }.store(in: &cancellables)
         
         viewModel.$atDisposal
             .compactMap { $0 }
@@ -257,11 +257,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
         viewModel.$stakedLabel
             .sink { [weak self](text) in
-                if text == nil {
-                    self?.stakedView.isHidden = true
-                } else {
-                    self?.stakedView.isHidden = false
-                }
                 self?.stakedLabel.text = text
             }
             .store(in: &cancellables)
