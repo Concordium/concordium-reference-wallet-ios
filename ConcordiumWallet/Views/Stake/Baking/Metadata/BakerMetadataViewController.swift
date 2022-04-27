@@ -12,6 +12,7 @@ import Combine
 // MARK: View
 protocol BakerMetadataViewProtocol: AnyObject {
     var metadataPublisher: AnyPublisher<String, Never> { get }
+    func bind(viewModel: BakerMetadataViewModel)
 }
 
 class BakerMetadataFactory {
@@ -22,15 +23,17 @@ class BakerMetadataFactory {
     }
 }
 
-class BakerMetadataViewController: BaseViewController, BakerMetadataViewProtocol, Storyboarded {
+class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerMetadataViewProtocol, Storyboarded {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var currentValueLabel: UILabel!
     @IBOutlet weak var metadataTextField: UITextField!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var metadataPublisher: AnyPublisher<String, Never> {
         return metadataTextField.textPublisher
             .eraseToAnyPublisher()
     }
+    private var cancellables = Set<AnyCancellable>()
     
 	var presenter: BakerMetadataPresenterProtocol
 
@@ -46,6 +49,10 @@ class BakerMetadataViewController: BaseViewController, BakerMetadataViewProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0,
+                                                     left: 0,
+                                                     bottom: 10,
+                                                     right: 0)
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "close_icon"),
             style: .plain,
@@ -57,6 +64,31 @@ class BakerMetadataViewController: BaseViewController, BakerMetadataViewProtocol
         presenter.viewDidLoad()
     }
 
+    func bind(viewModel: BakerMetadataViewModel) {
+        viewModel.$title
+            .assign(to: \.title, on: self)
+            .store(in: &cancellables)
+        
+        viewModel.$text
+            .assign(to: \.text, on: textLabel)
+            .store(in: &cancellables)
+        
+        viewModel.$currentValue
+            .assign(to: \.text, on: currentValueLabel)
+            .store(in: &cancellables)
+    }
+    
+    override func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        bottomConstraint.constant = -keyboardHeight
+        view.layoutIfNeeded()
+    }
+    
+    override func keyboardWillHide(_ keyboardHeight: CGFloat) {
+        bottomConstraint.constant = 0
+        view.layoutIfNeeded()
+    }
+    
+    
     @IBAction func pressedContinue(_ sender: UIButton) {
         presenter.pressedContinue()
     }

@@ -9,12 +9,11 @@
 import Foundation
 import Combine
 
-//Add this to your coordinator:
+// Add this to your coordinator:
 //    func showBakerMetadata() {
 //        let vc = BakerMetadataFactory.create(with: BakerMetadataPresenter(delegate: self))
 //        navigationController.pushViewController(vc, animated: false)
 //    }
-
 
 // MARK: -
 // MARK: Delegate
@@ -22,7 +21,6 @@ protocol BakerMetadataPresenterDelegate: AnyObject {
     func finishedMetadata()
     func closedMetadata()
 }
-
 
 class BakerMetadataViewModel {
     @Published var title: String
@@ -56,21 +54,30 @@ class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
     var metadataUrl: String?
     var dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
+    var viewModel: BakerMetadataViewModel
     
     init(delegate: BakerMetadataPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
         self.dataHandler = dataHandler
         self.delegate = delegate
+        
+        let currentValue: BakerMetadataURLData? = dataHandler.getCurrentEntry()
+        viewModel = BakerMetadataViewModel(currentMetadataUrl: currentValue?.metadataURL)
     }
 
     func viewDidLoad() {
-        self.view?.metadataPublisher.sink(receiveValue: { [weak self] metadataUrl in
+        view?.metadataPublisher.sink(receiveValue: { [weak self] metadataUrl in
             if !metadataUrl.isEmpty {
                 self?.metadataUrl = metadataUrl
             }
         }).store(in: &cancellables)
+        
+        view?.bind(viewModel: viewModel)
     }
     
     func pressedContinue() {
+        if let metadataUrl = metadataUrl, !metadataUrl.isEmpty {
+            self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: metadataUrl))
+        }
         self.delegate?.finishedMetadata()
     }
     
