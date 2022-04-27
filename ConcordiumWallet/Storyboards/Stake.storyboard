@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1126,27 +1126,126 @@ Explanation label for Stake]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pGZ-6T-3pR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="595.6521739130435" y="758.70535714285711"/>
+            <point key="canvasLocation" x="259" y="759"/>
+        </scene>
+        <!--Baker Metadata View Controller-->
+        <scene sceneID="0B1-da-kyX">
+            <objects>
+                <viewController storyboardIdentifier="BakerMetadataViewController" id="Z3H-4Z-u3S" customClass="BakerMetadataViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Lo-uw-YxP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yc-X8-4rz" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="15" y="812" width="384" height="50"/>
+                                <color key="backgroundColor" name="primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="yHW-C3-Lwu"/>
+                                </constraints>
+                                <color key="tintColor" name="buttonText"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="[Continue]"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="stringKeyNormal" value="stake.inputamount.continue"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="pressedContinue:" destination="Z3H-4Z-u3S" eventType="touchUpInside" id="zck-1C-7iA"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iI6-Ql-ohd">
+                                <rect key="frame" x="15" y="44" width="384" height="760"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9x-2O-3HW">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="171.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hk7-H6-lRt">
+                                        <rect key="frame" x="0.0" y="171.5" width="384" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEM-4q-6SS">
+                                        <rect key="frame" x="0.0" y="188.5" width="384" height="571.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LCT-8F-rWg">
+                                                <rect key="frame" x="0.0" y="254.5" width="384" height="62.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTj-F8-BFE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="18.5"/>
+                                                        <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I8M-NF-Lnp">
+                                                        <rect key="frame" x="0.0" y="28.5" width="384" height="34"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="34" id="eiJ-CN-Ju9"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="LCT-8F-rWg" firstAttribute="centerY" secondItem="SEM-4q-6SS" secondAttribute="centerY" id="R9X-x7-Sw0"/>
+                                            <constraint firstItem="LCT-8F-rWg" firstAttribute="leading" secondItem="SEM-4q-6SS" secondAttribute="leading" id="XBy-zh-ATC"/>
+                                            <constraint firstAttribute="trailing" secondItem="LCT-8F-rWg" secondAttribute="trailing" id="qCW-gj-WiX"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="J9x-2O-3HW" firstAttribute="height" secondItem="SEM-4q-6SS" secondAttribute="height" multiplier="0.3" id="W2b-Su-nxq"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sPX-rf-FcV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iI6-Ql-ohd" firstAttribute="top" secondItem="sPX-rf-FcV" secondAttribute="top" id="2cN-14-YOW"/>
+                            <constraint firstItem="6yc-X8-4rz" firstAttribute="top" secondItem="iI6-Ql-ohd" secondAttribute="bottom" constant="8" symbolic="YES" id="CcB-L2-dD2"/>
+                            <constraint firstItem="iI6-Ql-ohd" firstAttribute="leading" secondItem="sPX-rf-FcV" secondAttribute="leading" constant="15" id="W3o-n9-soQ"/>
+                            <constraint firstItem="6yc-X8-4rz" firstAttribute="bottom" secondItem="sPX-rf-FcV" secondAttribute="bottom" id="YGF-Uf-Wd2"/>
+                            <constraint firstItem="sPX-rf-FcV" firstAttribute="trailing" secondItem="6yc-X8-4rz" secondAttribute="trailing" constant="15" id="gBU-vv-Enp"/>
+                            <constraint firstItem="sPX-rf-FcV" firstAttribute="trailing" secondItem="iI6-Ql-ohd" secondAttribute="trailing" constant="15" id="lhC-u2-ioz"/>
+                            <constraint firstItem="6yc-X8-4rz" firstAttribute="leading" secondItem="sPX-rf-FcV" secondAttribute="leading" constant="15" id="t6m-YR-UF4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="YGF-Uf-Wd2" id="WAS-9o-DRm"/>
+                        <outlet property="currentValueLabel" destination="PTj-F8-BFE" id="wGy-GN-puI"/>
+                        <outlet property="metadataTextField" destination="I8M-NF-Lnp" id="rUu-AT-aPI"/>
+                        <outlet property="textLabel" destination="hk7-H6-lRt" id="B6m-rr-McM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GrM-CB-cHc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="951" y="759"/>
         </scene>
     </scenes>
     <designables>
+        <designable name="6yc-X8-4rz">
+            <size key="intrinsicContentSize" width="73" height="30"/>
+        </designable>
         <designable name="Pul-EI-hyA">
-            <size key="intrinsicContentSize" width="190" height="30"/>
+            <size key="intrinsicContentSize" width="46" height="30"/>
         </designable>
         <designable name="QRD-9m-G69">
-            <size key="intrinsicContentSize" width="191" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="amF-dD-Lbb">
-            <size key="intrinsicContentSize" width="191" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="fsH-NK-CxZ">
-            <size key="intrinsicContentSize" width="191" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="lTR-SH-AHo">
-            <size key="intrinsicContentSize" width="191" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="wDP-rx-n6T">
-            <size key="intrinsicContentSize" width="191" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
     </designables>
     <resources>
