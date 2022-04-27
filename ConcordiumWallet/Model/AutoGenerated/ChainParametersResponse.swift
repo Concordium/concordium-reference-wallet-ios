@@ -1,25 +1,25 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let poolParametersResponse = try PoolParametersResponse(json)
+//   let chainParametersResponse = try ChainParametersResponse(json)
 
 import Foundation
 
-// MARK: - PoolParametersResponse
-struct PoolParametersResponse: Codable {
+// MARK: - ChainParametersResponse
+struct ChainParametersResponse: Codable {
     let mintPerPayday: Double
     let rewardParameters: RewardParameters
     let poolOwnerCooldown: Int
     let capitalBound: Double
     let microGTUPerEuro: EuroPerEnergy
     let rewardPeriodLength: Int
-    let transactionCommissionLPool: Double
+    let passiveTransactionCommission: Double
     let leverageBound: EuroPerEnergy
     let foundationAccountIndex: Int
-    let finalizationCommissionLPool: Double
+    let passiveFinalizationCommission: Double
     let delegatorCooldown: Int
     let bakingCommissionRange: CommissionRange
-    let bakingCommissionLPool: Double
+    let passiveBakingCommission: Double
     let accountCreationLimit: Int
     let finalizationCommissionRange: CommissionRange
     let electionDifficulty: Double
@@ -34,13 +34,13 @@ struct PoolParametersResponse: Codable {
         case capitalBound = "capitalBound"
         case microGTUPerEuro = "microGTUPerEuro"
         case rewardPeriodLength = "rewardPeriodLength"
-        case transactionCommissionLPool = "transactionCommissionLPool"
+        case passiveTransactionCommission = "passiveTransactionCommission"
         case leverageBound = "leverageBound"
         case foundationAccountIndex = "foundationAccountIndex"
-        case finalizationCommissionLPool = "finalizationCommissionLPool"
+        case passiveFinalizationCommission = "passiveFinalizationCommission"
         case delegatorCooldown = "delegatorCooldown"
         case bakingCommissionRange = "bakingCommissionRange"
-        case bakingCommissionLPool = "bakingCommissionLPool"
+        case passiveBakingCommission = "passiveBakingCommission"
         case accountCreationLimit = "accountCreationLimit"
         case finalizationCommissionRange = "finalizationCommissionRange"
         case electionDifficulty = "electionDifficulty"
@@ -50,11 +50,11 @@ struct PoolParametersResponse: Codable {
     }
 }
 
-// MARK: PoolParametersResponse convenience initializers and mutators
+// MARK: ChainParametersResponse convenience initializers and mutators
 
-extension PoolParametersResponse {
+extension ChainParametersResponse {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(PoolParametersResponse.self, from: data)
+        self = try newJSONDecoder().decode(ChainParametersResponse.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -75,34 +75,34 @@ extension PoolParametersResponse {
         capitalBound: Double? = nil,
         microGTUPerEuro: EuroPerEnergy? = nil,
         rewardPeriodLength: Int? = nil,
-        transactionCommissionLPool: Double? = nil,
+        passiveTransactionCommission: Double? = nil,
         leverageBound: EuroPerEnergy? = nil,
         foundationAccountIndex: Int? = nil,
-        finalizationCommissionLPool: Double? = nil,
+        passiveFinalizationCommission: Double? = nil,
         delegatorCooldown: Int? = nil,
         bakingCommissionRange: CommissionRange? = nil,
-        bakingCommissionLPool: Double? = nil,
+        passiveBakingCommission: Double? = nil,
         accountCreationLimit: Int? = nil,
         finalizationCommissionRange: CommissionRange? = nil,
         electionDifficulty: Double? = nil,
         euroPerEnergy: EuroPerEnergy? = nil,
         transactionCommissionRange: CommissionRange? = nil,
         minimumEquityCapital: String? = nil
-    ) -> PoolParametersResponse {
-        return PoolParametersResponse(
+    ) -> ChainParametersResponse {
+        return ChainParametersResponse(
             mintPerPayday: mintPerPayday ?? self.mintPerPayday,
             rewardParameters: rewardParameters ?? self.rewardParameters,
             poolOwnerCooldown: poolOwnerCooldown ?? self.poolOwnerCooldown,
             capitalBound: capitalBound ?? self.capitalBound,
             microGTUPerEuro: microGTUPerEuro ?? self.microGTUPerEuro,
             rewardPeriodLength: rewardPeriodLength ?? self.rewardPeriodLength,
-            transactionCommissionLPool: transactionCommissionLPool ?? self.transactionCommissionLPool,
+            passiveTransactionCommission: passiveTransactionCommission ?? self.passiveTransactionCommission,
             leverageBound: leverageBound ?? self.leverageBound,
             foundationAccountIndex: foundationAccountIndex ?? self.foundationAccountIndex,
-            finalizationCommissionLPool: finalizationCommissionLPool ?? self.finalizationCommissionLPool,
+            passiveFinalizationCommission: passiveFinalizationCommission ?? self.passiveFinalizationCommission,
             delegatorCooldown: delegatorCooldown ?? self.delegatorCooldown,
             bakingCommissionRange: bakingCommissionRange ?? self.bakingCommissionRange,
-            bakingCommissionLPool: bakingCommissionLPool ?? self.bakingCommissionLPool,
+            passiveBakingCommission: passiveBakingCommission ?? self.passiveBakingCommission,
             accountCreationLimit: accountCreationLimit ?? self.accountCreationLimit,
             finalizationCommissionRange: finalizationCommissionRange ?? self.finalizationCommissionRange,
             electionDifficulty: electionDifficulty ?? self.electionDifficulty,

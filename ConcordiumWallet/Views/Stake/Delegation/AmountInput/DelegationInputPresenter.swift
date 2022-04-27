@@ -119,7 +119,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         let showsPoolLimits: Bool!
         // If we are updating delegation and we dont't change the pool,
         // we need to check the existing value of the pool
-        let pool: BakerPool
+        let pool: BakerTarget
         if let newPool = newPool?.pool {
             pool = newPool
             // if pool is changed, then the previously staked is incorrect
@@ -128,11 +128,11 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             pool = existingPool
             previouslyStakedInSelectedPool = self.account.delegation?.stakedAmount ?? 0
         } else {
-            pool = .lpool
+            pool = .passive
             previouslyStakedInSelectedPool = self.account.delegation?.stakedAmount ?? 0
         }
         
-        if case .lpool = pool {
+        if case .passive = pool {
             showsPoolLimits = false
         } else {
             showsPoolLimits = true

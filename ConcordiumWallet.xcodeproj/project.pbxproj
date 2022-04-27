@@ -1507,6 +1507,10 @@
 		7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
+		89CF2D4E281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
+		89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
+		89CF2D50281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
+		89CF2D51281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		901F7EEA27E8A6A600C46741 /* BakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7EE827E8A6A600C46741 /* BakerKeys.swift */; };
 		901F7EEB27E8A6A600C46741 /* BakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7EE827E8A6A600C46741 /* BakerKeys.swift */; };
 		901F7EEC27E8A6A600C46741 /* BakerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7EE827E8A6A600C46741 /* BakerKeys.swift */; };
@@ -1547,14 +1551,10 @@
 		901F7F1927EA0F1B00C46741 /* CommissionRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1527EA0F1A00C46741 /* CommissionRange.swift */; };
 		901F7F1A27EA0F1B00C46741 /* CommissionRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1527EA0F1A00C46741 /* CommissionRange.swift */; };
 		901F7F1B27EA0F1B00C46741 /* CommissionRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1527EA0F1A00C46741 /* CommissionRange.swift */; };
-		901F7F1C27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
-		901F7F1D27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
-		901F7F1E27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
-		901F7F1F27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */; };
-		901F7F2627EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
-		901F7F2727EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
-		901F7F2827EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
-		901F7F2927EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */; };
+		901F7F2627EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json */; };
+		901F7F2727EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json */; };
+		901F7F2827EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json */; };
+		901F7F2927EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2427EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json */; };
 		901F7F2A27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */; };
 		901F7F2B27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */; };
 		901F7F2C27EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json in Resources */ = {isa = PBXBuildFile; fileRef = 901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */; };
@@ -2236,6 +2236,7 @@
 		7FF9190C250E4EAD00B1032B /* ImportStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportStatusCell.xib; sourceTree = "<group>"; };
 		7FF91911250E571900B1032B /* ImportStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStatusCell.swift; sourceTree = "<group>"; };
 		7FF919172511505B00B1032B /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
+		89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainParametersResponse.swift; sourceTree = "<group>"; };
 		901F7EE827E8A6A600C46741 /* BakerKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerKeys.swift; sourceTree = "<group>"; };
 		901F7EE927E8A6A600C46741 /* DelegationTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationTarget.swift; sourceTree = "<group>"; };
 		901F7EF227E9D98C00C46741 /* TransferCostParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostParameters.swift; sourceTree = "<group>"; };
@@ -2246,8 +2247,7 @@
 		901F7EFF27EA0D5C00C46741 /* CurrentPaydayStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentPaydayStatus.swift; sourceTree = "<group>"; };
 		901F7F0027EA0D5C00C46741 /* PoolInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolInfo.swift; sourceTree = "<group>"; };
 		901F7F1527EA0F1A00C46741 /* CommissionRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionRange.swift; sourceTree = "<group>"; };
-		901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolParametersResponse.swift; sourceTree = "<group>"; };
-		901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.2.2.RX_backend_pool_parameters.json; sourceTree = "<group>"; };
+		901F7F2427EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.2.2.RX_backend_chain_parameters.json; sourceTree = "<group>"; };
 		901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.1.2.RX_backend_baker_pool.json; sourceTree = "<group>"; };
 		901F7F2E27EB023100C46741 /* AccountDelegation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDelegation.swift; sourceTree = "<group>"; };
 		901F7F3827EB07AE00C46741 /* BakerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerEntity.swift; sourceTree = "<group>"; };
@@ -2752,7 +2752,6 @@
 				901F7F9027F33C8800C46741 /* TransactionFeeDistribution.swift */,
 				901F7F2E27EB023100C46741 /* AccountDelegation.swift */,
 				901F7F1527EA0F1A00C46741 /* CommissionRange.swift */,
-				901F7F1627EA0F1B00C46741 /* PoolParametersResponse.swift */,
 				901F7EFE27EA0D5C00C46741 /* BakerPoolResponse.swift */,
 				901F7EFD27EA0D5C00C46741 /* BakerStakePendingChange.swift */,
 				901F7EFC27EA0D5C00C46741 /* CommissionRates.swift */,
@@ -2773,6 +2772,7 @@
 				5211BAA224FD1D5100EE1658 /* Balance.swift */,
 				19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */,
 				07DEC16A26F0D5590094395E /* CommitmentsRandomness.swift */,
+				89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */,
 				7F21397724236C0A00D2A5C4 /* CreateCredentialRequest.swift */,
 				19C2EC8269ACB6C892A16310 /* CreateIDRequest.swift */,
 				7FF618EC2437294E00269F9F /* CreateTransferRequest.swift */,
@@ -3160,7 +3160,7 @@
 				5237186A25751F2000B2BC31 /* 4.5.1.TX_lib_generate_accounts.json */,
 				5237186925751F2000B2BC31 /* 4.5.2.RX_lib_generate_accounts.json */,
 				901F7F2527EA138300C46741 /* 5.1.2.RX_backend_baker_pool.json */,
-				901F7F2427EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json */,
+				901F7F2427EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json */,
 				19C2E15DA745EE0E2755FFAE /* backend_invalidRequest_error.json */,
 				7FA0AEA6246061A500B7673F /* backend_server_error.json */,
 				7F48C252244DCEF700997684 /* NetworkSessionMock.swift */,
@@ -3972,7 +3972,7 @@
 				52055F9A25541B160071F7CA /* AccountCardView.xib in Resources */,
 				90434C7E27FB111B00E4DBAA /* delegation_update_flow_en_3.html in Resources */,
 				7F48C20A244DCD0B00997684 /* .swiftlint.yml in Resources */,
-				901F7F2627EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */,
+				901F7F2627EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				7F48C24E244DCD7100997684 /* 2.3.1.TX_backend_submitCredential.json in Resources */,
 				901F7F7C27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
 				070D625027B3DD5600B6903C /* unshielding_1.svg in Resources */,
@@ -4081,7 +4081,7 @@
 				07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
 				90434C8427FB111B00E4DBAA /* delegation_update_flow_en_1.html in Resources */,
-				901F7F2827EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */,
+				901F7F2827EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				52055F9C25541B160071F7CA /* AccountCardView.xib in Resources */,
 				070D622727B3C54600B6903C /* shielded_balance_onboarding_en_5.html in Resources */,
 			);
@@ -4119,7 +4119,7 @@
 				90434C7127FB108D00E4DBAA /* delegation_remove_flow_en_2.html in Resources */,
 				070D626A27B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				070D622427B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
-				901F7F2927EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */,
+				901F7F2927EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				070D622C27B3C54600B6903C /* shielded_balance_onboarding_en_2.html in Resources */,
 				070D625727B3DD5600B6903C /* shielding_2.svg in Resources */,
 				90434CAC27FB2D4200E4DBAA /* removedelegation_flow_style.css in Resources */,
@@ -4183,7 +4183,7 @@
 				070D622E27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
 				07E6E27B27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				90434C6B27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
-				901F7F2727EA138300C46741 /* 5.2.2.RX_backend_pool_parameters.json in Resources */,
+				901F7F2727EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
 				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				52055F9B25541B160071F7CA /* AccountCardView.xib in Resources */,
 				901F7F7D27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
@@ -4610,6 +4610,7 @@
 				7F48C186244DCD0B00997684 /* RoundedCornerView.swift in Sources */,
 				7F48C279244E17D100997684 /* PrivateIDObjectData.swift in Sources */,
 				7F48C188244DCD0B00997684 /* AccountsPresenter.swift in Sources */,
+				89CF2D4E281945F200742E1E /* ChainParametersResponse.swift in Sources */,
 				7F48C25A244E17D100997684 /* IdentityObject.swift in Sources */,
 				90C371D327DF24F00046F05E /* BakerPoolSettingsViewController.swift in Sources */,
 				7F48C18B244DCD0B00997684 /* CreateIdentityCoordinator.swift in Sources */,
@@ -4625,7 +4626,6 @@
 				7F48C192244DCD0B00997684 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
 				90434C8727FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				7F48C283244EEE6500997684 /* TransactionSubmittedPresenter.swift in Sources */,
-				901F7F1C27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */,
 				7F48C195244DCD0B00997684 /* AccountDetailsCoordinator.swift in Sources */,
 				7F48C197244DCD0B00997684 /* ScanAddressQRViewController.swift in Sources */,
 				7FF91912250E571900B1032B /* ImportStatusCell.swift in Sources */,
@@ -5024,6 +5024,7 @@
 				7F85B754246A9A7C00ED09B8 /* NetworkManager.swift in Sources */,
 				7F85B755246A9A7C00ED09B8 /* IdentityInfoViewModel.swift in Sources */,
 				7F85B756246A9A7C00ED09B8 /* ResourceRequest.swift in Sources */,
+				89CF2D50281945F200742E1E /* ChainParametersResponse.swift in Sources */,
 				7F85B757246A9A7C00ED09B8 /* LoginErrorLabel.swift in Sources */,
 				7F85B758246A9A7C00ED09B8 /* NetworkManagerProtocol.swift in Sources */,
 				7F85B759246A9A7C00ED09B8 /* Publisher+Utils.swift in Sources */,
@@ -5188,7 +5189,6 @@
 				52A6A77B24F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				19C2E6DE2479B8D900DF10E7 /* ExportIdentityData.swift in Sources */,
 				07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */,
-				901F7F1E27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */,
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -5411,6 +5411,7 @@
 				7F85B8E82472D37600ED09B8 /* MoreMenuViewController.swift in Sources */,
 				7F85B852246A9AB600ED09B8 /* StorageManager.swift in Sources */,
 				7F85B853246A9AB600ED09B8 /* NetworkManager.swift in Sources */,
+				89CF2D51281945F200742E1E /* ChainParametersResponse.swift in Sources */,
 				7F85B854246A9AB600ED09B8 /* IdentityInfoViewModel.swift in Sources */,
 				7F85B855246A9AB600ED09B8 /* ResourceRequest.swift in Sources */,
 				7F85B856246A9AB600ED09B8 /* LoginErrorLabel.swift in Sources */,
@@ -5575,7 +5576,6 @@
 				52A6A77C24F9066700138D83 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				19C2E8235F5A65E28FB153B6 /* AES256Encryption.swift in Sources */,
 				07619A94269D83D9009B79E2 /* AppConstants.swift in Sources */,
-				901F7F1F27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */,
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -5753,6 +5753,7 @@
 				7FB4118523F2B031007FE732 /* IdentityBaseInfoWidgetViewController.swift in Sources */,
 				C92C64F8244EE7C500675ECE /* TransferCost.swift in Sources */,
 				7F7F6D3424A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
+				89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */,
 				C9C097A724331BC400ACA35A /* AccountDetailsCoordinator.swift in Sources */,
 				7FD8DEAA2448623300CA06D8 /* ScanAddressQRViewController.swift in Sources */,
 				52D0CF1C25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
@@ -5858,7 +5859,6 @@
 				7F21398524236C0A00D2A5C4 /* CreateCredentialRequest.swift in Sources */,
 				7F5F77822487D3BD0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
 				5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
-				901F7F1D27EA0F1B00C46741 /* PoolParametersResponse.swift in Sources */,
 				19C2EB170045945CE5D47CC8 /* IPInfoResponseElement.swift in Sources */,
 				52DCAA0127CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				528EB74B255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,

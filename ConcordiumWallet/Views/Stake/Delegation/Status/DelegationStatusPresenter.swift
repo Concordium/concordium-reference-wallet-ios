@@ -58,13 +58,13 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     }
     
     func pressedButton() {
-        stakeService.getPoolParameters()
+        stakeService.getChainParameters()
             .showLoadingIndicator(in: self.view)
             .sink { [weak self] error in
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            } receiveValue: { [weak self] poolParameterResponse in
-                let params = ChainParametersEntity(delegatorCooldown: poolParameterResponse.delegatorCooldown,
-                                                   poolOwnerCooldown: poolParameterResponse.poolOwnerCooldown)
+            } receiveValue: { [weak self] chainParametersResponse in
+                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
+                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
                 do {
                     _ = try self?.storageManager.updateChainParms(params)
                     self?.delegate?.pressedRegisterOrUpdate()
@@ -75,14 +75,14 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
     }
 
     func pressedStopButton() {
-        stakeService.getPoolParameters()
+        stakeService.getChainParameters()
             .zip(transactionService.getTransferCost(transferType: .removeDelegation, costParameters: []))
             .showLoadingIndicator(in: view)
             .sink { [weak self] error in
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            } receiveValue: {[weak self] (poolParameterResponse, transferCost) in
-                let params = ChainParametersEntity(delegatorCooldown: poolParameterResponse.delegatorCooldown,
-                                                   poolOwnerCooldown: poolParameterResponse.poolOwnerCooldown)
+            } receiveValue: {[weak self] (chainParametersResponse, transferCost) in
+                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
+                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
                 do {
                     _ = try self?.storageManager.updateChainParms(params)
                     let cost = GTU(intValue: Int(transferCost.cost) ?? 0)

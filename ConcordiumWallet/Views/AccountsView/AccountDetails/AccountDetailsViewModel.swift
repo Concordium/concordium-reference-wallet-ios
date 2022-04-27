@@ -59,9 +59,10 @@ class AccountDetailsViewModel {
                 self.stakedValue = GTU(intValue: baker.stakedAmount ).displayValueWithGStroke()
                 
             } else if let delegation = account.delegation {
-                let pool = BakerPool.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+                let pool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
+                
                 self.hasStaked = true
-                self.stakedLabel = String(format: "accountDetails.delegationstakeLabel".localized, pool.getDisplayValueForAccountDetails())
+                self.stakedLabel = pool.getDisplayValueForAccountDetails()
                 self.stakedValue = GTU(intValue: Int(delegation.stakedAmount) ).displayValueWithGStroke()
             } else {
                 self.hasStaked = false
@@ -122,11 +123,11 @@ class AccountDetailsViewModel {
     }
 }
 
-extension BakerPool {
+extension BakerTarget {
     fileprivate func getDisplayValueForAccountDetails() -> String {
         switch self {
-        case .lpool:
-            return "accountDetails.lpoolvalue".localized
+        case .passive:
+            return "accountDetails.passivevalue".localized
         case .bakerPool(let bakerId):
             return String(format: "accountDetails.bakerpoolvalue".localized, bakerId)
         }
