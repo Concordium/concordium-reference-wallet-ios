@@ -654,7 +654,7 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.open" = "Open";
 "baking.closed" = "Closed";
 "baking.closedfornew" = "Closed for new";
-"baking.metadata.current" = "Current: \n %@";
+"baking.metadata.current" = "Current URL: \n %@";
 
 "baking.metadata.title.create" = "Register baker";
 "baking.metadata.text.create" = "You can choose to add a URL with metadata about your baker. Leave it blank if you don’t have any.

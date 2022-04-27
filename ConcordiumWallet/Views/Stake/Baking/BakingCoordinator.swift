@@ -73,6 +73,12 @@ class BakingCoordinator: Coordinator {
         
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func showMetadataUrl() {
+        let presenter = BakerMetadataPresenter(delegate: self, dataHandler: bakingDataHandler)
+        let vc = BakerMetadataFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
@@ -112,6 +118,15 @@ extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
     }
     
     func pressedClose() {
+        self.delegate?.finishedBakingCoordinator()
+    }
+}
+extension BakingCoordinator: BakerMetadataPresenterDelegate {
+    func finishedMetadata() {
+        // TODO: handle finishing of metadata (for update we show receipt; For created we show keys)
+    }
+    
+    func closedMetadata() {
         self.delegate?.finishedBakingCoordinator()
     }
 }

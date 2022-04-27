@@ -88,7 +88,6 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
         }.store(in: &cancellables)
         
        
-        
         viewModel.$showsCloseForNew.sink { [weak self] shows in
             guard let self = self else { return }
             if shows {
