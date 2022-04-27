@@ -50,12 +50,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.transactionService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
         
-        let previosulyStakedInPool = GTU(intValue: self.account.baker?.stakedAmount ?? 0)
+        let previouslyStakedInPool = GTU(intValue: self.account.baker?.stakedAmount ?? 0)
         
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
             atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
-            previouslyStakedInPool: previosulyStakedInPool
+            previouslyStakedInPool: previouslyStakedInPool
         )
         
         viewModel.setup(
