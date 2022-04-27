@@ -393,6 +393,8 @@ class StakeDataHandler {
                 case .bakerPool:
                     return [.target]
                 }
+            case let metadataUrlData as BakerMetadataURLData:
+                return [.metadataSize(metadataUrlData.metadataURL.count)]
             // TODO: cost calculation for baking
             default:
                 return nil
@@ -426,6 +428,8 @@ class StakeDataHandler {
                 case .closedForNew:
                     transfer.openStatus = "closedForNew"
                 }
+            case let metadataUrlData as BakerMetadataURLData:
+                transfer.metadataURL = metadataUrlData.metadataURL
             // TODO: setup transfer object for baking
             default:
                break
