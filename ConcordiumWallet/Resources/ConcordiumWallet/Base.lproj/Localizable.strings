@@ -515,6 +515,7 @@ concordium-backup.concordiumwallet securely.";
 "stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
 "stake.inputAmount.error.funds" = "Not enough funds";
 "stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
+"stake.inputAmount.error.amountTooLarge" = "Your delegation amount is too large for this pool";
 "stake.inputAmount.amountlockedplaceholder" = "Amount locked";
 "stake.inputAmount.amountplaceholder" = "Ͼ0.00";
 
@@ -549,6 +550,12 @@ developer.concordium.software";
 "delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
 "delegation.pool.closedpool" = "This pool is closed";
+
+"delegation.pool.sizewarning.title" = "Current delegation amount too large";
+"delegation.pool.sizewarning.message" = "Your current delegation amount will breach the new pool’s limits. To delegate to this pool you must first lower or stop your delegation and then wait for the cool down to pass.";
+"delegation.pool.sizewarning.loweramount" = "Lower delegation amount and stay with current pool";
+"delegation.pool.sizewarning.stopdelegation" = "Stop current delegation";
+"delegation.pool.sizewarning.cancel" = "Cancel";
 
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.accounttostop" = "Account to stop delegating";

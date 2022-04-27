@@ -109,12 +109,14 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         viewModel.$firstBalance.sink { [weak self] balanceVM in
             guard let self = self else { return }
             self.firstBalanceLabel.text = balanceVM.label
+            self.firstBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.firstBalanceValue.text = balanceVM.value
         }.store(in: &cancellables)
         
         viewModel.$secondBalance.sink { [weak self] balanceVM in
             guard let self = self else { return }
             self.secondBalanceLabel.text = balanceVM.label
+            self.secondBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.secondBalanceValue.text = balanceVM.value
         }.store(in: &cancellables)
         
@@ -127,6 +129,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             guard let self = self else { return }
             guard let balanceVM = balanceVM else { return }
             self.thirdBalanceLabel.text = balanceVM.label
+            self.thirdBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.thirdBalanceValue.text = balanceVM.value
         }.store(in: &cancellables)
         
@@ -134,6 +137,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             guard let self = self else { return }
             guard let balanceVM = balanceVM else { return }
             self.fourthBalanceLabel.text = balanceVM.label
+            self.fourthBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.fourthBalanceValue.text = balanceVM.value
         }.store(in: &cancellables)
         

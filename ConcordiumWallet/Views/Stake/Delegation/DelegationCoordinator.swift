@@ -85,7 +85,12 @@ class DelegationCoordinator: Coordinator {
     }
     
     func showPoolSelection() {
-        let presenter = DelegationPoolSelectionPresenter(delegate: self, dependencyProvider: dependencyProvider, dataHandler: delegationDataHandler)
+        let presenter = DelegationPoolSelectionPresenter(
+            account: account,
+            delegate: self,
+            dependencyProvider: dependencyProvider,
+            dataHandler: delegationDataHandler
+        )
         let vc = DelegationPoolSelectionFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }

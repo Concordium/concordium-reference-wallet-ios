@@ -14,6 +14,7 @@ enum StakeError: Error {
     case notEnoughFund(GTU)
     case poolLimitReached(GTU, GTU)
     case feeError
+    case amountTooLarge(GTU, GTU)
     case internalError
     
     var localizedDescription: String {
@@ -26,6 +27,8 @@ enum StakeError: Error {
             return "stake.inputAmount.error.funds".localized
         case .poolLimitReached:
             return "stake.inputAmount.error.poolLimit".localized
+        case .amountTooLarge:
+            return "stake.inputAmount.error.amountTooLarge".localized
         case .internalError:
             return ""
         case .feeError:
@@ -37,13 +40,14 @@ enum StakeError: Error {
 struct BalanceViewModel {
     var label: String
     var value: String
+    var hightlighted: Bool
 }
 
 class StakeAmountInputViewModel {
     @Published var title: String = ""
     
-    @Published var firstBalance: BalanceViewModel = BalanceViewModel(label: "", value: "")
-    @Published var secondBalance: BalanceViewModel = BalanceViewModel(label: "", value: "")
+    @Published var firstBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", hightlighted: false)
+    @Published var secondBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", hightlighted: false)
 
     @Published var amountMessage: String = ""
     @Published var amount: String = ""
@@ -52,8 +56,8 @@ class StakeAmountInputViewModel {
     @Published var transactionFee: String? = ""
     
     @Published var showsPoolLimits: Bool = false
-    @Published var currentPoolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "")
-    @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "")
+    @Published var currentPoolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", hightlighted: false)
+    @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", hightlighted: false)
     
     @Published var isRestakeSelected: Bool = true
     

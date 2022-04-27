@@ -102,3 +102,9 @@ extension GTU: Hashable {
         lhs.intValue == rhs.intValue
     }
 }
+
+extension GTU: Comparable {
+    static func < (lhs: GTU, rhs: GTU) -> Bool {
+        lhs.intValue < rhs.intValue
+    }
+}
