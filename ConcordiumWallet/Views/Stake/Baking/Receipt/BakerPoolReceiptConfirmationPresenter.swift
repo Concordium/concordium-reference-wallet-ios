@@ -11,7 +11,7 @@ import Combine
 
 // MARK: Delegate
 protocol BakerPoolReceiptConfirmationPresenterDelegate: AnyObject {
-    func confirmedTransaction(transfer: TransferDataType)
+    func confirmedTransaction(transfer: TransferDataType, dataHandler: StakeDataHandler)
     func pressedClose()
 }
 
@@ -73,7 +73,7 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
             .sink { error in
                 self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             } receiveValue: { transfer in
-                self.delegate?.confirmedTransaction(transfer: transfer)
+                self.delegate?.confirmedTransaction(transfer: transfer, dataHandler: self.dataHandler)
             }.store(in: &cancellables)
     }
     
