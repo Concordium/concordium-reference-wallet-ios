@@ -13,7 +13,7 @@ enum TransferCostParameter {
     
     case amount // only for updateDelegation updateBakerStake or configureBaker
     case restake // only for updateDelegation, updateBakerStake or configureBaker
-    case lpool // only for registerDelegation or updateDelegation
+    case passive // only for registerDelegation or updateDelegation
     case target // only for updateDelegation
     
     case metadataSize(Int) // only for registerBaker, updateBakerPool or configureBaker
@@ -30,8 +30,8 @@ enum TransferCostParameter {
             return "amount"
         case .restake:
             return "restake"
-        case .lpool:
-            return "lPool"
+        case .passive:
+            return "passive"
         case .target:
             return "target"
         case .metadataSize:

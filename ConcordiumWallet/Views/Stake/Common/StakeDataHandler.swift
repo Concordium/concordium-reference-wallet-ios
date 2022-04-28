@@ -178,8 +178,8 @@ class DelegationStopAccountData: AccountData {
 }
 
 class PoolDelegationData: StakeData {
-    var pool: BakerPool
-    init(pool: BakerPool) {
+    var pool: BakerTarget
+    init(pool: BakerTarget) {
         self.pool = pool
         super.init(field: .pool)
     }
@@ -345,8 +345,8 @@ class StakeDataHandler {
                 return [.restake]
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
-                case .lpool:
-                    return [.lpool, .target]
+                case .passive:
+                    return [.passive, .target]
                 case .bakerPool:
                     return [.target]
                 }
@@ -368,8 +368,8 @@ class StakeDataHandler {
                 transfer.restakeEarnings = data.restake
             case let poolData as PoolDelegationData:
                 switch poolData.pool {
-                case .lpool:
-                    transfer.delegationType = "L-Pool"
+                case .passive:
+                    transfer.delegationType = "Passive"
                 case .bakerPool(let bakerId):
                     transfer.delegationType = "Baker"
                     transfer.delegationTargetBaker = bakerId

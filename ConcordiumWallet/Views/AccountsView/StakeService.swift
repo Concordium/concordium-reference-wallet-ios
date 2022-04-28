@@ -11,7 +11,7 @@ import Combine
 
 protocol StakeServiceProtocol {
     func getBakerPool(bakerId: Int) -> AnyPublisher<BakerPoolResponse, Error>
-    func getPoolParameters() -> AnyPublisher<PoolParametersResponse, Error> 
+    func getChainParameters() -> AnyPublisher<ChainParametersResponse, Error>
 }
 
 class StakeService: StakeServiceProtocol {
@@ -21,8 +21,8 @@ class StakeService: StakeServiceProtocol {
 
     }
     
-    func getPoolParameters() -> AnyPublisher<PoolParametersResponse, Error> {
-        let request = ResourceRequest(url: ApiConstants.poolParameters)
+    func getChainParameters() -> AnyPublisher<ChainParametersResponse, Error> {
+        let request = ResourceRequest(url: ApiConstants.chainParameters)
         return networkManager.load(request)
     }
     

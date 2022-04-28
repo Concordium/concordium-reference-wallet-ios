@@ -244,9 +244,8 @@ process on-chain.";
 "accountDetails.noIdentities" = "This account has no revealed identity data.";
 "identityFailed.title" = "Identity issuance failed!";
 "accountDetails.bakingstakelabel" = "Stake with baker %@";
-"accountDetails.delegationstakeLabel" = "Delegation to %@";
-"accountDetails.lpoolvalue" = "L-Pool";
-"accountDetails.bakerpoolvalue" = "baker pool %d";
+"accountDetails.passivevalue" = "Passive delegation";
+"accountDetails.bakerpoolvalue" = "Delegation with baker pool %d";
 
 "sendFund.pageTitle.send" = "Send Funds";
 "sendFund.pageTitle.shieldAmount" = "Shield Amount";
@@ -539,13 +538,17 @@ concordium-backup.concordiumwallet securely.";
 "delegation.pool.title.create" = "Register delegation";
 "delegation.pool.title.update" = "Update delegation";
 "delegation.pool.current" = "Current target %@";
-"delegation.pool.message" = "You can delegate to a specific open pool of your choice, or you can delegate to the L-pool. ";
-"delegation.pool.bottommessage" = "If you don’t already know what target baker pool you want to delegate an amount to, you can read more about how to find one here:
+"delegation.pool.message" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
+"delegation.pool.bottommessage.baker" = "If you don’t already know what target baker pool you want to delegate an amount to, you can read more about how to find one here:
 
+developer.concordium.software";
+"delegation.pool.bottommessage.passive" = "Passive delegation divides the staked tokens shared between all baker pools proportionally to their size, and has a higher commission rate than delegating to a single baker.
+
+For more info you can visit
 developer.concordium.software";
 
 "delegation.pool.baker" = "Baker";
-"delegation.pool.lpool" = "L-pool";
+"delegation.pool.passive" = "Passive";
 "delegation.pool.idplaceholder.create" = "Enter target baker pool ID";
 "delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
@@ -560,12 +563,9 @@ developer.concordium.software";
 "delegation.receipt.accounttodelegate" = "Account to delegate from";
 "delegation.receipt.accounttostop" = "Account to stop delegating";
 "delegation.receipt.delegationamount" = "Delegation amount";
-"delegation.receipt.tagetbakerpool" = "Current target";
+"delegation.receipt.tagetbakerpool" = "Target";
 
-
-
-"delegation.receipt.lpoolvalue" = "L-pool";
-"delegation.receipt.bakerpoolvalue" = "Baker id %d";
+"delegation.receipt.passivevalue" = "Passive delegation";
 "delegation.receipt.addedtodelegation" = "Added to delegation amount";
 "delegation.receipt.notaddedtodelegation" = "At disposal";
 
@@ -672,9 +672,9 @@ If your pool is already open, you can also close it for new delegators, or you c
 
 "onboardingcarousel.registerdelegation.title" = "Delegation";
 "onboardingcarousel.registerdelegation.page1.title" = "Delegation";
-"onboardingcarousel.registerdelegation.page2.title" = "Two types of pools";
+"onboardingcarousel.registerdelegation.page2.title" = "Delegation models";
 "onboardingcarousel.registerdelegation.page3.title" = "Baker pools";
-"onboardingcarousel.registerdelegation.page4.title" = "The L-pool";
+"onboardingcarousel.registerdelegation.page4.title" = "Passive delegation";
 "onboardingcarousel.registerdelegation.page5.title" = "Pay days";
 "onboardingcarousel.registerdelegation.page6.title" = "Lock-in and cool-downs";
 "onboardingcarousel.registerdelegation.page7.title" = "The status page";

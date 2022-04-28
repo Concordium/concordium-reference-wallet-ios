@@ -15,24 +15,24 @@ enum DelegationPoolBakerIdError: Error {
     case closed
 }
 
-enum BakerPool {
-    case lpool
+enum BakerTarget {
+    case passive
     case bakerPool(bakerId: Int)
     
     func getDisplayValue() -> String {
         switch self {
-        case .lpool:
-            return "delegation.receipt.lpoolvalue".localized
+        case .passive:
+            return "delegation.receipt.passivevalue".localized
         case .bakerPool(let bakerId):
-            return String(format: "delegation.receipt.bakerpoolvalue".localized, bakerId)
+            return String(bakerId)
         }
     }
     
-    static func from(delegationType: String, bakerId: Int?) -> BakerPool {
+    static func from(delegationType: String, bakerId: Int?) -> BakerTarget {
         if let bakerId = bakerId, delegationType == "Baker" {
             return .bakerPool(bakerId: bakerId)
         } else {
-            return .lpool
+            return .passive
         }
     }
 }
@@ -57,17 +57,23 @@ protocol DelegationPoolSelectionPresenterProtocol: AnyObject {
 class DelegationPoolViewModel {
     @Published var title: String = ""
     @Published var message: String = "delegation.pool.message".localized
-    @Published var bottomMessage: String = "delegation.pool.bottommessage".localized
+    @Published var bottomMessage: String = ""
     @Published var selectedPoolIndex: Int = 0
     @Published var currentValue: String?
     @Published var bakerId: String = ""
     @Published var bakerIdErrorMessage: String?
     @Published var isPoolValid: Bool = false
     
-    init(currentPool: BakerPool?) {
+    init(currentPool: BakerTarget?) {
         if let currentPool = currentPool {
             currentValue = String(format: "delegation.pool.current".localized, currentPool.getDisplayValue())
             title = "delegation.pool.title.update".localized
+            switch currentPool {
+            case .passive:
+                bottomMessage = "delegation.pool.bottommessage.passive".localized
+            case .bakerPool:
+                bottomMessage = "delegation.pool.bottommessage.baker".localized
+            }
         } else {
             title = "delegation.pool.title.create".localized
         }
@@ -80,7 +86,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     weak var delegate: DelegationPoolSelectionPresenterDelegate?
 
     var viewModel: DelegationPoolViewModel
-    @Published private var validSelectedPool: BakerPool?
+    @Published private var validSelectedPool: BakerTarget?
     @Published private var bakerPoolResponse: BakerPoolResponse?
 
     private let account: AccountDataType
@@ -101,7 +107,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         self.viewModel = DelegationPoolViewModel(currentPool: currentPoolData?.pool)
         if let pool = currentPoolData?.pool {
             self.validSelectedPool = pool
-            if case BakerPool.lpool = pool {
+            if case BakerTarget.passive = pool {
                 self.viewModel.selectedPoolIndex = 1
             }
         }
@@ -169,12 +175,14 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             self.viewModel.selectedPoolIndex = selectedOption
             self.viewModel.bakerIdErrorMessage = nil
             if selectedOption == 1 {
-                self.validSelectedPool = .lpool
+                self.validSelectedPool = .passive
                 self.viewModel.bakerId = ""
+                self.viewModel.bottomMessage = "delegation.pool.bottommessage.passive".localized
             } else {
                 // we reset to the current baker pool
                 self.viewModel.bakerId = ""
                 _ = self.resetToCurrentBakerPool()
+                self.viewModel.bottomMessage = "delegation.pool.bottommessage.baker".localized
             }
         }).store(in: &cancellables)
         
@@ -286,7 +294,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             self.validSelectedPool = nil
             return .failure(.empty)
         }
-        if case let BakerPool.bakerPool(bakerId) = currentPoolData.pool {
+        if case let BakerTarget.bakerPool(bakerId) = currentPoolData.pool {
             self.validSelectedPool = currentPoolData.pool
             return Result.success(bakerId)
         } else {

@@ -67,7 +67,7 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
         poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
         poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .selected)
         poolSelectionSegmentedControl.setTitle("delegation.pool.baker".localized, forSegmentAt: 0)
-        poolSelectionSegmentedControl.setTitle("delegation.pool.lpool".localized, forSegmentAt: 1)
+        poolSelectionSegmentedControl.setTitle("delegation.pool.passive".localized, forSegmentAt: 1)
         
         presenter.view = self
         presenter.viewDidLoad()
