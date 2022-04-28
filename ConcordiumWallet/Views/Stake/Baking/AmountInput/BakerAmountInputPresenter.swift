@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol BakerAmountInputPresenterDelegate: AnyObject {
-    func finishedAmountInput()
+    func finishedAmountInput(dataHandler: StakeDataHandler)
     func switchToRemoveBaker(cost: GTU, energy: Int)
     func pressedClose()
 }
@@ -151,7 +151,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     }
                     .store(in: &self.cancellables)
             } else {
-                self.delegate?.finishedAmountInput()
+                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler)
             }
         }
     }

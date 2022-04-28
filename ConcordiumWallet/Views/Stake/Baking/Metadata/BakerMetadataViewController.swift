@@ -88,7 +88,6 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
         view.layoutIfNeeded()
     }
     
-    
     @IBAction func pressedContinue(_ sender: UIButton) {
         presenter.pressedContinue()
     }

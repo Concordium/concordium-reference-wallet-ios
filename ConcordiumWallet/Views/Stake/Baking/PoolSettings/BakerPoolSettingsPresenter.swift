@@ -59,7 +59,7 @@ class BakerPoolSettingsViewModel {
 // MARK: -
 // MARK: Delegate
 protocol BakerPoolSettingsPresenterDelegate: AnyObject {
-    func finishedPoolSettings()
+    func finishedPoolSettings(dataHandler: StakeDataHandler)
     func closedPoolSettings()
 }
 
@@ -116,7 +116,7 @@ class BakerPoolSettingsPresenter: BakerPoolSettingsPresenterProtocol {
     
     func pressedContinue() {
         self.dataHandler.add(entry: BakerPoolSettingsData(poolSettings: poolSettings))
-        self.delegate?.finishedPoolSettings()
+        self.delegate?.finishedPoolSettings(dataHandler: dataHandler)
     }
     
     func pressedClose() {
