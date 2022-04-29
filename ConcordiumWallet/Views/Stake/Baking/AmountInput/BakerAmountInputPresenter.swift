@@ -60,12 +60,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         )
     }
     
-    func viewDidLoad() {
-        self.view?.bind(viewModel: viewModel)
-        
-        loadPoolParameters()
-        
-        let costRangeResult = viewModel.$isRestakeSelected
+    private lazy var costRangeResult = {
+        viewModel.$isRestakeSelected
             .combineLatest(viewModel.gtuAmount)
             .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
                 guard let self = self else {
@@ -91,6 +87,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     .asResult()
                     .eraseToAnyPublisher()
             }
+    }()
+    
+    func viewDidLoad() {
+        self.view?.bind(viewModel: viewModel)
+        
+        loadPoolParameters()
         
         costRangeResult
             .onlySuccess()

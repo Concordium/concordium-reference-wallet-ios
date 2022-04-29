@@ -40,7 +40,9 @@ class StakeStatusViewModel {
     }
     
     func setup(dataHandler: StakeDataHandler) {
-        rows = dataHandler.getCurrentOrdered().map { StakeRowViewModel(entry: $0) }
+        rows = dataHandler
+            .getCurrentOrdered()
+            .map { StakeRowViewModel(displayValue: $0) }
     }
 }
 

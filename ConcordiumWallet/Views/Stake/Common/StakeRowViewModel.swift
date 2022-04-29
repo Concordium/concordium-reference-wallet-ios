@@ -11,18 +11,16 @@ import Foundation
 class StakeRowViewModel: Hashable {
     var headerLabel: String
     var valueLabel: String
-    private var field: Field
     
-    init(entry: StakeData) {
-        headerLabel = entry.getKeyLabel()
-        valueLabel = entry.getDisplayValue()
-        field = entry.field
+    init(displayValue: DisplayValue) {
+        headerLabel = displayValue.key
+        valueLabel = displayValue.value
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(field.getLabelText())
+        hasher.combine(headerLabel)
     }
     static func == (lhs: StakeRowViewModel, rhs: StakeRowViewModel) -> Bool {
-        return lhs.field == rhs.field
+        return lhs.headerLabel == rhs.headerLabel
     }
 }

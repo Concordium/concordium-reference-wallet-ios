@@ -114,9 +114,7 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
                 self.delegate?.shareExportedFile(url: fileUrl, completion: { completed in
                     guard completed else { return }
                     do {
-                        self.dataHandler.add(entry: BakerKeyData(electionVerifyKey: keys.electionVerifyKey))
-                        self.dataHandler.add(entry: BakerKeyData(signatureVerifyKey: keys.signatureVerifyKey))
-                        self.dataHandler.add(entry: BakerKeyData(aggregationVerifyKey: keys.aggregationVerifyKey))
+                        self.dataHandler.add(entry: BakerKeyData(keys: keys))
                         try self.exportService.deleteBakerKeys()
                         self.transactionService.getTransferCost(
                             transferType: self.dataHandler.transferType,

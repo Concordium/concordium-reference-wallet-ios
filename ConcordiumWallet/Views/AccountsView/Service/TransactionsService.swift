@@ -9,7 +9,7 @@ import Combine
 protocol TransactionsServiceProtocol {
     func performTransfer(_ pTransfer: TransferDataType,
                          from account: AccountDataType,
-                         bakerKeys: BakerKeys?,
+                         bakerKeys: GeneratedBakerKeys?,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> AnyPublisher<RemoteTransactions, Error>
     func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
@@ -38,7 +38,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
     
     func performTransfer(_ pTransfer: TransferDataType,
                          from account: AccountDataType,
-                         bakerKeys: BakerKeys? = nil,
+                         bakerKeys: GeneratedBakerKeys? = nil,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         switch pTransfer.transferType {
         case .simpleTransfer:
@@ -317,7 +317,7 @@ extension TransactionsService {
     
     private func performBakerTransfer(_ pTransfer: TransferDataType,
                                       from account: AccountDataType,
-                                      bakerKeys: BakerKeys?,
+                                      bakerKeys: GeneratedBakerKeys?,
                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         var transfer = updateLocalTransferWithExpiration(pTransfer)
         return getAccountNonce(for: transfer.fromAddress)
@@ -345,7 +345,7 @@ extension TransactionsService {
     private func createTransfer(_ transfer: TransferDataType,
                                 from account: AccountDataType,
                                 requestPasswordDelegate: RequestPasswordDelegate,
-                                bakerKeys: BakerKeys? = nil,
+                                bakerKeys: GeneratedBakerKeys? = nil,
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
                                 receiverPublicKey: String? = nil) -> AnyPublisher<CreateTransferRequest, Error> {
