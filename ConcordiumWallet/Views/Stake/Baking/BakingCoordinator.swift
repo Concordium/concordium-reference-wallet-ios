@@ -107,6 +107,7 @@ class BakingCoordinator: Coordinator {
     func showSubmissionReceipt(transfer: TransferDataType, dataHandler: StakeDataHandler) {
         let presenter = BakerPoolReceiptPresenter(
             account: account,
+            delegate: self,
             dependencyProvider: dependencyProvider,
             dataHandler: dataHandler,
             transfer: transfer
@@ -135,7 +136,7 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
 
 extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
     func finishedPoolSettings(dataHandler: StakeDataHandler) {
-        if case .open = dataHandler.getCurrentEntry(BakerPoolSettingsData.self)?.poolSettings {
+        if case .open = dataHandler.getNewEntry(BakerPoolSettingsData.self)?.poolSettings {
             showMetadataUrl(dataHandler: dataHandler)
         } else {
             showGenerateKey(dataHandler: dataHandler)
@@ -185,6 +186,12 @@ extension BakingCoordinator: BakerAmountInputPresenterDelegate {
 extension BakingCoordinator: BakerPoolReceiptConfirmationPresenterDelegate {
     func confirmedTransaction(transfer: TransferDataType, dataHandler: StakeDataHandler) {
         self.showSubmissionReceipt(transfer: transfer, dataHandler: dataHandler)
+    }
+}
+
+extension BakingCoordinator: BakerPoolReceiptPresenterDelegate {
+    func finishedShowingReceipt() {
+        self.delegate?.finishedBakingCoordinator()
     }
 }
 

@@ -67,7 +67,12 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         transfer.cost = String(cost.intValue)
         transfer.energy = energy
         
-        self.transactionService.performTransfer(transfer, from: account, requestPasswordDelegate: delegate)
+        self.transactionService.performTransfer(
+            transfer,
+            from: account,
+            bakerKeys: dataHandler.getNewEntry(BakerKeyData.self)?.keys,
+            requestPasswordDelegate: delegate
+        )
             .showLoadingIndicator(in: view)
             .tryMap(self.storageManager.storeTransfer(_:))
             .sink { error in

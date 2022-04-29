@@ -223,7 +223,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.nochanges.message".localized,
                                             actions: [okAction])
             self.view?.showAlert(with: alertOptions)
-        }  else if dataHandler.isNewAmountZero() {
+        } else if dataHandler.isNewAmountZero() {
             // warning for more zero amount = removeDelegation
             let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
             let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
@@ -277,8 +277,10 @@ fileprivate extension StakeAmountInputViewModel {
         self.currentPoolLimit = BalanceViewModel(
             label: "delegation.inputamount.currentpool".localized,
             value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(), hightlighted: false)
-        self.poolLimit = BalanceViewModel(label: "delegation.inputamount.poollimit".localized,
-                                          value: validator.poolLimit?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(), hightlighted: false)
+        self.poolLimit = BalanceViewModel(
+            label: "delegation.inputamount.poollimit".localized,
+            value: validator.poolLimit?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(),
+            hightlighted: false)
         
         self.bottomMessage = "delegation.inputamount.bottommessage".localized
         

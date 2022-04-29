@@ -759,6 +759,8 @@ Remember to restart your node with the baker keys.";
 "baking.receipt.electionverifykey" = "Election verify key";
 "baking.receipt.signatureverifykey" = "Signature verify key";
 "baking.receipt.aggregationverifykey" = "Aggregation verify key";
+"baking.receipt.addedtostake" = "Added to stake";
+"baking.receipt.notaddedtostake" = "Added to disposable amount";
 
 
 "onboardingcarousel.registerbaker.title" = "Become a baker";

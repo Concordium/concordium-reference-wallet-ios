@@ -27,11 +27,13 @@ class BakerPoolReceiptPresenter: StakeReceiptPresenterProtocol {
     
     init(
         account: AccountDataType,
+        delegate: BakerPoolReceiptPresenterDelegate? = nil,
         dependencyProvider: StakeCoordinatorDependencyProvider,
         dataHandler: StakeDataHandler,
         transfer: TransferDataType
     ) {
         self.account = account
+        self.delegate = delegate
         self.viewModel = StakeReceiptViewModel(dataHandler: dataHandler)
         self.transfer = transfer
         self.receiptType = .init(dataHandler: dataHandler)
