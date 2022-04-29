@@ -30,14 +30,6 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    private var validatedAmount: AnyPublisher<Result<GTU, StakeError>, Never> {
-        viewModel.$amount
-            .map { [weak self] amount in
-                return self?.validator.validate(amount: GTU(displayValue: amount)) ?? .failure(.internalError)
-            }
-            .eraseToAnyPublisher()
-    }
-    
     init(
         account: AccountDataType,
         delegate: BakerAmountInputPresenterDelegate? = nil,
@@ -54,8 +46,10 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
+            balance: GTU(intValue: account.forecastBalance),
             atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
-            previouslyStakedInPool: previouslyStakedInPool
+            previouslyStakedInPool: previouslyStakedInPool,
+            isInCooldown: account.baker?.isInCooldown ?? false
         )
         
         viewModel.setup(
@@ -71,21 +65,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         loadPoolParameters()
         
-        validatedAmount
-            .sink { [weak self] result in
-                switch result {
-                case .success:
-                    self?.viewModel.isContinueEnabled = true
-                    self?.viewModel.amountErrorMessage = nil
-                case let .failure(error):
-                    self?.viewModel.isContinueEnabled = false
-                    self?.viewModel.amountErrorMessage = error.localizedDescription
-                }
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$isRestakeSelected
-            .combineLatest(validatedAmount.onlySuccess())
+        let costRangeResult = viewModel.$isRestakeSelected
+            .combineLatest(viewModel.gtuAmount)
             .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
                 guard let self = self else {
                     return nil
@@ -97,37 +78,60 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 return self.dataHandler.getCostParameters()
             }
             .removeDuplicates()
-            .flatMap { [weak self] costParams -> AnyPublisher<Result<TransferCostRange, Error>, Never> in
+            .flatMap { [weak self] (costParameters) -> AnyPublisher<Result<TransferCostRange, Error>, Never> in
                 guard let self = self else {
                     return .just(.failure(StakeError.internalError))
                 }
                 
+                self.viewModel.isContinueEnabled = false
+                
                 return self.transactionService
-                    .getBakingTransferCostRange(parameters: costParams)
+                    .getBakingTransferCostRange(parameters: costParameters)
                     .showLoadingIndicator(in: self.view)
                     .asResult()
                     .eraseToAnyPublisher()
             }
+        
+        costRangeResult
+            .onlySuccess()
+            .map { $0.formattedTransactionFee }
+            .assignNoRetain(to: \.transactionFee, on: viewModel)
+            .store(in: &cancellables)
+        
+        viewModel.gtuAmount
+            .combineLatest(costRangeResult)
+            .map { [weak self] (amount, rangeResult) -> Result<GTU, StakeError> in
+                guard let self = self else {
+                    return .failure(StakeError.internalError)
+                }
+                
+                return rangeResult
+                    .mapError { _ in StakeError.internalError }
+                    .flatMap { costRange in
+                        self.validator.validate(amount: amount, fee: costRange.maxCost)
+                    }
+            }
             .sink { [weak self] result in
                 switch result {
                 case let .failure(error):
-                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                case let .success(range):
-                    self?.viewModel.transactionFee = range.formattedTransactionFee
+                    self?.viewModel.isContinueEnabled = false
+                    self?.viewModel.amountErrorMessage = error.localizedDescription
+                case .success:
+                    self?.viewModel.isContinueEnabled = true
+                    self?.viewModel.amountErrorMessage = nil
                 }
             }
             .store(in: &cancellables)
-        
     }
     
     private func loadPoolParameters() {
-        stakeService.getPoolParameters()
+        stakeService.getChainParameters()
             .first()
             .showLoadingIndicator(in: self.view)
             .sink { [weak self] error in
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            } receiveValue: { [weak self] poolParameters in
-                self?.validator.minimumValue = GTU(intValue: Int(poolParameters.minimumEquityCapital) ?? 0)
+            } receiveValue: { [weak self] chainParameters in
+                self?.validator.minimumValue = GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0)
             }
             .store(in: &cancellables)
     }
@@ -206,7 +210,11 @@ private extension TransferCostRange {
     }
 }
 
-fileprivate extension StakeAmountInputViewModel {
+private extension StakeAmountInputViewModel {
+    var gtuAmount: Publishers.Map<Published<String>.Publisher, GTU> {
+        $amount.map { GTU(displayValue: $0) }
+    }
+    
     func setup(
         account: AccountDataType,
         currentAmount: GTU?,
@@ -217,11 +225,13 @@ fileprivate extension StakeAmountInputViewModel {
         let staked = GTU(intValue: account.baker?.stakedAmount ?? 0)
         self.firstBalance = BalanceViewModel(
             label: "baking.inputamount.balance".localized,
-            value: balance.displayValueWithGStroke()
+            value: balance.displayValueWithGStroke(),
+            hightlighted: false
         )
         self.secondBalance = BalanceViewModel(
             label: "baking.inputamount.bakerstake".localized,
-            value: staked.displayValueWithGStroke()
+            value: staked.displayValueWithGStroke(),
+            hightlighted: false
         )
         self.showsPoolLimits = false
         self.isAmountLocked = isInCooldown
