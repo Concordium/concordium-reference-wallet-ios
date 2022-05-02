@@ -491,6 +491,12 @@ class StakeDataHandler {
         if transfer.transferType == .removeDelegation || transfer.transferType == .removeBaker {
             transfer.capital = "0"
         }
+        if transfer.transferType == .registerBaker {
+            #warning("Hardcoded comission values, don't release to prod")
+            transfer.transactionFeeCommission = 5000
+            transfer.bakingRewardCommission = 5000
+            transfer.finalizationRewardCommission = 5000
+        }
         return transfer
     }
 }
