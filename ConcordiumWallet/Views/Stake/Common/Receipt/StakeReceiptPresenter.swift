@@ -21,7 +21,7 @@ class StakeReceiptViewModel {
     @Published var rows: [StakeRowViewModel]
 
     init(dataHandler: StakeDataHandler) {
-        rows = dataHandler.getAllOrdered().map { StakeRowViewModel(entry: $0) }
+        rows = dataHandler.getAllOrdered().map { StakeRowViewModel(displayValue: $0) }
     }
 }
 

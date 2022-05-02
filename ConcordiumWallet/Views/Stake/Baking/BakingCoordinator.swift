@@ -22,13 +22,6 @@ class BakingCoordinator: Coordinator {
     private let account: AccountDataType
     private let dependencyProvider: StakeCoordinatorDependencyProvider
     
-    private lazy var stakeService: StakeServiceProtocol = {
-        self.dependencyProvider.stakeService()
-    }()
-    
-    private let bakingDataHandler: StakeDataHandler
-    private var cancellables = Set<AnyCancellable>()
-    
     init(
         navigationController: UINavigationController,
         dependencyProvider: StakeCoordinatorDependencyProvider,
@@ -40,7 +33,6 @@ class BakingCoordinator: Coordinator {
         self.account = account
         self.delegate = parentCoordinator
         self.dependencyProvider = dependencyProvider
-        self.bakingDataHandler = BakerDataHandler(account: account, action: .register)
     }
     
     func start() {
@@ -59,20 +51,20 @@ class BakingCoordinator: Coordinator {
         onboardingCoordinator.start()
     }
     
-    func showPoolSettings() {
-        let presenter = BakerPoolSettingsPresenter(delegate: self, dataHandler: bakingDataHandler)
+    func showPoolSettings(dataHandler: StakeDataHandler) {
+        let presenter = BakerPoolSettingsPresenter(delegate: self, dataHandler: dataHandler)
         
         let viewController = BakerPoolSettingsFactory.create(with: presenter)
         
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showGenerateKey() {
+    func showGenerateKey(dataHandler: StakeDataHandler) {
         let presenter = BakerPoolGenerateKeyPresenter(
             delegate: self,
             dependencyProvider: dependencyProvider,
             account: account,
-            dataHandler: bakingDataHandler
+            dataHandler: dataHandler
         )
         
         let viewController = BakerPoolGenerateKeyFactory.create(with: presenter)
@@ -80,22 +72,49 @@ class BakingCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showMetadataUrl() {
-        let presenter = BakerMetadataPresenter(delegate: self, dataHandler: bakingDataHandler)
+    func showMetadataUrl(dataHandler: StakeDataHandler) {
+        let presenter = BakerMetadataPresenter(delegate: self, dataHandler: dataHandler)
         let vc = BakerMetadataFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showAmountInput() {
+    func showAmountInput(dataHandler: StakeDataHandler) {
         let presenter = BakerAmountInputPresenter(
-            account: self.account,
+            account: account,
             delegate: self,
-            dependencyProvider: self.dependencyProvider,
-            dataHandler: self.bakingDataHandler
+            dependencyProvider: dependencyProvider,
+            dataHandler: dataHandler
         )
         
         let vc = StakeAmountInputFactory.create(with: presenter)
         self.navigationController.pushViewController(vc, animated: true)
+    }
+
+    func showRequestConfirmation(cost: GTU, energy: Int, dataHandler: StakeDataHandler) {
+        let presenter = BakerPoolReceiptConfirmationPresenter(
+            account: account,
+            dependencyProvider: dependencyProvider,
+            delegate: self,
+            cost: cost,
+            energy: energy,
+            dataHandler: dataHandler
+        )
+        
+        let vc = StakeReceiptFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showSubmissionReceipt(transfer: TransferDataType, dataHandler: StakeDataHandler) {
+        let presenter = BakerPoolReceiptPresenter(
+            account: account,
+            delegate: self,
+            dependencyProvider: dependencyProvider,
+            dataHandler: dataHandler,
+            transfer: transfer
+        )
+        
+        let vc = StakeReceiptFactory.create(with: presenter)
+        navigationController.pushViewController(vc, animated: true)
     }
 }
 
@@ -103,7 +122,7 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
     func finished(mode: BakingOnboardingMode) {
         switch mode {
         case .register:
-            showAmountInput()
+            showAmountInput(dataHandler: BakerDataHandler(account: account, action: .register))
         default:
             break
         }
@@ -116,8 +135,12 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
 }
 
 extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
-    func finishedPoolSettings() {
-        showGenerateKey()
+    func finishedPoolSettings(dataHandler: StakeDataHandler) {
+        if case .open = dataHandler.getNewEntry(BakerPoolSettingsData.self)?.poolSettings {
+            showMetadataUrl(dataHandler: dataHandler)
+        } else {
+            showGenerateKey(dataHandler: dataHandler)
+        }
     }
     
     func closedPoolSettings() {
@@ -126,13 +149,12 @@ extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
 }
 
 extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
-    func shareExportedFile(url: URL, completion: @escaping () -> Void) {
-        self.share(items: [url], from: self.navigationController) { completed in
-            completion()
-            if completed {
-                self.delegate?.finishedBakingCoordinator()
-            }
-        }
+    func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void) {
+        self.share(items: [url], from: self.navigationController, completion: completion)
+    }
+    
+    func finishedGeneratingKeys(cost: GTU, energy: Int, dataHandler: StakeDataHandler) {
+        self.showRequestConfirmation(cost: cost, energy: energy, dataHandler: dataHandler)
     }
     
     func pressedClose() {
@@ -141,7 +163,8 @@ extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
 }
 
 extension BakingCoordinator: BakerMetadataPresenterDelegate {
-    func finishedMetadata() {
+    func finishedMetadata(dataHandler: StakeDataHandler) {
+        showGenerateKey(dataHandler: dataHandler)
         // TODO: handle finishing of metadata (for update we show receipt; For created we show keys)
     }
     
@@ -151,11 +174,25 @@ extension BakingCoordinator: BakerMetadataPresenterDelegate {
 }
 
 extension BakingCoordinator: BakerAmountInputPresenterDelegate {
-    func finishedAmountInput() {
-        self.showPoolSettings()
+    func finishedAmountInput(dataHandler: StakeDataHandler) {
+        self.showPoolSettings(dataHandler: dataHandler)
     }
     
     func switchToRemoveBaker(cost: GTU, energy: Int) {
         // TODO: Delegate to remove
     }
 }
+
+extension BakingCoordinator: BakerPoolReceiptConfirmationPresenterDelegate {
+    func confirmedTransaction(transfer: TransferDataType, dataHandler: StakeDataHandler) {
+        self.showSubmissionReceipt(transfer: transfer, dataHandler: dataHandler)
+    }
+}
+
+extension BakingCoordinator: BakerPoolReceiptPresenterDelegate {
+    func finishedShowingReceipt() {
+        self.delegate?.finishedBakingCoordinator()
+    }
+}
+
+extension BakingCoordinator: RequestPasswordDelegate {}

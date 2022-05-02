@@ -18,7 +18,7 @@ import Combine
 // MARK: -
 // MARK: Delegate
 protocol BakerMetadataPresenterDelegate: AnyObject {
-    func finishedMetadata()
+    func finishedMetadata(dataHandler: StakeDataHandler)
     func closedMetadata()
 }
 
@@ -78,7 +78,7 @@ class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
         if let metadataUrl = metadataUrl, !metadataUrl.isEmpty {
             self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: metadataUrl))
         }
-        self.delegate?.finishedMetadata()
+        self.delegate?.finishedMetadata(dataHandler: dataHandler)
     }
     
     func pressedClose() {

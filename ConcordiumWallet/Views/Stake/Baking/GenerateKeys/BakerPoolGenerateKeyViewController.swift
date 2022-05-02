@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol BakerPoolGenerateKeyViewProtocol: ShowAlert {
+protocol BakerPoolGenerateKeyViewProtocol: ShowAlert, Loadable {
     func bind(viewModel: BakerPoolGenerateKeyViewModel)
 }
 

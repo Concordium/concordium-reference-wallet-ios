@@ -211,7 +211,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             self.generalButton.backgroundColor = isShielded ? UIColor.primary : UIColor.primarySelected
             self.shieldedButton.backgroundColor = isShielded ? UIColor.primarySelected : UIColor.primary
             
-            
             if isShielded {
                 self.balanceNameLabel.text =  String(format: ("accounts.overview.shieldedtotal".localized), viewModel.name ?? "")
                 self.stakedView.setHiddenIfChanged(true)

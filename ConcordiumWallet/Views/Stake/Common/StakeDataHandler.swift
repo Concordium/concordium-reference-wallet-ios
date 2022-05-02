@@ -24,9 +24,7 @@ enum Field: Hashable {
     case bakerMetadataURL
     case bakerAccountCreate
     case bakerAccountUpdate
-    case bakerElectionVerifyKey
-    case bakerSignatureVerifyKey
-    case bakerAggregationVerifyKey
+    case bakerKeys
  
     // swiftlint:disable cyclomatic_complexity
     func getLabelText() -> String {
@@ -56,12 +54,8 @@ enum Field: Hashable {
             return "baking.receipt.accountupdate".localized
         case .bakerMetadataURL:
             return "baking.receipt.metadataurl".localized
-        case .bakerElectionVerifyKey:
-            return "baking.receipt.electionverifykey".localized
-        case .bakerSignatureVerifyKey:
-            return "baking.receipt.signatureverifykey".localized
-        case .bakerAggregationVerifyKey:
-            return "baking.receipt.aggregationverifykey".localized
+        case .bakerKeys:
+            return ""
         }
     }
 
@@ -93,199 +87,234 @@ enum Field: Hashable {
             return 0
         case .bakerMetadataURL:
             return 4
-        case .bakerElectionVerifyKey:
+        case .bakerKeys:
             return 5
-        case .bakerSignatureVerifyKey:
-            return 6
-        case .bakerAggregationVerifyKey:
-            return 7
-        }
-    }
-    // swiftlint:disable cyclomatic_complexity
-    static func == (lhs: Field, rhs: Field) -> Bool {
-        switch (lhs, rhs) {
-        case (restake, restake): return true
-            
-        // --- DELEGATION ---
-        case (delegationAccount, delegationAccount): return true
-        case (delegationStopAccount, delegationStopAccount): return true
-        case (pool, pool): return true
-        case (amount, amount): return true
-
-        // --- BAKER ---
-        case (poolSettings, poolSettings): return true
-        case (bakerStake, bakerStake): return true
-        case (bakerAccountCreate, bakerAccountCreate): return true
-        case (bakerAccountUpdate, bakerAccountUpdate): return true
-        case (bakerMetadataURL, bakerMetadataURL): return true
-        default: return false
         }
     }
 }
 
-class StakeData: Hashable {
-    var field: Field
+struct DisplayValue: Equatable {
+    let key: String
+    let value: String
+}
+
+protocol StakeDataConvertible {
+    var asStakeData: StakeData { get }
+}
+
+protocol FieldValue: StakeDataConvertible {
+    var field: Field { get }
+    var costParameters: [TransferCostParameter] { get }
+    var displayValues: [DisplayValue] { get }
     
-    func getKeyLabel() -> String {
-        field.getLabelText()
+    func add(to transaction: inout TransferDataType)
+}
+
+extension FieldValue {
+    var asStakeData: StakeData {
+        StakeData(field: field, value: self)
+    }
+}
+
+protocol SimpleFieldValue: FieldValue {
+    var displayValue: String { get }
+}
+
+extension SimpleFieldValue {
+    var displayValues: [DisplayValue] {
+        return [DisplayValue(key: field.getLabelText(), value: displayValue)]
+    }
+}
+
+protocol AccountValue: FieldValue {
+    var accountAddress: String { get }
+}
+
+extension AccountValue {
+    var costParameters: [TransferCostParameter] { [] }
+    
+    var displayValues: [DisplayValue] {
+        return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
     }
     
-    func getDisplayValue() -> String {
-        fatalError("Subclasses need to implement the `getDisplayValue()` method.")
+    func add(to transaction: inout TransferDataType) {}
+}
+
+struct StakeData: Hashable {
+    let field: Field
+    let value: FieldValue
+    
+    var displayValues: [DisplayValue] {
+        value.displayValues
     }
-    init(field: Field) {
-        self.field = field
-    }
+    
     func hash(into hasher: inout Hasher) {
-        hasher.combine(field.getLabelText())
+        hasher.combine(field)
     }
+    
     static func == (lhs: StakeData, rhs: StakeData) -> Bool {
         return lhs.field == rhs.field
     }
     
     static func === (lhs: StakeData, rhs: StakeData) -> Bool {
         return lhs.field == rhs.field
-        && lhs.getDisplayValue() == rhs.getDisplayValue()
     }
 }
 
 // MARK: - BAKER data
-class BakerCreateAccountData: AccountData {
-    init(accountAddress: String) {
-        super.init(accountAddress: accountAddress, field: .bakerAccountCreate)
-    }
+struct BakerCreateAccountData: AccountValue {
+    let field = Field.bakerAccountCreate
+    let accountAddress: String
 }
 
-class BakerUpdateAccountData: AccountData {
-    init(accountAddress: String) {
-        super.init(accountAddress: accountAddress, field: .bakerAccountUpdate)
-    }
+struct BakerUpdateAccountData: AccountValue {
+    let field = Field.bakerAccountUpdate
+    let accountAddress: String
 }
 
-class BakerPoolSettingsData: StakeData {
-    var poolSettings: BakerPoolSetting
-    init (poolSettings: BakerPoolSetting) {
-        self.poolSettings = poolSettings
-        super.init(field: .poolSettings)
-    }
-}
-
-class BakerMetadataURLData: StakeData {
-    var metadataURL: String
-    init(metadataURL: String) {
-        self.metadataURL = metadataURL
-        super.init(field: .bakerMetadataURL)
-    }
-    override func getDisplayValue() -> String {
-        return metadataURL
-    }
-}
-
-class BakerKeyData: StakeData {
-    let key: String
-    init(electionVerifyKey: String) {
-        self.key = electionVerifyKey
-        super.init(field: .bakerElectionVerifyKey)
-    }
+struct BakerPoolSettingsData: SimpleFieldValue {
+    let field = Field.poolSettings
+    let poolSettings: BakerPoolSetting
     
-    init(signatureVerifyKey: String) {
-        self.key = signatureVerifyKey
-        super.init(field: .bakerSignatureVerifyKey)
-    }
+    var displayValue: String { poolSettings.getDisplayValue() }
+    var costParameters: [TransferCostParameter] { [.openStatus] }
     
-    init(aggregationVerifyKey: String) {
-        self.key = aggregationVerifyKey
-        super.init(field: .bakerAggregationVerifyKey)
-    }
-    
-    override func getDisplayValue() -> String {
-        if case .bakerAggregationVerifyKey = field {
-            return key.splitInto(lines: 6)
-        } else {
-            return key.splitInto(lines: 2)
+    func add(to transaction: inout TransferDataType) {
+        switch poolSettings {
+        case .open:
+            transaction.openStatus = "openForAll"
+        case .closed:
+            transaction.openStatus = "closedForAll"
+        case .closedForNew:
+            transaction.openStatus = "closedForNew"
         }
     }
 }
 
-class RestakeBakerData: StakeData {
-    var restake: Bool
+struct BakerMetadataURLData: SimpleFieldValue {
+    let field = Field.bakerMetadataURL
+    let metadataURL: String
     
-    init(restake: Bool) {
-        self.restake = restake
-        super.init(field: .restake)
+    var displayValue: String { metadataURL }
+    var costParameters: [TransferCostParameter] { [.metadataSize(metadataURL.count)] }
+        
+    func add(to transaction: inout TransferDataType) {
+        transaction.metadataURL = metadataURL
+    }
+}
+
+struct BakerKeyData: FieldValue {
+    let field = Field.bakerKeys
+    let keys: GeneratedBakerKeys
+    
+    var costParameters: [TransferCostParameter] { [] } 
+    
+    var displayValues: [DisplayValue] {
+        [
+            DisplayValue(
+                key: "baking.receipt.electionverifykey".localized,
+                value: keys.electionVerifyKey.splitInto(lines: 2)
+            ),
+            DisplayValue(
+                key: "baking.receipt.signatureverifykey".localized,
+                value: keys.signatureVerifyKey.splitInto(lines: 2)
+            ),
+            DisplayValue(
+                key: "baking.receipt.aggregationverifykey".localized,
+                value: keys.aggregationVerifyKey.splitInto(lines: 6)
+            )
+        ]
     }
     
-    override func getDisplayValue() -> String {
+    // Baker keys are pass explicitly elsewhere
+    func add(to transaction: inout TransferDataType) {}
+}
+
+struct RestakeBakerData: SimpleFieldValue {
+    let field = Field.restake
+    let restake: Bool
+    
+    var displayValue: String {
         if restake {
             return "baking.receipt.addedtostake".localized
         } else {
-            return "baking.receipt.notaddettostake".localized
+            return "baking.receipt.notaddedtostake".localized
         }
+    }
+    var costParameters: [TransferCostParameter] { [.restake] }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.restakeEarnings = restake
     }
 }
 
 // MARK: - DELEGATION data
-class DelegationAccountData: AccountData {
-    init(accountAddress: String) {
-        super.init(accountAddress: accountAddress, field: .delegationAccount)
-    }
+struct DelegationAccountData: AccountValue {
+    let field = Field.delegationAccount
+    let accountAddress: String
 }
 
-class DelegationStopAccountData: AccountData {
-    init(accountAddress: String) {
-        super.init(accountAddress: accountAddress, field: .delegationStopAccount)
-    }
+struct DelegationStopAccountData: AccountValue {
+    let field = Field.delegationStopAccount
+    let accountAddress: String
 }
 
-class PoolDelegationData: StakeData {
-    var pool: BakerTarget
-    init(pool: BakerTarget) {
-        self.pool = pool
-        super.init(field: .pool)
+struct PoolDelegationData: SimpleFieldValue {
+    let field = Field.pool
+    let pool: BakerTarget
+    
+    var displayValue: String {
+        pool.getDisplayValue()
     }
-    override func getDisplayValue() -> String {
-        return pool.getDisplayValue()
+    var costParameters: [TransferCostParameter] {
+        switch pool {
+        case .passive:
+            return [.target, .passive]
+        case .bakerPool:
+            return [.target]
+        }
+    }
+    
+    func add(to transaction: inout TransferDataType) {
+        switch pool {
+        case .passive:
+            transaction.delegationType = "Passive"
+        case .bakerPool(let bakerId):
+            transaction.delegationType = "Baker"
+            transaction.delegationTargetBaker = bakerId
+        }
     }
 }
 
 // MARK: - Common data
-class AccountData: StakeData {
-    var accountAddress: String = ""
-    fileprivate init(accountAddress: String, field: Field) {
-        self.accountAddress = accountAddress
-        super.init(field: field)
-    }
+
+struct AmountData: SimpleFieldValue {
+    let field = Field.amount
+    let amount: GTU
     
-    override func getDisplayValue() -> String {
-        return accountAddress
+    var displayValue: String { amount.displayValueWithGStroke() }
+    var costParameters: [TransferCostParameter] { [.amount] }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.capital = String(amount.intValue)
     }
 }
 
-class AmountData: StakeData {
-    var amount: GTU
-    init(amount: GTU) {
-        self.amount = amount
-        super.init(field: .amount)
-    }
-    override func getDisplayValue() -> String {
-        return amount.displayValueWithGStroke()
-    }
-}
-
-class RestakeDelegationData: StakeData {
-    var restake: Bool
+struct RestakeDelegationData: SimpleFieldValue {
+    let field = Field.restake
+    let restake: Bool
     
-    init(restake: Bool) {
-        self.restake = restake
-        super.init(field: .restake)
-    }
-
-    override func getDisplayValue() -> String {
+    var displayValue: String {
         if restake {
             return "delegation.receipt.addedtodelegation".localized
         } else {
             return "delegation.receipt.notaddedtodelegation".localized
         }
+    }
+    var costParameters: [TransferCostParameter] { [.restake] }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.restakeEarnings = restake
     }
 }
 
@@ -296,55 +325,77 @@ enum StakeWarning {
     case amountZero
 }
 
+@resultBuilder
+enum CurrentDataBuilder {
+    static func buildBlock(_ components: StakeDataConvertible...) -> [StakeData] {
+        return components.map { $0.asStakeData }
+    }
+    
+    static func buildFinalResult(_ component: [StakeData]) -> Set<StakeData> {
+        return Set(component)
+    }
+}
+
 class StakeDataHandler {
     let transferType: TransferType
     
     // this is the data that is currently on the chain
-    internal var currentData: Set<StakeData>?
+    private let currentData: Set<StakeData>?
     
     // this is what we are now changing
     private var data: Set<StakeData> = Set()
 
     init(transferType: TransferType) {
         self.transferType = transferType
+        self.currentData = nil
+    }
+    
+    init(transferType: TransferType, @CurrentDataBuilder currentData: () -> Set<StakeData>) {
+        self.transferType = transferType
+        self.currentData = currentData()
     }
     
     /// Remove an entry by field
     func remove(field: Field) {
-        if let entry = data.filter({ $0.field == field}).first {
+        if let entry = data.filter({ $0.field == field }).first {
             data.remove(entry)
         }
     }
     /// An entry is added only if its value is changed compared to the data that is being updated
     /// An entry is always added in case of new registration
-    func add(entry: StakeData) {
+    func add<T: FieldValue>(entry: T) {
+        let stakeData = entry.asStakeData
         let isValueUnchanged = currentData?.contains(where: { data in
-            data === entry
+            data === stakeData
         }) ?? false
         
         // we always allow the account to be in the new data
-        if isValueUnchanged && !(entry is AccountData) {
+        if isValueUnchanged && !(entry is AccountValue) {
             // remove current value from current data
             self.remove(field: entry.field)
             return
         }
         // we add or update to the set for the specific field
         // only one entry per field, as the == is overwritten
-        data.update(with: entry)
+        data.update(with: stakeData)
     }
     
     /// Retrieves an entry from the currently saved value
-    func getCurrentEntry<T: StakeData>() -> T? {
-        return currentData?.filter({ $0 is T}).first as? T
+    func getCurrentEntry<T: FieldValue>() -> T? {
+        return currentData?.filter({ $0.value is T}).first?.value as? T
     }
     
-    func getCurrentEntry<T: StakeData>(_ type: T.Type) -> T? {
-        return currentData?.filter({ $0 is T }).first as? T
+    func getCurrentEntry<T: FieldValue>(_ type: T.Type) -> T? {
+        return currentData?.filter({ $0.value is T }).first?.value as? T
     }
     
     /// Retrieves an entry from the updated values (current trasnaction)
-    func getNewEntry<T: StakeData>() -> T? {
-        return data.filter({ $0 is T}).first as? T
+    func getNewEntry<T: FieldValue>() -> T? {
+        return data.filter({ $0.value is T}).first?.value as? T
+    }
+    
+    func getNewEntry<T: FieldValue>(_ type: T.Type) -> T? {
+        return data.filter({ $0.value is T }).first?.value as? T
     }
     
     /// Checks if we are updating
@@ -353,16 +404,20 @@ class StakeDataHandler {
     }
     
     /// Retrieves all the fields that were changed sorted in the right order for display
-    func getAllOrdered() -> [StakeData] {
-        return data.sorted { lhs, rhs in
-            lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
-        }
+    func getAllOrdered() -> [DisplayValue] {
+        return data
+            .sorted { lhs, rhs in
+                lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
+            }
+            .flatMap { $0.displayValues }
     }
     
-    func getCurrentOrdered() -> [StakeData] {
-        return currentData?.sorted { lhs, rhs in
-            lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
-        } ?? []
+    func getCurrentOrdered() -> [DisplayValue] {
+        return currentData?
+            .sorted { lhs, rhs in
+                lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
+            }
+            .flatMap { $0.displayValues } ?? []
     }
     
     func getCurrentWarning(atDisposal balance: Int) -> StakeWarning? {
@@ -417,32 +472,13 @@ class StakeDataHandler {
     /// Checks if there are any changes to the stake data
     func containsChanges() -> Bool {
         // we remove the account data and see if there are any actual changes
-        let res = data.filter({ !($0 is AccountData)}).count
+        let res = data.filter({ !($0.value is AccountValue)}).count
         return res != 0
     }
     
     func getCostParameters() -> [TransferCostParameter] {
         data.compactMap { data in
-            switch data {
-            case is AmountData:
-                return [.amount]
-            case is RestakeDelegationData:
-                return [.restake]
-            case is RestakeBakerData:
-                return [.restake]
-            case let poolData as PoolDelegationData:
-                switch poolData.pool {
-                case .passive:
-                    return [.passive, .target]
-                case .bakerPool:
-                    return [.target]
-                }
-            case let metadataUrlData as BakerMetadataURLData:
-                return [.metadataSize(metadataUrlData.metadataURL.count)]
-            // TODO: cost calculation for baking
-            default:
-                return nil
-            }
+            data.value.costParameters
         }.reduce([], +)
     }
     
@@ -450,34 +486,7 @@ class StakeDataHandler {
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = transferType
         data.forEach { data in
-            switch data {
-            case let data as AmountData:
-                transfer.capital = String(data.amount.intValue)
-            case let data as RestakeDelegationData:
-                transfer.restakeEarnings = data.restake
-            case let poolData as PoolDelegationData:
-                switch poolData.pool {
-                case .passive:
-                    transfer.delegationType = "Passive"
-                case .bakerPool(let bakerId):
-                    transfer.delegationType = "Baker"
-                    transfer.delegationTargetBaker = bakerId
-                }
-            case let openStatusData as BakerPoolSettingsData:
-                switch openStatusData.poolSettings {
-                case .open:
-                    transfer.openStatus = "openForAll"
-                case .closed:
-                    transfer.openStatus = "closedForAll"
-                case .closedForNew:
-                    transfer.openStatus = "closedForNew"
-                }
-            case let metadataUrlData as BakerMetadataURLData:
-                transfer.metadataURL = metadataUrlData.metadataURL
-            // TODO: setup transfer object for baking
-            default:
-               break
-            }
+            data.value.add(to: &transfer)
         }
         if transfer.transferType == .removeDelegation || transfer.transferType == .removeBaker {
             transfer.capital = "0"

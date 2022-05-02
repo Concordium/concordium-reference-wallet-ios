@@ -46,7 +46,8 @@ class BakerPoolGenerateKeyViewModel {
 // MARK: Delegate
 protocol BakerPoolGenerateKeyPresenterDelegate: AnyObject {
     func pressedClose()
-    func shareExportedFile(url: URL, completion: @escaping () -> Void)
+    func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void)
+    func finishedGeneratingKeys(cost: GTU, energy: Int, dataHandler: StakeDataHandler)
 }
 
 // MARK: -
@@ -65,10 +66,13 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
     weak var delegate: BakerPoolGenerateKeyPresenterDelegate?
     
     private let viewModel: BakerPoolGenerateKeyViewModel
+    private let transactionService: TransactionsServiceProtocol
     private let stakeService: StakeServiceProtocol
     private let exportService: ExportService
     private let account: AccountDataType
     private let dataHandler: StakeDataHandler
+    
+    private var cancellables = Set<AnyCancellable>()
 
     init(
         delegate: BakerPoolGenerateKeyPresenterDelegate? = nil,
@@ -77,6 +81,7 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
         dataHandler: StakeDataHandler
     ) {
         self.delegate = delegate
+        self.transactionService = dependencyProvider.transactionsService()
         self.stakeService = dependencyProvider.stakeService()
         self.exportService = dependencyProvider.exportService()
         self.account = account
@@ -106,12 +111,25 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
             do {
                 let exportedKeys = ExportedBakerKeys(bakerId: account.accountIndex, generatedKeys: keys)
                 let fileUrl = try exportService.export(bakerKeys: exportedKeys)
-                self.delegate?.shareExportedFile(url: fileUrl, completion: {
+                self.delegate?.shareExportedFile(url: fileUrl, completion: { completed in
+                    guard completed else { return }
                     do {
-                        self.dataHandler.add(entry: BakerKeyData(electionVerifyKey: keys.electionVerifyKey))
-                        self.dataHandler.add(entry: BakerKeyData(signatureVerifyKey: keys.signatureVerifyKey))
-                        self.dataHandler.add(entry: BakerKeyData(aggregationVerifyKey: keys.aggregationVerifyKey))
+                        self.dataHandler.add(entry: BakerKeyData(keys: keys))
                         try self.exportService.deleteBakerKeys()
+                        self.transactionService.getTransferCost(
+                            transferType: self.dataHandler.transferType,
+                            costParameters: self.dataHandler.getCostParameters()
+                        ).showLoadingIndicator(in: self.view)
+                            .sink { (error: Error) in
+                                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                            } receiveValue: { (transferCost: TransferCost) in
+                                self.delegate?.finishedGeneratingKeys(
+                                    cost: GTU(intValue: Int(transferCost.cost) ?? 0),
+                                    energy: transferCost.energy,
+                                    dataHandler: self.dataHandler
+                                )
+                            }
+                            .store(in: &self.cancellables)
                     } catch {
                         Logger.warn(error)
                         self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))

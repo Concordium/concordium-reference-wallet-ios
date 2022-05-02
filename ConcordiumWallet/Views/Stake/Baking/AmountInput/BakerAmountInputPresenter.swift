@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol BakerAmountInputPresenterDelegate: AnyObject {
-    func finishedAmountInput()
+    func finishedAmountInput(dataHandler: StakeDataHandler)
     func switchToRemoveBaker(cost: GTU, energy: Int)
     func pressedClose()
 }
@@ -60,12 +60,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         )
     }
     
-    func viewDidLoad() {
-        self.view?.bind(viewModel: viewModel)
-        
-        loadPoolParameters()
-        
-        let costRangeResult = viewModel.$isRestakeSelected
+    private lazy var costRangeResult = {
+        viewModel.$isRestakeSelected
             .combineLatest(viewModel.gtuAmount)
             .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
                 guard let self = self else {
@@ -91,6 +87,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     .asResult()
                     .eraseToAnyPublisher()
             }
+    }()
+    
+    func viewDidLoad() {
+        self.view?.bind(viewModel: viewModel)
+        
+        loadPoolParameters()
         
         costRangeResult
             .onlySuccess()
@@ -151,7 +153,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     }
                     .store(in: &self.cancellables)
             } else {
-                self.delegate?.finishedAmountInput()
+                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler)
             }
         }
     }
