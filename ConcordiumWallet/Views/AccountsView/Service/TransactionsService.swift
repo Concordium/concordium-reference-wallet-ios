@@ -49,7 +49,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .encryptedTransfer:
             return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)

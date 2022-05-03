@@ -47,7 +47,7 @@ class BakerPoolGenerateKeyViewModel {
 protocol BakerPoolGenerateKeyPresenterDelegate: AnyObject {
     func pressedClose()
     func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void)
-    func finishedGeneratingKeys(cost: GTU, energy: Int, dataHandler: StakeDataHandler)
+    func finishedGeneratingKeys(dataHandler: StakeDataHandler)
 }
 
 // MARK: -
@@ -116,20 +116,7 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
                     do {
                         self.dataHandler.add(entry: BakerKeyData(keys: keys))
                         try self.exportService.deleteBakerKeys()
-                        self.transactionService.getTransferCost(
-                            transferType: self.dataHandler.transferType,
-                            costParameters: self.dataHandler.getCostParameters()
-                        ).showLoadingIndicator(in: self.view)
-                            .sink { (error: Error) in
-                                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                            } receiveValue: { (transferCost: TransferCost) in
-                                self.delegate?.finishedGeneratingKeys(
-                                    cost: GTU(intValue: Int(transferCost.cost) ?? 0),
-                                    energy: transferCost.energy,
-                                    dataHandler: self.dataHandler
-                                )
-                            }
-                            .store(in: &self.cancellables)
+                        self.delegate?.finishedGeneratingKeys(dataHandler: self.dataHandler)
                     } catch {
                         Logger.warn(error)
                         self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))

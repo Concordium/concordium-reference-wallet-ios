@@ -74,13 +74,21 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                             .transferFilters]
         } else {
             if balance == .balance {
-                self.actions = [.releaseSchedule,
-                                .transferFilters,
-                                .delegation,
-                                .baking,
-                                .shieldedBalance(accountName: account.displayName,
-                                                 shouldShow: !account.showsShieldedBalance,
-                                                 delegate: showShieldedDelegate)]
+                let stakeActions: [BurgerMenuAccountDetailsAction]
+                if account.baker != nil {
+                    stakeActions = [.baking]
+                } else if account.delegation != nil {
+                    stakeActions = [.delegation]
+                } else {
+                    stakeActions = [.delegation, .baking]
+                }
+                
+                self.actions = [
+                    .releaseSchedule,
+                    .transferFilters
+                ] + stakeActions + [.shieldedBalance(accountName: account.displayName,
+                                                     shouldShow: !account.showsShieldedBalance,
+                                                     delegate: showShieldedDelegate)]
             } else {
                 if showsDecrypt {
                     self.actions = [.decrypt,

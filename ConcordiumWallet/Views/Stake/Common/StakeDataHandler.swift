@@ -16,15 +16,20 @@ enum Field: Hashable {
     case delegationAccount
     case delegationStopAccount
     case pool
-    case amount
+    case delegationAmount
     
     // baking
     case poolSettings
     case bakerStake
     case bakerMetadataURL
+    case bakerAccount
     case bakerAccountCreate
     case bakerAccountUpdate
+    case bakerAccountStop
     case bakerKeys
+    case bakerId
+    case bakerAmount
+    case bakerComission
  
     // swiftlint:disable cyclomatic_complexity
     func getLabelText() -> String {
@@ -40,7 +45,7 @@ enum Field: Hashable {
             return "delegation.receipt.accounttostop".localized
         case .pool:
             return "delegation.receipt.tagetbakerpool".localized
-        case .amount:
+        case .delegationAmount:
             return "delegation.receipt.delegationamount".localized
       
         // baking
@@ -48,13 +53,23 @@ enum Field: Hashable {
             return "baking.receipt.poolstatus".localized
         case .bakerStake:
             return "baking.receipt.bakerstake".localized
+        case .bakerAccount:
+            return "baking.receipt.bakeraccount".localized
         case .bakerAccountCreate:
             return "baking.receipt.accountcreate".localized
         case .bakerAccountUpdate:
             return "baking.receipt.accountupdate".localized
+        case .bakerAccountStop:
+            return "baking.receipt.accountstop".localized
+        case .bakerId:
+            return "baking.receipt.bakerid".localized
+        case .bakerAmount:
+            return "baking.receipt.bakeramount".localized
         case .bakerMetadataURL:
             return "baking.receipt.metadataurl".localized
         case .bakerKeys:
+            return ""
+        case .bakerComission:
             return ""
         }
     }
@@ -73,22 +88,32 @@ enum Field: Hashable {
             return 0
         case .pool:
             return 2
-        case .amount:
+        case .delegationAmount:
             return 1
       
         // baking
         case .poolSettings:
-            return 2
+            return 4
         case .bakerStake:
             return 1
+        case .bakerAccount:
+            return 0
         case .bakerAccountCreate:
             return 0
         case .bakerAccountUpdate:
             return 0
+        case .bakerAccountStop:
+            return 0
+        case .bakerAmount:
+            return 1
+        case .bakerId:
+            return 2
         case .bakerMetadataURL:
             return 4
         case .bakerKeys:
             return 5
+        case .bakerComission:
+            return .max
         }
     }
 }
@@ -104,9 +129,9 @@ protocol StakeDataConvertible {
 
 protocol FieldValue: StakeDataConvertible {
     var field: Field { get }
-    var costParameters: [TransferCostParameter] { get }
     var displayValues: [DisplayValue] { get }
     
+    func getCostParameters(type: TransferType) -> [TransferCostParameter]
     func add(to transaction: inout TransferDataType)
 }
 
@@ -131,12 +156,13 @@ protocol AccountValue: FieldValue {
 }
 
 extension AccountValue {
-    var costParameters: [TransferCostParameter] { [] }
-    
     var displayValues: [DisplayValue] {
         return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
     }
     
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        return []
+    }
     func add(to transaction: inout TransferDataType) {}
 }
 
@@ -167,8 +193,18 @@ struct BakerCreateAccountData: AccountValue {
     let accountAddress: String
 }
 
+struct BakerAccountData: AccountValue {
+    let field = Field.bakerAccount
+    let accountAddress: String
+}
+
 struct BakerUpdateAccountData: AccountValue {
     let field = Field.bakerAccountUpdate
+    let accountAddress: String
+}
+
+struct BakerStopAccountData: AccountValue {
+    let field = Field.bakerAccountStop
     let accountAddress: String
 }
 
@@ -178,6 +214,14 @@ struct BakerPoolSettingsData: SimpleFieldValue {
     
     var displayValue: String { poolSettings.getDisplayValue() }
     var costParameters: [TransferCostParameter] { [.openStatus] }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateBakerPool || type == .configureBaker {
+            return [.openStatus]
+        } else {
+            return []
+        }
+    }
     
     func add(to transaction: inout TransferDataType) {
         switch poolSettings {
@@ -191,13 +235,33 @@ struct BakerPoolSettingsData: SimpleFieldValue {
     }
 }
 
+struct BakerIDData: SimpleFieldValue {
+    let field = Field.bakerId
+    let id: Int
+    
+    var displayValue: String {
+        return String(id)
+    }
+
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        return []
+    }
+    func add(to transaction: inout TransferDataType) {}
+}
+
 struct BakerMetadataURLData: SimpleFieldValue {
     let field = Field.bakerMetadataURL
     let metadataURL: String
     
     var displayValue: String { metadataURL }
-    var costParameters: [TransferCostParameter] { [.metadataSize(metadataURL.count)] }
         
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateBakerPool || type == .configureBaker {
+            return [.metadataSize(metadataURL.utf8.count)]
+        } else {
+            return []
+        }
+    }
     func add(to transaction: inout TransferDataType) {
         transaction.metadataURL = metadataURL
     }
@@ -206,8 +270,6 @@ struct BakerMetadataURLData: SimpleFieldValue {
 struct BakerKeyData: FieldValue {
     let field = Field.bakerKeys
     let keys: GeneratedBakerKeys
-    
-    var costParameters: [TransferCostParameter] { [] } 
     
     var displayValues: [DisplayValue] {
         [
@@ -226,6 +288,9 @@ struct BakerKeyData: FieldValue {
         ]
     }
     
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        return []
+    }
     // Baker keys are pass explicitly elsewhere
     func add(to transaction: inout TransferDataType) {}
 }
@@ -241,10 +306,40 @@ struct RestakeBakerData: SimpleFieldValue {
             return "baking.receipt.notaddedtostake".localized
         }
     }
-    var costParameters: [TransferCostParameter] { [.restake] }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateBakerStake || type == .configureBaker {
+            return [.restake]
+        } else {
+            return []
+        }
+    }
     
     func add(to transaction: inout TransferDataType) {
         transaction.restakeEarnings = restake
+    }
+}
+
+struct BakerComissionData: FieldValue {
+    let field = Field.bakerComission
+    let bakingRewardComission: Double
+    let finalizationRewardComission: Double
+    let transactionComission: Double
+    
+    var displayValues: [DisplayValue] { [] }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateBakerPool || type == .configureBaker {
+            return [.bakerRewardCommission, .finalizationRewardCommission, .transactionCommission]
+        } else {
+            return []
+        }
+    }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.bakingRewardCommission = bakingRewardComission
+        transaction.finalizationRewardCommission = finalizationRewardComission
+        transaction.transactionFeeCommission = transactionComission
     }
 }
 
@@ -275,6 +370,26 @@ struct PoolDelegationData: SimpleFieldValue {
         }
     }
     
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        switch pool {
+        case .passive:
+            switch type {
+            case .registerDelegation:
+                return [.passive]
+            case .updateDelegation:
+                return [.target, .passive]
+            default:
+                return []
+            }
+        case .bakerPool:
+            if type == .updateDelegation {
+                return [.target]
+            } else {
+                return []
+            }
+        }
+    }
+    
     func add(to transaction: inout TransferDataType) {
         switch pool {
         case .passive:
@@ -288,18 +403,6 @@ struct PoolDelegationData: SimpleFieldValue {
 
 // MARK: - Common data
 
-struct AmountData: SimpleFieldValue {
-    let field = Field.amount
-    let amount: GTU
-    
-    var displayValue: String { amount.displayValueWithGStroke() }
-    var costParameters: [TransferCostParameter] { [.amount] }
-    
-    func add(to transaction: inout TransferDataType) {
-        transaction.capital = String(amount.intValue)
-    }
-}
-
 struct RestakeDelegationData: SimpleFieldValue {
     let field = Field.restake
     let restake: Bool
@@ -311,10 +414,60 @@ struct RestakeDelegationData: SimpleFieldValue {
             return "delegation.receipt.notaddedtodelegation".localized
         }
     }
-    var costParameters: [TransferCostParameter] { [.restake] }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateDelegation {
+            return [.restake]
+        } else {
+            return []
+        }
+    }
     
     func add(to transaction: inout TransferDataType) {
         transaction.restakeEarnings = restake
+    }
+}
+
+struct DelegationAmountData: SimpleFieldValue {
+    let field = Field.delegationAmount
+    let amount: GTU
+    
+    var displayValue: String {
+        amount.displayValueWithGStroke()
+    }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateDelegation {
+            return [.amount]
+        } else {
+            return []
+        }
+    }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.capital = String(amount.intValue)
+    }
+}
+
+struct BakerAmountData: SimpleFieldValue {
+    let field = Field.bakerAmount
+    let amount: GTU
+    
+    var displayValue: String {
+        amount.displayValueWithGStroke()
+    }
+    var costParameters: [TransferCostParameter] { [.amount] }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        if type == .updateBakerStake || type == .configureBaker {
+            return [.amount]
+        } else {
+            return []
+        }
+    }
+    
+    func add(to transaction: inout TransferDataType) {
+        transaction.capital = String(amount.intValue)
     }
 }
 
@@ -348,6 +501,11 @@ class StakeDataHandler {
     init(transferType: TransferType) {
         self.transferType = transferType
         self.currentData = nil
+    }
+    
+    init(transferType: TransferType, currentData: [FieldValue]) {
+        self.transferType = transferType
+        self.currentData = Set(currentData.map { $0.asStakeData })
     }
     
     init(transferType: TransferType, @CurrentDataBuilder currentData: () -> Set<StakeData>) {
@@ -436,34 +594,37 @@ class StakeDataHandler {
     
     /// Checks if the amount we are now selecting is lower that the previous amount
     func isLoweringStake() -> Bool {
-        guard let currentAmount: AmountData = getCurrentEntry() else {
+        if let currentAmount = getCurrentEntry(DelegationAmountData.self) {
+            guard let newAmount = getNewEntry(DelegationAmountData.self) else {
+                return false
+            }
+            if newAmount.amount.intValue < currentAmount.amount.intValue {
+                return true
+            }
+            return false
+        } else if let currentAmount = getCurrentEntry(BakerAmountData.self) {
+            guard let newAmount = getNewEntry(BakerAmountData.self) else {
+                return false
+            }
+            if newAmount.amount.intValue < currentAmount.amount.intValue {
+                return true
+            }
+            return false
+        } else {
             return false
         }
-        guard let newAmount: AmountData = getNewEntry() else {
-            return false
-        }
-        if newAmount.amount.intValue < currentAmount.amount.intValue {
-            return true
-        }
-        return false
     }
     
     func isNewAmountZero() -> Bool {
-        guard let newAmount: AmountData = getNewEntry() else {
-            return false
-        }
-        if newAmount.amount.intValue == 0 {
-            return true
-        }
-        return false
+        return getNewEntry(DelegationAmountData.self)?.amount == .zero || getNewEntry(BakerAmountData.self)?.amount == .zero
     }
   
     /// Checks is the new delegation amount is using over 95% of funds
     func moreThan95(atDisposal: Int) -> Bool {
-        guard let newAmount: AmountData = getNewEntry() else {
+        guard let newAmount = getNewEntry(DelegationAmountData.self)?.amount ?? getNewEntry(BakerAmountData.self)?.amount else {
             return false
         }
-        if Double(newAmount.amount.intValue) > Double(atDisposal) * 0.95 {
+        if Double(newAmount.intValue) > Double(atDisposal) * 0.95 {
             return true
         }
         return false
@@ -478,7 +639,7 @@ class StakeDataHandler {
     
     func getCostParameters() -> [TransferCostParameter] {
         data.compactMap { data in
-            data.value.costParameters
+            data.value.getCostParameters(type: transferType)
         }.reduce([], +)
     }
     
@@ -490,12 +651,6 @@ class StakeDataHandler {
         }
         if transfer.transferType == .removeDelegation || transfer.transferType == .removeBaker {
             transfer.capital = "0"
-        }
-        if transfer.transferType == .registerBaker {
-            #warning("Hardcoded comission values, don't release to prod")
-            transfer.transactionFeeCommission = 5000
-            transfer.bakingRewardCommission = 5000
-            transfer.finalizationRewardCommission = 5000
         }
         return transfer
     }

@@ -17,7 +17,7 @@ class DelegationDataHandler: StakeDataHandler {
             } else {
                 super.init(transferType: .updateDelegation) {
                     DelegationAccountData(accountAddress: account.address)
-                    AmountData(amount: GTU(intValue: delegation.stakedAmount))
+                    DelegationAmountData(amount: GTU(intValue: delegation.stakedAmount))
                     RestakeDelegationData(restake: delegation.restakeEarnings)
                     PoolDelegationData(
                         pool: BakerTarget.from(

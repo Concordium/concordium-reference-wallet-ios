@@ -106,7 +106,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                               currentPool: currentPool,
                                               poolLimit: poolLimit,
                                               previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool))
-        let amountData: AmountData? = dataHandler.getCurrentEntry()
+        let amountData: DelegationAmountData? = dataHandler.getCurrentEntry()
         self.validAmount = amountData?.amount
         let restakeData: RestakeDelegationData? = dataHandler.getCurrentEntry()
         self.restake = restakeData?.restake ?? true
@@ -138,7 +138,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         .flatMap { [weak self] (amount, restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in
             guard let self = self else { return .just(Result.failure(StakeError.internalError))}
             
-            self.dataHandler.add(entry: AmountData(amount: amount))
+            self.dataHandler.add(entry: DelegationAmountData(amount: amount))
             self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
             
             self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
