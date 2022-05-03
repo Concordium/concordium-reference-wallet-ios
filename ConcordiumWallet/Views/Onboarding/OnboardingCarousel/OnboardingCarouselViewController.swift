@@ -81,7 +81,11 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
 
         onboardingCarouselPageViewController?.controllerDelegate = self
 
-        continueButton.alpha = 0
+        // If we only have one page we need to show the continue button
+        let showContinue = pageControl.numberOfPages <= 1
+        
+        continueButton.alpha = showContinue ? 1 : 0
+        nextButton.alpha = showContinue ? 0 : 1
         backButton.alpha = 0
     }
 

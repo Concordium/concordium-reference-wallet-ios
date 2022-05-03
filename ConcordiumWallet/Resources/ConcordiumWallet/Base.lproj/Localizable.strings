@@ -857,3 +857,5 @@ Remember to restart your node with the baker keys.";
 "baking.status.waiting.header" = "Waiting for baker transaction to finalize";
 "baking.status.waiting.placeholder" = "Waiting for transaction to finalize";
 "baking.status.updatebutton" = "Update baker settings";
+"baking.status.pendingchange" = "The following changes will take effect on %@";
+"baking.status.removingbaker" = "The baker will be deregistered, and the stake will be unlocked on the public balance of the account.";

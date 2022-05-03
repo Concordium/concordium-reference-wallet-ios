@@ -140,6 +140,7 @@ replaceType "BakerStakePendingChange.bakerEquityCapital: String" "bakerEquityCap
 replaceType "EuroPerEnergy.Int" "UInt64"
 replaceType "BakerStakePendingChange.effectiveTime: String" "effectiveTime: String?"
 replaceType "MakeCreateTransferRequest.bakerKeys: BakerKeys?" "bakerKeys: GeneratedBakerKeys?"
+replaceType "BakerPoolResponse.currentPaydayStatus: CurrentPaydayStatus" "currentPaydayStatus: CurrentPaydayStatus?"
 
 replacePropertyName()
 {
