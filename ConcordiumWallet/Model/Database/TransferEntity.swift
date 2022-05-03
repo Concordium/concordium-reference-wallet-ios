@@ -39,9 +39,9 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var delegationTargetBaker: Int { get set }
     var openStatus: String? { get set }
     var metadataURL: String? { get set }
-    var transactionFeeCommission: Int { get set }
-    var bakingRewardCommission: Int { get set }
-    var finalizationRewardCommission: Int { get set }
+    var transactionFeeCommission: Double { get set }
+    var bakingRewardCommission: Double { get set }
+    var finalizationRewardCommission: Double { get set }
     
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
@@ -72,7 +72,7 @@ extension TransferDataType {
                 balanceChange = (Int(cost) ?? 0)
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = (Int(cost) ?? 0)
-            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
                 balanceChange = (Int(cost) ?? 0)
             }
         }
@@ -99,7 +99,7 @@ extension TransferDataType {
                 balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
-            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+            case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
                 balanceChange = 0
             }
             
@@ -146,9 +146,9 @@ final class TransferEntity: Object {
     @objc dynamic var delegationTargetBaker: Int = -1
     @objc dynamic var openStatus: String?
     @objc dynamic var metadataURL: String?
-    @objc dynamic var transactionFeeCommission: Int = -1
-    @objc dynamic var bakingRewardCommission: Int = -1
-    @objc dynamic var finalizationRewardCommission: Int = -1
+    @objc dynamic var transactionFeeCommission: Double = -1
+    @objc dynamic var bakingRewardCommission: Double = -1
+    @objc dynamic var finalizationRewardCommission: Double = -1
     
 }
 

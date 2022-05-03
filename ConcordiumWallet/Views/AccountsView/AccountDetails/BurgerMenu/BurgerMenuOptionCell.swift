@@ -27,10 +27,11 @@ class BurgerMenuOptionCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setup(cellRow: Int, title: String, delegate: BurgerMenuOptionCellDelegate) {
+    func setup(cellRow: Int, title: String, destructive: Bool, delegate: BurgerMenuOptionCellDelegate) {
         self.cellRow = cellRow
         self.delegate = delegate
         optionButton.setTitle(title, for: .normal)
+        optionButton.setTitleColor(destructive ? .red : .text, for: .normal)
     }
     
     @IBAction func buttonPressed(_ sender: Any) {

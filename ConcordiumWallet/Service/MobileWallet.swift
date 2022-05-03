@@ -26,9 +26,9 @@ protocol MobileWalletProtocol {
                         delegationTarget: DelegationTarget?,
                         openStatus: String?,
                         metadataURL: String?,
-                        transactionFeeCommission: Int?,
-                        bakingRewardCommission: Int?,
-                        finalizationRewardCommission: Int?,
+                        transactionFeeCommission: Double?,
+                        bakingRewardCommission: Double?,
+                        finalizationRewardCommission: Double?,
                         bakerKeys: GeneratedBakerKeys?,
                         expiry: Date, energy: Int,
                         transferType: TransferType,
@@ -181,9 +181,9 @@ class MobileWallet: MobileWalletProtocol {
                         delegationTarget: DelegationTarget?,
                         openStatus: String?,
                         metadataURL: String?,
-                        transactionFeeCommission: Int?,
-                        bakingRewardCommission: Int?,
-                        finalizationRewardCommission: Int?,
+                        transactionFeeCommission: Double?,
+                        bakingRewardCommission: Double?,
+                        finalizationRewardCommission: Double?,
                         bakerKeys: GeneratedBakerKeys?,
                         expiry: Date,
                         energy: Int,
@@ -229,9 +229,9 @@ class MobileWallet: MobileWalletProtocol {
                                 delegationTarget: DelegationTarget?,
                                 openStatus: String?,
                                 metadataURL: String?,
-                                transactionFeeCommission: Int?,
-                                bakingRewardCommission: Int?,
-                                finalizationRewardCommission: Int?,
+                                transactionFeeCommission: Double?,
+                                bakingRewardCommission: Double?,
+                                finalizationRewardCommission: Double?,
                                 bakerKeys: GeneratedBakerKeys?,
                                 energy: Int,
                                 transferType: TransferType,
@@ -284,7 +284,7 @@ class MobileWallet: MobileWalletProtocol {
              return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         }
     }

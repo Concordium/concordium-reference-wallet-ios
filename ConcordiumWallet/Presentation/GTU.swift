@@ -8,6 +8,9 @@ import Foundation
 struct GTU {
     static let conversionFactor: Int = 1000000
     static let maximumFractionDigits: Int = 6
+    
+    /// Useful for comparing against 0
+    static let zero: GTU = GTU(intValue: 0)
 
     let intValue: Int
 

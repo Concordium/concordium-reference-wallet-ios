@@ -9,15 +9,34 @@
 import Foundation
 
 protocol BurgerMenuAction {
+    var destructive: Bool { get }
+    
     func getDisplayName() -> String
 }
 
+extension BurgerMenuAction {
+    var destructive: Bool { false }
+}
+
 class BurgerMenuViewModel {
+    struct Action: Hashable {
+        let displayName: String
+        let destructive: Bool
+        
+        init(burgerMenuAction: BurgerMenuAction) {
+            displayName = burgerMenuAction.getDisplayName()
+            destructive = burgerMenuAction.destructive
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(displayName)
+        }
+    }
     
-    @Published var displayActions: [String] = []
+    @Published var displayActions: [Action] = []
     
     func setup(actions: [BurgerMenuAction]) {
-        displayActions = actions.map { $0.getDisplayName() }
+        displayActions = actions.map(Action.init(burgerMenuAction:))
     }
 }
 

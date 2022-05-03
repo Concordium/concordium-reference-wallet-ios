@@ -36,16 +36,47 @@ class BakingCoordinator: Coordinator {
     }
     
     func start() {
-        // TODO: Implement actual navigation flow
-        
-        showCarousel(mode: .register)
+        if let currentSettings = account.baker {
+            showStatus(status: .registered(currentSettings: currentSettings))
+        } else if !dependencyProvider.storageManager().getTransfers(for: account.address).filter({ $0.transferType == .registerBaker }).isEmpty {
+            showStatus(status: .pendingRegistration)
+        } else {
+            showCarousel(
+                dataHandler: BakerDataHandler(
+                    account: account,
+                    action: .register
+                )
+            )
+        }
     }
     
-    func showCarousel(mode: BakingOnboardingMode) {
+    func showStatus(status: BakerPoolStatus) {
+        let statusPresenter = BakerPoolStatusPresenter(
+            account: account,
+            status: status,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        let vc = StakeStatusFactory.create(with: statusPresenter)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showMenu(currentSettings: BakerDataType, poolInfo: PoolInfo) {
+        let menuPresenter = BakerPoolMenuPresenter(
+            currentSettings: currentSettings,
+            poolInfo: poolInfo,
+            delegate: self
+        )
+        let vc = BurgerMenuFactory.create(with: menuPresenter)
+        vc.modalPresentationStyle = .overFullScreen
+        navigationController.present(vc, animated: false)
+    }
+    
+    func showCarousel(dataHandler: StakeDataHandler) {
         let onboardingCoordinator = BakingOnboardingCoordinator(
             navigationController: navigationController,
             parentCoordinator: self,
-            mode: mode
+            dataHandler: dataHandler
         )
         childCoordinators.append(onboardingCoordinator)
         onboardingCoordinator.start()
@@ -90,13 +121,11 @@ class BakingCoordinator: Coordinator {
         self.navigationController.pushViewController(vc, animated: true)
     }
 
-    func showRequestConfirmation(cost: GTU, energy: Int, dataHandler: StakeDataHandler) {
+    func showRequestConfirmation(dataHandler: StakeDataHandler) {
         let presenter = BakerPoolReceiptConfirmationPresenter(
             account: account,
             dependencyProvider: dependencyProvider,
             delegate: self,
-            cost: cost,
-            energy: energy,
             dataHandler: dataHandler
         )
         
@@ -118,13 +147,73 @@ class BakingCoordinator: Coordinator {
     }
 }
 
+extension BakingCoordinator: BakerPoolStatusPresenterDelegate {
+    func pressedOpenMenu(currentSettings: BakerDataType, poolInfo: PoolInfo) {
+        showMenu(currentSettings: currentSettings, poolInfo: poolInfo)
+    }
+    
+}
+
+extension BakingCoordinator: BakerPoolMenuPresenterDelegate {
+    func pressed(
+        action: BakerPoolMenuAction,
+        currentSettings: BakerDataType,
+        poolInfo: PoolInfo
+    ) {
+        switch action {
+        case .updateBakerStake:
+            showCarousel(
+                dataHandler: BakerDataHandler(
+                    account: account,
+                    action: .updateBakerStake(currentSettings, poolInfo)
+                )
+            )
+        case .updatePoolSettings:
+            showCarousel(
+                dataHandler: BakerDataHandler(
+                    account: account,
+                    action: .updatePoolSettings(currentSettings, poolInfo)
+                )
+            )
+        case .updateBakerKeys:
+            showCarousel(
+                dataHandler: BakerDataHandler(
+                    account: account,
+                    action: .updateBakerKeys(currentSettings, poolInfo)
+                )
+            )
+        case .stopBaking:
+            showCarousel(
+                dataHandler: BakerDataHandler(
+                    account: account,
+                    action: .stopBaking
+                )
+            )
+        }
+        navigationController.dismiss(animated: false)
+    }
+    
+    func pressedDismiss() {
+        navigationController.dismiss(animated: false)
+    }
+
+}
+
 extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
-    func finished(mode: BakingOnboardingMode) {
-        switch mode {
-        case .register:
-            showAmountInput(dataHandler: BakerDataHandler(account: account, action: .register))
+    func finished(dataHandler: StakeDataHandler) {
+        switch dataHandler.transferType {
+        case .registerBaker:
+            showAmountInput(dataHandler: dataHandler)
+        case .updateBakerStake:
+            showAmountInput(dataHandler: dataHandler)
+        case .updateBakerPool:
+            showPoolSettings(dataHandler: dataHandler)
+        case .updateBakerKeys:
+            showGenerateKey(dataHandler: dataHandler)
+        case .removeBaker:
+            showRequestConfirmation(dataHandler: dataHandler)
         default:
-            break
+            self.delegate?.finishedBakingCoordinator()
         }
     }
     
@@ -150,36 +239,48 @@ extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
 
 extension BakingCoordinator: BakerPoolGenerateKeyPresenterDelegate {
     func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void) {
-        self.share(items: [url], from: self.navigationController, completion: completion)
+        share(items: [url], from: navigationController, completion: completion)
     }
     
-    func finishedGeneratingKeys(cost: GTU, energy: Int, dataHandler: StakeDataHandler) {
-        self.showRequestConfirmation(cost: cost, energy: energy, dataHandler: dataHandler)
+    func finishedGeneratingKeys(dataHandler: StakeDataHandler) {
+        showRequestConfirmation(dataHandler: dataHandler)
     }
     
     func pressedClose() {
-        self.delegate?.finishedBakingCoordinator()
+        delegate?.finishedBakingCoordinator()
     }
 }
 
 extension BakingCoordinator: BakerMetadataPresenterDelegate {
     func finishedMetadata(dataHandler: StakeDataHandler) {
-        showGenerateKey(dataHandler: dataHandler)
-        // TODO: handle finishing of metadata (for update we show receipt; For created we show keys)
+        if case .updateBakerPool = dataHandler.transferType {
+            showRequestConfirmation(dataHandler: dataHandler)
+        } else {
+            showGenerateKey(dataHandler: dataHandler)
+        }
     }
     
     func closedMetadata() {
-        self.delegate?.finishedBakingCoordinator()
+        delegate?.finishedBakingCoordinator()
     }
 }
 
 extension BakingCoordinator: BakerAmountInputPresenterDelegate {
     func finishedAmountInput(dataHandler: StakeDataHandler) {
-        self.showPoolSettings(dataHandler: dataHandler)
+        if case .updateBakerStake = dataHandler.transferType {
+            showRequestConfirmation(dataHandler: dataHandler)
+        } else {
+            showPoolSettings(dataHandler: dataHandler)
+        }
     }
     
-    func switchToRemoveBaker(cost: GTU, energy: Int) {
-        // TODO: Delegate to remove
+    func switchToRemoveBaker() {
+        showRequestConfirmation(
+            dataHandler: BakerDataHandler(
+                account: account,
+                action: .stopBaking
+            )
+        )
     }
 }
 

@@ -9,10 +9,10 @@
 import Foundation
 import Combine
 
-enum BakerPoolSetting {
-    case open
-    case closedForNew
-    case closed
+enum BakerPoolSetting: String {
+    case open = "openForAll"
+    case closedForNew = "closedForNew"
+    case closed = "closedForAll"
     
     func getDisplayValue() -> String {
         switch self {

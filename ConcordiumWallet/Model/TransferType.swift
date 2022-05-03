@@ -23,4 +23,5 @@ enum TransferType: String, Codable {
     case updateBakerPool
     case updateBakerKeys
     case removeBaker
+    case configureBaker
 }

@@ -37,7 +37,7 @@ class TransactionSubmittedViewModel {
             submitedText = "unshielding.submitted".localized
         case .transferToSecret:
             submitedText = "shielding.submitted".localized
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             submitedText = ""
         case .registerDelegation, .removeDelegation, .updateDelegation:
             submitedText = ""

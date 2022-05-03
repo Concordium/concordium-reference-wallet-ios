@@ -10,35 +10,42 @@ import UIKit
 
 enum BakingOnboardingMode {
     case register
-    case update
-    case remove(cost: GTU, energy: Int)
+    case updateStake
+    case updatePoolSettings
+    case updateKeys
+    case remove
 }
 protocol BakingOnboardingCoordinatorDelegate: Coordinator {
-    func finished(mode: BakingOnboardingMode)
+    func finished(dataHandler: StakeDataHandler)
     func closed()
 }
 
 class BakingOnboardingCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    private var mode: BakingOnboardingMode
+    private let dataHandler: StakeDataHandler
     weak var delegate: BakingOnboardingCoordinatorDelegate?
     
-    init(navigationController: UINavigationController,
-         parentCoordinator: BakingOnboardingCoordinatorDelegate,
-         mode: BakingOnboardingMode) {
+    init(
+        navigationController: UINavigationController,
+        parentCoordinator: BakingOnboardingCoordinatorDelegate,
+        dataHandler: StakeDataHandler
+    ) {
         self.navigationController = navigationController
         self.delegate = parentCoordinator
-        self.mode = mode
+        self.dataHandler = dataHandler
     }
+    
     func start() {
-        switch mode {
-        case .register:
+        switch dataHandler.transferType {
+        case .registerBaker:
             showIntroCarousel()
-        case .update:
+        case .updateBakerStake, .updateBakerPool, .updateBakerKeys:
             showUpdateCarousel()
-        case .remove:
+        case .removeBaker:
             showRemoveCarousel()
+        default:
+            self.delegate?.closed()
         }
     }
     
@@ -136,10 +143,10 @@ extension BakingOnboardingCoordinator: OnboardingCarouselPresenterDelegate {
     }
     
     func onboardingCarouselSkiped() {
-        self.delegate?.finished(mode: self.mode)
+        self.delegate?.finished(dataHandler: self.dataHandler)
     }
     
     func onboardingCarouselFinished() {
-        self.delegate?.finished(mode: self.mode)
+        self.delegate?.finished(dataHandler: self.dataHandler)
     }
 }
