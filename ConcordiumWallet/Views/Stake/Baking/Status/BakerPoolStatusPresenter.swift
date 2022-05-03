@@ -110,6 +110,13 @@ private extension StakeStatusViewModel {
         buttonLabel = "baking.status.updatebutton".localized
         updateButtonEnabled = true
         stopButtonShown = false
+        if let pendingChange = currentSettings.pendingChange, let timestamp = pendingChange.effectiveTime, pendingChange.change == .RemoveStake {
+            bottomInfoMessage = String(
+                format: "baking.status.pendingchange".localized,
+                GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: timestamp))
+            )
+            bottomImportantMessage = "baking.status.removingbaker".localized
+        }
         rows = updatedRows.flatMap { $0.displayValues.map { StakeRowViewModel(displayValue: $0) } }
     }
     

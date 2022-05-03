@@ -116,6 +116,10 @@ class BakerPoolSettingsPresenter: BakerPoolSettingsPresenterProtocol {
     
     func pressedContinue() {
         self.dataHandler.add(entry: BakerPoolSettingsData(poolSettings: poolSettings))
+        if dataHandler.transferType == .registerBaker && poolSettings == .closed {
+            // Metadata urls must be set for registerBaker
+            dataHandler.add(entry: BakerMetadataURLData(metadataURL: ""))
+        }
         self.delegate?.finishedPoolSettings(dataHandler: dataHandler)
     }
     
