@@ -31,7 +31,7 @@ class BurgerMenuOptionCell: UITableViewCell {
         self.cellRow = cellRow
         self.delegate = delegate
         optionButton.setTitle(title, for: .normal)
-        optionButton.setTitleColor(destructive ? .red : .text, for: .normal)
+        optionButton.setTitleColor(destructive ? .error : .text, for: .normal)
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
