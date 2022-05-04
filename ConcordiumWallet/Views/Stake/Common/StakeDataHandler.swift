@@ -183,7 +183,7 @@ struct StakeData: Hashable {
     }
     
     static func === (lhs: StakeData, rhs: StakeData) -> Bool {
-        return lhs.field == rhs.field
+        return lhs.field == rhs.field && lhs.displayValues == rhs.displayValues
     }
 }
 
