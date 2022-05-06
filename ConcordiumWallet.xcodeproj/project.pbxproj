@@ -509,7 +509,6 @@
 		5243C033278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
 		5243C034278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
 		5243C035278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
-		5243C036278E2384005CAC8D /* SanityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243C031278E2384005CAC8D /* SanityChecker.swift */; };
 		5248E7D7257A60F600E4F6EC /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */; };
 		5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */; };
 		5248E7D9257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5248E7D6257A60F600E4F6EC /* BurgerMenuViewController.swift */; };
@@ -783,7 +782,6 @@
 		64FD33CD2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
 		64FD33CE2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
 		7111D4FA482EED93124EAA6A /* Pods_StagingNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */; };
-		7F0573E724AC710C009517AD /* StorageManagerMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573DE24AC710C009517AD /* StorageManagerMockHelper.swift */; };
 		7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */; };
 		7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */; };
 		7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E224AC710C009517AD /* GTUTests.swift */; };
@@ -1515,6 +1513,8 @@
 		8992BA27281FFDDB005279C9 /* BakerPoolStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */; };
 		8992BA28281FFDDB005279C9 /* BakerPoolStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */; };
 		8992BA29281FFDDB005279C9 /* BakerPoolStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */; };
+		8992BA3A2823A8E0005279C9 /* NotYetImplemented.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA392823A8E0005279C9 /* NotYetImplemented.swift */; };
+		8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */; };
 		89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
@@ -2244,7 +2244,6 @@
 		64FD33CA2602330B00563703 /* CredentialResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialResponse.swift; sourceTree = "<group>"; };
 		6DBECC1129FAE710DA905F53 /* Pods-ProdMainNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.release.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.release.xcconfig"; sourceTree = "<group>"; };
 		7C8D8E9C9B9CA2D0668D94F5 /* Pods_ConcordiumWalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConcordiumWalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F0573DE24AC710C009517AD /* StorageManagerMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManagerMockHelper.swift; sourceTree = "<group>"; };
 		7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsServiceMockHelper.swift; sourceTree = "<group>"; };
 		7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderMockHelper.swift; sourceTree = "<group>"; };
 		7F0573E224AC710C009517AD /* GTUTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTUTests.swift; sourceTree = "<group>"; };
@@ -2373,6 +2372,8 @@
 		7FF919172511505B00B1032B /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
 		8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolMenuPresenter.swift; sourceTree = "<group>"; };
 		8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolStatusPresenter.swift; sourceTree = "<group>"; };
+		8992BA392823A8E0005279C9 /* NotYetImplemented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotYetImplemented.swift; sourceTree = "<group>"; };
+		8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManagerMockHelper.swift; sourceTree = "<group>"; };
 		89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
 		89CF2D24280FDAB800742E1E /* StakeAmountInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeAmountInputValidator.swift; sourceTree = "<group>"; };
 		89CF2D29281000B100742E1E /* TransferCostRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostRange.swift; sourceTree = "<group>"; };
@@ -3227,9 +3228,10 @@
 		7F0573DD24AC710C009517AD /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
-				7F0573DE24AC710C009517AD /* StorageManagerMockHelper.swift */,
+				8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */,
 				7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */,
 				7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */,
+				8992BA392823A8E0005279C9 /* NotYetImplemented.swift */,
 			);
 			path = HelperClasses;
 			sourceTree = "<group>";
@@ -6419,10 +6421,10 @@
 				7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */,
 				19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */,
 				7F0573F024AC71DC009517AD /* TransactionsCellViewModelTests.swift in Sources */,
-				7F0573E724AC710C009517AD /* StorageManagerMockHelper.swift in Sources */,
 				7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */,
+				8992BA3A2823A8E0005279C9 /* NotYetImplemented.swift in Sources */,
+				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
-				5243C036278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,

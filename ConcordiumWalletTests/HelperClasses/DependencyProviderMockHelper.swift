@@ -4,7 +4,7 @@
 //
 
 import Foundation
-@testable import ProdMainNet
+@testable import Mock
 
 class DependencyProviderMockHelper: AccountsFlowCoordinatorDependencyProvider {
     func transactionsService() -> TransactionsServiceProtocol {
