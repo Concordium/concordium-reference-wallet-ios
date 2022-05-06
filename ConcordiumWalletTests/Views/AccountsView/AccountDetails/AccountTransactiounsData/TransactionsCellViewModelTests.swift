@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ProdMainNet
+@testable import Mock
 
 class TransactionsCellViewModelTests: XCTestCase {
     
@@ -27,11 +27,11 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction1.cost = cost
         
         let cellVM = TransactionCellViewModel(transactionVM: transaction1)
-        assert(cellVM.title == title)
-        assert(cellVM.total == total.displayValueWithGStroke())
-        assert(cellVM.showErrorIcon == false)
-        assert(cellVM.costColor == .primary)
-        assert(cellVM.showCostAsEstimate == true)
+        XCTAssert(cellVM.title == title)
+        XCTAssert(cellVM.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM.showErrorIcon == false)
+        XCTAssert(cellVM.costColor == .primary)
+        XCTAssert(cellVM.showCostAsEstimate == true)
         
         var transaction2 = TransactionViewModel()
         transaction2.title = title
@@ -42,11 +42,11 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction2.cost = cost
         
         let cellVM2 = TransactionCellViewModel(transactionVM: transaction2)
-        assert(cellVM.title == title)
-        assert(cellVM.total == total.displayValueWithGStroke())
-        assert(cellVM2.showErrorIcon == false)
-        assert(cellVM2.costColor == .primary)
-        assert(cellVM2.showCostAsEstimate == true)
+        XCTAssert(cellVM.title == title)
+        XCTAssert(cellVM.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM2.showErrorIcon == false)
+        XCTAssert(cellVM2.costColor == .primary)
+        XCTAssert(cellVM2.showCostAsEstimate == true)
         
         var transaction3 = TransactionViewModel()
         transaction3.title = title
@@ -56,13 +56,13 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction3.cost = cost
         
         let cellVM3 = TransactionCellViewModel(transactionVM: transaction3)
-        assert(cellVM3.title == title)
-        assert(cellVM3.total == total.displayValueWithGStroke())
-        assert(cellVM3.titleColor == .fadedText)
-        assert(cellVM3.amountColor == .fadedText)
-        assert(cellVM3.costColor == .fadedText)
-        assert(cellVM3.showCostAsEstimate == true)
-        assert(cellVM3.showStatusIcon == false)
+        XCTAssert(cellVM3.title == title)
+        XCTAssert(cellVM3.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM3.titleColor == .fadedText)
+        XCTAssert(cellVM3.amountColor == .fadedText)
+        XCTAssert(cellVM3.costColor == .fadedText)
+        XCTAssert(cellVM3.showCostAsEstimate == true)
+        XCTAssert(cellVM3.showStatusIcon == false)
 
         var transaction4 = TransactionViewModel()
         transaction4.title = title
@@ -73,9 +73,9 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction4.cost = cost
         
         let cellVM4 = TransactionCellViewModel(transactionVM: transaction4)
-        assert(cellVM4.title == title)
-        assert(cellVM4.total == total.displayValueWithGStroke())
-        assert(cellVM4.showErrorIcon == false)
+        XCTAssert(cellVM4.title == title)
+        XCTAssert(cellVM4.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM4.showErrorIcon == false)
     
         var transaction5 = TransactionViewModel()
         transaction5.title = title
@@ -86,11 +86,11 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction5.cost = cost
         
         let cellVM5 = TransactionCellViewModel(transactionVM: transaction5)
-        assert(cellVM5.title == title)
-        assert(cellVM5.total == total.displayValueWithGStroke())
-        assert(cellVM5.showErrorIcon == false)
-        assert(cellVM5.showCostAndAmount == false)
-        assert(cellVM5.totalColor == .success)
+        XCTAssert(cellVM5.title == title)
+        XCTAssert(cellVM5.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM5.showErrorIcon == false)
+        XCTAssert(cellVM5.showCostAndAmount == true)
+        XCTAssert(cellVM5.totalColor == .success)
         
         var transaction8 = TransactionViewModel()
         transaction8.title = title
@@ -100,11 +100,11 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction8.cost = cost
         
         let cellVM8 = TransactionCellViewModel(transactionVM: transaction8)
-        assert(cellVM8.title == title)
-        assert(cellVM8.total == negativeTotal.displayValueWithGStroke())
-        assert(cellVM5.showErrorIcon == false)
-        assert(cellVM8.showCostAndAmount == true)
-        assert(cellVM8.totalColor == .text)
+        XCTAssert(cellVM8.title == title)
+        XCTAssert(cellVM8.total == negativeTotal.displayValueWithGStroke())
+        XCTAssert(cellVM5.showErrorIcon == false)
+        XCTAssert(cellVM8.showCostAndAmount == true)
+        XCTAssert(cellVM8.totalColor == .text)
         
         var transaction6 = TransactionViewModel()
         transaction6.title = title
@@ -115,10 +115,10 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction6.cost = cost
         
         let cellVM6 = TransactionCellViewModel(transactionVM: transaction6)
-        assert(cellVM6.title == title)
-        assert(cellVM6.total == total.displayValueWithGStroke())
-        assert(cellVM6.titleColor == .fadedText)
-        assert(cellVM6.amountColor == .fadedText)
+        XCTAssert(cellVM6.title == title)
+        XCTAssert(cellVM6.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM6.titleColor == .fadedText)
+        XCTAssert(cellVM6.amountColor == .fadedText)
         
         var transaction7 = TransactionViewModel()
         transaction7.title = title
@@ -129,9 +129,9 @@ class TransactionsCellViewModelTests: XCTestCase {
         transaction7.cost = cost
         
         let cellVM7 = TransactionCellViewModel(transactionVM: transaction7)
-        assert(cellVM7.title == title)
-        assert(cellVM7.total == total.displayValueWithGStroke())
-        assert(cellVM7.titleColor == .fadedText)
-        assert(cellVM7.amountColor == .fadedText)
+        XCTAssert(cellVM7.title == title)
+        XCTAssert(cellVM7.total == total.displayValueWithGStroke())
+        XCTAssert(cellVM7.titleColor == .fadedText)
+        XCTAssert(cellVM7.amountColor == .fadedText)
     }
 }

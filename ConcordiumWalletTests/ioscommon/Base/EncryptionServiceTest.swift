@@ -5,7 +5,7 @@
 
 import Foundation
 import XCTest
-@testable import ProdMainNet
+@testable import Mock
 
 class EncryptionServiceTest: XCTestCase {
     func testGenerateKey() {

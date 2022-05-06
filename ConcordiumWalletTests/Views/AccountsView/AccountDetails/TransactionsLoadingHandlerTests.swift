@@ -6,7 +6,8 @@
 import Foundation
 import XCTest
 import Combine
-@testable import ProdMainNet
+
+@testable import Mock
 
 class DependencyProviderMock: DependencyProviderMockHelper {
     var transactionsServiceMock: TransSrcvMock
@@ -60,12 +61,16 @@ class TransSrcvMock: TransactionsServiceMockHelper {
     }
 
     func addMockRemoteTransaction(time: Double) {
-        let mockDetails: Details = Details(transferDestination: nil, transferAmount: nil, events: nil,
-                outcome: .success, type: nil, detailsDescription: nil, transferSource: nil, rejectReason: nil)
+        
+        let mockDetails: Details = Details(transferDestination: nil, memo: nil, transferAmount: nil, events: nil,
+                                           outcome: .success, type: nil, detailsDescription: nil, transferSource: nil,
+                                           newIndex: nil, inputEncryptedAmount: nil, newSelfEncryptedAmount: nil,
+                                           encryptedAmount: nil, aggregatedIndex: nil, amountSubtracted: nil,
+                                           rejectReason: nil, amountAdded: nil)
         transactions.append(Transaction(blockTime: time, origin: nil, energy: nil, blockHash: "",
                 cost: "0", subtotal: "0",
                 transactionHash: "", details: mockDetails,
-                total: "0", id: 0))
+                total: "0", id: 0, encrypted: nil))
         transactions.sort { $0.blockTime ?? 0 > $1.blockTime ?? 0 } // sort descending
     }
 }
@@ -84,7 +89,7 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         dp = DependencyProviderMock(transactionsServiceMock: transactionsServiceMock, storageManagerMock: storageManagerMock)
         account = AccountEntity()
         account.name = "test name"
-        sut = TransactionsLoadingHandler(account: account, dependencyProvider: dp)
+        sut = TransactionsLoadingHandler(account: account, balanceType: .balance, dependencyProvider: dp)
 
     }
 
@@ -97,15 +102,15 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .map { self.applyViewModelSorting(transactionViewModels: $0) }
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
-                    XCTAssertEqual(transactionViewModels.count, 4)
-                    XCTAssertEqual(transactionViewModels[0].date.timeIntervalSince1970, 3)
-                    XCTAssertEqual(transactionViewModels[1].date.timeIntervalSince1970, 2)
-                    XCTAssertEqual(transactionViewModels[2].date.timeIntervalSince1970, 1)
-                    XCTAssertEqual(transactionViewModels[3].date.timeIntervalSince1970, 0)
-                    expectation.fulfill()
-                })
+            .map { self.applyViewModelSorting(transactionViewModels: $0.0) }
+            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
+                XCTAssertEqual(transactionViewModels.count, 4)
+                XCTAssertEqual(transactionViewModels[0].date.timeIntervalSince1970, 3)
+                XCTAssertEqual(transactionViewModels[1].date.timeIntervalSince1970, 2)
+                XCTAssertEqual(transactionViewModels[2].date.timeIntervalSince1970, 1)
+                XCTAssertEqual(transactionViewModels[3].date.timeIntervalSince1970, 0)
+                expectation.fulfill()
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -122,14 +127,14 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .map { self.applyViewModelSorting(transactionViewModels: $0) }
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
-                    XCTAssertEqual(transactionViewModels.count, 3)
-                    XCTAssertEqual(transactionViewModels[0].date.timeIntervalSince1970, 4)
-                    XCTAssertEqual(transactionViewModels[1].date.timeIntervalSince1970, 3)
-                    XCTAssertEqual(transactionViewModels[2].date.timeIntervalSince1970, 2)
-                    expectation.fulfill()
-                })
+            .map { self.applyViewModelSorting(transactionViewModels: $0.0) }
+            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
+                XCTAssertEqual(transactionViewModels.count, 3)
+                XCTAssertEqual(transactionViewModels[0].date.timeIntervalSince1970, 4)
+                XCTAssertEqual(transactionViewModels[1].date.timeIntervalSince1970, 3)
+                XCTAssertEqual(transactionViewModels[2].date.timeIntervalSince1970, 2)
+                expectation.fulfill()
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -150,13 +155,13 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .map { self.applyViewModelSorting(transactionViewModels: $0) }
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
-                    XCTAssertEqual(transactionViewModels.count, 7)
-                    let allReturnedTimes = transactionViewModels.map { $0.date.timeIntervalSince1970 }
-                    XCTAssertEqual(allReturnedTimes, [13, 11, 9, 7, 6, 5, 4])
-                    expectation.fulfill()
-                })
+            .map { self.applyViewModelSorting(transactionViewModels: $0.0) }
+            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
+                XCTAssertEqual(transactionViewModels.count, 7)
+                let allReturnedTimes = transactionViewModels.map { $0.date.timeIntervalSince1970 }
+                XCTAssertEqual(allReturnedTimes, [13, 11, 9, 7, 6, 5, 4])
+                expectation.fulfill()
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -173,20 +178,20 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .map { self.applyViewModelSorting(transactionViewModels: $0) }
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
-                    XCTAssertEqual(transactionViewModels1.count, 2)
-                    let allReturnedTimes = transactionViewModels1.map { $0.date.timeIntervalSince1970 }
-                    XCTAssertEqual(allReturnedTimes, [12, 10])
-                    _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
-                            .map { self.applyViewModelSorting(transactionViewModels: $0, currentList: transactionViewModels1) }
-                            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
-                                XCTAssertEqual(transactionViewModels2.count, 4)
-                                let allReturnedTimes = transactionViewModels2.map { $0.date.timeIntervalSince1970 }
-                                XCTAssertEqual(allReturnedTimes, [12, 10, 8, 6])
-                                expectation.fulfill()
-                            })
-                })
+            .map { self.applyViewModelSorting(transactionViewModels: $0.0) }
+            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
+                XCTAssertEqual(transactionViewModels1.count, 2)
+                let allReturnedTimes = transactionViewModels1.map { $0.date.timeIntervalSince1970 }
+                XCTAssertEqual(allReturnedTimes, [12, 10])
+                _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
+                    .map { self.applyViewModelSorting(transactionViewModels: $0.0, currentList: transactionViewModels1) }
+                    .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
+                        XCTAssertEqual(transactionViewModels2.count, 4)
+                        let allReturnedTimes = transactionViewModels2.map { $0.date.timeIntervalSince1970 }
+                        XCTAssertEqual(allReturnedTimes, [12, 10, 8, 6])
+                        expectation.fulfill()
+                    })
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -210,20 +215,20 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .map { self.applyViewModelSorting(transactionViewModels: $0) }
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
-                    XCTAssertEqual(transactionViewModels1.count, 4)
-                    let allReturnedTimes = transactionViewModels1.map { $0.date.timeIntervalSince1970 }
-                    XCTAssertEqual(allReturnedTimes, [13, 12, 11, 10])
-                    _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
-                            .map { self.applyViewModelSorting(transactionViewModels: $0, currentList: transactionViewModels1) }
-                            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
-                                XCTAssertEqual(transactionViewModels2.count, 8)
-                                let allReturnedTimes = transactionViewModels2.map { $0.date.timeIntervalSince1970 }
-                                XCTAssertEqual(allReturnedTimes, [13, 12, 11, 10, 9, 8, 7, 6])
-                                expectation.fulfill()
-                            })
-                })
+            .map { self.applyViewModelSorting(transactionViewModels: $0.0) }
+            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
+                XCTAssertEqual(transactionViewModels1.count, 4)
+                let allReturnedTimes = transactionViewModels1.map { $0.date.timeIntervalSince1970 }
+                XCTAssertEqual(allReturnedTimes, [13, 12, 11, 10])
+                _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
+                    .map { self.applyViewModelSorting(transactionViewModels: $0.0, currentList: transactionViewModels1) }
+                    .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
+                        XCTAssertEqual(transactionViewModels2.count, 8)
+                        let allReturnedTimes = transactionViewModels2.map { $0.date.timeIntervalSince1970 }
+                        XCTAssertEqual(allReturnedTimes, [13, 12, 11, 10, 9, 8, 7, 6])
+                        expectation.fulfill()
+                    })
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -236,12 +241,12 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels in
-                    XCTAssertEqual(transactionViewModels.count, 2)
-                    XCTAssertEqual(transactionViewModels[0].isLast, false)
-                    XCTAssertEqual(transactionViewModels[1].isLast, true)
-                    expectation.fulfill()
-                })
+            .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels, _) in
+                XCTAssertEqual(transactionViewModels.count, 2)
+                XCTAssertEqual(transactionViewModels[0].isLast, false)
+                XCTAssertEqual(transactionViewModels[1].isLast, true)
+                expectation.fulfill()
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -255,19 +260,19 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
-                    XCTAssertEqual(transactionViewModels1.count, 3)
-                    XCTAssertEqual(transactionViewModels1[0].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[1].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[2].isLast, false)
-                    _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
-                            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
-                                XCTAssertEqual(transactionViewModels2.count, 0)
-                                // 'isLast' must be set in the shown array when no elements are returned
-                                // - therefore, nothing extra to check here
-                                expectation.fulfill()
-                            })
-                })
+            .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels1, _) in
+                XCTAssertEqual(transactionViewModels1.count, 3)
+                XCTAssertEqual(transactionViewModels1[0].isLast, false)
+                XCTAssertEqual(transactionViewModels1[1].isLast, false)
+                XCTAssertEqual(transactionViewModels1[2].isLast, false)
+                _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
+                    .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels2, _) in
+                        XCTAssertEqual(transactionViewModels2.count, 0)
+                        // 'isLast' must be set in the shown array when no elements are returned
+                        // - therefore, nothing extra to check here
+                        expectation.fulfill()
+                    })
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -281,17 +286,17 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
-                    XCTAssertEqual(transactionViewModels1.count, 2)
-                    XCTAssertEqual(transactionViewModels1[0].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[1].isLast, false)
-                    _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
-                            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
-                                XCTAssertEqual(transactionViewModels2.count, 1)
-                                XCTAssertEqual(transactionViewModels2[0].isLast, true)
-                                expectation.fulfill()
-                            })
-                })
+            .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels1, _) in
+                XCTAssertEqual(transactionViewModels1.count, 2)
+                XCTAssertEqual(transactionViewModels1[0].isLast, false)
+                XCTAssertEqual(transactionViewModels1[1].isLast, false)
+                _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
+                    .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels2, _) in
+                        XCTAssertEqual(transactionViewModels2.count, 1)
+                        XCTAssertEqual(transactionViewModels2[0].isLast, true)
+                        expectation.fulfill()
+                    })
+            })
 
         wait(for: [expectation], timeout: 1)
     }
@@ -306,26 +311,26 @@ class TransactionsLoadingHandlerTests: XCTestCase {
         storageManagerMock.addMockLocalTransaction(time: 3)
 
         transactionsServiceMock.limit = 2 // only return the first two elements
-
+        
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
-                    XCTAssertEqual(transactionViewModels1.count, 4)
-                    XCTAssertEqual(transactionViewModels1[0].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[1].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[2].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[3].isLast, false)
-                    XCTAssertEqual(transactionViewModels1.map { $0.date.timeIntervalSince1970 }, [7, 6, 5, 4])
-                    _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
-                            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
-                                XCTAssertEqual(transactionViewModels2.map { $0.date.timeIntervalSince1970 }, [3, 2])
-                                XCTAssertEqual(transactionViewModels2.count, 2)
-                                XCTAssertEqual(transactionViewModels2[0].isLast, false)
-                                XCTAssertEqual(transactionViewModels2[1].isLast, true)
-                                expectation.fulfill()
-                            })
-                })
-
+            .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels1, _) in
+                XCTAssertEqual(transactionViewModels1.count, 4)
+                XCTAssertEqual(transactionViewModels1[0].isLast, false)
+                XCTAssertEqual(transactionViewModels1[1].isLast, false)
+                XCTAssertEqual(transactionViewModels1[2].isLast, false)
+                XCTAssertEqual(transactionViewModels1[3].isLast, false)
+                XCTAssertEqual(transactionViewModels1.map { $0.date.timeIntervalSince1970 }, [7, 6, 5, 4])
+                _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
+                    .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels2, _) in
+                        XCTAssertEqual(transactionViewModels2.map { $0.date.timeIntervalSince1970 }, [3, 2])
+                        XCTAssertEqual(transactionViewModels2.count, 2)
+                        XCTAssertEqual(transactionViewModels2[0].isLast, false)
+                        XCTAssertEqual(transactionViewModels2[1].isLast, true)
+                        expectation.fulfill()
+                    })
+            })
+        
         wait(for: [expectation], timeout: 1)
     }
 
@@ -342,31 +347,31 @@ class TransactionsLoadingHandlerTests: XCTestCase {
 
         let expectation = self.expectation(description: "waiting publisher finish")
         _ = sut.getTransactions()
-                .sink(receiveError: { _ in }, receiveValue: { transactionViewModels1 in
-                    XCTAssertEqual(transactionViewModels1.count, 3)
-                    XCTAssertEqual(transactionViewModels1[0].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[1].isLast, false)
-                    XCTAssertEqual(transactionViewModels1[2].isLast, false)
-                    XCTAssertEqual(transactionViewModels1.map { $0.date.timeIntervalSince1970 }, [6, 5, 4])
-                    _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
-                            .sink(receiveError: { _ in }, receiveValue: { transactionViewModels2 in
-                                XCTAssertEqual(transactionViewModels2.map { $0.date.timeIntervalSince1970 }, [3, 2, 1])
-                                XCTAssertEqual(transactionViewModels2.count, 3)
-                                XCTAssertEqual(transactionViewModels2[0].isLast, false)
-                                XCTAssertEqual(transactionViewModels2[1].isLast, false)
-                                XCTAssertEqual(transactionViewModels2[2].isLast, true)
-//                                XCTAssertEqual(transactionViewModels2[3].isLast, true)
-//                                XCTAssertEqual(transactionViewModels2[3].date.timeIntervalSince1970, 1)
-                                expectation.fulfill()
-                            })
-                })
+            .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels1, _) in
+                XCTAssertEqual(transactionViewModels1.count, 3)
+                XCTAssertEqual(transactionViewModels1[0].isLast, false)
+                XCTAssertEqual(transactionViewModels1[1].isLast, false)
+                XCTAssertEqual(transactionViewModels1[2].isLast, false)
+                XCTAssertEqual(transactionViewModels1.map { $0.date.timeIntervalSince1970 }, [6, 5, 4])
+                _ = self.sut.getTransactions(startingFrom: transactionViewModels1.last)
+                    .sink(receiveError: { _ in }, receiveValue: { (transactionViewModels2, _) in
+                        XCTAssertEqual(transactionViewModels2.map { $0.date.timeIntervalSince1970 }, [3, 2, 1])
+                        XCTAssertEqual(transactionViewModels2.count, 3)
+                        XCTAssertEqual(transactionViewModels2[0].isLast, false)
+                        XCTAssertEqual(transactionViewModels2[1].isLast, false)
+                        XCTAssertEqual(transactionViewModels2[2].isLast, true)
+                        //                                XCTAssertEqual(transactionViewModels2[3].isLast, true)
+                        //                                XCTAssertEqual(transactionViewModels2[3].date.timeIntervalSince1970, 1)
+                        expectation.fulfill()
+                    })
+            })
 
         wait(for: [expectation], timeout: 1)
     }
 
     private func applyViewModelSorting(transactionViewModels: [TransactionViewModel],
                                        currentList: [TransactionViewModel] = []) -> [TransactionViewModel] {
-        let accountDetailsViewModel = AccountDetailsViewModel(account: self.account)
+        let accountDetailsViewModel = AccountDetailsViewModel(account: self.account, balanceType: .balance)
         accountDetailsViewModel.appendTransactions(transactions: currentList)
         accountDetailsViewModel.appendTransactions(transactions: transactionViewModels)
         return accountDetailsViewModel.transactionsList.transactions

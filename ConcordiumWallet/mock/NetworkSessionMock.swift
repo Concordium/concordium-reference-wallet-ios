@@ -23,7 +23,10 @@ class NetworkSessionMock: NetworkSession {
                       ApiConstants.accNonce: "3.1.2.RX_backend_accNonce",
                       ApiConstants.transferCost: "2.5.2.RX_backend_transferCost",
                       ApiConstants.submitTransfer: "3.3.2.RX_backend_submitTransfer",
-                      ApiConstants.accountTransactions: "4.2.2.RX_backend_accTransactions_mock"]
+                      ApiConstants.accountTransactions: "4.2.2.RX_backend_accTransactions_mock",
+                      ApiConstants.accEncryptionKey: "4.3.2.RX_backend_accEncryptionKey",
+                      ApiConstants.bakerPool: "5.1.2.RX_backend_baker_pool",
+                      ApiConstants.chainParameters: "5.2.2.RX_backend_chain_parameters"]
 
     func load(request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLSession.DataTaskPublisher.Failure> {
         if overwriteMockFilesWithServerData {return loadFromServerAndOverwriteWithReceivedData(request: request)}
