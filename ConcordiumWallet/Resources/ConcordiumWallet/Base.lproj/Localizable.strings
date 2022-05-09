@@ -635,6 +635,11 @@ You can however already change your target pool via the delegation status menu, 
 Affected delegator accounts:\n%@";
 "delegation.closewarning.remindmeaction" = "Remind me next time I open the wallet";
 
+"baking.menu.updatebakerstake" = "Update baker stake";
+"baking.menu.updatepoolsettings" = "Update pool settings";
+"baking.menu.updatebakerkeys" = "Update baker keys";
+"baking.menu.stopbaking" = "Stop baking";
+
 "baking.inputamount.balance" = "Balance:";
 "baking.inputamount.bakerstake" = "Baker stake:";
 "baking.inputamount.bottommessage" = "Do you want to automatically add your baking rewards to your baker stake?
@@ -751,8 +756,12 @@ Remember to restart your node with the baker keys.";
 "baking.receiptregister.ok" = "Okay";
 "baking.cooldownperiod.format" = "%@ days";
 
+"baking.receipt.bakeraccount" = "Baker account";
 "baking.receipt.accountcreate" = "Account to register as baker";
 "baking.receipt.accountupdate" = "Account to make baker update";
+"baking.receipt.accountstop" = "Account to stop baking";
+"baking.receipt.bakerid" = "Baker ID";
+"baking.receipt.bakeramount" = "Baker stake";
 "baking.receipt.poolstatus" = "Delegation pool status";
 "baking.receipt.bakerstake" = "Baker stake";
 "baking.receipt.metadataurl" = "Metadata URL";
@@ -761,6 +770,22 @@ Remember to restart your node with the baker keys.";
 "baking.receipt.aggregationverifykey" = "Aggregation verify key";
 "baking.receipt.addedtostake" = "Added to stake";
 "baking.receipt.notaddedtostake" = "Added to disposable amount";
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
 
 
 "onboardingcarousel.registerbaker.title" = "Become a baker";
@@ -826,3 +851,9 @@ Remember to restart your node with the baker keys.";
 "delegation.status.delegationwillstop" = "The delegation will be stopped, and the delegation amount will be unlocked on the public balance of the account.";
 "delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking on %@";
 "delegation.graceperiod.format" = "%d days";
+
+"baking.status.title" = "Baker status";
+"baking.status.registered.header" = "Your baker is registered";
+"baking.status.waiting.header" = "Waiting for baker transaction to finalize";
+"baking.status.waiting.placeholder" = "Waiting for transaction to finalize";
+"baking.status.updatebutton" = "Update baker settings";

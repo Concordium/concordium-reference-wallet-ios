@@ -39,7 +39,7 @@ class SendFundViewModel {
             showMemoAndRecipient = false
         case .registerDelegation, .removeDelegation, .updateDelegation:
             break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             break
         }
         
@@ -73,7 +73,7 @@ class SendFundViewModel {
             buttonTitle = "sendFund.buttonTitle.shieldAmount".localized
         case .registerDelegation, .removeDelegation, .updateDelegation:
             break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             break
         }
     }
@@ -97,7 +97,7 @@ class SendFundViewModel {
             disposalAmount = GTU(intValue: account.finalizedEncryptedBalance)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             break
         }
     }

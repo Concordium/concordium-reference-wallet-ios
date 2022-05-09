@@ -11,7 +11,7 @@ import Combine
 
 protocol BakerAmountInputPresenterDelegate: AnyObject {
     func finishedAmountInput(dataHandler: StakeDataHandler)
-    func switchToRemoveBaker(cost: GTU, energy: Int)
+    func switchToRemoveBaker()
     func pressedClose()
 }
 
@@ -54,7 +54,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         
         viewModel.setup(
             account: account,
-            currentAmount: dataHandler.getCurrentEntry(AmountData.self)?.amount,
+            currentAmount: dataHandler.getCurrentEntry(BakerAmountData.self)?.amount,
             currentRestakeValue: dataHandler.getCurrentEntry(RestakeBakerData.self)?.restake,
             isInCooldown: account.baker?.isInCooldown ?? false
         )
@@ -68,7 +68,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     return nil
                 }
                 
-                self.dataHandler.add(entry: AmountData(amount: amount))
+                self.dataHandler.add(entry: BakerAmountData(amount: amount))
                 self.dataHandler.add(entry: RestakeBakerData(restake: restake))
                 
                 return self.dataHandler.getCostParameters()
@@ -134,6 +134,13 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             } receiveValue: { [weak self] chainParameters in
                 self?.validator.minimumValue = GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0)
+                self?.dataHandler.add(
+                    entry: BakerComissionData(
+                        bakingRewardComission: chainParameters.bakingCommissionRange.max,
+                        finalizationRewardComission: chainParameters.finalizationCommissionRange.max,
+                        transactionComission: chainParameters.transactionCommissionRange.max
+                    )
+                )
             }
             .store(in: &cancellables)
     }
@@ -143,15 +150,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             guard let self = self else { return }
             
             if self.dataHandler.isNewAmountZero() {
-                self.transactionService.getTransferCost(transferType: .removeBaker, costParameters: [])
-                    .showLoadingIndicator(in: self.view)
-                    .sink { [weak self] error in
-                        self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                    } receiveValue: { [weak self] transferCost in
-                        let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
-                        self?.delegate?.switchToRemoveBaker(cost: cost, energy: transferCost.energy)
-                    }
-                    .store(in: &self.cancellables)
+                self.delegate?.switchToRemoveBaker()
             } else {
                 self.delegate?.finishedAmountInput(dataHandler: self.dataHandler)
             }
