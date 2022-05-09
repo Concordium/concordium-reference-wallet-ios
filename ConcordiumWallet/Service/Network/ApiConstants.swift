@@ -44,6 +44,7 @@ struct ApiConstants {
     
     static let bakerPool = proxyUrl.appendingPathComponent("/v0/bakerPool")
     static let chainParameters = proxyUrl.appendingPathComponent("/v0/chainParameters")
+    static let passiveDelegation = proxyUrl.appendingPathComponent("/v0/passiveDelegation")
     
     /// Generate a callback URI associated with an identifier
     static func callbackUri(with identityCreationID: String) -> String {
