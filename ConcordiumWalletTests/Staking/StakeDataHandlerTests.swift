@@ -201,7 +201,7 @@ class StakeDataHandlerTests: XCTestCase {
         let account = testAccount
         let dataHandler = BakerDataHandler(account: account, action: .updatePoolSettings(baker, poolInfo))
         
-        XCTAssert(dataHandler.getAllOrdered().contains { $0.key == "Metadata URL" && $0.value == "No changes" })
+        XCTAssert(!dataHandler.getAllOrdered().contains { $0.key == "Metadata URL" })
         
         dataHandler.add(entry: BakerMetadataURLData(metadataURL: ""))
         
