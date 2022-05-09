@@ -16,17 +16,20 @@ class NetworkSessionMock: NetworkSession {
      */
     let overwriteMockFilesWithServerData = false
 
-    let urlMapping = [ApiConstants.ipInfo: "1.1.2.RX-backend_identity_provider_info",
-                      ApiConstants.global: "2.1.2.RX-backend_global",
-                      ApiConstants.submitCredential: "2.3.2.RX_backend_submitCredential",
-                      ApiConstants.submissionStatus: "2.4.2.RX_backend_submissionStatus",
-                      ApiConstants.accNonce: "3.1.2.RX_backend_accNonce",
-                      ApiConstants.transferCost: "2.5.2.RX_backend_transferCost",
-                      ApiConstants.submitTransfer: "3.3.2.RX_backend_submitTransfer",
-                      ApiConstants.accountTransactions: "4.2.2.RX_backend_accTransactions_mock",
-                      ApiConstants.accEncryptionKey: "4.3.2.RX_backend_accEncryptionKey",
-                      ApiConstants.bakerPool: "5.1.2.RX_backend_baker_pool",
-                      ApiConstants.chainParameters: "5.2.2.RX_backend_chain_parameters"]
+    let urlMapping = [
+        ApiConstants.ipInfo: "1.1.2.RX-backend_identity_provider_info",
+        ApiConstants.global: "2.1.2.RX-backend_global",
+        ApiConstants.submitCredential: "2.3.2.RX_backend_submitCredential",
+        ApiConstants.submissionStatus: "2.4.2.RX_backend_submissionStatus",
+        ApiConstants.accNonce: "3.1.2.RX_backend_accNonce",
+        ApiConstants.transferCost: "2.5.2.RX_backend_transferCost",
+        ApiConstants.submitTransfer: "3.3.2.RX_backend_submitTransfer",
+        ApiConstants.accountTransactions: "4.2.2.RX_backend_accTransactions_mock",
+        ApiConstants.accEncryptionKey: "4.3.2.RX_backend_accEncryptionKey",
+        ApiConstants.bakerPool: "5.1.2.RX_backend_baker_pool",
+        ApiConstants.chainParameters: "5.2.2.RX_backend_chain_parameters",
+        ApiConstants.passiveDelegation: "5.4.2.RX_backend_passiveDelegation"
+    ]
 
     func load(request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLSession.DataTaskPublisher.Failure> {
         if overwriteMockFilesWithServerData {return loadFromServerAndOverwriteWithReceivedData(request: request)}
