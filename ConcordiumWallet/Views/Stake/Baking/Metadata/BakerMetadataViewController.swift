@@ -68,7 +68,7 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
             .assign(to: \.text, on: textLabel)
             .store(in: &cancellables)
         
-        viewModel.$currentValue
+        viewModel.$currentValueLabel
             .assign(to: \.text, on: currentValueLabel)
             .store(in: &cancellables)
         

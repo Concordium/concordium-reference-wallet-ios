@@ -187,6 +187,31 @@ class StakeDataHandlerTests: XCTestCase {
         )
     }
     
+    func testUpdatePoolSettingsMetadataDisplayValues() {
+        let poolInfo = PoolInfo(
+            commissionRates: CommissionRates(
+                transactionCommission: 0.5,
+                finalizationCommission: 1.0,
+                bakingCommission: 1.5
+            ),
+            openStatus: "openForAll",
+            metadataURL: "https://example.com"
+        )
+        let baker = TestBaker(stakedAmount: 125, restakeEarnings: true, pendingChange: nil)
+        let account = testAccount
+        let dataHandler = BakerDataHandler(account: account, action: .updatePoolSettings(baker, poolInfo))
+        
+        XCTAssert(dataHandler.getAllOrdered().contains { $0.key == "Metadata URL" && $0.value == "No changes" })
+        
+        dataHandler.add(entry: BakerMetadataURLData(metadataURL: ""))
+        
+        XCTAssert(dataHandler.getAllOrdered().contains { $0.key == "Metadata URL" && $0.value == "Metadata URL removed" })
+        
+        dataHandler.add(entry: BakerMetadataURLData(metadataURL: "https://newurl.com"))
+        
+        XCTAssert(dataHandler.getAllOrdered().contains { $0.key == "Metadata URL" && $0.value == "https://newurl.com" })
+    }
+    
     func testUpdateBakerKeys() {
         let poolInfo = PoolInfo(
             commissionRates: CommissionRates(
