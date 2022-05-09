@@ -49,7 +49,13 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
     
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: BurgerMenuViewModel.Action) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BurgerMenuOptionCell", for: indexPath) as? BurgerMenuOptionCell
-        cell?.setup(cellRow: indexPath.row, title: viewModel.displayName, destructive: viewModel.destructive, delegate: self)
+        cell?.setup(
+            cellRow: indexPath.row,
+            title: viewModel.displayName,
+            destructive: viewModel.destructive,
+            enabled: viewModel.enabled,
+            delegate: self
+        )
         return cell
     }
     

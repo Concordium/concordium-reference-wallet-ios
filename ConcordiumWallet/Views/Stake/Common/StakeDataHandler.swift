@@ -163,7 +163,9 @@ extension AccountValue {
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         return []
     }
-    func add(to transaction: inout TransferDataType) {}
+    func add(to transaction: inout TransferDataType) {
+        transaction.fromAddress = accountAddress
+    }
 }
 
 struct StakeData: Hashable {
@@ -253,11 +255,17 @@ struct BakerMetadataURLData: SimpleFieldValue {
     let field = Field.bakerMetadataURL
     let metadataURL: String
     
-    var displayValue: String { metadataURL }
+    var displayValue: String {
+        if metadataURL.isEmpty {
+            return "baking.receipt.metadataurl.removed".localized
+        } else {
+            return metadataURL
+        }
+    }
         
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateBakerPool || type == .configureBaker {
-            return [.metadataSize(metadataURL.utf8.count)]
+            return [.metadataSize(metadataURL.count)]
         } else {
             return []
         }
@@ -581,12 +589,12 @@ class StakeDataHandler {
     func getCurrentWarning(atDisposal balance: Int) -> StakeWarning? {
         if !containsChanges() {
             return .noChanges
+        } else if isNewAmountZero() {
+            return .amountZero
         } else if isLoweringStake() {
             return .loweringStake
         } else if moreThan95(atDisposal: balance) {
             return .moreThan95
-        } else if isNewAmountZero() {
-            return .amountZero
         } else {
             return nil
         }
@@ -643,9 +651,11 @@ class StakeDataHandler {
         }.reduce([], +)
     }
     
-    func getTransferObject() -> TransferDataType {
+    func getTransferObject(cost: GTU, energy: Int) -> TransferDataType {
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = transferType
+        transfer.cost = String(cost.intValue)
+        transfer.energy = energy
         data.forEach { data in
             data.value.add(to: &transfer)
         }

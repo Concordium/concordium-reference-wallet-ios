@@ -28,6 +28,7 @@ DECRYPT_AMOUNT_JSON="../ConcordiumWallet/mock/4.4.1.TX_lib_decrypt_encrypted_amo
 BAKER_POOL_JSON="../ConcordiumWallet/mock/5.1.2.RX_backend_baker_pool.json"
 CHAIN_PARAMETERS_JSON="../ConcordiumWallet/mock/5.2.2.RX_backend_chain_parameters.json"
 GENERATED_BAKER_KEYS_JSON="../ConcordiumWallet/mock/5.3.2.RX_generate_baker_keys.json"
+PASSIVE_DELEGATION_JSON="../ConcordiumWallet/mock/5.4.2.RX_backend_passiveDelegation.json"
 
 GENERATE_ACCOUNTS_JSON="../ConcordiumWallet/mock/4.5.1.TX_lib_generate_accounts.json"
 GENERATE_ACCOUNTS_RESPONSE_JSON="../ConcordiumWallet/mock/4.5.2.RX_lib_generate_accounts.json"
@@ -136,6 +137,7 @@ cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optiona
 cat $BAKER_POOL_JSON | quicktype --multi-file-output --density normal -o $DEST/baker_pool_response.swift
 cat $CHAIN_PARAMETERS_JSON | quicktype --multi-file-output --density normal -o $DEST/chain_parameters_response.swift
 cat $GENERATED_BAKER_KEYS_JSON | quicktype --multi-file-output --density normal -o $DEST/generated_baker_keys.swift
+cat $PASSIVE_DELEGATION_JSON | quicktype --multi-file-output --density normal -o $DEST/passive_delegation.swift
 replaceType "BakerStakePendingChange.bakerEquityCapital: String" "bakerEquityCapital: String?"
 replaceType "EuroPerEnergy.Int" "UInt64"
 replaceType "BakerStakePendingChange.effectiveTime: String" "effectiveTime: String?"

@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol BakerPoolSettingsViewProtocol: AnyObject {
+protocol BakerPoolSettingsViewProtocol: ShowAlert {
     func bind(viewModel: BakerPoolSettingsViewModel)
     var poolSettingPublisher: PassthroughSubject<Int, Error> { get }
 }

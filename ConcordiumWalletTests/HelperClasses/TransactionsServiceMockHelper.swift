@@ -6,20 +6,31 @@
 import Foundation
 import Combine
 
-@testable import ProdMainNet
+@testable import Mock
 
 class TransactionsServiceMockHelper: TransactionsServiceProtocol {
-    func performTransfer(_ pTransfer: TransferDataType,
-                         from account: AccountDataType,
-                         requestPasswordDelegate: RequestPasswordDelegate) -> Combine.AnyPublisher<TransferDataType, Error> {
-        fatalError("performTransfer(_:from:requestPasswordDelegate:) has not been implemented")
+    func performTransfer(
+        _ pTransfer: TransferDataType,
+        from account: AccountDataType,
+        bakerKeys: GeneratedBakerKeys?,
+        requestPasswordDelegate: RequestPasswordDelegate
+    ) -> AnyPublisher<TransferDataType, Error> {
+        NYI()
     }
-
+    
+    func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
+        NYI()
+    }
+    
+    func decryptEncryptedTransferAmounts(
+        transactions: [Transaction],
+        from account: AccountDataType,
+        requestPasswordDelegate: RequestPasswordDelegate
+    ) -> AnyPublisher<[(String, Int)], Error> {
+        NYI()
+    }
+    
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> Combine.AnyPublisher<RemoteTransactions, Error> {
-        fatalError("getTransactions(for:startingFrom:) has not been implemented")
-    }
-
-    func getTransferCost(transferType: TransferType) -> Combine.AnyPublisher<TransferCost, Error> {
-        fatalError("getTransferCost() has not been implemented")
+        NYI()
     }
 }

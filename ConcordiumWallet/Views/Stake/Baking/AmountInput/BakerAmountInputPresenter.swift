@@ -60,9 +60,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         )
     }
     
-    private lazy var costRangeResult = {
-        viewModel.$isRestakeSelected
-            .combineLatest(viewModel.gtuAmount)
+    private lazy var costRangeResult: AnyPublisher<Result<TransferCostRange, Error>, Never> = {
+        let currentAmount = dataHandler.getCurrentEntry(BakerAmountData.self)?.amount
+        let isOnCooldown = account.baker?.isInCooldown ?? false
+        
+        return viewModel.$isRestakeSelected
+            .combineLatest(viewModel.gtuAmount(currentAmount: currentAmount, isOnCooldown: isOnCooldown))
             .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
                 guard let self = self else {
                     return nil
@@ -87,6 +90,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     .asResult()
                     .eraseToAnyPublisher()
             }
+            .eraseToAnyPublisher()
     }()
     
     func viewDidLoad() {
@@ -100,7 +104,10 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .assignNoRetain(to: \.transactionFee, on: viewModel)
             .store(in: &cancellables)
         
-        viewModel.gtuAmount
+        viewModel.gtuAmount(
+            currentAmount: dataHandler.getCurrentEntry(BakerAmountData.self)?.amount,
+            isOnCooldown: account.baker?.isInCooldown ?? false
+        )
             .combineLatest(costRangeResult)
             .map { [weak self] (amount, rangeResult) -> Result<GTU, StakeError> in
                 guard let self = self else {
@@ -126,23 +133,62 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .store(in: &cancellables)
     }
     
+    private struct RemoteParameters {
+        let minimumValue: GTU
+        let maximumValue: GTU
+        let comissionData: BakerComissionData
+    }
+    
     private func loadPoolParameters() {
-        stakeService.getChainParameters()
-            .first()
+        let passiveDelegationRequest = stakeService.getPassiveDelegation()
+        let chainParametersRequest = stakeService.getChainParameters()
+        let delegatedCapital = Just(account.baker?.bakerID)
+            .setFailureType(to: Error.self)
+            .flatMap { [weak self] bakerId -> AnyPublisher<GTU, Error> in
+                guard let self = self, let bakerId = bakerId else {
+                    return .just(GTU.zero)
+                }
+                
+                return self.stakeService.getBakerPool(bakerId: bakerId)
+                    .map { bakerPool in
+                        GTU(intValue: Int(bakerPool.delegatedCapital) ?? 0)
+                    }
+                    .eraseToAnyPublisher()
+            }
+        
+        passiveDelegationRequest
+            .combineLatest(chainParametersRequest, delegatedCapital)
+            .asResult()
             .showLoadingIndicator(in: self.view)
-            .sink { [weak self] error in
-                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            } receiveValue: { [weak self] chainParameters in
-                self?.validator.minimumValue = GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0)
-                self?.dataHandler.add(
-                    entry: BakerComissionData(
-                        bakingRewardComission: chainParameters.bakingCommissionRange.max,
-                        finalizationRewardComission: chainParameters.finalizationCommissionRange.max,
-                        transactionComission: chainParameters.transactionCommissionRange.max
+            .sink { [weak self] (result) in
+                self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, delegatedCapital) in
+                    let totalCapital = Int(passiveDelegation.allPoolTotalCapital) ?? 0
+                    // We make sure to first convert capitalBound to an Int so we don't have to do floating point arithmetic
+                    let availableCapital = totalCapital - (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - delegatedCapital.intValue
+                    
+                    return RemoteParameters(
+                        minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),
+                        maximumValue: GTU(intValue: availableCapital),
+                        comissionData: BakerComissionData(
+                            bakingRewardComission: chainParameters.bakingCommissionRange.max,
+                            finalizationRewardComission: chainParameters.finalizationCommissionRange.max,
+                            transactionComission: chainParameters.transactionCommissionRange.max
+                        )
                     )
-                )
+                })
             }
             .store(in: &cancellables)
+    }
+    
+    private func handleParametersResult(_ result: Result<RemoteParameters, Error>) {
+        switch result {
+        case let .failure(error):
+            self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+        case let .success(parameters):
+            self.validator.minimumValue = parameters.minimumValue
+            self.validator.maximumValue = parameters.maximumValue
+            self.dataHandler.add(entry: parameters.comissionData)
+        }
     }
     
     func pressedContinue() {
@@ -180,11 +226,7 @@ private extension StakeWarning {
     func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
         switch self {
         case .noChanges:
-            let okAction = AlertAction(name: "baking.nochanges.ok".localized, completion: nil, style: .default)
-            
-            return AlertOptions(title: "baking.nochanges.title".localized,
-                                            message: "baking.nochanges.message".localized,
-                                            actions: [okAction])
+            return BakingAlerts.noChanges
         case .loweringStake:
             return nil
         case .moreThan95:
@@ -212,8 +254,14 @@ private extension TransferCostRange {
 }
 
 private extension StakeAmountInputViewModel {
-    var gtuAmount: Publishers.Map<Published<String>.Publisher, GTU> {
-        $amount.map { GTU(displayValue: $0) }
+    func gtuAmount(currentAmount: GTU?, isOnCooldown: Bool) -> Publishers.Map<Published<String>.Publisher, GTU> {
+        return $amount.map { amountString in
+            if let currentAmount = currentAmount, isOnCooldown {
+                return currentAmount
+            } else {
+                return GTU(displayValue: amountString)
+            }
+        }
     }
     
     func setup(

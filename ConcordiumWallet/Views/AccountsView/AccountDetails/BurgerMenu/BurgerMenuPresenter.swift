@@ -10,22 +10,26 @@ import Foundation
 
 protocol BurgerMenuAction {
     var destructive: Bool { get }
+    var enabled: Bool { get }
     
     func getDisplayName() -> String
 }
 
 extension BurgerMenuAction {
     var destructive: Bool { false }
+    var enabled: Bool { true }
 }
 
 class BurgerMenuViewModel {
     struct Action: Hashable {
         let displayName: String
         let destructive: Bool
+        let enabled: Bool
         
         init(burgerMenuAction: BurgerMenuAction) {
             displayName = burgerMenuAction.getDisplayName()
             destructive = burgerMenuAction.destructive
+            enabled = burgerMenuAction.enabled
         }
         
         func hash(into hasher: inout Hasher) {

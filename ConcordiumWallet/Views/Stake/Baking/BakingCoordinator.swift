@@ -38,7 +38,7 @@ class BakingCoordinator: Coordinator {
     func start() {
         if let currentSettings = account.baker {
             showStatus(status: .registered(currentSettings: currentSettings))
-        } else if !dependencyProvider.storageManager().getTransfers(for: account.address).filter({ $0.transferType == .registerBaker }).isEmpty {
+        } else if !dependencyProvider.storageManager().hasPendingBakerRegistration(for: account.address) {
             showStatus(status: .pendingRegistration)
         } else {
             showCarousel(
@@ -225,11 +225,19 @@ extension BakingCoordinator: BakingOnboardingCoordinatorDelegate {
 
 extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
     func finishedPoolSettings(dataHandler: StakeDataHandler) {
-        if case .open = dataHandler.getNewEntry(BakerPoolSettingsData.self)?.poolSettings {
+        switch dataHandler.transferType {
+        case .registerBaker:
+            if case .open = dataHandler.getNewEntry(BakerPoolSettingsData.self)?.poolSettings {
+                showMetadataUrl(dataHandler: dataHandler)
+            } else {
+                showGenerateKey(dataHandler: dataHandler)
+            }
+        case .updateBakerPool:
             showMetadataUrl(dataHandler: dataHandler)
-        } else {
-            showGenerateKey(dataHandler: dataHandler)
+        default:
+            break
         }
+        
     }
     
     func closedPoolSettings() {
@@ -297,3 +305,11 @@ extension BakingCoordinator: BakerPoolReceiptPresenterDelegate {
 }
 
 extension BakingCoordinator: RequestPasswordDelegate {}
+
+private extension StorageManagerProtocol {
+    func hasPendingBakerRegistration(for account: String) -> Bool {
+        getTransfers(for: account)
+            .filter { $0.transferType == .registerBaker && ($0.transactionStatus == .received || $0.transactionStatus == .committed) }
+            .isEmpty
+    }
+}
