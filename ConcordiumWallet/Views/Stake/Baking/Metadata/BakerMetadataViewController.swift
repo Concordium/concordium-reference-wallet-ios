@@ -10,8 +10,7 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol BakerMetadataViewProtocol: AnyObject {
-    var metadataPublisher: AnyPublisher<String, Never> { get }
+protocol BakerMetadataViewProtocol: ShowAlert {
     func bind(viewModel: BakerMetadataViewModel)
 }
 
@@ -29,10 +28,6 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
     @IBOutlet weak var metadataTextField: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    var metadataPublisher: AnyPublisher<String, Never> {
-        return metadataTextField.textPublisher
-            .eraseToAnyPublisher()
-    }
     private var cancellables = Set<AnyCancellable>()
     
 	var presenter: BakerMetadataPresenterProtocol
@@ -75,6 +70,12 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
         
         viewModel.$currentValue
             .assign(to: \.text, on: currentValueLabel)
+            .store(in: &cancellables)
+        
+        metadataTextField.text = viewModel.currentValue
+        
+        metadataTextField.textPublisher
+            .assignNoRetain(to: \.currentValue, on: viewModel)
             .store(in: &cancellables)
     }
     

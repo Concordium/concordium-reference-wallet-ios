@@ -352,5 +352,6 @@ extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
     func finishedBakingCoordinator() {
         navigationController.dismiss(animated: true)
         self.childCoordinators.removeAll { $0 is BakingCoordinator }
+        refreshTransactionList()
     }
 }

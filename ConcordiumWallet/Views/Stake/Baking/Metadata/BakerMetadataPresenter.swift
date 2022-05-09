@@ -25,14 +25,17 @@ protocol BakerMetadataPresenterDelegate: AnyObject {
 class BakerMetadataViewModel {
     @Published var title: String
     @Published var text: String
-    @Published var currentValue: String?
+    @Published var currentValueLabel: String?
+    @Published var currentValue: String
     
     init(currentMetadataUrl: String?) {
         if let currentMetadataUrl = currentMetadataUrl {
-            currentValue = String(format: "baking.metadata.current".localized, currentMetadataUrl)
+            currentValue = currentMetadataUrl
+            currentValueLabel = String(format: "baking.metadata.current".localized, currentMetadataUrl)
             title = "baking.metadata.title.update".localized
             text = "baking.metadata.text.update".localized
         } else {
+            currentValue = ""
             title = "baking.metadata.title.create".localized
             text = "baking.metadata.text.create".localized
         }
@@ -51,10 +54,9 @@ protocol BakerMetadataPresenterProtocol: AnyObject {
 class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
     weak var view: BakerMetadataViewProtocol?
     weak var delegate: BakerMetadataPresenterDelegate?
-    var metadataUrl: String?
-    var dataHandler: StakeDataHandler
+    private let dataHandler: StakeDataHandler
     private var cancellables = Set<AnyCancellable>()
-    var viewModel: BakerMetadataViewModel
+    private let viewModel: BakerMetadataViewModel
     
     init(delegate: BakerMetadataPresenterDelegate? = nil, dataHandler: StakeDataHandler) {
         self.dataHandler = dataHandler
@@ -65,20 +67,17 @@ class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
     }
 
     func viewDidLoad() {
-        view?.metadataPublisher.sink(receiveValue: { [weak self] metadataUrl in
-            if !metadataUrl.isEmpty {
-                self?.metadataUrl = metadataUrl
-            }
-        }).store(in: &cancellables)
-        
         view?.bind(viewModel: viewModel)
     }
     
     func pressedContinue() {
-        if let metadataUrl = metadataUrl, !metadataUrl.isEmpty {
-            self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: metadataUrl))
+        self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: viewModel.currentValue))
+        
+        if dataHandler.containsChanges() || dataHandler.transferType == .registerBaker {
+            self.delegate?.finishedMetadata(dataHandler: dataHandler)
+        } else {
+            self.view?.showAlert(with: BakingAlerts.noChanges)
         }
-        self.delegate?.finishedMetadata(dataHandler: dataHandler)
     }
     
     func pressedClose() {

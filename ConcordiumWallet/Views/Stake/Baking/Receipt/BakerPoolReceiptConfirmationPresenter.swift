@@ -27,7 +27,8 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
     private let transactionService: TransactionsServiceProtocol
     private let storageManager: StorageManagerProtocol
     
-    private var tansferCost: TransferCost?
+    private var cost: GTU?
+    private var energy: Int?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -59,10 +60,12 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
             .sink { [weak self] error in
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             } receiveValue: { [weak self] transferCost in
-                self?.tansferCost = transferCost
+                let cost = GTU(intValue: Int(transferCost.cost) ?? 0)
+                self?.cost = cost
+                self?.energy = transferCost.energy
                 self?.viewModel.transactionFeeText = String(
                     format: "baking.receiptconfirmation.transactionfee".localized,
-                    GTU(intValue: Int(transferCost.cost) ?? 0).displayValueWithGStroke()
+                    cost.displayValueWithGStroke()
                 )
             }
             .store(in: &cancellables)
@@ -70,14 +73,11 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
     }
     
     func pressedButton() {
-        guard let delegate = delegate, let cost = tansferCost else {
+        guard let delegate = delegate, let cost = cost, let energy = energy else {
             return
         }
         
-        var transfer = dataHandler.getTransferObject()
-        transfer.fromAddress = account.address
-        transfer.cost = cost.cost
-        transfer.energy = cost.energy
+        let transfer = dataHandler.getTransferObject(cost: cost, energy: energy)
         
         self.transactionService.performTransfer(
             transfer,

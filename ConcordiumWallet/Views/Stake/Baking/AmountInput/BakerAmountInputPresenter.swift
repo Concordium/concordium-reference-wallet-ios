@@ -60,9 +60,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         )
     }
     
-    private lazy var costRangeResult = {
-        viewModel.$isRestakeSelected
-            .combineLatest(viewModel.gtuAmount)
+    private lazy var costRangeResult: AnyPublisher<Result<TransferCostRange, Error>, Never> = {
+        let currentAmount = dataHandler.getCurrentEntry(BakerAmountData.self)?.amount
+        let isOnCooldown = account.baker?.isInCooldown ?? false
+        
+        return viewModel.$isRestakeSelected
+            .combineLatest(viewModel.gtuAmount(currentAmount: currentAmount, isOnCooldown: isOnCooldown))
             .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
                 guard let self = self else {
                     return nil
@@ -87,6 +90,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     .asResult()
                     .eraseToAnyPublisher()
             }
+            .eraseToAnyPublisher()
     }()
     
     func viewDidLoad() {
@@ -100,7 +104,10 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             .assignNoRetain(to: \.transactionFee, on: viewModel)
             .store(in: &cancellables)
         
-        viewModel.gtuAmount
+        viewModel.gtuAmount(
+            currentAmount: dataHandler.getCurrentEntry(BakerAmountData.self)?.amount,
+            isOnCooldown: account.baker?.isInCooldown ?? false
+        )
             .combineLatest(costRangeResult)
             .map { [weak self] (amount, rangeResult) -> Result<GTU, StakeError> in
                 guard let self = self else {
@@ -180,11 +187,7 @@ private extension StakeWarning {
     func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
         switch self {
         case .noChanges:
-            let okAction = AlertAction(name: "baking.nochanges.ok".localized, completion: nil, style: .default)
-            
-            return AlertOptions(title: "baking.nochanges.title".localized,
-                                            message: "baking.nochanges.message".localized,
-                                            actions: [okAction])
+            return BakingAlerts.noChanges
         case .loweringStake:
             return nil
         case .moreThan95:
@@ -212,8 +215,14 @@ private extension TransferCostRange {
 }
 
 private extension StakeAmountInputViewModel {
-    var gtuAmount: Publishers.Map<Published<String>.Publisher, GTU> {
-        $amount.map { GTU(displayValue: $0) }
+    func gtuAmount(currentAmount: GTU?, isOnCooldown: Bool) -> Publishers.Map<Published<String>.Publisher, GTU> {
+        return $amount.map { amountString in
+            if let currentAmount = currentAmount, isOnCooldown {
+                return currentAmount
+            } else {
+                return GTU(displayValue: amountString)
+            }
+        }
     }
     
     func setup(

@@ -650,6 +650,7 @@ If you choose to not restake your rewards, the amounts will be at disposal on yo
 "baking.inputamount.title.create" = "Register baker";
 "baking.inputamount.title.update" = "Update baker stake";
 "baking.inputamount.transactionfee" = "Estimated transaction fee:\n%@ - %@";
+"baking.inputamount.lockedamountmessage" = "The baker stake cannot be changed when it already has pending changes.";
 
 "baking.nochanges.title" = "Notice";
 "baking.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
@@ -859,3 +860,4 @@ Remember to restart your node with the baker keys.";
 "baking.status.updatebutton" = "Update baker settings";
 "baking.status.pendingchange" = "The following changes will take effect on %@";
 "baking.status.removingbaker" = "The baker will be deregistered, and the stake will be unlocked on the public balance of the account.";
+"baking.status.reducingstake" = "Baker stake will be lowered to";

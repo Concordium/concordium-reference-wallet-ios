@@ -1230,25 +1230,25 @@ Explanation label for Stake]</string>
     </scenes>
     <designables>
         <designable name="6yc-X8-4rz">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="Pul-EI-hyA">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="190" height="30"/>
         </designable>
         <designable name="QRD-9m-G69">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="amF-dD-Lbb">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="fsH-NK-CxZ">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="lTR-SH-AHo">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="wDP-rx-n6T">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
     </designables>
     <resources>

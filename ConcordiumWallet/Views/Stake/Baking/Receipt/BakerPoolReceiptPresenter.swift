@@ -117,7 +117,7 @@ class BakerPoolReceiptPresenter: StakeReceiptPresenterProtocol {
 private extension Optional where Wrapped == ChainParametersEntity {
     var formattedPoolOwnerCooldown: String {
         let cooldown = GeneralFormatter.secondsToDays(seconds: self?.poolOwnerCooldown ?? 0)
-        return String(format: "baking.cooldownperiod.format", cooldown)
+        return String(format: "baking.cooldownperiod.format".localized, cooldown)
     }
 }
 
