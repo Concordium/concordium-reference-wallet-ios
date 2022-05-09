@@ -8,14 +8,26 @@
 
 import Foundation
 
-enum BakerPoolMenuAction: CaseIterable, BurgerMenuAction {
+enum BakerPoolMenuAction: BurgerMenuAction {
     case updateBakerStake
     case updatePoolSettings
     case updateBakerKeys
-    case stopBaking
+    case stopBaking(isOnCooldown: Bool)
     
     var destructive: Bool {
-        return self == .stopBaking
+        if case .stopBaking = self {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    var enabled: Bool {
+        if case .stopBaking(true) = self {
+            return false
+        } else {
+            return true
+        }
     }
     
     func getDisplayName() -> String {
@@ -50,6 +62,17 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
     private let currentSettings: BakerDataType
     private let poolInfo: PoolInfo
     
+    private lazy var actions: [BakerPoolMenuAction] = {
+        [
+            .updateBakerStake,
+            .updatePoolSettings,
+            .updateBakerKeys,
+            .stopBaking(
+                isOnCooldown: currentSettings.pendingChange?.change != .NoChange
+            )
+        ]
+    }()
+    
     init(
         currentSettings: BakerDataType,
         poolInfo: PoolInfo,
@@ -57,9 +80,9 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
     ) {
         self.delegate = delegate
         self.viewModel = BurgerMenuViewModel()
-        self.viewModel.setup(actions: BakerPoolMenuAction.allCases)
         self.currentSettings = currentSettings
         self.poolInfo = poolInfo
+        self.viewModel.setup(actions: actions)
     }
     
     func viewDidLoad() {
@@ -71,12 +94,12 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
     }
     
     func selectedAction(at index: Int) {
-        guard index > 0 && index < BakerPoolMenuAction.allCases.count else {
+        guard index >= 0 && index < actions.count else {
             return
         }
         
         self.delegate?.pressed(
-            action: BakerPoolMenuAction.allCases[index],
+            action: actions[index],
             currentSettings: currentSettings,
             poolInfo: poolInfo
         )

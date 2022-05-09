@@ -34,12 +34,4 @@ class DelegationDataHandler: StakeDataHandler {
             self.add(entry: DelegationAccountData(accountAddress: account.address))
         }
     }
-    override func getTransferObject() -> TransferDataType {
-        if isNewAmountZero() {
-            var transfer = TransferDataTypeFactory.create()
-            transfer.transferType = .removeDelegation
-            return transfer
-        }
-        return super.getTransferObject()
-    }
 }

@@ -110,12 +110,25 @@ private extension StakeStatusViewModel {
         buttonLabel = "baking.status.updatebutton".localized
         updateButtonEnabled = true
         stopButtonShown = false
-        if let pendingChange = currentSettings.pendingChange, let timestamp = pendingChange.effectiveTime, pendingChange.change == .RemoveStake {
-            bottomInfoMessage = String(
+        if let pendingChange = currentSettings.pendingChange, let timestamp = pendingChange.effectiveTime {
+            gracePeriodText = String(
                 format: "baking.status.pendingchange".localized,
                 GeneralFormatter.formatDateWithTime(for: GeneralFormatter.dateFrom(timestampUTC: timestamp))
             )
-            bottomImportantMessage = "baking.status.removingbaker".localized
+            switch pendingChange.change {
+            case .RemoveStake:
+                bottomInfoMessage = "baking.status.removingbaker".localized
+                newAmountLabel = nil
+                newAmount = nil
+            case .ReduceStake:
+                bottomInfoMessage = nil
+                newAmountLabel = "baking.status.reducingstake".localized
+                if let updateAmount = pendingChange.updatedNewStake {
+                    newAmount = GTU(intValue: Int(updateAmount))?.displayValueWithGStroke()
+                }
+            case .NoChange:
+                break
+            }
         }
         rows = updatedRows.flatMap { $0.displayValues.map { StakeRowViewModel(displayValue: $0) } }
     }

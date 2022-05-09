@@ -31,6 +31,7 @@ class BakerDataHandler: StakeDataHandler {
                     poolInfo: poolInfo
                 )
             )
+            self.add(entry: BakerUpdateAccountData(accountAddress: account.address))
         case let .updatePoolSettings(currentSettings, poolInfo):
             super.init(
                 transferType: .updateBakerPool,
@@ -40,6 +41,7 @@ class BakerDataHandler: StakeDataHandler {
                     poolInfo: poolInfo
                 )
             )
+            self.add(entry: BakerUpdateAccountData(accountAddress: account.address))
         case let .updateBakerKeys(currentSettings, poolInfo):
             super.init(
                 transferType: .updateBakerKeys,
@@ -49,6 +51,7 @@ class BakerDataHandler: StakeDataHandler {
                     poolInfo: poolInfo
                 )
             )
+            self.add(entry: BakerUpdateAccountData(accountAddress: account.address))
         case .stopBaking:
             super.init(transferType: .removeBaker)
             self.add(entry: DelegationStopAccountData(accountAddress: account.address))
@@ -66,21 +69,12 @@ class BakerDataHandler: StakeDataHandler {
         poolInfo.addStakeData(to: &currentData)
         return currentData
     }
-    
-    override func getTransferObject() -> TransferDataType {
-        if isNewAmountZero() {
-            var transfer = TransferDataTypeFactory.create()
-            transfer.transferType = .removeBaker
-            return transfer
-        }
-        return super.getTransferObject()
-    }
 }
 
 private extension BakerDataType {
     func addStakeData(to set: inout [FieldValue]) {
         set.append(BakerAmountData(amount: GTU(intValue: stakedAmount)))
-        set.append(RestakeDelegationData(restake: restakeEarnings))
+        set.append(RestakeBakerData(restake: restakeEarnings))
     }
 }
 
@@ -90,5 +84,10 @@ private extension PoolInfo {
             set.append(BakerPoolSettingsData(poolSettings: poolSettings))
         }
         set.append(BakerMetadataURLData(metadataURL: metadataURL))
+        set.append(BakerComissionData(
+            bakingRewardComission: commissionRates.bakingCommission,
+            finalizationRewardComission: commissionRates.finalizationCommission,
+            transactionComission: commissionRates.transactionCommission
+        ))
     }
 }
