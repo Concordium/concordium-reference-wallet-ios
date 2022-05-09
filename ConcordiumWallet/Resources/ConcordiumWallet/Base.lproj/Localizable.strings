@@ -766,6 +766,8 @@ Remember to restart your node with the baker keys.";
 "baking.receipt.poolstatus" = "Delegation pool status";
 "baking.receipt.bakerstake" = "Baker stake";
 "baking.receipt.metadataurl" = "Metadata URL";
+"baking.receipt.metadataurl.removed" = "Metadata URL removed";
+"baking.receipt.metadataurl.nochanges" = "No changes";
 "baking.receipt.electionverifykey" = "Election verify key";
 "baking.receipt.signatureverifykey" = "Signature verify key";
 "baking.receipt.aggregationverifykey" = "Aggregation verify key";

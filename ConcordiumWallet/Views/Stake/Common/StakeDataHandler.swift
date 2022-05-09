@@ -255,7 +255,13 @@ struct BakerMetadataURLData: SimpleFieldValue {
     let field = Field.bakerMetadataURL
     let metadataURL: String
     
-    var displayValue: String { metadataURL }
+    var displayValue: String {
+        if metadataURL.isEmpty {
+            return "baking.receipt.metadataurl.removed".localized
+        } else {
+            return metadataURL
+        }
+    }
         
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateBakerPool || type == .configureBaker {
@@ -267,6 +273,18 @@ struct BakerMetadataURLData: SimpleFieldValue {
     func add(to transaction: inout TransferDataType) {
         transaction.metadataURL = metadataURL
     }
+}
+
+struct BakerMetadataNoChanges: SimpleFieldValue {
+    let field = Field.bakerMetadataURL
+    
+    var displayValue: String { "baking.receipt.metadataurl.nochanges".localized }
+    
+    func getCostParameters(type: TransferType) -> [TransferCostParameter] {
+        return []
+    }
+    
+    func add(to transaction: inout TransferDataType) {}
 }
 
 struct BakerKeyData: FieldValue {
@@ -565,7 +583,13 @@ class StakeDataHandler {
     
     /// Retrieves all the fields that were changed sorted in the right order for display
     func getAllOrdered() -> [DisplayValue] {
-        return data
+        var dataForDisplay = data
+        
+        if transferType == .updateBakerPool && !dataForDisplay.contains(where: { $0.value is BakerMetadataURLData }) {
+            dataForDisplay.update(with: BakerMetadataNoChanges().asStakeData)
+        }
+        
+        return dataForDisplay
             .sorted { lhs, rhs in
                 lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
             }
