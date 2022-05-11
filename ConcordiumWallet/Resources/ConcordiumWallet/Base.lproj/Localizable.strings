@@ -522,7 +522,7 @@ concordium-backup.concordiumwallet securely.";
 "stake.receipt.transactionsubmitted" = "Transaction submitted!";
 "stake.receipt.finish" = "Finish";
 "stake.receipt.restake" = "Rewards will be";
-
+"stake.receipt.formattedaccount" = "%@\n\n%@";
 
 
 "delegation.inputamount.title.create" = "Register delegation";
@@ -694,9 +694,10 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.generatekeys.export" = "Export baker keys";
 "baking.generatekeys.notice.title" = "Notice";
 "baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
+"baking.updatekeys.title" = "Update baker keys";
 
 "baking.open" = "Open";
-"baking.closed" = "Closed";
+"baking.closed" = "Closed for delegation";
 "baking.closedfornew" = "Closed for new";
 "baking.metadata.current" = "Current URL: \n %@";
 
@@ -755,7 +756,7 @@ This means the node should be restarted with the new keys, as close to the next 
 
 Remember to restart your node with the baker keys.";
 "baking.receiptregister.ok" = "Okay";
-"baking.cooldownperiod.format" = "%@ days";
+"baking.cooldownperiod.format" = "%d days";
 
 "baking.receipt.bakeraccount" = "Baker account";
 "baking.receipt.accountcreate" = "Account to register as baker";

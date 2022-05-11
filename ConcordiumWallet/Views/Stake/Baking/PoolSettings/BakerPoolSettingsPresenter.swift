@@ -118,10 +118,6 @@ class BakerPoolSettingsPresenter: BakerPoolSettingsPresenterProtocol {
         self.dataHandler.add(entry: BakerPoolSettingsData(poolSettings: poolSettings))
         switch dataHandler.transferType {
         case .registerBaker:
-            if poolSettings == .closed {
-                // Metadata urls must be set for registerBaker
-                dataHandler.add(entry: BakerMetadataURLData(metadataURL: ""))
-            }
             self.delegate?.finishedPoolSettings(dataHandler: dataHandler)
         case .updateBakerPool:
             self.delegate?.finishedPoolSettings(dataHandler: dataHandler)

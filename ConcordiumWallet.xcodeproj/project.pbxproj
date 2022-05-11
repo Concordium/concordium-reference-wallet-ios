@@ -1537,6 +1537,10 @@
 		8992BA562828E713005279C9 /* PassiveDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA542828E713005279C9 /* PassiveDelegation.swift */; };
 		8992BA572828E713005279C9 /* PassiveDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA542828E713005279C9 /* PassiveDelegation.swift */; };
 		8992BA582828E713005279C9 /* PassiveDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA542828E713005279C9 /* PassiveDelegation.swift */; };
+		8992BA5A282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
+		8992BA5B282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
+		8992BA5C282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
+		8992BA5D282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
 		89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
@@ -2403,6 +2407,7 @@
 		8992BA4D2824FE96005279C9 /* BakingAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingAlerts.swift; sourceTree = "<group>"; };
 		8992BA522828E5AB005279C9 /* 5.4.2.RX_backend_passiveDelegation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 5.4.2.RX_backend_passiveDelegation.json; sourceTree = "<group>"; };
 		8992BA542828E713005279C9 /* PassiveDelegation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassiveDelegation.swift; sourceTree = "<group>"; };
+		8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTUTextFieldDelegate.swift; sourceTree = "<group>"; };
 		89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
 		89CF2D24280FDAB800742E1E /* StakeAmountInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeAmountInputValidator.swift; sourceTree = "<group>"; };
 		89CF2D29281000B100742E1E /* TransferCostRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostRange.swift; sourceTree = "<group>"; };
@@ -3622,6 +3627,7 @@
 				90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */,
 				8992BAB2283630F4005279C9 /* String+Links.swift */,
 				8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */,
+				8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -4901,6 +4907,7 @@
 				90C371C327DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
 				642A28A525FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
 				7F48C260244E17D100997684 /* ArDatum.swift in Sources */,
+				8992BA5A282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				7F48C273244E17D100997684 /* MakeCreateCredentialRequest.swift in Sources */,
 				64DB66B325DE643D00F4C605 /* AboutViewController.swift in Sources */,
 				07519F8826FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
@@ -5250,6 +5257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89CF2D27280FDAB800742E1E /* StakeAmountInputValidator.swift in Sources */,
+				8992BA5C282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				5211BAB8250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
 				7F85B6D3246A9A7C00ED09B8 /* CreateNicknamePresenter.swift in Sources */,
 				7F85B6D4246A9A7C00ED09B8 /* WidgetButton.swift in Sources */,
@@ -5660,6 +5668,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89CF2D28280FDAB800742E1E /* StakeAmountInputValidator.swift in Sources */,
+				8992BA5D282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				5211BAB9250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
 				7F85B7D2246A9AB600ED09B8 /* CreateNicknamePresenter.swift in Sources */,
 				7F85B7D3246A9AB600ED09B8 /* WidgetButton.swift in Sources */,
@@ -6350,6 +6359,7 @@
 				19C2E41830D7D6B7F2012E9D /* SubmissionStatusEnum.swift in Sources */,
 				528EB750255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89E1A75E27FF1C2D008C761B /* String+Lines.swift in Sources */,
+				8992BA5B282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				19C2E678EF032F92BCB63531 /* Result+Additions.swift in Sources */,
 				89CF2D55281A539700742E1E /* (null) in Sources */,
 				078967092742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,

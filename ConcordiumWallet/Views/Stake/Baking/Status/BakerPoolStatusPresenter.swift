@@ -92,7 +92,7 @@ private extension StakeStatusViewModel {
         poolInfo: PoolInfo
     ) {
         var updatedRows: [FieldValue] = [
-            BakerAccountData(accountAddress: account.address),
+            BakerAccountData(accountName: account.name, accountAddress: account.address),
             BakerAmountData(amount: GTU(intValue: currentSettings.stakedAmount)),
             BakerIDData(id: currentSettings.bakerID),
             RestakeBakerData(restake: currentSettings.restakeEarnings)

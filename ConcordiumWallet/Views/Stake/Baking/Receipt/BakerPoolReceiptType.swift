@@ -16,19 +16,17 @@ enum BakerPoolReceiptType {
     case register
     
     init(dataHandler: StakeDataHandler) {
-        if dataHandler.hasCurrentData() {
-            switch dataHandler.transferType {
-            case .updateBakerStake:
-                self = .updateStake(isLoweringStake: dataHandler.isLoweringStake())
-            case .updateBakerPool:
-                self = .updatePool
-            case .updateBakerKeys:
-                self = .updateKeys
-            default:
-                self = .remove
-            }
-        } else {
+        switch dataHandler.transferType {
+        case .registerBaker:
             self = .register
+        case .updateBakerStake:
+            self = .updateStake(isLoweringStake: dataHandler.isLoweringStake())
+        case .updateBakerPool:
+            self = .updatePool
+        case .updateBakerKeys:
+            self = .updateKeys
+        default:
+            self = .remove
         }
     }
 }

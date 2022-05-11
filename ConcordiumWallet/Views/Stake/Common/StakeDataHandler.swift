@@ -152,12 +152,22 @@ extension SimpleFieldValue {
 }
 
 protocol AccountValue: FieldValue {
+    var accountName: String? { get }
     var accountAddress: String { get }
 }
 
 extension AccountValue {
     var displayValues: [DisplayValue] {
-        return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
+        if let accountName = self.accountName {
+            return [
+                DisplayValue(
+                    key: field.getLabelText(),
+                    value: String(format: "stake.receipt.formattedaccount".localized, accountName, accountAddress)
+                )
+            ]
+        } else {
+            return [DisplayValue(key: field.getLabelText(), value: accountAddress)]
+        }
     }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
@@ -192,21 +202,25 @@ struct StakeData: Hashable {
 // MARK: - BAKER data
 struct BakerCreateAccountData: AccountValue {
     let field = Field.bakerAccountCreate
+    let accountName: String?
     let accountAddress: String
 }
 
 struct BakerAccountData: AccountValue {
     let field = Field.bakerAccount
+    let accountName: String?
     let accountAddress: String
 }
 
 struct BakerUpdateAccountData: AccountValue {
     let field = Field.bakerAccountUpdate
+    let accountName: String?
     let accountAddress: String
 }
 
 struct BakerStopAccountData: AccountValue {
     let field = Field.bakerAccountStop
+    let accountName: String?
     let accountAddress: String
 }
 
@@ -231,6 +245,9 @@ struct BakerPoolSettingsData: SimpleFieldValue {
             transaction.openStatus = "openForAll"
         case .closed:
             transaction.openStatus = "closedForAll"
+            if transaction.transferType == .registerBaker {
+                transaction.metadataURL = ""
+            }
         case .closedForNew:
             transaction.openStatus = "closedForNew"
         }
@@ -354,11 +371,13 @@ struct BakerComissionData: FieldValue {
 // MARK: - DELEGATION data
 struct DelegationAccountData: AccountValue {
     let field = Field.delegationAccount
+    let accountName: String?
     let accountAddress: String
 }
 
 struct DelegationStopAccountData: AccountValue {
     let field = Field.delegationStopAccount
+    let accountName: String?
     let accountAddress: String
 }
 
@@ -632,7 +651,9 @@ class StakeDataHandler {
         guard let newAmount = getNewEntry(DelegationAmountData.self)?.amount ?? getNewEntry(BakerAmountData.self)?.amount else {
             return false
         }
-        if Double(newAmount.intValue) > Double(atDisposal) * 0.95 {
+        let previousAmount = getCurrentEntry(DelegationAmountData.self)?.amount ?? getCurrentEntry(BakerAmountData.self)?.amount ?? .zero
+        
+        if Double(newAmount.intValue) > Double(atDisposal + previousAmount.intValue) * 0.95 {
             return true
         }
         return false

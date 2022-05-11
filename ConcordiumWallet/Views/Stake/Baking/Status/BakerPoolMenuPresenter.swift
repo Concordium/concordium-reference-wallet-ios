@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 enum BakerPoolMenuAction: BurgerMenuAction {
     case updateBakerStake
@@ -62,6 +63,11 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
     private let currentSettings: BakerDataType
     private let poolInfo: PoolInfo
     
+    private let stakeService: StakeServiceProtocol
+    private let storageManager: StorageManagerProtocol
+    
+    private var cancellables = Set<AnyCancellable>()
+    
     private lazy var actions: [BakerPoolMenuAction] = {
         [
             .updateBakerStake,
@@ -76,12 +82,15 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
     init(
         currentSettings: BakerDataType,
         poolInfo: PoolInfo,
-        delegate: BakerPoolMenuPresenterDelegate? = nil
+        delegate: BakerPoolMenuPresenterDelegate? = nil,
+        dependencyProvider: StakeCoordinatorDependencyProvider
     ) {
         self.delegate = delegate
         self.viewModel = BurgerMenuViewModel()
         self.currentSettings = currentSettings
         self.poolInfo = poolInfo
+        self.stakeService = dependencyProvider.stakeService()
+        self.storageManager = dependencyProvider.storageManager()
         self.viewModel.setup(actions: actions)
     }
     
@@ -98,10 +107,32 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
             return
         }
         
-        self.delegate?.pressed(
-            action: actions[index],
-            currentSettings: currentSettings,
-            poolInfo: poolInfo
-        )
+        let action = actions[index]
+        
+        stakeService.getChainParameters()
+            .delay(for: .seconds(5), scheduler: DispatchQueue.main)
+            .first()
+            .showLoadingIndicator(in: self.view)
+            .sink { [weak self] error in
+                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            } receiveValue: { [weak self] chainParameters in
+                guard let self = self else { return }
+                let params = ChainParametersEntity(
+                    delegatorCooldown: chainParameters.delegatorCooldown,
+                    poolOwnerCooldown: chainParameters.poolOwnerCooldown
+                )
+                
+                do {
+                    _ = try self.storageManager.updateChainParms(params)
+                    self.delegate?.pressed(
+                        action: action,
+                        currentSettings: self.currentSettings,
+                        poolInfo: self.poolInfo
+                    )
+                } catch {
+                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                }
+            }
+            .store(in: &cancellables)
     }
 }

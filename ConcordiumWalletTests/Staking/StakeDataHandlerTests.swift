@@ -11,6 +11,7 @@ import XCTest
 
 @testable import Mock
 
+// swiftlint:disable type_body_length
 class StakeDataHandlerTests: XCTestCase {
     private var testAccount: AccountDataType {
         AddressOnlyAccount()
@@ -40,6 +41,35 @@ class StakeDataHandlerTests: XCTestCase {
             restakeEarnings: true,
             openStatus: "openForAll",
             metadataURL: "https://example.com",
+            bakingRewardsComission: 0.5,
+            finalizationRewardsComission: 1.0,
+            transactionFeeComission: 1.5
+        )
+    }
+    
+    func testRegisterClosedBakerTransfer() {
+        let account = testAccount
+        let dataHandler = BakerDataHandler(account: account, action: .register)
+        
+        dataHandler.add(entry: BakerAmountData(amount: GTU(intValue: 125)))
+        dataHandler.add(entry: RestakeBakerData(restake: true))
+        dataHandler.add(entry: BakerPoolSettingsData(poolSettings: .closed))
+        dataHandler.add(entry: BakerKeyData(keys: .randomKeys))
+        dataHandler.add(entry: BakerComissionData(
+            bakingRewardComission: 0.5,
+            finalizationRewardComission: 1.0,
+            transactionComission: 1.5
+        ))
+        
+        assertStateEqual(
+            account: account,
+            dataHandler: dataHandler,
+            transferType: .registerBaker,
+            costParameters: [],
+            capital: "125",
+            restakeEarnings: true,
+            openStatus: "closedForAll",
+            metadataURL: "",
             bakingRewardsComission: 0.5,
             finalizationRewardsComission: 1.0,
             transactionFeeComission: 1.5
@@ -116,7 +146,7 @@ class StakeDataHandlerTests: XCTestCase {
             metadataURL: "https://example.com"
         )
         let baker = TestBaker(stakedAmount: 125, restakeEarnings: true, pendingChange: nil)
-        let atDisposal = 2000
+        let atDisposal = 200
         let dataHandler = BakerDataHandler(account: testAccount, action: .updateBakerStake(baker, poolInfo))
         
         XCTAssertEqual(dataHandler.getCurrentWarning(atDisposal: atDisposal), .noChanges)
@@ -125,7 +155,7 @@ class StakeDataHandlerTests: XCTestCase {
         
         XCTAssertEqual(dataHandler.getCurrentWarning(atDisposal: atDisposal), .amountZero)
         
-        dataHandler.add(entry: BakerAmountData(amount: GTU(intValue: atDisposal * 95 / 100 + 1)))
+        dataHandler.add(entry: BakerAmountData(amount: GTU(intValue: 310)))
         
         XCTAssertEqual(dataHandler.getCurrentWarning(atDisposal: atDisposal), .moreThan95)
         
@@ -133,7 +163,7 @@ class StakeDataHandlerTests: XCTestCase {
         
         XCTAssertEqual(dataHandler.getCurrentWarning(atDisposal: atDisposal), .loweringStake)
         
-        dataHandler.add(entry: BakerAmountData(amount: GTU(intValue: 150)))
+        dataHandler.add(entry: BakerAmountData(amount: GTU(intValue: 300)))
         
         XCTAssertEqual(dataHandler.getCurrentWarning(atDisposal: atDisposal), nil)
     }
@@ -187,6 +217,33 @@ class StakeDataHandlerTests: XCTestCase {
         )
     }
     
+    func testRegisterBakerDisplayValues() {
+        let account = testAccount
+        let keys = GeneratedBakerKeys.randomKeys
+        let amount = GTU(intValue: 125)
+        let dataHandler = BakerDataHandler(account: account, action: .register)
+        
+        dataHandler.add(entry: BakerAmountData(amount: amount))
+        dataHandler.add(entry: RestakeBakerData(restake: true))
+        dataHandler.add(entry: BakerPoolSettingsData(poolSettings: .closed))
+        dataHandler.add(entry: BakerKeyData(keys: keys))
+        
+        let closedDisplayValues = dataHandler.getAllOrdered()
+        
+        assertDisplayValues(
+            actualValues: closedDisplayValues,
+            expectedValues: [
+                DisplayValue(key: "Account to register as baker", value: "\(account.name ?? "")\n\n\(account.address)"),
+                DisplayValue(key: "Baker stake", value: amount.displayValueWithGStroke()),
+                DisplayValue(key: "Rewards will be", value: "Added to stake"),
+                DisplayValue(key: "Delegation pool status", value: "Closed for delegation"),
+                DisplayValue(key: "Election verify key", value: keys.electionVerifyKey.splitInto(lines: 2)),
+                DisplayValue(key: "Signature verify key", value: keys.signatureVerifyKey.splitInto(lines: 2)),
+                DisplayValue(key: "Aggregation verify key", value: keys.aggregationVerifyKey.splitInto(lines: 6))
+            ]
+        )
+    }
+    
     func testUpdatePoolSettingsMetadataDisplayValues() {
         let poolInfo = PoolInfo(
             commissionRates: CommissionRates(
@@ -234,6 +291,23 @@ class StakeDataHandlerTests: XCTestCase {
             transferType: .updateBakerKeys,
             costParameters: []
         )
+    }
+    
+    private func assertDisplayValues(
+        actualValues: [DisplayValue],
+        expectedValues: [DisplayValue],
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        guard actualValues.count == expectedValues.count else {
+            XCTFail("Expected \(expectedValues.count) display values found \(actualValues.count)", file: file, line: line)
+            
+            return
+        }
+        
+        for (index, value) in actualValues.enumerated() {
+            XCTAssertEqual(value, expectedValues[index], "Expected \(expectedValues[index]) at \(index) found \(value)", file: file, line: line)
+        }
     }
     
     private func assertStateEqual(
@@ -294,7 +368,7 @@ private extension GeneratedBakerKeys {
 }
 
 private struct AddressOnlyAccount: AccountDataType {
-    var name: String?
+    var name: String? = "Test"
     var displayName: String = ""
     var address: String = "abcdefg123456"
     var accountIndex: Int = 0

@@ -21,7 +21,7 @@ class BakerDataHandler: StakeDataHandler {
         switch action {
         case .register:
             super.init(transferType: .registerBaker)
-            self.add(entry: BakerCreateAccountData(accountAddress: account.address))
+            self.add(entry: BakerCreateAccountData(accountName: account.name, accountAddress: account.address))
         case let .updateBakerStake(currentSettings, poolInfo):
             super.init(
                 transferType: .updateBakerStake,
@@ -31,7 +31,7 @@ class BakerDataHandler: StakeDataHandler {
                     poolInfo: poolInfo
                 )
             )
-            self.add(entry: BakerUpdateAccountData(accountAddress: account.address))
+            self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         case let .updatePoolSettings(currentSettings, poolInfo):
             super.init(
                 transferType: .updateBakerPool,
@@ -41,7 +41,7 @@ class BakerDataHandler: StakeDataHandler {
                     poolInfo: poolInfo
                 )
             )
-            self.add(entry: BakerUpdateAccountData(accountAddress: account.address))
+            self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         case let .updateBakerKeys(currentSettings, poolInfo):
             super.init(
                 transferType: .updateBakerKeys,
@@ -51,10 +51,10 @@ class BakerDataHandler: StakeDataHandler {
                     poolInfo: poolInfo
                 )
             )
-            self.add(entry: BakerUpdateAccountData(accountAddress: account.address))
+            self.add(entry: BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         case .stopBaking:
             super.init(transferType: .removeBaker)
-            self.add(entry: DelegationStopAccountData(accountAddress: account.address))
+            self.add(entry: DelegationStopAccountData(accountName: account.name, accountAddress: account.address))
         }
     }
     
@@ -64,7 +64,7 @@ class BakerDataHandler: StakeDataHandler {
         poolInfo: PoolInfo
     ) -> [FieldValue] {
         var currentData = [FieldValue]()
-        currentData.append(BakerUpdateAccountData(accountAddress: account.address))
+        currentData.append(BakerUpdateAccountData(accountName: account.name, accountAddress: account.address))
         currentSettings.addStakeData(to: &currentData)
         poolInfo.addStakeData(to: &currentData)
         return currentData
