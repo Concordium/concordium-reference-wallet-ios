@@ -540,8 +540,9 @@ concordium-backup.concordiumwallet securely.";
 "delegation.pool.title.update" = "Update delegation";
 "delegation.pool.current" = "Current target %@";
 "delegation.pool.message" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"delegation.pool.bottommessage.baker" = "If you don’t already know what target baker pool you want to delegate an amount to, you can read more about how to find one here:
+"delegation.pool.bottommessage.baker" = "Passive delegation is an alternative to delegation to a specific baker pool that has lower rewards. With passive delegation you do not have to worry about the uptime or quality of a baker node.
 
+For more info you can visit
 developer.concordium.software";
 "delegation.pool.bottommessage.passive" = "Passive delegation divides the staked tokens shared between all baker pools proportionally to their size, and has a higher commission rate than delegating to a single baker.
 
