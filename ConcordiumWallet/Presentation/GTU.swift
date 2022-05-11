@@ -60,6 +60,10 @@ struct GTU {
         }
         return stringValue
     }
+    
+    static func isValid(displayValue: String) -> Bool {        
+        return displayValue.unsignedWholePart <= (Int.max - 999999)/1000000 && displayValue.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
+    }
 
     private static func wholeAndFractionalValueToInt(wholeValue: Int, fractionalValue: Int, isNegative: Bool) -> Int {
         return (wholeValue * conversionFactor + fractionalValue) * (isNegative ? -1 : 1)

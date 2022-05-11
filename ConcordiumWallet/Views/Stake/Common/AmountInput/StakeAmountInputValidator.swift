@@ -43,7 +43,7 @@ struct StakeAmountInputValidator {
         return .success(amount)
     }
     func checkAtDisposal(amount: GTU) -> Result<GTU, StakeError> {
-        if amount.intValue > atDisposal.intValue {
+        if amount.intValue - previouslyStakedInPool.intValue > atDisposal.intValue {
             return .failure(.notEnoughFund(atDisposal))
         }
         return .success(amount)

@@ -51,6 +51,8 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     
 	var presenter: StakeAmountInputPresenterProtocol
     private var cancellables = Set<AnyCancellable>()
+    
+    private lazy var textFieldDelegate = GTUTextFieldDelegate { _, _ in }
   
     var amountPublisher: AnyPublisher<String, Never> {
         return amountTextField.textPublisher
@@ -79,6 +81,8 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         restakeController.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .selected)
         restakeController.setTitle("stake.inputamount.yesrestake".localized, forSegmentAt: 0)
         restakeController.setTitle("stake.inputamount.norestake".localized, forSegmentAt: 1)
+        
+        amountTextField.delegate = textFieldDelegate
 
         presenter.view = self
         presenter.viewDidLoad()
@@ -151,9 +155,11 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             .assign(to: \.text, on: transactionFeeLabel)
             .store(in: &cancellables)
         
-        viewModel.$amountErrorMessage.sink { [weak self] errorMessage in
+        viewModel.$amountErrorMessage
+            .combineLatest(viewModel.$hasStartedInput)
+            .sink { [weak self] (errorMessage, hasStartedInput) in
             guard let self = self else { return }
-            if let errorMessage = errorMessage {
+            if let errorMessage = errorMessage, hasStartedInput {
                 self.errorLabel.text = errorMessage
                 self.errorLabel.isHidden = false
                 self.amountTextField.textColor = .errorText
@@ -165,6 +171,11 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
         
         amountTextField.textPublisher
             .assignNoRetain(to: \.amount, on: viewModel)
+            .store(in: &cancellables)
+        
+        amountTextField.textPublisher
+            .first()
+            .sink { _ in viewModel.hasStartedInput = true }
             .store(in: &cancellables)
         
         viewModel.$amount
@@ -221,24 +232,5 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
     
     @IBAction func pressedContinue(_ sender: UIButton) {
         presenter.pressedContinue()
-    }
-}
-
-// MARK: - UITextFieldDelegate
-extension StakeAmountInputViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString: String) -> Bool {
-        let text = (textField.text ?? "") as NSString
-        
-        let updatedText = text.replacingCharacters(
-            in: range,
-            with: replacementString
-        )
-        
-        if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
-            return false
-        }
-        // Allow only numbers, dot and up to six decimal points
-        return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
-        
     }
 }

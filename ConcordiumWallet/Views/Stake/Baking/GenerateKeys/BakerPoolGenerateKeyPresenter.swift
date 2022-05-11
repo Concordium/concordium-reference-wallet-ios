@@ -16,7 +16,7 @@ import Combine
 //    }
 
 class BakerPoolGenerateKeyViewModel {
-    @Published private(set) var title = "baking.generatekeys.title".localized
+    @Published private(set) var title: String
     @Published private(set) var info = "baking.generatekeys.info".localized
     @Published private(set) var electionKeyTitle = "baking.generatekeys.electionkey".localized
     @Published private(set) var electionKeyContent: String
@@ -27,8 +27,17 @@ class BakerPoolGenerateKeyViewModel {
     
     let keyResult: Result<GeneratedBakerKeys, Error>
     
-    fileprivate init(keyResult: Result<GeneratedBakerKeys, Error>) {
+    fileprivate init(
+        transferType: TransferType,
+        keyResult: Result<GeneratedBakerKeys, Error>
+    ) {
         self.keyResult = keyResult
+        
+        if transferType == .updateBakerKeys {
+            title = "baking.updatekeys.title".localized
+        } else {
+            title = "baking.generatekeys.title".localized
+        }
         
         if case let .success(keys) = keyResult {
             electionKeyContent = keys.electionVerifyKey.splitInto(lines: 2)
@@ -86,7 +95,10 @@ class BakerPoolGenerateKeyPresenter: BakerPoolGenerateKeyPresenterProtocol {
         self.exportService = dependencyProvider.exportService()
         self.account = account
         self.dataHandler = dataHandler
-        self.viewModel = BakerPoolGenerateKeyViewModel(keyResult: dependencyProvider.stakeService().generateBakerKeys())
+        self.viewModel = BakerPoolGenerateKeyViewModel(
+            transferType: dataHandler.transferType,
+            keyResult: dependencyProvider.stakeService().generateBakerKeys()
+        )
     }
 
     func viewDidLoad() {

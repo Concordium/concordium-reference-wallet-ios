@@ -65,7 +65,8 @@ class BakingCoordinator: Coordinator {
         let menuPresenter = BakerPoolMenuPresenter(
             currentSettings: currentSettings,
             poolInfo: poolInfo,
-            delegate: self
+            delegate: self,
+            dependencyProvider: dependencyProvider
         )
         let vc = BurgerMenuFactory.create(with: menuPresenter)
         vc.modalPresentationStyle = .overFullScreen
@@ -151,7 +152,6 @@ extension BakingCoordinator: BakerPoolStatusPresenterDelegate {
     func pressedOpenMenu(currentSettings: BakerDataType, poolInfo: PoolInfo) {
         showMenu(currentSettings: currentSettings, poolInfo: poolInfo)
     }
-    
 }
 
 extension BakingCoordinator: BakerPoolMenuPresenterDelegate {

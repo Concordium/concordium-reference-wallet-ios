@@ -221,24 +221,24 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .assign(to: \.insufficientFunds, on: self.viewModel)
             .store(in: &cancellables)
         
-            Publishers.CombineLatest3(
-                viewModel.$recipientAddress,
-                viewModel.$feeMessage,
-                amountSubject
-            )
-            .receive(on: DispatchQueue.main)
-            .map { [weak self] (recipientAddress, feeMessage, amount) in
-                guard let self = self else { return false }
-                guard let recipientAddress = recipientAddress else { return false }
-                let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
-               
-                return isAddressValid &&
-                       !(feeMessage ?? "").isEmpty &&
-                       self.hasSufficientFunds(amount: amount)
-            }
-            .assign(to: \.sendButtonEnabled, on: viewModel)
-            .store(in: &cancellables)
-
+        Publishers.CombineLatest3(
+            viewModel.$recipientAddress,
+            viewModel.$feeMessage,
+            amountSubject
+        )
+        .receive(on: DispatchQueue.main)
+        .map { [weak self] (recipientAddress, feeMessage, amount) in
+            guard let self = self else { return false }
+            guard let recipientAddress = recipientAddress else { return false }
+            let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
+            
+            return isAddressValid &&
+            !(feeMessage ?? "").isEmpty &&
+            self.hasSufficientFunds(amount: amount)
+        }
+        .assign(to: \.sendButtonEnabled, on: viewModel)
+        .store(in: &cancellables)
+        
         viewModel.$disposalAmount
             .compactMap { $0 }
             .sink(receiveValue: { [weak self] disposalAmount in

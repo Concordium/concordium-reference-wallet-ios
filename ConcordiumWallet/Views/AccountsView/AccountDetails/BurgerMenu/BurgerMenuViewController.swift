@@ -25,6 +25,14 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
     var dataSource: UITableViewDiffableDataSource<String, BurgerMenuViewModel.Action>?
     private var cancellables: [AnyCancellable] = []
     
+    var loadContainerView: UIView {
+        return self.view
+    }
+    
+    var activityIndicatorTint: UIColor? {
+        return .white
+    }
+    
     init?(coder: NSCoder, presenter: BurgerMenuPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)

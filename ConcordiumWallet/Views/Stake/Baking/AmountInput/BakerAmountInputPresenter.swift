@@ -108,29 +108,29 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             currentAmount: dataHandler.getCurrentEntry(BakerAmountData.self)?.amount,
             isOnCooldown: account.baker?.isInCooldown ?? false
         )
-            .combineLatest(costRangeResult)
-            .map { [weak self] (amount, rangeResult) -> Result<GTU, StakeError> in
-                guard let self = self else {
-                    return .failure(StakeError.internalError)
-                }
-                
-                return rangeResult
-                    .mapError { _ in StakeError.internalError }
-                    .flatMap { costRange in
-                        self.validator.validate(amount: amount, fee: costRange.maxCost)
-                    }
+        .combineLatest(costRangeResult)
+        .map { [weak self] (amount, rangeResult) -> Result<GTU, StakeError> in
+            guard let self = self else {
+                return .failure(StakeError.internalError)
             }
-            .sink { [weak self] result in
-                switch result {
-                case let .failure(error):
-                    self?.viewModel.isContinueEnabled = false
-                    self?.viewModel.amountErrorMessage = error.localizedDescription
-                case .success:
-                    self?.viewModel.isContinueEnabled = true
-                    self?.viewModel.amountErrorMessage = nil
+            
+            return rangeResult
+                .mapError { _ in StakeError.internalError }
+                .flatMap { costRange in
+                    self.validator.validate(amount: amount, fee: costRange.maxCost)
                 }
+        }
+        .sink { [weak self] result in
+            switch result {
+            case let .failure(error):
+                self?.viewModel.isContinueEnabled = false
+                self?.viewModel.amountErrorMessage = error.localizedDescription
+            case .success:
+                self?.viewModel.isContinueEnabled = true
+                self?.viewModel.amountErrorMessage = nil
             }
-            .store(in: &cancellables)
+        }
+        .store(in: &cancellables)
     }
     
     private struct RemoteParameters {
@@ -157,14 +157,14 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             }
         
         passiveDelegationRequest
-            .combineLatest(chainParametersRequest, delegatedCapital)
+            .zip(chainParametersRequest, delegatedCapital)
             .asResult()
             .showLoadingIndicator(in: self.view)
             .sink { [weak self] (result) in
                 self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, delegatedCapital) in
                     let totalCapital = Int(passiveDelegation.allPoolTotalCapital) ?? 0
                     // We make sure to first convert capitalBound to an Int so we don't have to do floating point arithmetic
-                    let availableCapital = totalCapital - (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - delegatedCapital.intValue
+                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - delegatedCapital.intValue
                     
                     return RemoteParameters(
                         minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),

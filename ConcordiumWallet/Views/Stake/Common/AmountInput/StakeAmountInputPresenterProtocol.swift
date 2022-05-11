@@ -51,6 +51,7 @@ class StakeAmountInputViewModel {
 
     @Published var amountMessage: String = ""
     @Published var amount: String = ""
+    @Published var hasStartedInput: Bool = false
     @Published var isAmountLocked: Bool = false
     @Published var amountErrorMessage: String?
     @Published var transactionFee: String? = ""

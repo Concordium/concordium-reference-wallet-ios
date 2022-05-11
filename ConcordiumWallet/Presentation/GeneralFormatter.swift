@@ -53,6 +53,10 @@ class GeneralFormatter {
     static func dateFrom(timestampUTC: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let date = formatter.date(from: timestampUTC) {
+            return date
+        }
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return formatter.date(from: timestampUTC) ?? Date()
     }
     

@@ -45,7 +45,7 @@ class BurgerMenuViewModel {
 }
 
 // MARK: View
-protocol BurgerMenuViewProtocol: AnyObject {
+protocol BurgerMenuViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: BurgerMenuViewModel)
 }
 
