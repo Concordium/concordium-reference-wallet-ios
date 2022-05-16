@@ -864,3 +864,11 @@ Remember to restart your node with the baker keys.";
 "baking.status.pendingchange" = "The following changes will take effect on %@";
 "baking.status.removingbaker" = "The baker will be deregistered, and the stake will be unlocked on the public balance of the account.";
 "baking.status.reducingstake" = "Baker stake will be lowered to";
+
+"force.update.needed.title" = "Update required";
+"force.update.needed.message" = "You must update your Concordium Mobile Wallet to continue.";
+"force.update.needed.update.now" = "Update now";
+"force.update.warning.title" = "Update ready";
+"force.update.warning.message" = "There is a new update for the Concordium Mobile Wallet.";
+"force.update.warning.update.now" = "Update now";
+"force.update.warning.remind.me" = "Remind me next time I open the wallet";
