@@ -14,6 +14,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
+    func appSettingsService() -> AppSettingsService
 }
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -85,6 +86,10 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
     
     func stakeService() -> StakeServiceProtocol {
         StakeService(networkManager: _networkManager, mobileWallet: _mobileWallet)
+    }
+
+    func appSettingsService() -> AppSettingsService {
+        AppSettingsService(networkManager: _networkManager)
     }
 }
 
