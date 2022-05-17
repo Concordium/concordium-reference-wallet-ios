@@ -7,6 +7,7 @@ import Foundation
 
 class TransactionsListViewModel {
     @Published var transactions = [TransactionViewModel]()
+    @Published var loading = true
 }
 
 enum AccountMenuState {
@@ -83,16 +84,26 @@ class AccountDetailsViewModel {
     func setAllAccountTransactions(transactions: [TransactionViewModel]) {
         appendAllAccountTransactions(transactions: transactions, shouldClearPrevious: true)
     }
+    
+    func transactionListRequestStarted() {
+        transactionsList.loading = true
+        allAccountTransactionsList.loading = true
+    }
+    
+    func transactionListRequestEnded() {
+        transactionsList.loading = false
+        allAccountTransactionsList.loading = false
+    }
 
     func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
             if shouldClearPrevious {
                 transactionsList.transactions = transactions
             } 
-//            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
-//            if transactionsList.transactions.count > 0 {
-//                transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
-//            }
+            // we did not receive new transactions - therefore the last transaction in the list must be the last existing
+            if transactionsList.transactions.count > 0 {
+                transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
+            }
         } else {
             if shouldClearPrevious {
                 transactionsList.transactions = transactions
@@ -109,10 +120,10 @@ class AccountDetailsViewModel {
     
     func appendAllAccountTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
-//            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
-//            if allAccountTransactionsList.transactions.count > 0 {
-//                allAccountTransactionsList.transactions[allAccountTransactionsList.transactions.count - 1].isLast = true
-//            }
+            // we did not receive new transactions - therefore the last transaction in the list must be the last existing
+            if allAccountTransactionsList.transactions.count > 0 {
+                allAccountTransactionsList.transactions[allAccountTransactionsList.transactions.count - 1].isLast = true
+            }
         } else {
             if shouldClearPrevious {
                 allAccountTransactionsList.transactions = transactions

@@ -347,6 +347,13 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
 
         transactionCall
                 .mapError(ErrorMapper.toViewError)
+                .handleEvents(
+                    receiveSubscription: { [weak self] _ in
+                        self?.viewModel.transactionListRequestStarted()
+                    }, receiveCompletion: { [weak self] _ in
+                        self?.viewModel.transactionListRequestEnded()
+                    }
+                )
                 .sink(receiveError: {[weak self] error in
                     self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] (transactionsListFiltered, transactionListAll) in
