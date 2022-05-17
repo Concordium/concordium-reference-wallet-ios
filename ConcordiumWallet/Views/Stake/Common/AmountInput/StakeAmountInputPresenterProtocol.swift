@@ -14,7 +14,6 @@ enum StakeError: Error {
     case notEnoughFund(GTU)
     case poolLimitReached(GTU, GTU)
     case feeError
-    case amountTooLarge(GTU, GTU)
     case internalError
     
     var localizedDescription: String {
@@ -27,8 +26,6 @@ enum StakeError: Error {
             return "stake.inputAmount.error.funds".localized
         case .poolLimitReached:
             return "stake.inputAmount.error.poolLimit".localized
-        case .amountTooLarge:
-            return "stake.inputAmount.error.amountTooLarge".localized
         case .internalError:
             return ""
         case .feeError:

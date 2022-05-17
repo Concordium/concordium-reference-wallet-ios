@@ -63,11 +63,7 @@ struct StakeAmountInputValidator {
             return .just(amount)
         }
         if amount.intValue + currentPool.intValue - previouslyStakedInPool.intValue > poolLimit.intValue {
-            if isInCooldown {
-                return .fail(.amountTooLarge(currentPool, poolLimit))
-            } else {
-                return .fail(.poolLimitReached(currentPool, poolLimit))
-            }
+            return .fail(.poolLimitReached(currentPool, poolLimit))
         }
         return .just(amount)
     }
@@ -235,18 +231,9 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self?.validAmount = amount
                 self?.viewModel.amountErrorMessage = nil
                 self?.viewModel.isContinueEnabled = true
-                self?.viewModel.secondBalance.hightlighted = false
-                self?.viewModel.poolLimit?.hightlighted = false
-            case let .failure(error):
+            case .failure:
                 self?.validAmount = nil
                 self?.viewModel.isContinueEnabled = false
-                if case .amountTooLarge = error {
-                    self?.viewModel.secondBalance.hightlighted = true
-                    self?.viewModel.poolLimit?.hightlighted = true
-                } else {
-                    self?.viewModel.secondBalance.hightlighted = false
-                    self?.viewModel.poolLimit?.hightlighted = false
-                }
             }
         }).store(in: &cancellables)
         
@@ -287,7 +274,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.nochanges.message".localized,
                                             actions: [okAction])
             self.view?.showAlert(with: alertOptions)
-        }  else if dataHandler.isNewAmountZero() {
+        } else if dataHandler.isNewAmountZero() {
             // warning for more zero amount = removeDelegation
             let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
             let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
@@ -326,12 +313,14 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
 }
 
 fileprivate extension StakeAmountInputViewModel {
-    func setup (account: AccountDataType,
-                currentAmount: GTU?,
-                currentRestakeValue: Bool?,
-                isInCooldown: Bool,
-                validator: StakeAmountInputValidator,
-                showsPoolLimits: Bool) {
+    func setup (
+        account: AccountDataType,
+        currentAmount: GTU?,
+        currentRestakeValue: Bool?,
+        isInCooldown: Bool,
+        validator: StakeAmountInputValidator,
+        showsPoolLimits: Bool
+    ) {
         let balance = GTU(intValue: account.forecastBalance)
         let staked = GTU(intValue: account.delegation?.stakedAmount ?? 0)
         self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
@@ -340,9 +329,14 @@ fileprivate extension StakeAmountInputViewModel {
                                               value: staked.displayValueWithGStroke(), hightlighted: false)
         self.currentPoolLimit = BalanceViewModel(
             label: "delegation.inputamount.currentpool".localized,
-            value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(), hightlighted: false)
-        self.poolLimit = BalanceViewModel(label: "delegation.inputamount.poollimit".localized,
-                                          value: validator.poolLimit?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(), hightlighted: false)
+            value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(),
+            hightlighted: false
+        )
+        self.poolLimit = BalanceViewModel(
+            label: "delegation.inputamount.poollimit".localized,
+            value: validator.poolLimit?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(),
+            hightlighted: false
+        )
         
         self.bottomMessage = "delegation.inputamount.bottommessage".localized
         
@@ -358,6 +352,13 @@ fileprivate extension StakeAmountInputViewModel {
                 self.amountMessage = "delegation.inputamount.optionalamount".localized
             } else {
                 self.amountMessage = "delegation.inputamount.lockedamountmessage".localized
+                
+                if let currentPoolLimit = validator.poolLimit, currentAmount > currentPoolLimit {
+                    self.secondBalance.hightlighted = true
+                    self.poolLimit?.hightlighted = true
+                    self.amountErrorMessage = "stake.inputAmount.error.amountTooLarge".localized
+                    self.isContinueEnabled = false
+                }
             }
             self.title = "delegation.inputamount.title.update".localized
             
