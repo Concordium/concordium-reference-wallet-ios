@@ -22,8 +22,7 @@ class AppSettingsService: AppSettingsServiceProtocol {
     }
     
     func getAppSettigns(platform: String, version: Int) -> AnyPublisher<AppSettingsResponse, Error> {
-        let url = ApiConstants.appSettings.appending("platform", value: platform).appending("version", value: "\(version)")
-        let request = ResourceRequest(url: url)
+        let request = ResourceRequest(url: ApiConstants.appSettings, parameters: [ "platform": platform, "version": "\(version)" ])
         return networkManager.load(request)
     }
 }

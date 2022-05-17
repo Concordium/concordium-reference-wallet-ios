@@ -9,11 +9,11 @@
 import Foundation
 
 struct AppSettingsResponse: Codable {
-    let status: String
-    let url: String?
+    let status: AppSettingsStatus
+    let url: URL?
 }
 
-enum AppStatusType: String, Codable {
+enum AppSettingsStatus: String, Codable {
     case ok
     case warning
     case needsUpdate

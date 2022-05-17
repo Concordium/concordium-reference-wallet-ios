@@ -365,10 +365,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
     private func checkForForceUpdate() {
         dependencyProvider.appSettingsService().getAppSettigns(platform: "ios", version: 1)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] appSettingsResponse in
-                if let appStoreUrl = appSettingsResponse.url, appStoreUrl.count > 0, appSettingsResponse.status != "ok" {
-                    if appSettingsResponse.status == "warning" {
+                if let appStoreUrl = appSettingsResponse.url, appSettingsResponse.status != .ok {
+                    if appSettingsResponse.status == .warning {
                         self?.showAppUpdateWarning(appStoreUrl: appStoreUrl)
-                    } else if appSettingsResponse.status == "needsUpdate" {
+                    } else if appSettingsResponse.status == .needsUpdate {
                         self?.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
                     }
                 }
@@ -376,7 +376,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
             .store(in: &cancellables)
     }
 
-    private func showAppUpdateWarning(appStoreUrl: String) {
+    private func showAppUpdateWarning(appStoreUrl: URL) {
         let updateNowAction = AlertAction(name: "force.update.warning.update.now".localized, completion: {
             self.gotoAppStore(appStoreUrl: appStoreUrl)
         }, style: .default)
@@ -387,7 +387,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
         self.view?.showAlert(with: alertOptions)
     }
 
-    private func showAppUpdateNeedsUpdate(appStoreUrl: String) {
+    private func showAppUpdateNeedsUpdate(appStoreUrl: URL) {
         let updateNowAction = AlertAction(name: "force.update.needed.update.now".localized, completion: {
             self.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
             self.gotoAppStore(appStoreUrl: appStoreUrl)
@@ -398,8 +398,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
         self.view?.showAlert(with: alertOptions)
     }
     
-    private func gotoAppStore(appStoreUrl: String) {
-        UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
+    private func gotoAppStore(appStoreUrl: URL) {
+        UIApplication.shared.open(appStoreUrl, options: [:], completionHandler: nil)
     }
 
     private func updatePendingIdentitiesWarnings() {
