@@ -121,7 +121,22 @@ extension AddRecipientPresenter: AddRecipientPresenterProtocol {
     }
     
     func userTappedQR() {
-        delegate?.addRecipientDidSelectQR()
+        PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
+            guard let self = self else { return }
+            
+            guard permissionGranted else {
+                self.view?.showRecoverableErrorAlert(
+                    .cameraAccessDeniedError,
+                    recoverActionTitle: "errorAlert.continueButton".localized,
+                    hasCancel: true
+                ) {
+                    SettingsHelper.openAppSettings()
+                }
+                return
+            }
+
+            self.delegate?.addRecipientDidSelectQR()
+        }
     }
 
     func setAccountAddress(_ address: String) {
