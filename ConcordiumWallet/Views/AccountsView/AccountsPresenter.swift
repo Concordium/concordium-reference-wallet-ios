@@ -158,7 +158,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
     var warningDisplayer: WarningDisplayer
     var alertDisplayer = AlertDisplayer()
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    
+    private var mustCheckForForceUpdate = true
+
     var accounts: [AccountDataType] = [] {
         didSet {
             updateViewState()
@@ -363,27 +364,35 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
 
     private func checkForForceUpdate() {
-        dependencyProvider.appSettingsService().getAppSettigns(platform: "ios", version: 1)
-            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] appSettingsResponse in
-                if let appStoreUrl = appSettingsResponse.url, appSettingsResponse.status != .ok {
-                    if appSettingsResponse.status == .warning {
-                        self?.showAppUpdateWarning(appStoreUrl: appStoreUrl)
-                    } else if appSettingsResponse.status == .needsUpdate {
-                        self?.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
+        if mustCheckForForceUpdate {
+            mustCheckForForceUpdate = false
+            let appVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+            dependencyProvider.appSettingsService().getAppSettigns(platform: "ios", version: appVersion)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] appSettingsResponse in
+                    if let appStoreUrl = appSettingsResponse.url, appSettingsResponse.status != .ok {
+                        if appSettingsResponse.status == .warning {
+                            self?.showAppUpdateWarning(appStoreUrl: appStoreUrl)
+                        } else if appSettingsResponse.status == .needsUpdate {
+                            self?.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
+                        }
                     }
-                }
-            })
-            .store(in: &cancellables)
+                })
+                .store(in: &cancellables)
+        }
     }
 
     private func showAppUpdateWarning(appStoreUrl: URL) {
         let updateNowAction = AlertAction(name: "force.update.warning.update.now".localized, completion: {
             self.gotoAppStore(appStoreUrl: appStoreUrl)
         }, style: .default)
+        let backupAction = AlertAction(name: "force.update.warning.backup".localized, completion: {
+            self.performAction(for: .backup)
+            self.mustCheckForForceUpdate = true
+        }, style: .default)
         let remindMeAction = AlertAction(name: "force.update.warning.remind.me".localized, completion: nil, style: .default)
         let alertOptions = AlertOptions(title: "force.update.warning.title".localized,
                                         message: "force.update.warning.message".localized,
-                                        actions: [updateNowAction, remindMeAction])
+                                        actions: [updateNowAction, backupAction, remindMeAction])
         self.view?.showAlert(with: alertOptions)
     }
 
@@ -392,9 +401,13 @@ class AccountsPresenter: AccountsPresenterProtocol {
             self.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
             self.gotoAppStore(appStoreUrl: appStoreUrl)
         }, style: .default)
+        let backupAction = AlertAction(name: "force.update.needed.backup".localized, completion: {
+            self.performAction(for: .backup)
+            self.mustCheckForForceUpdate = true
+        }, style: .default)
         let alertOptions = AlertOptions(title: "force.update.needed.title".localized,
                                         message: "force.update.needed.message".localized,
-                                        actions: [updateNowAction])
+                                        actions: [updateNowAction, backupAction])
         self.view?.showAlert(with: alertOptions)
     }
     
