@@ -353,7 +353,8 @@ fileprivate extension StakeAmountInputViewModel {
             } else {
                 self.amountMessage = "delegation.inputamount.lockedamountmessage".localized
                 
-                if let currentPoolLimit = validator.poolLimit, currentAmount > currentPoolLimit {
+                if let poolLimit = validator.poolLimit, let currentPool = validator.currentPool,
+                   currentAmount.intValue + currentPool.intValue > poolLimit.intValue {
                     self.secondBalance.hightlighted = true
                     self.poolLimit?.hightlighted = true
                     self.amountErrorMessage = "stake.inputAmount.error.amountTooLarge".localized
