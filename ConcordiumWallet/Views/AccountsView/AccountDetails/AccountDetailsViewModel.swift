@@ -15,6 +15,19 @@ enum AccountMenuState {
     case closed
 }
 
+private enum TransactionRequest: Hashable {
+    case initial
+    case next(startingFrom: TransactionViewModel)
+    
+    static func from(transaction: TransactionViewModel?) -> TransactionRequest {
+        if let transaction = transaction {
+            return .next(startingFrom: transaction)
+        } else {
+            return .initial
+        }
+    }
+}
+
 class AccountDetailsViewModel {
     var name: String?
     var address: String?
@@ -36,6 +49,7 @@ class AccountDetailsViewModel {
     @Published var hasStaked: Bool = false
     @Published var isShieldedEnabled: Bool = true
     @Published var menuState: AccountMenuState = .closed
+    private var inflightTransactionRequest = Set<TransactionRequest>()
     
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
         setAccount(account: account, balanceType: balanceType)
@@ -85,14 +99,24 @@ class AccountDetailsViewModel {
         appendAllAccountTransactions(transactions: transactions, shouldClearPrevious: true)
     }
     
-    func transactionListRequestStarted() {
-        transactionsList.loading = true
-        allAccountTransactionsList.loading = true
+    func hasInflightTransactionListRequest(startingFrom transaction: TransactionViewModel?) -> Bool {
+        return inflightTransactionRequest.contains(.from(transaction: transaction))
     }
     
-    func transactionListRequestEnded() {
-        transactionsList.loading = false
-        allAccountTransactionsList.loading = false
+    func transactionListRequestStarted(startingFrom transaction: TransactionViewModel?) {
+        if inflightTransactionRequest.isEmpty {
+            transactionsList.loading = true
+            allAccountTransactionsList.loading = true
+        }
+        inflightTransactionRequest.update(with: .from(transaction: transaction))
+    }
+    
+    func transactionListRequestEnded(startingFrom transaction: TransactionViewModel?) {
+        let removed = inflightTransactionRequest.remove(.from(transaction: transaction))
+        if inflightTransactionRequest.isEmpty && removed != nil {
+            transactionsList.loading = false
+            allAccountTransactionsList.loading = false
+        }
     }
 
     func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
