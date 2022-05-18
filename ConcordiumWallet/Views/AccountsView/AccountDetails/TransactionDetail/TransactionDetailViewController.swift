@@ -114,7 +114,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         snapshot.appendItems(createToAddressCell(viewModel: viewModel))
         snapshot.appendItems(getTransactionHashCell(viewModel: viewModel))
         snapshot.appendItems(createBlockHashCell(viewModel: viewModel))
-        // snapshot.appendItems(createDetailsCell(viewModel: viewModel))
+        snapshot.appendItems(createDetailsCell(viewModel: viewModel))
         
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)

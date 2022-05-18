@@ -201,7 +201,7 @@ extension TransactionDetailsViewModel {
         }
 
         var transactionEvents: [String]?
-        if OutcomeEnum.success == details.outcome && details.transferSource != nil && details.transferDestination != nil {
+        if OutcomeEnum.success == details.outcome && details.transferSource == nil && details.transferDestination == nil {
             transactionEvents = details.events
         }
 
