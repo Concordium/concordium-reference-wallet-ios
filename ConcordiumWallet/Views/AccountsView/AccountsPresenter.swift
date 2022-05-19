@@ -367,7 +367,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if mustCheckForForceUpdate {
             mustCheckForForceUpdate = false
             let appVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
-            dependencyProvider.appSettingsService().getAppSettigns(platform: "ios", version: appVersion)
+            dependencyProvider.appSettingsService().getAppSettings(platform: "ios", version: appVersion)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] appSettingsResponse in
                     if let appStoreUrl = appSettingsResponse.url, appSettingsResponse.status != .ok {
                         if appSettingsResponse.status == .warning {
