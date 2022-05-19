@@ -39,6 +39,7 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
+    private var linkListener: LinkPressedListener?
     private var cancellables = Set<AnyCancellable>()
     
     var bakerIdPublisher: AnyPublisher<String, Never> {
@@ -68,6 +69,7 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
         poolSelectionSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.whiteText], for: .selected)
         poolSelectionSegmentedControl.setTitle("delegation.pool.baker".localized, forSegmentAt: 0)
         poolSelectionSegmentedControl.setTitle("delegation.pool.passive".localized, forSegmentAt: 1)
+        linkListener = bottomLabel.addOnLinkPressedListener()
         
         presenter.view = self
         presenter.viewDidLoad()
@@ -143,7 +145,9 @@ class DelegationPoolSelectionViewController: KeyboardDismissableBaseViewControll
     
         viewModel.$bottomMessage
             .compactMap { $0 }
-            .assign(to: \.text, on: bottomLabel)
+            .sink(receiveValue: { [weak self] bottomMessage in
+                self?.bottomLabel.attributedText = bottomMessage
+            })
             .store(in: &cancellables)
         
         viewModel.$isPoolValid

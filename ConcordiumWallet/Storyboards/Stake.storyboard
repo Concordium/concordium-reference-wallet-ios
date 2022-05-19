@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -841,8 +841,11 @@ Explanation label for Stake]</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ny-fQ-l0O">
                                                 <rect key="frame" x="0.0" y="272.5" width="384" height="445.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UwF-FV-wFk">
+                                                    <label opaque="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UwF-FV-wFk">
                                                         <rect key="frame" x="20" y="20" width="344" height="425.5"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" link="YES" staticText="YES"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -903,7 +906,7 @@ Explanation label for Stake]</string>
                         <outlet property="bakerIdErrorLabel" destination="VoP-vX-7yH" id="8VZ-Wf-Lxt"/>
                         <outlet property="bakerIdTextField" destination="704-52-H6h" id="GV7-nE-pkX"/>
                         <outlet property="bottomConstraint" destination="4Z7-SF-7kQ" id="IpV-dt-xqB"/>
-                        <outlet property="bottomLabel" destination="UwF-FV-wFk" id="gFx-lS-5RJ"/>
+                        <outlet property="bottomLabel" destination="UwF-FV-wFk" id="6jW-2i-SHF"/>
                         <outlet property="continueButton" destination="lTR-SH-AHo" id="L1r-yX-59X"/>
                         <outlet property="currentBakerIdLabel" destination="DgL-SJ-9SE" id="lLr-qV-h45"/>
                         <outlet property="poolSelectionSegmentedControl" destination="mPI-bE-1V2" id="H3D-ZK-jko"/>
@@ -1015,19 +1018,19 @@ Explanation label for Stake]</string>
     </scenes>
     <designables>
         <designable name="QRD-9m-G69">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="amF-dD-Lbb">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="fsH-NK-CxZ">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="lTR-SH-AHo">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
         <designable name="wDP-rx-n6T">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="191" height="30"/>
         </designable>
     </designables>
     <resources>
