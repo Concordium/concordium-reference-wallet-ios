@@ -58,18 +58,16 @@ class DelegationPoolViewModel {
     static let passiveBottomMessage: NSAttributedString = {
         "delegation.pool.bottommessage.passive"
             .localized
-            .stringWithHighlightedLink(
-                text: "developer.concordium.software",
-                link: "https://developer.concordium.software"
+            .stringWithHighlightedLinks(
+                ["developer.concordium.software": "https://developer.concordium.software"]
             )
     }()
     
     static let bakerBottomMessage: NSAttributedString = {
         "delegation.pool.bottommessage.baker"
             .localized
-            .stringWithHighlightedLink(
-                text: "developer.concordium.software",
-                link: "https://developer.concordium.software"
+            .stringWithHighlightedLinks(
+                ["developer.concordium.software": "https://developer.concordium.software"]
             )
     }()
     
@@ -94,6 +92,7 @@ class DelegationPoolViewModel {
             }
         } else {
             title = "delegation.pool.title.create".localized
+            bottomMessage = DelegationPoolViewModel.bakerBottomMessage
         }
     }
 }

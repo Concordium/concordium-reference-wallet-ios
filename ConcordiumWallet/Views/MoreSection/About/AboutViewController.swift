@@ -73,36 +73,27 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
     }
     
     func textView(_ textView: UITextView, shouldInteractWith link: URL, in characterRange: NSRange) -> Bool {
-        if link.absoluteString.contains("@") {
-            UIApplication.shared.open(link)
-        } else {
-            UIApplication.shared.open(link)
-        }
+        UIApplication.shared.open(link)
         return false
     }
 }
 
 extension UITextView {
-
-  func addHyperLinksToText(originalText: String, hyperLinks: [String: String]) {
-    let font = Fonts.body
-    let color = UIColor.primary
-    
-    let style = NSMutableParagraphStyle()
-    style.alignment = .left
-    let attributedOriginalText = NSMutableAttributedString(string: originalText)
-    for (hyperLink, urlString) in hyperLinks {
-        let linkRange = attributedOriginalText.mutableString.range(of: hyperLink)
+    func addHyperLinksToText(originalText: String, hyperLinks: [String: String]) {
+        let font = Fonts.body
+        let color = UIColor.primary
+        
+        let style = NSMutableParagraphStyle()
+        style.alignment = .left
+        let attributedOriginalText = NSMutableAttributedString(attributedString: originalText.stringWithHighlightedLinks(hyperLinks))
         let fullRange = NSRange(location: 0, length: attributedOriginalText.length)
-        attributedOriginalText.addAttribute(NSAttributedString.Key.link, value: urlString, range: linkRange)
-        attributedOriginalText.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: fullRange)
-        attributedOriginalText.addAttribute(NSAttributedString.Key.font, value: font, range: fullRange)
-        attributedOriginalText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.fadedText, range: fullRange)
+        attributedOriginalText.addAttribute(.paragraphStyle, value: style, range: fullRange)
+        attributedOriginalText.addAttribute(.font, value: font, range: fullRange)
+        attributedOriginalText.addAttribute(.foregroundColor, value: UIColor.fadedText, range: fullRange)
+        
+        self.linkTextAttributes = [
+            NSAttributedString.Key.foregroundColor: color
+        ]
+        self.attributedText = attributedOriginalText
     }
-
-    self.linkTextAttributes = [
-        NSAttributedString.Key.foregroundColor: color
-    ]
-    self.attributedText = attributedOriginalText
-  }
 }

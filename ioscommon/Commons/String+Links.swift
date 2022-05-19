@@ -9,21 +9,23 @@
 import Foundation
 
 extension String {
-    func stringWithHighlightedLink(text: String, link: String) -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(string: self)
-        var currentRange = attributedString.mutableString.range(of: text)
-        while currentRange.location != NSNotFound {
-            attributedString.addAttribute(.link, value: link, range: currentRange)
-            currentRange = attributedString
-                .mutableString
-                .range(
-                    of: text,
-                    range: NSRange(
-                        location: currentRange.upperBound,
-                        length: attributedString.mutableString.length - currentRange.upperBound
-                    )
-                )
+    func stringWithHighlightedLinks(_ links: [String: String]) -> NSAttributedString {
+        guard !links.isEmpty else {
+            return NSAttributedString(string: self)
         }
-        return attributedString
+        
+        guard let regex = try? NSRegularExpression(pattern: links.keys.joined(separator: "|")) else {
+            return NSAttributedString(string: self)
+        }
+        
+        return regex.matches(in: self, range: NSRange(location: 0, length: count))
+            .reduce(NSMutableAttributedString(string: self)) { partialResult, matchResult in
+                let key = partialResult.mutableString.substring(with: matchResult.range)
+                if let value = links[key] {
+                    partialResult.addAttribute(.link, value: value, range: matchResult.range)
+                }
+                
+                return partialResult
+            }
     }
 }
