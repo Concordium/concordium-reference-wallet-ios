@@ -82,34 +82,25 @@ class AccountTransactionsDataViewController: BaseViewController, AccountTransact
     }
 
     func bind(to viewModel: TransactionsListViewModel) {
-        viewModel.$transactions.sink { transactions in
-            var snapshot = NSDiffableDataSourceSnapshot<String, TransactionCell>()
-            for viewModel in transactions {
-                let section = String(GeneralFormatter.formatDate(for: viewModel.date))
-                if snapshot.sectionIdentifiers.last != section {
-                    snapshot.appendSections([section])
-                }
-                snapshot.appendItems([.transaction(viewModel)], toSection: section)
-            }
-            var addLoadingCell = true
-            if let lastSection = snapshot.sectionIdentifiers.last {
-                if let vm = snapshot.itemIdentifiers(inSection: lastSection).last {
-                    if case .transaction(let transactionVM) = vm {
-                        if transactionVM.isLast {
-                            addLoadingCell = false
-                        }
+        viewModel.$transactions
+            .combineLatest(viewModel.$loading.removeDuplicates())
+            .sink { (transactions, loading) in
+                var snapshot = NSDiffableDataSourceSnapshot<String, TransactionCell>()
+                for (index, viewModel) in transactions.enumerated() {
+                    let section = String(GeneralFormatter.formatDate(for: viewModel.date))
+                    if snapshot.sectionIdentifiers.last != section {
+                        snapshot.appendSections([section])
+                    }
+                    snapshot.appendItems([.transaction(viewModel)], toSection: section)
+                    if index == transactions.count - 1 && loading {
+                        snapshot.appendItems([.loading], toSection: section)
                     }
                 }
                 
-                if addLoadingCell {
-                    snapshot.appendItems([.loading], toSection: lastSection)
+                DispatchQueue.main.async {
+                    self.dataSource?.apply(snapshot)
                 }
-            }
-            
-            DispatchQueue.main.async {
-                self.dataSource?.apply(snapshot)
-            }
-        }.store(in: &cancellables)
+            }.store(in: &cancellables)
     }
 }
 

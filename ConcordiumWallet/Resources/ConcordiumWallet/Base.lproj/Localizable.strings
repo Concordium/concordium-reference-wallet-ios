@@ -572,7 +572,7 @@ developer.concordium.software";
 "delegation.receiptconfirmation.title.update" = "Update delegation";
 "delegation.receiptconfirmation.title.create" = "Register delegation";
 "delegation.receiptconfirmation.title.remove" = "Remove delegation";
-"delegation.receiptconfirmation.registertext" = "You are about to submit a delegation transaction. This will lock your delegation amount for at least %@.";
+"delegation.receiptconfirmation.registertext" = "This will lock your delegation amount. Amount is released after %@ from the time you remove or decrease your delegation.";
 "delegation.receiptconfirmation.loweringstake" = "You are about to submit a delegation transaction that lowers your delegation amount. It will take effect after %@ and the delegation amount cannot be changed during this period of time.";
 "delegation.receiptconfirmation.updatetext" = "Are you sure you want to make the following delegation?";
 "delegation.receipt.removedelegation" = "Are you sure you want to remove your delegation?";

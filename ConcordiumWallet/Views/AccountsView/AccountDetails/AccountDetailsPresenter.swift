@@ -335,11 +335,13 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 }).store(in: &cancellables)
     }
     
-    func getTransactions(startingFrom: TransactionViewModel? = nil) {
+    func getTransactions(startingFrom transaction: TransactionViewModel? = nil) {
+        guard !viewModel.hasInflightTransactionListRequest(startingFrom: transaction) else { return }
+        viewModel.transactionListRequestStarted(startingFrom: transaction)
+                
+        var transactionCall = transactionsLoadingHandler.getTransactions(startingFrom: transaction).eraseToAnyPublisher()
 
-        var transactionCall = transactionsLoadingHandler.getTransactions(startingFrom: startingFrom).eraseToAnyPublisher()
-
-        if startingFrom == nil {// Only show loading indicator (blocking the view) in the first call
+        if transaction == nil {// Only show loading indicator (blocking the view) in the first call
             transactionCall = transactionCall
                 .showLoadingIndicator(in: self.view)
                 .eraseToAnyPublisher()
@@ -347,11 +349,16 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
 
         transactionCall
                 .mapError(ErrorMapper.toViewError)
+                .handleEvents(
+                    receiveCompletion: { [weak self] _ in
+                        self?.viewModel.transactionListRequestEnded(startingFrom: transaction)
+                    }
+                )
                 .sink(receiveError: {[weak self] error in
                     self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] (transactionsListFiltered, transactionListAll) in
                     guard let self = self else { return }
-                    if startingFrom == nil {
+                    if transaction == nil {
                         self.viewModel.setTransactions(transactions: transactionsListFiltered)
                         self.viewModel.setAllAccountTransactions(transactions: transactionListAll)
                     } else {

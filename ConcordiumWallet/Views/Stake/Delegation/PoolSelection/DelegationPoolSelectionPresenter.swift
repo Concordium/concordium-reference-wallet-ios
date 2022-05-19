@@ -55,9 +55,25 @@ protocol DelegationPoolSelectionPresenterProtocol: AnyObject {
 }
 
 class DelegationPoolViewModel {
+    static let passiveBottomMessage: NSAttributedString = {
+        "delegation.pool.bottommessage.passive"
+            .localized
+            .stringWithHighlightedLinks(
+                ["developer.concordium.software": "https://developer.concordium.software"]
+            )
+    }()
+    
+    static let bakerBottomMessage: NSAttributedString = {
+        "delegation.pool.bottommessage.baker"
+            .localized
+            .stringWithHighlightedLinks(
+                ["developer.concordium.software": "https://developer.concordium.software"]
+            )
+    }()
+    
     @Published var title: String = ""
     @Published var message: String = "delegation.pool.message".localized
-    @Published var bottomMessage: String = ""
+    @Published var bottomMessage: NSAttributedString = NSAttributedString(string: "")
     @Published var selectedPoolIndex: Int = 0
     @Published var currentValue: String?
     @Published var bakerId: String = ""
@@ -70,12 +86,13 @@ class DelegationPoolViewModel {
             title = "delegation.pool.title.update".localized
             switch currentPool {
             case .passive:
-                bottomMessage = "delegation.pool.bottommessage.passive".localized
+                bottomMessage = DelegationPoolViewModel.passiveBottomMessage
             case .bakerPool:
-                bottomMessage = "delegation.pool.bottommessage.baker".localized
+                bottomMessage = DelegationPoolViewModel.bakerBottomMessage
             }
         } else {
             title = "delegation.pool.title.create".localized
+            bottomMessage = DelegationPoolViewModel.bakerBottomMessage
         }
     }
 }
@@ -140,7 +157,8 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                     .map { [weak self] response in
                         self?.bakerPoolResponse = response
                         let currentBakerId = self?.getCurrentBakerId()
-                        if (response.poolInfo.openStatus == "openForAll") || (response.poolInfo.openStatus == "closedForNew" && currentBakerId == bakerIdInt) {
+                        if (response.poolInfo.openStatus == "openForAll") ||
+                            (response.poolInfo.openStatus == "closedForNew" && currentBakerId == bakerIdInt) {
                             return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
                         } else {
                             return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.closed)
@@ -177,12 +195,12 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             if selectedOption == 1 {
                 self.validSelectedPool = .passive
                 self.viewModel.bakerId = ""
-                self.viewModel.bottomMessage = "delegation.pool.bottommessage.passive".localized
+                self.viewModel.bottomMessage = DelegationPoolViewModel.passiveBottomMessage
             } else {
                 // we reset to the current baker pool
                 self.viewModel.bakerId = ""
                 _ = self.resetToCurrentBakerPool()
-                self.viewModel.bottomMessage = "delegation.pool.bottommessage.baker".localized
+                self.viewModel.bottomMessage = DelegationPoolViewModel.bakerBottomMessage
             }
         }).store(in: &cancellables)
         
@@ -225,7 +243,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     
     private func shouldShowPoolSizeWarning(response: BakerPoolResponse) -> Bool {
         // The alert should only be shown if you are not currently in cooldown
-        guard let delegation = self.account.delegation, delegation.pendingChange?.change != .NoChange else {
+        guard let delegation = self.account.delegation, delegation.pendingChange?.change == .NoChange else {
             return false
         }
         

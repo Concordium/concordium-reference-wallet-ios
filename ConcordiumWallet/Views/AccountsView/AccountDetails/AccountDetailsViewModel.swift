@@ -7,11 +7,25 @@ import Foundation
 
 class TransactionsListViewModel {
     @Published var transactions = [TransactionViewModel]()
+    @Published var loading = true
 }
 
 enum AccountMenuState {
     case open
     case closed
+}
+
+private enum TransactionRequest: Hashable {
+    case initial
+    case next(startingFrom: TransactionViewModel)
+    
+    static func from(transaction: TransactionViewModel?) -> TransactionRequest {
+        if let transaction = transaction {
+            return .next(startingFrom: transaction)
+        } else {
+            return .initial
+        }
+    }
 }
 
 class AccountDetailsViewModel {
@@ -35,6 +49,7 @@ class AccountDetailsViewModel {
     @Published var hasStaked: Bool = false
     @Published var isShieldedEnabled: Bool = true
     @Published var menuState: AccountMenuState = .closed
+    private var inflightTransactionRequest = Set<TransactionRequest>()
     
     init(account: AccountDataType, balanceType: AccountBalanceTypeEnum) {
         setAccount(account: account, balanceType: balanceType)
@@ -83,16 +98,36 @@ class AccountDetailsViewModel {
     func setAllAccountTransactions(transactions: [TransactionViewModel]) {
         appendAllAccountTransactions(transactions: transactions, shouldClearPrevious: true)
     }
+    
+    func hasInflightTransactionListRequest(startingFrom transaction: TransactionViewModel?) -> Bool {
+        return inflightTransactionRequest.contains(.from(transaction: transaction))
+    }
+    
+    func transactionListRequestStarted(startingFrom transaction: TransactionViewModel?) {
+        if inflightTransactionRequest.isEmpty {
+            transactionsList.loading = true
+            allAccountTransactionsList.loading = true
+        }
+        inflightTransactionRequest.update(with: .from(transaction: transaction))
+    }
+    
+    func transactionListRequestEnded(startingFrom transaction: TransactionViewModel?) {
+        let removed = inflightTransactionRequest.remove(.from(transaction: transaction))
+        if inflightTransactionRequest.isEmpty && removed != nil {
+            transactionsList.loading = false
+            allAccountTransactionsList.loading = false
+        }
+    }
 
     func appendTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
             if shouldClearPrevious {
                 transactionsList.transactions = transactions
             } 
-//            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
-//            if transactionsList.transactions.count > 0 {
-//                transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
-//            }
+            // we did not receive new transactions - therefore the last transaction in the list must be the last existing
+            if transactionsList.transactions.count > 0 {
+                transactionsList.transactions[transactionsList.transactions.count - 1].isLast = true
+            }
         } else {
             if shouldClearPrevious {
                 transactionsList.transactions = transactions
@@ -109,10 +144,10 @@ class AccountDetailsViewModel {
     
     func appendAllAccountTransactions(transactions: [TransactionViewModel], shouldClearPrevious: Bool = false) {
         if transactions.count == 0 {
-//            //we did not receive new transactions - therefore the last transaction in the list must be the last existing
-//            if allAccountTransactionsList.transactions.count > 0 {
-//                allAccountTransactionsList.transactions[allAccountTransactionsList.transactions.count - 1].isLast = true
-//            }
+            // we did not receive new transactions - therefore the last transaction in the list must be the last existing
+            if allAccountTransactionsList.transactions.count > 0 {
+                allAccountTransactionsList.transactions[allAccountTransactionsList.transactions.count - 1].isLast = true
+            }
         } else {
             if shouldClearPrevious {
                 allAccountTransactionsList.transactions = transactions

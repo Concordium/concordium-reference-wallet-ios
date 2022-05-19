@@ -1507,6 +1507,14 @@
 		7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
+		8992BAB3283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB4283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB5283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB6283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB82836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BAB92836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BABA2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BABB2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
 		89CF2D4E281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		89CF2D50281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
@@ -2236,6 +2244,8 @@
 		7FF9190C250E4EAD00B1032B /* ImportStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportStatusCell.xib; sourceTree = "<group>"; };
 		7FF91911250E571900B1032B /* ImportStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStatusCell.swift; sourceTree = "<group>"; };
 		7FF919172511505B00B1032B /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
+		8992BAB2283630F4005279C9 /* String+Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
+		8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LinkRecognizer.swift"; sourceTree = "<group>"; };
 		89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainParametersResponse.swift; sourceTree = "<group>"; };
 		901F7EE827E8A6A600C46741 /* BakerKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerKeys.swift; sourceTree = "<group>"; };
 		901F7EE927E8A6A600C46741 /* DelegationTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationTarget.swift; sourceTree = "<group>"; };
@@ -3415,6 +3425,8 @@
 				C93A752E24464813003FDBE2 /* URL+queryParameters.swift */,
 				07A799BA27C5108E00251603 /* Validator.swift */,
 				90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */,
+				8992BAB2283630F4005279C9 /* String+Links.swift */,
+				8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -4510,6 +4522,7 @@
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
 				1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
+				8992BAB82836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */,
 				7F48C14D244DCD0B00997684 /* AccountConfirmedPresenter.swift in Sources */,
 				528EB74A255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				218F329F2705DBB800372BBD /* IdentityCreation.swift in Sources */,
@@ -4710,6 +4723,7 @@
 				901F7EEA27E8A6A600C46741 /* BakerKeys.swift in Sources */,
 				7F48C1C9244DCD0B00997684 /* AccountConfirmedViewController.swift in Sources */,
 				642A293D25FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
+				8992BAB3283630F4005279C9 /* String+Links.swift in Sources */,
 				7F48C27D244E17D100997684 /* SubmissionStatus.swift in Sources */,
 				C94ED728246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
 				078967082742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
@@ -5111,6 +5125,7 @@
 				7F85B793246A9A7C00ED09B8 /* ErrorMapper.swift in Sources */,
 				079F310926EB69DD00ED96D3 /* SettingsHelper.swift in Sources */,
 				7F85B794246A9A7C00ED09B8 /* LoginPresenter.swift in Sources */,
+				8992BABA2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */,
 				642A293325FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				7F85B8EF2472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
 				7F85B79A246A9A7C00ED09B8 /* OutcomeEnum.swift in Sources */,
@@ -5135,6 +5150,7 @@
 				7F7F6D3F24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
 				7F85B7A2246A9A7C00ED09B8 /* Logger.swift in Sources */,
 				077AC5F126E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
+				8992BAB5283630F4005279C9 /* String+Links.swift in Sources */,
 				7F85B7A3246A9A7C00ED09B8 /* SendFundPresenter.swift in Sources */,
 				64FD33912601FBC400563703 /* Credential.swift in Sources */,
 				901F7F4527EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
@@ -5498,6 +5514,7 @@
 				7F85B88F246A9AB600ED09B8 /* Sizes.swift in Sources */,
 				079F310A26EB69DD00ED96D3 /* SettingsHelper.swift in Sources */,
 				7F85B890246A9AB600ED09B8 /* SubmissionStatusEnum.swift in Sources */,
+				8992BABB2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */,
 				642A293425FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				7F85B891246A9AB600ED09B8 /* Result+Additions.swift in Sources */,
 				7F85B892246A9AB600ED09B8 /* ErrorMapper.swift in Sources */,
@@ -5522,6 +5539,7 @@
 				7F7F6D4024A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
 				7F85B89F246A9AB600ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
 				077AC5F226E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,
+				8992BAB6283630F4005279C9 /* String+Links.swift in Sources */,
 				7F85B8A0246A9AB600ED09B8 /* ToastLabel.swift in Sources */,
 				64FD33922601FBC400563703 /* Credential.swift in Sources */,
 				901F7F4627EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
@@ -5854,6 +5872,7 @@
 				7FF618EE2437294E00269F9F /* CreateTransferRequest.swift in Sources */,
 				C94ED71D2461B2030071A4FB /* TransactionDetailPresenter.swift in Sources */,
 				7FF618EF2437294E00269F9F /* MakeCreateTransferRequest.swift in Sources */,
+				8992BAB92836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */,
 				19C2E1B9657627DD0C276D59 /* IPArDatum.swift in Sources */,
 				19C2ED42EF33E1D4CDA917A8 /* IPInfo.swift in Sources */,
 				7F21398524236C0A00D2A5C4 /* CreateCredentialRequest.swift in Sources */,
@@ -5952,6 +5971,7 @@
 				529531AA256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				909EAF2427F72058001930AE /* AccountPendingChangeType.swift in Sources */,
 				19C2EDF1839B4F4F8FE11A76 /* GTU.swift in Sources */,
+				8992BAB4283630F4005279C9 /* String+Links.swift in Sources */,
 				19C2E42A5B0156D1AA877CBA /* AccountDetailsViewModel.swift in Sources */,
 				19C2E17E671E62F0C6925443 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				19C2E0C5C3B047A2DC0D44D7 /* AccountDetailsPresenter.swift in Sources */,

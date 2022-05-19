@@ -77,6 +77,7 @@ class SanityChecker {
                     AppSettings.lastKnownAppVersion = AppSettings.appVersion
                 }
                 
+                completion()
                 return
             }
         case .manual:
