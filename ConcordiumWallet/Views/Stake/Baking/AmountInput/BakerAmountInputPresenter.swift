@@ -48,8 +48,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             minimumValue: GTU(intValue: 0),
             balance: GTU(intValue: account.forecastBalance),
             atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
-            previouslyStakedInPool: previouslyStakedInPool,
-            isInCooldown: account.baker?.isInCooldown ?? false
+            previouslyStakedInPool: previouslyStakedInPool
         )
         
         viewModel.setup(
