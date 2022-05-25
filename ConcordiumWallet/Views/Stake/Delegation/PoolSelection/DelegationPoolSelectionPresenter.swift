@@ -59,7 +59,7 @@ class DelegationPoolViewModel {
         "delegation.pool.bottommessage.passive"
             .localized
             .stringWithHighlightedLinks(
-                ["developer.concordium.software": "https://developer.concordium.software"]
+                ["developer.concordium.software": "https://developer.concordium.software/en/mainnet/net/concepts/concepts-delegation.html"]
             )
     }()
     
@@ -67,7 +67,7 @@ class DelegationPoolViewModel {
         "delegation.pool.bottommessage.baker"
             .localized
             .stringWithHighlightedLinks(
-                ["developer.concordium.software": "https://developer.concordium.software"]
+                ["developer.concordium.software": "https://developer.concordium.software/en/mainnet/net/concepts/concepts-delegation.html"]
             )
     }()
     
