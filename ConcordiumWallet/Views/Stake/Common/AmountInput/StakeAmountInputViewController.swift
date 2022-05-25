@@ -110,6 +110,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             self.firstBalanceLabel.text = balanceVM.label
             self.firstBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.firstBalanceValue.text = balanceVM.value
+            self.firstBalanceValue.textColor = balanceVM.hightlighted ? .errorText : .text
         }.store(in: &cancellables)
         
         viewModel.$secondBalance.sink { [weak self] balanceVM in
@@ -117,6 +118,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             self.secondBalanceLabel.text = balanceVM.label
             self.secondBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.secondBalanceValue.text = balanceVM.value
+            self.secondBalanceValue.textColor = balanceVM.hightlighted ? .errorText : .text
         }.store(in: &cancellables)
         
         viewModel.$showsPoolLimits
@@ -130,6 +132,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             self.thirdBalanceLabel.text = balanceVM.label
             self.thirdBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.thirdBalanceValue.text = balanceVM.value
+            self.thirdBalanceValue.textColor = balanceVM.hightlighted ? .errorText : .text
         }.store(in: &cancellables)
         
         viewModel.$poolLimit.sink { [weak self] balanceVM in
@@ -138,6 +141,7 @@ class StakeAmountInputViewController: KeyboardDismissableBaseViewController, Sta
             self.fourthBalanceLabel.text = balanceVM.label
             self.fourthBalanceLabel.textColor = balanceVM.hightlighted ? .errorText : .text
             self.fourthBalanceValue.text = balanceVM.value
+            self.fourthBalanceValue.textColor = balanceVM.hightlighted ? .errorText : .text
         }.store(in: &cancellables)
         
         viewModel.$amountMessage

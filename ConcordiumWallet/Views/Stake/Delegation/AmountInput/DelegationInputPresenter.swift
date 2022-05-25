@@ -102,7 +102,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         validator = StakeAmountInputValidator(minimumValue: minValue,
                                               maximumValue: nil,
                                               balance: GTU(intValue: account.forecastBalance),
-                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)),
                                               currentPool: currentPool,
                                               poolLimit: poolLimit,
                                               previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool))
@@ -169,10 +169,16 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             case let .success(amount):
                 self?.validAmount = amount
                 self?.viewModel.amountErrorMessage = nil
+                self?.viewModel.poolLimit?.hightlighted = false
                 self?.viewModel.isContinueEnabled = true
             case let .failure(error):
                 self?.validAmount = nil
                 self?.viewModel.amountErrorMessage = error.localizedDescription
+                if case .poolLimitReached = error {
+                    self?.viewModel.poolLimit?.hightlighted = true
+                } else {
+                    self?.viewModel.poolLimit?.hightlighted = false
+                }
                 self?.viewModel.isContinueEnabled = false
             }
         }).store(in: &cancellables)

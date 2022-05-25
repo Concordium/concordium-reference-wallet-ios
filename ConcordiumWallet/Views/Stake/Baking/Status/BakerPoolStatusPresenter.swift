@@ -101,6 +101,10 @@ private extension StakeStatusViewModel {
         if let poolSetting = BakerPoolSetting(rawValue: poolInfo.openStatus) {
             updatedRows.append(BakerPoolSettingsData(poolSettings: poolSetting))
         }
+        
+        if !poolInfo.metadataURL.isEmpty {
+            updatedRows.append(BakerMetadataURLData(metadataURL: poolInfo.metadataURL))
+        }
 
         title = "baking.status.title".localized
         topImageName = "confirm"

@@ -24,7 +24,7 @@ protocol BakerMetadataPresenterDelegate: AnyObject {
 
 class BakerMetadataViewModel {
     @Published var title: String
-    @Published var text: String
+    @Published var text: NSAttributedString
     @Published var currentValueLabel: String?
     @Published var currentValue: String
     
@@ -33,11 +33,15 @@ class BakerMetadataViewModel {
             currentValue = currentMetadataUrl
             currentValueLabel = String(format: "baking.metadata.current".localized, currentMetadataUrl)
             title = "baking.metadata.title.update".localized
-            text = "baking.metadata.text.update".localized
+            text = "baking.metadata.text.update"
+                .localized
+                .stringWithHighlightedLinks(["developer.concordium.software": "https://developer.concordium.software"])
         } else {
             currentValue = ""
             title = "baking.metadata.title.create".localized
-            text = "baking.metadata.text.create".localized
+            text = "baking.metadata.text.create"
+                .localized
+                .stringWithHighlightedLinks(["developer.concordium.software": "https://developer.concordium.software"])
         }
     }
 }

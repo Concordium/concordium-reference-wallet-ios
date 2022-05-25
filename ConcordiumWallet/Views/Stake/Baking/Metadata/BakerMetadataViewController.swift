@@ -28,6 +28,8 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
     @IBOutlet weak var metadataTextField: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
+    private var linkPressedListener: LinkPressedListener?
+    
     private var cancellables = Set<AnyCancellable>()
     
 	var presenter: BakerMetadataPresenterProtocol
@@ -55,6 +57,8 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
             action: #selector(pressedClose)
         )
         
+        linkPressedListener = textLabel.addOnLinkPressedListener()
+        
         presenter.view = self
         presenter.viewDidLoad()
     }
@@ -65,7 +69,7 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
             .store(in: &cancellables)
         
         viewModel.$text
-            .assign(to: \.text, on: textLabel)
+            .assign(to: \.attributedText, on: textLabel)
             .store(in: &cancellables)
         
         viewModel.$currentValueLabel

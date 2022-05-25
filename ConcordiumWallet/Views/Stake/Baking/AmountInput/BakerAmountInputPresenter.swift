@@ -47,7 +47,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
             balance: GTU(intValue: account.forecastBalance),
-            atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+            atDisposal: GTU(intValue: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)),
             previouslyStakedInPool: previouslyStakedInPool
         )
         
