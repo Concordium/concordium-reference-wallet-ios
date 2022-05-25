@@ -9,6 +9,26 @@ protocol SendFundsCoordinatorDelegate: AnyObject {
     func sendFundsCoordinatorFinished()
 }
 
+enum SendFundTransferType {
+    case simpleTransfer
+    case encryptedTransfer
+    case transferToSecret
+    case transferToPublic
+    
+    var actualType: TransferType {
+        switch self {
+        case .simpleTransfer:
+            return .simpleTransfer
+        case .encryptedTransfer:
+            return .encryptedTransfer
+        case .transferToSecret:
+            return .transferToSecret
+        case .transferToPublic:
+            return .transferToPublic
+        }
+    }
+}
+
 class SendFundsCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: SendFundsCoordinatorDelegate?
@@ -16,7 +36,7 @@ class SendFundsCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var account: AccountDataType
     private var balanceType: AccountBalanceTypeEnum
-    private var transferType: TransferType
+    private var transferType: SendFundTransferType
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     var sendFundPresenter: SendFundPresenter?
 
@@ -25,7 +45,7 @@ class SendFundsCoordinator: Coordinator {
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
          balanceType: AccountBalanceTypeEnum,
-         transferType: TransferType) {
+         transferType: SendFundTransferType) {
         self.account = account
         self.balanceType = balanceType
         self.transferType = transferType
@@ -93,7 +113,7 @@ class SendFundsCoordinator: Coordinator {
         to recipient: RecipientDataType,
         memo: Memo?,
         cost: GTU,
-        transferType: TransferType
+        transferType: SendFundTransferType
     ) {
         let presenter = SendFundConfirmationPresenter(
             delegate: self, amount: amount,
@@ -131,7 +151,7 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
         to recipient: RecipientDataType,
         memo: Memo?,
         cost: GTU,
-        transferType: TransferType
+        transferType: SendFundTransferType
     ) {
         showSendFundConfirmation(
             amount: amount,

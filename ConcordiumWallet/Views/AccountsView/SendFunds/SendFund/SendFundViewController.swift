@@ -174,6 +174,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         viewModel.$sendAllEnabled
             .assign(to: \.isEnabled, on: sendAllButton)
             .store(in: &cancellables)
+        
+        viewModel.$sendAllVisible
+            .sink { [weak self] isVisible in
+                self?.sendAllButton.isHidden = !isVisible
+            }
+            .store(in: &cancellables)
 
         viewModel.$showMemoRemoveButton
             .map { !$0 }

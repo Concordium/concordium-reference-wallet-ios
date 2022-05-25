@@ -70,7 +70,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: TransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
+        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
@@ -83,7 +83,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
 
     func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: TransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
+        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,

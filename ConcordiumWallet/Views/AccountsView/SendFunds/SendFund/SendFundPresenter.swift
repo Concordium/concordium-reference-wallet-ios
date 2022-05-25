@@ -24,12 +24,13 @@ class SendFundViewModel {
     @Published var showShieldedLock = false
     @Published var pageTitle: String?
     @Published var buttonTitle: String?
+    @Published var sendAllVisible = true
     @Published var sendAllEnabled = false
     @Published var sendAllAmount: String?
     @Published var selectedSendAllDisposableAmount = false
     @Published var disposalAmount: GTU?
     
-    func setup(account: AccountDataType, transferType: TransferType) {
+    func setup(account: AccountDataType, transferType: SendFundTransferType) {
         switch transferType {
         case .simpleTransfer, .encryptedTransfer:
             // We show the memo and recipient for simple or encrypted transfers
@@ -37,10 +38,6 @@ class SendFundViewModel {
         case .transferToSecret, .transferToPublic:
             // We hide the memo and recipient for shielding or unshielding
             showMemoAndRecipient = false
-        case .registerDelegation, .removeDelegation, .updateDelegation:
-            break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
-            break
         }
         
         setPageAndSendButtonTitle(transferType: transferType)
@@ -60,7 +57,7 @@ class SendFundViewModel {
         showMemoRemoveButton = (memo != nil)
     }
     
-    private func setPageAndSendButtonTitle(transferType: TransferType) {
+    private func setPageAndSendButtonTitle(transferType: SendFundTransferType) {
         switch transferType {
         case .simpleTransfer, .encryptedTransfer:
             pageTitle = "sendFund.pageTitle.send".localized
@@ -71,18 +68,16 @@ class SendFundViewModel {
         case .transferToSecret:
             pageTitle = "sendFund.pageTitle.shieldAmount".localized
             buttonTitle = "sendFund.buttonTitle.shieldAmount".localized
-        case .registerDelegation, .removeDelegation, .updateDelegation:
-            break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
-            break
         }
     }
-    private func setBalancesFor(transferType: TransferType, account: AccountDataType) {
+    private func setBalancesFor(transferType: SendFundTransferType, account: AccountDataType) {
         switch transferType {
         case .simpleTransfer, .transferToSecret:
             // for transfers from the public account, we show Total and at disposal for the public balance
             firstBalanceName = "sendFund.total".localized
             secondBalanceName = "sendFund.atDisposal".localized
+            // We don't show the send all button for shielding transfers as it is likely a user mistake
+            sendAllVisible = transferType != .transferToSecret
             firstBalance = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
@@ -95,10 +90,6 @@ class SendFundViewModel {
             firstBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke() + (showLock ? " + " : "")
             disposalAmount = GTU(intValue: account.finalizedEncryptedBalance)
-        case .registerDelegation, .removeDelegation, .updateDelegation:
-            break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
-            break
         }
     }
     
@@ -127,7 +118,7 @@ protocol SendFundPresenterDelegate: AnyObject {
                            to recipient: RecipientDataType,
                            memo: Memo?,
                            cost: GTU,
-                           transferType: TransferType)
+                           transferType: SendFundTransferType)
     func dismissQR()
 }
 
@@ -166,7 +157,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     
     private var account: AccountDataType
     private var balanceType: AccountBalanceTypeEnum
-    private var transferType: TransferType
+    private var transferType: SendFundTransferType
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     
     private var cost: GTU?
@@ -174,7 +165,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     
     init(account: AccountDataType,
          balanceType: AccountBalanceTypeEnum,
-         transferType: TransferType,
+         transferType: SendFundTransferType,
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          delegate: SendFundPresenterDelegate? = nil) {
         self.account = account
@@ -352,7 +343,9 @@ class SendFundPresenter: SendFundPresenterProtocol {
             )
         }
         
-        if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
+        if transferType == .transferToSecret {
+            showShieldAmountWarningIfNeeded(amount: amount, completion: sendFund)
+        } else if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
             sendFund()
         } else {
             view?.showMemoWarningAlert { sendFund() }
@@ -387,7 +380,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     private func updateTransferCostEstimate() {
         dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: transferType, costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
+            .getTransferCost(transferType: transferType.actualType, costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
             .sink(receiveError: { [weak self] (error) in
                 Logger.error(error)
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
@@ -407,7 +400,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
         dependencyProvider
             .transactionsService()
-            .getTransferCost(transferType: transferType, costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
+            .getTransferCost(transferType: transferType.actualType, costParameters: TransferCostParameter.parametersForMemoSize(addedMemo?.size))
             .sink(receiveError: { [weak self] (error) in
                 Logger.error(error)
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
@@ -432,6 +425,40 @@ class SendFundPresenter: SendFundPresenterProtocol {
         viewModel.feeMessage = nil
         cost = nil
         energy = nil
+    }
+    
+    private func showShieldAmountWarningIfNeeded(amount: String, completion: @escaping () -> Void) {
+        guard let disposableAmount = viewModel.disposalAmount?.intValue else {
+            completion()
+            return
+        }
+        
+        let gtuAmount = GTU(displayValue: amount)
+        
+        let maxGTU = disposableAmount - (disposableAmount / 20) // 95% of disposableAmount
+        
+        if gtuAmount.intValue >= maxGTU {
+            let continueAction = AlertAction(
+                name: "sendFund.warning.shield.continue".localized,
+                completion: completion,
+                style: .default
+            )
+            let newAmountAction = AlertAction(
+                name: "sendFund.warning.shield.newamount".localized,
+                completion: nil,
+                style: .default
+            )
+            
+            let alertOptions = AlertOptions(
+                title: "sendFund.warning.shield.title".localized,
+                message: "sendFund.warning.shield.message".localized,
+                actions: [continueAction, newAmountAction]
+            )
+            
+            self.view?.showAlert(with: alertOptions)
+        } else {
+            completion()
+        }
     }
 }
 

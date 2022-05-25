@@ -48,7 +48,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var cost: GTU
     private var memo: Memo?
     private var energy: Int
-    private var transferType: TransferType
+    private var transferType: SendFundTransferType
 
     init(
         delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
@@ -59,7 +59,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         cost: GTU,
         energy: Int,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
-        transferType: TransferType
+        transferType: SendFundTransferType
     ) {
         self.delegate = delegate
         self.amount = amount
@@ -104,10 +104,6 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         case .transferToSecret:
             view?.line1Text = "sendFund.confirmation.shield".localized
             view?.buttonText = "accounts.shieldedamount".localized
-        case .registerDelegation, .removeDelegation, .updateDelegation:
-            break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
-            break
         }
 
         let estimateTransactionFee = "sendFund.confirmation.line4.estimatedTransactionFee".localized
@@ -123,7 +119,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
 
     func userTappedConfirm() {
         var transfer = TransferDataTypeFactory.create()
-        transfer.transferType = transferType
+        transfer.transferType = transferType.actualType
         transfer.amount = String(amount.intValue)
         transfer.fromAddress = fromAccount.address
         transfer.toAddress = recipient.address

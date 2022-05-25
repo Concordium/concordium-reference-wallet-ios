@@ -280,6 +280,12 @@ process on-chain.";
 "sendFund.or" = "or";
 "sendFund.button.finish" = "Finish";
 
+"sendFund.warning.shield.title" = "Warning";
+"sendFund.warning.shield.message" = "You are about to shield more than 95% of your available balance.
+
+If you don’t have enough CCD at disposal on your balance, you might not be able to pay future transaction fees. If you don’t have enough funds to pay for fees, your CCDs cannot be unshielded or transferred.";
+"sendFund.warning.shield.continue" = "Continue anyway";
+"sendFund.warning.shield.newamount" = "Enter a new amount to shield";
 
 "addMemo.pageTitle" = "Add memo";
 "addMemo.memoTitle" = "Enter your memo below.";
