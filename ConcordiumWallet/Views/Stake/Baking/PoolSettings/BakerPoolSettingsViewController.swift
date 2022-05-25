@@ -10,8 +10,9 @@ import UIKit
 import Combine
 
 // MARK: View
-protocol BakerPoolSettingsViewProtocol: AnyObject {
+protocol BakerPoolSettingsViewProtocol: ShowAlert {
     func bind(viewModel: BakerPoolSettingsViewModel)
+    var poolSettingPublisher: PassthroughSubject<Int, Error> { get }
 }
 
 class BakerPoolSettingsFactory {
@@ -44,6 +45,17 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.additionalSafeAreaInsets = UIEdgeInsets(top: 0,
+                                                     left: 0,
+                                                     bottom: 10,
+                                                     right: 0)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "close_icon"),
+            style: .plain,
+            target: self,
+            action: #selector(pressedClose)
+        )
         
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
         poolControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
@@ -68,13 +80,21 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
         viewModel.$currentValue.sink { [weak self] currentValue in
             guard let self = self else { return }
             if let currentValue = currentValue {
-                self.poolControl.insertSegment(withTitle: "baking.closedfornewdelegators".localized,
-                                               at: 1,
-                                               animated: false) // we addd an extra option
                 self.currentValueLabel.text = currentValue
                 self.currentValueLabel.isHidden = false
             } else {
                 self.currentValueLabel.isHidden = true
+            }
+        }.store(in: &cancellables)
+        
+        viewModel.$showsCloseForNew.sink { [weak self] shows in
+            guard let self = self else { return }
+            if shows {
+                self.poolControl.insertSegment(withTitle: "baking.closedfornewdelegators".localized,
+                                               at: 1,
+                                               animated: false)
+            } else if self.poolControl.numberOfSegments == 3 {
+                self.poolControl.removeSegment(at: 1, animated: false)
             }
         }.store(in: &cancellables)
         
@@ -91,4 +111,7 @@ class BakerPoolSettingsViewController: BaseViewController, BakerPoolSettingsView
         presenter.pressedContinue()
     }
     
+    @objc func pressedClose() {
+        presenter.pressedClose()
+    }
 }

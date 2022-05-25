@@ -64,10 +64,7 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
             return
         }
 
-        var transfer = dataHandler.getTransferObject()
-        transfer.fromAddress = account.address
-        transfer.cost = String(cost.intValue)
-        transfer.energy = energy
+        let transfer = dataHandler.getTransferObject(cost: cost, energy: energy)
         
         self.transactionsService.performTransfer(transfer, from: account, requestPasswordDelegate: delegate)
             .showLoadingIndicator(in: view)

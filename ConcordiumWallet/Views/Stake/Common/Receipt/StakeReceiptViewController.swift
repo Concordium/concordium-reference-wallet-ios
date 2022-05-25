@@ -137,6 +137,13 @@ class StakeReceiptViewController: BaseViewController, StakeReceiptViewProtocol, 
                 self?.navigationItem.setHidesBackButton(true, animated: true)
             }
         }.store(in: &cancellables)
+        
+        viewModel.$buttonLabel
+            .filter { !$0.isEmpty }
+            .sink { [weak self] text in
+                self?.nextButton.setTitle(text, for: .normal)
+            }
+            .store(in: &cancellables)
     }
 
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: StakeRowViewModel) -> UITableViewCell? {

@@ -8,6 +8,9 @@ import Foundation
 struct GTU {
     static let conversionFactor: Int = 1000000
     static let maximumFractionDigits: Int = 6
+    
+    /// Useful for comparing against 0
+    static let zero: GTU = GTU(intValue: 0)
 
     let intValue: Int
 
@@ -56,6 +59,10 @@ struct GTU {
             stringValue = "-\(stringValue)"
         }
         return stringValue
+    }
+    
+    static func isValid(displayValue: String) -> Bool {        
+        return displayValue.unsignedWholePart <= (Int.max - 999999)/1000000 && displayValue.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
     }
 
     private static func wholeAndFractionalValueToInt(wholeValue: Int, fractionalValue: Int, isNegative: Bool) -> Int {

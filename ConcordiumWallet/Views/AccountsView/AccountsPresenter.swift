@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class AccountViewModel: Hashable {
     var address: String
@@ -157,7 +158,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
     var warningDisplayer: WarningDisplayer
     var alertDisplayer = AlertDisplayer()
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
-    
+    private var mustCheckForForceUpdate = true
+
     var accounts: [AccountDataType] = [] {
         didSet {
             updateViewState()
@@ -199,6 +201,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
     func viewDidAppear() {
         checkPendingAccountsStatusesIfNeeded()
+        checkForForceUpdate()
     }
     
     func refresh() {
@@ -229,7 +232,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
                 let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
-                let atDisposal = updatedAccounts.filter{!$0.isReadOnly}.reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
+                let atDisposal = updatedAccounts
+                    .filter {!$0.isReadOnly}
+                    .reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
                 let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + ($1.baker?.stakedAmount ?? 0) })
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
@@ -357,7 +362,59 @@ class AccountsPresenter: AccountsPresenterProtocol {
             warningDisplayer.addWarning(Warning.backup)
         }
     }
+
+    private func checkForForceUpdate() {
+        if mustCheckForForceUpdate {
+            mustCheckForForceUpdate = false
+            let appVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+            dependencyProvider.appSettingsService().getAppSettings(platform: "ios", version: appVersion)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] appSettingsResponse in
+                    if let appStoreUrl = appSettingsResponse.url, appSettingsResponse.status != .ok {
+                        if appSettingsResponse.status == .warning {
+                            self?.showAppUpdateWarning(appStoreUrl: appStoreUrl)
+                        } else if appSettingsResponse.status == .needsUpdate {
+                            self?.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
+                        }
+                    }
+                })
+                .store(in: &cancellables)
+        }
+    }
+
+    private func showAppUpdateWarning(appStoreUrl: URL) {
+        let updateNowAction = AlertAction(name: "force.update.warning.update.now".localized, completion: {
+            self.gotoAppStore(appStoreUrl: appStoreUrl)
+        }, style: .default)
+        let backupAction = AlertAction(name: "force.update.warning.backup".localized, completion: {
+            self.performAction(for: .backup)
+            self.mustCheckForForceUpdate = true
+        }, style: .default)
+        let remindMeAction = AlertAction(name: "force.update.warning.remind.me".localized, completion: nil, style: .default)
+        let alertOptions = AlertOptions(title: "force.update.warning.title".localized,
+                                        message: "force.update.warning.message".localized,
+                                        actions: [updateNowAction, backupAction, remindMeAction])
+        self.view?.showAlert(with: alertOptions)
+    }
+
+    private func showAppUpdateNeedsUpdate(appStoreUrl: URL) {
+        let updateNowAction = AlertAction(name: "force.update.needed.update.now".localized, completion: {
+            self.showAppUpdateNeedsUpdate(appStoreUrl: appStoreUrl)
+            self.gotoAppStore(appStoreUrl: appStoreUrl)
+        }, style: .default)
+        let backupAction = AlertAction(name: "force.update.needed.backup".localized, completion: {
+            self.performAction(for: .backup)
+            self.mustCheckForForceUpdate = true
+        }, style: .default)
+        let alertOptions = AlertOptions(title: "force.update.needed.title".localized,
+                                        message: "force.update.needed.message".localized,
+                                        actions: [updateNowAction, backupAction])
+        self.view?.showAlert(with: alertOptions)
+    }
     
+    private func gotoAppStore(appStoreUrl: URL) {
+        UIApplication.shared.open(appStoreUrl, options: [:], completionHandler: nil)
+    }
+
     private func updatePendingIdentitiesWarnings() {
         let identities = dependencyProvider.storageManager().getIdentities()
         let pendingIdentities = identities.filter { $0.state == .pending }

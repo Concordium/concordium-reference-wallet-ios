@@ -9,20 +9,43 @@
 import Foundation
 
 protocol BurgerMenuAction {
+    var destructive: Bool { get }
+    var enabled: Bool { get }
+    
     func getDisplayName() -> String
 }
 
+extension BurgerMenuAction {
+    var destructive: Bool { false }
+    var enabled: Bool { true }
+}
+
 class BurgerMenuViewModel {
+    struct Action: Hashable {
+        let displayName: String
+        let destructive: Bool
+        let enabled: Bool
+        
+        init(burgerMenuAction: BurgerMenuAction) {
+            displayName = burgerMenuAction.getDisplayName()
+            destructive = burgerMenuAction.destructive
+            enabled = burgerMenuAction.enabled
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(displayName)
+        }
+    }
     
-    @Published var displayActions: [String] = []
+    @Published var displayActions: [Action] = []
     
     func setup(actions: [BurgerMenuAction]) {
-        displayActions = actions.map { $0.getDisplayName() }
+        displayActions = actions.map(Action.init(burgerMenuAction:))
     }
 }
 
 // MARK: View
-protocol BurgerMenuViewProtocol: AnyObject {
+protocol BurgerMenuViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: BurgerMenuViewModel)
 }
 

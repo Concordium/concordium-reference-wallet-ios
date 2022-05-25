@@ -13,29 +13,25 @@ class DelegationDataHandler: StakeDataHandler {
         if let delegation = account.delegation {
             if isRemoving {
                 super.init(transferType: .removeDelegation)
-                self.add(entry: DelegationStopAccountData(accountAddress: account.address))
+                self.add(entry: DelegationStopAccountData(accountName: account.name, accountAddress: account.address))
             } else {
-                super.init(transferType: .updateDelegation)
-                currentData = Set()
-                currentData?.update(with: DelegationAccountData(accountAddress: account.address))
-                currentData?.update(with: AmountData(amount: GTU(intValue: delegation.stakedAmount)))
-                currentData?.update(with: RestakeDelegationData(restake: delegation.restakeEarnings))
-                let bakerPool = BakerTarget.from(delegationType: delegation.delegationTargetType, bakerId: delegation.delegationTargetBakerID)
-                currentData?.update(with: PoolDelegationData(pool: bakerPool))
-                self.add(entry: DelegationAccountData(accountAddress: account.address))
+                super.init(transferType: .updateDelegation) {
+                    DelegationAccountData(accountName: account.name, accountAddress: account.address)
+                    DelegationAmountData(amount: GTU(intValue: delegation.stakedAmount))
+                    RestakeDelegationData(restake: delegation.restakeEarnings)
+                    PoolDelegationData(
+                        pool: BakerTarget.from(
+                            delegationType: delegation.delegationTargetType,
+                            bakerId: delegation.delegationTargetBakerID
+                        )
+                    )
+                }
+                self.add(entry: DelegationAccountData(accountName: account.name, accountAddress: account.address))
             }
         } else {
             // register delegation
             super.init(transferType: .registerDelegation)
-            self.add(entry: DelegationAccountData(accountAddress: account.address))
+            self.add(entry: DelegationAccountData(accountName: account.name, accountAddress: account.address))
         }
-    }
-    override func getTransferObject() -> TransferDataType {
-        if isNewAmountZero() {
-            var transfer = TransferDataTypeFactory.create()
-            transfer.transferType = .removeDelegation
-            return transfer
-        }
-        return super.getTransferObject()
     }
 }

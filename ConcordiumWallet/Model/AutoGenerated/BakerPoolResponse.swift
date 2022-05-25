@@ -15,7 +15,7 @@ struct BakerPoolResponse: Codable {
     let bakerStakePendingChange: BakerStakePendingChange
     let bakerAddress: String
     let delegatedCapital: String
-    let currentPaydayStatus: CurrentPaydayStatus
+    let currentPaydayStatus: CurrentPaydayStatus?
 
     enum CodingKeys: String, CodingKey {
         case poolType = "poolType"
@@ -57,7 +57,7 @@ extension BakerPoolResponse {
         bakerStakePendingChange: BakerStakePendingChange? = nil,
         bakerAddress: String? = nil,
         delegatedCapital: String? = nil,
-        currentPaydayStatus: CurrentPaydayStatus? = nil
+        currentPaydayStatus: CurrentPaydayStatus?? = nil
     ) -> BakerPoolResponse {
         return BakerPoolResponse(
             poolType: poolType ?? self.poolType,

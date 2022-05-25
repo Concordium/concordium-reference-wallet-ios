@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -15,7 +16,9 @@ extension Notification.Name {
 // @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var appCoordinator = AppCoordinator()
+    private (set) lazy var appCoordinator = AppCoordinator()
+    
+    private var cancellables = Set<AnyCancellable>()
 
     private lazy var backgroundWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -26,10 +29,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-
+        
+        application.waitForProtectedData()
+            .sink { _ in
+                self.startAppCoordinator()
+            }
+            .store(in: &cancellables)
+        
+        return true
+    }
+    
+    private func startAppCoordinator() {
         window?.rootViewController = appCoordinator.navigationController
         window?.makeKeyAndVisible()
-
+        
         // Warn if device is jail broken.
         if UIDevice.current.isJailBroken {
             let ac = UIAlertController(title: "Warning", message: "error", preferredStyle: .alert)
@@ -42,13 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appCoordinator.start()
         }
 
-        // Listen for application timeout. 
+        // Listen for application timeout.
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.receivedApplicationTimeout),
                                                name: .didReceiveAppTimeout,
                                                object: nil)
-        
-        return true
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -85,5 +96,34 @@ extension AppDelegate {
     
     @objc func receivedApplicationTimeout() {
         appCoordinator.logout()
+    }
+}
+
+struct ProtectedDataFuture: Publisher {
+    typealias Output = Void
+    typealias Failure = Never
+    
+    let application: UIApplication
+    
+    init(application: UIApplication) {
+        self.application = application
+    }
+    
+    func receive<S>(subscriber: S) where S: Subscriber, Never == S.Failure, Void == S.Input {
+        if application.isProtectedDataAvailable {
+            Just(()).receive(subscriber: subscriber)
+        } else {
+            NotificationCenter.default
+                .publisher(for: UIApplication.protectedDataDidBecomeAvailableNotification)
+                .first()
+                .map { _ in () }
+                .receive(subscriber: subscriber)
+        }
+    }
+}
+
+extension UIApplication {
+    func waitForProtectedData() -> ProtectedDataFuture {
+        return ProtectedDataFuture(application: self)
     }
 }

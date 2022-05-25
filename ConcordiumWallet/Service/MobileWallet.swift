@@ -26,10 +26,10 @@ protocol MobileWalletProtocol {
                         delegationTarget: DelegationTarget?,
                         openStatus: String?,
                         metadataURL: String?,
-                        transactionFeeCommission: Int?,
-                        bakingRewardCommission: Int?,
-                        finalizationRewardCommission: Int?,
-                        bakerKeys: BakerKeys?,
+                        transactionFeeCommission: Double?,
+                        bakingRewardCommission: Double?,
+                        finalizationRewardCommission: Double?,
+                        bakerKeys: GeneratedBakerKeys?,
                         expiry: Date, energy: Int,
                         transferType: TransferType,
                         requestPasswordDelegate: RequestPasswordDelegate,
@@ -47,6 +47,7 @@ protocol MobileWalletProtocol {
                                         privateIDObjectData: PrivateIDObjectData,
                                         startingFrom: Int,
                                         pwHash: String) throws -> Result<[MakeGenerateAccountsResponseElement], Error>
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error>
     
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error>
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
@@ -180,10 +181,10 @@ class MobileWallet: MobileWalletProtocol {
                         delegationTarget: DelegationTarget?,
                         openStatus: String?,
                         metadataURL: String?,
-                        transactionFeeCommission: Int?,
-                        bakingRewardCommission: Int?,
-                        finalizationRewardCommission: Int?,
-                        bakerKeys: BakerKeys?,
+                        transactionFeeCommission: Double?,
+                        bakingRewardCommission: Double?,
+                        finalizationRewardCommission: Double?,
+                        bakerKeys: GeneratedBakerKeys?,
                         expiry: Date,
                         energy: Int,
                         transferType: TransferType,
@@ -228,10 +229,10 @@ class MobileWallet: MobileWalletProtocol {
                                 delegationTarget: DelegationTarget?,
                                 openStatus: String?,
                                 metadataURL: String?,
-                                transactionFeeCommission: Int?,
-                                bakingRewardCommission: Int?,
-                                finalizationRewardCommission: Int?,
-                                bakerKeys: BakerKeys?,
+                                transactionFeeCommission: Double?,
+                                bakingRewardCommission: Double?,
+                                finalizationRewardCommission: Double?,
+                                bakerKeys: GeneratedBakerKeys?,
                                 energy: Int,
                                 transferType: TransferType,
                                 pwHash: String,
@@ -283,7 +284,7 @@ class MobileWallet: MobileWalletProtocol {
              return try CreateTransferRequest(walletFacade.createEncrypted(input: input))
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
         }
     }
@@ -308,6 +309,10 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return .failure(error)
         }
+    }
+    
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {
+        return Result { try GeneratedBakerKeys(try walletFacade.generateBakerKeys()) }
     }
     
     private func getCommitmentsRandomness(for account: AccountDataType, pwHash: String) -> Result<CommitmentsRandomness, Error> {

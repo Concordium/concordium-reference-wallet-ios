@@ -458,6 +458,7 @@ process on-chain.";
 "burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
 "burgermenu.decrypt" = "Decrypt";
 "burgermenu.delegation" = "Delegation";
+"burgermenu.baking" = "Baking";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -521,7 +522,7 @@ concordium-backup.concordiumwallet securely.";
 "stake.receipt.transactionsubmitted" = "Transaction submitted!";
 "stake.receipt.finish" = "Finish";
 "stake.receipt.restake" = "Rewards will be";
-
+"stake.receipt.formattedaccount" = "%@\n\n%@";
 
 
 "delegation.inputamount.title.create" = "Register delegation";
@@ -539,8 +540,9 @@ concordium-backup.concordiumwallet securely.";
 "delegation.pool.title.update" = "Update delegation";
 "delegation.pool.current" = "Current target %@";
 "delegation.pool.message" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"delegation.pool.bottommessage.baker" = "If you don’t already know what target baker pool you want to delegate an amount to, you can read more about how to find one here:
+"delegation.pool.bottommessage.baker" = "Passive delegation is an alternative to delegation to a specific baker pool that has lower rewards. With passive delegation you do not have to worry about the uptime or quality of a baker node.
 
+For more info you can visit
 developer.concordium.software";
 "delegation.pool.bottommessage.passive" = "Passive delegation divides the staked tokens shared between all baker pools proportionally to their size, and has a higher commission rate than delegating to a single baker.
 
@@ -634,12 +636,38 @@ You can however already change your target pool via the delegation status menu, 
 Affected delegator accounts:\n%@";
 "delegation.closewarning.remindmeaction" = "Remind me next time I open the wallet";
 
+"baking.menu.updatebakerstake" = "Update baker stake";
+"baking.menu.updatepoolsettings" = "Update pool settings";
+"baking.menu.updatebakerkeys" = "Update baker keys";
+"baking.menu.stopbaking" = "Stop baking";
+
+"baking.inputamount.balance" = "Balance:";
+"baking.inputamount.bakerstake" = "Baker stake:";
+"baking.inputamount.bottommessage" = "Do you want to automatically add your baking rewards to your baker stake?
+
+If you choose to not restake your rewards, the amounts will be at disposal on your account balance at each pay day.";
+"baking.inputamount.createamount" = "Enter the amount you want to stake";
+"baking.inputamount.newamount" = "Enter your new total baker stake";
+"baking.inputamount.title.create" = "Register baker";
+"baking.inputamount.title.update" = "Update baker stake";
+"baking.inputamount.transactionfee" = "Estimated transaction fee:\n%@ - %@";
+"baking.inputamount.lockedamountmessage" = "The baker stake cannot be changed when it already has pending changes.";
+
+"baking.nochanges.title" = "Notice";
+"baking.nochanges.message" = "Your transaction contains no changes compared to the current delegation.";
+"baking.nochanges.ok" = "Okay";
+
+"baking.morethan95.title" = "Warning";
+"baking.morethan95.message" = "You are about to lock more than 95% of your total balance in a baker stake.
+
+If you don’t have enough unlocked CCD at your disposal, you might not be able to pay future transaction fees.";
+"baking.morethan95.continue" = "Continue";
+"baking.morethan95.newstake" = "Enter new baker stake";
+
 "baker.receiptconfirmation.title.update" = "Update baker stake";
 "baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
 
 The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
-
-
 
 "baking.poolsettings.title.create" = "Register baker";
 "baking.poolsettings.title.update" = "Update pool settings";
@@ -653,22 +681,147 @@ If your pool is already open, you can also close it for new delegators, or you c
 If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
 
 If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
-"baking.poolsettings.current" = "Current status";
+"baking.poolsettings.current" = "Current status: %@";
 
-"baking.keeppoolclosed" = "Keep the pool closed";
-"baking.openfordelegators" = "Open pool for delegators";
+"baking.keeppoolclosed" = "Close for delegation";
+"baking.openfordelegators" = "Open for delegation";
 "baking.closedfornewdelegators" = "Close for new delegators";
 
+"baking.generatekeys.title" = "Register baker";
+"baking.generatekeys.info" = "Your new baker keys have been generated. Before you can continue, you must export and save them. The keys will have to be added to the baker node.\n\nNOTICE: Besides exporting the keys, you will have to finish and submit the transaction afterwards for the baker to be registered.";
+"baking.generatekeys.electionkey" = "Election verify key";
+"baking.generatekeys.signaturekey" = "Signature verify key";
+"baking.generatekeys.aggregationkey" = "Aggregation verify key";
+"baking.generatekeys.export" = "Export baker keys";
+"baking.generatekeys.notice.title" = "Notice";
+"baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
+"baking.updatekeys.title" = "Update baker keys";
+
 "baking.open" = "Open";
-"baking.closed" = "Closed";
+"baking.closed" = "Closed for delegation";
 "baking.closedfornew" = "Closed for new";
+"baking.metadata.current" = "Current URL: \n %@";
 
+"baking.metadata.title.create" = "Register baker";
+"baking.metadata.text.create" = "You can choose to add a URL with metadata about your baker. Leave it blank if you don’t have any.
 
+You can read more about the metadata URL on
+
+developer.concordium.software";
+
+"baking.metadata.title.update" = "Update pool settings";
+"baking.metadata.text.update" = "If you want to set a new metadata URL, you can do so by pasting it below. It’s optional, so you can just leave it blank if you don’t want to make any changes.
+
+You can read more about the metadata URL on
+
+developer.concordium.software";
+
+"baking.receiptconfirmation.transactionfee" = "Estimated transaction fee:\n%@";
+"baking.receiptconfirmation.title.updatestake" = "Update baker stake";
+"baking.receiptconfirmation.updatebakerstake" = "Transaction: Update baker stake";
+"baking.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
+
+The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
+"baking.receiptconfirmation.title.updatepool" = "Update pool settings";
+"baking.receiptconfirmation.updatebakerpool" = "Transaction: Update pool settings";
+"baking.receiptconfirmation.title.updatekeys" = "Update baker keys";
+"baking.receiptconfirmation.updatebakerkeys" = "Transaction: Update baker keys";
+"baking.receiptconfirmation.title.remove" = "Stop baking";
+"baking.receiptconfirmation.removetext" = "Are you sure you want to make the following transaction to stop baking?";
+"baking.receiptconfirmation.stopbaking" = "Transaction: Stop baking";
+"baking.receiptconfirmation.title.register" = "Register baker";
+"baking.receiptconfirmation.registertext" = "You are about to submit a register baker transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cooldown period.";
+"baking.receiptconfirmation.registerbaker" = "Transaction: Register baker";
+
+"baking.receiptlowering.title" = "Notice";
+"baking.receiptlowering.message" = "Your decrease to the baker stake will take effect after a cool down of %@.
+
+All other updates will take effect at the next pay day.";
+"baking.receiptlowering.ok" = "Okay";
+"baking.receiptupdatestake.title" = "Notice";
+"baking.receiptupdatestake.message" = "Once your transaction has succesfully finalized, the baker update will take effect from the next pay day.";
+"baking.receiptupdatestake.ok" = "Okay";
+"baking.receiptupdatepool.title" = "Notice";
+"baking.receiptupdatepool.message" = "Once your transaction has succesfully finalized, the pool settings update will take effect from the next pay day.";
+"baking.receiptupdatepool.ok" = "Okay";
+"baking.receiptupdatekeys.title" = "Notice";
+"baking.receiptupdatekeys.message" = "Once your transaction has succesfully finalized, the new baker keys will take effect from the next pay day.
+
+This means the node should be restarted with the new keys, as close to the next pay day as possible.";
+"baking.receiptupdatekeys.ok" = "Okay";
+"baking.receiptremove.title" = "Notice";
+"baking.receiptremove.message" = "Once your transaction has finalized, the baker will be deregistered  after a cool down of %@.";
+"baking.receiptremove.ok" = "Okay";
+"baking.receiptregister.title" = "Notice";
+"baking.receiptregister.message" = "Once your transaction has succesfully finalized, the baker registration will take effect from the next pay day.
+
+Remember to restart your node with the baker keys.";
+"baking.receiptregister.ok" = "Okay";
+"baking.cooldownperiod.format" = "%d days";
+
+"baking.receipt.bakeraccount" = "Baker account";
 "baking.receipt.accountcreate" = "Account to register as baker";
 "baking.receipt.accountupdate" = "Account to make baker update";
+"baking.receipt.accountstop" = "Account to stop baking";
+"baking.receipt.bakerid" = "Baker ID";
+"baking.receipt.bakeramount" = "Baker stake";
 "baking.receipt.poolstatus" = "Delegation pool status";
 "baking.receipt.bakerstake" = "Baker stake";
 "baking.receipt.metadataurl" = "Metadata URL";
+"baking.receipt.metadataurl.removed" = "Metadata URL removed";
+"baking.receipt.electionverifykey" = "Election verify key";
+"baking.receipt.signatureverifykey" = "Signature verify key";
+"baking.receipt.aggregationverifykey" = "Aggregation verify key";
+"baking.receipt.addedtostake" = "Added to stake";
+"baking.receipt.notaddedtostake" = "Added to disposable amount";
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
+
+
+"onboardingcarousel.registerbaker.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page1.title" = "Become a baker";
+"onboardingcarousel.registerbaker.page2.title" = "The node";
+"onboardingcarousel.registerbaker.page3.title" = "Opening a pool";
+
+"onboardingcarousel.updatebaker.title" = "Baking";
+"onboardingcarousel.updatebaker.page1.title" = "Updating baker settings";
+"onboardingcarousel.updatebaker.page2.title" = "Update baker stake";
+"onboardingcarousel.updatebaker.page3.title" = "Update pool settings (1/2)";
+"onboardingcarousel.updatebaker.page4.title" = "Update pool settings (2/2)";
+"onboardingcarousel.updatebaker.page5.title" = "Update baker keys";
+
+"onboardingcarousel.removebaker.title" = "Baking";
+"onboardingcarousel.removebaker.page1.title" = "Stop baking";
 
 "onboardingcarousel.registerdelegation.title" = "Delegation";
 "onboardingcarousel.registerdelegation.page1.title" = "Delegation";
@@ -702,3 +855,22 @@ If your pool is already open, you can also close it for new delegators, or you c
 "delegation.status.delegationwillstop" = "The delegation will be stopped, and the delegation amount will be unlocked on the public balance of the account.";
 "delegation.status.deregisteredcooldown" = "This pool has been deregistered, and will stop baking on %@";
 "delegation.graceperiod.format" = "%d days";
+
+"baking.status.title" = "Baker status";
+"baking.status.registered.header" = "Your baker is registered";
+"baking.status.waiting.header" = "Waiting for baker transaction to finalize";
+"baking.status.waiting.placeholder" = "Waiting for transaction to finalize";
+"baking.status.updatebutton" = "Update baker settings";
+"baking.status.pendingchange" = "The following changes will take effect on %@";
+"baking.status.removingbaker" = "The baker will be deregistered, and the stake will be unlocked on the public balance of the account.";
+"baking.status.reducingstake" = "Baker stake will be lowered to";
+
+"force.update.needed.title" = "Update required";
+"force.update.needed.message" = "You must update your Concordium Mobile Wallet to continue.\n\nIf you don’t have a backup, Concordium strongly recommends making one before updating.";
+"force.update.needed.update.now" = "Update now";
+"force.update.needed.backup" = "Make backup";
+"force.update.warning.title" = "Update ready";
+"force.update.warning.message" = "There is a new update for the Concordium Mobile Wallet.\n\nIf you don’t have a backup, Concordium strongly recommends making one before updating.";
+"force.update.warning.update.now" = "Update now";
+"force.update.warning.remind.me" = "Remind me next time I open the wallet";
+"force.update.warning.backup" = "Make backup";

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ProdMainNet
+@testable import Mock
 
 class GeneralFormatterTests: XCTestCase {
     func testDateFormatting() throws {

@@ -10,16 +10,13 @@ import Foundation
 import UIKit
 
 protocol Loadable: AnyObject {
-    func showLoading()
-    func hideLoading()
+    var loadContainerView: UIView { get }
+    var activityIndicatorTint: UIColor? { get }
 }
 
-extension Loadable where Self: UIViewController {
-    private func getMainView() -> UIView {
-        if let app = UIApplication.shared.delegate as? AppDelegate, let window = app.window {
-            return window
-        }
-        return view
+extension Loadable {
+    var activityIndicatorTint: UIColor? {
+        nil
     }
     
     private var activityIndicatorTag: Int {
@@ -34,7 +31,7 @@ extension Loadable where Self: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self = self else { return }
            
-            let mainView = self.getMainView()
+            let mainView = self.loadContainerView
             if mainView.viewWithTag(self.activityIndicatorTag) as? UIActivityIndicatorView != nil {
                 return // we already show an activity Indicator
             }
@@ -45,6 +42,9 @@ extension Loadable where Self: UIViewController {
             eventCapturingView.tag = self.eventCapturingViewTag
 
             let activityIndicatorView = UIActivityIndicatorView(style: .large)
+            if let tint = self.activityIndicatorTint {
+                activityIndicatorView.color = tint
+            }
             activityIndicatorView.hidesWhenStopped = true
             activityIndicatorView.tag = self.activityIndicatorTag
             eventCapturingView.addSubview(activityIndicatorView)
@@ -58,12 +58,21 @@ extension Loadable where Self: UIViewController {
     func hideLoading() {
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self = self else { return }
-            let mainView: UIView = self.getMainView()
+            let mainView: UIView = self.loadContainerView
             if let activityIndicator = mainView.viewWithTag(self.activityIndicatorTag) as? UIActivityIndicatorView {
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
             }
             mainView.viewWithTag(self.eventCapturingViewTag)?.removeFromSuperview()
         })
+    }
+}
+
+extension Loadable where Self: UIViewController {
+    var loadContainerView: UIView {
+        if let app = UIApplication.shared.delegate as? AppDelegate, let window = app.window {
+            return window
+        }
+        return view
     }
 }

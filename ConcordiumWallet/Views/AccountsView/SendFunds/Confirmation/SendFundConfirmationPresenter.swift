@@ -106,7 +106,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             view?.buttonText = "accounts.shieldedamount".localized
         case .registerDelegation, .removeDelegation, .updateDelegation:
             break
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             break
         }
 

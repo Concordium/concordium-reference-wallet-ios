@@ -23,4 +23,20 @@ extension Coordinator {
         presentedNavController.modalPresentationStyle = .fullScreen
         navController.present(presentedNavController, animated: true, completion: nil)
     }
+    
+    func share(
+        items activityItems: [URL] = [],
+        activities applicationActivities: [UIActivity] = [],
+        from navController: UINavigationController,
+        completion: @escaping (Bool) -> Void
+    ) {
+        let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        vc.completionWithItemsHandler = { exportActivityType, completed, _, _ in
+            // exportActivityType == nil means that the user pressed the close button on the share sheet
+            if completed || exportActivityType == nil {
+                completion(completed)
+            }
+        }
+        navController.present(vc, animated: true)
+    }
 }

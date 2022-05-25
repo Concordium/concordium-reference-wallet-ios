@@ -155,6 +155,18 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
     }
+    
+    func showBaking() {
+        let coordinator = BakingCoordinator(
+            navigationController: BaseNavigationController(),
+            dependencyProvider: dependencyProvider,
+            account: account,
+            parentCoordinator: self)
+        
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true)
+    }
 
     func showTransferFilters(account: AccountDataType) {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
@@ -320,6 +332,9 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
         case .delegation:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showDelegation()
+        case .baking:
+            keyWindow?.rootViewController?.dismiss(animated: false)
+            showBaking()
         case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         }
@@ -330,5 +345,13 @@ extension AccountDetailsCoordinator: DelegationCoordinatorDelegate {
     func finished() {
         navigationController.dismiss(animated: true)
         self.childCoordinators.removeAll {$0 is DelegationCoordinator }
+    }
+}
+
+extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
+    func finishedBakingCoordinator() {
+        navigationController.dismiss(animated: true)
+        self.childCoordinators.removeAll { $0 is BakingCoordinator }
+        refreshTransactionList()
     }
 }

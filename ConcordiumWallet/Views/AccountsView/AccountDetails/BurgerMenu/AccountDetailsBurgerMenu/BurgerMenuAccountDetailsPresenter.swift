@@ -21,6 +21,7 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
     case transferFilters
     case delegation
+    case baking
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case dismiss
     case decrypt
@@ -39,6 +40,8 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             }
         case .delegation:
             return "burgermenu.delegation".localized
+        case .baking:
+            return "burgermenu.baking".localized
         case .decrypt:
             return "burgermenu.decrypt".localized
         case .dismiss:
@@ -71,12 +74,21 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                             .transferFilters]
         } else {
             if balance == .balance {
-                self.actions = [.releaseSchedule,
-                                .transferFilters,
-                                .delegation,
-                                .shieldedBalance(accountName: account.displayName,
-                                                 shouldShow: !account.showsShieldedBalance,
-                                                 delegate: showShieldedDelegate)]
+                let stakeActions: [BurgerMenuAccountDetailsAction]
+                if account.baker != nil {
+                    stakeActions = [.baking]
+                } else if account.delegation != nil {
+                    stakeActions = [.delegation]
+                } else {
+                    stakeActions = [.delegation, .baking]
+                }
+                
+                self.actions = [
+                    .releaseSchedule,
+                    .transferFilters
+                ] + stakeActions + [.shieldedBalance(accountName: account.displayName,
+                                                     shouldShow: !account.showsShieldedBalance,
+                                                     delegate: showShieldedDelegate)]
             } else {
                 if showsDecrypt {
                     self.actions = [.decrypt,

@@ -4,9 +4,13 @@
 //
 
 import Foundation
-@testable import ProdMainNet
+@testable import Mock
 
 class DependencyProviderMockHelper: AccountsFlowCoordinatorDependencyProvider {
+    func appSettingsService() -> AppSettingsService {
+        fatalError("appSettingsService() has not been implemented")
+    }
+    
     func transactionsService() -> TransactionsServiceProtocol {
         fatalError("transactionsService() has not been implemented")
     }

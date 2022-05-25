@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import ProdMainNet
+@testable import Mock
 
 class AttributesFormatterTests: XCTestCase {
     func testFormatCountry() {
@@ -20,7 +20,7 @@ class AttributesFormatterTests: XCTestCase {
             let countryName = AttributeFormatter.format(value: country.0, for: .countryOfResidence)
         
             // Assert
-            assert(countryName == country.1)
+            XCTAssertEqual(countryName, country.1)
         }
     }
     
@@ -32,7 +32,7 @@ class AttributesFormatterTests: XCTestCase {
         let formattedDate = AttributeFormatter.format(value: dateInput, for: .idDocIssuedAt)
         
         // Assert
-        assert(formattedDate == "April, 2020")
+        XCTAssertEqual(formattedDate, "April, 2020")
     }
     
     func testFormatSex() {
@@ -44,7 +44,7 @@ class AttributesFormatterTests: XCTestCase {
         var formattedSex = AttributeFormatter.format(value: male, for: .sex)
         
         // Assert
-        assert(formattedSex == "Male".localized)
+        XCTAssertEqual(formattedSex, "Male".localized)
         
         // Test 2
         // Arrange
@@ -54,7 +54,7 @@ class AttributesFormatterTests: XCTestCase {
         formattedSex = AttributeFormatter.format(value: female, for: .sex)
         
         // Assert
-        assert(formattedSex == "Female".localized)
+        XCTAssertEqual(formattedSex, "Female".localized)
         
         // Test 3
         // Arrange
@@ -64,7 +64,7 @@ class AttributesFormatterTests: XCTestCase {
         formattedSex = AttributeFormatter.format(value: notKnown, for: .sex)
         
         // Assert
-        assert(formattedSex == "sex.notKnown".localized)
+        XCTAssertEqual(formattedSex, "sex.notKnown".localized)
     }
     
     func testFormatDocumentType() {
@@ -83,7 +83,7 @@ class AttributesFormatterTests: XCTestCase {
             // Act
             let formattedDocumentType = AttributeFormatter.format(value: value.0, for: .idDocType)
             // Assert
-            assert(formattedDocumentType == value.1)
+            XCTAssertEqual(formattedDocumentType, value.1)
         }
     }
 }

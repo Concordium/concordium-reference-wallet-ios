@@ -9,7 +9,7 @@ import Combine
 protocol TransactionsServiceProtocol {
     func performTransfer(_ pTransfer: TransferDataType,
                          from account: AccountDataType,
-                         bakerKeys: BakerKeys?,
+                         bakerKeys: GeneratedBakerKeys?,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> AnyPublisher<RemoteTransactions, Error>
     func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
@@ -38,7 +38,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
     
     func performTransfer(_ pTransfer: TransferDataType,
                          from account: AccountDataType,
-                         bakerKeys: BakerKeys? = nil,
+                         bakerKeys: GeneratedBakerKeys? = nil,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         switch pTransfer.transferType {
         case .simpleTransfer:
@@ -49,7 +49,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .encryptedTransfer:
             return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
+        case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
@@ -317,7 +317,7 @@ extension TransactionsService {
     
     private func performBakerTransfer(_ pTransfer: TransferDataType,
                                       from account: AccountDataType,
-                                      bakerKeys: BakerKeys?,
+                                      bakerKeys: GeneratedBakerKeys?,
                                       requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
         var transfer = updateLocalTransferWithExpiration(pTransfer)
         return getAccountNonce(for: transfer.fromAddress)
@@ -345,7 +345,7 @@ extension TransactionsService {
     private func createTransfer(_ transfer: TransferDataType,
                                 from account: AccountDataType,
                                 requestPasswordDelegate: RequestPasswordDelegate,
-                                bakerKeys: BakerKeys? = nil,
+                                bakerKeys: GeneratedBakerKeys? = nil,
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
                                 receiverPublicKey: String? = nil) -> AnyPublisher<CreateTransferRequest, Error> {
@@ -582,5 +582,19 @@ extension TransactionsService {
         transfer.expiry = expiry
         transfer.createdAt = Date()
         return transfer
+    }
+}
+
+extension TransactionsServiceProtocol {
+    func getBakingTransferCostRange(parameters: [TransferCostParameter]) -> AnyPublisher<TransferCostRange, Error> {
+        let minPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(0)]).first()
+        let maxPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(2048)]).first()
+        
+        return minPublisher
+            .zip(maxPublisher)
+            .map { (min, max) in
+                TransferCostRange(min: min, max: max)
+            }
+            .eraseToAnyPublisher()
     }
 }
