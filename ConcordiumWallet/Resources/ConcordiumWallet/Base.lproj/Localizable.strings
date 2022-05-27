@@ -557,7 +557,7 @@ developer.concordium.software";
 "delegation.pool.baker" = "Baker";
 "delegation.pool.passive" = "Passive";
 "delegation.pool.idplaceholder.create" = "Enter baker pool ID";
-"delegation.pool.idplaceholder.update" = "Optional: Enter new target ID";
+"delegation.pool.idplaceholder.update" = "Optional: New baker pool ID";
 "delegation.pool.invalidbakerid" = "Invalid target baker pool ID";
 "delegation.pool.closedpool" = "This pool is closed";
 
