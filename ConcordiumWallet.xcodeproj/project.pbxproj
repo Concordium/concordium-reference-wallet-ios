@@ -1505,18 +1505,6 @@
 		7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
-		8992BAB3283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
-		8992BAB4283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
-		8992BAB5283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
-		8992BAB6283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
-		8992BAB82836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
-		8992BAB92836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
-		8992BABA2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
-		8992BABB2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
-		89CF2D4E281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
-		89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
-		89CF2D50281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
-		89CF2D51281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
 		8992BA23281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
 		8992BA24281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
@@ -1541,6 +1529,30 @@
 		8992BA5B282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
 		8992BA5C282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
 		8992BA5D282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */; };
+		8992BAB3283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB4283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB5283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB6283630F4005279C9 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB2283630F4005279C9 /* String+Links.swift */; };
+		8992BAB82836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BAB92836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BABA2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BABB2836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */; };
+		8992BB212840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
+		8992BB222840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
+		8992BB232840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
+		8992BB242840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
+		8992BB262840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
+		8992BB272840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
+		8992BB282840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
+		8992BB292840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
+		8992BB2B2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
+		8992BB2C2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
+		8992BB2D2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
+		8992BB2E2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
+		8992BB302840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
+		8992BB312840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
+		8992BB322840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
+		8992BB332840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
 		89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
@@ -2404,9 +2416,6 @@
 		7FF9190C250E4EAD00B1032B /* ImportStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportStatusCell.xib; sourceTree = "<group>"; };
 		7FF91911250E571900B1032B /* ImportStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStatusCell.swift; sourceTree = "<group>"; };
 		7FF919172511505B00B1032B /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
-		8992BAB2283630F4005279C9 /* String+Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
-		8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LinkRecognizer.swift"; sourceTree = "<group>"; };
-		89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainParametersResponse.swift; sourceTree = "<group>"; };
 		8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolMenuPresenter.swift; sourceTree = "<group>"; };
 		8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolStatusPresenter.swift; sourceTree = "<group>"; };
 		8992BA392823A8E0005279C9 /* NotYetImplemented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotYetImplemented.swift; sourceTree = "<group>"; };
@@ -2416,6 +2425,12 @@
 		8992BA522828E5AB005279C9 /* 5.4.2.RX_backend_passiveDelegation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 5.4.2.RX_backend_passiveDelegation.json; sourceTree = "<group>"; };
 		8992BA542828E713005279C9 /* PassiveDelegation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassiveDelegation.swift; sourceTree = "<group>"; };
 		8992BA59282A3B35005279C9 /* GTUTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTUTextFieldDelegate.swift; sourceTree = "<group>"; };
+		8992BAB2283630F4005279C9 /* String+Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
+		8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LinkRecognizer.swift"; sourceTree = "<group>"; };
+		8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowAlertProtocol+ForceUpdate.swift"; sourceTree = "<group>"; };
+		8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsIntroPresenter.swift; sourceTree = "<group>"; };
+		8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsUpdatePresenter.swift; sourceTree = "<group>"; };
+		8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingDelegate.swift; sourceTree = "<group>"; };
 		89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
 		89CF2D24280FDAB800742E1E /* StakeAmountInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeAmountInputValidator.swift; sourceTree = "<group>"; };
 		89CF2D29281000B100742E1E /* TransferCostRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostRange.swift; sourceTree = "<group>"; };
@@ -2836,6 +2851,8 @@
 			children = (
 				173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */,
 				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
+				8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */,
+				8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */,
 			);
 			path = TermsAndConditionsView;
 			sourceTree = "<group>";
@@ -3598,6 +3615,7 @@
 		7FF07A8F23EADBB100F1FC04 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */,
 				077AC5FD26E8E1E40016BF26 /* CopyPasteHelper.swift */,
 				07519F8726FCB21B00F4E6E3 /* Data+Additions.swift */,
 				07619A80269C810B009B79E2 /* Digest+Additions.swift */,
@@ -3613,6 +3631,7 @@
 				19C2EBFC473BE97DBED4FCC8 /* Result+Additions.swift */,
 				079F310626EB69DD00ED96D3 /* SettingsHelper.swift */,
 				C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */,
+				8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */,
 				075A4BC2271D597E00066AF1 /* ShowIdentityFailureProtocol.swift */,
 				19C2EB40B942873B4D0E2288 /* ShowToastProtocol.swift */,
 				19C2ED4F802767556C4ABBE9 /* SingleSection.swift */,
@@ -4929,6 +4948,7 @@
 				7F48C263244E17D100997684 /* CreateIDRequest.swift in Sources */,
 				7F48C155244DCD0B00997684 /* UIImage+Additions.swift in Sources */,
 				7FCA3994250BFB39004567C4 /* ImportReceiptPresenter.swift in Sources */,
+				8992BB302840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				8992BA4E2824FE96005279C9 /* BakingAlerts.swift in Sources */,
 				7F48C158244DCD0B00997684 /* StandardButton.swift in Sources */,
 				070D625D27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
@@ -5126,6 +5146,7 @@
 				7FA0AE9B246047AA00B7673F /* OriginTypeEnum.swift in Sources */,
 				52B2CE4924F6806B0092F8EB /* ArsInfo.swift in Sources */,
 				7F48C1DA244DCD0B00997684 /* LetterSpacingLabel.swift in Sources */,
+				8992BB212840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				7F48C1DB244DCD0B00997684 /* IdentityConfirmedPresenter.swift in Sources */,
 				070D61DF27B2A25200B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				52A6A77E24F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
@@ -5172,6 +5193,7 @@
 				642ED92525E8DF6100A09BB3 /* TransferFiltersViewController.swift in Sources */,
 				901F7FAB27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				7F48C1F4244DCD0B00997684 /* AccountAddressQRCoordinator.swift in Sources */,
+				8992BB2B2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				7F48C1F5244DCD0B00997684 /* ToastLabel.swift in Sources */,
 				7F48C1F6244DCD0B00997684 /* Logger.swift in Sources */,
 				52055F812552B8F10071F7CA /* IdentityCardView.swift in Sources */,
@@ -5222,6 +5244,7 @@
 				19C2E0C693AADD8C3F49DEA1 /* ExportIdentityData.swift in Sources */,
 				075A4BBE2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
+				8992BB262840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				19C2E7F2807A2D3480A59C3A /* ExportVersionContainer.swift in Sources */,
 				19C2EC182A9F122A326021F6 /* ExportAccount.swift in Sources */,
 				19C2EC33180F59E8660A215D /* ExportRecipient.swift in Sources */,
@@ -5369,6 +5392,7 @@
 				89CF2D56281A539700742E1E /* (null) in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
 				7FB64A0B247D568400DC500E /* ExportViewController.swift in Sources */,
+				8992BB232840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				7F85B725246A9A7C00ED09B8 /* RoundedCornerView.swift in Sources */,
 				642A293F25FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
 				528EB75B256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
@@ -5434,6 +5458,7 @@
 				7F85B74E246A9A7C00ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B74F246A9A7C00ED09B8 /* LoginCoordinator.swift in Sources */,
 				7F85B750246A9A7C00ED09B8 /* AccountsCoordinator.swift in Sources */,
+				8992BB322840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				9078546928116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				7F85B751246A9A7C00ED09B8 /* MobileWalletFacade.swift in Sources */,
 				07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */,
@@ -5549,6 +5574,7 @@
 				7F5F77862487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
+				8992BB2D2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				89EB9F5027FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
@@ -5670,6 +5696,7 @@
 				5211BABD2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
 				19C2E61D1E74081C5F756486 /* RequestExportPasswordPresenter.swift in Sources */,
 				909EAF2A27F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
+				8992BB282840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				19C2EEC653BDB392DE9D4358 /* ImportCoordinator.swift in Sources */,
 				19C2E5B621E2EC29B0F0DF64 /* IdentityImporter.swift in Sources */,
 				218F32A12705DBB800372BBD /* IdentityCreation.swift in Sources */,
@@ -5782,6 +5809,7 @@
 				89CF2D57281A539700742E1E /* (null) in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				7F85B821246A9AB600ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
+				8992BB242840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				7F85B822246A9AB600ED09B8 /* Global.swift in Sources */,
 				642A294025FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
 				528EB75C256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
@@ -5847,6 +5875,7 @@
 				7F85B84B246A9AB600ED09B8 /* UIColor+Additions.swift in Sources */,
 				7F85B84D246A9AB600ED09B8 /* UITextField+Extensions.swift in Sources */,
 				7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */,
+				8992BB332840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				9078546A28116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				7F85B84F246A9AB600ED09B8 /* AccountsCoordinator.swift in Sources */,
 				07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */,
@@ -5962,6 +5991,7 @@
 				7F5F77872487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
+				8992BB2E2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				89EB9F5127FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
@@ -6083,6 +6113,7 @@
 				5211BABE2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
 				19C2E63F49CE373C58B7CDB0 /* RequestExportPasswordPresenter.swift in Sources */,
 				909EAF2B27F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
+				8992BB292840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				19C2E9B036EA12997B62CBD3 /* ImportCoordinator.swift in Sources */,
 				19C2E1BF5A6D8D4042ADE751 /* IdentityImporter.swift in Sources */,
 				218F32A22705DBB800372BBD /* IdentityCreation.swift in Sources */,
@@ -6243,6 +6274,7 @@
 				7FF91913250E571900B1032B /* ImportStatusCell.swift in Sources */,
 				C9E3727824277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				901F7EEF27E8A6A600C46741 /* DelegationTarget.swift in Sources */,
+				8992BB312840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				7F21398E24236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift in Sources */,
 				901F7F5027EB4EA900C46741 /* StakeStatusPresenter.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
@@ -6284,6 +6316,7 @@
 				C9420BC624410AA700086B6C /* AttributeList.swift in Sources */,
 				C9DB8A212423C98E008551B8 /* IdentityDataSelectionCell.swift in Sources */,
 				C9DB8A1E2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
+				8992BB222840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				C93EFF3224107F26002D6DB7 /* IdentityCell.swift in Sources */,
 				89CF2D3B28168B2A00742E1E /* BakerPoolReceiptConfirmationPresenter.swift in Sources */,
 				C924B2242430799400081E23 /* UILabel+localized.swift in Sources */,
@@ -6340,6 +6373,7 @@
 				642ED94425EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				070D61E027B2A3C600B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				C9874EC92417931E006EF386 /* IdentityDataWidgetViewController.swift in Sources */,
+				8992BB2C2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				C94ED71924619E560071A4FB /* TransactionCellViewModel.swift in Sources */,
 				901F7F5927EB4F7800C46741 /* StakeRowViewModel.swift in Sources */,
 				19C2EF67F718F1B0570F1E28 /* JSONSchemaSupport.swift in Sources */,
@@ -6448,6 +6482,7 @@
 				19C2E12895547B11D377B76F /* AccountsService.swift in Sources */,
 				19C2E2BCDEA276F9C368C149 /* TransactionsService.swift in Sources */,
 				8992BA23281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
+				8992BB272840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				19C2E1DE4F6A92CFF0B84390 /* SubmissionStatusService.swift in Sources */,
 				07519F7A26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */,
 				19C2E7AAD03217C27B15DCCB /* AddRecipientCoordinatorHelper.swift in Sources */,

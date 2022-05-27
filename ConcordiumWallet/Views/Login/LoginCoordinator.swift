@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LoginCoordinatorDelegate: AnyObject {
+protocol LoginCoordinatorDelegate: AnyObject, AppSettingsDelegate {
     func loginDone()
     func passwordSelectionDone()
 }
@@ -55,7 +55,10 @@ class LoginCoordinator: Coordinator {
     }
 
     func showTermsAndConditionsScreen() {
-        let TermsAndConditionsPresenter = TermsAndConditionsPresenter(delegate: self)
+        let TermsAndConditionsPresenter = TermsAndConditionsIntroPresenter(
+            delegate: self,
+            appSettingsDelegate: parentCoordinator
+        )
         let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
         navigationController.pushViewController(vc, animated: true)
     }

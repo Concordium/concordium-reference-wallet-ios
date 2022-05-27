@@ -23,16 +23,27 @@ class AccountsCoordinator: Coordinator {
 
     weak var delegate: AccountsCoordinatorDelegate?
 
+    private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider
 
-    init(navigationController: UINavigationController,
-         dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider) {
+    init(
+        navigationController: UINavigationController,
+        dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider,
+        appSettingsDelegate: AppSettingsDelegate?
+    ) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
+        self.appSettingsDelegate = appSettingsDelegate
     }
 
     func start() {
-        let vc = AccountsFactory.create(with: AccountsPresenter(dependencyProvider: dependencyProvider, delegate: self))
+        let vc = AccountsFactory.create(
+            with: AccountsPresenter(
+                dependencyProvider: dependencyProvider,
+                delegate: self,
+                appSettingsDelegate: appSettingsDelegate
+            )
+        )
         vc.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
         navigationController.viewControllers = [vc]
     }
@@ -55,7 +66,7 @@ class AccountsCoordinator: Coordinator {
     }
     
     func showNewTerms() {
-        let TermsAndConditionsPresenter = TermsAndConditionsPresenter(delegate: self)
+        let TermsAndConditionsPresenter = TermsAndConditionsUpdatePresenter(delegate: self)
         let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen

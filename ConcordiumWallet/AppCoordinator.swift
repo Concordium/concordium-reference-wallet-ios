@@ -15,6 +15,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
+    
+    private var needsAppCheck = true
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
     override init() {
@@ -53,8 +55,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showMainTabbar() {
-        let accountsCoordinator = AccountsCoordinator(navigationController: BaseNavigationController(),
-                                                      dependencyProvider: defaultProvider)
+        let accountsCoordinator = AccountsCoordinator(
+            navigationController: BaseNavigationController(),
+            dependencyProvider: defaultProvider,
+            appSettingsDelegate: self
+        )
         
         let moreCoordinator = MoreCoordinator(navigationController: BaseNavigationController(),
                                               dependencyProvider: defaultProvider,
@@ -284,5 +289,39 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
         self.navigationController.setNavigationBarHidden(true, animated: false)
         showInitialIdentityCreation()
         childCoordinators.removeAll(where: { $0 is IdentitiesCoordinator ||  $0 is AccountsCoordinator  || $0 is MoreCoordinator })
+    }
+}
+
+extension AppCoordinator: AppSettingsDelegate {
+    func checkForAppSettings(showBackup: (() -> Void)?) {
+        guard needsAppCheck else { return }
+        needsAppCheck = false
+        
+        defaultProvider.appSettingsService()
+            .getAppSettings()
+            .sink(receiveCompletion: { _ in }) { [weak self] response in
+                self?.handleAppSettings(response: response, showBackup: showBackup)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func handleAppSettings(response: AppSettingsResponse, showBackup: (() -> Void)?) {
+        showUpdateDialogIfNeeded(
+            appSettingsResponse: response,
+            showBackupOption: showBackup != nil
+        ) { action in
+            switch action {
+            case .update(let url, let forced):
+                if forced {
+                    self.handleAppSettings(response: response, showBackup: showBackup)
+                }
+                UIApplication.shared.open(url)
+            case .backup:
+                self.needsAppCheck = true
+                showBackup?()
+            case .cancel:
+                break
+            }
+        }
     }
 }

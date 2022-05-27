@@ -28,6 +28,7 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
 
 protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
+    func appSettingsService() -> AppSettingsService
 }
 
 protocol ImportDependencyProvider {

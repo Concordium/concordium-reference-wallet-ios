@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol AppSettingsServiceProtocol {
-    func getAppSettings(platform: String, version: String) -> AnyPublisher<AppSettingsResponse, Error>
+    func getAppSettings() -> AnyPublisher<AppSettingsResponse, Error>
 }
 
 class AppSettingsService: AppSettingsServiceProtocol {
@@ -21,8 +21,10 @@ class AppSettingsService: AppSettingsServiceProtocol {
         self.networkManager = networkManager
     }
     
-    func getAppSettings(platform: String, version: String) -> AnyPublisher<AppSettingsResponse, Error> {
-        let request = ResourceRequest(url: ApiConstants.appSettings, parameters: [ "platform": platform, "appVersion": version ])
+    func getAppSettings() -> AnyPublisher<AppSettingsResponse, Error> {
+        let appVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        
+        let request = ResourceRequest(url: ApiConstants.appSettings, parameters: [ "platform": "ios", "appVersion": appVersion ])
         return networkManager.load(request)
     }
 }

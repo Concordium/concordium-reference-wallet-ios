@@ -9,7 +9,7 @@
 import UIKit
 
 class TermsAndConditionsFactory {
-    class func create(with presenter: TermsAndConditionsPresenter) -> TermsAndConditionsViewController {
+    class func create(with presenter: TermsAndConditionsPresenterProtocol) -> TermsAndConditionsViewController {
         TermsAndConditionsViewController.instantiate(fromStoryboard: "Login") { coder in
             return TermsAndConditionsViewController(coder: coder, presenter: presenter)
         }
@@ -26,6 +26,7 @@ class TermsAndConditionsViewController: BaseViewController, TermsAndConditionsVi
         super.viewDidLoad()
 
         presenter.view = self
+        presenter.viewDidLoad()
         self.title = "termsAndConditionsScreen.title".localized
 
         detailsLabel.attributedText = termsAttributedString()
