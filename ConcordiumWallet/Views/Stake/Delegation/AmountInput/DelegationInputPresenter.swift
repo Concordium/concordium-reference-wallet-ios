@@ -26,7 +26,6 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     var viewModel = StakeAmountInputViewModel()
     
     @Published private var bakerPoolResponse: BakerPoolResponse?
-    @Published private var validAmount: GTU?
     @Published private var cost: GTU?
     @Published private var energy: Int?
     
@@ -52,11 +51,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.stakeService = dependencyProvider.stakeService()
         self.transactionService = dependencyProvider.transactionsService()
     
-        if let delegation = self.account.delegation, delegation.pendingChange?.change != .NoChange {
-            isInCooldown = true
-        } else {
-            isInCooldown = false
-        }
+        isInCooldown = self.account.delegation?.isInCooldown ?? false
         let previouslyStakedInSelectedPool: Int
         let newPool: PoolDelegationData? = dataHandler.getNewEntry()
         let existingPool: PoolDelegationData? = dataHandler.getCurrentEntry()
@@ -102,12 +97,11 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         validator = StakeAmountInputValidator(minimumValue: minValue,
                                               maximumValue: nil,
                                               balance: GTU(intValue: account.forecastBalance),
-                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)),
+                                              atDisposal: account.atDisposalForDelegation,
                                               currentPool: currentPool,
                                               poolLimit: poolLimit,
                                               previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool))
         let amountData: DelegationAmountData? = dataHandler.getCurrentEntry()
-        self.validAmount = amountData?.amount
         let restakeData: RestakeDelegationData? = dataHandler.getCurrentEntry()
         self.restake = restakeData?.restake ?? true
         
@@ -119,71 +113,89 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                         showsPoolLimits: showsPoolLimits)
     }
     
+    private lazy var transferCostResult: AnyPublisher<Result<TransferCost, Error>, Never> = {
+        let currentAmount = dataHandler.getCurrentEntry(DelegationAmountData.self)?.amount
+        let isOnCooldown = account.delegation?.pendingChange?.change != .NoChange
+        
+        return viewModel.$isRestakeSelected
+            .combineLatest(viewModel.gtuAmount(currentAmount: currentAmount, isOnCooldown: isOnCooldown))
+            .compactMap { [weak self] (restake, amount) -> [TransferCostParameter]? in
+                guard let self = self else {
+                    return nil
+                }
+                
+                self.dataHandler.add(entry: DelegationAmountData(amount: amount))
+                self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
+                
+                return self.dataHandler.getCostParameters()
+            }
+            .removeDuplicates()
+            .flatMap { [weak self] costParameters -> AnyPublisher<Result<TransferCost, Error>, Never> in
+                guard let self = self else {
+                    return .just(.failure(StakeError.internalError))
+                }
+                
+                self.viewModel.isContinueEnabled = false
+                
+                return self.transactionService
+                    .getTransferCost(
+                        transferType: self.dataHandler.transferType,
+                        costParameters: costParameters
+                    )
+                    .showLoadingIndicator(in: self.view)
+                    .asResult()
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+    }()
+    
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
-       
-        self.view?.restakeOptionPublisher.sink(receiveCompletion: { _ in
-        }, receiveValue: { [weak self] isRestaking in
-            self?.restake = isRestaking
-            
-        }).store(in: &cancellables)
         
-        guard let view = self.view else { return }
-        
-        view.amountPublisher.map { [weak self] amount -> GTU in
-            self?.viewModel.isContinueEnabled = false
-            return GTU(displayValue: amount)
-        }
-        .combineLatest(view.restakeOptionPublisher)
-        .flatMap { [weak self] (amount, restake) -> AnyPublisher<Result<GTU, StakeError>, Never> in
-            guard let self = self else { return .just(Result.failure(StakeError.internalError))}
-            
-            self.dataHandler.add(entry: DelegationAmountData(amount: amount))
-            self.dataHandler.add(entry: RestakeDelegationData(restake: restake))
-            
-            self.viewModel.isContinueEnabled = false// we wait until we get the updated cost
-            let costParams = self.dataHandler.getCostParameters()
-            return self.transactionService
-                .getTransferCost(
-                    transferType: self.dataHandler.transferType,
-                    costParameters: costParams
-                )
-                .showLoadingIndicator(in: self.view)
-                .mapError { _ in StakeError.internalError }
-                .asResult()
-                .map { [weak self] feeResult -> Result<GTU, StakeError> in
-                    guard let self = self else { return .failure(.internalError) }
-                    return feeResult.flatMap { fee in
-                        let cost = GTU(intValue: Int(fee.cost) ?? 0)
-                        self.cost = cost
-                        self.energy = fee.energy
-                        self.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
-                        return self.validator.validate(amount: amount, fee: cost)
-                    }
-                }
-                .eraseToAnyPublisher()
-        }
-        .sink(receiveCompletion: { _ in
-        }, receiveValue: { [weak self]  result in
-            switch result {
-            case let .success(amount):
-                self?.validAmount = amount
-                self?.viewModel.amountErrorMessage = nil
-                self?.viewModel.poolLimit?.hightlighted = false
-                self?.viewModel.isContinueEnabled = true
-            case let .failure(error):
-                self?.validAmount = nil
-                self?.viewModel.amountErrorMessage = error.localizedDescription
-                if case .poolLimitReached = error {
-                    self?.viewModel.poolLimit?.hightlighted = true
-                } else {
-                    self?.viewModel.poolLimit?.hightlighted = false
-                }
-                self?.viewModel.isContinueEnabled = false
+        transferCostResult
+            .onlySuccess()
+            .sink { [weak self] transferCost in
+                guard let self = self else { return }
+                
+                let cost = transferCost.gtuCost
+                self.cost = cost
+                self.energy = transferCost.energy
+                self.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
             }
-        }).store(in: &cancellables)
+            .store(in: &cancellables)
         
-        view.restakeOptionPublisher.send(viewModel.isRestakeSelected)
+        viewModel.gtuAmount(
+            currentAmount: dataHandler.getCurrentEntry(DelegationAmountData.self)?.amount,
+            isOnCooldown: isInCooldown
+        ).combineLatest(transferCostResult)
+            .map { [weak self] (amount, transferCostResult) -> Result<GTU, StakeError> in
+                guard let self = self else {
+                    return .failure(.internalError)
+                }
+                
+                return transferCostResult
+                    .mapError { _ in .internalError }
+                    .flatMap { costRange in
+                        self.validator.validate(amount: amount, fee: costRange.gtuCost)
+                    }
+            }
+            .sink { [weak self] result in
+                switch result {
+                case .success:
+                    self?.viewModel.amountErrorMessage = nil
+                    self?.viewModel.poolLimit?.hightlighted = false
+                    self?.viewModel.isContinueEnabled = true
+                case let .failure(error):
+                    self?.viewModel.amountErrorMessage = error.localizedDescription
+                    if case .poolLimitReached = error {
+                        self?.viewModel.poolLimit?.hightlighted = true
+                    } else {
+                        self?.viewModel.poolLimit?.hightlighted = false
+                    }
+                    self?.viewModel.isContinueEnabled = false
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func pressedContinue() {
@@ -211,16 +223,15 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     func checkForWarnings(completion: (() -> Void)?) {
-        // blocking warning if there are no changes
-        if !dataHandler.containsChanges() {
+        switch self.dataHandler.getCurrentWarning(atDisposal: account.atDisposalForDelegation.intValue) {
+        case .noChanges:
             let okAction = AlertAction(name: "delegation.nochanges.ok".localized, completion: nil, style: .default)
             
             let alertOptions = AlertOptions(title: "delegation.nochanges.title".localized,
                                             message: "delegation.nochanges.message".localized,
                                             actions: [okAction])
             self.view?.showAlert(with: alertOptions)
-        } else if dataHandler.isNewAmountZero() {
-            // warning for more zero amount = removeDelegation
+        case .amountZero:
             let continueAction = AlertAction(name: "delegation.amountzero.continue".localized, completion: completion, style: .default)
             let cancelAction = AlertAction(name: "delegation.amountzero.newstake".localized,
                                            completion: nil,
@@ -229,8 +240,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.amountzero.message".localized,
                                             actions: [cancelAction, continueAction])
             self.view?.showAlert(with: alertOptions)
-        } else if self.dataHandler.isLoweringStake() {
-            // warning for lowering stake
+        case .loweringStake:
             let changeAction = AlertAction(name: "delegation.loweringamountwarning.change".localized, completion: nil, style: .default)
             let fineAction = AlertAction(name: "delegation.loweringamountwarning.fine".localized,
                                          completion: completion, style: .default)
@@ -238,8 +248,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.loweringamountwarning.message".localized,
                                             actions: [changeAction, fineAction])
             self.view?.showAlert(with: alertOptions)
-        } else if dataHandler.moreThan95(atDisposal: account.forecastAtDisposalBalance) {
-            // warning for more than 95% of funds used
+        case .moreThan95:
             let continueAction = AlertAction(name: "delegation.morethan95.continue".localized, completion: completion, style: .default)
             let newStakeAction = AlertAction(name: "delegation.morethan95.newstake".localized,
                                              completion: nil,
@@ -248,12 +257,34 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                                             message: "delegation.morethan95.message".localized,
                                             actions: [continueAction, newStakeAction])
             self.view?.showAlert(with: alertOptions)
-        } else {
+        case nil:
             completion?()
         }
     }
     func closeButtonTapped() {
         self.delegate?.pressedClose()
+    }
+}
+
+private extension TransferCost {
+    var gtuCost: GTU {
+        GTU(intValue: Int(cost) ?? 0)
+    }
+}
+
+private extension AccountDataType {
+    var atDisposalForDelegation: GTU {
+        GTU(intValue: forecastAtDisposalBalance + (releaseSchedule?.total ?? 0))
+    }
+}
+
+private extension DelegationDataType {
+    var isInCooldown: Bool {
+        if let pendingChange = pendingChange, pendingChange.change != .NoChange {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
@@ -295,6 +326,7 @@ fileprivate extension StakeAmountInputViewModel {
                 // we don't set the value if it is in cooldown
                 self.amount = currentAmount.displayValue()
                 self.amountMessage = "delegation.inputamount.optionalamount".localized
+                self.isContinueEnabled = true
             } else {
                 self.amountMessage = "delegation.inputamount.lockedamountmessage".localized
                 
@@ -304,6 +336,8 @@ fileprivate extension StakeAmountInputViewModel {
                     self.poolLimit?.hightlighted = true
                     self.amountErrorMessage = "stake.inputAmount.error.amountTooLarge".localized
                     self.isContinueEnabled = false
+                } else {
+                    self.isContinueEnabled = true
                 }
             }
             self.title = "delegation.inputamount.title.update".localized

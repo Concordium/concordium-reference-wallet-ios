@@ -47,7 +47,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
             balance: GTU(intValue: account.forecastBalance),
-            atDisposal: GTU(intValue: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)),
+            atDisposal: account.atDisposalForBaking,
             previouslyStakedInPool: previouslyStakedInPool
         )
         
@@ -203,7 +203,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     private func checkForWarnings(completion: @escaping () -> Void) {
-        if let alert = dataHandler.getCurrentWarning(atDisposal: account.forecastAtDisposalBalance)?.asAlert(completion: completion) {
+        if let alert = dataHandler.getCurrentWarning(atDisposal: account.atDisposalForBaking.intValue)?.asAlert(completion: completion) {
             self.view?.showAlert(with: alert)
         } else {
             completion()
@@ -215,9 +215,19 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
 }
 
+private extension AccountDataType {
+    var atDisposalForBaking: GTU {
+        GTU(intValue: forecastAtDisposalBalance + (releaseSchedule?.total ?? 0))
+    }
+}
+
 private extension BakerDataType {
     var isInCooldown: Bool {
-        pendingChange?.change != .NoChange
+        if let pendingChange = pendingChange, pendingChange.change != .NoChange {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
@@ -253,16 +263,6 @@ private extension TransferCostRange {
 }
 
 private extension StakeAmountInputViewModel {
-    func gtuAmount(currentAmount: GTU?, isOnCooldown: Bool) -> Publishers.Map<Published<String>.Publisher, GTU> {
-        return $amount.map { amountString in
-            if let currentAmount = currentAmount, isOnCooldown {
-                return currentAmount
-            } else {
-                return GTU(displayValue: amountString)
-            }
-        }
-    }
-    
     func setup(
         account: AccountDataType,
         currentAmount: GTU?,

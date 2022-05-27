@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 enum StakeError: Error {
     case minimumAmount(GTU)
@@ -61,6 +62,16 @@ class StakeAmountInputViewModel {
     
     @Published var bottomMessage: String = ""
     @Published var isContinueEnabled: Bool = false
+    
+    func gtuAmount(currentAmount: GTU?, isOnCooldown: Bool) -> Publishers.Map<Published<String>.Publisher, GTU> {
+        return $amount.map { amountString in
+            if let currentAmount = currentAmount, isOnCooldown {
+                return currentAmount
+            } else {
+                return GTU(displayValue: amountString)
+            }
+        }
+    }
 }
 
 // MARK: -
