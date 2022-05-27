@@ -130,8 +130,7 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         }
         self.dataHandler = dataHandler
     }
-
-    // swiftlint:disable function_body_length
+    
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
         self.view?.bakerIdPublisher
@@ -141,51 +140,11 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             }
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .flatMap { [weak self] bakerId -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> in
-                self?.viewModel.bakerId = bakerId
-                guard let self = self else {
-                    return .just(Result.failure(DelegationPoolBakerIdError.invalid))
-                }
-                if bakerId.isEmpty {
-                    return .just(self.resetToCurrentBakerPool())
-                }
-                guard let bakerIdInt = Int(bakerId) else {
-                    return .just(Result.failure(DelegationPoolBakerIdError.invalid))
-                }
-               
-                return self.stakeService.getBakerPool(bakerId: bakerIdInt)
-                    .showLoadingIndicator(in: self.view)
-                    .map { [weak self] response in
-                        self?.bakerPoolResponse = response
-                        let currentBakerId = self?.getCurrentBakerId()
-                        if (response.poolInfo.openStatus == "openForAll") ||
-                            (response.poolInfo.openStatus == "closedForNew" && currentBakerId == bakerIdInt) {
-                            return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
-                        } else {
-                            return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.closed)
-                        }
-                    }.replaceError(with: {
-                        return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
-                    }())
-                    .eraseToAnyPublisher()
-        } .sink(receiveCompletion: { _ in
-        }, receiveValue: { [weak self]  result in
-            switch result {
-            case Result.success(let bakerId):
-                self?.validSelectedPool = .bakerPool(bakerId: bakerId)
-                self?.viewModel.bakerIdErrorMessage = nil
-            case .failure(let error):
-                self?.validSelectedPool = nil
-                switch error {
-                case .empty:
-                    self?.viewModel.bakerIdErrorMessage = nil
-                case .invalid:
-                    self?.viewModel.bakerIdErrorMessage = "delegation.pool.invalidbakerid".localized
-                case .closed:
-                    self?.viewModel.bakerIdErrorMessage = "delegation.pool.closedpool".localized
-                }
-                
+                return self?.fetchBakerPool(bakerId: bakerId) ?? .just(.failure(.invalid))
             }
-        }).store(in: &cancellables)
+            .sink { [weak self]  result in
+                self?.receiveBakerPoolResponse(result)
+            }.store(in: &cancellables)
         
         self.view?.poolOption.sink(receiveCompletion: { _ in
         }, receiveValue: { [weak self] selectedOption in
@@ -208,6 +167,52 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             .sink { pool in
             self.viewModel.isPoolValid = (pool != nil)
         }.store(in: &cancellables)
+    }
+    
+    private func fetchBakerPool(bakerId: String) -> AnyPublisher<Result<Int, DelegationPoolBakerIdError>, Never> {
+        self.viewModel.bakerId = bakerId
+        
+        if bakerId.isEmpty {
+            return .just(self.resetToCurrentBakerPool())
+        }
+        
+        guard let bakerIdInt = Int(bakerId) else {
+            return .just(Result.failure(DelegationPoolBakerIdError.invalid))
+        }
+       
+        return self.stakeService.getBakerPool(bakerId: bakerIdInt)
+            .showLoadingIndicator(in: self.view)
+            .map { [weak self] response in
+                self?.bakerPoolResponse = response
+                let currentBakerId = self?.getCurrentBakerId()
+                if (response.poolInfo.openStatus == "openForAll") ||
+                    (response.poolInfo.openStatus == "closedForNew" && currentBakerId == bakerIdInt) {
+                    return Result<Int, DelegationPoolBakerIdError>.success(bakerIdInt)
+                } else {
+                    return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.closed)
+                }
+            }.replaceError(with: {
+                return Result<Int, DelegationPoolBakerIdError>.failure(DelegationPoolBakerIdError.invalid)
+            }())
+            .eraseToAnyPublisher()
+    }
+    
+    private func receiveBakerPoolResponse(_ result: Result<Int, DelegationPoolBakerIdError>) {
+        switch result {
+        case Result.success(let bakerId):
+            self.validSelectedPool = .bakerPool(bakerId: bakerId)
+            self.viewModel.bakerIdErrorMessage = nil
+        case .failure(let error):
+            self.validSelectedPool = nil
+            switch error {
+            case .empty:
+                self.viewModel.bakerIdErrorMessage = nil
+            case .invalid:
+                self.viewModel.bakerIdErrorMessage = "delegation.pool.invalidbakerid".localized
+            case .closed:
+                self.viewModel.bakerIdErrorMessage = "delegation.pool.closedpool".localized
+            }
+        }
     }
     
     func pressedContinue() {
