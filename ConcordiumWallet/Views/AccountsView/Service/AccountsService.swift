@@ -244,9 +244,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let stakedAmount = account.baker?.stakedAmount ?? (account.delegation?.stakedAmount ?? 0)
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(stakedAmount,
-                                                                                                           account.releaseSchedule?.total ?? 0)
+                let forecastAtDisposalBalance = self.calculateForecastAtDispoalBalance(for: account, balanceChange: transferBalanceChange.0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
                                                           forecastAtDisposalBalance: forecastAtDisposalBalance) }
@@ -266,14 +264,25 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 let (pub, shielded) = arg1
                 return ((acc.0 + pub), (acc.1 + shielded))}
             .map { transferBalanceChange in
-                let stakedAmount = account.baker?.stakedAmount ?? (account.delegation?.stakedAmount ?? 0)
+                let forecastAtDisposalBalance = self.calculateForecastAtDispoalBalance(for: account, balanceChange: transferBalanceChange.0)
                 
-                let forecastAtDisposalBalance = (account.finalizedBalance + transferBalanceChange.0) - max(stakedAmount,
-                                                                                                           account.releaseSchedule?.total ?? 0)
                 return account.withUpdatedForecastBalance((account.finalizedBalance + transferBalanceChange.0),
                                                           forecastShieldedBalance: (account.finalizedEncryptedBalance + transferBalanceChange.1),
                                                           forecastAtDisposalBalance: forecastAtDisposalBalance) }
             .eraseToAnyPublisher()
+    }
+    
+    private func calculateForecastAtDispoalBalance(
+        for account: AccountDataType,
+        balanceChange: Int
+    ) -> Int {
+        let stakedAmount = account.baker?.stakedAmount ?? account.delegation?.stakedAmount ?? 0
+        
+        let scheduledTotal = account.releaseSchedule?.total ?? 0
+        
+        let forecastAtDisposalBalance = account.finalizedBalance + balanceChange - stakedAmount - scheduledTotal
+        
+        return max(forecastAtDisposalBalance, 0)
     }
     
     private func decryptingIfNeeded(for account: AccountDataType) -> AnyPublisher<AccountDataType, Error> {
