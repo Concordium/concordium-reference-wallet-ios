@@ -70,7 +70,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        warningMessageView.applyConcordiumEdgeStyle()
+        warningMessageView.applyConcordiumEdgeStyle(color: .yellowBorder)
         warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
     }
 

@@ -78,4 +78,8 @@ extension UIColor {
     class var headerCellColor: UIColor {
         return UIColor(named: "headerCellColor") ?? UIColor.magenta
     }
+    
+    class var yellowBorder: UIColor {
+        return UIColor(named: "yellowBorder") ?? UIColor.magenta
+    }
 }

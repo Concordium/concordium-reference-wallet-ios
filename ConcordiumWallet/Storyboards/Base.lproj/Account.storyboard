@@ -195,7 +195,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9t-uc-NoB" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="791" width="396" height="52"/>
+                                <rect key="frame" x="16" y="761" width="396" height="52"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="[Create new identity]">
@@ -215,7 +215,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[You need to create an identity before creating an account.]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IA-xe-HZ9">
-                                <rect key="frame" x="70" y="722.66666666666663" width="288" height="38.333333333333371"/>
+                                <rect key="frame" x="70" y="692.66666666666663" width="288" height="38.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="fadedText"/>
                                 <nil key="highlightedColor"/>
@@ -278,7 +278,7 @@
                             <constraint firstItem="wee-Hm-w2j" firstAttribute="top" secondItem="85l-hs-ZgH" secondAttribute="bottom" constant="10" id="PVF-6V-w9h"/>
                             <constraint firstItem="85l-hs-ZgH" firstAttribute="top" secondItem="DvZ-dJ-gp6" secondAttribute="bottom" constant="16" id="Ptl-SB-iB5"/>
                             <constraint firstItem="DvZ-dJ-gp6" firstAttribute="trailing" secondItem="85l-hs-ZgH" secondAttribute="trailing" id="So4-cx-Wth"/>
-                            <constraint firstItem="a9t-uc-NoB" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="U93-GR-e65"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="a9t-uc-NoB" secondAttribute="bottom" constant="30" id="U93-GR-e65"/>
                             <constraint firstItem="85l-hs-ZgH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="99" placeholder="YES" id="boP-ug-nUN"/>
                             <constraint firstItem="DvZ-dJ-gp6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24.999999999999986" id="dSJ-36-l9n"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wee-Hm-w2j" secondAttribute="bottom" constant="-59" id="ebF-Of-utE"/>
@@ -2153,11 +2153,11 @@ process on-chain]</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exm-UE-z2h" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="762" width="396" height="50"/>
+                                <rect key="frame" x="16" y="747" width="396" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH1-qc-Uz9">
-                                <rect key="frame" x="16" y="762" width="396" height="50"/>
+                                <rect key="frame" x="16" y="747" width="396" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Lmc-ZJ-DRQ"/>
@@ -2173,7 +2173,7 @@ process on-chain]</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-YT-27p" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="842" width="396" height="50"/>
+                                <rect key="frame" x="16" y="812" width="396" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7yo-gr-6NY"/>
@@ -2192,7 +2192,7 @@ process on-chain]</string>
                         <viewLayoutGuide key="safeArea" id="AZR-jF-jh3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="AZR-jF-jh3" firstAttribute="bottom" secondItem="y8I-YT-27p" secondAttribute="bottom" priority="999" id="9wF-Gh-nar"/>
+                            <constraint firstItem="AZR-jF-jh3" firstAttribute="bottom" secondItem="y8I-YT-27p" secondAttribute="bottom" priority="999" constant="30" id="9wF-Gh-nar"/>
                             <constraint firstItem="y8I-YT-27p" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="Csx-9b-xdS"/>
                             <constraint firstItem="jnp-Dc-cSV" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="37" id="K3y-Rc-Gee"/>
                             <constraint firstItem="jnp-Dc-cSV" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="P4T-hq-yPH"/>
@@ -2200,7 +2200,7 @@ process on-chain]</string>
                             <constraint firstItem="y8I-YT-27p" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="16" id="UdZ-rX-3Qa"/>
                             <constraint firstItem="Exm-UE-z2h" firstAttribute="leading" secondItem="dH1-qc-Uz9" secondAttribute="leading" id="XNJ-cO-dLe"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="y8I-YT-27p" secondAttribute="bottom" constant="20" id="kmd-V3-GQv"/>
-                            <constraint firstItem="y8I-YT-27p" firstAttribute="top" secondItem="dH1-qc-Uz9" secondAttribute="bottom" constant="30" id="kxv-qg-Qos"/>
+                            <constraint firstItem="y8I-YT-27p" firstAttribute="top" secondItem="dH1-qc-Uz9" secondAttribute="bottom" constant="15" id="kxv-qg-Qos"/>
                             <constraint firstItem="dH1-qc-Uz9" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="rGu-UI-0Uy"/>
                             <constraint firstItem="dH1-qc-Uz9" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="16" id="udN-0u-zOg"/>
                             <constraint firstItem="Exm-UE-z2h" firstAttribute="bottom" secondItem="dH1-qc-Uz9" secondAttribute="bottom" id="vuo-w7-6T8"/>
