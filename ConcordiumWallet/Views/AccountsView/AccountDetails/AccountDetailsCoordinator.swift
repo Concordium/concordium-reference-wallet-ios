@@ -345,6 +345,7 @@ extension AccountDetailsCoordinator: DelegationCoordinatorDelegate {
     func finished() {
         navigationController.dismiss(animated: true)
         self.childCoordinators.removeAll {$0 is DelegationCoordinator }
+        refreshTransactionList()
     }
 }
 

@@ -26,7 +26,8 @@
             "pendingChange": {
                 "change":"ReduceStake",
                 "newStake": null,
-                "effectiveTime": "2022-03-30T16:43:53.5Z"
+                "effectiveTime": "2022-03-30T16:43:53.5Z",
+                "estimatedChangeTime": "2022-03-30T16:43:53.5Z"
                 }
         },
         "accountDelegation": null
@@ -61,7 +62,8 @@
             "pendingChange":{
                 "change":"ReduceStake",
                 "newStake":"1000000000",
-                "effectiveTime": "2022-03-30T16:43:53.5Z"
+                "effectiveTime": "2022-03-30T16:43:53.5Z",
+                "estimatedChangeTime": "2022-03-30T16:43:53.5Z"
             }
         }
     }

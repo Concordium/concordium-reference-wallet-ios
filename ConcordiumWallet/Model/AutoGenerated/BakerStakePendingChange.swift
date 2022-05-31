@@ -10,11 +10,13 @@ struct BakerStakePendingChange: Codable {
     let pendingChangeType: String
     let bakerEquityCapital: String?
     let effectiveTime: String?
+    let estimatedChangeTime: String?
 
     enum CodingKeys: String, CodingKey {
         case pendingChangeType = "pendingChangeType"
         case bakerEquityCapital = "bakerEquityCapital"
         case effectiveTime = "effectiveTime"
+        case estimatedChangeTime = "estimatedChangeTime"
     }
 }
 
@@ -39,12 +41,14 @@ extension BakerStakePendingChange {
     func with(
         pendingChangeType: String? = nil,
         bakerEquityCapital: String?? = nil,
-        effectiveTime: String?? = nil
+        effectiveTime: String?? = nil,
+        estimatedChangeTime: String?? = nil
     ) -> BakerStakePendingChange {
         return BakerStakePendingChange(
             pendingChangeType: pendingChangeType ?? self.pendingChangeType,
             bakerEquityCapital: bakerEquityCapital ?? self.bakerEquityCapital,
-            effectiveTime: effectiveTime ?? self.effectiveTime
+            effectiveTime: effectiveTime ?? self.effectiveTime,
+            estimatedChangeTime: estimatedChangeTime ?? self.estimatedChangeTime
         )
     }
 

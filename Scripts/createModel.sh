@@ -141,6 +141,7 @@ cat $PASSIVE_DELEGATION_JSON | quicktype --multi-file-output --density normal -o
 replaceType "BakerStakePendingChange.bakerEquityCapital: String" "bakerEquityCapital: String?"
 replaceType "EuroPerEnergy.Int" "UInt64"
 replaceType "BakerStakePendingChange.effectiveTime: String" "effectiveTime: String?"
+replaceType "BakerStakePendingChange.estimatedChangeTime: String" "estimatedChangeTime: String?"
 replaceType "MakeCreateTransferRequest.bakerKeys: BakerKeys?" "bakerKeys: GeneratedBakerKeys?"
 replaceType "BakerPoolResponse.currentPaydayStatus: CurrentPaydayStatus" "currentPaydayStatus: CurrentPaydayStatus?"
 

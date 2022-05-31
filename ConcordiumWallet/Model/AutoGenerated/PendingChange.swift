@@ -10,11 +10,13 @@ struct PendingChange: Codable {
     let change: String
     let newStake: String?
     let effectiveTime: String?
+    let estimatedChangeTime: String?
 
     enum CodingKeys: String, CodingKey {
         case change = "change"
         case newStake = "newStake"
         case effectiveTime = "effectiveTime"
+        case estimatedChangeTime = "estimatedChangeTime"
     }
 }
 
@@ -39,12 +41,14 @@ extension PendingChange {
     func with(
         change: String? = nil,
         newStake: String?? = nil,
-        effectiveTime: String?? = nil
+        effectiveTime: String?? = nil,
+        estimatedChangeTime: String?? = nil
     ) -> PendingChange {
         return PendingChange(
             change: change ?? self.change,
             newStake: newStake ?? self.newStake,
-            effectiveTime: effectiveTime ?? self.effectiveTime
+            effectiveTime: effectiveTime ?? self.effectiveTime,
+            estimatedChangeTime: estimatedChangeTime ?? self.estimatedChangeTime
         )
     }
 

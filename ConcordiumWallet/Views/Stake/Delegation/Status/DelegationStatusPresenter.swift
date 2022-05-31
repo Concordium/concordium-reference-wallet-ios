@@ -107,10 +107,10 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
                 case .NoChange:
                     pendingChanges = .none
                 case .ReduceStake:
-                    pendingChanges = .newDelegationAmount(coolDownEndTimestamp: accountPendingChange.effectiveTime ?? "",
+                    pendingChanges = .newDelegationAmount(coolDownEndTimestamp: accountPendingChange.estimatedChangeTime ?? "",
                                                           newDelegationAmount: GTU(intValue: Int(accountPendingChange.updatedNewStake ?? "0") ?? 0))
                 case .RemoveStake:
-                    pendingChanges = .stoppedDelegation(coolDownEndTimestamp: accountPendingChange.effectiveTime ?? "")
+                    pendingChanges = .stoppedDelegation(coolDownEndTimestamp: accountPendingChange.estimatedChangeTime ?? "")
                 }
             } else {
                 if let bakerId = self.account.delegation?.delegationTargetBakerID, bakerId != -1 {
@@ -119,7 +119,7 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
                         self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                     } receiveValue: { bakerPoolResponse in
                         if bakerPoolResponse.bakerStakePendingChange.pendingChangeType == "RemovePool" {
-                            let effectiveTime = bakerPoolResponse.bakerStakePendingChange.effectiveTime ?? ""
+                            let effectiveTime = bakerPoolResponse.bakerStakePendingChange.estimatedChangeTime ?? ""
                             self.viewModel.setup(dataHandler: self.dataHandler,
                                                  pendingChanges: .poolWasDeregistered(coolDownEndTimestamp: effectiveTime),
                                                  hasUnfinishedTransaction: false)

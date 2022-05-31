@@ -54,35 +54,57 @@ class DelegationReceiptPresenter: StakeReceiptPresenterProtocol {
     }
     
     func pressedButton() {
-        let chainParams = self.storageManager.getChainParams()
+        let delegatorCooldown = storageManager.getChainParams()?.delegatorCooldown ?? 0
+        let gracePeriod = String(
+            format: "delegation.graceperiod.format".localized,
+            GeneralFormatter.secondsToDays(seconds: delegatorCooldown)
+        )
         
-        let gracePeriod = String(format:
-                                    "delegation.graceperiod.format".localized,
-                                 GeneralFormatter.secondsToDays(seconds: chainParams?.delegatorCooldown ?? 0))
-        let title: String
-        let message: String
-        let ok: String
-        if dataHandler.isLoweringStake() {
-            ok = "delegation.receiptlowering.ok".localized
-            title = "delegation.receiptlowering.title".localized
-            message = String(format: "delegation.receiptlowering.message".localized, gracePeriod)
-        } else if dataHandler.transferType == .removeDelegation {
-            ok = "delegation.receiptremove.ok".localized
-            title = "delegation.receiptremove.title".localized
-            message = String(format: "delegation.receiptremove.message".localized, gracePeriod)
-        } else {
-            ok = "delegation.receiptnextpayday.ok".localized
-            title = "delegation.receiptnextpayday.title".localized
-            message = "delegation.receiptnextpayday.message".localized
+        let fineAction = { (label: String) in
+            AlertAction(name: label, completion: { [weak self] in
+                self?.delegate?.finishedShowingReceipt()
+            }, style: .default)
         }
-        let fineAction = AlertAction(name: ok, completion: { [weak self] in
-            self?.delegate?.finishedShowingReceipt()
-        }, style: .default)
-       
-        let alertOptions = AlertOptions(title: title,
-                                        message: String(format: message, gracePeriod),
-                                        actions: [ fineAction])
-        self.view?.showAlert(with: alertOptions)
+        
+        if dataHandler.isLoweringStake() {
+            let ok = "delegation.receiptlowering.ok".localized
+            let title = "delegation.receiptlowering.title".localized
+            
+            let message = String(
+                format: "delegation.receiptlowering.message".localized,
+                gracePeriod
+            )
+            
+            self.view?.showAlert(with: AlertOptions(
+                title: title,
+                message: message,
+                actions: [fineAction(ok)]
+            ))
+        } else if dataHandler.transferType == .removeDelegation {
+            let ok = "delegation.receiptremove.ok".localized
+            let title = "delegation.receiptremove.title".localized
+            
+            let message = String(
+                format: "delegation.receiptremove.message".localized,
+                gracePeriod
+            )
+            
+            self.view?.showAlert(with: AlertOptions(
+                title: title,
+                message: message,
+                actions: [fineAction(ok)]
+            ))
+        } else {
+            let ok = "delegation.receiptnextpayday.ok".localized
+            let title = "delegation.receiptnextpayday.title".localized
+            let message = "delegation.receiptnextpayday.message".localized
+            
+            self.view?.showAlert(with: AlertOptions(
+                title: title,
+                message: message,
+                actions: [fineAction(ok)]
+            ))
+        }
     }
     
     func closeButtonTapped() {

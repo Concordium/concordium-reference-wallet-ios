@@ -110,7 +110,6 @@ class BakerPoolMenuPresenter: BurgerMenuPresenterProtocol {
         let action = actions[index]
         
         stakeService.getChainParameters()
-            .delay(for: .seconds(5), scheduler: DispatchQueue.main)
             .first()
             .showLoadingIndicator(in: self.view)
             .sink { [weak self] error in

@@ -13,12 +13,14 @@ protocol PendingChangeDataType: DataStoreProtocol {
     var change: AccountPendingChangeType { get set}
     var updatedNewStake: String? { get set}
     var effectiveTime: String? { get set}
+    var estimatedChangeTime: String? { get set }
 }
 
 final class PendingChangeEntity: Object {
     @objc dynamic var changeString = ""
     @objc dynamic var updatedNewStake: String?
     @objc dynamic var effectiveTime: String?
+    @objc dynamic var estimatedChangeTime: String?
     
     convenience init?(pendingChange: PendingChange?) {
         self.init()
@@ -28,6 +30,7 @@ final class PendingChangeEntity: Object {
         changeString = pendingChange.change
         updatedNewStake = pendingChange.newStake
         effectiveTime = pendingChange.effectiveTime
+        estimatedChangeTime = pendingChange.estimatedChangeTime
     }
 }
 

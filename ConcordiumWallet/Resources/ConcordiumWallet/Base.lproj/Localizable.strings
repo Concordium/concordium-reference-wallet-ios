@@ -562,7 +562,7 @@ developer.concordium.software";
 "delegation.pool.closedpool" = "This pool is closed";
 
 "delegation.pool.sizewarning.title" = "Current delegation amount too large";
-"delegation.pool.sizewarning.message" = "Your current delegation amount will breach the new pool’s limits. To delegate to this pool you must first lower or stop your delegation and then wait for the cool down to pass.";
+"delegation.pool.sizewarning.message" = "Your current delegation amount will breach the new pool’s limits. To delegate to this pool you must first lower or stop your delegation and then wait for the cool-down to pass.";
 "delegation.pool.sizewarning.loweramount" = "Lower delegation amount and stay with current pool";
 "delegation.pool.sizewarning.stopdelegation" = "Stop current delegation";
 "delegation.pool.sizewarning.cancel" = "Cancel";
@@ -592,10 +592,9 @@ developer.concordium.software";
 "delegation.receipt.registerdelegation" = "Transaction: Register delegation";
 "delegation.receipt.removedelegationheader" = "Transaction: Remove delegation";
 "delegation.receiptlowering.title" = "Notice";
-"delegation.receiptlowering.message" = "Your decrease to the delegation amount will take effect after a cool down of approximately %@.
+"delegation.receiptlowering.message" = "Your decrease of the delegation amount will take effect at the next pay day after a cool-down of %@.
 
-
-All other updates will take effect at the next pay day. ";
+Once the transaction has finalized, you can see the time of the release on the delegation status screen.";
 "delegation.receiptlowering.ok" = "Okay";
 
 "delegation.receiptnextpayday.title" = "Notice";
@@ -603,13 +602,15 @@ All other updates will take effect at the next pay day. ";
 "delegation.receiptnextpayday.ok" = "Okay";
 
 "delegation.receiptremove.title" = "Notice";
-"delegation.receiptremove.message" = "Once your transaction has finalized, the delegation will be stopped after a cool down of %@.";
+"delegation.receiptremove.message" = "Your delegation will stop at the next pay day after a cool-down of %@.
+
+Once the transaction has finalized, you can see the estimated time on the delegation status screen.";
 "delegation.receiptremove.ok" = "Okay";
 
 
 
 "delegation.loweringamountwarning.title" = "Important";
-"delegation.loweringamountwarning.message" = "Reducing the delegation amount will lock the total delegation amount for a cool down period. No changes can be made to the amount during this period, and the withdrawal will not take effect before the cool down is over.";
+"delegation.loweringamountwarning.message" = "Reducing the delegation amount will lock the total delegation amount for a cool-down period. No changes can be made to the amount during this period, and the withdrawal will not take effect before the cool-down is over.";
 "delegation.loweringamountwarning.change" = "Let me change my amount";
 "delegation.loweringamountwarning.fine" = "That’s fine";
 
@@ -634,7 +635,7 @@ Do you want to remove your delegation?";
 "delegation.nochanges.ok" = "Okay";
 
 "delegation.closewarning.title" = "Delegation update";
-"delegation.closewarning.message" = "The target pools of the following accounts will close soon. If you don’t actively change the target pool, your account will keep earning rewards as a passive delegator after the cooldown.
+"delegation.closewarning.message" = "The target pools of the following accounts will close soon. If you don’t actively change the target pool, your account will keep earning rewards as a passive delegator after the cool-down.
 
 You can however already change your target pool via the delegation status menu, if you would rather do that.
 
@@ -670,9 +671,9 @@ If you don’t have enough unlocked CCD at your disposal, you might not be able 
 "baking.morethan95.newstake" = "Enter new baker stake";
 
 "baker.receiptconfirmation.title.update" = "Update baker stake";
-"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
+"baker.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cool-down period, meaning it will not take effect immediately.
 
-The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
+The baker cannot be removed and the stake cannot be changed until the cool-down is over.";
 
 "baking.poolsettings.title.create" = "Register baker";
 "baking.poolsettings.title.update" = "Update pool settings";
@@ -724,9 +725,9 @@ developer.concordium.software";
 "baking.receiptconfirmation.transactionfee" = "Estimated transaction fee:\n%@";
 "baking.receiptconfirmation.title.updatestake" = "Update baker stake";
 "baking.receiptconfirmation.updatebakerstake" = "Transaction: Update baker stake";
-"baking.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cooldown period, meaning it will not take effect immediately.
+"baking.receiptconfirmation.loweringstake" = "You are about to submit a transaction that lowers your baker stake. Lowering your stake has a cool-down period, meaning it will not take effect immediately.
 
-The baker cannot be removed and the stake cannot be changed until the cooldown is over.";
+The baker cannot be removed and the stake cannot be changed until the cool-down is over.";
 "baking.receiptconfirmation.title.updatepool" = "Update pool settings";
 "baking.receiptconfirmation.updatebakerpool" = "Transaction: Update pool settings";
 "baking.receiptconfirmation.title.updatekeys" = "Update baker keys";
@@ -735,11 +736,11 @@ The baker cannot be removed and the stake cannot be changed until the cooldown i
 "baking.receiptconfirmation.removetext" = "Are you sure you want to make the following transaction to stop baking?";
 "baking.receiptconfirmation.stopbaking" = "Transaction: Stop baking";
 "baking.receiptconfirmation.title.register" = "Register baker";
-"baking.receiptconfirmation.registertext" = "You are about to submit a register baker transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cooldown period.";
+"baking.receiptconfirmation.registertext" = "You are about to submit a register baker transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period.";
 "baking.receiptconfirmation.registerbaker" = "Transaction: Register baker";
 
 "baking.receiptlowering.title" = "Notice";
-"baking.receiptlowering.message" = "Your decrease to the baker stake will take effect after a cool down of %@.
+"baking.receiptlowering.message" = "Your decrease to the baker stake will take effect after a cool-down of %@.
 
 All other updates will take effect at the next pay day.";
 "baking.receiptlowering.ok" = "Okay";
@@ -755,7 +756,9 @@ All other updates will take effect at the next pay day.";
 This means the node should be restarted with the new keys, as close to the next pay day as possible.";
 "baking.receiptupdatekeys.ok" = "Okay";
 "baking.receiptremove.title" = "Notice";
-"baking.receiptremove.message" = "Once your transaction has finalized, the baker will be deregistered  after a cool down of %@.";
+"baking.receiptremove.message" = "Your baker will stop at the next pay day after a cool-down of %@.
+
+Once the transaction has finalized, you can see the estimated time on the baker status screen.";
 "baking.receiptremove.ok" = "Okay";
 "baking.receiptregister.title" = "Notice";
 "baking.receiptregister.message" = "Once your transaction has succesfully finalized, the baker registration will take effect from the next pay day.
