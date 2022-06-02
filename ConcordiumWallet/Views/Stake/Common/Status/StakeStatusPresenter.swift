@@ -54,4 +54,5 @@ protocol StakeStatusPresenterProtocol: AnyObject {
     func pressedButton()
     func pressedStopButton()
     func closeButtonTapped()
+    func updateStatus()
 }

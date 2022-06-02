@@ -40,7 +40,7 @@ enum BakerTarget {
 // MARK: -
 // MARK: Delegate
 protocol DelegationPoolSelectionPresenterDelegate: AnyObject {
-    func finishedPoolSelection(bakerPoolResponse: BakerPoolResponse?)
+    func finishedPoolSelection(dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?)
     func switchToRemoveDelegator(cost: GTU, energy: Int)
     func pressedClose() 
 }
@@ -236,13 +236,19 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
                         self.showPoolSizeWarning(response: bakerPoolResponse)
                     } else {
                         self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
-                        self.delegate?.finishedPoolSelection(bakerPoolResponse: bakerPoolResponse)
+                        self.delegate?.finishedPoolSelection(
+                            dataHandler: self.dataHandler,
+                            bakerPoolResponse: bakerPoolResponse
+                        )
                     }
                 })
                 .store(in: &cancellables)
         } else {
             self.dataHandler.add(entry: PoolDelegationData(pool: validPool))
-            self.delegate?.finishedPoolSelection(bakerPoolResponse: nil)
+            self.delegate?.finishedPoolSelection(
+                dataHandler: self.dataHandler,
+                bakerPoolResponse: nil
+            )
         }
     }
     
@@ -263,7 +269,10 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
         let lowerAmountAction = AlertAction(
             name: "delegation.pool.sizewarning.loweramount".localized,
             completion: {
-                self.delegate?.finishedPoolSelection(bakerPoolResponse: response)
+                self.delegate?.finishedPoolSelection(
+                    dataHandler: self.dataHandler,
+                    bakerPoolResponse: response
+                )
             }, style: .default
         )
         let stopDelegationAction = AlertAction(

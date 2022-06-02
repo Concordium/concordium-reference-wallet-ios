@@ -853,8 +853,6 @@ Remember to restart your node with the baker keys.";
 "delegation.status.registered.header" = "Your delegation is registered.";
 "delegation.status.waiting.placeholder" = "Waiting for transaction to finalize";
 "delegation.status.waiting.header" = "Waiting for delegation transaction to finalize.";
-"delegation.status.nodelegation.placeholder" = "This account has no delegation registered. You can register a delegation with the button below.";
-"delegation.status.nodelegation.header" = "This account is not currently delegating any CCDs.";
 "delegation.status.registerbutton" = "Register delegation";
 "delegation.status.updatebutton" = "Update current delegation";
 "delegation.status.stopbutton" = "Stop delegation";

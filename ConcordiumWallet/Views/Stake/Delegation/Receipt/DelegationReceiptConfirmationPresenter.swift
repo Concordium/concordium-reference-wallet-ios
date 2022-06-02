@@ -12,7 +12,7 @@ import Combine
 // MARK: -
 // MARK: Delegate
 protocol DelegationReceiptConfirmationPresenterDelegate: AnyObject {
-    func confirmedTransaction(transfer: TransferDataType)
+    func confirmedTransaction(dataHandler: StakeDataHandler, transfer: TransferDataType)
     func pressedClose() 
 }
 
@@ -73,7 +73,12 @@ class DelegationReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
                 if case GeneralError.userCancelled = error { return }
                 self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] transfer in
-                self?.delegate?.confirmedTransaction(transfer: transfer)
+                if let self = self {
+                    self.delegate?.confirmedTransaction(
+                        dataHandler: self.dataHandler,
+                        transfer: transfer
+                    )
+                }
             }).store(in: &cancellables)
     }
     func closeButtonTapped() {

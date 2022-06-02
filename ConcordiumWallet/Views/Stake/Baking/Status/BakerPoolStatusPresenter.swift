@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 enum BakerPoolStatus {
-    case pendingRegistration
+    case pendingTransfer
     case registered(currentSettings: BakerDataType)
 }
 
@@ -26,9 +26,11 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
     
     private let viewModel: StakeStatusViewModel
     private let account: AccountDataType
-    private let status: BakerPoolStatus
+    private var status: BakerPoolStatus
     private var poolInfo: PoolInfo?
     private let stakeService: StakeServiceProtocol
+    private let storageManager: StorageManagerProtocol
+    private let accountsService: AccountsServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -43,11 +45,18 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
         self.account = account
         self.status = status
         self.stakeService = dependencyProvider.stakeService()
+        self.storageManager = dependencyProvider.storageManager()
+        self.accountsService = dependencyProvider.accountsService()
     }
     
     func viewDidLoad() {
         self.view?.bind(viewModel: viewModel)
         
+        setup(with: status)
+    }
+    
+    private func setup(with status: BakerPoolStatus) {
+        self.status = status
         if case let .registered(currentSettings) = status {
             stakeService.getBakerPool(bakerId: currentSettings.bakerID)
                 .showLoadingIndicator(in: self.view)
@@ -81,6 +90,37 @@ class BakerPoolStatusPresenter: StakeStatusPresenterProtocol {
     
     func closeButtonTapped() {
         self.delegate?.pressedClose()
+    }
+    
+    func updateStatus() {
+        storageManager.getTransfers(for: account.address)
+            .filter { $0.transferType.isBakingTransfer }
+            .publisher
+            .setFailureType(to: Error.self)
+            .flatMap { [weak self] transfer -> AnyPublisher<TransferDataType, Error> in
+                guard let self = self else {
+                    return .empty()
+                }
+                
+                return self.accountsService
+                    .getLocalTransferWithUpdatedStatus(
+                        transfer: transfer,
+                        for: self.account
+                    )
+            }
+            .collect()
+            .zip(accountsService.recalculateAccountBalance(account: account, balanceType: .total))
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] (transfers, account) in
+                    if !transfers.isEmpty {
+                        self?.setup(with: .pendingTransfer)
+                    } else if let currentSettings = account.baker {
+                        self?.setup(with: .registered(currentSettings: currentSettings))
+                    }
+                }
+            )
+            .store(in: &cancellables)
     }
 
 }

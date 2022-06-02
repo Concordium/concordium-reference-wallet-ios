@@ -60,12 +60,15 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     
     private var viewModel = BurgerMenuViewModel()
     private var account: AccountDataType
-    init(delegate: BurgerMenuAccountDetailsPresenterDelegate,
-         account: AccountDataType,
-         balance: AccountBalanceTypeEnum,
-         showsDecrypt: Bool,
-         dismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
-         showShieldedDelegate: ShowShieldedDelegate) {
+    init(
+        delegate: BurgerMenuAccountDetailsPresenterDelegate,
+        account: AccountDataType,
+        balance: AccountBalanceTypeEnum,
+        showsDecrypt: Bool,
+        dismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
+        showShieldedDelegate: ShowShieldedDelegate,
+        dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    ) {
         self.delegate = delegate
         self.account = account
         self.dismissDelegate = dismissDelegate
@@ -75,9 +78,11 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
         } else {
             if balance == .balance {
                 let stakeActions: [BurgerMenuAccountDetailsAction]
-                if account.baker != nil {
+                let pendingTransfers = dependencyProvider.storageManager().getTransfers(for: account.address)
+                
+                if account.baker != nil || pendingTransfers.contains(where: { $0.transferType.isBakingTransfer }) {
                     stakeActions = [.baking]
-                } else if account.delegation != nil {
+                } else if account.delegation != nil || pendingTransfers.contains(where: { $0.transferType.isDelegationTransfer }) {
                     stakeActions = [.delegation]
                 } else {
                     stakeActions = [.delegation, .baking]

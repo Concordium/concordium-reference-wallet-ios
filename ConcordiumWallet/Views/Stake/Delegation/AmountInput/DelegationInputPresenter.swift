@@ -12,7 +12,7 @@ import Combine
 // MARK: -
 // MARK: Delegate
 protocol DelegationAmountInputPresenterDelegate: AnyObject {
-    func finishedAmountInput(cost: GTU, energy: Int)
+    func finishedAmountInput(dataHandler: StakeDataHandler, cost: GTU, energy: Int)
     func switchToRemoveDelegator(cost: GTU, energy: Int)
     func pressedClose()
 }
@@ -216,7 +216,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                         self?.delegate?.switchToRemoveDelegator(cost: cost, energy: energy)
                     }.store(in: &self.cancellables)
             } else {
-                self.delegate?.finishedAmountInput(cost: cost, energy: energy)
+                self.delegate?.finishedAmountInput(dataHandler: self.dataHandler, cost: cost, energy: energy)
             }
             
         }

@@ -24,4 +24,23 @@ enum TransferType: String, Codable {
     case updateBakerKeys
     case removeBaker
     case configureBaker
+    
+    var isDelegationTransfer: Bool {
+        switch self {
+        case .registerDelegation, .updateDelegation, .removeDelegation:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var isBakingTransfer: Bool {
+        switch self {
+        case .registerBaker, .updateBakerStake, .updateBakerPool,
+                .updateBakerKeys, .removeBaker, .configureBaker:
+            return true
+        default:
+            return false
+        }
+    }
 }

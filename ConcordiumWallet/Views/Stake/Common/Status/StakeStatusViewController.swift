@@ -39,6 +39,8 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     
     var dataSource: UITableViewDiffableDataSource<String, StakeRowViewModel>?
     var presenter: StakeStatusPresenterProtocol
+    
+    var updateTimer: Timer?
 
     private var cancellables = Set<AnyCancellable>()
     
@@ -64,6 +66,52 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         showCloseButton()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startUpdateTimer()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(startUpdateTimer),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(stopUpdateTimer),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopUpdateTimer()
+        
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc private func startUpdateTimer() {
+        updateTimer = Timer.scheduledTimer(
+            timeInterval: 60.0,
+            target: self,
+            selector: #selector(updateStatus),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    
+    @objc private func stopUpdateTimer() {
+        updateTimer?.invalidate()
+        updateTimer = nil
+    }
+    
+    @objc private func updateStatus() {
+        presenter.updateStatus()
+    }
+    
     func showCloseButton() {
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))

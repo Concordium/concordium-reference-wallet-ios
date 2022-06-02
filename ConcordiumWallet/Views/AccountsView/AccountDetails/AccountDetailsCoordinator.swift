@@ -123,12 +123,16 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
                                showsDecrypt: Bool,
                                burgerMenuDismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
                                showShieldedDelegate: ShowShieldedDelegate) {
-        let presenter = BurgerMenuAccountDetailsPresenter(delegate: self,
-                                                          account: account,
-                                                          balance: balanceType,
-                                                          showsDecrypt: showsDecrypt,
-                                                          dismissDelegate: burgerMenuDismissDelegate,
-                                                          showShieldedDelegate: showShieldedDelegate)
+        let presenter = BurgerMenuAccountDetailsPresenter(
+            delegate: self,
+            account: account,
+            balance: balanceType,
+            showsDecrypt: showsDecrypt,
+            dismissDelegate: burgerMenuDismissDelegate,
+            showShieldedDelegate: showShieldedDelegate,
+            dependencyProvider: dependencyProvider
+        )
+        
         let vc = BurgerMenuFactory.create(with: presenter)
         vc.modalPresentationStyle = .overFullScreen
         presenter.view = vc

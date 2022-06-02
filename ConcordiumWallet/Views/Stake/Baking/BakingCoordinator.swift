@@ -21,6 +21,7 @@ class BakingCoordinator: Coordinator {
     private weak var delegate: BakingCoordinatorDelegate?
     private let account: AccountDataType
     private let dependencyProvider: StakeCoordinatorDependencyProvider
+    private lazy var storageManager = dependencyProvider.storageManager()
     
     init(
         navigationController: UINavigationController,
@@ -36,10 +37,10 @@ class BakingCoordinator: Coordinator {
     }
     
     func start() {
-        if let currentSettings = account.baker {
+        if storageManager.hasPendingBakerRegistration(for: account.address) {
+            showStatus(status: .pendingTransfer)
+        } else if let currentSettings = account.baker {
             showStatus(status: .registered(currentSettings: currentSettings))
-        } else if !dependencyProvider.storageManager().hasPendingBakerRegistration(for: account.address) {
-            showStatus(status: .pendingRegistration)
         } else {
             showCarousel(
                 dataHandler: BakerDataHandler(
@@ -308,8 +309,8 @@ extension BakingCoordinator: RequestPasswordDelegate {}
 
 private extension StorageManagerProtocol {
     func hasPendingBakerRegistration(for account: String) -> Bool {
-        getTransfers(for: account)
-            .filter { $0.transferType == .registerBaker && ($0.transactionStatus == .received || $0.transactionStatus == .committed) }
+        !getTransfers(for: account)
+            .filter { $0.transferType.isBakingTransfer }
             .isEmpty
     }
 }

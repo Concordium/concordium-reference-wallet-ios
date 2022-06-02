@@ -21,7 +21,6 @@ class DelegationCoordinator: Coordinator {
     private var account: AccountDataType
     
     private var dependencyProvider: StakeCoordinatorDependencyProvider
-    private var delegationDataHandler: StakeDataHandler
     
     init(navigationController: UINavigationController,
          dependencyProvider: StakeCoordinatorDependencyProvider,
@@ -32,7 +31,6 @@ class DelegationCoordinator: Coordinator {
         self.dependencyProvider = dependencyProvider
         self.account = account
         self.delegate = parentCoordinator
-        self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: false)
     }
     
     func start() {
@@ -44,7 +42,7 @@ class DelegationCoordinator: Coordinator {
         
         // if we don't have delegation, we check whether there is a pending transaction for delegation
         let transfers = self.dependencyProvider.storageManager().getTransfers(for: account.address).filter { transfer in
-            transfer.transferType == .removeDelegation || transfer.transferType == .updateDelegation || transfer.transferType == .registerDelegation
+            transfer.transferType.isDelegationTransfer
         }
         
         if transfers.count > 0 {
@@ -62,64 +60,64 @@ class DelegationCoordinator: Coordinator {
 
     func showStatus() {
         let presenter = DelegationStatusPresenter(account: account,
-                                                  dataHandler: delegationDataHandler,
                                                   dependencyProvider: dependencyProvider,
                                                   delegate: self)
         let vc = StakeStatusFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func stopDelegation(cost: GTU, energy: Int) {
-        self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: true)
-        showRequestConfirmation(cost: cost, energy: energy)
+    func stopDelegation(dataHandler: StakeDataHandler, cost: GTU, energy: Int) {
+        showRequestConfirmation(dataHandler: dataHandler, cost: cost, energy: energy)
     }
       
-    func showAmountInput(bakerPoolResponse: BakerPoolResponse?) {
+    func showAmountInput(dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?) {
         let presenter = DelegationAmountInputPresenter(account: account,
                                                        delegate: self,
                                                        dependencyProvider: dependencyProvider,
-                                                       dataHandler: delegationDataHandler,
+                                                       dataHandler: dataHandler,
                                                        bakerPoolResponse: bakerPoolResponse)
         let vc = StakeAmountInputFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showPoolSelection() {
+    func showPoolSelection(dataHandler: StakeDataHandler) {
         let presenter = DelegationPoolSelectionPresenter(
             account: account,
             delegate: self,
             dependencyProvider: dependencyProvider,
-            dataHandler: delegationDataHandler
+            dataHandler: dataHandler
         )
         let vc = DelegationPoolSelectionFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showRequestConfirmation(cost: GTU,
-                                 energy: Int) {
+    func showRequestConfirmation(
+        dataHandler: StakeDataHandler,
+        cost: GTU,
+        energy: Int
+    ) {
         let presenter = DelegationReceiptConfirmationPresenter(account: account,
                                                                dependencyProvider: dependencyProvider,
                                                                delegate: self,
                                                                cost: cost,
                                                                energy: energy,
-                                                               dataHandler: delegationDataHandler)
+                                                               dataHandler: dataHandler)
         let vc = StakeReceiptFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showSubmissionReceipt(transfer: TransferDataType) {
+    func showSubmissionReceipt(dataHandler: StakeDataHandler, transfer: TransferDataType) {
         let presenter = DelegationReceiptPresenter(account: account,
                                                    dependencyProvider: dependencyProvider,
                                                    delegate: self,
-                                                   dataHandler: delegationDataHandler,
+                                                   dataHandler: dataHandler,
                                                    transfer: transfer)
         let vc = StakeReceiptFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showUpdateDelegation() {
-        self.delegationDataHandler = DelegationDataHandler(account: account, isRemoving: false)
-        showPoolSelection()
+        showPoolSelection(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
     }
     
     func cleanup() {
@@ -130,26 +128,30 @@ class DelegationCoordinator: Coordinator {
 
 extension DelegationCoordinator: DelegationAmountInputPresenterDelegate {
     func switchToRemoveDelegator(cost: GTU, energy: Int) {
-        stopDelegation(cost: cost, energy: energy)
+        stopDelegation(
+            dataHandler: DelegationDataHandler(account: account, isRemoving: true),
+            cost: cost,
+            energy: energy
+        )
         self.navigationController.viewControllers = self.navigationController.viewControllers.filter {
             !($0 is StakeAmountInputViewController || $0 is DelegationPoolSelectionViewController)
         }
     }
 
-    func finishedAmountInput(cost: GTU, energy: Int) {
-        self.showRequestConfirmation(cost: cost, energy: energy)
+    func finishedAmountInput(dataHandler: StakeDataHandler, cost: GTU, energy: Int) {
+        self.showRequestConfirmation(dataHandler: dataHandler, cost: cost, energy: energy)
     }
 }
 
 extension DelegationCoordinator: DelegationPoolSelectionPresenterDelegate {
-    func finishedPoolSelection(bakerPoolResponse: BakerPoolResponse?) {
-        showAmountInput(bakerPoolResponse: bakerPoolResponse)
+    func finishedPoolSelection(dataHandler: StakeDataHandler, bakerPoolResponse: BakerPoolResponse?) {
+        showAmountInput(dataHandler: dataHandler, bakerPoolResponse: bakerPoolResponse)
     }
 }
 
 extension DelegationCoordinator: DelegationReceiptConfirmationPresenterDelegate {
-    func confirmedTransaction(transfer: TransferDataType) {
-        self.showSubmissionReceipt(transfer: transfer)
+    func confirmedTransaction(dataHandler: StakeDataHandler, transfer: TransferDataType) {
+        self.showSubmissionReceipt(dataHandler: dataHandler, transfer: transfer)
     }
 }
 
@@ -181,11 +183,15 @@ extension DelegationCoordinator: DelegationOnboardingCoordinatorDelegate {
     func finished(mode: DelegationOnboardingMode) {
         switch mode {
         case .register:
-            showPoolSelection()
+            showPoolSelection(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
         case .update:
             showUpdateDelegation()
         case .remove(let cost, let energy):
-            stopDelegation(cost: cost, energy: energy)
+            stopDelegation(
+                dataHandler: DelegationDataHandler(account: account, isRemoving: true),
+                cost: cost,
+                energy: energy
+            )
         }
     }
     
