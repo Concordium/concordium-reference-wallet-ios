@@ -48,7 +48,7 @@ extension OnboardingCarouselWebContentViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction) async -> WKNavigationActionPolicy {
-        if let url = navigationAction.request.url {
+        if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
             if UIApplication.shared.canOpenURL(url) {
                 await UIApplication.shared.open(url, options: [:])
                 return .cancel
