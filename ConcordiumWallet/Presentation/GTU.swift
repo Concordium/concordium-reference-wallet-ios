@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct GTU {
+struct GTU: Codable {
     static let conversionFactor: Int = 1000000
     static let maximumFractionDigits: Int = 6
     
     /// Useful for comparing against 0
     static let zero: GTU = GTU(intValue: 0)
 
-    let intValue: Int
+    private(set) var intValue: Int
 
     init(displayValue: String) {
         if displayValue.count == 0 {
@@ -32,6 +32,25 @@ struct GTU {
     init?(intValue: Int?) {
         guard let intValue = intValue else { return nil }
         self.intValue = intValue
+    }
+    
+    // GTU is encoded as a string containing the int value
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        let stringValue = try container.decode(String.self)
+        
+        guard let intValue = Int(stringValue) else {
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "\(stringValue) is not a valid GTU amount")
+        }
+        
+        self.init(intValue: intValue)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        
+        try container.encode(String(intValue))
     }
 
     func displayValueWithGStroke() -> String {
@@ -113,5 +132,35 @@ extension GTU: Hashable {
 extension GTU: Comparable {
     static func < (lhs: GTU, rhs: GTU) -> Bool {
         lhs.intValue < rhs.intValue
+    }
+}
+
+extension GTU: Numeric {
+    var magnitude: UInt {
+        intValue.magnitude
+    }
+    
+    init?<T>(exactly source: T) where T: BinaryInteger {
+        self.init(intValue: Int(exactly: source))
+    }
+    
+    init(integerLiteral value: IntegerLiteralType) {
+        self.init(intValue: value)
+    }
+    
+    static func + (lhs: GTU, rhs: GTU) -> GTU {
+        return GTU(intValue: lhs.intValue + rhs.intValue)
+    }
+    
+    static func * (lhs: GTU, rhs: GTU) -> GTU {
+        return GTU(intValue: lhs.intValue * rhs.intValue)
+    }
+    
+    static func *= (lhs: inout GTU, rhs: GTU) {
+        lhs.intValue *= rhs.intValue
+    }
+    
+    static func - (lhs: GTU, rhs: GTU) -> GTU {
+        return GTU(intValue: lhs.intValue - rhs.intValue)
     }
 }

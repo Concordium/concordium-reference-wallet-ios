@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-enum StakeError: Error {
+enum StakeError: Error, Equatable {
     case minimumAmount(GTU)
     case maximumAmount(GTU)
     case notEnoughFund(GTU)

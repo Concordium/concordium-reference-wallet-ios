@@ -1505,6 +1505,7 @@
 		7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
 		7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF919172511505B00B1032B /* ImportViewController.swift */; };
+		8967D3442850D5B9004DB9F0 /* AmountInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */; };
 		8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
 		8992BA23281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
 		8992BA24281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
@@ -2416,6 +2417,7 @@
 		7FF9190C250E4EAD00B1032B /* ImportStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportStatusCell.xib; sourceTree = "<group>"; };
 		7FF91911250E571900B1032B /* ImportStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStatusCell.swift; sourceTree = "<group>"; };
 		7FF919172511505B00B1032B /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
+		8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountInputValidatorTests.swift; sourceTree = "<group>"; };
 		8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolMenuPresenter.swift; sourceTree = "<group>"; };
 		8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolStatusPresenter.swift; sourceTree = "<group>"; };
 		8992BA392823A8E0005279C9 /* NotYetImplemented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotYetImplemented.swift; sourceTree = "<group>"; };
@@ -3760,6 +3762,7 @@
 		8992BA4A2823DF60005279C9 /* Staking */ = {
 			isa = PBXGroup;
 			children = (
+				8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */,
 				8992BA4B2823DF6F005279C9 /* StakeDataHandlerTests.swift */,
 			);
 			path = Staking;
@@ -6547,6 +6550,7 @@
 				19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */,
 				8992BA4C2823DF6F005279C9 /* StakeDataHandlerTests.swift in Sources */,
 				7F0573F024AC71DC009517AD /* TransactionsCellViewModelTests.swift in Sources */,
+				8967D3442850D5B9004DB9F0 /* AmountInputValidatorTests.swift in Sources */,
 				7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */,
 				8992BA3A2823A8E0005279C9 /* NotYetImplemented.swift in Sources */,
 				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,

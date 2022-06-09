@@ -47,7 +47,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         validator = StakeAmountInputValidator(
             minimumValue: GTU(intValue: 0),
             balance: GTU(intValue: account.forecastBalance),
-            atDisposal: account.atDisposalForBaking,
+            atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+            releaseSchedule: GTU(intValue: account.releaseSchedule?.total ?? 0),
             previouslyStakedInPool: previouslyStakedInPool
         )
         
@@ -203,7 +204,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     private func checkForWarnings(completion: @escaping () -> Void) {
-        if let alert = dataHandler.getCurrentWarning(atDisposal: account.atDisposalForBaking.intValue)?.asAlert(completion: completion) {
+        if let alert = dataHandler.getCurrentWarning(atDisposal: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0))?.asAlert(completion: completion) {
             self.view?.showAlert(with: alert)
         } else {
             completion()
@@ -212,12 +213,6 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     func closeButtonTapped() {
         self.delegate?.pressedClose()
-    }
-}
-
-private extension AccountDataType {
-    var atDisposalForBaking: GTU {
-        GTU(intValue: forecastAtDisposalBalance + (releaseSchedule?.total ?? 0))
     }
 }
 

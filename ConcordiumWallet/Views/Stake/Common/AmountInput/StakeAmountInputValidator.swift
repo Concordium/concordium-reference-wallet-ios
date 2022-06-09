@@ -14,6 +14,7 @@ struct StakeAmountInputValidator {
     var maximumValue: GTU?
     var balance: GTU
     var atDisposal: GTU
+    var releaseSchedule: GTU
     var currentPool: GTU?
     var poolLimit: GTU?
     var previouslyStakedInPool: GTU
@@ -23,32 +24,32 @@ struct StakeAmountInputValidator {
         .flatMap(checkMaximum(amount:))
         .flatMap(checkMinimum(amount:))
         .flatMap { checkBalance(amount: $0, fee: fee) }
-        .flatMap(checkAtDisposal(amount:))
+        .flatMap { checkAtDisposal(amount: $0, fee: fee) }
         .flatMap(checkPoolLimit(amount:))
     }
     
     func checkMaximum(amount: GTU) -> Result<GTU, StakeError> {
         if let maximumValue = maximumValue {
-            if amount.intValue > maximumValue.intValue {
+            if amount > maximumValue {
                 return .failure(.maximumAmount(maximumValue))
             }
         }
         return .success(amount)
     }
     func checkMinimum(amount: GTU) -> Result<GTU, StakeError> {
-        if amount.intValue < minimumValue.intValue {
+        if amount < minimumValue {
             return .failure(.minimumAmount(minimumValue))
         }
         return .success(amount)
     }
-    func checkAtDisposal(amount: GTU) -> Result<GTU, StakeError> {
-        if amount.intValue - previouslyStakedInPool.intValue > atDisposal.intValue {
+    func checkAtDisposal(amount: GTU, fee: GTU) -> Result<GTU, StakeError> {
+        if amount - previouslyStakedInPool - releaseSchedule > atDisposal || fee > atDisposal {
             return .failure(.notEnoughFund(atDisposal))
         }
         return .success(amount)
     }
     func checkBalance(amount: GTU, fee: GTU) -> Result<GTU, StakeError> {
-        if amount.intValue + fee.intValue > balance.intValue || fee.intValue > atDisposal.intValue {
+        if amount + fee > balance {
             return .failure(.notEnoughFund(balance))
         }
         return .success(amount)
@@ -57,7 +58,7 @@ struct StakeAmountInputValidator {
         guard let currentPool = currentPool, let poolLimit = poolLimit else {
             return .success(amount)
         }
-        if amount.intValue + currentPool.intValue - previouslyStakedInPool.intValue > poolLimit.intValue {
+        if amount + currentPool - previouslyStakedInPool > poolLimit {
             return .failure(.poolLimitReached(currentPool, poolLimit))
         }
         return .success(amount)

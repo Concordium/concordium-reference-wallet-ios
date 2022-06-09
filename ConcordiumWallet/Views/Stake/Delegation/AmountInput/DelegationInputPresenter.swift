@@ -97,7 +97,8 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         validator = StakeAmountInputValidator(minimumValue: minValue,
                                               maximumValue: nil,
                                               balance: GTU(intValue: account.forecastBalance),
-                                              atDisposal: account.atDisposalForDelegation,
+                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                                              releaseSchedule: GTU(intValue: account.releaseSchedule?.total ?? 0),
                                               currentPool: currentPool,
                                               poolLimit: poolLimit,
                                               previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool))
@@ -223,7 +224,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     func checkForWarnings(completion: (() -> Void)?) {
-        switch self.dataHandler.getCurrentWarning(atDisposal: account.atDisposalForDelegation.intValue) {
+        switch self.dataHandler.getCurrentWarning(atDisposal: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)) {
         case .noChanges:
             let okAction = AlertAction(name: "delegation.nochanges.ok".localized, completion: nil, style: .default)
             
@@ -269,12 +270,6 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
 private extension TransferCost {
     var gtuCost: GTU {
         GTU(intValue: Int(cost) ?? 0)
-    }
-}
-
-private extension AccountDataType {
-    var atDisposalForDelegation: GTU {
-        GTU(intValue: forecastAtDisposalBalance + (releaseSchedule?.total ?? 0))
     }
 }
 
