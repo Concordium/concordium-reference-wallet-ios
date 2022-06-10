@@ -519,7 +519,7 @@ concordium-backup.concordiumwallet securely.";
 "delegation.inputamount.bottommessage" = "Do you want to automatically add your delegation rewards to your delegated amount?\n\nIf you choose to not restake your rewards, the amounts will be at disposal on your account balance at each pay day.";
 "stake.inputAmount.error.minAmount" = "Minimum stake: %@";
 "stake.inputAmount.error.maxAmount" = "Current maximum:  %@";
-"stake.inputAmount.error.funds" = "Not enough funds";
+"stake.inputAmount.error.funds" = "Insufficient funds";
 "stake.inputAmount.error.poolLimit" = "Pool limit will be breached";
 "stake.inputAmount.error.amountTooLarge" = "Your delegation amount is too large for this pool";
 "stake.inputAmount.amountlockedplaceholder" = "Amount locked";
@@ -681,7 +681,7 @@ The baker cannot be removed and the stake cannot be changed until the cool-down 
 
 If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
 
-If your pool is already open, you can also close it for new delegators, or you can close it for delegation completely.  ";
+You can also keep the pool closed, if you want only your own CCDs to be staked.";
 "baking.poolsettings.text.update" = "You have the option to open your baker as a pool for others to delegate their CCD to.
 
 If you choose to open your pool, other people will be able to delegate CCDs to your baking pool.
@@ -703,10 +703,11 @@ If your pool is already open, you can also close it for new delegators, or you c
 "baking.generatekeys.notice.message" = "This is your only chance to export and save the keys.\n\nThey cannot be recreated, so you will have to generate new keys and register them with a transaction, if you lose these.";
 "baking.updatekeys.title" = "Update baker keys";
 
-"baking.open" = "Open";
+"baking.open" = "Open for delegation";
 "baking.closed" = "Closed for delegation";
-"baking.closedfornew" = "Closed for new";
+"baking.closedfornew" = "Closed for new delegation";
 "baking.metadata.current" = "Current URL: \n %@";
+"baking.metadata.placeholder" = "Paste your metadata URL here";
 
 "baking.metadata.title.create" = "Register baker";
 "baking.metadata.text.create" = "You can choose to add a URL with metadata about your baker. Leave it blank if you don’t have any.
@@ -738,6 +739,11 @@ The baker cannot be removed and the stake cannot be changed until the cool-down 
 "baking.receiptconfirmation.title.register" = "Register baker";
 "baking.receiptconfirmation.registertext" = "You are about to submit a register baker transaction that locks some of your funds in a stake. If you want to unlock the stake again, there will be a cool-down period.";
 "baking.receiptconfirmation.registerbaker" = "Transaction: Register baker";
+"baking.receiptconfirmation.submit" = "Submit baker transaction";
+
+"baking.receiptconfirmation.feewarning.title" = "Warning";
+"baking.receiptconfirmation.feewarning.message" = "You don’t have any funds on your balance to pay for the fee.";
+"baking.receiptconfirmation.feewarning.ok" = "Okay";
 
 "baking.receiptlowering.title" = "Notice";
 "baking.receiptlowering.message" = "Your decrease to the baker stake will take effect after a cool-down of %@.

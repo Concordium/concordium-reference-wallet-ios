@@ -78,6 +78,10 @@ class BakerMetadataViewController: KeyboardDismissableBaseViewController, BakerM
         
         metadataTextField.text = viewModel.currentValue
         
+        viewModel.$placeholder
+            .assign(to: \.placeholder, on: metadataTextField)
+            .store(in: &cancellables)
+        
         metadataTextField.textPublisher
             .assignNoRetain(to: \.currentValue, on: viewModel)
             .store(in: &cancellables)

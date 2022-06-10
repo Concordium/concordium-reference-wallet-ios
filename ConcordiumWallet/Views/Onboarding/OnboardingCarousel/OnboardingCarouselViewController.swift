@@ -93,6 +93,8 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
         pageTitles = viewModel.pages.map { $0.title }
         onboardingCarouselPageViewController?.setup(with: viewModel.pages.map { $0.viewController })
         title = viewModel.title
+        // Only show the skip button if there are more than 1 page
+        skipButton.alpha = viewModel.pages.count > 1 ? 1 : 0
     }
 
     @objc private func closeButtonTapped() {

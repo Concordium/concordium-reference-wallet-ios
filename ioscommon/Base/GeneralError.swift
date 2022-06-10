@@ -5,7 +5,15 @@
 
 import Foundation
 
-enum GeneralError: Error {
+enum GeneralError: Error, Equatable {
     case unexpectedNullValue
     case userCancelled
+    
+    static func isGeneralError(_ target: GeneralError, error: Error) -> Bool {
+        if let generalError = error as? GeneralError {
+            return generalError == target
+        } else {
+            return false
+        }
+    }
 }

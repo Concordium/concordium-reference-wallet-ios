@@ -15,6 +15,30 @@ protocol BakerAmountInputPresenterDelegate: AnyObject {
     func pressedClose()
 }
 
+private enum TransferCostOption {
+    case cost(TransferCost)
+    case range(TransferCostRange)
+    
+    var formattedTransactionFee: String {
+        switch self {
+        case .cost(let transferCost):
+            let gtuCost = GTU(intValue: Int(transferCost.cost) ?? 0)
+            return String(format: "stake.inputamount.transactionfee".localized, gtuCost.displayValueWithGStroke())
+        case .range(let transferCostRange):
+            return transferCostRange.formattedTransactionFee
+        }
+    }
+    
+    var maxCost: GTU {
+        switch self {
+        case .cost(let transferCost):
+            return GTU(intValue: Int(transferCost.cost) ?? 0)
+        case .range(let transferCostRange):
+            return transferCostRange.maxCost
+        }
+    }
+}
+
 class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     weak var view: StakeAmountInputViewProtocol?
     weak var delegate: BakerAmountInputPresenterDelegate?
@@ -60,9 +84,10 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         )
     }
     
-    private lazy var costRangeResult: AnyPublisher<Result<TransferCostRange, Error>, Never> = {
+    private lazy var costRangeResult: AnyPublisher<Result<TransferCostOption, Error>, Never> = {
         let currentAmount = dataHandler.getCurrentEntry(BakerAmountData.self)?.amount
         let isOnCooldown = account.baker?.isInCooldown ?? false
+        let fetchRange = dataHandler.transferType == .registerBaker
         
         return viewModel.$isRestakeSelected
             .combineLatest(viewModel.gtuAmount(currentAmount: currentAmount, isOnCooldown: isOnCooldown))
@@ -77,18 +102,28 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 return self.dataHandler.getCostParameters()
             }
             .removeDuplicates()
-            .flatMap { [weak self] (costParameters) -> AnyPublisher<Result<TransferCostRange, Error>, Never> in
+            .flatMap { [weak self] (costParameters) -> AnyPublisher<Result<TransferCostOption, Error>, Never> in
                 guard let self = self else {
                     return .just(.failure(StakeError.internalError))
                 }
                 
                 self.viewModel.isContinueEnabled = false
                 
-                return self.transactionService
-                    .getBakingTransferCostRange(parameters: costParameters)
-                    .showLoadingIndicator(in: self.view)
-                    .asResult()
-                    .eraseToAnyPublisher()
+                if fetchRange {
+                    return self.transactionService
+                        .getBakingTransferCostRange(parameters: costParameters)
+                        .map { TransferCostOption.range($0) }
+                        .showLoadingIndicator(in: self.view)
+                        .asResult()
+                        .eraseToAnyPublisher()
+                } else {
+                    return self.transactionService
+                        .getTransferCost(transferType: self.dataHandler.transferType, costParameters: costParameters)
+                        .map { TransferCostOption.cost($0) }
+                        .showLoadingIndicator(in: self.view)
+                        .asResult()
+                        .eraseToAnyPublisher()
+                }
             }
             .eraseToAnyPublisher()
     }()
@@ -204,7 +239,9 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     }
     
     private func checkForWarnings(completion: @escaping () -> Void) {
-        if let alert = dataHandler.getCurrentWarning(atDisposal: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0))?.asAlert(completion: completion) {
+        if let alert = dataHandler.getCurrentWarning(
+            atDisposal: account.forecastAtDisposalBalance + (account.releaseSchedule?.total ?? 0)
+        )?.asAlert(completion: completion) {
             self.view?.showAlert(with: alert)
         } else {
             completion()

@@ -25,10 +25,12 @@ protocol BakerMetadataPresenterDelegate: AnyObject {
 class BakerMetadataViewModel {
     @Published var title: String
     @Published var text: NSAttributedString
+    @Published var placeholder: String
     @Published var currentValueLabel: String?
     @Published var currentValue: String
     
     init(currentMetadataUrl: String?) {
+        placeholder = "baking.metadata.placeholder".localized
         if let currentMetadataUrl = currentMetadataUrl {
             currentValue = currentMetadataUrl
             currentValueLabel = String(format: "baking.metadata.current".localized, currentMetadataUrl)
@@ -75,7 +77,12 @@ class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
     }
     
     func pressedContinue() {
-        self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: viewModel.currentValue))
+        let currentValue = dataHandler.getCurrentEntry(BakerMetadataURLData.self)
+        let newUrl = viewModel.currentValue
+        
+        if currentValue != nil || !newUrl.isEmpty {
+            self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: viewModel.currentValue))
+        }
         
         if dataHandler.containsChanges() || dataHandler.transferType == .registerBaker {
             self.delegate?.finishedMetadata(dataHandler: dataHandler)

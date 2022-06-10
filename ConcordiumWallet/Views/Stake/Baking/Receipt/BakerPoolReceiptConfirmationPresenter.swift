@@ -67,6 +67,7 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
                     format: "baking.receiptconfirmation.transactionfee".localized,
                     cost.displayValueWithGStroke()
                 )
+                self?.displayFeeWarningIfNeeded()
             }
             .store(in: &cancellables)
 
@@ -87,15 +88,36 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         )
             .showLoadingIndicator(in: view)
             .tryMap(self.storageManager.storeTransfer(_:))
-            .sink { error in
-                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-            } receiveValue: { transfer in
+            .sink(receiveError: { error in
+                if !GeneralError.isGeneralError(.userCancelled, error: error) {
+                    self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                }
+            }, receiveValue: { transfer in
                 self.delegate?.confirmedTransaction(transfer: transfer, dataHandler: self.dataHandler)
-            }.store(in: &cancellables)
+            }).store(in: &cancellables)
     }
     
     func closeButtonTapped() {
         self.delegate?.pressedClose()
+    }
+    
+    private func displayFeeWarningIfNeeded() {
+        let atDisposal = GTU(intValue: account.forecastAtDisposalBalance)
+        if let cost = cost, cost > atDisposal {
+            self.view?.showAlert(
+                with: AlertOptions(
+                    title: "baking.receiptconfirmation.feewarning.title".localized,
+                    message: "baking.receiptconfirmation.feewarning.message".localized,
+                    actions: [
+                        .init(
+                            name: "baking.receiptconfirmation.feewarning.ok".localized,
+                            completion: nil,
+                            style: .default
+                        )
+                    ]
+                )
+            )
+        }
     }
 }
 
@@ -103,6 +125,7 @@ private extension StakeReceiptViewModel {
     func setup(with type: BakerPoolReceiptType) {
         receiptFooterText = nil
         showsSubmitted = false
+        buttonLabel = "baking.receiptconfirmation.submit".localized
         
         switch type {
         case let .updateStake(isLoweringStake):
