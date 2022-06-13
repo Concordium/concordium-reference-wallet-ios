@@ -152,7 +152,7 @@ extension AccountDataType {
             let balance = self.forecastAtDisposalBalance
             return amount.intValue + cost.intValue <= balance
         } else {
-            return amount.intValue <= self.forecastEncryptedBalance && cost.intValue <= self.forecastBalance
+            return amount.intValue <= self.forecastEncryptedBalance && cost.intValue <= self.forecastAtDisposalBalance
         }
     }
 }
