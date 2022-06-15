@@ -174,7 +174,7 @@ private extension StakeStatusViewModel {
                 break
             }
         }
-        rows = updatedRows.flatMap { $0.displayValues.map { StakeRowViewModel(displayValue: $0) } }
+        rows = updatedRows.flatMap { $0.getDisplayValues(type: .configureBaker).map { StakeRowViewModel(displayValue: $0) } }
     }
     
     func setupPending(withAccount account: AccountDataType) {

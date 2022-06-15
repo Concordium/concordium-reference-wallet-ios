@@ -129,8 +129,8 @@ protocol StakeDataConvertible {
 
 protocol FieldValue: StakeDataConvertible {
     var field: Field { get }
-    var displayValues: [DisplayValue] { get }
     
+    func getDisplayValues(type: TransferType) -> [DisplayValue]
     func getCostParameters(type: TransferType) -> [TransferCostParameter]
     func add(to transaction: inout TransferDataType)
 }
@@ -146,7 +146,7 @@ protocol SimpleFieldValue: FieldValue {
 }
 
 extension SimpleFieldValue {
-    var displayValues: [DisplayValue] {
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
         return [DisplayValue(key: field.getLabelText(), value: displayValue)]
     }
 }
@@ -157,7 +157,7 @@ protocol AccountValue: FieldValue {
 }
 
 extension AccountValue {
-    var displayValues: [DisplayValue] {
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
         if let accountName = self.accountName {
             return [
                 DisplayValue(
@@ -182,8 +182,8 @@ struct StakeData: Hashable {
     let field: Field
     let value: FieldValue
     
-    var displayValues: [DisplayValue] {
-        value.displayValues
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
+        return value.getDisplayValues(type: type)
     }
     
     func hash(into hasher: inout Hasher) {
@@ -192,10 +192,6 @@ struct StakeData: Hashable {
     
     static func == (lhs: StakeData, rhs: StakeData) -> Bool {
         return lhs.field == rhs.field
-    }
-    
-    static func === (lhs: StakeData, rhs: StakeData) -> Bool {
-        return lhs.field == rhs.field && lhs.displayValues == rhs.displayValues
     }
 }
 
@@ -268,15 +264,30 @@ struct BakerIDData: SimpleFieldValue {
     func add(to transaction: inout TransferDataType) {}
 }
 
-struct BakerMetadataURLData: SimpleFieldValue {
+struct BakerMetadataURLData: FieldValue {
     let field = Field.bakerMetadataURL
     let metadataURL: String
     
-    var displayValue: String {
-        if metadataURL.isEmpty {
-            return "baking.receipt.metadataurl.removed".localized
-        } else {
-            return metadataURL
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
+        switch type {
+        case .registerBaker:
+            return metadataURL.isEmpty ? [] : [DisplayValue(key: field.getLabelText(), value: metadataURL)]
+        default:
+            if metadataURL.isEmpty {
+                return [
+                    DisplayValue(
+                        key: field.getLabelText(),
+                        value: "baking.receipt.metadataurl.removed".localized
+                    )
+                ]
+            } else {
+                return [
+                    DisplayValue(
+                        key: field.getLabelText(),
+                        value: metadataURL
+                    )
+                ]
+            }
         }
     }
         
@@ -296,7 +307,7 @@ struct BakerKeyData: FieldValue {
     let field = Field.bakerKeys
     let keys: GeneratedBakerKeys
     
-    var displayValues: [DisplayValue] {
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
         [
             DisplayValue(
                 key: "baking.receipt.electionverifykey".localized,
@@ -351,7 +362,7 @@ struct BakerComissionData: FieldValue {
     let finalizationRewardComission: Double
     let transactionComission: Double
     
-    var displayValues: [DisplayValue] { [] }
+    func getDisplayValues(type: TransferType) -> [DisplayValue] { [] }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateBakerPool || type == .configureBaker {
@@ -551,7 +562,8 @@ class StakeDataHandler {
     func add<T: FieldValue>(entry: T) {
         let stakeData = entry.asStakeData
         let isValueUnchanged = currentData?.contains(where: { data in
-            data === stakeData
+            data == stakeData &&
+            data.getDisplayValues(type: transferType) == stakeData.getDisplayValues(type: transferType)
         }) ?? false
         
         // we always allow the account to be in the new data
@@ -594,7 +606,7 @@ class StakeDataHandler {
             .sorted { lhs, rhs in
                 lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
             }
-            .flatMap { $0.displayValues }
+            .flatMap { $0.getDisplayValues(type: transferType) }
     }
     
     func getCurrentOrdered() -> [DisplayValue] {
@@ -602,7 +614,7 @@ class StakeDataHandler {
             .sorted { lhs, rhs in
                 lhs.field.getOrderIndex() < rhs.field.getOrderIndex()
             }
-            .flatMap { $0.displayValues } ?? []
+            .flatMap { $0.getDisplayValues(type: transferType) } ?? []
     }
     
     func getCurrentWarning(atDisposal balance: Int) -> StakeWarning? {

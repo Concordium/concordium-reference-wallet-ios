@@ -77,12 +77,7 @@ class BakerMetadataPresenter: BakerMetadataPresenterProtocol {
     }
     
     func pressedContinue() {
-        let currentValue = dataHandler.getCurrentEntry(BakerMetadataURLData.self)
-        let newUrl = viewModel.currentValue
-        
-        if currentValue != nil || !newUrl.isEmpty {
-            self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: viewModel.currentValue))
-        }
+        self.dataHandler.add(entry: BakerMetadataURLData(metadataURL: viewModel.currentValue))
         
         if dataHandler.containsChanges() || dataHandler.transferType == .registerBaker {
             self.delegate?.finishedMetadata(dataHandler: dataHandler)
