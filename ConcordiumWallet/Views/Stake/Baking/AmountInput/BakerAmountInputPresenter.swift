@@ -73,7 +73,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             balance: GTU(intValue: account.forecastBalance),
             atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
             releaseSchedule: GTU(intValue: account.releaseSchedule?.total ?? 0),
-            previouslyStakedInPool: previouslyStakedInPool
+            previouslyStakedInPool: previouslyStakedInPool,
+            isInCooldown: account.baker?.isInCooldown ?? false
         )
         
         viewModel.setup(
@@ -306,12 +307,12 @@ private extension StakeAmountInputViewModel {
         self.firstBalance = BalanceViewModel(
             label: "baking.inputamount.balance".localized,
             value: balance.displayValueWithGStroke(),
-            hightlighted: false
+            highlighted: false
         )
         self.secondBalance = BalanceViewModel(
             label: "baking.inputamount.bakerstake".localized,
             value: staked.displayValueWithGStroke(),
-            hightlighted: false
+            highlighted: false
         )
         self.showsPoolLimits = false
         self.isAmountLocked = isInCooldown

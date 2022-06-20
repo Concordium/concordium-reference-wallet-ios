@@ -15,7 +15,7 @@ enum DelegationPoolBakerIdError: Error {
     case closed
 }
 
-enum BakerTarget {
+enum BakerTarget: Equatable {
     case passive
     case bakerPool(bakerId: Int)
     

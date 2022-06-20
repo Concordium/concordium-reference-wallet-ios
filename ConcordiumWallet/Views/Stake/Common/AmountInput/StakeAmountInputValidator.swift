@@ -18,6 +18,9 @@ struct StakeAmountInputValidator {
     var currentPool: GTU?
     var poolLimit: GTU?
     var previouslyStakedInPool: GTU
+    var isInCooldown: Bool
+    var oldPool: BakerTarget?
+    var newPool: BakerTarget?
     
     func validate(amount: GTU, fee: GTU) -> Result<GTU, StakeError> {
         .success(amount)
@@ -58,8 +61,15 @@ struct StakeAmountInputValidator {
         guard let currentPool = currentPool, let poolLimit = poolLimit else {
             return .success(amount)
         }
-        if amount + currentPool - previouslyStakedInPool > poolLimit {
-            return .failure(.poolLimitReached(currentPool, poolLimit))
+        let previousStake: GTU = {
+            if oldPool == newPool {
+                return previouslyStakedInPool
+            } else {
+                return .zero
+            }
+        }()
+        if amount + currentPool - previousStake > poolLimit {
+            return .failure(.poolLimitReached(currentPool, poolLimit, isInCooldown))
         }
         return .success(amount)
     }

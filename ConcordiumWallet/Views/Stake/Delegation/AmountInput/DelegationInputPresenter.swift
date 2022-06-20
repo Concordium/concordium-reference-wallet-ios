@@ -52,23 +52,19 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.transactionService = dependencyProvider.transactionsService()
     
         isInCooldown = self.account.delegation?.isInCooldown ?? false
-        let previouslyStakedInSelectedPool: Int
         let newPool: PoolDelegationData? = dataHandler.getNewEntry()
         let existingPool: PoolDelegationData? = dataHandler.getCurrentEntry()
-        let showsPoolLimits: Bool!
+        let previouslyStakedInPool = GTU(intValue: self.account.delegation?.stakedAmount ?? 0)
+        let showsPoolLimits: Bool
         // If we are updating delegation and we dont't change the pool,
         // we need to check the existing value of the pool
         let pool: BakerTarget
         if let newPool = newPool?.pool {
             pool = newPool
-            // if pool is changed, then the previously staked is incorrect
-            previouslyStakedInSelectedPool = 0
         } else if let existingPool = existingPool?.pool {
             pool = existingPool
-            previouslyStakedInSelectedPool = self.account.delegation?.stakedAmount ?? 0
         } else {
             pool = .passive
-            previouslyStakedInSelectedPool = self.account.delegation?.stakedAmount ?? 0
         }
         
         if case .passive = pool {
@@ -94,14 +90,19 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
             minValue = GTU(intValue: 1)
         }
         
-        validator = StakeAmountInputValidator(minimumValue: minValue,
-                                              maximumValue: nil,
-                                              balance: GTU(intValue: account.forecastBalance),
-                                              atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
-                                              releaseSchedule: GTU(intValue: account.releaseSchedule?.total ?? 0),
-                                              currentPool: currentPool,
-                                              poolLimit: poolLimit,
-                                              previouslyStakedInPool: GTU(intValue: previouslyStakedInSelectedPool))
+        validator = StakeAmountInputValidator(
+            minimumValue: minValue,
+            maximumValue: nil,
+            balance: GTU(intValue: account.forecastBalance),
+            atDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+            releaseSchedule: GTU(intValue: account.releaseSchedule?.total ?? 0),
+            currentPool: currentPool,
+            poolLimit: poolLimit,
+            previouslyStakedInPool: previouslyStakedInPool,
+            isInCooldown: isInCooldown,
+            oldPool: existingPool?.pool,
+            newPool: newPool?.pool ?? existingPool?.pool
+        )
         let amountData: DelegationAmountData? = dataHandler.getCurrentEntry()
         let restakeData: RestakeDelegationData? = dataHandler.getCurrentEntry()
         self.restake = restakeData?.restake ?? true
@@ -184,19 +185,23 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 switch result {
                 case .success:
                     self?.viewModel.amountErrorMessage = nil
-                    self?.viewModel.poolLimit?.hightlighted = false
+                    self?.viewModel.poolLimit?.highlighted = false
                     self?.viewModel.isContinueEnabled = true
                 case let .failure(error):
-                    self?.viewModel.amountErrorMessage = error.localizedDescription
-                    if case .poolLimitReached = error {
-                        self?.viewModel.poolLimit?.hightlighted = true
-                    } else {
-                        self?.viewModel.poolLimit?.hightlighted = false
-                    }
-                    self?.viewModel.isContinueEnabled = false
+                    self?.handleTransferCostError(error)
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    private func handleTransferCostError(_ error: StakeError) {
+        self.viewModel.amountErrorMessage = error.localizedDescription
+        if case .poolLimitReached = error {
+            self.viewModel.poolLimit?.highlighted = true
+        } else {
+            self.viewModel.poolLimit?.highlighted = false
+        }
+        self.viewModel.isContinueEnabled = false
     }
     
     func pressedContinue() {
@@ -295,18 +300,18 @@ fileprivate extension StakeAmountInputViewModel {
         let balance = GTU(intValue: account.forecastBalance)
         let staked = GTU(intValue: account.delegation?.stakedAmount ?? 0)
         self.firstBalance = BalanceViewModel(label: "delegation.inputamount.balance" .localized,
-                                             value: balance.displayValueWithGStroke(), hightlighted: false)
+                                             value: balance.displayValueWithGStroke(), highlighted: false)
         self.secondBalance = BalanceViewModel(label: "delegation.inputamount.delegationstake".localized,
-                                              value: staked.displayValueWithGStroke(), hightlighted: false)
+                                              value: staked.displayValueWithGStroke(), highlighted: false)
         self.currentPoolLimit = BalanceViewModel(
             label: "delegation.inputamount.currentpool".localized,
             value: validator.currentPool?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(),
-            hightlighted: false
+            highlighted: false
         )
         self.poolLimit = BalanceViewModel(
             label: "delegation.inputamount.poollimit".localized,
             value: validator.poolLimit?.displayValueWithGStroke() ?? GTU(intValue: 0).displayValueWithGStroke(),
-            hightlighted: false
+            highlighted: false
         )
         
         self.bottomMessage = "delegation.inputamount.bottommessage".localized
@@ -327,8 +332,8 @@ fileprivate extension StakeAmountInputViewModel {
                 
                 if let poolLimit = validator.poolLimit, let currentPool = validator.currentPool,
                    currentAmount.intValue + currentPool.intValue > poolLimit.intValue {
-                    self.secondBalance.hightlighted = true
-                    self.poolLimit?.hightlighted = true
+                    self.secondBalance.highlighted = true
+                    self.poolLimit?.highlighted = true
                     self.amountErrorMessage = "stake.inputAmount.error.amountTooLarge".localized
                     self.isContinueEnabled = false
                 } else {

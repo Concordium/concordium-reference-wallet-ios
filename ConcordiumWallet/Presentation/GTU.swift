@@ -11,6 +11,7 @@ struct GTU: Codable {
     
     /// Useful for comparing against 0
     static let zero: GTU = GTU(intValue: 0)
+    static let max: GTU = GTU(intValue: .max)
 
     private(set) var intValue: Int
 

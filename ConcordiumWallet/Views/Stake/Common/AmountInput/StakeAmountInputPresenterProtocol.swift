@@ -13,7 +13,7 @@ enum StakeError: Error, Equatable {
     case minimumAmount(GTU)
     case maximumAmount(GTU)
     case notEnoughFund(GTU)
-    case poolLimitReached(GTU, GTU)
+    case poolLimitReached(GTU, GTU, Bool)
     case feeError
     case internalError
     
@@ -25,8 +25,12 @@ enum StakeError: Error, Equatable {
             return String(format: "stake.inputAmount.error.maxAmount".localized, max.displayValueWithGStroke())
         case .notEnoughFund:
             return "stake.inputAmount.error.funds".localized
-        case .poolLimitReached:
-            return "stake.inputAmount.error.poolLimit".localized
+        case let .poolLimitReached(_, _, isInCooldown):
+            if isInCooldown {
+                return "stake.inputAmount.error.amountTooLarge".localized
+            } else {
+                return "stake.inputAmount.error.poolLimit".localized
+            }
         case .internalError:
             return ""
         case .feeError:
@@ -38,14 +42,14 @@ enum StakeError: Error, Equatable {
 struct BalanceViewModel {
     var label: String
     var value: String
-    var hightlighted: Bool
+    var highlighted: Bool
 }
 
 class StakeAmountInputViewModel {
     @Published var title: String = ""
     
-    @Published var firstBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", hightlighted: false)
-    @Published var secondBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", hightlighted: false)
+    @Published var firstBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", highlighted: false)
+    @Published var secondBalance: BalanceViewModel = BalanceViewModel(label: "", value: "", highlighted: false)
 
     @Published var amountMessage: String = ""
     @Published var amount: String = ""
@@ -55,8 +59,8 @@ class StakeAmountInputViewModel {
     @Published var transactionFee: String? = ""
     
     @Published var showsPoolLimits: Bool = false
-    @Published var currentPoolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", hightlighted: false)
-    @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", hightlighted: false)
+    @Published var currentPoolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", highlighted: false)
+    @Published var poolLimit: BalanceViewModel? = BalanceViewModel(label: "", value: "", highlighted: false)
     
     @Published var isRestakeSelected: Bool = true
     
