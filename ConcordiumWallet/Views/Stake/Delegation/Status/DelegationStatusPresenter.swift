@@ -102,43 +102,37 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
         if transfers.count > 0 {
             self.viewModel.setup(account: account, pendingChanges: .none, hasUnfinishedTransaction: true)
         } else {
-            let pendingChanges: PendingChanges
-            if let accountPendingChange = account.delegation?.pendingChange {
-                switch accountPendingChange.change {
-                case .NoChange:
-                    pendingChanges = .none
-                case .ReduceStake:
-                    pendingChanges = .newDelegationAmount(coolDownEndTimestamp: accountPendingChange.estimatedChangeTime ?? "",
-                                                          newDelegationAmount: GTU(intValue: Int(accountPendingChange.updatedNewStake ?? "0") ?? 0))
-                case .RemoveStake:
-                    pendingChanges = .stoppedDelegation(coolDownEndTimestamp: accountPendingChange.estimatedChangeTime ?? "")
-                }
-            } else {
+            let setupViewModel = { (pendingChange: PendingChanges) in
+                self.viewModel.setup(
+                    account: account,
+                    pendingChanges: pendingChange,
+                    hasUnfinishedTransaction: false
+                )
+            }
+            
+            let accountPendingChange = account.delegation?.pendingChange
+            switch accountPendingChange?.change {
+            case .ReduceStake:
+                setupViewModel(.newDelegationAmount(
+                    coolDownEndTimestamp: accountPendingChange?.estimatedChangeTime ?? "",
+                    newDelegationAmount: GTU(intValue: Int(accountPendingChange?.updatedNewStake ?? "0") ?? 0))
+                )
+            case .RemoveStake:
+                setupViewModel(.stoppedDelegation(coolDownEndTimestamp: accountPendingChange?.estimatedChangeTime ?? ""))
+            case .NoChange, nil:
                 if let bakerId = account.delegation?.delegationTargetBakerID, bakerId != -1 {
-                    // if we delegate to a baker pool, we make sure it was not stopped
                     self.stakeService.getBakerPool(bakerId: bakerId).sink { error in
                         self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                     } receiveValue: { bakerPoolResponse in
                         if bakerPoolResponse.bakerStakePendingChange.pendingChangeType == "RemovePool" {
                             let effectiveTime = bakerPoolResponse.bakerStakePendingChange.estimatedChangeTime ?? ""
-                            self.viewModel.setup(
-                                account: account,
-                                pendingChanges: .poolWasDeregistered(coolDownEndTimestamp: effectiveTime),
-                                hasUnfinishedTransaction: false
-                            )
+                            setupViewModel(.poolWasDeregistered(coolDownEndTimestamp: effectiveTime))
                         }
                     }.store(in: &cancellables)
-                    return
                 } else {
-                    pendingChanges = .none
+                    setupViewModel(.none)
                 }
             }
-            
-            self.viewModel.setup(
-                account: account,
-                pendingChanges: pendingChanges,
-                hasUnfinishedTransaction: false
-            )
         }
     }
     
