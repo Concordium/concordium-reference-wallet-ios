@@ -1602,6 +1602,7 @@
 		89CF2D5F281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		89CF2D60281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		89CF2D61281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89D081682861C82F0091344D /* BalanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D081672861C82F0091344D /* BalanceTests.swift */; };
 		89E1A75827FF1073008C761B /* BakingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75727FF1073008C761B /* BakingCoordinator.swift */; };
 		89E1A75927FF1073008C761B /* BakingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75727FF1073008C761B /* BakingCoordinator.swift */; };
 		89E1A75A27FF1073008C761B /* BakingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75727FF1073008C761B /* BakingCoordinator.swift */; };
@@ -2442,6 +2443,7 @@
 		89CF2D3E2816A03100742E1E /* BakerPoolReceiptPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolReceiptPresenter.swift; sourceTree = "<group>"; };
 		89CF2D432816AF9D00742E1E /* BakerPoolReceiptType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerPoolReceiptType.swift; sourceTree = "<group>"; };
 		89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainParametersResponse.swift; sourceTree = "<group>"; };
+		89D081672861C82F0091344D /* BalanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTests.swift; sourceTree = "<group>"; };
 		89E1A75727FF1073008C761B /* BakingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakingCoordinator.swift; sourceTree = "<group>"; };
 		89E1A75C27FF1C2D008C761B /* String+Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Lines.swift"; sourceTree = "<group>"; };
 		89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedBakerKeys.swift; sourceTree = "<group>"; };
@@ -3595,6 +3597,7 @@
 		7FF07A8223EADB1500F1FC04 /* ConcordiumWalletTests */ = {
 			isa = PBXGroup;
 			children = (
+				89D081662861C7D20091344D /* Account */,
 				8992BA4A2823DF60005279C9 /* Staking */,
 				7F0573DD24AC710C009517AD /* HelperClasses */,
 				7F0573E124AC710C009517AD /* Presentation */,
@@ -3793,6 +3796,14 @@
 				8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */,
 			);
 			path = Status;
+			sourceTree = "<group>";
+		};
+		89D081662861C7D20091344D /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				89D081672861C82F0091344D /* BalanceTests.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		89E1A76627FFF5BC008C761B /* GenerateKeys */ = {
@@ -6554,6 +6565,7 @@
 				7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */,
 				8992BA3A2823A8E0005279C9 /* NotYetImplemented.swift in Sources */,
 				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,
+				89D081682861C82F0091344D /* BalanceTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,

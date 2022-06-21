@@ -23,7 +23,6 @@ protocol AccountDataType: DataStoreProtocol {
     
     var finalizedBalance: Int { get set }
     var forecastBalance: Int { get set }
-    var forecastAtDisposalBalance: Int {get set}
     
     var finalizedEncryptedBalance: Int { get set }
     var forecastEncryptedBalance: Int { get set }
@@ -49,8 +48,7 @@ protocol AccountDataType: DataStoreProtocol {
     var hasShieldedTransactions: Bool {get set}
     
     func withUpdatedForecastBalance(_ forecastBalance: Int,
-                                    forecastShieldedBalance: Int,
-                                    forecastAtDisposalBalance: Int) -> AccountDataType
+                                    forecastShieldedBalance: Int) -> AccountDataType
     
     func withUpdatedFinalizedBalance(_ finaliedBalance: Int,
                                      _ finalizedEncryptedBalance: Int,
@@ -71,12 +69,22 @@ protocol AccountDataType: DataStoreProtocol {
 }
 
 extension AccountDataType {
-    func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int, forecastAtDisposalBalance: Int) -> AccountDataType {
+    var forecastAtDisposalBalance: Int {
+        let stakedAmount = baker?.stakedAmount ?? delegation?.stakedAmount ?? 0
+        let scheduledTotal = releaseSchedule?.total ?? 0
+        
+        if scheduledTotal <= stakedAmount {
+            return forecastBalance - (stakedAmount - scheduledTotal)
+        } else {
+            return forecastBalance - scheduledTotal
+        }
+    }
+    
+    func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int) -> AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.forecastBalance = forecastBalance
             pAccount.forecastEncryptedBalance = forecastShieldedBalance
-            pAccount.forecastAtDisposalBalance = forecastAtDisposalBalance
         }
         return self
     }
@@ -177,7 +185,6 @@ final class AccountEntity: Object {
     @objc dynamic var encryptedBalanceEntity: EncryptedBalanceEntity? = EncryptedBalanceEntity()
     @objc dynamic var finalizedBalance: Int = 0
     @objc dynamic var forecastBalance: Int = 0
-    @objc dynamic var forecastAtDisposalBalance: Int = 0
     @objc dynamic var forecastEncryptedBalance: Int = 0
     @objc dynamic var finalizedEncryptedBalance: Int = 0
     @objc dynamic var accountNonce: Int = 0

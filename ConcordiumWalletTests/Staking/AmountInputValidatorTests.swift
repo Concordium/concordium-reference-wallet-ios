@@ -17,7 +17,8 @@ class AmountInputValidatorTests: XCTestCase {
             balance: GTU(intValue: 500),
             atDisposal: GTU(intValue: 10),
             releaseSchedule: GTU(intValue: 490),
-            previouslyStakedInPool: GTU(intValue: 0)
+            previouslyStakedInPool: GTU(intValue: 0),
+            isInCooldown: false
         )
         
         XCTAssertEqual(
