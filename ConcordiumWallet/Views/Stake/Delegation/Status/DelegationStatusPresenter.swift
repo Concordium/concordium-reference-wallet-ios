@@ -127,6 +127,8 @@ class DelegationStatusPresenter: StakeStatusPresenterProtocol {
                         if bakerPoolResponse.bakerStakePendingChange.pendingChangeType == "RemovePool" {
                             let effectiveTime = bakerPoolResponse.bakerStakePendingChange.estimatedChangeTime ?? ""
                             setupViewModel(.poolWasDeregistered(coolDownEndTimestamp: effectiveTime))
+                        } else {
+                            setupViewModel(.none)
                         }
                     }.store(in: &cancellables)
                 } else {
