@@ -258,11 +258,12 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
             return false
         }
         
-        guard let poolLimit = GTU(intValue: Int(response.delegatedCapitalCap)) else {
+        guard let poolLimit = GTU(intValue: Int(response.delegatedCapitalCap)),
+              let delegatedCapital = GTU(intValue: Int(response.delegatedCapital)) else {
             return false
         }
         
-        return GTU(intValue: delegation.stakedAmount) > poolLimit
+        return GTU(intValue: delegation.stakedAmount) + delegatedCapital > poolLimit
     }
     
     private func showPoolSizeWarning(response: BakerPoolResponse) {
