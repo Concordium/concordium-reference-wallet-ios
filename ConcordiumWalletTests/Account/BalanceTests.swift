@@ -54,8 +54,8 @@ class Balancetests: XCTestCase {
             AtDisposalCase(forecastBalance: 100_000, expectedAtDisposal: 100_000),
             AtDisposalCase(forecastBalance: 100_000, scheduledTotal: 5_000, expectedAtDisposal: 95_000),
             AtDisposalCase(forecastBalance: 100_000, stakedAmount: 5_000, expectedAtDisposal: 95_000),
-            AtDisposalCase(forecastBalance: 100_000, scheduledTotal: 5_000, stakedAmount: 5_000, expectedAtDisposal: 100_000),
-            AtDisposalCase(forecastBalance: 100_000, scheduledTotal: 3_000, stakedAmount: 5_000, expectedAtDisposal: 98_000),
+            AtDisposalCase(forecastBalance: 100_000, scheduledTotal: 5_000, stakedAmount: 5_000, expectedAtDisposal: 95_000),
+            AtDisposalCase(forecastBalance: 100_000, scheduledTotal: 3_000, stakedAmount: 5_000, expectedAtDisposal: 95_000),
             AtDisposalCase(forecastBalance: 100_000, scheduledTotal: 5_000, stakedAmount: 3_000, expectedAtDisposal: 95_000)
         ]
         

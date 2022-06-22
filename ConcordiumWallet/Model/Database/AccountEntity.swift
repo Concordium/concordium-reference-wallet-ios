@@ -73,11 +73,7 @@ extension AccountDataType {
         let stakedAmount = baker?.stakedAmount ?? delegation?.stakedAmount ?? 0
         let scheduledTotal = releaseSchedule?.total ?? 0
         
-        if scheduledTotal <= stakedAmount {
-            return forecastBalance - (stakedAmount - scheduledTotal)
-        } else {
-            return forecastBalance - scheduledTotal
-        }
+        return forecastBalance - max(stakedAmount, scheduledTotal)
     }
     
     func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int) -> AccountDataType {
