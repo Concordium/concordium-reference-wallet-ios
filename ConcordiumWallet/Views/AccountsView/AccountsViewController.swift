@@ -264,6 +264,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightButtonImage,
                                                                 style: .plain,
                                                                 target: self, action: #selector(createNewButtonPressed))
+        } else {
+            navigationItem.rightBarButtonItem = nil
         }
     }
 
