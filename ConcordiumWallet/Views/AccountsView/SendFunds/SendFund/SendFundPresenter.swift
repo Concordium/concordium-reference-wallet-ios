@@ -406,17 +406,21 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
             }, receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                let cost = Int(value.cost) ?? 0
+                let cost = GTU(intValue: Int(value.cost) ?? 0)
                 let totalAmount: String!
                 if self.balanceType == .shielded {
                     // the cost is always deducted from the public balance, not
                     // from the shielded
                     totalAmount = GTU(intValue: disposalAmount).displayValue()
                 } else {
-                    totalAmount = GTU(intValue: disposalAmount - cost).displayValue()
+                    totalAmount = (GTU(intValue: disposalAmount) - cost).displayValue()
                 }
                 self.view?.amountSubject.send(totalAmount)
                 self.viewModel.sendAllAmount = totalAmount
+                self.cost = cost
+                self.energy = value.energy
+                let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
+                self.viewModel.feeMessage = feeMessage
             }).store(in: &cancellables)
 
     }
