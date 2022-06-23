@@ -67,8 +67,8 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         startUpdateTimer()
         
         NotificationCenter.default.addObserver(
@@ -85,8 +85,8 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
         )
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         stopUpdateTimer()
         
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -94,18 +94,22 @@ class StakeStatusViewController: BaseViewController, StakeStatusViewProtocol, St
     }
     
     @objc private func startUpdateTimer() {
-        updateTimer = Timer.scheduledTimer(
-            timeInterval: 60.0,
-            target: self,
-            selector: #selector(updateStatus),
-            userInfo: nil,
-            repeats: true
-        )
+        DispatchQueue.main.async {
+            self.updateTimer = Timer.scheduledTimer(
+                timeInterval: 60.0,
+                target: self,
+                selector: #selector(self.updateStatus),
+                userInfo: nil,
+                repeats: true
+            )
+        }
     }
     
     @objc private func stopUpdateTimer() {
-        updateTimer?.invalidate()
-        updateTimer = nil
+        DispatchQueue.main.async {
+            self.updateTimer?.invalidate()
+            self.updateTimer = nil
+        }
     }
     
     @objc private func updateStatus() {
