@@ -8,6 +8,7 @@
 
 import Foundation
 import LocalAuthentication
+import Combine
 
 // MARK: View
 protocol BiometricsEnablingViewProtocol: AnyObject {
@@ -37,6 +38,8 @@ class BiometricsEnablingPresenter: BiometricsEnablingPresenterProtocol {
     private let keychain: KeychainWrapperProtocol
 
     private let pwHash: String
+    
+    private var cancellables = Set<AnyCancellable>()
 
     init(delegate: BiometricsEnablingPresenterDelegate? = nil, pwHash: String, dependencyProvider: LoginDependencyProvider) {
         self.delegate = delegate
@@ -69,10 +72,12 @@ class BiometricsEnablingPresenter: BiometricsEnablingPresenterProtocol {
                 DispatchQueue.main.async {
                     if success {
                         self.keychain.storePasswordBehindBiometrics(pwHash: self.pwHash)
-                            .onSuccess {
+                            .receive(on: DispatchQueue.main)
+                            .sink(receiveError: { _ in }, receiveValue: { [weak self] _ in
                                 AppSettings.biometricsEnabled = true
-                                self.delegate?.biometricsEnablingDone()
-                        }
+                                self?.delegate?.biometricsEnablingDone()
+                            })
+                            .store(in: &self.cancellables)
                     }
                 }
             }

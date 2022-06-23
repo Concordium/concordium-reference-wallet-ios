@@ -20,6 +20,8 @@ class RequestPasswordPresenter: EnterPasswordPresenterProtocol {
     let keychain: KeychainWrapperProtocol
     let viewState: PasswordSelectionState = AppSettings.passwordType == .password ? .requestPassword : .requestPasscode
     let passwordPublisher = PassthroughSubject<String, Error>()
+    
+    private var cancellables = Set<AnyCancellable>()
 
     init(keychain: KeychainWrapperProtocol) {
         self.keychain = keychain
@@ -31,21 +33,26 @@ class RequestPasswordPresenter: EnterPasswordPresenterProtocol {
             // is actually received, we put this in the end of the dispatch queue
             if AppSettings.biometricsEnabled && self.phoneSettingsBiometricsEnabled() {
                 self.keychain.getPasswordWithBiometrics()
-                        .onSuccess { pwHash in
-                            let passwordCheck = self.keychain
-                                    .checkPasswordHash(pwHash: pwHash)
-                                    .onFailure { _ in
-                                        fallback()
-                                    }
-                            self.handlePasswordCheck(checkPassword: passwordCheck, pwHash: pwHash)
-                        }
-                        .onFailure { _ in
-                            fallback()
-                        }
+                    .receive(on: DispatchQueue.main)
+                    .sink(
+                        receiveError: { _ in fallback() },
+                        receiveValue: { [weak self] pwHash in
+                            self?.receivePWHash(pwHash, fallback: fallback)
+                        })
+                    .store(in: &self.cancellables)
             } else {
                 fallback()
             }
         }
+    }
+    
+    private func receivePWHash(_ pwHash: String, fallback: () -> Void) {
+        let passwordCheck = self.keychain
+                .checkPasswordHash(pwHash: pwHash)
+                .onFailure { _ in
+                    fallback()
+                }
+        self.handlePasswordCheck(checkPassword: passwordCheck, pwHash: pwHash)
     }
 
     func viewDidLoad() {
