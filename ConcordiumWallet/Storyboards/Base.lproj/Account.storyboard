@@ -595,13 +595,13 @@ process on-chain]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gjG-tA-Hp5" customClass="RoundedCornerView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="98" width="396" height="295.33333333333331"/>
+                                <rect key="frame" x="16" y="98.000000000000028" width="396" height="427.66666666666674"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background_Shield" translatesAutoresizingMaskIntoConstraints="NO" id="aZE-3Y-BSl">
-                                        <rect key="frame" x="160.66666666666666" y="41.666666666666657" width="75" height="89"/>
+                                        <rect key="frame" x="160.66666666666666" y="204" width="75" height="89"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Aib-xT-JCv">
-                                        <rect key="frame" x="0.0" y="10" width="396" height="285.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="10" width="396" height="417.66666666666669"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meu-sp-04b">
                                                 <rect key="frame" x="0.0" y="0.0" width="396" height="15"/>
@@ -644,22 +644,22 @@ process on-chain]</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zPK-YG-XAg">
-                                                <rect key="frame" x="0.0" y="30.000000000000004" width="396" height="60.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="29.999999999999986" width="396" height="222.66666666666663"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="1000" text="[At disposal]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcn-iW-JNg">
-                                                        <rect key="frame" x="164.66666666666666" y="0.0" width="66.666666666666657" height="31.666666666666668"/>
+                                                        <rect key="frame" x="164.66666666666666" y="0.0" width="66.666666666666657" height="194"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" name="whiteText"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="999999990009999990.000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="P4D-VI-fx0">
-                                                        <rect key="frame" x="28" y="31.666666666666657" width="362" height="28.666666666666671"/>
+                                                        <rect key="frame" x="28" y="194" width="362" height="28.666666666666657"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <color key="textColor" name="primary"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ͼ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Poa-Yd-hy6">
-                                                        <rect key="frame" x="6" y="35" width="15" height="22"/>
+                                                        <rect key="frame" x="6" y="197.33333333333331" width="15" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="9Qb-eB-0s0"/>
                                                             <constraint firstAttribute="width" constant="15" id="GOo-Gn-dex"/>
@@ -682,10 +682,10 @@ process on-chain]</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8w-sO-FrM">
-                                                <rect key="frame" x="0.0" y="105.33333333333334" width="396" height="50"/>
+                                                <rect key="frame" x="0.0" y="267.66666666666669" width="396" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="1000" text="[At disposal]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2g-h7-gib">
-                                                        <rect key="frame" x="164.66666666666666" y="0.0" width="66.666666666666657" height="28.333333333333332"/>
+                                                        <rect key="frame" x="164.66666666666666" y="0.0" width="66.666666666666657" height="13.333333333333334"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" name="whiteText"/>
                                                         <nil key="highlightedColor"/>
@@ -694,7 +694,7 @@ process on-chain]</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Ͼ2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2Z-ra-eF7">
-                                                        <rect key="frame" x="170" y="28.333333333333314" width="56.333333333333343" height="21.666666666666671"/>
+                                                        <rect key="frame" x="170" y="13.333333333333316" width="56.333333333333343" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" name="primary"/>
                                                         <nil key="highlightedColor"/>
@@ -709,16 +709,16 @@ process on-chain]</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xu-WP-N8o">
-                                                <rect key="frame" x="0.0" y="170.33333333333331" width="396" height="50"/>
+                                                <rect key="frame" x="0.0" y="317.66666666666669" width="396" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="[BAKER ID]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7f8-Oi-MDJ">
-                                                        <rect key="frame" x="168.66666666666666" y="0.0" width="59" height="28.333333333333332"/>
+                                                        <rect key="frame" x="168.66666666666666" y="0.0" width="59" height="13.333333333333334"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" name="whiteText"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Ͼ2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4e-hB-BZ5">
-                                                        <rect key="frame" x="170" y="28.333333333333371" width="56.333333333333343" height="21.666666666666671"/>
+                                                        <rect key="frame" x="170" y="13.333333333333316" width="56.333333333333343" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" name="primary"/>
                                                         <nil key="highlightedColor"/>
@@ -733,13 +733,13 @@ process on-chain]</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KX5-A8-WDd">
-                                                <rect key="frame" x="0.0" y="235.33333333333331" width="396" height="1"/>
+                                                <rect key="frame" x="0.0" y="367.66666666666669" width="396" height="1"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Wqg-hd-KRC"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="NJy-DT-HxY">
-                                                <rect key="frame" x="0.0" y="251.33333333333331" width="396" height="34"/>
+                                                <rect key="frame" x="0.0" y="383.66666666666669" width="396" height="34"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="REv-8R-URS">
                                                         <rect key="frame" x="0.0" y="0.0" width="198" height="34"/>
@@ -792,7 +792,7 @@ process on-chain]</string>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="iLs-B7-7sO">
-                                <rect key="frame" x="16" y="408.33333333333331" width="396" height="98"/>
+                                <rect key="frame" x="16" y="540.66666666666663" width="396" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWT-d8-mzB" userLabel="Send View" customClass="RoundedCornerView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="122" height="98"/>
@@ -916,23 +916,25 @@ process on-chain]</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" axis="vertical" distribution="fillProportionally" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="p0b-qO-NQn">
-                                <rect key="frame" x="16" y="521.33333333333337" width="396" height="300.66666666666663"/>
+                                <rect key="frame" x="16" y="653.66666666666663" width="396" height="168.33333333333337"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="NHy-rQ-sY3" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="396" height="300.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="396" height="168.33333333333334"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="aJK-2I-lDP" customClass="MDCTabBarView">
-                                                <rect key="frame" x="0.0" y="5" width="396" height="195"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </view>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skE-GC-Z7L">
+                                                <rect key="frame" x="0.0" y="5" width="396" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" placeholder="YES" id="ctm-0z-que"/>
+                                                </constraints>
+                                            </containerView>
                                             <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
-                                                <rect key="frame" x="0.0" y="200" width="396" height="95.666666666666686"/>
+                                                <rect key="frame" x="0.0" y="44.999999999999993" width="396" height="118.33333333333331"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
-                                                        <rect key="frame" x="0.0" y="0.0" width="396" height="95.666666666666671"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="396" height="118.33333333333333"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="95.666666666666671"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="118.33333333333333"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
                                                                         <rect key="frame" x="174" y="0.0" width="48" height="25.666666666666668"/>
@@ -942,10 +944,10 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="LZ2-ol-U99" userLabel="ErrorMessageContainerView">
-                                                                        <rect key="frame" x="26.666666666666657" y="45.666666666666629" width="342.66666666666674" height="50"/>
+                                                                        <rect key="frame" x="26.666666666666657" y="45.66666666666675" width="342.66666666666674" height="72.666666666666686"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="[Account creation failed in the process of creation]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oq-fm-ahS">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="50"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="72.666666666666671"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="fadedText"/>
                                                                                 <nil key="highlightedColor"/>
@@ -963,7 +965,7 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
-                                                                        <rect key="frame" x="-178.33333333333334" y="95.666666666666629" width="752.66666666666663" height="100"/>
+                                                                        <rect key="frame" x="-178.33333333333334" y="118.33333333333337" width="752.66666666666663" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
                                                                                 <rect key="frame" x="295.33333333333337" y="10" width="162" height="0.0"/>
@@ -1039,17 +1041,18 @@ process on-chain]</string>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="aJK-2I-lDP" firstAttribute="centerX" secondItem="NHy-rQ-sY3" secondAttribute="centerX" id="1Cv-Uf-lTC"/>
                                             <constraint firstAttribute="trailing" secondItem="z1b-i1-zd6" secondAttribute="trailing" id="3yW-Wm-6OV"/>
-                                            <constraint firstItem="aJK-2I-lDP" firstAttribute="leading" secondItem="NHy-rQ-sY3" secondAttribute="leading" id="C4s-6k-AK8"/>
+                                            <constraint firstAttribute="trailing" secondItem="skE-GC-Z7L" secondAttribute="trailing" id="86A-KE-bFP"/>
                                             <constraint firstAttribute="bottom" secondItem="z1b-i1-zd6" secondAttribute="bottom" constant="5" id="HmG-fq-zLo"/>
-                                            <constraint firstItem="aJK-2I-lDP" firstAttribute="top" secondItem="NHy-rQ-sY3" secondAttribute="top" constant="5" id="I3E-cT-Nc5"/>
-                                            <constraint firstItem="z1b-i1-zd6" firstAttribute="top" secondItem="aJK-2I-lDP" secondAttribute="bottom" id="Qt8-Y0-6Q7"/>
+                                            <constraint firstItem="z1b-i1-zd6" firstAttribute="top" secondItem="skE-GC-Z7L" secondAttribute="bottom" id="QLY-pe-4f7"/>
+                                            <constraint firstItem="skE-GC-Z7L" firstAttribute="centerX" secondItem="NHy-rQ-sY3" secondAttribute="centerX" id="c0h-z7-owx"/>
+                                            <constraint firstItem="skE-GC-Z7L" firstAttribute="leading" secondItem="NHy-rQ-sY3" secondAttribute="leading" id="imE-fP-qy9"/>
                                             <constraint firstItem="z1b-i1-zd6" firstAttribute="leading" secondItem="NHy-rQ-sY3" secondAttribute="leading" id="tYf-6h-Eu3"/>
+                                            <constraint firstItem="skE-GC-Z7L" firstAttribute="top" secondItem="NHy-rQ-sY3" secondAttribute="top" constant="5" id="xqd-iJ-1gb"/>
                                         </constraints>
                                     </view>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-KP-8h3" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="300.66666666666663" width="396" height="49"/>
+                                        <rect key="frame" x="0.0" y="168.33333333333337" width="396" height="49"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <state key="normal" title="[Retry account creation]">
                                             <color key="titleColor" name="buttonText"/>
@@ -1062,7 +1065,7 @@ process on-chain]</string>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2h-uj-ha8" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="300.66666666666663" width="396" height="49"/>
+                                        <rect key="frame" x="0.0" y="168.33333333333337" width="396" height="49"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <state key="normal" title="[Remove account from wallet]">
                                             <color key="titleColor" name="buttonText"/>
@@ -1112,7 +1115,6 @@ process on-chain]</string>
                         <outlet property="balanceNameLabel" destination="dcn-iW-JNg" id="aHh-qO-unf"/>
                         <outlet property="buttonsView" destination="NJy-DT-HxY" id="byy-Ou-Fa2"/>
                         <outlet property="containerView" destination="z1b-i1-zd6" id="cXc-le-cJy"/>
-                        <outlet property="detailsTabBar" destination="aJK-2I-lDP" id="Cc1-Ck-8Ql"/>
                         <outlet property="errorMessageLabel" destination="6oq-fm-ahS" id="Eb9-0u-set"/>
                         <outlet property="generalButton" destination="REv-8R-URS" id="VeM-sz-sI0"/>
                         <outlet property="gtuDropView" destination="O19-9h-KQp" id="4po-bX-XCN"/>
@@ -1130,6 +1132,7 @@ process on-chain]</string>
                         <outlet property="stakedValueLabel" destination="d4e-hB-BZ5" id="c0p-gx-hzS"/>
                         <outlet property="stakedView" destination="4Xu-WP-N8o" id="h7P-q8-hLa"/>
                         <outlet property="statusImageView" destination="2Nh-Of-O1G" id="IBg-wX-dFJ"/>
+                        <outlet property="tabBar" destination="skE-GC-Z7L" id="Wly-sW-IyN"/>
                         <outlet property="topSpacingStackViewConstraint" destination="WHI-Ig-f4y" id="UZk-jA-kYS"/>
                         <outlet property="totalsStackView" destination="Aib-xT-JCv" id="DoZ-dv-9Q0"/>
                     </connections>

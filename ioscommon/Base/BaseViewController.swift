@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 
 class BaseViewController: UIViewController {
@@ -56,5 +57,26 @@ private extension BaseViewController {
                 self.view.layoutIfNeeded()
             })
             .store(in: &cancellables)
+    }
+}
+
+
+// MARK: - SwiftUI View Support
+extension BaseViewController {
+    func show<Content: View>(_ content: Content, in view: UIView) {
+        let controller = UIHostingController(rootView: content)
+        addChild(controller)
+        view.addSubview(controller.view)
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        NSLayoutConstraint.activate([
+            controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            controller.view.topAnchor.constraint(equalTo: view.topAnchor),
+            view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: controller.view.bottomAnchor)
+        ])
+        
+        controller.didMove(toParent: self)
     }
 }
