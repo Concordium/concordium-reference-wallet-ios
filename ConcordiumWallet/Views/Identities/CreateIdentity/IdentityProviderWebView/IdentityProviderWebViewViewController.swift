@@ -62,12 +62,16 @@ extension IdentityProviderWebViewViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         // If navigation fails we report error
-        presenter.urlFailedToLoad(error: error)
+        if !error.isAttemptedToLoadCallbackError {
+            presenter.urlFailedToLoad(error: error)
+        }
         hideLoading()
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        presenter.urlFailedToLoad(error: error)
+        if !error.isAttemptedToLoadCallbackError {
+            presenter.urlFailedToLoad(error: error)
+        }
         hideLoading()
     }
     
@@ -77,5 +81,22 @@ extension IdentityProviderWebViewViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         hideLoading()
+    }
+}
+
+private extension Error {
+    /*
+     The web view will occasionally try to load the callback and fail.
+     This can be used to filter out these errors.
+     */
+    var isAttemptedToLoadCallbackError: Bool {
+        let nsError = self as NSError
+        return nsError.domain == NSURLErrorDomain
+        && nsError.code == NSURLErrorUnsupportedURL
+        && (failingURL?.absoluteString.hasPrefix(ApiConstants.notabeneCallback) ?? false)
+    }
+    
+    private var failingURL: URL? {
+        return (self as NSError).userInfo[NSURLErrorFailingURLErrorKey] as? URL
     }
 }

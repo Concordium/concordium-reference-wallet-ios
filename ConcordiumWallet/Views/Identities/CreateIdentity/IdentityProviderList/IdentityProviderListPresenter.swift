@@ -97,6 +97,8 @@ class IdentityProviderListPresenter {
 
     private var dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     let service: IdentitiesService
+    
+    private var openingIDPDialog = false
 
     private let initialAccountName: String
     private let identityName: String
@@ -143,10 +145,15 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
     }
     
     func userSelected(identityProviderIndex: Int) {
+        guard !openingIDPDialog else {
+            return
+        }
+        openingIDPDialog = true
         PermissionHelper.requestAccess(for: .camera) { [weak self] permissionGranted in
             guard let self = self else { return }
             
             guard permissionGranted else {
+                self.openingIDPDialog = false
                 DispatchQueue.main.async {
                     self.view?.showRecoverableErrorAlert(
                         .cameraAccessDeniedError,
@@ -172,30 +179,34 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
             
             let wallet = self.dependencyProvider.mobileWallet()
             
-            self.service.getGlobal().flatMap { [unowned self] global in
-                wallet.createIdRequestAndPrivateData(initialAccountName: self.initialAccountName,
-                                                     identityName: self.identityName,
-                                                     identityProvider: identityProvider,
-                                                     global: global,
-                                                     requestPasswordDelegate: delegate)
-            }
-            .tryMap { [unowned self] (idObjectRequest, identityCreation) -> (ResourceRequest, IdentityCreation) in
-                let callbackUri = ApiConstants.callbackUri(with: identityCreation.id)
-                let identityObjectRequest = try self.service.createIdentityObjectRequest(
-                    on: identityProvider.issuanceStartURL,
-                    with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: callbackUri)
-                )
-                return (identityObjectRequest, identityCreation)
-            }
-            .mapError(ErrorMapper.toViewError)
-            .sink(receiveError: { [weak self] error in
-                if case ViewError.userCancelled = error { return }
-                self?.view?.showErrorAlert(error)
+            self.service.getGlobal()
+                .showLoadingIndicator(in: self.view)
+                .flatMap { [unowned self] global in
+                    wallet.createIdRequestAndPrivateData(initialAccountName: self.initialAccountName,
+                                                         identityName: self.identityName,
+                                                         identityProvider: identityProvider,
+                                                         global: global,
+                                                         requestPasswordDelegate: delegate)
+                }
+                .tryMap { [unowned self] (idObjectRequest, identityCreation) -> (ResourceRequest, IdentityCreation) in
+                    let callbackUri = ApiConstants.callbackUri(with: identityCreation.id)
+                    let identityObjectRequest = try self.service.createIdentityObjectRequest(
+                        on: identityProvider.issuanceStartURL,
+                        with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: callbackUri)
+                    )
+                    return (identityObjectRequest, identityCreation)
+                }
+                .mapError(ErrorMapper.toViewError)
+                .sink(receiveError: { [weak self] error in
+                    self?.openingIDPDialog = false
+                    if case ViewError.userCancelled = error { return }
+                    self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] (resourceRequest, identityCreation) in
                     guard let self = self else { return }
                     let urlRequest = resourceRequest.request
                     self.delegate?.identityRequestURLGenerated(urlRequest: urlRequest!, createdIdentity: identityCreation)
-            })
+                    self.openingIDPDialog = false
+                })
                 .store(in: &self.cancellables)
         }
     }
