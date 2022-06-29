@@ -3249,13 +3249,6 @@
 			path = About;
 			sourceTree = "<group>";
 		};
-		694FFA56AD7374232B100AAC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		6BB39F873C67A7442AE8DD30 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3532,7 +3525,6 @@
 				7FF07A8E23EADBB100F1FC04 /* ioscommon */,
 				644BB67225DFB4220086ED48 /* main.swift */,
 				7F48C214244DCD4500997684 /* mock */,
-				694FFA56AD7374232B100AAC /* Pods */,
 				7FF07A6A23EADB1200F1FC04 /* Products */,
 				7FF07A9F23EADBB100F1FC04 /* readme.md */,
 			);
