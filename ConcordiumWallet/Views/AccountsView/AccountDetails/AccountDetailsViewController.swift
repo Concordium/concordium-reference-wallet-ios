@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MaterialComponents.MaterialTabs_TabBarView
 import Combine
 
 class AccountDetailsFactory {
@@ -24,8 +23,9 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     var isShielded: Bool = false
     private weak var updateTimer: Timer?
     
-    @IBOutlet weak var detailsTabBar: MDCTabBarView!
-    
+    private let tabViewModel = MaterialTabBar.ViewModel()
+
+    @IBOutlet weak var tabBar: UIView!
     @IBOutlet weak var totalsStackView: UIStackView!
     @IBOutlet weak var retryCreateButton: StandardButton!
     @IBOutlet weak var removeLocalAccountButton: StandardButton!
@@ -167,17 +167,27 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     func bind(to viewModel: AccountDetailsViewModel) {
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
         
-        // Note: Handle consuming transfers and keeping the current account state
-        viewModel.$selectedTab.sink { [weak self]selectedTab in
-            guard let self = self else { return }
-            switch selectedTab {
-            case .transfers:
-                self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
-                self.detailsTabBar.setSelectedItem(self.detailsTabBar.items.first, animated: true)
-            case .identityData:
-                self.showIdentityData()
+        tabViewModel.$selectedIndex
+            .sink { [weak self] index in
+                if index == 0 {
+                    self?.presenter.userSelectedTransfers()
+                    self?.showTransferData(
+                        accountState: viewModel.accountState,
+                        isReadOnly: viewModel.isReadOnly,
+                        hasTransfers: viewModel.hasTransfers
+                    )
+                } else {
+                    self?.presenter.userSelectedIdentityData()
+                    self?.showIdentityData()
+                }
             }
-        }.store(in: &cancellables)
+            .store(in: &cancellables)
+        
+        viewModel.$selectedBalance
+            .sink { [weak self] _ in
+                self?.tabViewModel.selectedIndex = 0
+            }
+            .store(in: &cancellables)
         
         Publishers.CombineLatest(viewModel.$hasTransfers, viewModel.$accountState)
             .sink { [weak self](hasTransfers: Bool, accountState: SubmissionStatusEnum) in
@@ -309,32 +319,12 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 
 extension AccountDetailsViewController {
     func setupTabBar() {
-        let transfersTabBarItem = MDCTabBarItem(
-            title: "accountDetails.transfers".localized,
-            image: nil,
-            tag: 0
-        )
-        
-        let identityDataTabBarItem = MDCTabBarItem(
-            title: "accountDetails.identity_data".localized,
-            image: nil, tag: 1
-        )
-        
-        detailsTabBar.items = [
-            transfersTabBarItem,
-            identityDataTabBarItem
+        tabViewModel.tabs = [
+            "accountDetails.transfers".localized,
+            "accountDetails.identity_data".localized
         ]
         
-        detailsTabBar.preferredLayoutStyle = .fixed
-        detailsTabBar.setTitleColor(.primary, for: .selected)
-        detailsTabBar.setTitleColor(.text, for: .normal)
-        detailsTabBar.setTitleFont(Fonts.tabBar, for: .normal)
-        detailsTabBar.tintColor = .primary
-        detailsTabBar.rippleColor = .clear
-        detailsTabBar.selectionIndicatorStrokeColor = .primary
-        detailsTabBar.setSelectedItem(transfersTabBarItem, animated: true)
-        detailsTabBar.bottomDividerColor = UIColor.fadedText.withAlphaComponent(0.3)
-        detailsTabBar.tabBarDelegate = self
+        show(MaterialTabBar(viewModel: tabViewModel), in: tabBar)
     }
     
     fileprivate func setupIdentityDataUI() {
@@ -437,16 +427,6 @@ extension AccountDetailsViewController {
             if isReadOnly {
                 addressView.enable()
             }
-        }
-    }
-}
-
-extension AccountDetailsViewController: MDCTabBarViewDelegate {
-    func tabBarView(_ tabBarView: MDCTabBarView, didSelect item: UITabBarItem) {
-        if item.tag == 0 {
-            presenter.userSelectedTransfers()
-        } else {
-            presenter.userSelectedIdentityData()
         }
     }
 }

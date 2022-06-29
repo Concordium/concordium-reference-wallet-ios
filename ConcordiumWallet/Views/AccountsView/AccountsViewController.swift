@@ -141,18 +141,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: AccountViewModel) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell", for: indexPath) as? AccountCell
-       
-        let stateCancelable = viewModel.$state.sink(receiveValue: { (state: SubmissionStatusEnum) in
-                 switch state {
-                 case .finalized:
-                    cell?.showStatusImage(nil)
-                 case .absent:
-                    cell?.showStatusImage(UIImage(named: "problem_icon"))
-                 case .received, .committed:
-                    cell?.showStatusImage(UIImage(named: "pending"))
-                 }
-             })
-        cell?.cancellables.append(stateCancelable)
+        
         cell?.setup(accountViewModel: viewModel)
         cell?.delegate = self
         cell?.cellRow = indexPath.section

@@ -9,22 +9,16 @@ You can download the latest version on [App Store](https://apps.apple.com/us/app
 
 1. Install Xcode from the Mac App Store.
 2. Clone this repository.
-3. Install and run cocoapods:
-
-	`sudo gem install cocoapods`
-	
-	`pod install`
-    
-4. Run `brew install swiftlint` to install swiftlint. 
-5. Install quicktype from [quicktype.io](https://quicktype.io) to generate models and serializers from JSON.
-6. Install Xcode template for creating MVP files:
+3. Run `brew install swiftlint` to install swiftlint. 
+4. Install quicktype from [quicktype.io](https://quicktype.io) to generate models and serializers from JSON.
+5. Install Xcode template for creating MVP files:
 
 	open folder in project `cd Scripts/Swift-MVP-Template`
 
 	and run `swift install.swift`
 	
 	Learn more about [MVP tempate](https://github.com/khacchan/Swift-MVP-Module)
-7. Open `ConcordiumWallet.xcworkspace` in Xcode. 
+6. Open `ConcordiumWallet.xcodeproj` in Xcode. 
 
 ### Following targets can be selected:
 

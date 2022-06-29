@@ -30,6 +30,16 @@ class AccountCell: UITableViewCell {
     }
     
     func setup(accountViewModel: AccountViewModel) {
+        accountViewModel.$state.sink { [weak self] state in
+            switch state {
+            case .finalized:
+               self?.showStatusImage(nil)
+            case .absent:
+               self?.showStatusImage(UIImage(named: "problem_icon"))
+            case .received, .committed:
+               self?.showStatusImage(UIImage(named: "pending"))
+            }
+        }.store(in: &cancellables)
         accountCardView.setup(accountViewModel: accountViewModel)
     }
     

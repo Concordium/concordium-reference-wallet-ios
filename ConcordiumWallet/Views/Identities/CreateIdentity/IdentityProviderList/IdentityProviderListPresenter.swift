@@ -177,26 +177,7 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
             
             let identityProvider = IdentityProviderDataTypeFactory.create(ipData: ipInfoResponse)
             
-            let wallet = self.dependencyProvider.mobileWallet()
-            
-            self.service.getGlobal()
-                .showLoadingIndicator(in: self.view)
-                .flatMap { [unowned self] global in
-                    wallet.createIdRequestAndPrivateData(initialAccountName: self.initialAccountName,
-                                                         identityName: self.identityName,
-                                                         identityProvider: identityProvider,
-                                                         global: global,
-                                                         requestPasswordDelegate: delegate)
-                }
-                .tryMap { [unowned self] (idObjectRequest, identityCreation) -> (ResourceRequest, IdentityCreation) in
-                    let callbackUri = ApiConstants.callbackUri(with: identityCreation.id)
-                    let identityObjectRequest = try self.service.createIdentityObjectRequest(
-                        on: identityProvider.issuanceStartURL,
-                        with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: callbackUri)
-                    )
-                    return (identityObjectRequest, identityCreation)
-                }
-                .mapError(ErrorMapper.toViewError)
+            self.createIDRequest(identityProvider: identityProvider, requestPassWordDelegate: delegate)
                 .sink(receiveError: { [weak self] error in
                     self?.openingIDPDialog = false
                     if case ViewError.userCancelled = error { return }
@@ -209,5 +190,32 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
                 })
                 .store(in: &self.cancellables)
         }
+    }
+    
+    private func createIDRequest(
+        identityProvider: IdentityProviderDataType,
+        requestPassWordDelegate: RequestPasswordDelegate
+    ) -> AnyPublisher<(ResourceRequest, IdentityCreation), ViewError> {
+        let wallet = self.dependencyProvider.mobileWallet()
+        
+        return self.service.getGlobal()
+            .showLoadingIndicator(in: self.view)
+            .flatMap { [unowned self] global in
+                wallet.createIdRequestAndPrivateData(initialAccountName: self.initialAccountName,
+                                                     identityName: self.identityName,
+                                                     identityProvider: identityProvider,
+                                                     global: global,
+                                                     requestPasswordDelegate: requestPassWordDelegate)
+            }
+            .tryMap { [unowned self] (idObjectRequest, identityCreation) -> (ResourceRequest, IdentityCreation) in
+                let callbackUri = ApiConstants.callbackUri(with: identityCreation.id)
+                let identityObjectRequest = try self.service.createIdentityObjectRequest(
+                    on: identityProvider.issuanceStartURL,
+                    with: IDRequest(idObjectRequest: idObjectRequest, redirectURI: callbackUri)
+                )
+                return (identityObjectRequest, identityCreation)
+            }
+            .mapError(ErrorMapper.toViewError)
+            .eraseToAnyPublisher()
     }
 }

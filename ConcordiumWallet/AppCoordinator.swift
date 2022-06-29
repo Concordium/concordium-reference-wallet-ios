@@ -299,9 +299,12 @@ extension AppCoordinator: AppSettingsDelegate {
         
         defaultProvider.appSettingsService()
             .getAppSettings()
-            .sink(receiveCompletion: { _ in }) { [weak self] response in
-                self?.handleAppSettings(response: response, showBackup: showBackup)
-            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] response in
+                    self?.handleAppSettings(response: response, showBackup: showBackup)
+                }
+            )
             .store(in: &cancellables)
     }
     
