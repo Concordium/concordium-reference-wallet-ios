@@ -60,7 +60,6 @@ private extension BaseViewController {
     }
 }
 
-
 // MARK: - SwiftUI View Support
 extension BaseViewController {
     func show<Content: View>(_ content: Content, in view: UIView) {
@@ -68,7 +67,6 @@ extension BaseViewController {
         addChild(controller)
         view.addSubview(controller.view)
         controller.view.translatesAutoresizingMaskIntoConstraints = false
-        
         
         NSLayoutConstraint.activate([
             controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),

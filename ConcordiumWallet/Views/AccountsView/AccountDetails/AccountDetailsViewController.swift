@@ -167,12 +167,15 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     func bind(to viewModel: AccountDetailsViewModel) {
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
         
-        
         tabViewModel.$selectedIndex
             .sink { [weak self] index in
                 if index == 0 {
                     self?.presenter.userSelectedTransfers()
-                    self?.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
+                    self?.showTransferData(
+                        accountState: viewModel.accountState,
+                        isReadOnly: viewModel.isReadOnly,
+                        hasTransfers: viewModel.hasTransfers
+                    )
                 } else {
                     self?.presenter.userSelectedIdentityData()
                     self?.showIdentityData()
