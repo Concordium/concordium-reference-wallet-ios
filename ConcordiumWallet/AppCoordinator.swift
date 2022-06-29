@@ -147,14 +147,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         childCoordinators.append(importCoordinator)
     }
 
-    func showInitialIdentityCreation() {
-        let initiaAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
-                                                                        parentCoordinator: self,
-                                                                        identitiesProvider: defaultProvider,
-                                                                        accountsProvider: defaultProvider)
-        initiaAccountCreateCoordinator.start()
-        self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
-        childCoordinators.append(initiaAccountCreateCoordinator)
+    func showRecoveryPhraseCreation() {
+        let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(navigationController: navigationController)
+        recoveryPhraseCoordinator.start()
+        self.navigationController.viewControllers = Array(self.navigationController.viewControllers.dropFirst(max(self.navigationController.viewControllers.count - 1, 0)))
+        childCoordinators.append(recoveryPhraseCoordinator)
         self.navigationController.setupBaseNavigationControllerStyle()
     }
     
@@ -237,7 +234,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         if !accounts.isEmpty || !identities.isEmpty {
             showMainTabbar()
         } else {
-            showInitialIdentityCreation()
+            showRecoveryPhraseCreation()
         }
         // Remove login from hierarchy.
         self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
@@ -247,7 +244,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
     }
 
     func passwordSelectionDone() {
-        showInitialIdentityCreation()
+        showRecoveryPhraseCreation()
         // Remove login from hierarchy.
         self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
         childCoordinators.removeAll {$0 is LoginCoordinator}
@@ -287,7 +284,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
     
     func noIdentitiesFound() {
         self.navigationController.setNavigationBarHidden(true, animated: false)
-        showInitialIdentityCreation()
+        showRecoveryPhraseCreation()
         childCoordinators.removeAll(where: { $0 is IdentitiesCoordinator ||  $0 is AccountsCoordinator  || $0 is MoreCoordinator })
     }
 }
