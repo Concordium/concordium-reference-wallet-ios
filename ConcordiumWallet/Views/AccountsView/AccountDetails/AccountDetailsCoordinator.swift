@@ -27,13 +27,13 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
 
     var navigationController: UINavigationController
 
-    private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider
     private var account: AccountDataType
 
     private var accountDetailsPresenter: AccountDetailsPresenter?
     
     init(navigationController: UINavigationController,
-         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
+         dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider,
          parentCoordinator: AccountDetailsDelegate,
          account: AccountDataType) {
         self.navigationController = navigationController
@@ -70,7 +70,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: TransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
+        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
@@ -83,7 +83,7 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
 
     func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: TransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
+        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
@@ -123,12 +123,16 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
                                showsDecrypt: Bool,
                                burgerMenuDismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
                                showShieldedDelegate: ShowShieldedDelegate) {
-        let presenter = BurgerMenuAccountDetailsPresenter(delegate: self,
-                                                          account: account,
-                                                          balance: balanceType,
-                                                          showsDecrypt: showsDecrypt,
-                                                          dismissDelegate: burgerMenuDismissDelegate,
-                                                          showShieldedDelegate: showShieldedDelegate)
+        let presenter = BurgerMenuAccountDetailsPresenter(
+            delegate: self,
+            account: account,
+            balance: balanceType,
+            showsDecrypt: showsDecrypt,
+            dismissDelegate: burgerMenuDismissDelegate,
+            showShieldedDelegate: showShieldedDelegate,
+            dependencyProvider: dependencyProvider
+        )
+        
         let vc = BurgerMenuFactory.create(with: presenter)
         vc.modalPresentationStyle = .overFullScreen
         presenter.view = vc
@@ -146,6 +150,28 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func showDelegation() {
+        let coordinator = DelegationCoordinator(navigationController: BaseNavigationController(),
+                                                          dependencyProvider: dependencyProvider ,
+                                                          account: account,
+                                                          parentCoordinator: self)
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+    }
+    
+    func showBaking() {
+        let coordinator = BakingCoordinator(
+            navigationController: BaseNavigationController(),
+            dependencyProvider: dependencyProvider,
+            account: account,
+            parentCoordinator: self)
+        
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true)
+    }
+
     func showTransferFilters(account: AccountDataType) {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
@@ -303,12 +329,34 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
             showTransferFilters(account: account)
         case .shieldedBalance(_, let shouldShow, let showShieldedDelegate):
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            //we only go to the onboarding flow if we should show the shielded balance
+            // we only go to the onboarding flow if we should show the shielded balance
             if shouldShow {
                 showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
             }
+        case .delegation:
+            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            showDelegation()
+        case .baking:
+            keyWindow?.rootViewController?.dismiss(animated: false)
+            showBaking()
         case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         }
+    }
+}
+
+extension AccountDetailsCoordinator: DelegationCoordinatorDelegate {
+    func finished() {
+        navigationController.dismiss(animated: true)
+        self.childCoordinators.removeAll {$0 is DelegationCoordinator }
+        refreshTransactionList()
+    }
+}
+
+extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
+    func finishedBakingCoordinator() {
+        navigationController.dismiss(animated: true)
+        self.childCoordinators.removeAll { $0 is BakingCoordinator }
+        refreshTransactionList()
     }
 }

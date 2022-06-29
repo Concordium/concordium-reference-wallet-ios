@@ -14,7 +14,9 @@ protocol TermsAndConditionsViewProtocol: ShowAlert {
 
 protocol TermsAndConditionsPresenterProtocol: AnyObject {
     var view: TermsAndConditionsViewProtocol? { get set }
+    var delegate: TermsAndConditionsPresenterDelegate? { get set }
     func userTappedAcceptTerms()
+    func viewDidLoad()
 }
 
 // MARK: Delegate
@@ -22,18 +24,9 @@ protocol TermsAndConditionsPresenterDelegate: AnyObject {
     func userTappedAcceptTerms()
 }
 
-class TermsAndConditionsPresenter {
-    weak var view: TermsAndConditionsViewProtocol?
-    weak var delegate: TermsAndConditionsPresenterDelegate?
-
-    init(delegate: TermsAndConditionsPresenterDelegate? = nil) {
-        self.delegate = delegate
-    }
-}
-
-extension TermsAndConditionsPresenter: TermsAndConditionsPresenterProtocol {
+extension TermsAndConditionsPresenterProtocol {
     func userTappedAcceptTerms() {
-        //save the hash of the accepted terms
+        // save the hash of the accepted terms
         AppSettings.acceptedTermsHash = HashingHelper.hash(TermsHelper.currentTerms)
         self.delegate?.userTappedAcceptTerms()
     }

@@ -81,7 +81,11 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
 
         onboardingCarouselPageViewController?.controllerDelegate = self
 
-        continueButton.alpha = 0
+        // If we only have one page we need to show the continue button
+        let showContinue = pageControl.numberOfPages <= 1
+        
+        continueButton.alpha = showContinue ? 1 : 0
+        nextButton.alpha = showContinue ? 0 : 1
         backButton.alpha = 0
     }
 
@@ -89,6 +93,8 @@ final class OnboardingCarouselViewController: BaseViewController, OnboardingCaro
         pageTitles = viewModel.pages.map { $0.title }
         onboardingCarouselPageViewController?.setup(with: viewModel.pages.map { $0.viewController })
         title = viewModel.title
+        // Only show the skip button if there are more than 1 page
+        skipButton.alpha = viewModel.pages.count > 1 ? 1 : 0
     }
 
     @objc private func closeButtonTapped() {

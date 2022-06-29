@@ -8,22 +8,21 @@
 
 import Foundation
 
-//Add this to your coordinator:
+// Add this to your coordinator:
 //    func show___VARIABLE_productName:identifier___() {
 //        let vc = ___VARIABLE_productName:identifier___Factory.create(with: ___VARIABLE_productName:identifier___Presenter(delegate: self))
 //        navigationController.pushViewController(vc, animated: false)
 //    }
 
-
 // MARK: -
 // MARK: Delegate
-protocol ___VARIABLE_productName:identifier___PresenterDelegate: class {
+protocol ___VARIABLE_productName:identifier___PresenterDelegate: AnyObject {
 
 }
 
 // MARK: -
 // MARK: Presenter
-protocol ___VARIABLE_productName:identifier___PresenterProtocol: class {
+protocol ___VARIABLE_productName:identifier___PresenterProtocol: AnyObject {
 	var view: ___VARIABLE_productName:identifier___ViewProtocol? { get set }
     func viewDidLoad()
 }

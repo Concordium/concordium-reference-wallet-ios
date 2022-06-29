@@ -1,0 +1,12 @@
+{
+    "commissionRates": {
+        "transactionCommission": 0.1,
+        "finalizationCommission": 0.0,
+        "bakingCommission": 0.1
+    },
+    "poolType": "PassiveDelegation",
+    "currentPaydayDelegatedCapital": "0",
+    "allPoolTotalCapital": "15098889000938",
+    "currentPaydayTransactionFeesEarned": "0",
+    "delegatedCapital": "0"
+}

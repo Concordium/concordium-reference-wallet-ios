@@ -8,6 +8,7 @@
 
 import Foundation
 import LocalAuthentication
+import Combine
 
 protocol LoginViewDelegate: Coordinator {
     func loginDone()
@@ -19,6 +20,8 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     let dependencyProvider: LoginDependencyProvider
     let viewState: PasswordSelectionState = AppSettings.passwordType == .password ? .loginWithPassword : .loginWithPasscode
     let sanityChecker: SanityChecker
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(delegate: LoginViewDelegate, dependencyProvider: LoginDependencyProvider) {
         self.delegate = delegate
@@ -39,13 +42,19 @@ class LoginPresenter: EnterPasswordPresenterProtocol {
     func viewDidAppear() {
         if AppSettings.biometricsEnabled && phoneSettingsBiometricsEnabled() {
             dependencyProvider.keychainWrapper().getPasswordWithBiometrics()
-                .onSuccess { pwHash in
-                    let passwordCheck = dependencyProvider.keychainWrapper()
-                            .checkPasswordHash(pwHash: pwHash)
-                    _ = sanityChecker.generateSanityReport(pwHash: pwHash) //we just make the sanitary report
-                    handlePasswordCheck(checkPassword: passwordCheck)
-                }
+                .receive(on: DispatchQueue.main)
+                .sink(receiveError: { _ in }, receiveValue: { [weak self] pwHash in
+                    self?.handlePWHash(pwHash)
+                })
+                .store(in: &cancellables)
         }
+    }
+    
+    private func handlePWHash(_ pwHash: String) {
+        let passwordCheck = dependencyProvider.keychainWrapper()
+                .checkPasswordHash(pwHash: pwHash)
+        _ = sanityChecker.generateSanityReport(pwHash: pwHash) // we just make the sanitary report
+        handlePasswordCheck(checkPassword: passwordCheck)
     }
 
     func phoneSettingsBiometricsEnabled() -> Bool {

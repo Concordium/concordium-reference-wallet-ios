@@ -16,8 +16,8 @@ class MainTabBarController: BaseTabBarController {
     // Override selectedViewController for User initiated changes
     override var selectedViewController: UIViewController? {
         didSet {
-            //if the selectedViewController is not a navigationController, it means it is the export tab
-            //switch to the morecoordinator and display the export screen
+            // if the selectedViewController is not a navigationController, it means it is the export tab
+            // switch to the morecoordinator and display the export screen
             if !(selectedViewController is UINavigationController) {
                 selectedViewController = moreCoordinator.navigationController
                 moreCoordinator.showExport()
@@ -43,7 +43,7 @@ class MainTabBarController: BaseTabBarController {
         accountsCoordinator.delegate = self
         accountsCoordinator.start()
        
-        let exportVC = UIViewController() //this will never be shown - we just use it to have a tab
+        let exportVC = UIViewController() // this will never be shown - we just use it to have a tab
         exportVC.tabBarItem = UITabBarItem(title: "backup_tab_title".localized, image: UIImage(named: "tab_bar_backup_icon"), tag: 0)
         moreCoordinator.start()
         viewControllers = [exportVC, accountsCoordinator.navigationController, moreCoordinator.navigationController]
@@ -64,8 +64,8 @@ extension MainTabBarController: AccountsCoordinatorDelegate {
     }
 
     func createNewIdentity() {
-//        selectedViewController = identitiesCoordinator.navigationController
-//        identitiesCoordinator.showCreateNewIdentity()
+        selectedViewController = moreCoordinator.navigationController
+        moreCoordinator.showCreateNewIdentity()
     }
     
     func noIdentitiesFound() {

@@ -31,7 +31,7 @@ class AccountCardView: UIView, NibLoadable {
     
     @IBOutlet weak private var widget: WidgetView!
     
-    //Contained in accountView
+    // Contained in accountView
     @IBOutlet weak private var accountName: UILabel!
     @IBOutlet weak var initialAccountLabel: UILabel!
     @IBOutlet weak private var pendingImageView: UIImageView!
@@ -39,12 +39,12 @@ class AccountCardView: UIView, NibLoadable {
     @IBOutlet weak private var stateImageView: UIImageView!
     @IBOutlet weak private var stateLabel: UILabel!
     
-    //Contained in totalView
+    // Contained in totalView
     @IBOutlet weak private var totalLabel: UILabel!
     @IBOutlet weak private var totalAmount: UILabel!
     @IBOutlet weak private var totalAmountLockImageView: UIImageView!
     
-    //Contained in atDisposalView
+    // Contained in atDisposalView
     @IBOutlet weak private var atDisposalLabel: UILabel!
     @IBOutlet weak private var atDisposalAmount: UILabel!
     
@@ -89,6 +89,8 @@ class AccountCardView: UIView, NibLoadable {
         let state: AccountCardViewState!
         if accountViewModel.isBaking {
             state = .baking
+        } else if accountViewModel.isDelegating {
+            state = .delegating
         } else if accountViewModel.isReadOnly {
             state = .readonly
         } else {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -529,7 +529,7 @@ How would you like to continue?]</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPb-gG-l6K" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="20" y="597" width="335" height="50"/>
+                                <rect key="frame" x="20" y="587" width="335" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="H5C-hi-Cvd"/>
@@ -545,7 +545,7 @@ How would you like to continue?]</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTh-XR-yZH">
-                                <rect key="frame" x="0.0" y="69" width="375" height="528"/>
+                                <rect key="frame" x="0.0" y="69" width="375" height="518"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIb-5q-Esl">
                                         <rect key="frame" x="35" y="80" width="305" height="251"/>
@@ -584,7 +584,7 @@ So remember to keep your passcode safe!]</string>
                             <constraint firstItem="bcP-jJ-WKx" firstAttribute="centerX" secondItem="arf-We-R8e" secondAttribute="centerX" id="VI5-VX-PWn"/>
                             <constraint firstItem="bcP-jJ-WKx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="arf-We-R8e" secondAttribute="leading" constant="20" id="WWv-lM-OJW"/>
                             <constraint firstItem="OTh-XR-yZH" firstAttribute="top" secondItem="bcP-jJ-WKx" secondAttribute="bottom" id="Zx2-h1-er8"/>
-                            <constraint firstItem="arf-We-R8e" firstAttribute="bottom" secondItem="XPb-gG-l6K" secondAttribute="bottom" priority="999" id="hWQ-2t-2hT"/>
+                            <constraint firstItem="arf-We-R8e" firstAttribute="bottom" secondItem="XPb-gG-l6K" secondAttribute="bottom" priority="999" constant="30" id="hWQ-2t-2hT"/>
                             <constraint firstItem="XPb-gG-l6K" firstAttribute="leading" secondItem="arf-We-R8e" secondAttribute="leading" constant="20" id="scL-99-G42"/>
                             <constraint firstItem="OTh-XR-yZH" firstAttribute="leading" secondItem="arf-We-R8e" secondAttribute="leading" id="uGt-Cw-Rig"/>
                         </constraints>
@@ -629,7 +629,7 @@ You can press continue to have a look at the app, while you wait.]</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilq-Bf-T4l" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="20" y="597" width="335" height="50"/>
+                                <rect key="frame" x="20" y="587" width="335" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Gm5-pO-FSG"/>
@@ -672,7 +672,7 @@ You can press continue to have a look at the app, while you wait.]</string>
                             <constraint firstItem="ilq-Bf-T4l" firstAttribute="leading" secondItem="r2b-bI-I7B" secondAttribute="leading" constant="20" id="g1C-4W-UEs"/>
                             <constraint firstItem="XcX-By-X67" firstAttribute="leading" secondItem="bJt-Nd-Adk" secondAttribute="leading" id="i0l-eU-ryO"/>
                             <constraint firstItem="bJt-Nd-Adk" firstAttribute="top" secondItem="r2b-bI-I7B" secondAttribute="top" constant="20" id="mkQ-Iz-Shc"/>
-                            <constraint firstItem="r2b-bI-I7B" firstAttribute="bottom" secondItem="ilq-Bf-T4l" secondAttribute="bottom" constant="20" id="n1t-cf-aac"/>
+                            <constraint firstItem="r2b-bI-I7B" firstAttribute="bottom" secondItem="ilq-Bf-T4l" secondAttribute="bottom" constant="30" id="n1t-cf-aac"/>
                             <constraint firstItem="XcX-By-X67" firstAttribute="trailing" secondItem="bJt-Nd-Adk" secondAttribute="trailing" id="v0p-cL-Kik"/>
                             <constraint firstItem="qQ8-TI-BZm" firstAttribute="top" secondItem="dQo-bl-bBg" secondAttribute="bottom" constant="20" id="zG6-f6-ihI"/>
                         </constraints>

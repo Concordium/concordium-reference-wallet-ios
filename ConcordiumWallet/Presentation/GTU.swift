@@ -5,11 +5,15 @@
 
 import Foundation
 
-struct GTU {
+struct GTU: Codable {
     static let conversionFactor: Int = 1000000
     static let maximumFractionDigits: Int = 6
+    
+    /// Useful for comparing against 0
+    static let zero: GTU = GTU(intValue: 0)
+    static let max: GTU = GTU(intValue: .max)
 
-    let intValue: Int
+    private(set) var intValue: Int
 
     init(displayValue: String) {
         if displayValue.count == 0 {
@@ -29,6 +33,25 @@ struct GTU {
     init?(intValue: Int?) {
         guard let intValue = intValue else { return nil }
         self.intValue = intValue
+    }
+    
+    // GTU is encoded as a string containing the int value
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        let stringValue = try container.decode(String.self)
+        
+        guard let intValue = Int(stringValue) else {
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "\(stringValue) is not a valid GTU amount")
+        }
+        
+        self.init(intValue: intValue)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        
+        try container.encode(String(intValue))
     }
 
     func displayValueWithGStroke() -> String {
@@ -56,6 +79,10 @@ struct GTU {
             stringValue = "-\(stringValue)"
         }
         return stringValue
+    }
+    
+    static func isValid(displayValue: String) -> Bool {        
+        return displayValue.unsignedWholePart <= (Int.max - 999999)/1000000 && displayValue.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
     }
 
     private static func wholeAndFractionalValueToInt(wholeValue: Int, fractionalValue: Int, isNegative: Bool) -> Int {
@@ -100,5 +127,41 @@ extension GTU: Hashable {
 
     public static func == (lhs: GTU, rhs: GTU) -> Bool {
         lhs.intValue == rhs.intValue
+    }
+}
+
+extension GTU: Comparable {
+    static func < (lhs: GTU, rhs: GTU) -> Bool {
+        lhs.intValue < rhs.intValue
+    }
+}
+
+extension GTU: Numeric {
+    var magnitude: UInt {
+        intValue.magnitude
+    }
+    
+    init?<T>(exactly source: T) where T: BinaryInteger {
+        self.init(intValue: Int(exactly: source))
+    }
+    
+    init(integerLiteral value: IntegerLiteralType) {
+        self.init(intValue: value)
+    }
+    
+    static func + (lhs: GTU, rhs: GTU) -> GTU {
+        return GTU(intValue: lhs.intValue + rhs.intValue)
+    }
+    
+    static func * (lhs: GTU, rhs: GTU) -> GTU {
+        return GTU(intValue: lhs.intValue * rhs.intValue)
+    }
+    
+    static func *= (lhs: inout GTU, rhs: GTU) {
+        lhs.intValue *= rhs.intValue
+    }
+    
+    static func - (lhs: GTU, rhs: GTU) -> GTU {
+        return GTU(intValue: lhs.intValue - rhs.intValue)
     }
 }

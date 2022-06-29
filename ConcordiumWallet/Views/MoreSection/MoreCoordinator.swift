@@ -10,16 +10,18 @@ import Combine
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate { }
 
 class MoreCoordinator: Coordinator, ShowAlert {
+    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
+    
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    private var dependencyProvider: MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
+    private var dependencyProvider: DependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
     
     weak var delegate: MoreCoordinatorDelegate?
     
     init(navigationController: UINavigationController,
-         dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider & MoreFlowCoordinatorDependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
+         dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
          parentCoordinator: MoreCoordinatorDelegate) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider

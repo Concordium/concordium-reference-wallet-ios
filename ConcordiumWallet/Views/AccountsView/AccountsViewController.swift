@@ -70,7 +70,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        warningMessageView.applyConcordiumEdgeStyle()
+        warningMessageView.applyConcordiumEdgeStyle(color: .yellowBorder)
         warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
     }
 
@@ -219,6 +219,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self.warningMessageImageView.image = UIImage(named: warning.imageName)
                 self.warningDismissButton.isHidden = !warning.dismissable
                 self.showBackupWarningBanner(true)
+                self.warningMessageView.applyConcordiumEdgeStyle(color: warning.priority == .warning ? .yellowBorder : .primary)
             } else {
                 self.showBackupWarningBanner(false)
             }
@@ -263,6 +264,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightButtonImage,
                                                                 style: .plain,
                                                                 target: self, action: #selector(createNewButtonPressed))
+        } else {
+            navigationItem.rightBarButtonItem = nil
         }
     }
 

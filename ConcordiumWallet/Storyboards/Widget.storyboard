@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -191,25 +191,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haw-gn-ndW">
-                                <rect key="frame" x="0.0" y="24" width="414" height="773"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haw-gn-ndW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="711"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hu8-4s-6vU">
-                                        <rect key="frame" x="0.0" y="20" width="414" height="818"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hu8-4s-6vU">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="818" placeholder="YES" id="Kik-VM-SQK"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="hu8-4s-6vU" secondAttribute="trailing" id="6sP-Ga-dyf"/>
-                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="width" secondItem="haw-gn-ndW" secondAttribute="width" id="MSl-rM-QSV"/>
-                                    <constraint firstAttribute="bottom" secondItem="hu8-4s-6vU" secondAttribute="bottom" id="eBF-qU-Dge"/>
-                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="top" secondItem="haw-gn-ndW" secondAttribute="top" id="h5f-Rg-BMH"/>
-                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="leading" secondItem="haw-gn-ndW" secondAttribute="leading" id="ht7-n4-fnJ"/>
+                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="bottom" secondItem="ZNB-Ha-E0p" secondAttribute="bottom" id="IW6-4c-1C6"/>
+                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="trailing" secondItem="ZNB-Ha-E0p" secondAttribute="trailing" id="Vty-RD-GvK"/>
+                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="leading" secondItem="ZNB-Ha-E0p" secondAttribute="leading" id="XO8-3e-PPm"/>
+                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="width" secondItem="08G-1h-y80" secondAttribute="width" id="djU-2E-K8Y"/>
+                                    <constraint firstItem="hu8-4s-6vU" firstAttribute="top" secondItem="ZNB-Ha-E0p" secondAttribute="top" id="pVK-AL-leD"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="ZNB-Ha-E0p"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="08G-1h-y80"/>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EUA-hO-neY">
-                                <rect key="frame" x="0.0" y="795" width="414" height="67"/>
+                                <rect key="frame" x="0.0" y="765" width="414" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="ON1-U1-Lk3"/>
                                 </constraints>
@@ -223,7 +226,7 @@
                             <constraint firstItem="EUA-hO-neY" firstAttribute="centerX" secondItem="h7a-9d-B6n" secondAttribute="centerX" id="NFR-gU-Ycb"/>
                             <constraint firstItem="haw-gn-ndW" firstAttribute="trailing" secondItem="h7a-9d-B6n" secondAttribute="trailing" id="Wl7-Ny-JFG"/>
                             <constraint firstItem="4L8-T1-HC9" firstAttribute="bottom" secondItem="haw-gn-ndW" secondAttribute="top" id="Xld-Zh-VEz"/>
-                            <constraint firstItem="T0L-to-gho" firstAttribute="top" secondItem="EUA-hO-neY" secondAttribute="bottom" id="hCE-wO-psQ"/>
+                            <constraint firstItem="T0L-to-gho" firstAttribute="top" secondItem="EUA-hO-neY" secondAttribute="bottom" constant="30" id="hCE-wO-psQ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -701,7 +704,7 @@ idiss@concordium.software</string>
     </scenes>
     <designables>
         <designable name="5cr-v2-sR6">
-            <size key="intrinsicContentSize" width="199" height="30"/>
+            <size key="intrinsicContentSize" width="198" height="30"/>
         </designable>
         <designable name="RUb-Yw-hRG">
             <size key="intrinsicContentSize" width="261" height="30"/>

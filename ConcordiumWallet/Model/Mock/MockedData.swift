@@ -109,10 +109,10 @@ class MockedData: ShowToast {
                          "5HJ53TL996fJK900AGC9876",
                          "6HJ63GH65KKJK900AGC9899"]
         for _ in 0..<10 {
-            let name = names[Int(arc4random()) % 3]
-            let address = addresses[Int(arc4random()) % 3]
-            let mockRecipient = RecipientEntity(name: name, address: address)
-            recipients.append(mockRecipient)
+            if let name = names.randomElement(), let address = addresses.randomElement() {
+                let mockRecipient = RecipientEntity(name: name, address: address)
+                recipients.append(mockRecipient)
+            }
         }
         return recipients
     }

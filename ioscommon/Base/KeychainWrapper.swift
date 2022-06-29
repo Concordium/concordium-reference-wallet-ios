@@ -9,6 +9,7 @@
 import LocalAuthentication
 import Security
 import CryptoKit
+import Combine
 
 protocol KeychainWrapperProtocol {
     func storePassword(password: String) -> Result<String, KeychainError>
@@ -17,14 +18,14 @@ protocol KeychainWrapperProtocol {
     func passwordCreated() -> Bool
     func hashPassword(_ password: String) -> String
 
-    func storePasswordBehindBiometrics(pwHash: String) -> Result<Void, KeychainError>
-    func getPasswordWithBiometrics() -> Result<String, KeychainError>
+    func storePasswordBehindBiometrics(pwHash: String) -> AnyPublisher<Void, KeychainError>
+    func getPasswordWithBiometrics() -> AnyPublisher<String, KeychainError>
 
     func store(key: String, value: String, securedByPassword: String) -> Result<Void, KeychainError>
     func getValue(for key: String, securedByPassword: String) -> Result<String, KeychainError>
 
-    func getValueWithBiometrics(for key: String) -> Result<String, KeychainError>
-    func storeWithBiometrics(key: String, value: String) -> Result<Void, KeychainError>
+    func getValueWithBiometrics(for key: String) -> AnyPublisher<String, KeychainError>
+    func storeWithBiometrics(key: String, value: String) -> AnyPublisher<Void, KeychainError>
 
     func deleteKeychainItem(withKey key: String) -> Result<Void, KeychainError>
 }
@@ -79,20 +80,30 @@ extension KeychainWrapper: KeychainWrapperProtocol {
         }
     }
 
-    func storePasswordBehindBiometrics(pwHash: String) -> Result<Void, KeychainError> {
-        let data = pwHash.data(using: .utf8)!
-        return deleteKeychainItem(withKey: KeychainKeys.password.rawValue).flatMap {
-            setKeychainItem(withKey: KeychainKeys.password.rawValue, itemData: data, password: nil)
-        }
+    func storePasswordBehindBiometrics(pwHash: String) -> AnyPublisher<Void, KeychainError> {
+        return Future { completion in
+            let data = pwHash.data(using: .utf8)!
+            let result = deleteKeychainItem(withKey: KeychainKeys.password.rawValue)
+                .flatMap {
+                    setKeychainItem(withKey: KeychainKeys.password.rawValue, itemData: data, password: nil)
+                }
+            
+            completion(result)
+        }.eraseToAnyPublisher()
     }
 
-    func getPasswordWithBiometrics() -> Result<String, KeychainError> {
-         getKeychainItem(withKey: KeychainKeys.password.rawValue, password: nil).flatMap {
-             guard let pwHash = String(data: $0, encoding: .utf8) else {
-                 return .failure(KeychainError.passwordNotFound)
-             }
-             return .success(pwHash)
-         }
+    func getPasswordWithBiometrics() -> AnyPublisher<String, KeychainError> {
+        return Future { completion in
+            let result = getKeychainItem(withKey: KeychainKeys.password.rawValue, password: nil)
+                .flatMap { data -> Result<String, KeychainError> in
+                    guard let pwHash = String(data: data, encoding: .utf8) else {
+                        return .failure(KeychainError.passwordNotFound)
+                    }
+                    return .success(pwHash)
+                }
+            completion(result)
+        }.eraseToAnyPublisher()
+         
     }
 
     func store(key: String, value: String, securedByPassword password: String) -> Result<Void, KeychainError> {
@@ -109,16 +120,23 @@ extension KeychainWrapper: KeychainWrapperProtocol {
         }
     }
 
-    func getValueWithBiometrics(for key: String) -> Result<String, KeychainError> {
-        getPasswordWithBiometrics().flatMap {
-            getValue(for: key, securedByPassword: $0)
-        }
+    func getValueWithBiometrics(for key: String) -> AnyPublisher<String, KeychainError> {
+        getPasswordWithBiometrics()
+            .flatMap {
+                getValue(for: key, securedByPassword: $0)
+                    .publisher
+            }
+            .eraseToAnyPublisher()
+        
     }
 
-    func storeWithBiometrics(key: String, value: String) -> Result<Void, KeychainError> {
-        getPasswordWithBiometrics().flatMap {
-            store(key: key, value: value, securedByPassword: $0)
-        }
+    func storeWithBiometrics(key: String, value: String) -> AnyPublisher<Void, KeychainError> {
+        getPasswordWithBiometrics()
+            .flatMap {
+                store(key: key, value: value, securedByPassword: $0)
+                    .publisher
+            }
+            .eraseToAnyPublisher()
     }
 }
 

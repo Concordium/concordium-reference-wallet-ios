@@ -8,21 +8,20 @@
 
 import Foundation
 
-
 // MARK: Delegate
 protocol BurgerMenuAccountDetailsPresenterDelegate: AnyObject {
     func pressedOption(action: BurgerMenuAccountDetailsAction, account: AccountDataType)
 }
 
-
 protocol BurgerMenuAccountDetailsDismissDelegate: AnyObject {
     func bugerMenuDismissedWithAction(_action: BurgerMenuAccountDetailsAction)
 }
 
-
 enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
     case transferFilters
+    case delegation
+    case baking
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case dismiss
     case decrypt
@@ -39,10 +38,14 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             } else {
                 return String(format: "burgermenu.hideshieldedbalance".localized, accountName)
             }
+        case .delegation:
+            return "burgermenu.delegation".localized
+        case .baking:
+            return "burgermenu.baking".localized
         case .decrypt:
             return "burgermenu.decrypt".localized
         case .dismiss:
-            return "" //this will not be shown in the ui
+            return "" // this will not be shown in the ui
         }
     }
 }
@@ -57,12 +60,15 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     
     private var viewModel = BurgerMenuViewModel()
     private var account: AccountDataType
-    init(delegate: BurgerMenuAccountDetailsPresenterDelegate,
-         account: AccountDataType,
-         balance: AccountBalanceTypeEnum,
-         showsDecrypt: Bool,
-         dismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
-         showShieldedDelegate: ShowShieldedDelegate) {
+    init(
+        delegate: BurgerMenuAccountDetailsPresenterDelegate,
+        account: AccountDataType,
+        balance: AccountBalanceTypeEnum,
+        showsDecrypt: Bool,
+        dismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
+        showShieldedDelegate: ShowShieldedDelegate,
+        dependencyProvider: AccountsFlowCoordinatorDependencyProvider
+    ) {
         self.delegate = delegate
         self.account = account
         self.dismissDelegate = dismissDelegate
@@ -71,11 +77,23 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                             .transferFilters]
         } else {
             if balance == .balance {
-                self.actions = [.releaseSchedule,
-                                .transferFilters,
-                                .shieldedBalance(accountName: account.displayName,
-                                                 shouldShow: !account.showsShieldedBalance,
-                                                 delegate: showShieldedDelegate)]
+                let stakeActions: [BurgerMenuAccountDetailsAction]
+                let pendingTransfers = dependencyProvider.storageManager().getTransfers(for: account.address)
+                
+                if account.baker != nil || pendingTransfers.contains(where: { $0.transferType.isBakingTransfer }) {
+                    stakeActions = [.baking]
+                } else if account.delegation != nil || pendingTransfers.contains(where: { $0.transferType.isDelegationTransfer }) {
+                    stakeActions = [.delegation]
+                } else {
+                    stakeActions = [.delegation, .baking]
+                }
+                
+                self.actions = [
+                    .releaseSchedule,
+                    .transferFilters
+                ] + stakeActions + [.shieldedBalance(accountName: account.displayName,
+                                                     shouldShow: !account.showsShieldedBalance,
+                                                     delegate: showShieldedDelegate)]
             } else {
                 if showsDecrypt {
                     self.actions = [.decrypt,
@@ -95,8 +113,6 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     func viewDidLoad() {
         viewModel.setup(actions: actions)
         view?.bind(to: viewModel)
-        
-        
     }
     
     func selectedAction(at index: Int) {
@@ -107,7 +123,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
     func selectedAction(_ action: BurgerMenuAccountDetailsAction) {
         let account: AccountDataType!
         if case .shieldedBalance = action, self.account.showsShieldedBalance {
-            //if we are hiding it, we hide it here directly
+            // if we are hiding it, we hide it here directly
             account = self.account.withShowShielded(!self.account.showsShieldedBalance)
         } else {
             account = self.account

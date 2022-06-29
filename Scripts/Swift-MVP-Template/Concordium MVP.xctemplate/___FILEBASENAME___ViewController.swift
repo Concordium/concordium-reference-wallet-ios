@@ -9,12 +9,12 @@
 import UIKit
 
 // MARK: View
-protocol ___VARIABLE_productName:identifier___ViewProtocol: class {
+protocol ___VARIABLE_productName:identifier___ViewProtocol: AnyObject {
 
 }
 
 class ___VARIABLE_productName:identifier___Factory {
-    class func create(with presenter: ___VARIABLE_productName:identifier___Presenter) -> ___VARIABLE_productName:identifier___ViewController {
+    class func create(with presenter: ___VARIABLE_productName:identifier___PresenterProtocol) -> ___VARIABLE_productName:identifier___ViewController {
         ___VARIABLE_productName:identifier___ViewController.instantiate(fromStoryboard: <#T##String#>) {coder in
             return ___VARIABLE_productName:identifier___ViewController(coder: coder, presenter: presenter)
         }

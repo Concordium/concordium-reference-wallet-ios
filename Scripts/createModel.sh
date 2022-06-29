@@ -25,6 +25,10 @@ ACCOUNT_TRANSACTIONS="../ConcordiumWallet/mock/4.2.2.RX_backend_accTransactions.
 ACCOUNT_PUBLIC_KEY="../ConcordiumWallet/mock/4.3.2.RX_backend_accEncryptionKey.json"
 SERVER_ERROR="../ConcordiumWallet/mock/backend_server_error.json"
 DECRYPT_AMOUNT_JSON="../ConcordiumWallet/mock/4.4.1.TX_lib_decrypt_encrypted_amount.json"
+BAKER_POOL_JSON="../ConcordiumWallet/mock/5.1.2.RX_backend_baker_pool.json"
+CHAIN_PARAMETERS_JSON="../ConcordiumWallet/mock/5.2.2.RX_backend_chain_parameters.json"
+GENERATED_BAKER_KEYS_JSON="../ConcordiumWallet/mock/5.3.2.RX_generate_baker_keys.json"
+PASSIVE_DELEGATION_JSON="../ConcordiumWallet/mock/5.4.2.RX_backend_passiveDelegation.json"
 
 GENERATE_ACCOUNTS_JSON="../ConcordiumWallet/mock/4.5.1.TX_lib_generate_accounts.json"
 GENERATE_ACCOUNTS_RESPONSE_JSON="../ConcordiumWallet/mock/4.5.2.RX_lib_generate_accounts.json"
@@ -105,6 +109,7 @@ cat $SERVER_ERROR | quicktype --multi-file-output --density normal -o $DEST/Serv
 cat $ACC_NONCE_JSON | quicktype --multi-file-output --density normal -o $DEST/acc_nonce.swift
 cat $CREATE_TRANSFER_JSON | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/make_create_transfer_request.swift
 replaceType "MakeCreateTransferRequest.MakeCreateTransferRequestKeys" "AccountKeys"
+#renameType "MakeCreateTransferRequest.DelegationTarget" "TransferRequestDelegationTarget"
 cat $DECRYPT_AMOUNT_JSON | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/make_decrypt_amount_request.swift
 cat $CREATE_TRANSFER_RESPONSE_JSON | quicktype --multi-file-output --density normal -o $DEST/create_transfer_request.swift
 renameType "CreateTransferRequest.Signatures" "[Int: [Int: String]]"
@@ -114,12 +119,31 @@ cat $SUBMISSION_STATUS_JSON | quicktype --multi-file-output  --all-properties-op
 cat $TRANSFER_COST | quicktype --multi-file-output --density normal -o $DEST/TransferCost.swift
 cat $ACCOUNT_BALANCE | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/AccountBalance.swift
 replaceType "AccountEncryptedAmount.JSONAny" "JSONObject"
+replaceType "DelegationTarget.JSONNull" "Int"
+replaceType "AccountBaker.: String?" ": String"
+replaceType "AccountBaker.Int?" "Int"
+replaceType "AccountBaker.Bool?" "Bool"
+
+replaceType "AccountDelegation.Bool?" "Bool"
+replaceType "AccountDelegation.: String?" ": String"
+replaceType "AccountDelegation.DelegationTarget?" "DelegationTarget"
+replaceType "DelegationTarget.: String?" ": String"
+replaceType "PendingChange.: Int?" ": Int"
+replaceType "PendingChange.change: String?" "change: String"
+replaceType "Balance.accountIndex: Int?" "accountIndex: Int"
+
 cat $ACCOUNT_TRANSACTIONS | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/RemoteTransactions.swift
 cat $ACCOUNT_PUBLIC_KEY | quicktype --multi-file-output --all-properties-optional --density normal -o $DEST/PublicEncriptionKey.swift
-
-
-
-
+cat $BAKER_POOL_JSON | quicktype --multi-file-output --density normal -o $DEST/baker_pool_response.swift
+cat $CHAIN_PARAMETERS_JSON | quicktype --multi-file-output --density normal -o $DEST/chain_parameters_response.swift
+cat $GENERATED_BAKER_KEYS_JSON | quicktype --multi-file-output --density normal -o $DEST/generated_baker_keys.swift
+cat $PASSIVE_DELEGATION_JSON | quicktype --multi-file-output --density normal -o $DEST/passive_delegation.swift
+replaceType "BakerStakePendingChange.bakerEquityCapital: String" "bakerEquityCapital: String?"
+replaceType "EuroPerEnergy.Int" "UInt64"
+replaceType "BakerStakePendingChange.effectiveTime: String" "effectiveTime: String?"
+replaceType "BakerStakePendingChange.estimatedChangeTime: String" "estimatedChangeTime: String?"
+replaceType "MakeCreateTransferRequest.bakerKeys: BakerKeys?" "bakerKeys: GeneratedBakerKeys?"
+replaceType "BakerPoolResponse.currentPaydayStatus: CurrentPaydayStatus" "currentPaydayStatus: CurrentPaydayStatus?"
 
 replacePropertyName()
 {
@@ -180,4 +204,5 @@ rm ${DEST}/Tentacled0.swift
 rm ${DEST}/The0_Keys.swift
 rm ${DEST}/The0.swift
 rm ${DEST}/Signatures.swift
+rm ${DEST}/BakerKeys.swift
 

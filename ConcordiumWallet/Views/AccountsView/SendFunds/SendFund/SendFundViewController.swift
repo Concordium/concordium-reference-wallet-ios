@@ -53,6 +53,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
     private var defaultMainStackViewTopConstraintConstant: CGFloat = 0
     private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
+    
+    private lazy var textFieldDelegate = GTUTextFieldDelegate { [weak self] _, isValid in
+        if isValid {
+            self?.presenter.userChangedAmount()
+        }
+    }
 
     private var cancellables = [AnyCancellable]()
 
@@ -79,7 +85,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         let closeIcon = UIImage(named: "close_icon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
 
-        amountTextField.delegate = self
+        amountTextField.delegate = textFieldDelegate
         setupRecipientTextArea()
 
         defaultMainStackViewBottomConstraintConstant = mainStackViewBottomConstraint.constant
@@ -167,6 +173,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         viewModel.$sendAllEnabled
             .assign(to: \.isEnabled, on: sendAllButton)
+            .store(in: &cancellables)
+        
+        viewModel.$sendAllVisible
+            .sink { [weak self] isVisible in
+                self?.sendAllButton.isHidden = !isVisible
+            }
             .store(in: &cancellables)
 
         viewModel.$showMemoRemoveButton
@@ -281,33 +293,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 extension SendFundViewController {
     @objc func closeButtonTapped() {
         presenter.userTappedClose()
-    }
-}
-
-// MARK: - UITextFieldDelegate
-extension SendFundViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString: String) -> Bool {
-        switch textField.accessibilityIdentifier {
-        
-        // Amount
-        case amountTextField.accessibilityIdentifier:
-            let text = (textField.text ?? "") as NSString
-            
-            let updatedText = text.replacingCharacters(
-                in: range,
-                with: replacementString
-            )
-
-            if updatedText.unsignedWholePart  > (Int.max - 999999)/1000000 {
-                return false
-            }
-
-            presenter.userChangedAmount()
-            // Allow only numbers, dot and up to six decimal points
-            return updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
-        default:
-            return true
-        }
     }
 }
 

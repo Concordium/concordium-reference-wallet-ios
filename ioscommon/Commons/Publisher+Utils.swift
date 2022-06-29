@@ -39,6 +39,41 @@ extension Publisher {
             .compactMap { $0 }
             .eraseToAnyPublisher()
     }
+    
+    /// Converts the output to a result, catching errors and emitting them as a result.
+    /// Keep in mind the upstream will still be completed on error, this will however prevent downstream publishers from being completed.
+    func asResult() -> ResultPublisher<Self> {
+        ResultPublisher(upstream: self)
+    }
+    
+    func onlySuccess<O, E>() -> Publishers.CompactMap<Self, O> where Self.Output == Result<O, E>, Self.Failure == Never {
+        compactMap { result -> O? in
+            switch result {
+            case .failure:
+                return nil
+            case let .success(value):
+                return value
+            }
+        }
+    }
+}
+
+struct ResultPublisher<Upstream>: Publisher where Upstream: Publisher {
+    typealias Output = Result<Upstream.Output, Upstream.Failure>
+    typealias Failure = Never
+    
+    private let upstream: Upstream
+    
+    init(upstream: Upstream) {
+        self.upstream = upstream
+    }
+    
+    func receive<S>(subscriber: S) where S: Subscriber, Never == S.Failure, Result<Upstream.Output, Upstream.Failure> == S.Input {
+        upstream
+            .map { .success($0) }
+            .catch { AnyPublisher.just(.failure($0)) }
+            .receive(subscriber: subscriber)
+    }
 }
 
 extension Publisher {
@@ -49,7 +84,7 @@ extension Publisher {
 
     static func just(_ output: Output) -> AnyPublisher<Output, Failure> {
         return Just(output)
-                .catch { _ in AnyPublisher<Output, Failure>.empty() }
+            	.setFailureType(to: Failure.self)
                 .eraseToAnyPublisher()
     }
 
@@ -64,5 +99,11 @@ extension Publisher where Self.Failure == Never {
             sink { [weak object] (value) in
                 object?[keyPath: keyPath] = value
             }
+    }
+    
+    public func assign<Root>(to keyPath: ReferenceWritableKeyPath<Root, Self.Output?>, on object: Root) -> AnyCancellable where Root: AnyObject {
+        sink { [weak object] value in
+            object?[keyPath: keyPath] = value
+        }
     }
 }

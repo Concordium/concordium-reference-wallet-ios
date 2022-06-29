@@ -42,9 +42,15 @@ extension Warning: Hashable {
 }
 
 struct WarningViewModel {
+    enum Priority {
+        case warning
+        case info
+    }
+    
     var imageName: String
     var text: String
     var dismissable: Bool
+    var priority: Priority
     
     init(warning: Warning) {
         switch warning {
@@ -52,10 +58,12 @@ struct WarningViewModel {
             imageName = "warning_backup"
             text = "accounts.backupwarning.text".localized
             dismissable = false
+            priority = .warning
         case .identityPending(let identity):
             imageName = "warning_identity"
             text = String(format: "accounts.identitywarning.text".localized, identity.nickname)
             dismissable = true
+            priority = .info
         }
     }
 }

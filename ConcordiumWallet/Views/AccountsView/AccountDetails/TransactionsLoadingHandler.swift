@@ -142,7 +142,7 @@ class TransactionsLoadingHandler {
             }.map { (transaction, _, _) -> Transaction in
                 return transaction
             }
-            undecryptedTransactions = undecryptedTransactions + newUndecrypted
+            undecryptedTransactions += newUndecrypted
         }
         
         let remoteTransactionsVM: [TransactionViewModel] = filteredRawTransactions.map {

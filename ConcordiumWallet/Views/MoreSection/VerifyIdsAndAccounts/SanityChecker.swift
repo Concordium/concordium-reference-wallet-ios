@@ -77,6 +77,7 @@ class SanityChecker {
                     AppSettings.lastKnownAppVersion = AppSettings.appVersion
                 }
                 
+                completion()
                 return
             }
         case .manual:
@@ -145,7 +146,7 @@ class SanityChecker {
     private func removeIdentitiesAndAccountsWithoutKeys(report: [(IdentityDataType?, [AccountDataType])]) -> [IdentityDataType] {
         var failToRemoveIdentities = [IdentityDataType]()
         for (identity, accounts) in report {
-            //if we do not have an identity attached, we delete the accounts
+            // if we do not have an identity attached, we delete the accounts
             guard let identity = identity else {
                 for account in accounts {
                     self.storageManager.removeAccount(account: account)
@@ -156,7 +157,7 @@ class SanityChecker {
             for account in accounts {
                 self.storageManager.removeAccount(account: account)
             }
-            //if the identity contains also valid accounts, we cannot delete the identity
+            // if the identity contains also valid accounts, we cannot delete the identity
             if identityAccounts.count == accounts.count {
                 self.storageManager.removeIdentity(identity)
             } else {
@@ -177,7 +178,7 @@ class SanityChecker {
     }
     
     private func markIdsAndAccountsAsReadOnly(report: [(IdentityDataType?, [AccountDataType])]) {
-        //only accounts will be marked as readonly because we don't have a readonly state for ids yet
+        // only accounts will be marked as readonly because we don't have a readonly state for ids yet
         for (_, accounts) in report {
             for account in accounts {
                 _ = account.withMarkAsReadOnly(true)

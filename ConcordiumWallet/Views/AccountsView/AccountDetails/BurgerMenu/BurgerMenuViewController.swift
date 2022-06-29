@@ -10,20 +10,28 @@ import UIKit
 import Combine
 
 class BurgerMenuFactory {
-    class func create(with presenter: BurgerMenuAccountDetailsPresenter) -> BurgerMenuViewController {
+    class func create(with presenter: BurgerMenuPresenterProtocol) -> BurgerMenuViewController {
         BurgerMenuViewController.instantiate(fromStoryboard: "Account") { coder in
             return BurgerMenuViewController(coder: coder, presenter: presenter)
         }
     }
 }
 
-class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast  {
+class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Storyboarded, ShowToast {
     
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: BurgerMenuPresenterProtocol
-    var dataSource: UITableViewDiffableDataSource<String, String>?
+    var dataSource: UITableViewDiffableDataSource<String, BurgerMenuViewModel.Action>?
     private var cancellables: [AnyCancellable] = []
+    
+    var loadContainerView: UIView {
+        return self.view
+    }
+    
+    var activityIndicatorTint: UIColor? {
+        return .white
+    }
     
     init?(coder: NSCoder, presenter: BurgerMenuPresenterProtocol) {
         self.presenter = presenter
@@ -41,21 +49,28 @@ class BurgerMenuViewController: BaseViewController, BurgerMenuViewProtocol, Stor
             tableView.sectionHeaderTopPadding = CGFloat.zero
         }
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: createCell)
+        self.presenter.view = self
         self.presenter.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
     
-    private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: String) -> UITableViewCell? {
+    private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: BurgerMenuViewModel.Action) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BurgerMenuOptionCell", for: indexPath) as? BurgerMenuOptionCell
-        cell?.setup(cellRow: indexPath.row, title: viewModel, delegate: self)
+        cell?.setup(
+            cellRow: indexPath.row,
+            title: viewModel.displayName,
+            destructive: viewModel.destructive,
+            enabled: viewModel.enabled,
+            delegate: self
+        )
         return cell
     }
     
     func bind(to viewModel: BurgerMenuViewModel) {
         
         viewModel.$displayActions.sink { [weak self] in
-            var snapshot = NSDiffableDataSourceSnapshot<String, String>()
+            var snapshot = NSDiffableDataSourceSnapshot<String, BurgerMenuViewModel.Action>()
             snapshot.appendSections([""])
             snapshot.appendItems($0, toSection: "")
             if $0.count > 0 {

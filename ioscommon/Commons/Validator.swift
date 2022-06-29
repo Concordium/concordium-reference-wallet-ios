@@ -34,9 +34,7 @@ private struct MemoSizeValidator {
     }
 }
 
-
 // MARK: - Name Length Validator
-
 private struct NameLengthValidator {
 
     private static let regexPattern = "^.{1,35}$" // Min 1, Max 35 characters

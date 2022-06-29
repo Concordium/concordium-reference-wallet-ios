@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +13,7 @@
         <!--More Menu View Controller-->
         <scene sceneID="Vf6-11-28B">
             <objects>
-                <viewController storyboardIdentifier="MoreMenuViewController" id="czi-Ue-lh1" customClass="MoreMenuViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoreMenuViewController" id="czi-Ue-lh1" customClass="MoreMenuViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LLr-de-Ccc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuItemCellView" rowHeight="60" id="CdD-cT-b8B" customClass="MenuItemCellView" customModule="Concordium_ID" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuItemCellView" rowHeight="60" id="CdD-cT-b8B" customClass="MenuItemCellView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="49" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CdD-cT-b8B" id="fdH-cz-Q55">
@@ -84,12 +84,12 @@
         <!--Export View Controller-->
         <scene sceneID="efR-9d-ovw">
             <objects>
-                <viewController storyboardIdentifier="ExportViewController" id="uPX-3H-Sg0" customClass="ExportViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExportViewController" id="uPX-3H-Sg0" customClass="ExportViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GAr-IA-tf5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krx-rP-ALL" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krx-rP-ALL" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="666" width="374" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -105,7 +105,7 @@
                                     <action selector="exportButtonPressed:" destination="uPX-3H-Sg0" eventType="touchUpInside" id="UKa-xH-OFf"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgU-mg-dfB" customClass="BaseLabel" customModule="Concordium_ID" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgU-mg-dfB" customClass="BaseLabel" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="159" width="374" height="197"/>
                                 <string key="text">[Here you can export your identities, accounts and the address book. 
 
@@ -138,7 +138,7 @@ The exported data includes private keys which give access to your identities and
         <!--Import View Controller-->
         <scene sceneID="jzB-mZ-0vO">
             <objects>
-                <viewController storyboardIdentifier="ImportViewController" id="dic-9s-QHN" customClass="ImportViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImportViewController" id="dic-9s-QHN" customClass="ImportViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MEP-ss-PgA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,7 +213,7 @@ The exported data includes private keys which give access to your identities and
         <!--Import Receipt View Controller-->
         <scene sceneID="5cx-Np-go7">
             <objects>
-                <viewController storyboardIdentifier="ImportReceiptViewController" id="1OL-m8-ZFB" customClass="ImportReceiptViewController" customModule="Concordium_ID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImportReceiptViewController" id="1OL-m8-ZFB" customClass="ImportReceiptViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0B2-Zj-eyW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -253,7 +253,7 @@ The exported data includes private keys which give access to your identities and
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[You have successfully imported:]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un6-fk-fCx">
-                                                                <rect key="frame" x="76" y="230.33333333333331" width="232" height="18"/>
+                                                                <rect key="frame" x="76.333333333333329" y="230.33333333333331" width="231.66666666666669" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" name="fadedText"/>
                                                                 <nil key="highlightedColor"/>
@@ -296,7 +296,7 @@ The exported data includes private keys which give access to your identities and
                                 <viewLayoutGuide key="contentLayoutGuide" id="nhe-8u-Wuw"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="uMB-MY-MMV"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zv-VA-uW2" customClass="StandardButton" customModule="Concordium_ID" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zv-VA-uW2" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="15" y="666" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>

@@ -114,7 +114,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         snapshot.appendItems(createToAddressCell(viewModel: viewModel))
         snapshot.appendItems(getTransactionHashCell(viewModel: viewModel))
         snapshot.appendItems(createBlockHashCell(viewModel: viewModel))
-        // snapshot.appendItems(createDetailsCell(viewModel: viewModel))
+        snapshot.appendItems(createDetailsCell(viewModel: viewModel))
         
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)
@@ -168,7 +168,12 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
         if let toAddressValue = viewModel.details.toAddressValue {
             let title = "accountDetails.toAddress".localized + (viewModel.details.toAddressName ?? "")
             let value = toAddressValue
-            let displayValue = String(value[..<value.index(value.startIndex, offsetBy: 8)])
+            let displayValue: String
+            if value.count >= 8 {
+                displayValue = String(value[..<value.index(value.startIndex, offsetBy: 8)])
+            } else {
+                displayValue = value
+            }
             let displayVM = TransactionDetailItemViewModel(title: title, value: value, displayValue: displayValue)
             return [.to(displayVM)]
         }
@@ -235,7 +240,7 @@ extension TransactionDetailViewController: UITableViewDelegate {
             case .origin(let vm), .to(let vm), .from(let vm), .blockHash(let vm), .transactionHash(let vm), .details(let vm):
                 CopyPasterHelper.copy(string: vm.value)
                 self.showToast(withMessage: "general.copied".localized + " " + vm.value)
-            case .error(_):
+            case .error:
                 break
             }
         }

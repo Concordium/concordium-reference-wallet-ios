@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="395.66666666666674" width="396" height="506.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="396" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
@@ -195,7 +195,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9t-uc-NoB" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="791" width="396" height="52"/>
+                                <rect key="frame" x="16" y="761" width="396" height="52"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="[Create new identity]">
@@ -215,7 +215,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[You need to create an identity before creating an account.]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IA-xe-HZ9">
-                                <rect key="frame" x="70" y="722.66666666666663" width="288" height="38.333333333333371"/>
+                                <rect key="frame" x="70" y="692.66666666666663" width="288" height="38.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="fadedText"/>
                                 <nil key="highlightedColor"/>
@@ -278,7 +278,7 @@
                             <constraint firstItem="wee-Hm-w2j" firstAttribute="top" secondItem="85l-hs-ZgH" secondAttribute="bottom" constant="10" id="PVF-6V-w9h"/>
                             <constraint firstItem="85l-hs-ZgH" firstAttribute="top" secondItem="DvZ-dJ-gp6" secondAttribute="bottom" constant="16" id="Ptl-SB-iB5"/>
                             <constraint firstItem="DvZ-dJ-gp6" firstAttribute="trailing" secondItem="85l-hs-ZgH" secondAttribute="trailing" id="So4-cx-Wth"/>
-                            <constraint firstItem="a9t-uc-NoB" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="U93-GR-e65"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="a9t-uc-NoB" secondAttribute="bottom" constant="30" id="U93-GR-e65"/>
                             <constraint firstItem="85l-hs-ZgH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="99" placeholder="YES" id="boP-ug-nUN"/>
                             <constraint firstItem="DvZ-dJ-gp6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24.999999999999986" id="dSJ-36-l9n"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wee-Hm-w2j" secondAttribute="bottom" constant="-59" id="ebF-Of-utE"/>
@@ -434,15 +434,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
-                                <rect key="frame" x="159.66666666666666" y="197.33333333333337" width="108.99999999999997" height="109"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="confirm" translatesAutoresizingMaskIntoConstraints="NO" id="K6y-ue-05u">
+                                <rect key="frame" x="159.66666666666666" y="197.33333333333334" width="108.99999999999997" height="109.00000000000003"/>
                                 <color key="tintColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="6PN-QN-6VW"/>
                                     <constraint firstAttribute="width" secondItem="K6y-ue-05u" secondAttribute="height" multiplier="1:1" id="Adh-4r-6XN"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Account submitted]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-3e-lti">
                                 <rect key="frame" x="110.66666666666669" y="341.33333333333331" width="207" height="27"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                 <color key="textColor" name="primary"/>
@@ -468,7 +468,7 @@
                                     <action selector="finishAction:" destination="wrn-j8-zZ3" eventType="touchUpInside" id="Oep-mP-5vM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-xH-4cJ">
                                 <rect key="frame" x="103.66666666666669" y="557.66666666666663" width="221" height="36"/>
                                 <string key="text">[This may take a few minutes to 
 process on-chain]</string>
@@ -479,8 +479,8 @@ process on-chain]</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="stringKey" value="accountConfirmed.submittedMessage"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="15" y="398.33333333333337" width="398" height="139.33333333333337"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-fk-CyW" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                                <rect key="frame" x="15" y="398.33333333333331" width="398" height="139.33333333333331"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -1108,7 +1108,6 @@ process on-chain]</string>
                         <outlet property="atDisposalLabel" destination="E2Z-ra-eF7" id="Xxe-Cc-tv3"/>
                         <outlet property="atDisposalView" destination="J8w-sO-FrM" id="2Af-bd-AdG"/>
                         <outlet property="backgroundShield" destination="aZE-3Y-BSl" id="031-83-hai"/>
-                        <outlet property="bakerIdLabel" destination="7f8-Oi-MDJ" id="vHT-jz-0Fu"/>
                         <outlet property="balanceLabel" destination="P4D-VI-fx0" id="U4X-YD-3RG"/>
                         <outlet property="balanceNameLabel" destination="dcn-iW-JNg" id="aHh-qO-unf"/>
                         <outlet property="buttonsView" destination="NJy-DT-HxY" id="byy-Ou-Fa2"/>
@@ -1127,7 +1126,8 @@ process on-chain]</string>
                         <outlet property="shieldView" destination="lc6-Fc-flU" id="sOj-3Z-FHq"/>
                         <outlet property="shieldedButton" destination="0aU-RM-8yy" id="C7V-vo-9KG"/>
                         <outlet property="spacerView" destination="KX5-A8-WDd" id="MKi-EQ-K7a"/>
-                        <outlet property="stakedLabel" destination="d4e-hB-BZ5" id="c0p-gx-hzS"/>
+                        <outlet property="stakedLabel" destination="7f8-Oi-MDJ" id="vHT-jz-0Fu"/>
+                        <outlet property="stakedValueLabel" destination="d4e-hB-BZ5" id="c0p-gx-hzS"/>
                         <outlet property="stakedView" destination="4Xu-WP-N8o" id="h7P-q8-hLa"/>
                         <outlet property="statusImageView" destination="2Nh-Of-O1G" id="IBg-wX-dFJ"/>
                         <outlet property="topSpacingStackViewConstraint" destination="WHI-Ig-f4y" id="UZk-jA-kYS"/>
@@ -1350,7 +1350,7 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="124.66666603088379" width="388" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
@@ -2153,11 +2153,11 @@ process on-chain]</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exm-UE-z2h" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="762" width="396" height="50"/>
+                                <rect key="frame" x="16" y="747" width="396" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH1-qc-Uz9">
-                                <rect key="frame" x="16" y="762" width="396" height="50"/>
+                                <rect key="frame" x="16" y="747" width="396" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Lmc-ZJ-DRQ"/>
@@ -2173,7 +2173,7 @@ process on-chain]</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-YT-27p" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="842" width="396" height="50"/>
+                                <rect key="frame" x="16" y="812" width="396" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7yo-gr-6NY"/>
@@ -2192,7 +2192,7 @@ process on-chain]</string>
                         <viewLayoutGuide key="safeArea" id="AZR-jF-jh3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="AZR-jF-jh3" firstAttribute="bottom" secondItem="y8I-YT-27p" secondAttribute="bottom" priority="999" id="9wF-Gh-nar"/>
+                            <constraint firstItem="AZR-jF-jh3" firstAttribute="bottom" secondItem="y8I-YT-27p" secondAttribute="bottom" priority="999" constant="30" id="9wF-Gh-nar"/>
                             <constraint firstItem="y8I-YT-27p" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="Csx-9b-xdS"/>
                             <constraint firstItem="jnp-Dc-cSV" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="37" id="K3y-Rc-Gee"/>
                             <constraint firstItem="jnp-Dc-cSV" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="P4T-hq-yPH"/>
@@ -2200,7 +2200,7 @@ process on-chain]</string>
                             <constraint firstItem="y8I-YT-27p" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="16" id="UdZ-rX-3Qa"/>
                             <constraint firstItem="Exm-UE-z2h" firstAttribute="leading" secondItem="dH1-qc-Uz9" secondAttribute="leading" id="XNJ-cO-dLe"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="y8I-YT-27p" secondAttribute="bottom" constant="20" id="kmd-V3-GQv"/>
-                            <constraint firstItem="y8I-YT-27p" firstAttribute="top" secondItem="dH1-qc-Uz9" secondAttribute="bottom" constant="30" id="kxv-qg-Qos"/>
+                            <constraint firstItem="y8I-YT-27p" firstAttribute="top" secondItem="dH1-qc-Uz9" secondAttribute="bottom" constant="15" id="kxv-qg-Qos"/>
                             <constraint firstItem="dH1-qc-Uz9" firstAttribute="centerX" secondItem="AZR-jF-jh3" secondAttribute="centerX" id="rGu-UI-0Uy"/>
                             <constraint firstItem="dH1-qc-Uz9" firstAttribute="leading" secondItem="AZR-jF-jh3" secondAttribute="leading" constant="16" id="udN-0u-zOg"/>
                             <constraint firstItem="Exm-UE-z2h" firstAttribute="bottom" secondItem="dH1-qc-Uz9" secondAttribute="bottom" id="vuo-w7-6T8"/>
@@ -2216,28 +2216,28 @@ process on-chain]</string>
     </scenes>
     <designables>
         <designable name="89o-5w-snD">
-            <size key="intrinsicContentSize" width="43" height="30"/>
+            <size key="intrinsicContentSize" width="175" height="30"/>
         </designable>
         <designable name="ORm-Zf-XcW">
-            <size key="intrinsicContentSize" width="31" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="QhU-KP-8h3">
-            <size key="intrinsicContentSize" width="167" height="30"/>
+            <size key="intrinsicContentSize" width="282" height="30"/>
         </designable>
         <designable name="SWM-ta-B92">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="ZgW-9v-gsl">
-            <size key="intrinsicContentSize" width="132" height="30"/>
+            <size key="intrinsicContentSize" width="287" height="30"/>
         </designable>
         <designable name="a9t-uc-NoB">
             <size key="intrinsicContentSize" width="152" height="30"/>
         </designable>
         <designable name="c2h-uj-ha8">
-            <size key="intrinsicContentSize" width="205" height="30"/>
+            <size key="intrinsicContentSize" width="244" height="30"/>
         </designable>
         <designable name="y8I-YT-27p">
-            <size key="intrinsicContentSize" width="119" height="30"/>
+            <size key="intrinsicContentSize" width="215" height="30"/>
         </designable>
     </designables>
     <resources>

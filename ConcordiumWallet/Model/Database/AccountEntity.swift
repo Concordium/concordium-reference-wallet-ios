@@ -10,6 +10,7 @@ protocol AccountDataType: DataStoreProtocol {
     var name: String? { get set }
     var displayName: String { get }
     var address: String { get set }
+    var accountIndex: Int { get set }
     var submissionId: String? { get set }
     var transactionStatus: SubmissionStatusEnum? { get set }
     
@@ -22,8 +23,6 @@ protocol AccountDataType: DataStoreProtocol {
     
     var finalizedBalance: Int { get set }
     var forecastBalance: Int { get set }
-    var forecastAtDisposalBalance: Int {get set}
-    var stakedAmount: Int { get set}
     
     var finalizedEncryptedBalance: Int { get set }
     var forecastEncryptedBalance: Int { get set }
@@ -36,9 +35,12 @@ protocol AccountDataType: DataStoreProtocol {
     
     var credential: Credential? { get set }
     var createdTime: Date { get }
-    var usedIncomingAmountIndex: Int { get set}
+    var usedIncomingAmountIndex: Int { get set }
     var isReadOnly: Bool { get set }
-    var bakerId: Int { get set }
+   
+    var baker: BakerDataType? { get set }
+    var delegation: DelegationDataType? { get set }
+    
     var releaseSchedule: ReleaseScheduleDataType? { get set }
     var transferFilters: TransferFilter? { get set }
     
@@ -46,8 +48,7 @@ protocol AccountDataType: DataStoreProtocol {
     var hasShieldedTransactions: Bool {get set}
     
     func withUpdatedForecastBalance(_ forecastBalance: Int,
-                                    forecastShieldedBalance: Int,
-                                    forecastAtDisposalBalance: Int) -> AccountDataType
+                                    forecastShieldedBalance: Int) -> AccountDataType
     
     func withUpdatedFinalizedBalance(_ finaliedBalance: Int,
                                      _ finalizedEncryptedBalance: Int,
@@ -55,8 +56,9 @@ protocol AccountDataType: DataStoreProtocol {
                                      _ encryptedBalance: EncryptedBalanceDataType,
                                      hasShieldedTransactions: Bool,
                                      accountNonce: Int,
-                                     bakerId: Int,
-                                     staked: Int,
+                                     accountIndex: Int,
+                                     delegation: DelegationDataType?,
+                                     baker: BakerDataType?,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType
     
     func withUpdatedIdentity(identity: IdentityDataType) -> AccountDataType
@@ -67,12 +69,18 @@ protocol AccountDataType: DataStoreProtocol {
 }
 
 extension AccountDataType {
-    func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int, forecastAtDisposalBalance: Int) -> AccountDataType {
+    var forecastAtDisposalBalance: Int {
+        let stakedAmount = baker?.stakedAmount ?? delegation?.stakedAmount ?? 0
+        let scheduledTotal = releaseSchedule?.total ?? 0
+        
+        return forecastBalance - max(stakedAmount, scheduledTotal)
+    }
+    
+    func withUpdatedForecastBalance(_ forecastBalance: Int, forecastShieldedBalance: Int) -> AccountDataType {
         _ = write {
             var pAccount = $0
             pAccount.forecastBalance = forecastBalance
             pAccount.forecastEncryptedBalance = forecastShieldedBalance
-            pAccount.forecastAtDisposalBalance = forecastAtDisposalBalance
         }
         return self
     }
@@ -82,7 +90,10 @@ extension AccountDataType {
                                      _ status: ShieldedAccountEncryptionStatus,
                                      _ encryptedBalance: EncryptedBalanceDataType,
                                      hasShieldedTransactions: Bool,
-                                     accountNonce: Int, bakerId: Int, staked: Int,
+                                     accountNonce: Int,
+                                     accountIndex: Int,
+                                     delegation: DelegationDataType?,
+                                     baker: BakerDataType?,
                                      releaseSchedule: ReleaseScheduleDataType) -> AccountDataType {
         _ = write {
             var pAccount = $0
@@ -91,8 +102,9 @@ extension AccountDataType {
             pAccount.encryptedBalanceStatus = status
             pAccount.encryptedBalance = encryptedBalance
             pAccount.accountNonce = accountNonce
-            pAccount.bakerId = bakerId
-            pAccount.stakedAmount = staked
+            pAccount.accountIndex = accountIndex
+            pAccount.delegation = delegation
+            pAccount.baker = baker
             pAccount.releaseSchedule = releaseSchedule
             pAccount.hasShieldedTransactions = hasShieldedTransactions
         }
@@ -144,7 +156,7 @@ extension AccountDataType {
             let balance = self.forecastAtDisposalBalance
             return amount.intValue + cost.intValue <= balance
         } else {
-            return amount.intValue <= self.forecastEncryptedBalance && cost.intValue <= self.forecastBalance
+            return amount.intValue <= self.forecastEncryptedBalance && cost.intValue <= self.forecastAtDisposalBalance
         }
     }
 }
@@ -158,6 +170,7 @@ struct AccountDataTypeFactory {
 final class AccountEntity: Object {
     @objc dynamic var name: String? = ""
     @objc dynamic var address: String = ""
+    @objc dynamic var accountIndex: Int = 0
     @objc dynamic var submissionId: String? = ""
     @objc dynamic var transactionStatusString: String? = ""
     @objc dynamic var encryptedBalanceStatusString: String? = ""
@@ -168,8 +181,6 @@ final class AccountEntity: Object {
     @objc dynamic var encryptedBalanceEntity: EncryptedBalanceEntity? = EncryptedBalanceEntity()
     @objc dynamic var finalizedBalance: Int = 0
     @objc dynamic var forecastBalance: Int = 0
-    @objc dynamic var forecastAtDisposalBalance: Int = 0
-    @objc dynamic var stakedAmount: Int = 0
     @objc dynamic var forecastEncryptedBalance: Int = 0
     @objc dynamic var finalizedEncryptedBalance: Int = 0
     @objc dynamic var accountNonce: Int = 0
@@ -177,8 +188,11 @@ final class AccountEntity: Object {
     @objc dynamic var credentialJson = ""
     @objc dynamic var usedIncomingAmountIndex: Int = 0
     @objc dynamic var isReadOnly: Bool = false
-    @objc dynamic var bakerId: Int = -1
+ 
     @objc dynamic var releaseScheduleEntity: ReleaseScheduleEntity?
+    @objc dynamic var bakerEntity: BakerEntity?
+    @objc dynamic var delegationEntity: DelegationEntity?
+    
     @objc dynamic var transferFilters: TransferFilter? = TransferFilter()
     var revealedAttributesList = List<IdentityAttributeEntity>()
     @objc dynamic var showsShieldedBalance: Bool = false
@@ -276,6 +290,23 @@ extension AccountEntity: AccountDataType {
         }
         set {
              self.releaseScheduleEntity = newValue as? ReleaseScheduleEntity
+        }
+    }
+    
+    var delegation: DelegationDataType? {
+        get {
+            return delegationEntity
+        }
+        set {
+             self.delegationEntity = newValue as? DelegationEntity
+        }
+    }
+    var baker: BakerDataType? {
+        get {
+            return bakerEntity
+        }
+        set {
+             self.bakerEntity = newValue as? BakerEntity
         }
     }
 }

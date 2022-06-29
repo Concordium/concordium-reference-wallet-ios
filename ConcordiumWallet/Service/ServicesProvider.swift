@@ -14,6 +14,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
+    func appSettingsService() -> AppSettingsService
 }
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -27,11 +28,19 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
 
 protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
+    func appSettingsService() -> AppSettingsService
 }
 
 protocol ImportDependencyProvider {
     func importService() -> ImportService
     func keychainWrapper() -> KeychainWrapperProtocol
+}
+
+protocol StakeCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
+    func transactionsService() -> TransactionsServiceProtocol
+    func stakeService() -> StakeServiceProtocol
+    func accountsService() -> AccountsServiceProtocol
+    func exportService() -> ExportService
 }
 
 class ServicesProvider {
@@ -75,6 +84,17 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
     func transactionsService() -> TransactionsServiceProtocol {
         TransactionsService(networkManager: _networkManager, mobileWallet: _mobileWallet, storageManager: _storageManager)
     }
+    
+    func stakeService() -> StakeServiceProtocol {
+        StakeService(networkManager: _networkManager, mobileWallet: _mobileWallet)
+    }
+
+    func appSettingsService() -> AppSettingsService {
+        AppSettingsService(networkManager: _networkManager)
+    }
+}
+
+extension ServicesProvider: StakeCoordinatorDependencyProvider {
 }
 
 extension ServicesProvider: LoginDependencyProvider {

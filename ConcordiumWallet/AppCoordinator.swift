@@ -15,6 +15,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
+    
+    private var needsAppCheck = true
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
     override init() {
@@ -53,8 +55,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showMainTabbar() {
-        let accountsCoordinator = AccountsCoordinator(navigationController: BaseNavigationController(),
-                                                      dependencyProvider: defaultProvider)
+        let accountsCoordinator = AccountsCoordinator(
+            navigationController: BaseNavigationController(),
+            dependencyProvider: defaultProvider,
+            appSettingsDelegate: self
+        )
         
         let moreCoordinator = MoreCoordinator(navigationController: BaseNavigationController(),
                                               dependencyProvider: defaultProvider,
@@ -66,9 +71,51 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
-            //reload accounts tab
+            // reload accounts tab
             accountsCoordinator.start()
+            self.showDelegationWarningIfNeeded()
         })
+    }
+    
+    private func showDelegationWarningIfNeeded() {
+        defaultProvider
+            .storageManager()
+            .getAccounts()
+            .publisher
+            .flatMap { account -> AnyPublisher<AccountDataType, Never> in
+                guard let poolId = account.delegation?.delegationTargetBakerID else {
+                    return .empty()
+                }
+                
+                return self.defaultProvider
+                    .stakeService()
+                    .getBakerPool(bakerId: poolId)
+                    .filter { $0.bakerStakePendingChange.pendingChangeType == "RemovePool" }
+                    .map { _ in account }
+                    .catch { _ in AnyPublisher.empty() }
+                    .eraseToAnyPublisher()
+            }
+            .collect()
+            .sink { accounts in
+                guard !accounts.isEmpty else {
+                    return
+                }
+                
+                let remindMeAction = AlertAction(
+                    name: "delegation.closewarning.remindmeaction".localized,
+                    completion: nil,
+                    style: .default
+                )
+                
+                let alertOptions = AlertOptions(
+                    title: "delegation.closewarning.title".localized,
+                    message: String(format: "delegation.closewarning.message".localized, accounts.map({ $0.displayName }).joined(separator: "\n")),
+                    actions: [remindMeAction]
+                )
+                
+                self.showAlert(with: alertOptions)
+            }
+            .store(in: &cancellables)
     }
 
     func importWallet(from url: URL) {
@@ -242,5 +289,39 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
         self.navigationController.setNavigationBarHidden(true, animated: false)
         showInitialIdentityCreation()
         childCoordinators.removeAll(where: { $0 is IdentitiesCoordinator ||  $0 is AccountsCoordinator  || $0 is MoreCoordinator })
+    }
+}
+
+extension AppCoordinator: AppSettingsDelegate {
+    func checkForAppSettings(showBackup: (() -> Void)?) {
+        guard needsAppCheck else { return }
+        needsAppCheck = false
+        
+        defaultProvider.appSettingsService()
+            .getAppSettings()
+            .sink(receiveCompletion: { _ in }) { [weak self] response in
+                self?.handleAppSettings(response: response, showBackup: showBackup)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func handleAppSettings(response: AppSettingsResponse, showBackup: (() -> Void)?) {
+        showUpdateDialogIfNeeded(
+            appSettingsResponse: response,
+            showBackupOption: showBackup != nil
+        ) { action in
+            switch action {
+            case .update(let url, let forced):
+                if forced {
+                    self.handleAppSettings(response: response, showBackup: showBackup)
+                }
+                UIApplication.shared.open(url)
+            case .backup:
+                self.needsAppCheck = true
+                showBackup?()
+            case .cancel:
+                break
+            }
+        }
     }
 }

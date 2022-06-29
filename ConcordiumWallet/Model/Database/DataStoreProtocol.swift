@@ -12,8 +12,12 @@ protocol DataStoreProtocol {
 
 extension DataStoreProtocol where Self: Object {
     func write(code: (Self) -> Void) -> Result<Void, Error> {
+        guard let realm = self.realm else {
+            code(self)
+            return .success(())
+        }
+        
         do {
-            let realm = try Realm(configuration: RealmHelper.realmConfiguration)
             try realm.write {
                 code(self)
             }
