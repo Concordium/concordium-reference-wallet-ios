@@ -11,6 +11,7 @@ import SwiftUI
 enum LabelStyle {
     case title
     case body
+    case mono
     
     fileprivate func font(weight: Font.Weight?) -> Font {
         let defaultFont: Font = {
@@ -19,6 +20,8 @@ enum LabelStyle {
                 return Font(Fonts.title)
             case .body:
                 return Font(Fonts.body)
+            case .mono:
+                return Font(Fonts.mono ?? Fonts.body)
             }
         }()
         
@@ -34,6 +37,8 @@ enum LabelStyle {
         case .title:
             return Color("primary")
         case .body:
+            return Color("text")
+        case .mono:
             return Color("text")
         }
     }

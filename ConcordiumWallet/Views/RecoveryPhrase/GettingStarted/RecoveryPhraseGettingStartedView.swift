@@ -9,12 +9,10 @@
 import SwiftUI
 import Combine
 
-struct RecoveryPhraseGettingStartedView: View, ViewModelHolder {
-    typealias Event = RecoveryPhraseGettingStartedEvent
-    
+struct RecoveryPhraseGettingStartedView: Page {
     @ObservedObject var viewModel: RecoveryPhraseGettingStartedViewModel
     
-    var body: some View {
+    var pageBody: some View {
         ScrollView {
             VStack {
                 Text(verbatim: viewModel.title)

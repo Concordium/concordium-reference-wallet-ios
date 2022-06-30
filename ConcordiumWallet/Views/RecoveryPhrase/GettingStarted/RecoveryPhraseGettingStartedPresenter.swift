@@ -13,7 +13,7 @@ protocol RecoveryPhraseGettingStartedPresenterDelegate: AnyObject {
     func recoverWallet()
 }
 
-class RecoveryPhraseGettingStartedPresenter: SwiftUIPresenter<RecoveryPhraseGettingStartedEvent, RecoveryPhraseGettingStartedViewModel> {
+class RecoveryPhraseGettingStartedPresenter: SwiftUIPresenter<RecoveryPhraseGettingStartedViewModel> {
     private weak var delegate: RecoveryPhraseGettingStartedPresenterDelegate?
     
     init(delegate: RecoveryPhraseGettingStartedPresenterDelegate) {

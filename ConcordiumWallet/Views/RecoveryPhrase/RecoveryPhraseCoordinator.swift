@@ -26,14 +26,29 @@ class RecoveryPhraseCoordinator: Coordinator {
         
         navigationController.pushViewController(presenter.present(RecoveryPhraseGettingStartedView.self), animated: true)
     }
+    
+    func presentCopyPhrase() {
+        let presenter = RecoveryPhraseCopyPhrasePresenter(
+            words: ["eerie", "anakin"],
+            delegate: self
+        )
+        
+        navigationController.pushViewController(presenter.present(RecoveryPhraseCopyPhraseView.self), animated: true)
+    }
 }
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelegate {
     func setupNewWallet() {
-        
+        presentCopyPhrase()
     }
     
     func recoverWallet() {
+        
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseCopyPhrasePresenterDelegate {
+    func finishedCopyingPhrase() {
         
     }
 }

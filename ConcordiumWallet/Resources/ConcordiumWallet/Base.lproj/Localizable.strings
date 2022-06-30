@@ -124,13 +124,13 @@ You can show the shielded balance of the account via the option below, or later 
  "accounts.alert.shiededtransactions.show" = "Show shielded balance on %@";
  "accounts.alert.shiededtransactions.later" = "Don't show again";
 
-"recoveryphrase.gettingstarted.navigationtitle" = "Getting started";
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new to Concordium?";
 "gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must go through a verification process to obtain your Concordium identity and your initial account. You will be guided through this process in the next pages.\n\n\nIf you have previously used Concordium Mobile Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Mobile Wallet.\n\n\nHow would you like to continue?";
 "gettingstarted.newaccount" = "I want to create my initial account";
 "gettingstarted.importaccount" = "I want to import existing accounts";
 
+"recoveryphrase.gettingstarted.navigationtitle" = "Getting started";
 "recoveryphrase.gettingstarted.title" = "Are you new to Concordium?";
 "recoveryphrase.gettingstarted.new.title" = "I'm new!";
 "recoveryphrase.gettingstarted.new.body" = "If this is your first time using the Concordium blockchain, you can set up a fresh wallet. This includes:
@@ -145,6 +145,13 @@ You will be guided through each step of the process.";
 "recoveryphrase.gettingstarted.recover.title" = "I already have a wallet!";
 "recoveryphrase.gettingstarted.recover.body" = "If you previosly set up a Concordium wallet with a secret recovery phrase, you can restore your wallet here.";
 "recoveryphrase.gettingstarted.recover.buttontitle" = "Recover wallet";
+
+"recoveryphrase.signuptitle" = "Step %d of 4\n%@";
+"recoveryphrase.copyphrase.navigationtitle" = "Secret recovery phrase";
+"recoveryphrase.copyphrase.title" = "Please write all 24 words down in the right order.";
+"recoveryphrase.copyphrase.revealmessage" = "Tap to reveal your secret recovery phrase. Make sure noone else can see it.";
+"recoveryphrase.copyphrase.validationmessage" = "I confirm I have written down my 24 word secret recovery phrase.";
+"recoveryphrase.copyphrase.continue" = "Continue";
 
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
