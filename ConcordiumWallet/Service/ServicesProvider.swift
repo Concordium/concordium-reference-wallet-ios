@@ -29,6 +29,7 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
 protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
     func appSettingsService() -> AppSettingsService
+    func recoveryPhraseService() -> RecoveryPhraseService
 }
 
 protocol ImportDependencyProvider {
@@ -100,6 +101,10 @@ extension ServicesProvider: StakeCoordinatorDependencyProvider {
 extension ServicesProvider: LoginDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol {
         _keychainWrapper
+    }
+    
+    func recoveryPhraseService() -> RecoveryPhraseService {
+        RecoveryPhraseService(keychainWrapper: _keychainWrapper)
     }
 }
 

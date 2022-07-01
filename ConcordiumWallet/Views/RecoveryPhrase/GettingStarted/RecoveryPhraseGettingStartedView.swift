@@ -21,7 +21,7 @@ struct RecoveryPhraseGettingStartedView: Page {
                 GettingStartedSection(section: viewModel.createNewWalletSection, bottomPadding: 70) {
                     viewModel.send(.createNewWallet)
                 }
-                GettingStartedSection(section: viewModel.recoverWalletSection) {
+                GettingStartedSection(section: viewModel.recoverWalletSection, bottomPadding: 30) {
                     viewModel.send(.recoverWallet)
                 }
             }.frame(maxWidth: .infinity)

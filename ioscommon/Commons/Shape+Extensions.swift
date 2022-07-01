@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 extension Shape {
     func fillWithBorder<Fill: ShapeStyle, Stroke: ShapeStyle>(fill: Fill, stroke: Stroke, lineWidth: Double = 1) -> some View {
         self

@@ -19,7 +19,7 @@ enum RecoveryPhraseState {
     case shown(words: [String])
 }
 
-class RecoveryPhraseCopyPhraseViewModel: BaseViewModel<RecoveryPhraseCopyPhraseEvent> {
+class RecoveryPhraseCopyPhraseViewModel: PageViewModel<RecoveryPhraseCopyPhraseEvent> {
     @Published var title: String
     @Published var recoveryPhrase: RecoveryPhraseState
     @Published var copyValidationTitle: String

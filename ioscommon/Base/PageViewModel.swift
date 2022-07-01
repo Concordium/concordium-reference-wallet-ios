@@ -8,8 +8,11 @@
 
 import Combine
 
-class BaseViewModel<Event>: ObservableObject, EventHandler, PageModel {
+class PageViewModel<Event>: ObservableObject, PageModel, EventHandler {
     @Published var navigationTitle: String?
+    
+    let isLoadingPublisher = CurrentValueSubject<Bool, Never>(false)
+    let alertPublisher = PassthroughSubject<PageAlert, Never>()
     
     let eventChannel = PassthroughSubject<Event, Never>()
 }

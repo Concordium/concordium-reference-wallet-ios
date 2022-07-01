@@ -148,9 +148,12 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showRecoveryPhraseCreation() {
-        let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(navigationController: navigationController)
+        let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
+            dependencyProvider: defaultProvider,
+            navigationController: navigationController
+        )
         recoveryPhraseCoordinator.start()
-        self.navigationController.viewControllers = Array(self.navigationController.viewControllers.dropFirst(max(self.navigationController.viewControllers.count - 1, 0)))
+        self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
         childCoordinators.append(recoveryPhraseCoordinator)
         self.navigationController.setupBaseNavigationControllerStyle()
     }

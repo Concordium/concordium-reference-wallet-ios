@@ -13,7 +13,7 @@ enum RecoveryPhraseGettingStartedEvent {
     case recoverWallet
 }
 
-class RecoveryPhraseGettingStartedViewModel: BaseViewModel<RecoveryPhraseGettingStartedEvent> {
+class RecoveryPhraseGettingStartedViewModel: PageViewModel<RecoveryPhraseGettingStartedEvent> {
     struct Section {
         var title: String
         var body: String

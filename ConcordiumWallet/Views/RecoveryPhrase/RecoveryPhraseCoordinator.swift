@@ -13,7 +13,13 @@ class RecoveryPhraseCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    private let dependencyProvider: LoginDependencyProvider
+    
+    init(
+        dependencyProvider: LoginDependencyProvider,
+        navigationController: UINavigationController
+    ) {
+        self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
     }
     
@@ -22,14 +28,17 @@ class RecoveryPhraseCoordinator: Coordinator {
     }
     
     func presentGettingStarted() {
-        let presenter = RecoveryPhraseGettingStartedPresenter(delegate: self)
+        let presenter = RecoveryPhraseGettingStartedPresenter(
+            recoveryPhraseService: dependencyProvider.recoveryPhraseService(),
+            delegate: self
+        )
         
         navigationController.pushViewController(presenter.present(RecoveryPhraseGettingStartedView.self), animated: true)
     }
     
-    func presentCopyPhrase() {
+    func presentCopyPhrase(with recoveryPhrase: [String]) {
         let presenter = RecoveryPhraseCopyPhrasePresenter(
-            words: ["eerie", "anakin"],
+            words: recoveryPhrase,
             delegate: self
         )
         
@@ -38,8 +47,8 @@ class RecoveryPhraseCoordinator: Coordinator {
 }
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelegate {
-    func setupNewWallet() {
-        presentCopyPhrase()
+    func setupNewWallet(with recoveryPhrase: [String]) {
+        presentCopyPhrase(with: recoveryPhrase)
     }
     
     func recoverWallet() {
