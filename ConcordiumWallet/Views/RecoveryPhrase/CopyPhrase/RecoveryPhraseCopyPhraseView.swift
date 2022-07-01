@@ -108,7 +108,7 @@ private struct WordPill: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-            Text(verbatim: "\(index).")
+            Text(verbatim: "\(index + 1).")
                 .labelStyle(.mono)
                 .foregroundColor(Color("recoveryPhraseText"))
             Text(verbatim: word)
