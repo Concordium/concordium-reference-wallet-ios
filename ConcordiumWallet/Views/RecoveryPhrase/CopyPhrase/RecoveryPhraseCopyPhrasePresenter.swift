@@ -19,6 +19,7 @@ class RecoveryPhraseCopyPhrasePresenter: SwiftUIPresenter<RecoveryPhraseCopyPhra
         words: [String],
         delegate: RecoveryPhraseCopyPhrasePresenterDelegate
     ) {
+        print(words)
         self.words = words
         self.delegate = delegate
         

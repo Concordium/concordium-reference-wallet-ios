@@ -44,6 +44,7 @@ class SwiftUIPresenter<ViewModel: PageModel & EventHandler> {
 }
 
 private class HostingController<ViewModel: PageModel & EventHandler, Content: Page>: UIHostingController<Content>, ShowAlert, Loadable {
+    // HostingController keep a strong ref to the presenter as it would otherwise immediately deinit
     private let presenter: SwiftUIPresenter<ViewModel>
     private var cancellables = Set<AnyCancellable>()
     

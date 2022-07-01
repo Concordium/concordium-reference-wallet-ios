@@ -14,7 +14,7 @@ enum RecoveryPhraseCopyPhraseEvent {
     case continueTapped
 }
 
-enum RecoveryPhraseState {
+enum RecoveryPhraseState: Equatable {
     case hidden(message: String)
     case shown(words: [String])
 }
