@@ -147,15 +147,26 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         childCoordinators.append(importCoordinator)
     }
 
-    func showRecoveryPhraseCreation() {
-        let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
-            dependencyProvider: defaultProvider,
-            navigationController: navigationController
-        )
-        recoveryPhraseCoordinator.start()
-        self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
-        childCoordinators.append(recoveryPhraseCoordinator)
-        self.navigationController.setupBaseNavigationControllerStyle()
+    func showInitialIdentityCreation() {
+        if FeatureFlag.enabledFlags.contains(.recoveryCode) {
+            let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
+                dependencyProvider: defaultProvider,
+                navigationController: navigationController
+            )
+            recoveryPhraseCoordinator.start()
+            self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+            childCoordinators.append(recoveryPhraseCoordinator)
+            self.navigationController.setupBaseNavigationControllerStyle()
+        } else {
+            let initialAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
+                                                                            parentCoordinator: self,
+                                                                            identitiesProvider: defaultProvider,
+                                                                            accountsProvider: defaultProvider)
+            initialAccountCreateCoordinator.start()
+            self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+            childCoordinators.append(initialAccountCreateCoordinator)
+            self.navigationController.setupBaseNavigationControllerStyle()
+        }
     }
     
     func logout() {
@@ -237,7 +248,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         if !accounts.isEmpty || !identities.isEmpty {
             showMainTabbar()
         } else {
-            showRecoveryPhraseCreation()
+            showInitialIdentityCreation()
         }
         // Remove login from hierarchy.
         self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
@@ -247,7 +258,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
     }
 
     func passwordSelectionDone() {
-        showRecoveryPhraseCreation()
+        showInitialIdentityCreation()
         // Remove login from hierarchy.
         self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
         childCoordinators.removeAll {$0 is LoginCoordinator}
@@ -287,7 +298,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
     
     func noIdentitiesFound() {
         self.navigationController.setNavigationBarHidden(true, animated: false)
-        showRecoveryPhraseCreation()
+        showInitialIdentityCreation()
         childCoordinators.removeAll(where: { $0 is IdentitiesCoordinator ||  $0 is AccountsCoordinator  || $0 is MoreCoordinator })
     }
 }

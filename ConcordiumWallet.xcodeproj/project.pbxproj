@@ -1562,6 +1562,10 @@
 		893CAC6A286EBF9800BDF84C /* Collections+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC67286EBF9800BDF84C /* Collections+Extensions.swift */; };
 		893CAC6B286EBF9800BDF84C /* Collections+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC67286EBF9800BDF84C /* Collections+Extensions.swift */; };
 		893CAC6E286EC1FD00BDF84C /* CopyPhraseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC6D286EC1FD00BDF84C /* CopyPhraseTests.swift */; };
+		893CAC71286F0FDB00BDF84C /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC6F286F0FD600BDF84C /* Features.swift */; };
+		893CAC72286F0FDC00BDF84C /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC6F286F0FD600BDF84C /* Features.swift */; };
+		893CAC73286F0FDC00BDF84C /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC6F286F0FD600BDF84C /* Features.swift */; };
+		893CAC74286F0FDC00BDF84C /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC6F286F0FD600BDF84C /* Features.swift */; };
 		8967D3442850D5B9004DB9F0 /* AmountInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */; };
 		8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
 		8992BA23281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
@@ -2502,6 +2506,7 @@
 		893CAC62286DC6AD00BDF84C /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		893CAC67286EBF9800BDF84C /* Collections+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collections+Extensions.swift"; sourceTree = "<group>"; };
 		893CAC6D286EC1FD00BDF84C /* CopyPhraseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPhraseTests.swift; sourceTree = "<group>"; };
+		893CAC6F286F0FD600BDF84C /* Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
 		8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountInputValidatorTests.swift; sourceTree = "<group>"; };
 		8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolMenuPresenter.swift; sourceTree = "<group>"; };
 		8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolStatusPresenter.swift; sourceTree = "<group>"; };
@@ -3755,6 +3760,7 @@
 				89A056ED286C57AF0055C049 /* SwiftUI+Presenters.swift */,
 				893CAC3B286D97A700BDF84C /* Page.swift */,
 				893CAC40286D9A2700BDF84C /* PageViewModel.swift */,
+				893CAC6F286F0FD600BDF84C /* Features.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -4927,6 +4933,7 @@
 				070D625D27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				64FD338F2601FBC400563703 /* Credential.swift in Sources */,
 				5237188325753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
+				893CAC74286F0FDC00BDF84C /* Features.swift in Sources */,
 				7F48C15A244DCD0B00997684 /* AppDelegate.swift in Sources */,
 				070D61D527B2906400B6903C /* OnboardingCarouselPresenter.swift in Sources */,
 				7F48C15C244DCD0B00997684 /* AppCoordinator.swift in Sources */,
@@ -5575,6 +5582,7 @@
 				077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				8992BB2D2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
+				893CAC72286F0FDC00BDF84C /* Features.swift in Sources */,
 				89EB9F5027FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
@@ -6011,6 +6019,7 @@
 				077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				8992BB2E2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
+				893CAC71286F0FDB00BDF84C /* Features.swift in Sources */,
 				89EB9F5127FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
@@ -6273,6 +6282,7 @@
 				0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */,
 				C94ED724246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				C938F53B2423839900ECAD47 /* IdentitiesPresenterProtocol.swift in Sources */,
+				893CAC73286F0FDC00BDF84C /* Features.swift in Sources */,
 				07519F8926FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
 				C9E3727924277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift in Sources */,
 				527DE351257378DC00333E65 /* ReleaseScheduleCell.swift in Sources */,
