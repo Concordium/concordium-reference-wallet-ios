@@ -21,8 +21,8 @@ struct MaterialTabBar: View {
     class ViewModel: ObservableObject {
         @Published var tabs: [String] = []
         @Published var selectedIndex: Int = 0
-        @Published var activeColor: Color = Color("primary")
-        @Published var inactiveColor: Color = Color("text")
+        @Published var activeColor: Color = Pallette.primary
+        @Published var inactiveColor: Color = Pallette.text
     }
     
     @ObservedObject var viewModel: ViewModel

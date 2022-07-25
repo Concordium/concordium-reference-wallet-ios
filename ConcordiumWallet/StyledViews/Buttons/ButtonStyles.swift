@@ -15,7 +15,7 @@ struct StandardStyle: ButtonStyle {
         configuration.label
             .padding([.top, .bottom], 15)
             .frame(maxWidth: .infinity)
-            .background(disabled ? Color("inactiveButton") : Color("primary"))
+            .background(disabled ? Pallette.inactiveButton : Pallette.primary)
             .cornerRadius(10)
             .foregroundColor(configuration.isPressed ? .white.opacity(0.2) : .white)
             .font(Font(Fonts.buttonTitle))

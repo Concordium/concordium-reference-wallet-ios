@@ -68,7 +68,7 @@ private struct WordContainer: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 5)
-                .fillWithBorder(fill: Color("recoveryBackground"), stroke: Color("fadedText"))
+                .fillWithBorder(fill: Pallette.recoveryBackground, stroke: Pallette.fadedText)
         )
         .onTapGesture {
             tapAction()
@@ -110,17 +110,17 @@ private struct WordPill: View {
         ZStack(alignment: .leading) {
             Text(verbatim: "\(index + 1).")
                 .labelStyle(.mono)
-                .foregroundColor(Color("recoveryPhraseText"))
+                .foregroundColor(Pallette.recoveryPhraseText)
             Text(verbatim: word)
                 .labelStyle(.mono)
-                .foregroundColor(Color("recoveryPhraseText"))
+                .foregroundColor(Pallette.recoveryPhraseText)
                 .frame(maxWidth: .infinity)
         }.padding([.leading, .trailing], 12)
             .padding([.top, .bottom], 2)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .strokeBorder()
-                    .foregroundColor(Color("primary"))
+                    .foregroundColor(Pallette.primary)
             )
     }
 }

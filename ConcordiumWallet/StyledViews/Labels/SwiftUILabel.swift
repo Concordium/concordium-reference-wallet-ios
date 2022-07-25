@@ -35,11 +35,11 @@ enum LabelStyle {
     fileprivate var color: Color {
         switch self {
         case .title:
-            return Color("primary")
+            return Pallette.primary
         case .body:
-            return Color("text")
+            return Pallette.text
         case .mono:
-            return Color("text")
+            return Pallette.text
         }
     }
 }
