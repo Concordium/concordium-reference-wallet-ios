@@ -135,10 +135,10 @@ You can show the shielded balance of the account via the option below, or later 
 "recoveryphrase.gettingstarted.new.title" = "I'm new!";
 "recoveryphrase.gettingstarted.new.body" = "If this is your first time using the Concordium blockchain, you can set up a fresh wallet. This includes:
 
-Your secret recovery phrase
-A brief introduction to Concordium
-Your first Concordium identity
-You first Concordium account
+1. Your secret recovery phrase
+2. A brief introduction to Concordium
+3. Your first Concordium identity
+4. You first Concordium account
 
 You will be guided through each step of the process.";
 "recoveryphrase.gettingstarted.new.buttontitle" = "Set up a fresh wallet";
