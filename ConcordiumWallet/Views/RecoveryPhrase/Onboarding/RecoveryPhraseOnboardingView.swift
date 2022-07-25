@@ -13,7 +13,9 @@ struct RecoveryPhraseOnboardingView: Page {
     
     var pageBody: some View {
         VStack {
+            PageIndicator(numberOfPages: 4, currentPage: 1)
             Text(verbatim: "Placeholder!")
+            Spacer()
             Button("Continue") {
                 self.viewModel.send(.continueTapped)
             }.applyStandardButtonStyle()

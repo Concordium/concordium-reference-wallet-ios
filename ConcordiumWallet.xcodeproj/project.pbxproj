@@ -1582,6 +1582,10 @@
 		893CAC9C286F2CC800BDF84C /* Pallette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9A286F2CC800BDF84C /* Pallette.swift */; };
 		893CAC9D286F2CC800BDF84C /* Pallette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9A286F2CC800BDF84C /* Pallette.swift */; };
 		893CAC9E286F2CC800BDF84C /* Pallette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9A286F2CC800BDF84C /* Pallette.swift */; };
+		893CACA0288E616300BDF84C /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9F288E616300BDF84C /* PageIndicator.swift */; };
+		893CACA1288E616300BDF84C /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9F288E616300BDF84C /* PageIndicator.swift */; };
+		893CACA2288E616300BDF84C /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9F288E616300BDF84C /* PageIndicator.swift */; };
+		893CACA3288E616300BDF84C /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9F288E616300BDF84C /* PageIndicator.swift */; };
 		8967D3442850D5B9004DB9F0 /* AmountInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */; };
 		8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
 		8992BA23281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */; };
@@ -2527,6 +2531,7 @@
 		893CAC90286F27B800BDF84C /* RecoveryPhraseOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseOnboardingView.swift; sourceTree = "<group>"; };
 		893CAC95286F282B00BDF84C /* RecoveryPhraseOnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseOnboardingPresenter.swift; sourceTree = "<group>"; };
 		893CAC9A286F2CC800BDF84C /* Pallette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pallette.swift; sourceTree = "<group>"; };
+		893CAC9F288E616300BDF84C /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
 		8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountInputValidatorTests.swift; sourceTree = "<group>"; };
 		8992BA20281FFDDB005279C9 /* BakerPoolMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolMenuPresenter.swift; sourceTree = "<group>"; };
 		8992BA21281FFDDB005279C9 /* BakerPoolStatusPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerPoolStatusPresenter.swift; sourceTree = "<group>"; };
@@ -2773,6 +2778,7 @@
 				19C2E113307579CAF5005F21 /* Sizes.swift */,
 				52055F852552C1D90071F7CA /* NibLoadable.swift */,
 				893CAC62286DC6AD00BDF84C /* LoadingIndicator.swift */,
+				893CAC9F288E616300BDF84C /* PageIndicator.swift */,
 			);
 			path = StyledViews;
 			sourceTree = "<group>";
@@ -5022,6 +5028,7 @@
 				7F32341324691B540019A351 /* MenuItemCellView.swift in Sources */,
 				9078546B28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				5211BAA324FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
+				893CACA0288E616300BDF84C /* PageIndicator.swift in Sources */,
 				079F310226EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				07519F7E26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				7F48C17F244DCD0B00997684 /* IdentityDataRowCellView.swift in Sources */,
@@ -5637,6 +5644,7 @@
 				8992BAB5283630F4005279C9 /* String+Links.swift in Sources */,
 				7F85B7A3246A9A7C00ED09B8 /* SendFundPresenter.swift in Sources */,
 				89CF2D462816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
+				893CACA2288E616300BDF84C /* PageIndicator.swift in Sources */,
 				64FD33912601FBC400563703 /* Credential.swift in Sources */,
 				901F7F4527EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				7F85B7A4246A9A7C00ED09B8 /* SendFundViewController.swift in Sources */,
@@ -6078,6 +6086,7 @@
 				8992BAB6283630F4005279C9 /* String+Links.swift in Sources */,
 				7F85B8A0246A9AB600ED09B8 /* ToastLabel.swift in Sources */,
 				89CF2D472816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
+				893CACA3288E616300BDF84C /* PageIndicator.swift in Sources */,
 				64FD33922601FBC400563703 /* Credential.swift in Sources */,
 				901F7F4627EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				7F85B8A1246A9AB600ED09B8 /* Logger.swift in Sources */,
@@ -6288,6 +6297,7 @@
 				64DB66C525DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89A056E5286C559C0055C049 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				52DCA9F727CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
+				893CACA1288E616300BDF84C /* PageIndicator.swift in Sources */,
 				C96632502459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
 				527DE34C2571257600333E65 /* ReleaseSchedulePresenter.swift in Sources */,
 				642A28A625FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,

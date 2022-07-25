@@ -13,6 +13,7 @@ struct RecoveryPhraseCopyPhraseView: Page {
     
     var pageBody: some View {
         VStack {
+            PageIndicator(numberOfPages: 4, currentPage: 1)
             Text(verbatim: viewModel.title)
                 .labelStyle(.body)
                 .multilineTextAlignment(.center)
