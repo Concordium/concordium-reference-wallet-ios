@@ -62,18 +62,7 @@ private extension View {
     @ViewBuilder
     func title(_ title: String?) -> some View {
         if let title = title {
-            if #available(iOS 14.0, *) {
-                navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text(verbatim: title)
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-                        }
-                    }
-            } else {
-                navigationBarTitle(title)
-            }
+            navigationBarTitle(title)
         } else {
             self
         }

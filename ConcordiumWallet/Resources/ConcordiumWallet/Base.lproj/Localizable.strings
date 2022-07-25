@@ -146,7 +146,6 @@ You will be guided through each step of the process.";
 "recoveryphrase.gettingstarted.recover.body" = "If you previosly set up a Concordium wallet with a secret recovery phrase, you can restore your wallet here.";
 "recoveryphrase.gettingstarted.recover.buttontitle" = "Recover wallet";
 
-"recoveryphrase.signuptitle" = "Step %d of 4\n%@";
 "recoveryphrase.copyphrase.navigationtitle" = "Secret recovery phrase";
 "recoveryphrase.copyphrase.title" = "Please write all 24 words down in the right order.";
 "recoveryphrase.copyphrase.revealmessage" = "Tap to reveal your secret recovery phrase. Make sure noone else can see it.";

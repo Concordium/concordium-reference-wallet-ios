@@ -32,7 +32,7 @@ class RecoveryPhraseCopyPhrasePresenter: SwiftUIPresenter<RecoveryPhraseCopyPhra
             )
         )
         
-        viewModel.navigationTitle = String(format: "recoveryphrase.signuptitle".localized, 1, "recoveryphrase.copyphrase.navigationtitle".localized)
+        viewModel.navigationTitle = "recoveryphrase.copyphrase.navigationtitle".localized
     }
     
     override func receive(event: RecoveryPhraseCopyPhraseEvent) {

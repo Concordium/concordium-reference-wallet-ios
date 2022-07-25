@@ -37,7 +37,8 @@ struct RecoveryPhraseCopyPhraseView: Page {
             .applyStandardButtonStyle(disabled: !viewModel.hasCopiedPhrase)
         }
         .padding([.leading, .trailing], 16)
-        .padding([.top, .bottom], 30)
+        .padding([.bottom], 30)
+        .padding([.top], 10)
     }
 }
 

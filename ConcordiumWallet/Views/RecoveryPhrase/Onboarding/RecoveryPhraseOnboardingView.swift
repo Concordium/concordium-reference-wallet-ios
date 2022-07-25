@@ -19,7 +19,10 @@ struct RecoveryPhraseOnboardingView: Page {
             Button("Continue") {
                 self.viewModel.send(.continueTapped)
             }.applyStandardButtonStyle()
-        }.padding([.bottom], 20)
+        }
+        .padding([.leading, .trailing], 16)
+        .padding([.bottom], 30)
+        .padding([.top], 10)
     }
 }
 
