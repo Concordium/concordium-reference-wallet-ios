@@ -16,7 +16,7 @@ enum RecoveryPhraseCopyPhraseEvent {
 
 enum RecoveryPhraseState: Equatable {
     case hidden(message: String)
-    case shown(words: [String])
+    case shown(recoveryPhrase: RecoveryPhrase)
 }
 
 class RecoveryPhraseCopyPhraseViewModel: PageViewModel<RecoveryPhraseCopyPhraseEvent> {

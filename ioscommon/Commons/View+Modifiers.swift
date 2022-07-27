@@ -14,4 +14,12 @@ extension View {
             transaction.animation = nil
         }
     }
+    
+    func shadow(topColor: Color, bottomColor: Color, radius: CGFloat) -> some View {
+        let halfRadius = radius / 2
+        
+        return self
+            .shadow(color: topColor, radius: halfRadius, x: 0, y: -halfRadius)
+            .shadow(color: bottomColor, radius: halfRadius, x: 0, y: halfRadius)
+    }
 }

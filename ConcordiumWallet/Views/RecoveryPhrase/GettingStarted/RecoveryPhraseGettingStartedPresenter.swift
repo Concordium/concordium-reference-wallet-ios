@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol RecoveryPhraseGettingStartedPresenterDelegate: RequestPasswordDelegate {
-    func setupNewWallet(with recoveryPhrase: [String])
+protocol RecoveryPhraseGettingStartedPresenterDelegate: AnyObject {
+    func setupNewWallet(with recoveryPhrase: RecoveryPhrase)
     func recoverWallet()
 }
 
@@ -47,17 +47,14 @@ class RecoveryPhraseGettingStartedPresenter: SwiftUIPresenter<RecoveryPhraseGett
         switch event {
         case .createNewWallet:
             if let delegate = delegate {
-                recoveryPhraseService
-                    .generateRecoveryPhrase(requestPasswordDelegate: delegate)
-                    .sink(
-                        receiveError: {
-                            if !GeneralError.isGeneralError(.userCancelled, error: $0) {
-                                self.viewModel.alertPublisher.send(.error(ErrorMapper.toViewError(error: $0)))
-                            }
-                        },
-                        receiveValue: { delegate.setupNewWallet(with: $0) }
-                    )
-                    .store(in: &cancellables)
+                switch recoveryPhraseService.generateRecoveryPhrase() {
+                case let .failure(error):
+                    if !GeneralError.isGeneralError(.userCancelled, error: error) {
+                        self.viewModel.alertPublisher.send(.error(ErrorMapper.toViewError(error: error)))
+                    }
+                case let .success(recoveryPhrase):
+                    delegate.setupNewWallet(with: recoveryPhrase)
+                }
             }
         case .recoverWallet:
             delegate?.recoverWallet()

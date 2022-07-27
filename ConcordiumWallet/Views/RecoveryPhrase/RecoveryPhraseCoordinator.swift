@@ -36,7 +36,7 @@ class RecoveryPhraseCoordinator: Coordinator {
         navigationController.pushViewController(presenter.present(RecoveryPhraseGettingStartedView.self), animated: true)
     }
     
-    func presentOnboarding(with recoveryPhrase: [String]) {
+    func presentOnboarding(with recoveryPhrase: RecoveryPhrase) {
         let presenter = RecoveryPhraseOnboardingPresenter(
             recoveryPhrase: recoveryPhrase,
             delegate: self
@@ -45,18 +45,28 @@ class RecoveryPhraseCoordinator: Coordinator {
         navigationController.pushViewController(presenter.present(RecoveryPhraseOnboardingView.self), animated: true)
     }
     
-    func presentCopyPhrase(with recoveryPhrase: [String]) {
+    func presentCopyPhrase(with recoveryPhrase: RecoveryPhrase) {
         let presenter = RecoveryPhraseCopyPhrasePresenter(
-            words: recoveryPhrase,
+            recoveryPhrase: recoveryPhrase,
             delegate: self
         )
         
         navigationController.pushViewController(presenter.present(RecoveryPhraseCopyPhraseView.self), animated: true)
     }
+    
+    func presentConfirmPhrase(with recoveryPhrase: RecoveryPhrase) {
+        let presenter = RecoveryPhraseConfirmPhrasePresenter(
+            recoveryPhrase: recoveryPhrase,
+            recoveryPhraseService: dependencyProvider.recoveryPhraseService(),
+            delegate: self
+        )
+        
+        navigationController.pushViewController(presenter.present(RecoveryPhraseConfirmPhraseView.self), animated: true)
+    }
 }
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelegate {
-    func setupNewWallet(with recoveryPhrase: [String]) {
+    func setupNewWallet(with recoveryPhrase: RecoveryPhrase) {
         presentOnboarding(with: recoveryPhrase)
     }
     
@@ -66,13 +76,17 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelega
 }
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseOnboardingPresenterDelegate {
-    func onboardingFinished(with recoveryPhrase: [String]) {
+    func onboardingFinished(with recoveryPhrase: RecoveryPhrase) {
         presentCopyPhrase(with: recoveryPhrase)
     }
 }
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseCopyPhrasePresenterDelegate {
-    func finishedCopyingPhrase() {
-        
+    func finishedCopyingPhrase(with recoveryPhrase: RecoveryPhrase) {
+        presentConfirmPhrase(with: recoveryPhrase)
     }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegate {
+    
 }

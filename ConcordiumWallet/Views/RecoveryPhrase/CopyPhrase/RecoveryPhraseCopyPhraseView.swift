@@ -96,8 +96,8 @@ private extension RecoveryPhraseState {
     }
     
     func word(for index: Int) -> String {
-        if case let .shown(words) = self, words.count > index {
-            return words[index]
+        if case let .shown(words) = self {
+            return String(words[words.startIndex.advanced(by: index)])
         } else {
             return ""
         }
@@ -159,14 +159,23 @@ struct RecoveryPhraseCopyPhraseView_Previews: PreviewProvider {
             )
         )
         
-        RecoveryPhraseCopyPhraseView(
-            viewModel: .init(
-                title: "Please write all 24 words down in the right order.",
-                recoveryPhrase: .shown(words: ["eerie", "anakin"]),
-                copyValidationTitle: "I confirm I have written down my 24 word secret recovery phrase.",
-                hasCopiedPhrase: true,
-                buttonTitle: "Continue"
-            )
-        ).previewDevice(.init(rawValue: "iPhone SE (3rd generation)"))
+        if let testPhrase = testPhrase {
+            RecoveryPhraseCopyPhraseView(
+                viewModel: .init(
+                    title: "Please write all 24 words down in the right order.",
+                    recoveryPhrase: .shown(recoveryPhrase: testPhrase),
+                    copyValidationTitle: "I confirm I have written down my 24 word secret recovery phrase.",
+                    hasCopiedPhrase: true,
+                    buttonTitle: "Continue"
+                )
+            ).previewDevice(.init(rawValue: "iPhone SE (3rd generation)"))
+        }
     }
+    
+    private static let testPhrase = try? RecoveryPhrase(phrase: [
+        "clay", "vehicle", "crane", "debris", "usual", "canal",
+        "puzzle", "concert", "asset", "render", "post", "cherry",
+        "voyage", "original", "enrich", "gain", "basket", "dust",
+        "version", "become", "desk", "oxygen", "doctor", "idea"
+    ].joined(separator: " "))
 }

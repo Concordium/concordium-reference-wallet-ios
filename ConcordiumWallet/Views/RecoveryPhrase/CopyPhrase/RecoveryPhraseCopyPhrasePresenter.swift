@@ -7,19 +7,19 @@
 //
 
 protocol RecoveryPhraseCopyPhrasePresenterDelegate: AnyObject {
-    func finishedCopyingPhrase()
+    func finishedCopyingPhrase(with recoveryPhrase: RecoveryPhrase)
 }
 
 class RecoveryPhraseCopyPhrasePresenter: SwiftUIPresenter<RecoveryPhraseCopyPhraseViewModel> {
-    private let words: [String]
+    private let recoveryPhrase: RecoveryPhrase
     
     private weak var delegate: RecoveryPhraseCopyPhrasePresenterDelegate?
     
     init(
-        words: [String],
+        recoveryPhrase: RecoveryPhrase,
         delegate: RecoveryPhraseCopyPhrasePresenterDelegate
     ) {
-        self.words = words
+        self.recoveryPhrase = recoveryPhrase
         self.delegate = delegate
         
         super.init(
@@ -38,12 +38,12 @@ class RecoveryPhraseCopyPhrasePresenter: SwiftUIPresenter<RecoveryPhraseCopyPhra
     override func receive(event: RecoveryPhraseCopyPhraseEvent) {
         switch event {
         case .showPhrase:
-            viewModel.recoveryPhrase = .shown(words: words)
+            viewModel.recoveryPhrase = .shown(recoveryPhrase: recoveryPhrase)
         case .confirmBoxTapped:
             viewModel.hasCopiedPhrase.toggle()
         case .continueTapped:
             if viewModel.hasCopiedPhrase {
-                delegate?.finishedCopyingPhrase()
+                delegate?.finishedCopyingPhrase(with: recoveryPhrase)
             }
         }
     }

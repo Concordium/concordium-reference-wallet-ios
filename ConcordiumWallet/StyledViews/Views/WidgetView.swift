@@ -31,13 +31,13 @@ extension UIView {
         layer.cornerRadius = 10.0
     }
     
-    func applyConcordiumEdgeStyle (corners: UIRectCorner, radius: CGFloat = 10.0) {
+    func applyConcordiumEdgeStyle(corners: UIRectCorner, radius: CGFloat = 10.0, color: UIColor = UIColor.primary) {
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
         layer.borderWidth = 1
-        layer.borderColor = UIColor.primary.cgColor
+        layer.borderColor = color.cgColor
     }
 
 }

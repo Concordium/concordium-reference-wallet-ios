@@ -7,15 +7,15 @@
 //
 
 protocol RecoveryPhraseOnboardingPresenterDelegate: AnyObject {
-    func onboardingFinished(with recoveryPhrase: [String])
+    func onboardingFinished(with recoveryPhrase: RecoveryPhrase)
 }
 
 class RecoveryPhraseOnboardingPresenter: SwiftUIPresenter<RecoveryPhraseOnboardingViewModel> {
-    private let recoveryPhrase: [String]
+    private let recoveryPhrase: RecoveryPhrase
     weak var delegate: RecoveryPhraseOnboardingPresenterDelegate?
     
     init(
-        recoveryPhrase: [String],
+        recoveryPhrase: RecoveryPhrase,
         delegate: RecoveryPhraseOnboardingPresenterDelegate
     ) {
         self.recoveryPhrase = recoveryPhrase
