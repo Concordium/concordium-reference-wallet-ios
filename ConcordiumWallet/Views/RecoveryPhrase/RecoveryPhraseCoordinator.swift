@@ -63,9 +63,18 @@ class RecoveryPhraseCoordinator: Coordinator {
         
         navigationController.pushViewController(presenter.present(RecoveryPhraseConfirmPhraseView.self), animated: true)
     }
+    
+    func presentSetupComplete(with recoveryPhrase: RecoveryPhrase) {
+        let presenter = RecoveryPhraseSetupCompletePresenter(
+            recoveryPhrase: recoveryPhrase,
+            delegate: self
+        )
+        
+        navigationController.setViewControllers([presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
+    }
 }
 
-extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelegate {
+extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelegate {    
     func setupNewWallet(with recoveryPhrase: RecoveryPhrase) {
         presentOnboarding(with: recoveryPhrase)
     }
@@ -88,5 +97,13 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseCopyPhrasePresenterDelegate {
 }
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegate {
-    
+    func recoveryPhraseHasBeenConfirmed(_ recoveryPhrase: RecoveryPhrase) {
+        presentSetupComplete(with: recoveryPhrase)
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegate {
+    func recoveryPhraseSetupFinished(with recoveryPhrase: RecoveryPhrase) {
+        
+    }
 }

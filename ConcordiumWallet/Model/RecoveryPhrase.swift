@@ -70,6 +70,16 @@ struct RecoveryPhrase: RandomAccessCollection, Equatable {
     func makeIterator() -> RecoveryPhraseIterator {
         RecoveryPhraseIterator(phrase: self)
     }
+    
+    func verify(words: [String]) -> Bool {
+        for (index, word) in self.words.enumerated() {
+            if words[index] != word {
+                return false
+            }
+        }
+        
+        return true
+    }
 }
 
 struct RecoveryPhraseIndex: Comparable, Strideable {

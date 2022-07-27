@@ -152,6 +152,13 @@ You will be guided through each step of the process.";
 "recoveryphrase.copyphrase.validationmessage" = "I confirm I have written down my 24 word secret recovery phrase.";
 "recoveryphrase.copyphrase.continue" = "Continue";
 
+"recoveryphrase.confirmphrase.navigationtitle" = "Secret recovery phrase";
+"recoveryphrase.confirmphrase.title" = "Pick the correct suggestion on the right, for each index.";
+
+"recoveryphrase.setupcomplete.navigationtitle" = "Secret recovery phrase";
+"recoveryphrase.setupcomplete.validationerror" = "Incorrect secret recovery phrase. Please verify that each index has the right word.";
+"recoveryphrase.setupcomplete.continue" = "Continue";
+
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
 "initialaccountinfo.details" = "On the following pages you will be guided through the three-step process of requesting an initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";

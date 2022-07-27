@@ -16,14 +16,17 @@ class RecoveryPhraseConfirmPhraseViewModel: PageViewModel<RecoveryPhraseConfirmP
     @Published var title: String
     @Published var suggestions: [[String]]
     @Published var selectedWords: [String]
+    @Published var error: String?
     
     init(
         title: String,
         suggestions: [[String]],
-        selectedWords: [String]
+        selectedWords: [String],
+        error: String? = nil
     ) {
         self.title = title
         self.suggestions = suggestions
         self.selectedWords = selectedWords
+        self.error = error
     }
 }

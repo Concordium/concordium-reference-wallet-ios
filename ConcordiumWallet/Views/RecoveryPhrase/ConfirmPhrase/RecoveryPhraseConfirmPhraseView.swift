@@ -11,8 +11,6 @@ import SwiftUI
 struct RecoveryPhraseConfirmPhraseView: Page {
     @ObservedObject var viewModel: RecoveryPhraseConfirmPhraseViewModel
     
-    @State private var selectedIndex = 0
-    
     var pageBody: some View {
         VStack {
             PageIndicator(numberOfPages: 4, currentPage: 1)
@@ -20,38 +18,58 @@ struct RecoveryPhraseConfirmPhraseView: Page {
                 .labelStyle(.body)
                 .multilineTextAlignment(.center)
                 .padding([.leading, .trailing], 20)
-            HStack {
-                WordList(selectedIndex: $selectedIndex, selectedWords: viewModel.selectedWords)
-                    .frame(height: 30 * 5)
-                    .frame(maxWidth: .infinity)
-                Image("select_arrow")
-                VStack(spacing: 10) {
-                    ForEach(viewModel.suggestions[selectedIndex], id: \.self) { suggestion in
-                        Text(verbatim: suggestion)
-                            .frame(maxWidth: .infinity)
-                            .padding(6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .strokeBorder()
-                                    .foregroundColor(Pallette.primary)
-                            )
-                            .onTapGesture {
-                                viewModel.send(.selectWord(index: selectedIndex, word: suggestion))
-                                moveToNextIndex()
-                            }
-                    }
-                }
-                .frame(maxWidth: .infinity)
+            WordSelection(selectedWords: viewModel.selectedWords, suggestions: viewModel.suggestions) { index, word in
+                viewModel.send(.selectWord(index: index, word: word))
+            }.padding([.top], 95)
+            viewModel.error.map {
+                Text(verbatim: $0)
+                    .labelStyle(.body, color: Pallette.error)
+                    .multilineTextAlignment(.center)
+                    .padding(.init(top: 16, leading: 20, bottom: 0, trailing: 20))
             }
-            .padding(.init(top: 105, leading: 4, bottom: 0, trailing: 12))
             Spacer()
         }
         .padding(.init(top: 10, leading: 16, bottom: 30, trailing: 16))
     }
+}
+
+private struct WordSelection: View {
+    let selectedWords: [String]
+    let suggestions: [[String]]
+    let action: (Int, String) -> Void
+    
+    @State private var selectedIndex = 0
+    
+    var body: some View {
+        HStack {
+            WordList(selectedIndex: $selectedIndex, selectedWords: selectedWords)
+                .frame(height: 30 * 5)
+                .frame(maxWidth: .infinity)
+            Image("select_arrow")
+            VStack(spacing: 10) {
+                ForEach(suggestions[selectedIndex], id: \.self) { suggestion in
+                    Text(verbatim: suggestion)
+                        .frame(maxWidth: .infinity)
+                        .padding(6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder()
+                                .foregroundColor(Pallette.primary)
+                        )
+                        .onTapGesture {
+                            action(selectedIndex, suggestion)
+                            moveToNextIndex()
+                        }
+                }
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .padding(.init(top: 0, leading: 4, bottom: 0, trailing: 12))
+    }
     
     private func moveToNextIndex() {
-        for index in selectedIndex..<viewModel.selectedWords.count {
-            if viewModel.selectedWords[index].isEmpty {
+        for index in selectedIndex+1..<selectedWords.count {
+            if selectedWords[index].isEmpty {
                 selectedIndex = index
                 return
             }
@@ -263,7 +281,8 @@ private struct WordListCellContent: View {
                 )
         )
         .padding([.leading, .trailing], viewModel.isSelected ? 0 : 6)
-        .shadow(topColor: .white.opacity(0.25), bottomColor: .black.opacity(0.25), radius: viewModel.isSelected ? 4 : 0)
+        .shadow(color: .black.opacity(0.25), radius: viewModel.isSelected ? 4 : 0)
+        .zIndex(viewModel.isSelected ? 1 : 0)
     }
 }
 
@@ -326,7 +345,8 @@ struct RecoveryPhraseConfirmPhraseView_Previews: PreviewProvider {
                 suggestions: [
                     ["ariel", "gossipy", "violently", "damage"]
                 ] + Array(repeating: [], count: 23),
-                selectedWords: ["Ariel"] + Array(repeating: "", count: 23)
+                selectedWords: ["Ariel"] + Array(repeating: "", count: 23),
+                error: "Incorrect secret recovery phrase. Please verify that each index has the right word."
             )
         )
     }

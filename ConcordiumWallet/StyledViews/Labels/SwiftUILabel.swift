@@ -45,9 +45,13 @@ enum LabelStyle {
 }
 
 extension View {
-    func labelStyle(_ style: LabelStyle, weight: Font.Weight? = nil) -> some View {
+    func labelStyle(
+        _ style: LabelStyle,
+        weight: Font.Weight? = nil,
+        color: Color? = nil
+    ) -> some View {
         return self
             .font(style.font(weight: weight))
-            .foregroundColor(style.color)
+            .foregroundColor(color ?? style.color)
     }
 }

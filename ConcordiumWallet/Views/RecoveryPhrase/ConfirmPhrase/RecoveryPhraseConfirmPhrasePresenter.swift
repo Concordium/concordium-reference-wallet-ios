@@ -7,7 +7,7 @@
 //
 
 protocol RecoveryPhraseConfirmPhrasePresenterDelegate: AnyObject {
-    
+    func recoveryPhraseHasBeenConfirmed(_ recoveryPhrase: RecoveryPhrase)
 }
 
 class RecoveryPhraseConfirmPhrasePresenter: SwiftUIPresenter<RecoveryPhraseConfirmPhraseViewModel> {
@@ -39,6 +39,13 @@ class RecoveryPhraseConfirmPhrasePresenter: SwiftUIPresenter<RecoveryPhraseConfi
         case .selectWord(let index, let word):
             if index < viewModel.selectedWords.count {
                 viewModel.selectedWords[index] = word
+            }
+            if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {
+                if recoveryPhrase.verify(words: viewModel.selectedWords) {
+                    delegate?.recoveryPhraseHasBeenConfirmed(recoveryPhrase)
+                } else {
+                    viewModel.error = "recoveryphrase.confirmphrase.validationerror".localized
+                }
             }
         }
     }

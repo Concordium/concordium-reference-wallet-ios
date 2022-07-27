@@ -15,16 +15,7 @@ protocol RecoveryPhraseServiceProtocol {
     func generateSuggestions(from words: RecoveryPhrase, maxNumberOfSuggestions: Int) -> [[String]]
 }
 
-struct RecoveryPhraseService {
-    private static let recoveryPhraseKey = "CCD.RecoveryPhrase"
-    private let keychainWrapper: KeychainWrapperProtocol
-    
-    init(keychainWrapper: KeychainWrapperProtocol) {
-        self.keychainWrapper = keychainWrapper
-    }
-}
-
-extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {
+extension RecoveryPhraseServiceProtocol {
     func generateRecoveryPhrase() -> Result<RecoveryPhrase, Error> {
         return Result { try Mnemonic.generateMnemonic(strength: 24 / 3 * 32) }
             .flatMap { phrase in Result { try RecoveryPhrase(phrase: phrase) } }
@@ -38,6 +29,17 @@ extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {
         }
     }
 }
+
+struct RecoveryPhraseService {
+    private static let recoveryPhraseKey = "CCD.RecoveryPhrase"
+    private let keychainWrapper: KeychainWrapperProtocol
+    
+    init(keychainWrapper: KeychainWrapperProtocol) {
+        self.keychainWrapper = keychainWrapper
+    }
+}
+
+extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {}
 
 private extension RandomAccessCollection where Element: Equatable {
     func randomSequence(ofLength length: Int, skipping elements: Element...) -> [Element] {

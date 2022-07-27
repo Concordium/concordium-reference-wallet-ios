@@ -11,15 +11,15 @@ import Combine
 @testable import Mock
 
 class CopyPhraseTests: XCTestCase {
-    func test_phrase_is_initially_hidden() {
-        let (presenter, _) = createPresenter()
+    func test_phrase_is_initially_hidden() throws {
+        let (presenter, _) = try createPresenter()
         
         XCTAssert(presenter.viewModel.recoveryPhrase.isHidden)
         XCTAssertFalse(presenter.viewModel.hasCopiedPhrase)
     }
     
-    func test_confirm_box_can_be_toggled() {
-        let (presenter, _) = createPresenter()
+    func test_confirm_box_can_be_toggled() throws {
+        let (presenter, _) = try createPresenter()
         
         XCTAssertFalse(presenter.viewModel.hasCopiedPhrase)
         
@@ -32,47 +32,53 @@ class CopyPhraseTests: XCTestCase {
         XCTAssertFalse(presenter.viewModel.hasCopiedPhrase)
     }
     
-    func test_confirm_box_must_be_checked_before_finishing() {
-        let (presenter, delegate) = createPresenter()
+    func test_confirm_box_must_be_checked_before_finishing() throws {
+        let (presenter, delegate) = try createPresenter()
         
         presenter.viewModel.send(.continueTapped)
         
-        XCTAssertFalse(delegate.hasCalledFinish)
+        XCTAssertNil(delegate.finishedPhrase)
         
         presenter.viewModel.send(.confirmBoxTapped)
         presenter.viewModel.send(.continueTapped)
         
-        XCTAssert(delegate.hasCalledFinish)
+        XCTAssertEqual(delegate.finishedPhrase, try testPhrase)
     }
     
-    func test_words_are_revealed_when_requested() {
-        let (presenter, _) = createPresenter()
+    func test_words_are_revealed_when_requested() throws {
+        let (presenter, _) = try createPresenter()
         
         presenter.viewModel.send(.showPhrase)
         
-        XCTAssertEqual(presenter.viewModel.recoveryPhrase, .shown(words: testWords))
+        XCTAssertEqual(presenter.viewModel.recoveryPhrase, .shown(recoveryPhrase: try testPhrase))
     }
     
-    private func createPresenter() -> (RecoveryPhraseCopyPhrasePresenter, TestDelegate) {
+    private func createPresenter() throws -> (RecoveryPhraseCopyPhrasePresenter, TestDelegate) {
         let delegate = TestDelegate()
-        let presenter = RecoveryPhraseCopyPhrasePresenter(words: testWords, delegate: delegate)
+        let presenter = RecoveryPhraseCopyPhrasePresenter(recoveryPhrase: try testPhrase, delegate: delegate)
         
         return (presenter, delegate)
     }
     
-    private var testWords = [
-        "clay", "vehicle", "crane", "debris", "usual", "canal",
-        "puzzle", "concert", "asset", "render", "post", "cherry",
-        "voyage", "original", "enrich", "gain", "basket", "dust",
-        "version", "become", "desk", "oxygen", "doctor", "idea"
-    ]
+    private var testPhrase: RecoveryPhrase {
+        get throws {
+            let testWords = [
+                "clay", "vehicle", "crane", "debris", "usual", "canal",
+                "puzzle", "concert", "asset", "render", "post", "cherry",
+                "voyage", "original", "enrich", "gain", "basket", "dust",
+                "version", "become", "desk", "oxygen", "doctor", "idea"
+            ]
+            
+            return try RecoveryPhrase(phrase: testWords.joined(separator: " "))
+        }
+    }
 }
 
 private class TestDelegate: RecoveryPhraseCopyPhrasePresenterDelegate {
-    var hasCalledFinish = false
+    var finishedPhrase: RecoveryPhrase?
     
-    func finishedCopyingPhrase() {
-        hasCalledFinish = true
+    func finishedCopyingPhrase(with recoveryPhrase: RecoveryPhrase) {
+        finishedPhrase = recoveryPhrase
     }
 }
 
