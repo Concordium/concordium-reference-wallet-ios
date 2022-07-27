@@ -148,14 +148,25 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showInitialIdentityCreation() {
-        let initiaAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
-                                                                        parentCoordinator: self,
-                                                                        identitiesProvider: defaultProvider,
-                                                                        accountsProvider: defaultProvider)
-        initiaAccountCreateCoordinator.start()
-        self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
-        childCoordinators.append(initiaAccountCreateCoordinator)
-        self.navigationController.setupBaseNavigationControllerStyle()
+        if FeatureFlag.enabledFlags.contains(.recoveryCode) {
+            let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
+                dependencyProvider: defaultProvider,
+                navigationController: navigationController
+            )
+            recoveryPhraseCoordinator.start()
+            self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+            childCoordinators.append(recoveryPhraseCoordinator)
+            self.navigationController.setupBaseNavigationControllerStyle()
+        } else {
+            let initialAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
+                                                                            parentCoordinator: self,
+                                                                            identitiesProvider: defaultProvider,
+                                                                            accountsProvider: defaultProvider)
+            initialAccountCreateCoordinator.start()
+            self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+            childCoordinators.append(initialAccountCreateCoordinator)
+            self.navigationController.setupBaseNavigationControllerStyle()
+        }
     }
     
     func logout() {
