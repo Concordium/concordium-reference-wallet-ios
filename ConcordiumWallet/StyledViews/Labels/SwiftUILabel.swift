@@ -45,9 +45,53 @@ enum LabelStyle {
 }
 
 extension View {
-    func labelStyle(_ style: LabelStyle, weight: Font.Weight? = nil) -> some View {
+    func labelStyle(
+        _ style: LabelStyle,
+        weight: Font.Weight? = nil,
+        color: Color? = nil
+    ) -> some View {
         return self
             .font(style.font(weight: weight))
-            .foregroundColor(style.color)
+            .foregroundColor(color ?? style.color)
+    }
+}
+
+struct StyledLabel: View {
+    let text: String
+    let style: LabelStyle
+    let weight: Font.Weight?
+    let color: Color?
+    let textAlignment: TextAlignment
+    
+    init(
+        text: String,
+        style: LabelStyle,
+        weight: Font.Weight? = nil,
+        color: Color? = nil,
+        textAlignment: TextAlignment = .center
+    ) {
+        self.text = text
+        self.style = style
+        self.weight = weight
+        self.color = color
+        self.textAlignment = textAlignment
+    }
+    
+    var body: some View {
+        Text(verbatim: text)
+            .labelStyle(style, weight: weight, color: color)
+            .multilineTextAlignment(textAlignment)
+    }
+}
+
+struct ErrorLabel: View {
+    let error: String?
+    
+    var body: some View {
+        if let error = error {
+            StyledLabel(text: error, style: .body, color: Pallette.error)
+        } else {
+            EmptyView()
+        }
     }
 }
