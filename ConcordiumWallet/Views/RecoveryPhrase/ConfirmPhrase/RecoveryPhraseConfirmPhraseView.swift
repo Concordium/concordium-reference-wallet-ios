@@ -44,12 +44,12 @@ private struct WordSelection: View {
             )
             Image("select_arrow")
             SuggestionBox(
-                suggestions: isScrolling ? [] : suggestions[selectedIndex],
-                selectedSuggestion: isScrolling ? nil : selectedWords[selectedIndex]
+                suggestions: suggestions[selectedIndex],
+                selectedSuggestion: selectedWords[selectedIndex]
             ) { suggestion in
                 action(selectedIndex, suggestion)
                 moveToNextIndex()
-            }.frame(maxWidth: .infinity)
+            }.opacity(isScrolling ? 0 : 1)
         }
         .padding(.init(top: 0, leading: 4, bottom: 0, trailing: 12))
     }

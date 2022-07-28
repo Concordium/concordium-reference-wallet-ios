@@ -34,7 +34,9 @@ struct SuggestionBox: View {
                 StyledLabel(text: suggestion, style: .mono, color: isSelected ? Pallette.buttonText : Pallette.text)
                     .frame(maxWidth: .infinity, minHeight: minHeight)
                     .background(
-                        SuggestionLabelBackground(isSelected: isSelected)
+                        SuggestionLabelBackground(
+                            isSelected: isSelected
+                        )
                     )
                     .onTapGesture {
                         onSuggestionTapped(suggestion)
