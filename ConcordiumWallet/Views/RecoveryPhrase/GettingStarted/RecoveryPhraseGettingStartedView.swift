@@ -15,8 +15,7 @@ struct RecoveryPhraseGettingStartedView: Page {
     var pageBody: some View {
         ScrollView {
             VStack {
-                Text(verbatim: viewModel.title)
-                    .labelStyle(.title)
+                StyledLabel(text: viewModel.title, style: .title)
                     .padding([.top, .bottom], 60)
                 GettingStartedSection(section: viewModel.createNewWalletSection, bottomPadding: 70) {
                     viewModel.send(.createNewWallet)
@@ -48,15 +47,11 @@ private struct GettingStartedSection: View {
     @ViewBuilder
     var body: some View {
         HStack {
-            Text(verbatim: section.title)
-                .multilineTextAlignment(.leading)
-                .labelStyle(.body, weight: .bold)
+            StyledLabel(text: section.title, style: .body, weight: .bold, textAlignment: .leading)
             Spacer()
         }.padding([.bottom], 10)
         HStack {
-            Text(verbatim: section.body)
-                .multilineTextAlignment(.leading)
-                .labelStyle(.body)
+            StyledLabel(text: section.body, style: .body, textAlignment: .leading)
             Spacer()
         }
         if let bottomPadding = bottomPadding {

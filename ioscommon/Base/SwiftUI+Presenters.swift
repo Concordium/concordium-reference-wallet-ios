@@ -71,3 +71,9 @@ private class HostingController<ViewModel: PageModel & EventHandler, Content: Pa
         }.store(in: &cancellables)
     }
 }
+
+extension UIViewController {
+    func isPresenting<Content: Page>(page: Content.Type) -> Bool where Content.ViewModel: EventHandler {
+        return self is HostingController<Content.ViewModel, Content>
+    }
+}

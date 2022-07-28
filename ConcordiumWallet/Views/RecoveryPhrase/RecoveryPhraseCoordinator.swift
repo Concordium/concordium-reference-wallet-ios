@@ -42,7 +42,8 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        navigationController.pushViewController(presenter.present(RecoveryPhraseOnboardingView.self), animated: true)
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseOnboardingView.self)], animated: true)
     }
     
     func presentCopyPhrase(with recoveryPhrase: RecoveryPhrase) {
@@ -51,7 +52,8 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        navigationController.pushViewController(presenter.present(RecoveryPhraseCopyPhraseView.self), animated: true)
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseCopyPhraseView.self)], animated: true)
     }
     
     func presentConfirmPhrase(with recoveryPhrase: RecoveryPhrase) {
@@ -61,7 +63,8 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        navigationController.pushViewController(presenter.present(RecoveryPhraseConfirmPhraseView.self), animated: true)
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseConfirmPhraseView.self)], animated: true)
     }
     
     func presentSetupComplete(with recoveryPhrase: RecoveryPhrase) {
@@ -70,7 +73,8 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        navigationController.setViewControllers([presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
     }
 }
 

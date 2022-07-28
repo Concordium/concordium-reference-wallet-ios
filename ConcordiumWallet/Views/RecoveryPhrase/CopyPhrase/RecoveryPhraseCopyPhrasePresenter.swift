@@ -40,7 +40,9 @@ class RecoveryPhraseCopyPhrasePresenter: SwiftUIPresenter<RecoveryPhraseCopyPhra
         case .showPhrase:
             viewModel.recoveryPhrase = .shown(recoveryPhrase: recoveryPhrase)
         case .confirmBoxTapped:
-            viewModel.hasCopiedPhrase.toggle()
+            if case .shown = viewModel.recoveryPhrase {
+                viewModel.hasCopiedPhrase.toggle()
+            }
         case .continueTapped:
             if viewModel.hasCopiedPhrase {
                 delegate?.finishedCopyingPhrase(with: recoveryPhrase)

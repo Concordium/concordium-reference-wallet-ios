@@ -18,11 +18,16 @@ class CopyPhraseTests: XCTestCase {
         XCTAssertFalse(presenter.viewModel.hasCopiedPhrase)
     }
     
-    func test_confirm_box_can_be_toggled() throws {
+    func test_confirm_box_can_be_toggled_after_showing_words() throws {
         let (presenter, _) = try createPresenter()
         
         XCTAssertFalse(presenter.viewModel.hasCopiedPhrase)
         
+        presenter.viewModel.send(.confirmBoxTapped)
+        
+        XCTAssertFalse(presenter.viewModel.hasCopiedPhrase)
+        
+        presenter.viewModel.send(.showPhrase)
         presenter.viewModel.send(.confirmBoxTapped)
         
         XCTAssert(presenter.viewModel.hasCopiedPhrase)
@@ -39,6 +44,7 @@ class CopyPhraseTests: XCTestCase {
         
         XCTAssertNil(delegate.finishedPhrase)
         
+        presenter.viewModel.send(.showPhrase)
         presenter.viewModel.send(.confirmBoxTapped)
         presenter.viewModel.send(.continueTapped)
         

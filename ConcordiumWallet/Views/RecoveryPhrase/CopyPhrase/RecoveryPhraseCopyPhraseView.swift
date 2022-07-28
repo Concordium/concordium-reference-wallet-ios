@@ -11,12 +11,19 @@ import SwiftUI
 struct RecoveryPhraseCopyPhraseView: Page {
     @ObservedObject var viewModel: RecoveryPhraseCopyPhraseViewModel
     
+    private var validationBoxEnabled: Bool {
+        switch viewModel.recoveryPhrase {
+        case .hidden:
+            return false
+        case .shown:
+            return true
+        }
+    }
+    
     var pageBody: some View {
         VStack {
             PageIndicator(numberOfPages: 4, currentPage: 1)
-            Text(verbatim: viewModel.title)
-                .labelStyle(.body)
-                .multilineTextAlignment(.center)
+            StyledLabel(text: viewModel.title, style: .body)
                 .padding([.leading, .trailing], 20)
             WordContainer(state: viewModel.recoveryPhrase) {
                 withAnimation {
@@ -26,7 +33,8 @@ struct RecoveryPhraseCopyPhraseView: Page {
             Spacer()
             ValidationBox(
                 title: viewModel.copyValidationTitle,
-                isChecked: viewModel.hasCopiedPhrase
+                isChecked: viewModel.hasCopiedPhrase,
+                enabled: validationBoxEnabled
             ) {
                 self.viewModel.send(.confirmBoxTapped)
             }.padding([.leading, .trailing], 25)
@@ -110,12 +118,8 @@ private struct WordPill: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-            Text(verbatim: "\(index + 1).")
-                .labelStyle(.mono)
-                .foregroundColor(Pallette.recoveryPhraseText)
-            Text(verbatim: word)
-                .labelStyle(.mono)
-                .foregroundColor(Pallette.recoveryPhraseText)
+            StyledLabel(text: "\(index + 1).", style: .mono, color: Pallette.recoveryPhraseText)
+            StyledLabel(text: word, style: .mono, color: Pallette.recoveryPhraseText)
                 .frame(maxWidth: .infinity)
         }.padding([.leading, .trailing], 12)
             .padding([.top, .bottom], 2)
@@ -130,6 +134,7 @@ private struct WordPill: View {
 private struct ValidationBox: View {
     let title: String
     let isChecked: Bool
+    let enabled: Bool
     let action: () -> Void
     
     var body: some View {
@@ -138,12 +143,11 @@ private struct ValidationBox: View {
                 Image(isChecked ? "checkmark_active" : "checkmark")
                     .resizable()
                     .frame(width: 24, height: 24)
-                
-                Text(verbatim: title)
-                    .labelStyle(.body)
-                    .multilineTextAlignment(.leading)
+                StyledLabel(text: title, style: .body, textAlignment: .leading)
             }
         }
+        .disabled(!enabled)
+        .opacity(enabled ? 1 : 0.2)
     }
 }
 

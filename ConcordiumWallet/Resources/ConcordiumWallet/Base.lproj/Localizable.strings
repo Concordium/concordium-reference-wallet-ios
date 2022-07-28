@@ -154,9 +154,10 @@ You will be guided through each step of the process.";
 
 "recoveryphrase.confirmphrase.navigationtitle" = "Secret recovery phrase";
 "recoveryphrase.confirmphrase.title" = "Pick the correct suggestion on the right, for each index.";
+"recoveryphrase.confirmphrase.validationerror" = "Incorrect secret recovery phrase. Please verify that each index has the right word.";
 
 "recoveryphrase.setupcomplete.navigationtitle" = "Secret recovery phrase";
-"recoveryphrase.setupcomplete.validationerror" = "Incorrect secret recovery phrase. Please verify that each index has the right word.";
+"recoveryphrase.setupcomplete.title" = "Your secret recovery phrase has been successfully setup!";
 "recoveryphrase.setupcomplete.continue" = "Continue";
 
 "initialaccountinfo.title" = "Initial account creation";

@@ -16,9 +16,7 @@ struct RecoveryPhraseSetupCompleteView: Page {
             VStack {
                 PageIndicator(numberOfPages: 4, currentPage: 1)
                     .padding([.top, .bottom], 10)
-                Text(verbatim: viewModel.title)
-                    .labelStyle(.body)
-                    .multilineTextAlignment(.center)
+                StyledLabel(text: viewModel.title, style: .body)
                 Spacer()
                 Button(viewModel.continueLabel) {
                     viewModel.send(.finish)
