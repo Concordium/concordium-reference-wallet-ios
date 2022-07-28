@@ -160,6 +160,22 @@ You will be guided through each step of the process.";
 "recoveryphrase.setupcomplete.title" = "Your secret recovery phrase has been successfully setup!";
 "recoveryphrase.setupcomplete.continue" = "Continue";
 
+"recoveryphrase.recover.intro.navigationtitle" = "Recover your wallet";
+"recoveryphrase.recover.intro.title" = "How to recover your wallet:";
+"recoveryphrase.recover.intro.body" = "There are two steps to recovering a wallet:
+
+1. Entering your secret recover phrase
+2. Recovering your accounts and identities
+
+The first step is manual process, in which you have to enter all your 24 words one by one.
+
+The second step is most often automatic, but in some cases you will have to make some additional inputs. We’ll get back to that.
+
+Let’s get to the secrect recovery phrase!";
+"recoveryphrase.recover.intro.continue" = "Continue";
+
+"recoveryphrase.recover.explanation.navigationtitle" = "Recover your wallet";
+
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
 "initialaccountinfo.details" = "On the following pages you will be guided through the three-step process of requesting an initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";

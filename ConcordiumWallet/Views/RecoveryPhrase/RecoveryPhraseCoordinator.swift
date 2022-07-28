@@ -42,8 +42,7 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseOnboardingView.self)], animated: true)
+        replaceTopController(with: presenter.present(RecoveryPhraseOnboardingView.self))
     }
     
     func presentCopyPhrase(with recoveryPhrase: RecoveryPhrase) {
@@ -52,8 +51,7 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseCopyPhraseView.self)], animated: true)
+        replaceTopController(with: presenter.present(RecoveryPhraseCopyPhraseView.self))
     }
     
     func presentConfirmPhrase(with recoveryPhrase: RecoveryPhrase) {
@@ -63,8 +61,7 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseConfirmPhraseView.self)], animated: true)
+        replaceTopController(with: presenter.present(RecoveryPhraseConfirmPhraseView.self))
     }
     
     func presentSetupComplete(with recoveryPhrase: RecoveryPhrase) {
@@ -73,8 +70,24 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
+        navigationController.setViewControllers([presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
+    }
+    
+    func presentRecoverIntro() {
+        let presenter = RecoveryPhraseRecoverIntroPresenter(delegate: self)
+        
+        replaceTopController(with: presenter.present(RecoveryPhraseRecoverIntroView.self))
+    }
+    
+    func presentRecoverExplanation() {
+        let presenter = RecoveryPhraseRecoverExplanationPresenter(delegate: self)
+        
+        replaceTopController(with: presenter.present(RecoveryPhraseRecoverExplanationView.self))
+    }
+    
+    private func replaceTopController(with controller: UIViewController) {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
+        navigationController.setViewControllers(viewControllers + [controller], animated: true)
     }
 }
 
@@ -84,7 +97,7 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelega
     }
     
     func recoverWallet() {
-        
+        presentRecoverIntro()
     }
 }
 
@@ -108,6 +121,18 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegat
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegate {
     func recoveryPhraseSetupFinished(with recoveryPhrase: RecoveryPhrase) {
+        
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverIntroPresenterDelegate {
+    func recoverIntroWasFinished() {
+        presentRecoverExplanation()
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverExplanationPresenterDelegate {
+    func recoverExplanationWasFinished() {
         
     }
 }
