@@ -1760,6 +1760,7 @@
 		89B34A582897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */; };
 		89B34A592897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */; };
 		89B34A5A2897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */; };
+		89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A5B2897C8190059891C /* InputPhraseTests.swift */; };
 		89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
@@ -2677,6 +2678,7 @@
 		89B34A4C2897B43B0059891C /* RecoveryPhraseRecoverCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseRecoverCompleteView.swift; sourceTree = "<group>"; };
 		89B34A512897B6140059891C /* Collections+Indexed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collections+Indexed.swift"; sourceTree = "<group>"; };
 		89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseRecoverCompletePresenter.swift; sourceTree = "<group>"; };
+		89B34A5B2897C8190059891C /* InputPhraseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPhraseTests.swift; sourceTree = "<group>"; };
 		89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
 		89CF2D24280FDAB800742E1E /* StakeAmountInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeAmountInputValidator.swift; sourceTree = "<group>"; };
 		89CF2D29281000B100742E1E /* TransferCostRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostRange.swift; sourceTree = "<group>"; };
@@ -4012,6 +4014,7 @@
 			children = (
 				893CAC6D286EC1FD00BDF84C /* CopyPhraseTests.swift */,
 				897D0F312891227C001CEC3B /* ConfirmPhraseTests.swift */,
+				89B34A5B2897C8190059891C /* InputPhraseTests.swift */,
 			);
 			path = RecoveryPhrase;
 			sourceTree = "<group>";
@@ -6974,6 +6977,7 @@
 				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,
 				89D081682861C82F0091344D /* BalanceTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
+				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,
