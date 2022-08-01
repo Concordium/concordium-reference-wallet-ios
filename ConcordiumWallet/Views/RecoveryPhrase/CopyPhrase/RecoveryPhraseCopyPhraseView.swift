@@ -72,8 +72,8 @@ private struct WordContainer: View {
             }.padding(12)
             VStack {
                 Image("reveal")
-                Text(verbatim: state.hiddenMessage)
-                    .multilineTextAlignment(.center)
+                StyledLabel(text: state.hiddenMessage, style: .mono, color: Pallette.fadedText)
+                    .padding([.leading, .trailing], 16)
             }.opacity(state.areWordsShown ? 0 : 1)
         }
         .background(

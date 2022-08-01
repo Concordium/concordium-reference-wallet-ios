@@ -11,6 +11,8 @@ import SwiftUI
 struct RecoveryPhraseConfirmPhraseView: Page {
     @ObservedObject var viewModel: RecoveryPhraseConfirmPhraseViewModel
     
+    @State private var selectedIndex = 0
+    
     var pageBody: some View {
         VStack {
             PageIndicator(numberOfPages: 4, currentPage: 1)
@@ -18,9 +20,10 @@ struct RecoveryPhraseConfirmPhraseView: Page {
                 .padding([.leading, .trailing], 20)
             WordSelection(
                 selectedWords: viewModel.selectedWords,
-                suggestions: { index in  viewModel.suggestions[index] },
-                action: { index, word in
-                    viewModel.send(.selectWord(index: index, word: word))
+                selectedIndex: $selectedIndex,
+                suggestions: viewModel.suggestions[selectedIndex],
+                action: { word in
+                    viewModel.send(.selectWord(index: selectedIndex, word: word))
                 }
             ).padding([.top], 95)
             ErrorLabel(error: viewModel.error)

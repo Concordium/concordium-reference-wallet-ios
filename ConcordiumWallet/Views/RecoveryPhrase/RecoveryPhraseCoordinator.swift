@@ -9,18 +9,26 @@
 import Foundation
 import UIKit
 
+protocol RecoveryPhraseCoordinatorDelegate: AnyObject {
+    func recoveryPhraseCoordinator(createdNewPhrase recoveryPhrase: RecoveryPhrase)
+    func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase)
+}
+
 class RecoveryPhraseCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
     private let dependencyProvider: LoginDependencyProvider
+    private weak var delegate: RecoveryPhraseCoordinatorDelegate?
     
     init(
         dependencyProvider: LoginDependencyProvider,
-        navigationController: UINavigationController
+        navigationController: UINavigationController,
+        delegate: RecoveryPhraseCoordinatorDelegate
     ) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
+        self.delegate = delegate
     }
     
     func start() {
@@ -85,6 +93,24 @@ class RecoveryPhraseCoordinator: Coordinator {
         replaceTopController(with: presenter.present(RecoveryPhraseRecoverExplanationView.self))
     }
     
+    func presentRecoverInput() {
+        let presenter = RecoveryPhraseInputPresenter(
+            recoveryService: dependencyProvider.recoveryPhraseService(),
+            delegate: self
+        )
+        
+        replaceTopController(with: presenter.present(RecoveryPhraseInputView.self))
+    }
+    
+    func presentRecoveryCompleted(with recoveryPhrase: RecoveryPhrase) {
+        let presenter = RecoveryPhraseRecoverCompletePresenter(
+            recoveryPhrase: recoveryPhrase,
+            delegate: self
+        )
+        
+        navigationController.setViewControllers([presenter.present(RecoveryPhraseRecoverCompleteView.self)], animated: true)
+    }
+    
     private func replaceTopController(with controller: UIViewController) {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
         navigationController.setViewControllers(viewControllers + [controller], animated: true)
@@ -121,7 +147,7 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegat
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegate {
     func recoveryPhraseSetupFinished(with recoveryPhrase: RecoveryPhrase) {
-        
+        delegate?.recoveryPhraseCoordinator(createdNewPhrase: recoveryPhrase)
     }
 }
 
@@ -133,6 +159,18 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverIntroPresenterDelegate
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverExplanationPresenterDelegate {
     func recoverExplanationWasFinished() {
-        
+        presentRecoverInput()
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseInputPresenterDelegate {
+    func phraseInputReceived(validPhrase: RecoveryPhrase) {
+        presentRecoveryCompleted(with: validPhrase)
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverCompletePresenterDelegate {
+    func completeRecovery(with recoveryPhrase: RecoveryPhrase) {
+        delegate?.recoveryPhraseCoordinator(recoveredPhrase: recoveryPhrase)
     }
 }

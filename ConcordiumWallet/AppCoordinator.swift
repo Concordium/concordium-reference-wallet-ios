@@ -151,7 +151,8 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         if FeatureFlag.enabledFlags.contains(.recoveryCode) {
             let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
                 dependencyProvider: defaultProvider,
-                navigationController: navigationController
+                navigationController: navigationController,
+                delegate: self
             )
             recoveryPhraseCoordinator.start()
             self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
@@ -337,5 +338,15 @@ extension AppCoordinator: AppSettingsDelegate {
                 break
             }
         }
+    }
+}
+
+extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
+    func recoveryPhraseCoordinator(createdNewPhrase recoveryPhrase: RecoveryPhrase) {
+        
+    }
+    
+    func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase) {
+        
     }
 }

@@ -10,25 +10,44 @@ import SwiftUI
 
 struct WordSelection: View {
     let selectedWords: [String]
-    let suggestions: (Int) -> [String]
-    let action: (Int, String) -> Void
+    @Binding var selectedIndex: Int
+    let suggestions: [String]
+    let editable: Bool
+    let currentInput: Binding<String>
+    let action: (String) -> Void
     
-    @State private var selectedIndex = 0
     @State private var isScrolling = false
+    
+    init(
+        selectedWords: [String],
+        selectedIndex: Binding<Int>,
+        suggestions: [String],
+        editable: Bool = false,
+        currentInput: Binding<String> = .constant(""),
+        action: @escaping (String) -> Void
+    ) {
+        self.selectedWords = selectedWords
+        self._selectedIndex = selectedIndex
+        self.suggestions = suggestions
+        self.editable = editable
+        self.currentInput = currentInput
+        self.action = action
+    }
     
     var body: some View {
         HStack {
-            WordList(
+            PageList(
+                items: selectedWords,
                 selectedIndex: $selectedIndex,
-                isScrolling: $isScrolling,
-                selectedWords: selectedWords
+                editable: editable,
+                currentInput: currentInput
             )
             Image("select_arrow")
             SuggestionBox(
-                suggestions: suggestions(selectedIndex),
+                suggestions: suggestions,
                 selectedSuggestion: selectedWords[selectedIndex]
             ) { suggestion in
-                action(selectedIndex, suggestion)
+                action(suggestion)
                 moveToNextIndex()
             }.opacity(isScrolling ? 0 : 1)
         }

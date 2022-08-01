@@ -10,11 +10,13 @@ import SwiftUI
 
 struct StandardStyle: ButtonStyle {
     let disabled: Bool
+    let padding: CGFloat
+    let fillWidth: Bool
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding([.top, .bottom], 15)
-            .frame(maxWidth: .infinity)
+            .padding(padding)
+            .frame(maxWidth: fillWidth ? .infinity : nil)
             .background(disabled ? Pallette.inactiveButton : Pallette.primary)
             .cornerRadius(10)
             .foregroundColor(configuration.isPressed ? .white.opacity(0.2) : .white)
@@ -23,8 +25,17 @@ struct StandardStyle: ButtonStyle {
 }
 
 extension Button {
-    func applyStandardButtonStyle(disabled: Bool = false) -> some View {
-        buttonStyle(StandardStyle(disabled: disabled))
-            .disabled(disabled)
+    func applyStandardButtonStyle(
+        disabled: Bool = false,
+        padding: CGFloat = 15,
+        fillWidth: Bool = true
+    ) -> some View {
+        buttonStyle(
+            StandardStyle(
+                disabled: disabled,
+                padding: padding,
+                fillWidth: fillWidth
+            )
+        ).disabled(disabled)
     }
 }

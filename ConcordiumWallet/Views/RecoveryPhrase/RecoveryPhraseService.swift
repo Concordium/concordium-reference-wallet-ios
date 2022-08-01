@@ -13,6 +13,10 @@ protocol RecoveryPhraseServiceProtocol {
     func generateRecoveryPhrase() -> Result<RecoveryPhrase, Error>
     
     func generateSuggestions(from words: RecoveryPhrase, maxNumberOfSuggestions: Int) -> [[String]]
+    
+    func suggestions(for word: String) -> [String]
+    
+    func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error>
 }
 
 extension RecoveryPhraseServiceProtocol {
@@ -26,6 +30,24 @@ extension RecoveryPhraseServiceProtocol {
             ([word] + recoveryPhrase.randomSequence(ofLength: maxNumberOfSuggestions - 1, skipping: word))
                 .map { String($0) }
                 .shuffled()
+        }
+    }
+    
+    func suggestions(for word: String) -> [String] {
+        let lowercased = word.lowercased()
+        
+        let words = String.mnemonics.filter { $0.starts(with: lowercased) }
+        
+        return Array(words[0..<min(words.count, 4)])
+    }
+    
+    func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error> {
+        return Result {
+            let phrase = recoveryPhrase.joined(separator: " ")
+            
+            try Mnemonic.validate(mnemonic: phrase)
+            
+            return try RecoveryPhrase(phrase: phrase)
         }
     }
 }

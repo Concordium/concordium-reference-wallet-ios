@@ -176,6 +176,16 @@ Let’s get to the secrect recovery phrase!";
 
 "recoveryphrase.recover.explanation.navigationtitle" = "Recover your wallet";
 
+"recoveryphrase.recover.input.navigationtitle" = "Your secret recovery phrase";
+"recoveryphrase.recover.input.title" = "Enter the correct word for each index.";
+"recoveryphrase.recover.input.clearall" = "Clear all";
+"recoveryphrase.recover.input.clearbelow" = "Clear below";
+"recoveryphrase.recover.input.validationerror" = "Invalid secret recovery phrase. Please verify that all words are entered correctly";
+
+"recoveryphrase.recover.complete.navigationtitle" = "Your secret recovery phrase";
+"recoveryphrase.recover.complete.title" = "Your secret recovery phrase has been successfully entered! Tab continue to recover your accounts and identities.";
+"recoveryphrase.recover.complete.continue" = "Continue";
+
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
 "initialaccountinfo.details" = "On the following pages you will be guided through the three-step process of requesting an initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";
