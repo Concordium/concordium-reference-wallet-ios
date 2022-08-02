@@ -1761,6 +1761,20 @@
 		89B34A592897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */; };
 		89B34A5A2897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */; };
 		89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A5B2897C8190059891C /* InputPhraseTests.swift */; };
+		89B34A652897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */; };
+		89B34A662897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */; };
+		89B34A672897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */; };
+		89B34A682897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */; };
+		89B34A6A2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */; };
+		89B34A6B2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */; };
+		89B34A6C2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */; };
+		89B34A6D2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */; };
+		89B34A6F2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
+		89B34A702897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
+		89B34A712897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
+		89B34A722897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
+		89B34A752897D9450059891C /* IdentityRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A742897D9450059891C /* IdentityRecoveryTests.swift */; };
+		89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A762897E5790059891C /* Combine+TestHelpers.swift */; };
 		89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
@@ -2679,6 +2693,11 @@
 		89B34A512897B6140059891C /* Collections+Indexed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collections+Indexed.swift"; sourceTree = "<group>"; };
 		89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseRecoverCompletePresenter.swift; sourceTree = "<group>"; };
 		89B34A5B2897C8190059891C /* InputPhraseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPhraseTests.swift; sourceTree = "<group>"; };
+		89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityRecoveryStatusViewModel.swift; sourceTree = "<group>"; };
+		89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityReccoveryStatusView.swift; sourceTree = "<group>"; };
+		89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityRecoveryStatusPresenter.swift; sourceTree = "<group>"; };
+		89B34A742897D9450059891C /* IdentityRecoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityRecoveryTests.swift; sourceTree = "<group>"; };
+		89B34A762897E5790059891C /* Combine+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+TestHelpers.swift"; sourceTree = "<group>"; };
 		89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
 		89CF2D24280FDAB800742E1E /* StakeAmountInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeAmountInputValidator.swift; sourceTree = "<group>"; };
 		89CF2D29281000B100742E1E /* TransferCostRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostRange.swift; sourceTree = "<group>"; };
@@ -3523,6 +3542,7 @@
 				7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */,
 				7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */,
 				8992BA392823A8E0005279C9 /* NotYetImplemented.swift */,
+				89B34A762897E5790059891C /* Combine+TestHelpers.swift */,
 			);
 			path = HelperClasses;
 			sourceTree = "<group>";
@@ -4015,6 +4035,7 @@
 				893CAC6D286EC1FD00BDF84C /* CopyPhraseTests.swift */,
 				897D0F312891227C001CEC3B /* ConfirmPhraseTests.swift */,
 				89B34A5B2897C8190059891C /* InputPhraseTests.swift */,
+				89B34A742897D9450059891C /* IdentityRecoveryTests.swift */,
 			);
 			path = RecoveryPhrase;
 			sourceTree = "<group>";
@@ -4061,6 +4082,7 @@
 		89A056E1286C55030055C049 /* RecoveryPhrase */ = {
 			isa = PBXGroup;
 			children = (
+				89B34A632897CF400059891C /* RecoveryStatus */,
 				89B349FA2892A5280059891C /* Recover */,
 				89B349EF289260D80059891C /* SharedViews */,
 				897D0F33289145C5001CEC3B /* SetupComplete */,
@@ -4144,6 +4166,16 @@
 				89B34A562897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift */,
 			);
 			name = Complete;
+			sourceTree = "<group>";
+		};
+		89B34A632897CF400059891C /* RecoveryStatus */ = {
+			isa = PBXGroup;
+			children = (
+				89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */,
+				89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */,
+				89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */,
+			);
+			path = RecoveryStatus;
 			sourceTree = "<group>";
 		};
 		89CF2D1E280EF5C400742E1E /* AmountInput */ = {
@@ -5123,6 +5155,7 @@
 				89B34A42289407530059891C /* String+Mnemonics.swift in Sources */,
 				7FA0AE982460479100B7673F /* WidgetButton.swift in Sources */,
 				7F85B8F12472D39500ED09B8 /* MoreCoordinator.swift in Sources */,
+				89B34A6F2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */,
 				52589B2625128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				8927A680286ACAC50007CAF1 /* MaterialTabBar.swift in Sources */,
 				528EB754256400C400010554 /* RevealAttributesViewController.swift in Sources */,
@@ -5179,6 +5212,7 @@
 				7F48C273244E17D100997684 /* MakeCreateCredentialRequest.swift in Sources */,
 				64DB66B325DE643D00F4C605 /* AboutViewController.swift in Sources */,
 				07519F8826FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
+				89B34A6A2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */,
 				7F48C153244DCD0B00997684 /* UIStackView+extension.swift in Sources */,
 				64FD33CB2602330B00563703 /* CredentialResponse.swift in Sources */,
 				89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */,
@@ -5243,6 +5277,7 @@
 				64FD333025FF886E00563703 /* InputEncryptedAmount.swift in Sources */,
 				89B34A332892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
 				7F7F6D2924A0986D0017B18F /* SingleLabelViewController.swift in Sources */,
+				89B34A652897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				7F48C178244DCD0B00997684 /* UIViewController+Additions.swift in Sources */,
 				7F48C17A244DCD0B00997684 /* BaseTextfield.swift in Sources */,
 				C96632532459B85A0087A1F2 /* AccountTransactionsDataPresenter.swift in Sources */,
@@ -5742,6 +5777,7 @@
 				89CF2D412816A03100742E1E /* BakerPoolReceiptPresenter.swift in Sources */,
 				901F7F3B27EB07AE00C46741 /* BakerEntity.swift in Sources */,
 				89A056E6286C559C0055C049 /* RecoveryPhraseGettingStartedView.swift in Sources */,
+				89B34A712897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */,
 				7F85B74B246A9A7C00ED09B8 /* UITableView+Extensions.swift in Sources */,
 				529531B3256BA711004CECE4 /* Schedule.swift in Sources */,
 				901F7FA827F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
@@ -5797,6 +5833,7 @@
 				89A056F5286C58B00055C049 /* RecoveryPhraseCoordinator.swift in Sources */,
 				7F85B768246A9A7C00ED09B8 /* OriginTypeEnum.swift in Sources */,
 				07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
+				89B34A6C2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */,
 				7F85B769246A9A7C00ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				5251EFA627C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
@@ -5804,6 +5841,7 @@
 				901F7F4027EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
 				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
+				89B34A672897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */,
 				64FD333C25FF8A7C00563703 /* KeyList.swift in Sources */,
@@ -6208,6 +6246,7 @@
 				89CF2D422816A03100742E1E /* BakerPoolReceiptPresenter.swift in Sources */,
 				901F7F3C27EB07AE00C46741 /* BakerEntity.swift in Sources */,
 				89A056E7286C559C0055C049 /* RecoveryPhraseGettingStartedView.swift in Sources */,
+				89B34A722897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */,
 				7F85B849246A9AB600ED09B8 /* Storyboarded.swift in Sources */,
 				529531B4256BA711004CECE4 /* Schedule.swift in Sources */,
 				901F7FA927F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
@@ -6263,6 +6302,7 @@
 				89A056F6286C58B00055C049 /* RecoveryPhraseCoordinator.swift in Sources */,
 				7F85B864246A9AB600ED09B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
 				07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
+				89B34A6D2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */,
 				7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */,
 				5251EFA727C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
@@ -6270,6 +6310,7 @@
 				901F7F4127EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
+				89B34A682897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				7F85B869246A9AB600ED09B8 /* Details.swift in Sources */,
 				7F85B86A246A9AB600ED09B8 /* Description.swift in Sources */,
 				64FD333D25FF8A7C00563703 /* KeyList.swift in Sources */,
@@ -6506,6 +6547,7 @@
 				7FC3E7CB23F2E15900650CF4 /* WidgetViewController.swift in Sources */,
 				527DE3472571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				C9DB8A1F2423C328008551B8 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
+				89B34A6B2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */,
 				7FB4118423F2B031007FE732 /* IdentityBaseInfoWidgetPresenter.swift in Sources */,
 				06D178A123F6D54900ABC904 /* BaseTabBar.swift in Sources */,
 				077AC5FA26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
@@ -6593,6 +6635,7 @@
 				528EB722255AAFA900010554 /* InitialAccountData.swift in Sources */,
 				068DC81223F2E479001B2975 /* BaseTextfield.swift in Sources */,
 				7FF07AF023EB082000F1FC04 /* AccountsViewController.swift in Sources */,
+				89B34A702897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */,
 				7F21399924236ECB00D2A5C4 /* SubmissionResponse.swift in Sources */,
 				C9874ECB2417FC0F006EF386 /* IdentityDataRowCellView.swift in Sources */,
 				893CAC9C286F2CC800BDF84C /* Pallette.swift in Sources */,
@@ -6805,6 +6848,7 @@
 				89B34A43289407530059891C /* String+Mnemonics.swift in Sources */,
 				7F7F6D3E24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
 				90C371C427DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
+				89B34A662897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				528EB755256400C500010554 /* RevealAttributesViewController.swift in Sources */,
 				5211BAAD24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				90C371E627DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */,
@@ -6976,8 +7020,10 @@
 				897D0F322891227C001CEC3B /* ConfirmPhraseTests.swift in Sources */,
 				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,
 				89D081682861C82F0091344D /* BalanceTests.swift in Sources */,
+				89B34A752897D9450059891C /* IdentityRecoveryTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
 				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
+				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,

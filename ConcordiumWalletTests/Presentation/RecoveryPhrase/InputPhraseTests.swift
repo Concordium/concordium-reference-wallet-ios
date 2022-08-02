@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Combine
 @testable import Mock
 
 class InputPhraseTests: XCTestCase {
@@ -122,7 +123,11 @@ class InputPhraseTests: XCTestCase {
     }
 }
 
-private class MockService: RecoveryPhraseServiceProtocol {}
+private class MockService: RecoveryPhraseServiceProtocol {
+    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error> {
+        return .empty()
+    }
+}
 
 private class TestDelegate: RecoveryPhraseInputPresenterDelegate {
     private(set) var receivedPhrase: RecoveryPhrase?

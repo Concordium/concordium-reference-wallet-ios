@@ -111,6 +111,16 @@ class RecoveryPhraseCoordinator: Coordinator {
         navigationController.setViewControllers([presenter.present(RecoveryPhraseRecoverCompleteView.self)], animated: true)
     }
     
+    func presentIdentityRecovery(with recoveryPhrase: RecoveryPhrase) {
+        let presenter = IdentityRecoveryStatusPresenter(
+            recoveryPhrase: recoveryPhrase,
+            recoveryPhraseService: dependencyProvider.recoveryPhraseService(),
+            delegate: self
+        )
+        
+        replaceTopController(with: presenter.present(IdentityReccoveryStatusView.self))
+    }
+    
     private func replaceTopController(with controller: UIViewController) {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
         navigationController.setViewControllers(viewControllers + [controller], animated: true)
@@ -171,6 +181,16 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseInputPresenterDelegate {
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverCompletePresenterDelegate {
     func completeRecovery(with recoveryPhrase: RecoveryPhrase) {
-        delegate?.recoveryPhraseCoordinator(recoveredPhrase: recoveryPhrase)
+        presentIdentityRecovery(with: recoveryPhrase)
+    }
+}
+
+extension RecoveryPhraseCoordinator: IdentityRecoveryStatusPresenterDelegate {
+    func identityRecoveryCompleted() {
+        
+    }
+    
+    func reenterRecoveryPhrase() {
+        presentRecoverInput()
     }
 }

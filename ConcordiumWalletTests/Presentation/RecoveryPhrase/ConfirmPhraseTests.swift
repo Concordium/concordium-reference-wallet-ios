@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Combine
 @testable import Mock
 
 class ConfirmPhraseTests: XCTestCase {
@@ -102,4 +103,8 @@ private class TestDelegate: RecoveryPhraseConfirmPhrasePresenterDelegate {
     }
 }
 
-private struct RecoveryServiceMock: RecoveryPhraseServiceProtocol {}
+private struct RecoveryServiceMock: RecoveryPhraseServiceProtocol {
+    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error> {
+        return .empty()
+    }
+}

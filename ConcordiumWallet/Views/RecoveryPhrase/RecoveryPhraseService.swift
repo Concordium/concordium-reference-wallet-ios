@@ -17,6 +17,8 @@ protocol RecoveryPhraseServiceProtocol {
     func suggestions(for word: String) -> [String]
     
     func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error>
+    
+    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error>
 }
 
 extension RecoveryPhraseServiceProtocol {
@@ -61,7 +63,11 @@ struct RecoveryPhraseService {
     }
 }
 
-extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {}
+extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {
+    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error> {
+        return .empty()
+    }
+}
 
 private extension RandomAccessCollection where Element: Equatable {
     func randomSequence(ofLength length: Int, skipping elements: Element...) -> [Element] {
