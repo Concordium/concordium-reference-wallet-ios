@@ -8,18 +8,21 @@
 
 import Foundation
 import UIKit
+import Combine
 
 protocol RecoveryPhraseCoordinatorDelegate: AnyObject {
-    func recoveryPhraseCoordinator(createdNewPhrase recoveryPhrase: RecoveryPhrase)
+    func recoveryPhraseCoordinator(createdNewSeed seed: Seed)
     func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase)
 }
 
-class RecoveryPhraseCoordinator: Coordinator {
+class RecoveryPhraseCoordinator: Coordinator, RequestPasswordDelegate, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
     private let dependencyProvider: LoginDependencyProvider
     private weak var delegate: RecoveryPhraseCoordinatorDelegate?
+    
+    private var cancellables = [AnyCancellable]()
     
     init(
         dependencyProvider: LoginDependencyProvider,
@@ -157,7 +160,22 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegat
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegate {
     func recoveryPhraseSetupFinished(with recoveryPhrase: RecoveryPhrase) {
-        delegate?.recoveryPhraseCoordinator(createdNewPhrase: recoveryPhrase)
+        requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+            .tryMap { pwHash in
+                try self.dependencyProvider.seedMobileWallet()
+                    .store(recoveryPhrase: recoveryPhrase, with: pwHash)
+                    .get()
+            }
+            .sink(
+                receiveError: { error in
+                    if case GeneralError.userCancelled = error { return }
+                    self.showErrorAlert(ErrorMapper.toViewError(error: error))
+                },
+                receiveValue: { seed in
+                    self.delegate?.recoveryPhraseCoordinator(createdNewSeed: seed)
+                }
+            )
+            .store(in: &cancellables)
     }
 }
 

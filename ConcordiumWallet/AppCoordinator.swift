@@ -170,6 +170,18 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
     }
     
+    func showSeedIdentityCreation() {
+        let coordinator = SeedIdentitiesCoordinator(
+            navigationController: navigationController,
+            action: .createInitialIdentity,
+            dependencyProvider: defaultProvider
+        )
+        
+        coordinator.start()
+        
+        childCoordinators.append(coordinator)
+    }
+    
     func logout() {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         if var topController = keyWindow?.rootViewController {
@@ -249,7 +261,11 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         if !accounts.isEmpty || !identities.isEmpty {
             showMainTabbar()
         } else {
-            showInitialIdentityCreation()
+            if defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
+                showSeedIdentityCreation()
+            } else {
+                showInitialIdentityCreation()
+            }
         }
         // Remove login from hierarchy.
         self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
@@ -342,8 +358,9 @@ extension AppCoordinator: AppSettingsDelegate {
 }
 
 extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
-    func recoveryPhraseCoordinator(createdNewPhrase recoveryPhrase: RecoveryPhrase) {
-        
+    func recoveryPhraseCoordinator(createdNewSeed seed: Seed) {
+        showSeedIdentityCreation()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
     
     func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase) {

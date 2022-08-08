@@ -12,6 +12,7 @@ import Combine
 enum PageAlert {
     case alert(AlertOptions)
     case error(ViewError)
+    case recoverableError(ViewError, recoverActionTitle: String, hasCancel: Bool, completion: () -> Void)
 }
 
 protocol PageModel {

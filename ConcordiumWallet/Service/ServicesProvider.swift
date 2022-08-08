@@ -7,6 +7,7 @@ import Foundation
 
 protocol WalletAndStorageDependencyProvider {
     func mobileWallet() -> MobileWalletProtocol
+    func seedMobileWallet() -> SeedMobileWalletProtocol
     func storageManager() -> StorageManagerProtocol
 }
 
@@ -30,6 +31,7 @@ protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
     func appSettingsService() -> AppSettingsService
     func recoveryPhraseService() -> RecoveryPhraseService
+    func seedMobileWallet() -> SeedMobileWalletProtocol
 }
 
 protocol ImportDependencyProvider {
@@ -46,15 +48,18 @@ protocol StakeCoordinatorDependencyProvider: WalletAndStorageDependencyProvider 
 
 class ServicesProvider {
     private let _mobileWallet: MobileWalletProtocol
+    private let _seedMobileWallet: SeedMobileWalletProtocol
     private let _networkManager: NetworkManagerProtocol
     private let _storageManager: StorageManagerProtocol
     private let _keychainWrapper: KeychainWrapper
 
     init(mobileWallet: MobileWalletProtocol,
+         seedMobileWallet: SeedMobileWalletProtocol,
          networkManager: NetworkManagerProtocol,
          storageManager: StorageManagerProtocol,
          keychainWrapper: KeychainWrapper) {
         self._mobileWallet = mobileWallet
+        self._seedMobileWallet = seedMobileWallet
         self._networkManager = networkManager
         self._storageManager = storageManager
         self._keychainWrapper = keychainWrapper
@@ -105,6 +110,10 @@ extension ServicesProvider: LoginDependencyProvider {
     
     func recoveryPhraseService() -> RecoveryPhraseService {
         RecoveryPhraseService(keychainWrapper: _keychainWrapper)
+    }
+    
+    func seedMobileWallet() -> SeedMobileWalletProtocol {
+        _seedMobileWallet
     }
 }
 

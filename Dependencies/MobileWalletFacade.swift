@@ -4,14 +4,25 @@
 //
 
 import Foundation
+import MobileWallet
 
 enum WalletError: Error {
+    case invalidInput
     case noResponse
     case failed(String)
 }
 
 class MobileWalletFacade {
-
+    func createIdRequestAndPrivateData(input: CreateIDRequestV1) throws -> IDRequestV1 {
+        let response = try call(
+            cFunction: create_id_request_and_private_data_v1,
+            with: try encodeInput(input),
+            debugTitle: "createIdRequestAndPrivateDataV1"
+        )
+        
+        return try decodeOutput(IDRequestV1.self, from: response)
+    }
+    
     func createIdRequestAndPrivateData(input: String) throws -> String {
         try call(cFunction: create_id_request_and_private_data, with: input, debugTitle: "createIdRequestAndPrivateData")
     }
@@ -163,4 +174,25 @@ class MobileWalletFacade {
 
     }
     
+    private let encoder = newJSONEncoder()
+    
+    private func encodeInput<Input: Encodable>(_ input: Input) throws -> String {
+        let data = try encoder.encode(input)
+        
+        guard let stringData = String(data: data, encoding: .utf8) else {
+            throw WalletError.invalidInput
+        }
+        
+        return stringData
+    }
+    
+    private let decoder = newJSONDecoder()
+    
+    private func decodeOutput<Output: Decodable>(_ outputType: Output.Type, from string: String) throws -> Output {
+        guard let data = string.data(using: .utf8) else {
+            throw WalletError.noResponse
+        }
+        
+        return try decoder.decode(outputType, from: data)
+    }
 }

@@ -24,23 +24,81 @@ class IdentitiesService {
     }
     
     func createIdentityObjectRequest(on url: String, with idRequest: IDRequest) throws -> ResourceRequest {
-        let issuanceStartURL = URL(string: url)!
-
-        let originalParameters = issuanceStartURL.queryParameters
-        guard let idRequestString = try idRequest.jsonString() else {
+        return try createIdentityObjectRequest(
+            issuanceStartURL: url,
+            idRequestString: try idRequest.encodeToString(),
+            redirectURI: idRequest.redirectURI
+        )
+    }
+    
+    func createSeedIdentityObjectRequest(on url: String, with seedIDRequest: SeedIDRequest) throws -> ResourceRequest {
+        return try createIdentityObjectRequest(
+            issuanceStartURL: url,
+            idRequestString: try seedIDRequest.encodeToString(),
+            redirectURI: seedIDRequest.redirectURI
+        )
+    }
+    
+    var nextIdentityIndex: Int {
+        let lastIdentity = storageManager.getSeedIdentities()
+            .max { lhs, rhs in
+                lhs.index > rhs.index
+            }
+        
+        if let lastIndex = lastIdentity?.index {
+            return lastIndex + 1
+        } else {
+            return 0
+        }
+    }
+    
+    var pendingIdentity: SeedIdentityDataType? {
+        storageManager.getSeedIdentities()
+            .first { identity in
+                identity.state == .pending
+            }
+    }
+    
+    func createPendingIdentity(
+        identityProvider: IdentityProviderDataType,
+        pollURL: String,
+        index: Int
+    ) throws -> SeedIdentityDataType {
+        var newIdentity = SeedIdentityDataTypeFactory.create(index: index)
+        
+        newIdentity.identityProvider = identityProvider
+        newIdentity.state = .pending
+        newIdentity.ipStatusUrl = pollURL
+        _ = try storageManager.storeSeedIdentity(newIdentity)
+        
+        return newIdentity
+    }
+    
+    private func createIdentityObjectRequest(
+        issuanceStartURL: String,
+        idRequestString: String,
+        redirectURI: String
+    ) throws -> ResourceRequest {
+        guard let startURL = URL(string: issuanceStartURL),
+              let urlWithoutParams = startURL.urlWithoutParameters
+        else {
             throw GeneralError.unexpectedNullValue
         }
+        
+        let originalParameters = startURL.queryParameters
+        
         var parameters: [String: String] = [
             "response_type": "code",
-            "redirect_uri": idRequest.redirectURI,
+            "redirect_uri": redirectURI,
             "scope": "identity",
             "state": idRequestString
         ]
-        // To handle any present parameters in the original url
+        
         if let originalParameters = originalParameters {
             parameters = parameters.merging(originalParameters) { $1 }
         }
-        return ResourceRequest(url: issuanceStartURL.urlWithoutParameters!, parameters: parameters)
+        
+        return ResourceRequest(url: urlWithoutParams, parameters: parameters)
     }
     
     func getInitialAccountStatus(for account: AccountDataType) -> AnyPublisher<AccountSubmissionStatus, Error> {
