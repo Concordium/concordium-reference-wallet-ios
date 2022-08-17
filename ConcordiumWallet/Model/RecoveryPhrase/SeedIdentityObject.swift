@@ -10,4 +10,6 @@ import Foundation
 
 struct SeedIdentityObject: Codable {
     let signature: String
+    let attributeList: AttributeList
+    let preIdentityObject: IDRequestV1.IDObjectRequest
 }

@@ -31,49 +31,6 @@ class IdentitiesService {
         )
     }
     
-    func createSeedIdentityObjectRequest(on url: String, with seedIDRequest: SeedIDRequest) throws -> ResourceRequest {
-        return try createIdentityObjectRequest(
-            issuanceStartURL: url,
-            idRequestString: try seedIDRequest.encodeToString(),
-            redirectURI: seedIDRequest.redirectURI
-        )
-    }
-    
-    var nextIdentityIndex: Int {
-        let lastIdentity = storageManager.getSeedIdentities()
-            .max { lhs, rhs in
-                lhs.index > rhs.index
-            }
-        
-        if let lastIndex = lastIdentity?.index {
-            return lastIndex + 1
-        } else {
-            return 0
-        }
-    }
-    
-    var pendingIdentity: SeedIdentityDataType? {
-        storageManager.getSeedIdentities()
-            .first { identity in
-                identity.state == .pending
-            }
-    }
-    
-    func createPendingIdentity(
-        identityProvider: IdentityProviderDataType,
-        pollURL: String,
-        index: Int
-    ) throws -> SeedIdentityDataType {
-        var newIdentity = SeedIdentityDataTypeFactory.create(index: index)
-        
-        newIdentity.identityProvider = identityProvider
-        newIdentity.state = .pending
-        newIdentity.ipStatusUrl = pollURL
-        _ = try storageManager.storeSeedIdentity(newIdentity)
-        
-        return newIdentity
-    }
-    
     private func createIdentityObjectRequest(
         issuanceStartURL: String,
         idRequestString: String,

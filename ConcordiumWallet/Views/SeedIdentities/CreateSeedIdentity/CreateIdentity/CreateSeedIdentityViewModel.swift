@@ -15,10 +15,10 @@ enum CreateSeedIdentityEvent {
 }
 
 class CreateSeedIdentityViewModel: PageViewModel<CreateSeedIdentityEvent> {
-    @Published var request: URLRequest
+    @Published var request: URLRequest?
     
     init(
-        request: URLRequest
+        request: URLRequest?
     ) {
         self.request = request
         

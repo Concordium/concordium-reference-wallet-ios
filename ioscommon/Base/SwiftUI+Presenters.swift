@@ -22,6 +22,7 @@ extension EventHandler {
     }
 }
 
+@MainActor
 class SwiftUIPresenter<ViewModel: PageModel & EventHandler> {
     var cancellables = Set<AnyCancellable>()
     

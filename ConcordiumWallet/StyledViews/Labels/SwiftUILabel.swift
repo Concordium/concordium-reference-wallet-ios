@@ -10,6 +10,7 @@ import SwiftUI
 
 enum LabelStyle {
     case title
+    case heading
     case body
     case mono
     
@@ -18,6 +19,8 @@ enum LabelStyle {
             switch self {
             case .title:
                 return Font(Fonts.title)
+            case .heading:
+                return Font(Fonts.heading)
             case .body:
                 return Font(Fonts.body)
             case .mono:
@@ -36,6 +39,8 @@ enum LabelStyle {
         switch self {
         case .title:
             return Pallette.primary
+        case .heading:
+            return Pallette.text
         case .body:
             return Pallette.text
         case .mono:

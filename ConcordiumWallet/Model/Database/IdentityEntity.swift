@@ -15,10 +15,12 @@ enum IdentityState: String {
 protocol IdentityDataType: DataStoreProtocol {
     var identityProvider: IdentityProviderDataType? { get set }
     var identityObject: IdentityObject? { get set }
+    var seedIdentityObject: SeedIdentityObject? { get set }
     var encryptedPrivateIdObjectData: String? { get set }
     var accountsCreated: Int { get set }
     var identityProviderName: String? { get }
     var nickname: String { get set }
+    var index: Int { get set }
     var state: IdentityState { get set }
     var ipStatusUrl: String { get set }
     var hashedIpStatusUrl: String? { get }
@@ -30,6 +32,15 @@ extension IdentityDataType {
         _ = write {
             var identity = $0
             identity.identityObject = identityObject
+            identity.state = .confirmed
+        }
+        return self
+    }
+    
+    func withUpdated(seedIdentityObject: SeedIdentityObject) -> IdentityDataType {
+        _ = write {
+            var identity = $0
+            identity.seedIdentityObject = seedIdentityObject
             identity.state = .confirmed
         }
         return self
@@ -92,6 +103,7 @@ final class IdentityEntity: Object {
     @objc dynamic var accountsCreated = 1
     @objc dynamic var nickname: String = ""
     @objc dynamic var ipStatusUrl: String = ""
+    @objc dynamic var index: Int = 0
     @objc dynamic var stateString: String = IdentityState.pending.rawValue
     @objc dynamic var identityCreationError: String = ""
 }
@@ -111,6 +123,17 @@ extension IdentityEntity: IdentityDataType {
         set {
             guard let jsonData = try? newValue?.jsonString() else {return}
             self.identityObjectJson = jsonData
+        }
+    }
+    
+    var seedIdentityObject: SeedIdentityObject? {
+        get {
+            try? SeedIdentityObject.decodeFromSring(identityObjectJson)
+        }
+        set {
+            if let jsonData = try? newValue?.encodeToString() {
+                self.identityObjectJson = jsonData
+            }
         }
     }
     

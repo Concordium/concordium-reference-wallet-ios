@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CreateSeedIdentityPresenterDelegate: AnyObject {
-    func pendingIdentityCreated(_ identity: SeedIdentityDataType)
+    func pendingIdentityCreated(_ identity: IdentityDataType)
     func createIdentityView(failedToLoad error: Error)
     func cancelCreateIdentity()
 }
@@ -18,11 +18,11 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
     private weak var delegate: CreateSeedIdentityPresenterDelegate?
     
     private let request: SeedIdentityRequest
-    private let identitiesService: IdentitiesService
+    private let identitiesService: SeedIdentitiesService
     
     init(
         request: SeedIdentityRequest,
-        identitiesService: IdentitiesService,
+        identitiesService: SeedIdentitiesService,
         delegate: CreateSeedIdentityPresenterDelegate
     ) {
         self.request = request
@@ -31,7 +31,7 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
         
         super.init(
             viewModel: .init(
-                request: URLRequest(url: request.webRequest.url)
+                request: request.webRequest.request
             )
         )
     }

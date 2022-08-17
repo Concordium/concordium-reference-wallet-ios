@@ -160,22 +160,20 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegat
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegate {
     func recoveryPhraseSetupFinished(with recoveryPhrase: RecoveryPhrase) {
-        requestUserPassword(keychain: dependencyProvider.keychainWrapper())
-            .tryMap { pwHash in
-                try self.dependencyProvider.seedMobileWallet()
+        Task {
+            do {
+                let pwHash = try await self.requestUserPassword(keychain: self.dependencyProvider.keychainWrapper())
+                
+                let seed = try self.dependencyProvider.seedMobileWallet()
                     .store(recoveryPhrase: recoveryPhrase, with: pwHash)
                     .get()
+                
+                self.delegate?.recoveryPhraseCoordinator(createdNewSeed: seed)
+            } catch {
+                if case GeneralError.userCancelled = error { return }
+                self.showErrorAlert(ErrorMapper.toViewError(error: error))
             }
-            .sink(
-                receiveError: { error in
-                    if case GeneralError.userCancelled = error { return }
-                    self.showErrorAlert(ErrorMapper.toViewError(error: error))
-                },
-                receiveValue: { seed in
-                    self.delegate?.recoveryPhraseCoordinator(createdNewSeed: seed)
-                }
-            )
-            .store(in: &cancellables)
+        }
     }
 }
 

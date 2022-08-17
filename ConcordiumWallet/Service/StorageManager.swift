@@ -14,9 +14,6 @@ protocol StorageManagerProtocol {
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
     
-    func storeSeedIdentity(_: SeedIdentityDataType) throws
-    func getSeedIdentities() -> [SeedIdentityDataType]
-    
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
     /// Remove the private ID object data stored in the keychain with the associated key
@@ -192,21 +189,6 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         try? realm.write {
             realm.delete(identityEntity)
         }
-    }
-    
-    // MARK: Seed Identity
-    func storeSeedIdentity(_ identity: SeedIdentityDataType) throws {
-        guard let entity = identity as? SeedIdentityEntity else {
-            return
-        }
-        
-        try realm.write {
-            realm.add(entity)
-        }
-    }
-    
-    func getSeedIdentities() -> [SeedIdentityDataType] {
-        Array(realm.objects(SeedIdentityEntity.self))
     }
     
     // MARK: Account

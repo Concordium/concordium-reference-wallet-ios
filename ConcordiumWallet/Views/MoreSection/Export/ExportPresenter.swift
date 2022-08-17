@@ -69,13 +69,13 @@ class ExportPresenter: ExportPresenterProtocol {
 
     private func performExport() {
         self.requestPasswordDelegate?
-                       .requestUserPassword(keychain: dependencyProvider.keychainWrapper())
-                       .sink(receiveError: {[weak self] error in
-                           if case GeneralError.userCancelled = error { return }
-                           self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                       }, receiveValue: { [weak self] pwHash in
-                           self?.export(pwHash: pwHash)
-                       }).store(in: &cancellables)
+            .requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+            .sink(receiveError: {[weak self] error in
+                if case GeneralError.userCancelled = error { return }
+                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            }, receiveValue: { [weak self] pwHash in
+                self?.export(pwHash: pwHash)
+            }).store(in: &cancellables)
     }
     
     private func export(pwHash: String) {

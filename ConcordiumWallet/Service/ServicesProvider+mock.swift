@@ -11,6 +11,7 @@ extension ServicesProvider {
         let keychain: KeychainWrapper = KeychainWrapper()
         let storageManager: StorageManager = StorageManager(keychain: keychain)
         return ServicesProvider(mobileWallet: MobileWallet(storageManager: storageManager, keychain: keychain),
+                                seedMobileWallet: SeedMobileWallet(keychain: keychain),
                                 networkManager: NetworkManager(session: NetworkSessionMock()),
                                 storageManager: storageManager,
                                 keychainWrapper: keychain)

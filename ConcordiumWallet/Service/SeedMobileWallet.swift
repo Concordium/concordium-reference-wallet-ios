@@ -14,16 +14,28 @@ protocol SeedMobileWalletProtocol {
     var hasSetupRecoveryPhrase: Bool { get }
     
     func getSeed(with pwHash: String) -> Seed?
-    func getSeed(withDelegate requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<Seed, Error>
+    func getSeed(withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed
+    
+    func removeSeed() throws
     
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) -> Result<Seed, Error>
  
+    @MainActor
     func createIDRequest(
         for identitiyProvider: IdentityProviderDataType,
         index: Int,
         globalValues: GlobalWrapper,
         seed: Seed
     ) -> Result<IDRequestV1, Error>
+    
+    @MainActor
+    func createCredentialRequest(
+        for identity: IdentityDataType,
+        global: GlobalWrapper,
+        revealedAttributes: [String],
+        accountNumber: Int,
+        seed: Seed
+    ) -> Result<CreateCredentialRequest, Error>
 }
 
 class SeedMobileWallet: SeedMobileWalletProtocol {
@@ -50,18 +62,16 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         }
     }
     
-    func getSeed(withDelegate requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<Seed, Error> {
-        requestPasswordDelegate.requestUserPassword(keychain: keychain)
-            .flatMap { pwHash in
-                self.keychain.getValue(
-                    for: self.seedKey,
-                    securedByPassword: pwHash
-                )
-                .map { Seed(value: $0) }
-                .publisher
-                .mapError { $0 as Error }
-            }
-            .eraseToAnyPublisher()
+    func getSeed(withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed {
+        let pwHash = try await requestPasswordDelegate.requestUserPassword(keychain: keychain)
+        
+        let seedValue = try self.keychain.getValue(for: seedKey, securedByPassword: pwHash).get()
+        
+        return Seed(value: seedValue)
+    }
+    
+    func removeSeed() throws {
+        try self.keychain.deleteKeychainItem(withKey: seedKey).get()
     }
     
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) -> Result<Seed, Error> {
@@ -92,6 +102,29 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         
         return Result {
             try walletFacade.createIdRequestAndPrivateData(input: createRequset)
+        }
+    }
+    
+    func createCredentialRequest(
+        for identity: IdentityDataType,
+        global: GlobalWrapper,
+        revealedAttributes: [String],
+        accountNumber: Int,
+        seed: Seed
+    ) -> Result<CreateCredentialRequest, Error> {
+        guard let createRequest = CreateSeedCredentialRequest(
+            identity: identity,
+            globalWrapper: global,
+            revealedAttributes: revealedAttributes,
+            expiry: Date(timeIntervalSinceNow: 10 * 60),
+            accountNumber: accountNumber,
+            seed: seed
+        ) else {
+            return .failure(MobileWalletError.invalidArgument)
+        }
+        
+        return Result {
+            try walletFacade.createCredential(input: createRequest)
         }
     }
 }
@@ -142,17 +175,31 @@ private extension ARSInfoV1 {
     }
 }
 
-private extension GlobalVariables {
-    init?(global: GlobalWrapper) {
-        guard let genesisString = global.value.genesisString,
-              let onChainCommitmentKey = global.value.onChainCommitmentKey,
-              let bulletproofGenerators = global.value.bulletproofGenerators
+private extension CreateSeedCredentialRequest {
+    init?(
+        identity: IdentityDataType,
+        globalWrapper: GlobalWrapper,
+        revealedAttributes: [String],
+        expiry: Date,
+        accountNumber: Int,
+        seed: Seed
+    ) {
+        guard let oldIPInfo = identity.identityProvider?.ipInfo,
+              let oldARSInfos = identity.identityProvider?.arsInfos,
+              let identityObject = identity.seedIdentityObject
         else {
             return nil
         }
         
-        self.genesisString = genesisString
-        self.onChainCommitmentKey = onChainCommitmentKey
-        self.bulletproofGenerators = bulletproofGenerators
+        ipInfo = IPInfoV1(oldIPInfo: oldIPInfo)
+        arsInfos = oldARSInfos.mapValues(ARSInfoV1.init(oldARSInfo:))
+        global = globalWrapper.value
+        self.identityObject = identityObject
+        self.revealedAttributes = revealedAttributes
+        identityIndex = identity.index
+        self.accountNumber = accountNumber
+        self.seed = seed
+        net = .current
+        self.expiry = Int(expiry.timeIntervalSince1970)
     }
 }

@@ -21,13 +21,15 @@ struct CreateSeedIdentityView: Page {
 }
 
 private struct WebView: UIViewControllerRepresentable {
-    let request: URLRequest
+    let request: URLRequest?
     let onResult: (CreateSeedIdentityEvent) -> Void
     
     class Coordinator: IdentityProviderWebViewPresenterProtocol {
         var parent: WebView {
             didSet {
-                view?.show(url: parent.request)
+                if let request = parent.request {
+                    view?.show(url: request)
+                }
             }
         }
         weak var view: IdentityProviderWebViewViewProtocol?
@@ -37,7 +39,9 @@ private struct WebView: UIViewControllerRepresentable {
         }
         
         func viewDidLoad() {
-            view?.show(url: parent.request)
+            if let request = parent.request {
+                view?.show(url: request)
+            }
         }
         
         func closeTapped() {

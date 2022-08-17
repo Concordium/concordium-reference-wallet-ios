@@ -44,6 +44,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let keychain = defaultProvider.keychainWrapper()
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.password.rawValue)
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.loginPassword.rawValue)
+        try? defaultProvider.seedMobileWallet().removeSeed()
     }
 
     private func showLogin() {
@@ -149,15 +150,19 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
     func showInitialIdentityCreation() {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) {
-            let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
-                dependencyProvider: defaultProvider,
-                navigationController: navigationController,
-                delegate: self
-            )
-            recoveryPhraseCoordinator.start()
-            self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
-            childCoordinators.append(recoveryPhraseCoordinator)
-            self.navigationController.setupBaseNavigationControllerStyle()
+            if defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
+                showSeedIdentityCreation()
+            } else {
+                let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
+                    dependencyProvider: defaultProvider,
+                    navigationController: navigationController,
+                    delegate: self
+                )
+                recoveryPhraseCoordinator.start()
+                self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+                childCoordinators.append(recoveryPhraseCoordinator)
+                self.navigationController.setupBaseNavigationControllerStyle()
+            }
         } else {
             let initialAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
                                                                             parentCoordinator: self,
@@ -174,12 +179,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let coordinator = SeedIdentitiesCoordinator(
             navigationController: navigationController,
             action: .createInitialIdentity,
-            dependencyProvider: defaultProvider
+            dependencyProvider: defaultProvider,
+            delegate: self
         )
         
         coordinator.start()
         
         childCoordinators.append(coordinator)
+        self.navigationController.setupBaseNavigationControllerStyle()
     }
     
     func logout() {
@@ -261,11 +268,7 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         if !accounts.isEmpty || !identities.isEmpty {
             showMainTabbar()
         } else {
-            if defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
-                showSeedIdentityCreation()
-            } else {
-                showInitialIdentityCreation()
-            }
+            showInitialIdentityCreation()
         }
         // Remove login from hierarchy.
         self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
@@ -365,5 +368,11 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
     
     func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase) {
         
+    }
+}
+
+extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
+    func seedIdentityCoordinatorWasFinished() {
+        showMainTabbar()
     }
 }

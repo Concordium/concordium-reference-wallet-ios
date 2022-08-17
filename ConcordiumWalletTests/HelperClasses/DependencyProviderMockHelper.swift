@@ -30,4 +30,8 @@ class DependencyProviderMockHelper: AccountsFlowCoordinatorDependencyProvider {
     func storageManager() -> StorageManagerProtocol {
         fatalError("storageManager() has not been implemented")
     }
+    
+    func seedMobileWallet() -> SeedMobileWalletProtocol {
+        fatalError("seedMobileWallet() has not been implemented")
+    }
 }

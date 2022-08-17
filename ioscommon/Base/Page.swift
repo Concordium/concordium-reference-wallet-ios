@@ -15,12 +15,28 @@ enum PageAlert {
     case recoverableError(ViewError, recoverActionTitle: String, hasCancel: Bool, completion: () -> Void)
 }
 
+@MainActor
 protocol PageModel {
     var navigationTitle: String? { get }
     var isLoadingPublisher: CurrentValueSubject<Bool, Never> { get }
     var alertPublisher: PassthroughSubject<PageAlert, Never> { get }
 }
 
+extension PageModel {
+    func showLoading() {
+        isLoadingPublisher.send(true)
+    }
+    
+    func hideLoading() {
+        isLoadingPublisher.send(false)
+    }
+    
+    func showAlert(_ alert: PageAlert) {
+        alertPublisher.send(alert)
+    }
+}
+
+@MainActor
 protocol Page: View {
     associatedtype ViewModel: PageModel
     associatedtype PageBody: View

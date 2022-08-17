@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SafariServices
 
+protocol SeedIdentitiesCoordinatorDelegate: AnyObject {
+    func seedIdentityCoordinatorWasFinished()
+}
+
 class SeedIdentitiesCoordinator: Coordinator {
     enum Action {
         case createInitialIdentity
@@ -20,24 +24,27 @@ class SeedIdentitiesCoordinator: Coordinator {
     
     private let action: Action
     private let dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
-    private let identititesService: IdentitiesService
+    private let identititesService: SeedIdentitiesService
+    private weak var delegate: SeedIdentitiesCoordinatorDelegate?
     
     init(
         navigationController: UINavigationController,
         action: Action,
-        dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
+        dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider,
+        delegate: SeedIdentitiesCoordinatorDelegate
     ) {
         self.navigationController = navigationController
         self.action = action
         self.dependencyProvider = dependencyProvider
-        self.identititesService = dependencyProvider.identitiesService()
+        self.identititesService = dependencyProvider.seedIdentitiesService()
+        self.delegate = delegate
     }
     
     func start() {
         switch action {
         case .createInitialIdentity:
             if let pendingIdentity = identititesService.pendingIdentity {
-                showIdentityStatus(identity: pendingIdentity)
+                showSubmitAccount(for: pendingIdentity)
             } else {
                 showOnboarding()
             }
@@ -52,7 +59,6 @@ class SeedIdentitiesCoordinator: Coordinator {
     
     private func showIdentityProviders() {
         let presenter = SelectIdentityProviderPresenter(
-            index: identititesService.nextIdentityIndex,
             identitiesService: identititesService,
             wallet: dependencyProvider.seedMobileWallet(),
             delegate: self
@@ -76,10 +82,24 @@ class SeedIdentitiesCoordinator: Coordinator {
         navigationController.present(viewController, animated: true)
     }
     
-    private func showIdentityStatus(identity: SeedIdentityDataType) {
-        let presenter = SeedIdentityStatusPresenter(delegate: self)
+    private func showIdentityStatus(identity: IdentityDataType) {
+        let presenter = SeedIdentityStatusPresenter(
+            identity: identity,
+            delegate: self
+        )
         
         navigationController.setViewControllers([presenter.present(SeedIdentityStatusView.self)], animated: true)
+    }
+    
+    private func showSubmitAccount(for identity: IdentityDataType) {
+        let presenter = SubmitSeedAccountPresenter(
+            identity: identity,
+            identitiesService: identititesService,
+            accountsService: dependencyProvider.seedAccountsService(),
+            delegate: self
+        )
+        
+        navigationController.setViewControllers([presenter.present(SubmitSeedAccountView.self)], animated: true)
     }
 }
 
@@ -103,7 +123,7 @@ extension SeedIdentitiesCoordinator: SelectIdentityProviderPresenterDelegate {
 }
 
 extension SeedIdentitiesCoordinator: CreateSeedIdentityPresenterDelegate {
-    func pendingIdentityCreated(_ identity: SeedIdentityDataType) {
+    func pendingIdentityCreated(_ identity: IdentityDataType) {
         navigationController.dismiss(animated: true) {
             self.showIdentityStatus(identity: identity)
         }
@@ -134,7 +154,15 @@ extension SeedIdentitiesCoordinator: CreationFailedPresenterDelegate {
 }
 
 extension SeedIdentitiesCoordinator: SeedIdentityStatusPresenterDelegate {
-    
+    func seedIdentityStatusDidFinish(with identity: IdentityDataType) {
+        showSubmitAccount(for: identity)
+    }
+}
+
+extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
+    func accountHasBeenSubmitted(_ account: AccountDataType) {
+        delegate?.seedIdentityCoordinatorWasFinished()
+    }
 }
 
 struct SeedIdentityRequest {

@@ -42,6 +42,20 @@ class NetworkSessionMock: NetworkSession {
             return .fail(URLError(.fileDoesNotExist))
         }
     }
+    
+    func load(request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+        if overwriteMockFilesWithServerData {
+            return try await loadFromServerAndOverwriteWithReceivedData(request: request)
+        }
+        if let url = request.url,
+           let (data, returnCode) = loadFile(for: url),
+           let urlResponse = HTTPURLResponse(url: request.url!, statusCode: returnCode, httpVersion: nil, headerFields: nil) {
+            Logger.debug("mock returning \(String(data: data, encoding: .utf8)?.prefix(50) ?? "")")
+            return (data, urlResponse)
+        } else {
+            throw URLError(.fileDoesNotExist)
+        }
+    }
 
     func loadFile(for url: URL) -> (Data, Int)? {
         if let path = Bundle.main.path(forResource: getFilename(for: url), ofType: "json") {
@@ -105,6 +119,28 @@ extension NetworkSessionMock { // Methods for overwriting data instead of return
                 try? data.write(to: path)
             }
         }).eraseToAnyPublisher()
+    }
+    
+    private func loadFromServerAndOverwriteWithReceivedData(request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+        let (data, response) = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<(Data, HTTPURLResponse), Error>) in
+            URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let data = data, let response = response as? HTTPURLResponse {
+                    continuation.resume(returning: (data, response))
+                } else {
+                    continuation.resume(throwing: NetworkError.invalidResponse)
+                }
+            }).resume()
+        }
+        
+        if let url = request.url,
+           let path = Bundle.main.url(forResource: self.getOverwriteFilename(for: url), withExtension: "json") {
+            Logger.info("Writing to \(path)")
+            try? data.write(to: path)
+        }
+        
+        return (data, response)
     }
 
     func getOverwriteFilename(for url: URL) -> String {

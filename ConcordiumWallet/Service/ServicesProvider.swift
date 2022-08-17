@@ -20,6 +20,8 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
     func identitiesService() -> IdentitiesService
+    func seedIdentitiesService() -> SeedIdentitiesService
+    func seedAccountsService() -> SeedAccountsService
 }
 
 protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -79,6 +81,23 @@ extension ServicesProvider: WalletAndStorageDependencyProvider {
 extension ServicesProvider: IdentitiesFlowCoordinatorDependencyProvider {
     func identitiesService() -> IdentitiesService {
         IdentitiesService(networkManager: _networkManager, storageManager: _storageManager)
+    }
+    
+    func seedIdentitiesService() -> SeedIdentitiesService {
+        SeedIdentitiesService(
+            networkManager: _networkManager,
+            storageManager: _storageManager,
+            mobileWallet: _seedMobileWallet
+        )
+    }
+    
+    func seedAccountsService() -> SeedAccountsService {
+        SeedAccountsService(
+            mobileWallet: _seedMobileWallet,
+            networkManager: _networkManager,
+            storageManager: _storageManager,
+            keychainWrapper: _keychainWrapper
+        )
     }
 }
 

@@ -23,6 +23,16 @@ class MobileWalletFacade {
         return try decodeOutput(IDRequestV1.self, from: response)
     }
     
+    func createCredential(input: CreateSeedCredentialRequest) throws -> CreateCredentialRequest {
+        let response = try call(
+            cFunction: create_credential_v1,
+            with: try encodeInput(input),
+            debugTitle: "createCredentialV1"
+        )
+        
+        return try decodeOutput(CreateCredentialRequest.self, from: response)
+    }
+    
     func createIdRequestAndPrivateData(input: String) throws -> String {
         try call(cFunction: create_id_request_and_private_data, with: input, debugTitle: "createIdRequestAndPrivateData")
     }

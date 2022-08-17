@@ -130,6 +130,9 @@ You can show the shielded balance of the account via the option below, or later 
 "gettingstarted.newaccount" = "I want to create my initial account";
 "gettingstarted.importaccount" = "I want to import existing accounts";
 
+"recoveryphrase.account.name" = "Account %d";
+"recoveryphrase.identity.name" = "Identity %d";
+
 "recoveryphrase.gettingstarted.navigationtitle" = "Getting started";
 "recoveryphrase.gettingstarted.title" = "Are you new to Concordium?";
 "recoveryphrase.gettingstarted.new.title" = "I'm new!";
@@ -185,6 +188,27 @@ Let’s get to the secrect recovery phrase!";
 "recoveryphrase.recover.complete.navigationtitle" = "Your secret recovery phrase";
 "recoveryphrase.recover.complete.title" = "Your secret recovery phrase has been successfully entered! Tab continue to recover your accounts and identities.";
 "recoveryphrase.recover.complete.continue" = "Continue";
+
+"identities.seed.status.navigationtitle" = "Your first identity";
+"identities.seed.status.title" = "Verification request submitted!";
+"identities.seed.status.body" = "Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can create your first account.
+
+You can press continue to have a look at the app, while you wait.";
+"identities.seed.status.identitytile" = "Identity %d";
+"identities.seed.status.continue" = "Continue";
+
+"identities.seed.shared.identitytitle" = "Identity %d";
+"identities.seed.shared.accounttitle" = "Account %d";
+"identities.seed.shared.expirationdate" = "Expires %@";
+
+"identities.seed.submitaccount.navigationtitle" = "Your first account";
+"identities.seed.submitaccount.title" = "Account submission";
+"identities.seed.submitaccount.body" = "Once the identity provider has verified your identity, you will be able to submit your first Concordium account. So hang on for a bit and wait for them to finish. You can also come back later to submit your account.
+
+When you have submitted your account, you will be taken to the wallet.";
+"identities.seed.submitaccount.total" = "Total";
+"identities.seed.submitaccount.atdisposal" = "At disposal";
+"identities.seed.submitaccount.submit" = "Submit account";
 
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
