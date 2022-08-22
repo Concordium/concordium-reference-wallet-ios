@@ -87,13 +87,7 @@ class RecoveryPhraseCoordinator: Coordinator, RequestPasswordDelegate, ShowAlert
     func presentRecoverIntro() {
         let presenter = RecoveryPhraseRecoverIntroPresenter(delegate: self)
         
-        replaceTopController(with: presenter.present(RecoveryPhraseRecoverIntroView.self))
-    }
-    
-    func presentRecoverExplanation() {
-        let presenter = RecoveryPhraseRecoverExplanationPresenter(delegate: self)
-        
-        replaceTopController(with: presenter.present(RecoveryPhraseRecoverExplanationView.self))
+        navigationController.pushViewController(presenter.present(RecoveryPhraseRecoverIntroView.self), animated: true)
     }
     
     func presentRecoverInput() {
@@ -102,7 +96,7 @@ class RecoveryPhraseCoordinator: Coordinator, RequestPasswordDelegate, ShowAlert
             delegate: self
         )
         
-        replaceTopController(with: presenter.present(RecoveryPhraseInputView.self))
+        navigationController.pushViewController(presenter.present(RecoveryPhraseInputView.self), animated: true)
     }
     
     func presentRecoveryCompleted(with recoveryPhrase: RecoveryPhrase) {
@@ -182,12 +176,6 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegat
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverIntroPresenterDelegate {
     func recoverIntroWasFinished() {
-        presentRecoverExplanation()
-    }
-}
-
-extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverExplanationPresenterDelegate {
-    func recoverExplanationWasFinished() {
         presentRecoverInput()
     }
 }

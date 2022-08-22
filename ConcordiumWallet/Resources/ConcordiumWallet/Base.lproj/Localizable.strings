@@ -149,6 +149,17 @@ You will be guided through each step of the process.";
 "recoveryphrase.gettingstarted.recover.body" = "If you previosly set up a Concordium wallet with a secret recovery phrase, you can restore your wallet here.";
 "recoveryphrase.gettingstarted.recover.buttontitle" = "Recover wallet";
 
+"recoveryphrase.onboarding.message" = "It is now time to set up your secret recovery phrase.
+
+The secret recovery phrase is a series of 24 words that will grant you access to create accounts and identities on Concordium.
+
+At the same time, it is also the only way to regain access to your accounts and identities if you lose your device or it breaks. This means that it is very important that you write it down and keep it somewhere safe. It it also very important that no one but you has access to the secret recovery phrase.
+
+Concordium cannot recreate your secret recovery phrase or help you regain access to your accounts without it.
+
+If you lose your secret recovery phrase, you risk losing your accounts!";
+"recoveryphrase.onboarding.continue" = "Continue";
+
 "recoveryphrase.copyphrase.navigationtitle" = "Secret recovery phrase";
 "recoveryphrase.copyphrase.title" = "Please write all 24 words down in the right order.";
 "recoveryphrase.copyphrase.revealmessage" = "Tap to reveal your secret recovery phrase. Make sure noone else can see it.";
