@@ -57,6 +57,8 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
         case .fetchIdentities:
             if !viewModel.status.isFecthing {
                 viewModel.status = .fetching
+                viewModel.title = "identityrecovery.status.title.fetching".localized
+                viewModel.message = "identityrecovery.status.message.fetching".localized
                 
                 fetchIdentities()
             }
