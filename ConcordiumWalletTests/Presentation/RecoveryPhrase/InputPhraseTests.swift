@@ -10,7 +10,8 @@ import XCTest
 import Combine
 @testable import Mock
 
-class InputPhraseTests: XCTestCase {
+@MainActor
+class InputPhraseTests: ConcordiumTestCase {
     func test_no_words_are_initially_selected() {
         let (presenter, _) = createPresenter()
         
@@ -99,8 +100,9 @@ class InputPhraseTests: XCTestCase {
     
     private func createPresenter() -> (RecoveryPhraseInputPresenter, TestDelegate) {
         let delegate = TestDelegate()
+        let dependencyProvider = getTestProvider()
         let presenter = RecoveryPhraseInputPresenter(
-            recoveryService: MockService(),
+            recoveryService: dependencyProvider.recoveryPhraseService(),
             delegate: delegate
         )
         
@@ -120,12 +122,6 @@ class InputPhraseTests: XCTestCase {
             
             return try RecoveryPhrase(phrase: words.joined(separator: " "))
         }
-    }
-}
-
-private class MockService: RecoveryPhraseServiceProtocol {
-    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error> {
-        return .empty()
     }
 }
 

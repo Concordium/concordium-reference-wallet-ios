@@ -30,6 +30,39 @@ extension XCTestCase {
         XCTAssert(verification(waitForElements(from: publisher, timeout: timeout)), file: file, line: line)
     }
     
+    func XCTAssertReceivesValue<T: Equatable>(
+        _ publisher: Published<T>.Publisher,
+        _ element: T,
+        timeout: TimeInterval = 5.0,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        var cancellables = Set<AnyCancellable>()
+        var emittedValues = [T]()
+        var hasEmittedTarget = false
+        
+        let publisherExpectation = expectation(description: "Publisher Expectation")
+        
+        publisher
+            .sink { value in
+                if value == element {
+                    emittedValues.append(value)
+                    hasEmittedTarget = true
+                    publisherExpectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: timeout) { _ in
+            XCTAssert(
+                hasEmittedTarget,
+                "Expected \(element), received \(emittedValues)",
+                file: file,
+                line: line
+            )
+        }
+    }
+    
     private func waitForElements<P: Publisher>(from publisher: P, timeout: TimeInterval) -> [P.Output] {
         var cancellables = Set<AnyCancellable>()
         var emittedElements: [P.Output]?

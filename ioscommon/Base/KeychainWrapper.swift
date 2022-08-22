@@ -11,25 +11,6 @@ import Security
 import CryptoKit
 import Combine
 
-//protocol KeychainWrapperProtocol {
-//    func storePassword(password: String) -> Result<String, KeychainError>
-//    func checkPasswordHash(pwHash: String) -> Result<Bool, KeychainError>
-//    func checkPassword(password: String) -> Result<Bool, KeychainError>
-//    func passwordCreated() -> Bool
-//    func hashPassword(_ password: String) -> String
-//
-//    func storePasswordBehindBiometrics(pwHash: String) -> AnyPublisher<Void, KeychainError>
-//    func getPasswordWithBiometrics() -> AnyPublisher<String, KeychainError>
-//
-//    func store(key: String, value: String, securedByPassword: String) -> Result<Void, KeychainError>
-//    func getValue(for key: String, securedByPassword: String) -> Result<String, KeychainError>
-//
-//    func getValueWithBiometrics(for key: String) -> AnyPublisher<String, KeychainError>
-//    func storeWithBiometrics(key: String, value: String) -> AnyPublisher<Void, KeychainError>
-//
-//    func deleteKeychainItem(withKey key: String) -> Result<Void, KeychainError>
-//}
-
 protocol KeychainWrapperProtocol {
     func hasValue(key: String) -> Bool
     

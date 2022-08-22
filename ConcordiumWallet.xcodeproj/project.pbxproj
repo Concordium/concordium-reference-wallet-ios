@@ -1616,6 +1616,13 @@
 		893CACA2288E616300BDF84C /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9F288E616300BDF84C /* PageIndicator.swift */; };
 		893CACA3288E616300BDF84C /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893CAC9F288E616300BDF84C /* PageIndicator.swift */; };
 		8967D3442850D5B9004DB9F0 /* AmountInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */; };
+		896B41D328B374A200D1F271 /* IDPIdentityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896B41D228B374A200D1F271 /* IDPIdentityRequest.swift */; };
+		896B41D428B374A200D1F271 /* IDPIdentityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896B41D228B374A200D1F271 /* IDPIdentityRequest.swift */; };
+		896B41D528B374A200D1F271 /* IDPIdentityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896B41D228B374A200D1F271 /* IDPIdentityRequest.swift */; };
+		896B41D628B374A200D1F271 /* IDPIdentityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896B41D228B374A200D1F271 /* IDPIdentityRequest.swift */; };
+		896B41D828B3796B00D1F271 /* InMemoryKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896B41D728B3796B00D1F271 /* InMemoryKeychain.swift */; };
+		896B41DA28B37B9B00D1F271 /* ConcordiumTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896B41D928B37B9B00D1F271 /* ConcordiumTestCase.swift */; };
+		896B41DD28B3945B00D1F271 /* 6.3.2.RX_backend_recover_id.json in Resources */ = {isa = PBXBuildFile; fileRef = 896B41DB28B3945300D1F271 /* 6.3.2.RX_backend_recover_id.json */; };
 		897D0F19288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897D0F18288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift */; };
 		897D0F1A288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897D0F18288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift */; };
 		897D0F1B288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897D0F18288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift */; };
@@ -1794,7 +1801,6 @@
 		89B34A702897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
 		89B34A712897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
 		89B34A722897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */; };
-		89B34A752897D9450059891C /* IdentityRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A742897D9450059891C /* IdentityRecoveryTests.swift */; };
 		89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B34A762897E5790059891C /* Combine+TestHelpers.swift */; };
 		89CF2D20280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
 		89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */; };
@@ -2842,6 +2848,10 @@
 		893CAC9A286F2CC800BDF84C /* Pallette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pallette.swift; sourceTree = "<group>"; };
 		893CAC9F288E616300BDF84C /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
 		8967D3432850D5B9004DB9F0 /* AmountInputValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountInputValidatorTests.swift; sourceTree = "<group>"; };
+		896B41D228B374A200D1F271 /* IDPIdentityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDPIdentityRequest.swift; sourceTree = "<group>"; };
+		896B41D728B3796B00D1F271 /* InMemoryKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeychain.swift; sourceTree = "<group>"; };
+		896B41D928B37B9B00D1F271 /* ConcordiumTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcordiumTestCase.swift; sourceTree = "<group>"; };
+		896B41DB28B3945300D1F271 /* 6.3.2.RX_backend_recover_id.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 6.3.2.RX_backend_recover_id.json; sourceTree = "<group>"; };
 		897D0F18288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseConfirmPhraseView.swift; sourceTree = "<group>"; };
 		897D0F1D288EA47E001CEC3B /* RecoveryPhraseConfirmPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseConfirmPhraseViewModel.swift; sourceTree = "<group>"; };
 		897D0F22288EA9C3001CEC3B /* RecoveryPhraseConfirmPhrasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseConfirmPhrasePresenter.swift; sourceTree = "<group>"; };
@@ -2891,7 +2901,6 @@
 		89B34A642897CF540059891C /* IdentityRecoveryStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityRecoveryStatusViewModel.swift; sourceTree = "<group>"; };
 		89B34A692897D1110059891C /* IdentityReccoveryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityReccoveryStatusView.swift; sourceTree = "<group>"; };
 		89B34A6E2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityRecoveryStatusPresenter.swift; sourceTree = "<group>"; };
-		89B34A742897D9450059891C /* IdentityRecoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityRecoveryTests.swift; sourceTree = "<group>"; };
 		89B34A762897E5790059891C /* Combine+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+TestHelpers.swift"; sourceTree = "<group>"; };
 		89CF2D1F280EF5F700742E1E /* BakerAmountInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerAmountInputPresenter.swift; sourceTree = "<group>"; };
 		89CF2D24280FDAB800742E1E /* StakeAmountInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeAmountInputValidator.swift; sourceTree = "<group>"; };
@@ -3774,6 +3783,8 @@
 				7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */,
 				8992BA392823A8E0005279C9 /* NotYetImplemented.swift */,
 				89B34A762897E5790059891C /* Combine+TestHelpers.swift */,
+				896B41D728B3796B00D1F271 /* InMemoryKeychain.swift */,
+				896B41D928B37B9B00D1F271 /* ConcordiumTestCase.swift */,
 			);
 			path = HelperClasses;
 			sourceTree = "<group>";
@@ -3879,6 +3890,7 @@
 				89D467CB289B8BCA007D3FC8 /* 6.1.2.RX-lib_create_id_request_and_private_data_v1.json */,
 				89D467CD289B8C19007D3FC8 /* 6.2.1.TX-lib_create_credential_v1.json */,
 				89D467CF289B8C3C007D3FC8 /* 6.2.2.RX-lib_create_credential_v1.json */,
+				896B41DB28B3945300D1F271 /* 6.3.2.RX_backend_recover_id.json */,
 				19C2E15DA745EE0E2755FFAE /* backend_invalidRequest_error.json */,
 				7FA0AEA6246061A500B7673F /* backend_server_error.json */,
 				7F48C252244DCEF700997684 /* NetworkSessionMock.swift */,
@@ -4302,7 +4314,6 @@
 				893CAC6D286EC1FD00BDF84C /* CopyPhraseTests.swift */,
 				897D0F312891227C001CEC3B /* ConfirmPhraseTests.swift */,
 				89B34A5B2897C8190059891C /* InputPhraseTests.swift */,
-				89B34A742897D9450059891C /* IdentityRecoveryTests.swift */,
 			);
 			path = RecoveryPhrase;
 			sourceTree = "<group>";
@@ -4484,6 +4495,7 @@
 				891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */,
 				891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */,
 				891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */,
+				896B41D228B374A200D1F271 /* IDPIdentityRequest.swift */,
 			);
 			path = RecoveryPhrase;
 			sourceTree = "<group>";
@@ -5173,6 +5185,7 @@
 				070D620527B3C54500B6903C /* shielded_balance_onboarding_en_1.html in Resources */,
 				9078544D28101BFC00B655EB /* baker_intro_flow_en_2.html in Resources */,
 				19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */,
+				896B41DD28B3945B00D1F271 /* 6.3.2.RX_backend_recover_id.json in Resources */,
 				7FA0AED6246061AD00B7673F /* backend_server_error.json in Resources */,
 				19C2ED9155A42125E3162055 /* 2.4.2.RX_backend_submissionStatus_success.json in Resources */,
 				90434C6A27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
@@ -5533,6 +5546,7 @@
 				89B34A6F2897D71B0059891C /* IdentityRecoveryStatusPresenter.swift in Sources */,
 				52589B2625128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				8927A680286ACAC50007CAF1 /* MaterialTabBar.swift in Sources */,
+				896B41D328B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
 				528EB754256400C400010554 /* RevealAttributesViewController.swift in Sources */,
 				07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				079F310726EB69DD00ED96D3 /* SettingsHelper.swift in Sources */,
@@ -6368,6 +6382,7 @@
 				7F85B7A5246A9A7C00ED09B8 /* SelectRecipientPresenter.swift in Sources */,
 				7F85B7A6246A9A7C00ED09B8 /* SelectRecipientViewController.swift in Sources */,
 				07519F9426FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
+				896B41D528B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
 				528EB751255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D46819289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAA924FD1D5100EE1658 /* Balance.swift in Sources */,
@@ -6868,6 +6883,7 @@
 				7F85B8A2246A9AB600ED09B8 /* SendFundPresenter.swift in Sources */,
 				7F85B8A3246A9AB600ED09B8 /* SendFundViewController.swift in Sources */,
 				07519F9526FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
+				896B41D628B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
 				528EB752255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D4681A289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAAA24FD1D5100EE1658 /* Balance.swift in Sources */,
@@ -7194,6 +7210,7 @@
 				7F21398E24236C0A00D2A5C4 /* MakeCreateCredentialRequest.swift in Sources */,
 				901F7F5027EB4EA900C46741 /* StakeStatusPresenter.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
+				896B41D428B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
 				901F7F9F27F33C8800C46741 /* PendingChange.swift in Sources */,
 				893CAC92286F27B800BDF84C /* RecoveryPhraseOnboardingView.swift in Sources */,
 				89A056F9286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
@@ -7511,6 +7528,7 @@
 				7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */,
 				19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */,
 				8992BA4C2823DF6F005279C9 /* StakeDataHandlerTests.swift in Sources */,
+				896B41D828B3796B00D1F271 /* InMemoryKeychain.swift in Sources */,
 				7F0573F024AC71DC009517AD /* TransactionsCellViewModelTests.swift in Sources */,
 				8967D3442850D5B9004DB9F0 /* AmountInputValidatorTests.swift in Sources */,
 				7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */,
@@ -7518,11 +7536,11 @@
 				897D0F322891227C001CEC3B /* ConfirmPhraseTests.swift in Sources */,
 				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,
 				89D081682861C82F0091344D /* BalanceTests.swift in Sources */,
-				89B34A752897D9450059891C /* IdentityRecoveryTests.swift in Sources */,
 				891B1A0328A6393700F4B0D6 /* AwaitPublisherTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
 				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
 				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
+				896B41DA28B37B9B00D1F271 /* ConcordiumTestCase.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,

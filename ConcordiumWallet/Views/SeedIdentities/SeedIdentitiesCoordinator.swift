@@ -60,7 +60,6 @@ class SeedIdentitiesCoordinator: Coordinator {
     private func showIdentityProviders() {
         let presenter = SelectIdentityProviderPresenter(
             identitiesService: identititesService,
-            wallet: dependencyProvider.seedMobileWallet(),
             delegate: self
         )
         
@@ -70,7 +69,7 @@ class SeedIdentitiesCoordinator: Coordinator {
         )
     }
     
-    private func showCreateIdentity(request: SeedIdentityRequest) {
+    private func showCreateIdentity(request: IDPIdentityRequest) {
         let presenter = CreateSeedIdentityPresenter(
             request: request,
             identitiesService: identititesService,
@@ -117,7 +116,7 @@ extension SeedIdentitiesCoordinator: SelectIdentityProviderPresenterDelegate {
         )
     }
     
-    func createIdentityRequestCreated(_ request: SeedIdentityRequest) {
+    func createIdentityRequestCreated(_ request: IDPIdentityRequest) {
         showCreateIdentity(request: request)
     }
 }
@@ -163,11 +162,4 @@ extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
     func accountHasBeenSubmitted(_ account: AccountDataType) {
         delegate?.seedIdentityCoordinatorWasFinished()
     }
-}
-
-struct SeedIdentityRequest {
-    let id: String
-    let index: Int
-    let identityProvider: IdentityProviderDataType
-    let webRequest: ResourceRequest
 }

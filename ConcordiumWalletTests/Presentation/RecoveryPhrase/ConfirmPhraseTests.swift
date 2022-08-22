@@ -10,7 +10,8 @@ import XCTest
 import Combine
 @testable import Mock
 
-class ConfirmPhraseTests: XCTestCase {
+@MainActor
+class ConfirmPhraseTests: ConcordiumTestCase {
     func test_no_words_are_initially_selected() throws {
         let (presenter, _) = try createPresenter()
         
@@ -74,7 +75,7 @@ class ConfirmPhraseTests: XCTestCase {
         let delegate = TestDelegate()
         let presenter = RecoveryPhraseConfirmPhrasePresenter(
             recoveryPhrase: try testPhrase,
-            recoveryPhraseService: RecoveryServiceMock(),
+            recoveryPhraseService: getTestProvider().recoveryPhraseService(),
             delegate: delegate
         )
         
@@ -100,11 +101,5 @@ private class TestDelegate: RecoveryPhraseConfirmPhrasePresenterDelegate {
     
     func recoveryPhraseHasBeenConfirmed(_ recoveryPhrase: RecoveryPhrase) {
         confirmedPhrase = recoveryPhrase
-    }
-}
-
-private struct RecoveryServiceMock: RecoveryPhraseServiceProtocol {
-    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error> {
-        return .empty()
     }
 }

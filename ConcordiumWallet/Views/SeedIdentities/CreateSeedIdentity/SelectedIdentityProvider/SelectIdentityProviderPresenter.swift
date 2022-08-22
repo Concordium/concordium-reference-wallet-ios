@@ -11,24 +11,21 @@ import Combine
 
 protocol SelectIdentityProviderPresenterDelegate: RequestPasswordDelegate {
     func showIdentityProviderInfo(url: URL)
-    func createIdentityRequestCreated(_ request: SeedIdentityRequest)
+    func createIdentityRequestCreated(_ request: IDPIdentityRequest)
 }
 
 class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderViewModel> {
     private weak var delegate: SelectIdentityProviderPresenterDelegate?
     
     private let identititesService: SeedIdentitiesService
-    private let wallet: SeedMobileWalletProtocol
     private var ignoreInput = false
     
     init(
         identitiesService: SeedIdentitiesService,
-        wallet: SeedMobileWalletProtocol,
         delegate: SelectIdentityProviderPresenterDelegate
     ) {
         self.identititesService = identitiesService
-        
-        self.wallet = wallet
+
         self.delegate = delegate
         
         super.init(
@@ -92,27 +89,14 @@ class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderVi
             
             self.viewModel.showLoading()
             
-            let identityProvider = IdentityProviderDataTypeFactory.create(
-                ipData: ipData
-            )
-            let index = self.identititesService.nextIdentityindex
-            
             Task {
                 do {
-                    let (id, request) = try await self.identititesService.createSeedIdentityRequest(
-                        identityProvider: identityProvider,
-                        index: index,
+                    let request = try await self.identititesService.requestNextIdentity(
+                        from: ipData,
                         requestPasswordDelegate: delegate
                     )
                     
-                    delegate.createIdentityRequestCreated(
-                        .init(
-                            id: id,
-                            index: index,
-                            identityProvider: identityProvider,
-                            webRequest: request
-                        )
-                    )
+                    delegate.createIdentityRequestCreated(request)
                 } catch {
                     switch error {
                     case ViewError.userCancelled:

@@ -55,13 +55,14 @@ class ServicesProvider {
     private let _seedMobileWallet: SeedMobileWalletProtocol
     private let _networkManager: NetworkManagerProtocol
     private let _storageManager: StorageManagerProtocol
-    private let _keychainWrapper: KeychainWrapper
+    private let _keychainWrapper: KeychainWrapperProtocol
 
     init(mobileWallet: MobileWalletProtocol,
          seedMobileWallet: SeedMobileWalletProtocol,
          networkManager: NetworkManagerProtocol,
          storageManager: StorageManagerProtocol,
-         keychainWrapper: KeychainWrapper) {
+         keychainWrapper: KeychainWrapperProtocol
+    ) {
         self._mobileWallet = mobileWallet
         self._seedMobileWallet = seedMobileWallet
         self._networkManager = networkManager

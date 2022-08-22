@@ -15,6 +15,7 @@ class NetworkSessionMock: NetworkSession {
        overwrite local mock json files with the returned data from the server
      */
     let overwriteMockFilesWithServerData = false
+    private var overrides = [String: Result<Data, NetworkError>]()
 
     let urlMapping = [
         ApiConstants.ipInfo: "1.1.2.RX-backend_identity_provider_info",
@@ -34,7 +35,7 @@ class NetworkSessionMock: NetworkSession {
     func load(request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLSession.DataTaskPublisher.Failure> {
         if overwriteMockFilesWithServerData {return loadFromServerAndOverwriteWithReceivedData(request: request)}
         if let url = request.url,
-           let (data, returnCode) = loadFile(for: url),
+           let (data, returnCode) = loadOverride(for: url) ?? loadFile(for: url),
            let urlResponse: URLResponse = HTTPURLResponse(url: request.url!, statusCode: returnCode, httpVersion: nil, headerFields: nil) {
             Logger.debug("mock returning \(String(data: data, encoding: .utf8)?.prefix(50) ?? "")")
             return .just((data, urlResponse))
@@ -48,7 +49,7 @@ class NetworkSessionMock: NetworkSession {
             return try await loadFromServerAndOverwriteWithReceivedData(request: request)
         }
         if let url = request.url,
-           let (data, returnCode) = loadFile(for: url),
+           let (data, returnCode) = loadOverride(for: url) ?? loadFile(for: url),
            let urlResponse = HTTPURLResponse(url: request.url!, statusCode: returnCode, httpVersion: nil, headerFields: nil) {
             Logger.debug("mock returning \(String(data: data, encoding: .utf8)?.prefix(50) ?? "")")
             return (data, urlResponse)
@@ -68,7 +69,59 @@ class NetworkSessionMock: NetworkSession {
         }
         return nil
     }
+    
+    private func loadOverride(for url: URL) -> (Data, Int)? {        
+        guard let result = overrideResult(for: url) else {
+            return nil
+        }
+        
+        switch result {
+        case let .success(data):
+            return (data, 200)
+        case let .failure(error):
+            switch error {
+            case let .dataLoadingError(statusCode, data):
+                return (data, statusCode)
+            default:
+                return (Data(), 400)
+            }
+        }
+    }
+    
+    private func overrideResult(for url: URL) -> Result<Data, NetworkError>? {
+        for key in overrides.keys {
+            if url.absoluteString.starts(with: key) {
+                return overrides[key]
+            }
+        }
+        
+        return nil
+    }
 
+    func overrideEndpoint<T: Encodable>(named: String, with object: T) {
+        do {
+            let data = try JSONEncoder().encode(object)
+            
+            overrides[named] = .success(data)
+        } catch {
+            Logger.warn("unable to encode mock object: \(object)")
+        }
+    }
+    
+    func overrideEndpoint(named: String, with error: NetworkError) {
+        overrides[named] = .failure(error)
+    }
+    
+    func overrideEndpoint(named: String, withFile location: String) {
+        if let path = Bundle.main.path(forResource: location, ofType: "json"), let data = try? Data(contentsOf: .init(fileURLWithPath: path)) {
+            overrides[named] = .success(data)
+        }
+    }
+    
+    func clearOverrides() {
+        overrides.removeAll()
+    }
+    
     // swiftlint:disable:next cyclomatic_complexity
     func getFilename(for url: URL) -> String {
         if url.absoluteString.hasPrefix(ApiConstants.submissionStatus.absoluteString) {

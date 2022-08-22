@@ -23,20 +23,9 @@ struct SeedIdentitiesService {
         self.mobileWallet = mobileWallet
     }
     
-    var nextIdentityindex: Int {
+    private var nextIdentityindex: Int {
         storageManager.getIdentities()
             .count
-    }
-    
-    var pendingIdentity: IdentityDataType? {
-        storageManager.getIdentities()
-            .first { identity in
-                return identity.state == .pending || identity.accountsCreated == 0
-            }
-    }
-    
-    func getIpInfo() async throws -> [IPInfoResponseElement] {
-        try await networkManager.load(ResourceRequest(url: ApiConstants.ipInfo))
     }
     
     func createPendingIdentity(
@@ -57,7 +46,40 @@ struct SeedIdentitiesService {
         return newIdentity
     }
     
-    func createSeedIdentityRequest(
+    var pendingIdentity: IdentityDataType? {
+        storageManager.getIdentities()
+            .first { identity in
+                return identity.state == .pending || identity.accountsCreated == 0
+            }
+    }
+    
+    func getIpInfo() async throws -> [IPInfoResponseElement] {
+        try await networkManager.load(ResourceRequest(url: ApiConstants.ipInfo))
+    }
+    
+    @MainActor
+    func requestNextIdentity(
+        from ipInfo: IPInfoResponseElement,
+        requestPasswordDelegate: RequestPasswordDelegate
+    ) async throws -> IDPIdentityRequest {
+        let index = nextIdentityindex
+        let identityProvider = IdentityProviderDataTypeFactory.create(ipData: ipInfo)
+        
+        let (id, request) = try await createSeedIdentityRequest(
+            identityProvider: identityProvider,
+            index: index,
+            requestPasswordDelegate: requestPasswordDelegate
+        )
+        
+        return .init(
+            id: id,
+            index: index,
+            identityProvider: identityProvider,
+            resourceRequest: request
+        )
+    }
+    
+    private func createSeedIdentityRequest(
         identityProvider: IdentityProviderDataType,
         index: Int,
         requestPasswordDelegate: RequestPasswordDelegate
@@ -84,7 +106,7 @@ struct SeedIdentitiesService {
         ))
     }
     
-    func createSeedIdentityObjectRequest(on url: String, with seedIDRequest: SeedIDRequest) throws -> ResourceRequest {
+    private func createSeedIdentityObjectRequest(on url: String, with seedIDRequest: SeedIDRequest) throws -> ResourceRequest {
         return try createIdentityObjectRequest(
             issuanceStartURL: url,
             idRequestString: try seedIDRequest.encodeToString(),

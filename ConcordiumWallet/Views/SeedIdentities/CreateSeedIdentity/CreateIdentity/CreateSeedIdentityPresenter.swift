@@ -17,11 +17,11 @@ protocol CreateSeedIdentityPresenterDelegate: AnyObject {
 class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel> {
     private weak var delegate: CreateSeedIdentityPresenterDelegate?
     
-    private let request: SeedIdentityRequest
+    private let request: IDPIdentityRequest
     private let identitiesService: SeedIdentitiesService
     
     init(
-        request: SeedIdentityRequest,
+        request: IDPIdentityRequest,
         identitiesService: SeedIdentitiesService,
         delegate: CreateSeedIdentityPresenterDelegate
     ) {
@@ -31,7 +31,7 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
         
         super.init(
             viewModel: .init(
-                request: request.webRequest.request
+                request: request.resourceRequest.request
             )
         )
     }

@@ -80,11 +80,15 @@ enum StorageError: Error {
 }
 
 class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_body_length
-    private var realm: Realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+    private var realm: Realm
     private var keychain: KeychainWrapperProtocol
 
-    init(keychain: KeychainWrapperProtocol) {
+    init(
+        keychain: KeychainWrapperProtocol,
+        configuration: Realm.Configuration = RealmHelper.realmConfiguration
+    ) {
         self.keychain = keychain
+        self.realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }
