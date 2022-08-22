@@ -1510,6 +1510,18 @@
 		891B19FF28A62FC000F4B0D6 /* Publisher+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B19FC28A62FC000F4B0D6 /* Publisher+Async.swift */; };
 		891B1A0028A62FC000F4B0D6 /* Publisher+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B19FC28A62FC000F4B0D6 /* Publisher+Async.swift */; };
 		891B1A0328A6393700F4B0D6 /* AwaitPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A0228A6393700F4B0D6 /* AwaitPublisherTests.swift */; };
+		891B1A1428ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */; };
+		891B1A1528ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */; };
+		891B1A1628ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */; };
+		891B1A1728ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */; };
+		891B1A1928ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */; };
+		891B1A1A28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */; };
+		891B1A1B28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */; };
+		891B1A1C28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */; };
+		891B1A2328AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */; };
+		891B1A2428AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */; };
+		891B1A2528AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */; };
+		891B1A2628AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */; };
 		8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8927A66E286AC6820007CAF1 /* RealmSwift */; };
 		8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8927A670286AC6920007CAF1 /* RealmSwift */; };
 		8927A673286AC69B0007CAF1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8927A672286AC69B0007CAF1 /* RealmSwift */; };
@@ -2818,6 +2830,9 @@
 		891B19F728A6135900F4B0D6 /* SeedIdentitiesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentitiesService.swift; sourceTree = "<group>"; };
 		891B19FC28A62FC000F4B0D6 /* Publisher+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Async.swift"; sourceTree = "<group>"; };
 		891B1A0228A6393700F4B0D6 /* AwaitPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwaitPublisherTests.swift; sourceTree = "<group>"; };
+		891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecoveryRequestInput.swift; sourceTree = "<group>"; };
+		891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecoveryRequestOutput.swift; sourceTree = "<group>"; };
+		891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryIdentityResponse.swift; sourceTree = "<group>"; };
 		8927A67F286ACAC50007CAF1 /* MaterialTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTabBar.swift; sourceTree = "<group>"; };
 		892896F9289A551A009688F1 /* MobileWallet.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MobileWallet.xcframework; sourceTree = "<group>"; };
 		8928970A289A6464009688F1 /* Net.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Net.swift; sourceTree = "<group>"; };
@@ -4492,6 +4507,9 @@
 				89D46841289BF99C007D3FC8 /* SeedIDRequest.swift */,
 				89D4684B289CECC6007D3FC8 /* SeedIdentityObject.swift */,
 				891B19E128A39DC000F4B0D6 /* CreateSeedCredentialRequest.swift */,
+				891B1A1328ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift */,
+				891B1A1828ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift */,
+				891B1A2228AE196D00F4B0D6 /* RecoveryIdentityResponse.swift */,
 			);
 			path = RecoveryPhrase;
 			sourceTree = "<group>";
@@ -5562,6 +5580,7 @@
 				89CF2D59281A66C400742E1E /* (null) in Sources */,
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
 				1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */,
+				891B1A2328AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */,
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
 				8992BAB82836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */,
 				89CF2D30281167EF00742E1E /* BakerPoolSettingsPresenter.swift in Sources */,
@@ -5750,6 +5769,7 @@
 				901F7FA627F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
+				891B1A1428ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				901F7F4327EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				89D4685C289CF72C007D3FC8 /* CreateSeedIdentityPresenter.swift in Sources */,
@@ -5949,6 +5969,7 @@
 				19C2E538BD41E917E3B9E595 /* SubmissionStatusService.swift in Sources */,
 				19C2E18DFEE5E4D0CB6BD4DA /* AddRecipientCoordinatorHelper.swift in Sources */,
 				19C2E37F9CF14FFCA5D8FD00 /* ShowToastProtocol.swift in Sources */,
+				891B1A1928ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				7F7F6D3324A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				19C2EFA8EE1879CFC2CED185 /* Coordinator.swift in Sources */,
 				19C2EADA25D66111AC953CB6 /* BaseViewController.swift in Sources */,
@@ -6370,6 +6391,7 @@
 				89CF2D462816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
 				893CACA2288E616300BDF84C /* PageIndicator.swift in Sources */,
 				64FD33912601FBC400563703 /* Credential.swift in Sources */,
+				891B1A2528AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */,
 				901F7F4527EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				7F85B7A4246A9A7C00ED09B8 /* SendFundViewController.swift in Sources */,
 				89D46808289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
@@ -6418,6 +6440,7 @@
 				642ED94525EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				89D4682F289BCFB6007D3FC8 /* SeedIdentityOnboardingPresenter.swift in Sources */,
 				07519F9F26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
+				891B1A1B28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				9074C71127D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */,
 				909EAF2527F72058001930AE /* AccountPendingChangeType.swift in Sources */,
 				52DCAA0227CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
@@ -6497,6 +6520,7 @@
 				5251EF8F27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				901F7F0727EA0D5C00C46741 /* BakerStakePendingChange.swift in Sources */,
 				8D4097B428323F1600EBB9EA /* AppSettingsService.swift in Sources */,
+				891B1A1628ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				5211BABD2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
 				89A05709286C6EFE0055C049 /* SwiftUILabel.swift in Sources */,
 				19C2E61D1E74081C5F756486 /* RequestExportPasswordPresenter.swift in Sources */,
@@ -6870,6 +6894,7 @@
 				89CF2D472816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
 				893CACA3288E616300BDF84C /* PageIndicator.swift in Sources */,
 				64FD33922601FBC400563703 /* Credential.swift in Sources */,
+				891B1A2628AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */,
 				901F7F4627EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				7F85B8A1246A9AB600ED09B8 /* Logger.swift in Sources */,
 				89D46809289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
@@ -6918,6 +6943,7 @@
 				642ED94625EE2FA600A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				89D46830289BCFB6007D3FC8 /* SeedIdentityOnboardingPresenter.swift in Sources */,
 				07519FA026FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
+				891B1A1C28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				9074C71227D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */,
 				909EAF2627F72058001930AE /* AccountPendingChangeType.swift in Sources */,
 				52DCAA0327CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
@@ -6997,6 +7023,7 @@
 				5251EF9027BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				901F7F0827EA0D5C00C46741 /* BakerStakePendingChange.swift in Sources */,
 				8D4097B528323F1600EBB9EA /* AppSettingsService.swift in Sources */,
+				891B1A1728ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				5211BABE2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
 				89A0570A286C6EFE0055C049 /* SwiftUILabel.swift in Sources */,
 				19C2E63F49CE373C58B7CDB0 /* RequestExportPasswordPresenter.swift in Sources */,
@@ -7135,6 +7162,7 @@
 				C968B9EF2448C37C00E31BD8 /* TransactionSubmittedPresenter.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
 				89B34A1A2892B2050059891C /* RecoveryPhraseRecoverExplanationViewModel.swift in Sources */,
+				891B1A1A28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				642A293625FB967A0073BF8C /* AccountKeys.swift in Sources */,
 				7F21398224236C0A00D2A5C4 /* Global.swift in Sources */,
 				893CAC47286DA7F000BDF84C /* View+Modifiers.swift in Sources */,
@@ -7227,8 +7255,10 @@
 				19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */,
 				8927A681286ACAC50007CAF1 /* MaterialTabBar.swift in Sources */,
 				901F7F9727F33C8800C46741 /* MintDistribution.swift in Sources */,
+				891B1A2428AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */,
 				7F21398B24236C0A00D2A5C4 /* AccNonce.swift in Sources */,
 				528EB736255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
+				891B1A1528ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				7FA0AE8A245712C100B7673F /* AccountBalance.swift in Sources */,
 				7F5F77852487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				89CF2D21280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */,

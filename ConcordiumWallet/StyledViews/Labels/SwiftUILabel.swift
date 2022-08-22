@@ -11,6 +11,7 @@ import SwiftUI
 enum LabelStyle {
     case title
     case heading
+    case subheading
     case body
     case mono
     
@@ -21,6 +22,8 @@ enum LabelStyle {
                 return Font(Fonts.title)
             case .heading:
                 return Font(Fonts.heading)
+            case .subheading:
+                return Font(Fonts.subheading)
             case .body:
                 return Font(Fonts.body)
             case .mono:
@@ -40,6 +43,8 @@ enum LabelStyle {
         case .title:
             return Pallette.primary
         case .heading:
+            return Pallette.text
+        case .subheading:
             return Pallette.text
         case .body:
             return Pallette.text

@@ -13,6 +13,7 @@ enum IdentityState: String {
 }
 
 protocol IdentityDataType: DataStoreProtocol {
+    var id: String { get }
     var identityProvider: IdentityProviderDataType? { get set }
     var identityObject: IdentityObject? { get set }
     var seedIdentityObject: SeedIdentityObject? { get set }

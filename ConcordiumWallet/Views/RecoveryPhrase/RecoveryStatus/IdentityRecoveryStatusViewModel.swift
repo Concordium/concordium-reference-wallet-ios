@@ -18,7 +18,7 @@ enum IdentityRecoveryStatus: Equatable {
     case fetching
     case failed
     case emptyResponse
-    case success([IdentityDataType])
+    case success([IdentityDataType], [AccountDataType])
     
     var isFecthing: Bool {
         switch self {
@@ -37,10 +37,12 @@ enum IdentityRecoveryStatus: Equatable {
             return true
         case (.emptyResponse, .emptyResponse):
             return true
-        case let (.success(lhsIdentities), .success(rhsIdentities)):
+        case let (.success(lhsIdentities, lhsAccounts), .success(rhsIdentities, rhsAccounts)):
             return lhsIdentities.elementsEqual(rhsIdentities) { lhsIdentity, rhsIdentity in
                 lhsIdentity.nickname == rhsIdentity.nickname
-            }
+            } && lhsAccounts.elementsEqual(rhsAccounts, by: { lhsAccount, rhsAccount in
+                lhsAccount.address == rhsAccount.address
+            })
         default:
             return false
         }

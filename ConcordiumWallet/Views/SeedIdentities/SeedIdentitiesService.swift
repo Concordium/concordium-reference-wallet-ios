@@ -23,9 +23,8 @@ struct SeedIdentitiesService {
         self.mobileWallet = mobileWallet
     }
     
-    func getNextIdentityIndex(for identityProvider: IdentityProviderDataType) -> Int {
+    var nextIdentityindex: Int {
         storageManager.getIdentities()
-            .filter { $0.identityProvider?.ipInfo?.ipIdentity == identityProvider.ipInfo?.ipIdentity }
             .count
     }
     
@@ -93,6 +92,109 @@ struct SeedIdentitiesService {
         )
     }
     
+    func recoverIdentities(
+        with seed: Seed
+    ) async throws -> [IdentityDataType] {
+        async let globalRequeest = getGlobal()
+        async let ipInfoRequest = getIpInfo()
+        
+        let (global, identityProviderInfo) = try await (globalRequeest, ipInfoRequest)
+        let identityProviders = identityProviderInfo.map {
+            IdentityProviderDataTypeFactory.create(ipData: $0)
+        }
+        
+        var allidentities = [IdentityDataType]()
+        let allowedGap = 20
+        var currentGap = 0
+        var currentIndex = 0
+        while currentGap < allowedGap {
+            if let identity = await recoverIdentity(
+                atIndex: currentIndex,
+                generatedBy: seed,
+                global: global,
+                identityProviders: identityProviders
+            ) {
+                allidentities.append(identity)
+                currentGap = 0
+            } else {
+                currentGap += 1
+            }
+            currentIndex += 1
+        }
+        
+        return allidentities
+    }
+    
+    @MainActor
+    private func recoverIdentity(
+        atIndex index: Int,
+        generatedBy seed: Seed,
+        global: GlobalWrapper,
+        identityProviders: [IdentityProviderDataType]
+    ) async -> IdentityDataType? {
+        for identityProvider in identityProviders {
+            guard
+                let recoveryURL = identityProvider.recoverURL,
+                let ipInfo = identityProvider.ipInfo
+            else {
+                continue
+            }
+            
+            do {
+                let request = try mobileWallet.createIDRecoveryRequest(
+                    for: ipInfo,
+                    global: global,
+                    index: index,
+                    seed: seed
+                ).get()
+                
+                let recoverRequest = ResourceRequest(url: recoveryURL, parameters: ["state": try request.encodeToString()])
+                let recoverResponse = try await networkManager.load(recoverRequest, decoding: RecoverIdentityResponse.self)
+                let status = try await networkManager.load(
+                    ResourceRequest(url: recoverResponse.identityRetrievalUrl),
+                    decoding: SeedIdentityCreationStatus.self
+                )
+                
+                return try createIdentityFromRecoverStatus(
+                    status,
+                    index: index,
+                    identityProvider: identityProvider,
+                    statusURL: recoverResponse.identityRetrievalUrl
+                )
+                
+            } catch {
+                continue
+            }
+        }
+        
+        return nil
+    }
+    
+    @MainActor
+    private func createIdentityFromRecoverStatus(
+        _ status: SeedIdentityCreationStatus,
+        index: Int,
+        identityProvider: IdentityProviderDataType,
+        statusURL: URL
+    ) throws -> IdentityDataType {
+        guard case let .done(identityObject) = status else {
+            throw MobileWalletError.invalidArgument
+        }
+        
+        var identity = IdentityDataTypeFactory.create()
+        identity.index = index
+        identity.accountsCreated = 0
+        identity.identityProvider = identityProvider
+        identity.nickname = String(format: "recoveryphrase.identity.name".localized, index)
+        identity.state = .confirmed
+        identity.seedIdentityObject = identityObject.identityObject.value
+        identity.ipStatusUrl = statusURL.absoluteString
+        
+        try storageManager.storeIdentity(identity)
+        
+        return identity
+    }
+    
     private func createIdentityObjectRequest(
         issuanceStartURL: String,
         idRequestString: String,
@@ -153,5 +255,17 @@ struct SeedIdentitiesService {
     
     private func getGlobal() async throws -> GlobalWrapper {
         return try await networkManager.load(ResourceRequest(url: ApiConstants.global))
+    }
+}
+
+private extension IdentityProviderDataType {
+    var recoverURL: URL? {
+        guard let issuanceStartURL = URL(string: issuanceStartURL) else {
+            return nil
+        }
+        
+        return issuanceStartURL
+            .deletingLastPathComponent()
+            .appendingPathComponent("recover")
     }
 }

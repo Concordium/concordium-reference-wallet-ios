@@ -18,7 +18,7 @@ protocol RecoveryPhraseServiceProtocol {
     
     func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error>
     
-    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error>
+    func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) async throws -> Seed
 }
 
 extension RecoveryPhraseServiceProtocol {
@@ -57,15 +57,20 @@ extension RecoveryPhraseServiceProtocol {
 struct RecoveryPhraseService {
     private static let recoveryPhraseKey = "CCD.RecoveryPhrase"
     private let keychainWrapper: KeychainWrapperProtocol
+    private let mobileWallet: SeedMobileWalletProtocol
     
-    init(keychainWrapper: KeychainWrapperProtocol) {
+    init(
+        keychainWrapper: KeychainWrapperProtocol,
+        mobileWallet: SeedMobileWalletProtocol
+    ) {
         self.keychainWrapper = keychainWrapper
+        self.mobileWallet = mobileWallet
     }
 }
 
 extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {
-    func recoverIdentities(for recoveryPhrase: RecoveryPhrase) -> AnyPublisher<[IdentityDataType], Error> {
-        return .empty()
+    func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) throws -> Seed {
+        try mobileWallet.store(recoveryPhrase: recoveryPhrase, with: pwHash).get()
     }
 }
 

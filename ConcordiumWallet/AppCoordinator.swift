@@ -366,8 +366,9 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
         childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
     
-    func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase) {
-        
+    func recoveryPhraseCoordinatorFinishedRecovery() {
+        showMainTabbar()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
 }
 

@@ -425,11 +425,7 @@ class MobileWallet: MobileWalletProtocol {
         // the identity is invalid if the privateIdObjectData cannot be retrieved from storage
         let allIdentities = storageManager.getIdentities()
         let invalidIdentities = allIdentities.filter { identity in
-            if let key = identity.encryptedPrivateIdObjectData,
-                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
-                return false // it is not invalid because we have privateIdObjectData
-            }
-            return true // invalid becaut privateIdObjectData could not be retrieved
+            isInvalidIdentity(identity, pwHash: pwHash)
         }
         for identity in allIdentities {
             let identityAccounts = storageManager.getAccounts(for: identity)
@@ -457,5 +453,17 @@ class MobileWallet: MobileWalletProtocol {
         }
 
         return report
+    }
+    
+    private func isInvalidIdentity(_ identity: IdentityDataType, pwHash: String) -> Bool {
+        if identity.seedIdentityObject != nil {
+            return false
+        } else {
+            if let key = identity.encryptedPrivateIdObjectData,
+                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
+                return false // it is not invalid because we have privateIdObjectData
+            }
+            return true // invalid becaut privateIdObjectData could not be retrieved
+        }
     }
 }

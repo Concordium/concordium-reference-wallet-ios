@@ -27,6 +27,12 @@ struct IdentityReccoveryStatusView: Page {
                 style: .body,
                 color: messageColor
             ).padding(.init(top: 0, leading: 16, bottom: 44, trailing: 16))
+            if case let .success(identities, accounts) = viewModel.status {
+                IdentityList(
+                    identities: identities,
+                    accounts: accounts
+                )
+            }
             Spacer()
             buttons
         }.padding(.init(top: 10, leading: 16, bottom: 30, trailing: 16))
@@ -81,6 +87,34 @@ struct IdentityReccoveryStatusView: Page {
     }
 }
 
+private struct IdentityList: View {
+    let identities: [IdentityDataType]
+    let accounts: [AccountDataType]
+    
+    var body: some View {
+        ForEach(identities, id: \.id) { identity in
+            StyledLabel(
+                text: identity.nickname,
+                style: .subheading,
+                textAlignment: .leading
+            )
+            StyledLabel(
+                text: "identityrecovery.status.accountheader".localized,
+                style: .body,
+                weight: .bold,
+                textAlignment: .leading
+            )
+            ForEach(accounts, id: \.address) { account in
+                StyledLabel(
+                    text: "\(account.displayName) - \(GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke())",
+                    style: .body,
+                    textAlignment: .leading
+                )
+            }
+        }.frame(maxWidth: .infinity)
+    }
+}
+
 struct IdentityReccoveryStatusView_Previews: PreviewProvider {
     static var previews: some View {
         IdentityReccoveryStatusView(
@@ -110,7 +144,7 @@ If you only have an identity and no accounts, this can also be the reason. In th
         
         IdentityReccoveryStatusView(
             viewModel: .init(
-                status: .success([IdentityEntity()]),
+                status: .success([IdentityEntity()], [AccountEntity()]),
                 title: "Recovery finished",
                 message: "You have succesfully recovered:",
                 continueLabel: "Continue to wallet",

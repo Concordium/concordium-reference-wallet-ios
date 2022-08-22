@@ -210,6 +210,20 @@ When you have submitted your account, you will be taken to the wallet.";
 "identities.seed.submitaccount.atdisposal" = "At disposal";
 "identities.seed.submitaccount.submit" = "Submit account";
 
+"identityrecovery.status.navigationtitle" = "Recovering your accounts and identities";
+"identityrecovery.status.title.fetching" = "Recovering IDs and accounts";
+"identityrecovery.status.message.fetching" = "Scanning the Concordium blockchain. Hang on while we find your account and identities.";
+"identityrecovery.status.title.failed" = "We found nothing to recover.";
+"identityrecovery.status.message.failed" = "There was no accounts to be found for the secret recovery phrase. Did you maybe enter a wrong recovery phrase?
+
+If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.";
+"identityrecovery.status.title.success" = "Recovery finished";
+"identityrecovery.status.message.success" = "You have succesfully recovered:";
+"identityrecovery.status.continue" = "Continue to wallet";
+"identityrecovery.status.tryagain" = "Try again";
+"identityrecovery.status.changerecoveryphrase" = "Enter another recovery phrase";
+"identityrecovery.status.accountheader" = "Accounts:";
+
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
 "initialaccountinfo.details" = "On the following pages you will be guided through the three-step process of requesting an initial account and an identity:\n\n1. Naming your initial account.\n2. Naming your identity.\n3. Requesting the initial account and identity\nfrom a provider of your choice.";

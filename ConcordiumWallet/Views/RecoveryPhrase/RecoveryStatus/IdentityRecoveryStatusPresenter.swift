@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol IdentityRecoveryStatusPresenterDelegate: AnyObject {
+protocol IdentityRecoveryStatusPresenterDelegate: RequestPasswordDelegate {
     func identityRecoveryCompleted()
     func reenterRecoveryPhrase()
 }
@@ -16,15 +16,24 @@ protocol IdentityRecoveryStatusPresenterDelegate: AnyObject {
 class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusViewModel> {
     private let recoveryPhrase: RecoveryPhrase
     private let recoveryPhraseService: RecoveryPhraseServiceProtocol
+    private let identitiesService: SeedIdentitiesService
+    private let accountsService: SeedAccountsService
+    private let keychain: KeychainWrapperProtocol
     private weak var delegate: IdentityRecoveryStatusPresenterDelegate?
     
     init(
         recoveryPhrase: RecoveryPhrase,
         recoveryPhraseService: RecoveryPhraseServiceProtocol,
+        identitiesService: SeedIdentitiesService,
+        accountsService: SeedAccountsService,
+        keychain: KeychainWrapperProtocol,
         delegate: IdentityRecoveryStatusPresenterDelegate
     ) {
         self.recoveryPhrase = recoveryPhrase
         self.recoveryPhraseService = recoveryPhraseService
+        self.identitiesService = identitiesService
+        self.accountsService = accountsService
+        self.keychain = keychain
         self.delegate = delegate
         
         super.init(
@@ -63,10 +72,33 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
     }
     
     private func fetchIdentities() {
-        recoveryPhraseService.recoverIdentities(for: recoveryPhrase)
-            .sink(receiveError: { [weak self] _ in
-                self?.viewModel.status = .failed
-                self?.viewModel.alertPublisher.send(
+        guard let delegate = delegate else {
+            return
+        }
+        
+        Task {
+            do {
+                let pwHash = try await delegate.requestUserPassword(keychain: keychain)
+                
+                let seed = try await self.recoveryPhraseService.store(
+                    recoveryPhrase: self.recoveryPhrase,
+                    with: pwHash
+                )
+                
+                let identities = try await self.identitiesService.recoverIdentities(
+                    with: seed
+                )
+                
+                let accounts = try await self.accountsService.recoverAccounts(
+                    for: identities,
+                    seed: seed,
+                    pwHash: pwHash
+                )
+                
+                self.handleIdentities(identities, accounts: accounts)
+            } catch {
+                self.viewModel.status = .failed
+                self.viewModel.showAlert(
                     .alert(
                         .init(
                             title: "identityrecovery.status.requestfailed.title".localized,
@@ -86,19 +118,17 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                         )
                     )
                 )
-            }, receiveValue: { [weak self] identities in
-                self?.handleIdentities(identities)
-            })
-            .store(in: &cancellables)
+            }
+        }
     }
     
-    private func handleIdentities(_ identities: [IdentityDataType]) {
+    private func handleIdentities(_ identities: [IdentityDataType], accounts: [AccountDataType]) {
         if identities.isEmpty {
             viewModel.status = .emptyResponse
             viewModel.title = "identityrecovery.status.title.failed".localized
             viewModel.message = "identityrecovery.status.message.failed".localized
         } else {
-            viewModel.status = .success(identities)
+            viewModel.status = .success(identities, accounts)
             viewModel.title = "identityrecovery.status.title.success".localized
             viewModel.message = "identityrecovery.status.message.success".localized
         }

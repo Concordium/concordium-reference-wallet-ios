@@ -34,6 +34,8 @@ protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func appSettingsService() -> AppSettingsService
     func recoveryPhraseService() -> RecoveryPhraseService
     func seedMobileWallet() -> SeedMobileWalletProtocol
+    func seedIdentitiesService() -> SeedIdentitiesService
+    func seedAccountsService() -> SeedAccountsService
 }
 
 protocol ImportDependencyProvider {
@@ -128,7 +130,10 @@ extension ServicesProvider: LoginDependencyProvider {
     }
     
     func recoveryPhraseService() -> RecoveryPhraseService {
-        RecoveryPhraseService(keychainWrapper: _keychainWrapper)
+        RecoveryPhraseService(
+            keychainWrapper: _keychainWrapper,
+            mobileWallet: _seedMobileWallet
+        )
     }
     
     func seedMobileWallet() -> SeedMobileWalletProtocol {

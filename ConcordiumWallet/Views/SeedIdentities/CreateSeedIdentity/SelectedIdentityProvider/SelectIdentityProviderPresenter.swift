@@ -95,7 +95,7 @@ class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderVi
             let identityProvider = IdentityProviderDataTypeFactory.create(
                 ipData: ipData
             )
-            let index = self.identititesService.getNextIdentityIndex(for: identityProvider)
+            let index = self.identititesService.nextIdentityindex
             
             Task {
                 do {

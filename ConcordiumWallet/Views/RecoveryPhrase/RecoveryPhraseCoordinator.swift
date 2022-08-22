@@ -12,7 +12,7 @@ import Combine
 
 protocol RecoveryPhraseCoordinatorDelegate: AnyObject {
     func recoveryPhraseCoordinator(createdNewSeed seed: Seed)
-    func recoveryPhraseCoordinator(recoveredPhrase recoveryPhrase: RecoveryPhrase)
+    func recoveryPhraseCoordinatorFinishedRecovery()
 }
 
 class RecoveryPhraseCoordinator: Coordinator, RequestPasswordDelegate, ShowAlert {
@@ -118,6 +118,9 @@ class RecoveryPhraseCoordinator: Coordinator, RequestPasswordDelegate, ShowAlert
         let presenter = IdentityRecoveryStatusPresenter(
             recoveryPhrase: recoveryPhrase,
             recoveryPhraseService: dependencyProvider.recoveryPhraseService(),
+            identitiesService: dependencyProvider.seedIdentitiesService(),
+            accountsService: dependencyProvider.seedAccountsService(),
+            keychain: dependencyProvider.keychainWrapper(),
             delegate: self
         )
         
@@ -203,7 +206,7 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverCompletePresenterDeleg
 
 extension RecoveryPhraseCoordinator: IdentityRecoveryStatusPresenterDelegate {
     func identityRecoveryCompleted() {
-        
+        delegate?.recoveryPhraseCoordinatorFinishedRecovery()
     }
     
     func reenterRecoveryPhrase() {

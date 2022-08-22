@@ -19,6 +19,7 @@ protocol SeedMobileWalletProtocol {
     func removeSeed() throws
     
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) -> Result<Seed, Error>
+    func store(recoveryPhrase: RecoveryPhrase, withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed
  
     @MainActor
     func createIDRequest(
@@ -36,6 +37,13 @@ protocol SeedMobileWalletProtocol {
         accountNumber: Int,
         seed: Seed
     ) -> Result<CreateCredentialRequest, Error>
+    
+    func createIDRecoveryRequest(
+        for identityProvider: IPInfo,
+        global: GlobalWrapper,
+        index: Int,
+        seed: Seed
+    ) -> Result<GenerateRecoveryRequestOutput, Error>
 }
 
 class SeedMobileWallet: SeedMobileWalletProtocol {
@@ -84,6 +92,12 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         }
     }
     
+    func store(recoveryPhrase: RecoveryPhrase, withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed {
+        let pwHash = try await requestPasswordDelegate.requestUserPassword(keychain: keychain)
+        
+        return try store(recoveryPhrase: recoveryPhrase, with: pwHash).get()
+    }
+    
     func createIDRequest(
         for identitiyProvider: IdentityProviderDataType,
         index: Int,
@@ -125,6 +139,24 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         
         return Result {
             try walletFacade.createCredential(input: createRequest)
+        }
+    }
+    
+    func createIDRecoveryRequest(
+        for identityProvider: IPInfo,
+        global: GlobalWrapper,
+        index: Int,
+        seed: Seed
+    ) -> Result<GenerateRecoveryRequestOutput, Error> {
+        let input = GenerateRecoveryRequestInput(
+            identityProvider: identityProvider,
+            globalWrapper: global,
+            seed: seed,
+            index: index
+        )
+        
+        return Result {
+            try walletFacade.generateRecoveryRequest(input: input)
         }
     }
 }
@@ -201,5 +233,21 @@ private extension CreateSeedCredentialRequest {
         self.seed = seed
         net = .current
         self.expiry = Int(expiry.timeIntervalSince1970)
+    }
+}
+
+private extension GenerateRecoveryRequestInput {
+    init(
+        identityProvider: IPInfo,
+        globalWrapper: GlobalWrapper,
+        seed: Seed,
+        index: Int
+    ) {
+        ipInfo = IPInfoV1(oldIPInfo: identityProvider)
+        global = globalWrapper.value
+        timestamp = Int(Date().timeIntervalSince1970)
+        self.seed = seed
+        net = .current
+        identityIndex = index
     }
 }
