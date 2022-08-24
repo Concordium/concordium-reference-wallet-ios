@@ -14,7 +14,7 @@ struct RecoveryPhraseOnboardingView: Page {
     var pageBody: some View {
         VStack {
             PageIndicator(numberOfPages: 4, currentPage: 1)
-            Text(verbatim: viewModel.message)
+            StyledLabel(text: viewModel.message, style: .body, textAlignment: .leading)
             Spacer()
             Button(viewModel.continueLabel) {
                 self.viewModel.send(.continueTapped)

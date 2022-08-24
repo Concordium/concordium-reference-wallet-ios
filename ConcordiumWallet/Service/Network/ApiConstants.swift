@@ -31,6 +31,7 @@ struct ApiConstants {
     static let notabeneCallback = "\(scheme)://identity-issuer/callback"
 
     static let ipInfo = proxyUrl.appendingPathComponent("/v0/ip_info")
+    static let ipInfoV1 = proxyUrl.appendingPathComponent("/v1/ip_info")
     static let global = proxyUrl.appendingPathComponent("/v0/global")
     static let submitCredential = proxyUrl.appendingPathComponent("/v0/submitCredential")
     static let submissionStatus = proxyUrl.appendingPathComponent("/v0/submissionStatus")

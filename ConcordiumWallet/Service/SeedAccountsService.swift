@@ -48,7 +48,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         revealedAttributes: [String],
         requestPasswordDelegate: RequestPasswordDelegate
     )  async throws -> AccountDataType {
-        let accountNumber = identity.accountsCreated
+        let accountNumber = storageManager.getAccounts(for: identity).count
         let identityAttributes = revealedAttributes.reduce(into: [String: String]()) { partialResult, attribute in
             if let value = identity.identityObject?.attributeList.chosenAttributes[attribute] {
                 partialResult[attribute] = value

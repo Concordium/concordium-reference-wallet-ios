@@ -17,6 +17,7 @@ protocol SeedIdentitiesCoordinatorDelegate: AnyObject {
 class SeedIdentitiesCoordinator: Coordinator {
     enum Action {
         case createInitialIdentity
+        case createAccount
     }
     
     var navigationController: UINavigationController
@@ -48,6 +49,8 @@ class SeedIdentitiesCoordinator: Coordinator {
             } else {
                 showOnboarding()
             }
+        case .createAccount:
+            showIdentitySelection()
         }
     }
     
@@ -99,6 +102,15 @@ class SeedIdentitiesCoordinator: Coordinator {
         )
         
         navigationController.setViewControllers([presenter.present(SubmitSeedAccountView.self)], animated: true)
+    }
+    
+    private func showIdentitySelection() {
+        let presenter = SelectIdentityPresenter(
+            identities: identititesService.confirmedIdentities,
+            delegate: self
+        )
+        
+        navigationController.pushViewController(presenter.present(SelectIdentityView.self), animated: true)
     }
 }
 
@@ -161,5 +173,11 @@ extension SeedIdentitiesCoordinator: SeedIdentityStatusPresenterDelegate {
 extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
     func accountHasBeenSubmitted(_ account: AccountDataType) {
         delegate?.seedIdentityCoordinatorWasFinished()
+    }
+}
+
+extension SeedIdentitiesCoordinator: SelectIdentityPresenterDelegate {
+    func selectIdentityPresenter(didSelectIdentity identity: IdentityDataType) {
+        showSubmitAccount(for: identity)
     }
 }

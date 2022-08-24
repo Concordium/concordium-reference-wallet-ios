@@ -205,7 +205,6 @@ Let’s get to the secrect recovery phrase!";
 "identities.seed.status.body" = "Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can create your first account.
 
 You can press continue to have a look at the app, while you wait.";
-"identities.seed.status.identitytile" = "Identity %d";
 "identities.seed.status.continue" = "Continue";
 
 "identities.seed.shared.identitytitle" = "Identity %d";

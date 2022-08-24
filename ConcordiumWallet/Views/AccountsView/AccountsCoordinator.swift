@@ -18,17 +18,20 @@ protocol AccountsCoordinatorDelegate: AnyObject {
 }
 
 class AccountsCoordinator: Coordinator {
+    typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider &
+    StakeCoordinatorDependencyProvider &
+    IdentitiesFlowCoordinatorDependencyProvider
+    
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
 
     weak var delegate: AccountsCoordinatorDelegate?
 
     private weak var appSettingsDelegate: AppSettingsDelegate?
-    private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider
-
+    private var dependencyProvider: DependencyProvider
     init(
         navigationController: UINavigationController,
-        dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider,
+        dependencyProvider: DependencyProvider,
         appSettingsDelegate: AppSettingsDelegate?
     ) {
         self.navigationController = navigationController
@@ -49,11 +52,24 @@ class AccountsCoordinator: Coordinator {
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
-        let createAccountCoordinator = CreateAccountCoordinator(navigationController: BaseNavigationController(),
-                dependencyProvider: dependencyProvider, parentCoordinator: self)
-        childCoordinators.append(createAccountCoordinator)
-        createAccountCoordinator.start(withDefaultValuesFrom: account)
-        navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
+        if FeatureFlag.enabledFlags.contains(.recoveryCode) {
+            let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+                navigationController: BaseNavigationController(),
+                action: .createAccount,
+                dependencyProvider: dependencyProvider,
+                delegate: self
+            )
+            
+            childCoordinators.append(seedIdentitiesCoordinator)
+            seedIdentitiesCoordinator.start()
+            navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
+        } else {
+            let createAccountCoordinator = CreateAccountCoordinator(navigationController: BaseNavigationController(),
+                                                                    dependencyProvider: dependencyProvider, parentCoordinator: self)
+            childCoordinators.append(createAccountCoordinator)
+            createAccountCoordinator.start(withDefaultValuesFrom: account)
+            navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
+        }
     }
     
     func show(account: AccountDataType, entryPoint: AccountDetailsFlowEntryPoint) {
@@ -212,5 +228,12 @@ extension AccountsCoordinator: ExportPresenterDelegate {
 extension AccountsCoordinator: TermsAndConditionsPresenterDelegate {
     func userTappedAcceptTerms() {
         navigationController.dismiss(animated: true)
+    }
+}
+
+extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
+    func seedIdentityCoordinatorWasFinished() {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
     }
 }

@@ -53,8 +53,13 @@ struct SeedIdentitiesService {
             }
     }
     
+    var confirmedIdentities: [IdentityDataType] {
+        storageManager.getIdentities()
+            .filter { $0.state == .confirmed }
+    }
+    
     func getIpInfo() async throws -> [IPInfoResponseElement] {
-        try await networkManager.load(ResourceRequest(url: ApiConstants.ipInfo))
+        try await networkManager.load(ResourceRequest(url: ApiConstants.ipInfoV1))
     }
     
     @MainActor
@@ -282,12 +287,6 @@ struct SeedIdentitiesService {
 
 private extension IdentityProviderDataType {
     var recoverURL: URL? {
-        guard let issuanceStartURL = URL(string: issuanceStartURL) else {
-            return nil
-        }
-        
-        return issuanceStartURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("recover")
+        return recoveryStartURL.flatMap { URL(string: $0) }
     }
 }

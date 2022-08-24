@@ -80,6 +80,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
         
         Task {
             do {
+                self.viewModel.showLoading()
                 let pwHash = try await delegate.requestUserPassword(keychain: keychain)
                 
                 let seed = try await self.recoveryPhraseService.store(
@@ -121,6 +122,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     )
                 )
             }
+            self.viewModel.hideLoading()
         }
     }
     

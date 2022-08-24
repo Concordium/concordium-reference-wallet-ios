@@ -34,6 +34,20 @@ struct IdentityCard: View {
             self.state = state
         }
         
+        init(identity: IdentityDataType) {
+            index = identity.index
+            state = identity.state
+            if let validTo = identity.identityObject?.attributeList.validTo {
+                expirationDate = String(
+                    format: "identities.seed.shared.expirationdate".localized,
+                    GeneralFormatter.formatISO8601Date(date: validTo)
+                )
+            }
+            if let encodedImage = identity.identityProvider?.icon {
+                image = Image(uiImage: .decodeBase64(toImage: encodedImage))
+            }
+        }
+        
         func update(with seedIdentity: IdentityDataType) {
             index = seedIdentity.index
             state = seedIdentity.state

@@ -38,7 +38,7 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
         viewModel.navigationTitle = "recoveryphrase.recover.input.navigationtitle".localized
         
         viewModel.$currentInput.sink { [weak self] word in
-            if word.count > 2 {
+            if word.count > 1 {
                 self?.viewModel.currentSuggestions = recoveryService.suggestions(for: word)
             } else {
                 self?.viewModel.currentSuggestions = []

@@ -67,13 +67,13 @@ class AccountCardViewModel: ObservableObject {
     
     var accountTitle: String {
         String(
-            format: "identities.seed.shared.accounttile".localized, accountIndex
+            format: "identities.seed.shared.accounttitle".localized, accountIndex
         )
     }
     
     var identityTitle: String {
         String(
-            format: "identities.seed.shared.identitytile".localized,
+            format: "identities.seed.shared.identitytitle".localized,
             identityIndex
         )
     }
