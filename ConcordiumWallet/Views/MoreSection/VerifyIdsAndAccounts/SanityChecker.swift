@@ -15,17 +15,17 @@ enum SanityCheckerMode {
     case manual
 }
 
-protocol ImportExport: AnyObject {
-    func showImport()
-    func showExport()
-}
+//protocol ImportExport: AnyObject {
+//    func showImport()
+//    func showExport()
+//}
 
 class SanityChecker {
     var errorDisplayer: ShowAlert?
     var mobileWallet: MobileWalletProtocol
     var storageManager: StorageManagerProtocol
     weak var coordinator: Coordinator?
-    weak var delegate: ImportExport?
+//    weak var delegate: ImportExport?
     
     private var cancellables: [AnyCancellable] = []
     
@@ -118,7 +118,7 @@ class SanityChecker {
             completion()
         }
         let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .cancel) {  [weak self] (_) in
-            self?.redirectToImport()
+//            self?.redirectToImport()
             completion()
         }
         
@@ -133,12 +133,12 @@ class SanityChecker {
         alert.addAction(keepAsReadonly)
         alert.addAction(redirectToImport)
         
-        present(alert, animated: true)
+//        present(alert, animated: true)
     }
     
-    private func redirectToImport() {
-        self.delegate?.showImport()
-    }
+//    private func redirectToImport() {
+//        self.delegate?.showImport()
+//    }
     /*
      The method returns the identities that failed to be removed. If some of the identities in the report also
      contain accounts that have keys, that identity will not be removed
@@ -209,12 +209,12 @@ class SanityChecker {
             completion()
         }
         let redirectToImport = UIAlertAction(title: "more.validateIdsAndAccount.import".localized, style: .default) {  [weak self] (_) in
-            self?.redirectToImport()
+//            self?.redirectToImport()
             completion()
         }
         alert.addAction(removeAction)
         alert.addAction(keepAsReadonly)
-        alert.addAction(redirectToImport)
+//        alert.addAction(redirectToImport)
         present(alert, animated: true)
     }
     /*
@@ -283,14 +283,14 @@ class SanityChecker {
                     title: "accountfinalized.alert.action.backup".localized,
                     style: .default,
                     handler: { [weak self] _ in
-                        self?.delegate?.showExport()
+//                        self?.delegate?.showExport()
                     }
                 )
 
                 areYouSureAlert.addAction(dismissAction)
                 areYouSureAlert.addAction(makeBackupAction)
 
-                self?.present(areYouSureAlert, animated: true)
+//                self?.present(areYouSureAlert, animated: true)
             }
         )
 
@@ -298,14 +298,14 @@ class SanityChecker {
             title: "accountfinalized.alert.action.backup".localized,
             style: .default,
             handler: { [weak self] _ in
-                self?.delegate?.showExport()
+//                self?.delegate?.showExport()
             }
         )
 
         alert.addAction(notNowAction)
         alert.addAction(makeBackupAction)
 
-        present(alert, animated: true)
+//        present(alert, animated: true)
     }
     
     private func present(_ alert: UIAlertController, animated: Bool) {

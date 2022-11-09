@@ -15,7 +15,9 @@ struct SeedIdentityStatusView: Page {
         VStack {
             ScrollView {
                 VStack {
-                    PageIndicator(numberOfPages: 4, currentPage: 3)
+                    if !viewModel.isNewIdentityAfterSettingUpTheWallet {
+                        PageIndicator(numberOfPages: 4, currentPage: 3)
+                    }
                     StyledLabel(text: viewModel.title, style: .heading, color: Pallette.primary)
                         .padding([.top, .bottom], 35)
                     StyledLabel(text: viewModel.body, style: .body, textAlignment: .leading)
@@ -23,12 +25,20 @@ struct SeedIdentityStatusView: Page {
                     IdentityCard(
                         viewModel: viewModel.identityViewModel
                     )
+                }.alert(isPresented: $viewModel.isIdentityConfirmed) { 
+                    Alert(title: Text("newaccount.title".localized), message: Text((String(format: "newaccount.message".localized, viewModel.identityViewModel.index))), primaryButton: .default(Text("newaccount.create".localized), action: {
+                        viewModel.send(.makeNewAccountRequest)
+                    }), secondaryButton: .default(Text("newaccount.later".localized)))
                 }
             }
             Spacer()
             Button(viewModel.continueLabel) {
-                viewModel.send(.finish)
-            }.applyStandardButtonStyle()
+                viewModel.isNewIdentityAfterSettingUpTheWallet ? viewModel.send(.finishNewIdentityAfterSettingUpTheWallet) : viewModel.send(.finish)
+            }.applyStandardButtonStyle().alert(item: $viewModel.identityRejectionError) { error in
+                Alert(title: Text("newidentityrejected.title".localized), message: Text((String(format: "newidentityrejected.message".localized, error.description))), primaryButton: .default(Text("newidentityrejected.tryagain".localized), action: {
+                    viewModel.send(.makeNewIdentityRequest)
+                }), secondaryButton: .default(Text("newidentityrejected.later".localized)))
+            }
         }.padding(.init(top: 10, leading: 16, bottom: 16, trailing: 30))
     }
 }
@@ -40,8 +50,6 @@ struct SeedIdentityStatusView_Previews: PreviewProvider {
                 title: "Verification request submitted!",
                 body: """
 Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can create your first account.
-
-You can press continue to have a look at the app, while you wait.
 """,
                 identityViewModel: .init(
                     index: 1,
@@ -49,7 +57,8 @@ You can press continue to have a look at the app, while you wait.
                     image: nil,
                     state: .pending
                 ),
-                continueLabel: "Continue"
+                continueLabel: "Continue",
+                isNewIdentityAfterSettingUpTheWallet: false
             )
         )
     }

@@ -13,8 +13,10 @@ struct SubmitSeedAccountView: Page {
     
     var pageBody: some View {
         VStack {
-            PageIndicator(numberOfPages: 4, currentPage: 4)
-                .padding([.top], 10)
+            if !viewModel.isNewAccountAfterSettingUpTheWallet {
+                PageIndicator(numberOfPages: 4, currentPage: 4)
+                    .padding([.top], 10)
+            }
             ScrollView {
                 VStack {
                     StyledLabel(text: viewModel.title, style: .heading, color: Pallette.primary)
@@ -30,6 +32,10 @@ struct SubmitSeedAccountView: Page {
                     }
                 }.padding(.init(top: 10, leading: 16, bottom: 30, trailing: 16))
             }
+        }.alert(item: $viewModel.identityRejectionError) { error in
+            Alert(title: Text("identityrejected.title".localized), message: Text((String(format: "identityrejected.message".localized, error.description))), dismissButton: .default(Text("identityrejected.tryagain".localized), action: {
+                viewModel.send(.makeNewIdentityRequest)
+            }))
         }
     }
 }
@@ -106,7 +112,8 @@ When you have submitted your account, you will be taken to the wallet.
                     totalLabel: "Total",
                     atDisposalLabel: "At disposal",
                     submitAccount: "Submit account"
-                )
+                ),
+                isNewAccountAfterSettingUpTheWallet: false
             )
         )
     }

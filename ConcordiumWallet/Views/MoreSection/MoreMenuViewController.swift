@@ -12,10 +12,8 @@ import UIKit
 enum MenuCell: Hashable {
     case identities(title: String)
     case addressBook(title: String)
-    case import_(title: String)
-    case export(title: String)
     case update(title: String)
-    case validate(title: String)
+    case recovery(title: String)
     case about(title: String)
     
 }
@@ -74,16 +72,12 @@ extension MoreMenuViewController: UITableViewDelegate {
             presenter.userSelectedIdentities()
         case .addressBook:
             presenter.userSelectedAddressBook()
-        case .import_:
-            presenter.userSelectedImport()
-        case .export:
-            presenter.userSelectedExport()
         case .update:
             presenter.userSelectedUpdate()
+        case .recovery:
+            presenter.userSelectedRecovery()
         case .about:
             presenter.userSelectedAbout()
-        case .validate:
-            presenter.userSelectedValidate()
         }
     }
 }
@@ -94,10 +88,8 @@ extension MoreMenuViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems([.identities(title: "more.identities".localized)])
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
-        snapshot.appendItems([.export(title: "more.export".localized)])
-        snapshot.appendItems([.import_(title: "more.import".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
-        snapshot.appendItems([.validate(title: "more.validateIdsAndAccounts".localized)])
+        snapshot.appendItems([.recovery(title: "more.recovery".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
                 
         DispatchQueue.main.async {
@@ -110,10 +102,8 @@ extension MoreMenuViewController {
         case
                 .identities(let title),
                 .addressBook(let title),
-                .import_(let title),
-                .export(let title),
                 .update(let title),
-                .validate(let title),
+                .recovery(let title),
                 .about(let title):
             // swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemCellView", for: indexPath) as! MenuItemCellView

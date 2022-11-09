@@ -207,8 +207,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self.warningMessageLabel.text = warning.text
                 self.warningMessageImageView.image = UIImage(named: warning.imageName)
                 self.warningDismissButton.isHidden = !warning.dismissable
-                self.showBackupWarningBanner(true)
-                self.warningMessageView.applyConcordiumEdgeStyle(color: warning.priority == .warning ? .yellowBorder : .primary)
+//                self.showBackupWarningBanner(true)
+//                self.warningMessageView.applyConcordiumEdgeStyle(color: warning.priority == .warning ? .yellowBorder : .primary)
+                self.warningMessageView.applyConcordiumEdgeStyle(color: .primary)
             } else {
                 self.showBackupWarningBanner(false)
             }

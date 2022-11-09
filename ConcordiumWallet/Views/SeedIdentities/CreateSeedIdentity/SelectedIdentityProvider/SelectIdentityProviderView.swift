@@ -13,7 +13,9 @@ struct SelectIdentityProviderView: Page {
     
     var pageBody: some View {
         VStack {
-            PageIndicator(numberOfPages: 4, currentPage: 3)
+            if !viewModel.isNewIdentityAfterSettingUpTheWallet {
+                PageIndicator(numberOfPages: 4, currentPage: 3)
+            }
             IdentityProvidersView(
                 identityProviders: viewModel.identityProviders,
                 onShowInfo: { viewModel.send(.showInfo(url: $0)) },
@@ -91,7 +93,7 @@ struct SelectIdentityProviderView_Previews: PreviewProvider {
     static var previews: some View {
         SelectIdentityProviderView(
             viewModel: .init(
-                identityProviders: []
+                identityProviders: [], isNewIdentityAfterSettingUpTheWallet: false
             )
         )
     }

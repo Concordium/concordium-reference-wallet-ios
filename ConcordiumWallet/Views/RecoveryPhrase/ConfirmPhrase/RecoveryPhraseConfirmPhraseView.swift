@@ -15,7 +15,7 @@ struct RecoveryPhraseConfirmPhraseView: Page {
     
     var pageBody: some View {
         VStack {
-            PageIndicator(numberOfPages: 4, currentPage: 1)
+            PageIndicator(numberOfPages: 4, currentPage: 2)
             StyledLabel(text: viewModel.title, style: .body)
                 .padding([.leading, .trailing], 20)
             WordSelection(

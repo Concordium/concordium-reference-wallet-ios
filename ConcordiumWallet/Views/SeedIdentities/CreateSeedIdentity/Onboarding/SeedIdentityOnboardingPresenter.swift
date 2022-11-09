@@ -21,11 +21,15 @@ class SeedIdentityOnboardingPresenter: SwiftUIPresenter<SeedIdentityOnboardingVi
         super.init(
             viewModel: .init(
                 pages: [
-                    ("identities.seed.onboarding.concepts".localized, "seed_identity_onboarding_en_1"),
-                    ("identities.seed.onboarding.youareread".localized, "seed_identity_onboarding_en_2")
+                    ("onboardingcarousel.seedflow.page1.title".localized, "seed_identity_onboarding_en_1"),
+                    ("onboardingcarousel.seedflow.page2.title".localized, "seed_identity_onboarding_en_2"),
+                    ("onboardingcarousel.seedflow.page3.title".localized, "seed_identity_onboarding_en_3"),
+                    ("onboardingcarousel.seedflow.page4.title".localized, "seed_identity_onboarding_en_4")
                 ]
             )
         )
+        
+        viewModel.navigationTitle = "onboardingcarousel.seedflow.title".localized
     }
     
     override func receive(event: SeedIdentityOnboardingEvent) {

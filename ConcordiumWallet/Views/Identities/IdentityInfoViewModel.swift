@@ -28,7 +28,7 @@ class IdentityInfoViewModel: IdentityGeneralViewModel {
                 .joined(separator: ", ") ?? "identityStatus.\(identity.state.rawValue)".localized
 
         let expiresOn: String
-        if let validTo = identity.identityObject?.attributeList.validTo {
+        if let validTo = identity.seedIdentityObject?.attributeList.validTo {
             expiresOn = "Expires on " + GeneralFormatter.formatISO8601Date(date: validTo)
         } else {
             expiresOn = ""

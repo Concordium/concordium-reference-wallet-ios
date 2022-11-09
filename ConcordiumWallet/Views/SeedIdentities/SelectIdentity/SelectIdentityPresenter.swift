@@ -23,12 +23,12 @@ class SelectIdentityPresenter: SwiftUIPresenter<SelectIdentityViewModel> {
         
         super.init(
             viewModel: .init(
-                title: "selectidentity.title",
+                title: "selectidentity.title".localized,
                 identities: identities
             )
         )
         
-        viewModel.navigationTitle = "sslectidentity.navigationtitle"
+        viewModel.navigationTitle = "selectidentity.navigationtitle".localized
     }
     
     override func receive(event: SelectIdentityEvent) {

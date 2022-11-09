@@ -37,7 +37,7 @@ struct IdentityCard: View {
         init(identity: IdentityDataType) {
             index = identity.index
             state = identity.state
-            if let validTo = identity.identityObject?.attributeList.validTo {
+            if let validTo = identity.seedIdentityObject?.attributeList.validTo {
                 expirationDate = String(
                     format: "identities.seed.shared.expirationdate".localized,
                     GeneralFormatter.formatISO8601Date(date: validTo)
@@ -51,7 +51,7 @@ struct IdentityCard: View {
         func update(with seedIdentity: IdentityDataType) {
             index = seedIdentity.index
             state = seedIdentity.state
-            if let validTo = seedIdentity.identityObject?.attributeList.validTo {
+            if let validTo = seedIdentity.seedIdentityObject?.attributeList.validTo {
                 expirationDate = String(
                     format: "identities.seed.shared.expirationdate".localized,
                     GeneralFormatter.formatISO8601Date(date: validTo)

@@ -88,15 +88,22 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     with: pwHash
                 )
                 
+                print("+++ Pw hash: \(pwHash)")
+                print("+++ Seed: \(seed)")
+                
                 let identities = try await self.identitiesService.recoverIdentities(
                     with: seed
                 )
+                
+                print("+++ Identities: \(identities)")
                 
                 let accounts = try await self.accountsService.recoverAccounts(
                     for: identities,
                     seed: seed,
                     pwHash: pwHash
                 )
+                
+                print("+++ Accounts: \(accounts)")
                 
                 self.handleIdentities(identities, accounts: accounts)
             } catch {

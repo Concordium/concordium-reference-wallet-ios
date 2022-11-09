@@ -10,6 +10,12 @@ import Foundation
 
 enum SubmitSeedAccountEvent {
     case submitAccount
+    case makeNewIdentityRequest
+}
+
+struct IdentityRejectionError: Identifiable {
+    var id: String { description }
+    let description: String
 }
 
 class SubmitSeedAccountViewModel: PageViewModel<SubmitSeedAccountEvent> {
@@ -17,17 +23,22 @@ class SubmitSeedAccountViewModel: PageViewModel<SubmitSeedAccountEvent> {
     @Published var body: String
     let identityViewModel: IdentityCard.ViewModel
     let accountViewModel: AccountCardViewModel
+    @Published var identityRejectionError: IdentityRejectionError?
+    @Published var isNewAccountAfterSettingUpTheWallet: Bool
     
     init(
         title: String,
         body: String,
         identityViewModel: IdentityCard.ViewModel,
-        accountViewModel: AccountCardViewModel
+        accountViewModel: AccountCardViewModel,
+        isNewAccountAfterSettingUpTheWallet: Bool
     ) {
         self.title = title
         self.body = body
         self.identityViewModel = identityViewModel
         self.accountViewModel = accountViewModel
+        self.identityRejectionError = nil
+        self.isNewAccountAfterSettingUpTheWallet = isNewAccountAfterSettingUpTheWallet
     }
 }
 
@@ -44,6 +55,7 @@ class AccountCardViewModel: ObservableObject {
     @Published var atDisposalLabel: String
     @Published var atDisposalAmount: GTU
     @Published var submitAccount: String
+    @Published var makeNewIdentityRequest: String
     
     init(
         state: State = .notAvailable,
@@ -53,7 +65,8 @@ class AccountCardViewModel: ObservableObject {
         totalAmount: GTU = .zero,
         atDisposalLabel: String = "",
         atDisposalAmount: GTU = .zero,
-        submitAccount: String = ""
+        submitAccount: String = "",
+        makeNewIdentityRequest: String = ""
     ) {
         self.state = state
         self.accountIndex = accountIndex
@@ -63,6 +76,7 @@ class AccountCardViewModel: ObservableObject {
         self.atDisposalLabel = atDisposalLabel
         self.atDisposalAmount = atDisposalAmount
         self.submitAccount = submitAccount
+        self.makeNewIdentityRequest = makeNewIdentityRequest
     }
     
     var accountTitle: String {

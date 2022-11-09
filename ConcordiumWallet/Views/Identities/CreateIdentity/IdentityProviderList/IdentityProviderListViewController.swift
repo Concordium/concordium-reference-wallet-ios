@@ -26,6 +26,7 @@ class IdentityProviderListViewController: BaseViewController, Storyboarded {
 
 	var presenter: IdentityProviderListPresenterProtocol
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailsTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
 

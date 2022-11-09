@@ -15,11 +15,13 @@ enum SelectIdentityProviderEvent {
 
 class SelectIdentityProviderViewModel: PageViewModel<SelectIdentityProviderEvent> {
     @Published var identityProviders: [IPInfoResponseElement]
+    @Published var isNewIdentityAfterSettingUpTheWallet: Bool
     
     init(
-        identityProviders: [IPInfoResponseElement]
+        identityProviders: [IPInfoResponseElement], isNewIdentityAfterSettingUpTheWallet: Bool
     ) {
         self.identityProviders = identityProviders
+        self.isNewIdentityAfterSettingUpTheWallet = isNewIdentityAfterSettingUpTheWallet
         
         super.init()
     }

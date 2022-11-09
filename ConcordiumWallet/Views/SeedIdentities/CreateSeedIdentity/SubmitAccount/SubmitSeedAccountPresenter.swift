@@ -10,7 +10,8 @@ import Foundation
 import Combine
 
 protocol SubmitSeedAccountPresenterDelegate: RequestPasswordDelegate {
-    func accountHasBeenSubmitted(_ account: AccountDataType)
+    func accountHasBeenSubmitted(_ account: AccountDataType, isNewAccountAfterSettingUpTheWallet: Bool, forIdentity identity: IdentityDataType)
+    func makeNewIdentityRequest()
 }
 
 class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
@@ -19,17 +20,20 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
     private var identity: IdentityDataType
     private let identititesService: SeedIdentitiesService
     private let accountsService: SeedAccountsService
+    private let isNewAccountAfterSettingUpTheWallet: Bool
     
     init(
         identity: IdentityDataType,
         identitiesService: SeedIdentitiesService,
         accountsService: SeedAccountsService,
-        delegate: SubmitSeedAccountPresenterDelegate
+        delegate: SubmitSeedAccountPresenterDelegate,
+        isNewAccountAfterSettingUpTheWallet: Bool = false
     ) {
         self.identity = identity
         self.identititesService = identitiesService
         self.accountsService = accountsService
         self.delegate = delegate
+        self.isNewAccountAfterSettingUpTheWallet = isNewAccountAfterSettingUpTheWallet
         
         let identityViewModel = IdentityCard.ViewModel()
         identityViewModel.update(with: identity)
@@ -37,7 +41,7 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
         super.init(
             viewModel: .init(
                 title: "identities.seed.submitaccount.title".localized,
-                body: "identities.seed.submitaccount.body".localized,
+                body: isNewAccountAfterSettingUpTheWallet ? String(format: "identities.seed.submitnewaccount.body".localized, identity.index) : "identities.seed.submitaccount.body".localized,
                 identityViewModel: identityViewModel,
                 accountViewModel: .init(
                     state: .notAvailable,
@@ -48,11 +52,12 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
                     atDisposalLabel: "identities.seed.submitaccount.atdisposal".localized,
                     atDisposalAmount: .zero,
                     submitAccount: "identities.seed.submitaccount.submit".localized
-                )
+                ),
+                isNewAccountAfterSettingUpTheWallet: isNewAccountAfterSettingUpTheWallet
             )
         )
         
-        viewModel.navigationTitle = "identities.seed.submitaccount.navigationtitle".localized
+        viewModel.navigationTitle = isNewAccountAfterSettingUpTheWallet ? "identities.seed.submitnewaccount.navigationtitle".localized : "identities.seed.submitaccount.navigationtitle".localized
         
         updatePendingIdentity(identity: identity)
     }
@@ -66,7 +71,7 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
             return
         }
         
-        Task {
+        Task.init {
             try await Task.sleep(nanoseconds: UInt64(delay) * 1_000_000_000)
             
             let updatedIdentity = try await self.identititesService
@@ -82,13 +87,13 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
         
         switch identity.state {
         case .pending:
-            updatePendingIdentity(identity: identity, after: 30)
+            updatePendingIdentity(identity: identity, after: 5)
         case .confirmed:
             if viewModel.accountViewModel.state == .notAvailable {
                 viewModel.accountViewModel.state = .available
             }
         case .failed:
-            break
+            viewModel.identityRejectionError = IdentityRejectionError(description: identity.identityCreationError)
         }
     }
     
@@ -97,6 +102,7 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
         case .submitAccount:
             if let delegate = delegate, viewModel.accountViewModel.state != .pending {
                 viewModel.accountViewModel.state = .pending
+                
                 Task {
                     do {
                         let account = try await self.accountsService.generateAccount(
@@ -105,11 +111,15 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
                             requestPasswordDelegate: delegate
                         )
                         
-                        self.delegate?.accountHasBeenSubmitted(account)
+                        self.delegate?.accountHasBeenSubmitted(account, isNewAccountAfterSettingUpTheWallet: isNewAccountAfterSettingUpTheWallet, forIdentity: identity)
                     } catch {
                         self.viewModel.alertPublisher.send(.error(ErrorMapper.toViewError(error: error)))
                     }
                 }
+            }
+        case .makeNewIdentityRequest:
+            if let delegate = delegate, viewModel.accountViewModel.state == .notAvailable {
+                delegate.makeNewIdentityRequest()
             }
         }
     }

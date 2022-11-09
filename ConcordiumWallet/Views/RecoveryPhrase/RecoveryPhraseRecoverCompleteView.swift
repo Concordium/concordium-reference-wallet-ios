@@ -31,7 +31,7 @@ struct RecoveryPhraseRecoverCompleteView_Previews: PreviewProvider {
     static var previews: some View {
         RecoveryPhraseRecoverCompleteView(
             viewModel: .init(
-                title: "Your secret recovery phrase has been successfully entered! Tab continue to recover your accounts and identities.",
+                title: "Your secret recovery phrase has been successfully entered! Tap continue to recover your accounts and identities.",
                 continueLabel: "Continue"
             )
         )

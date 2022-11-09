@@ -29,7 +29,7 @@ class MoreCoordinator: Coordinator, ShowAlert {
         self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
                                           storageManager: dependencyProvider.storageManager())
         sanityChecker.errorDisplayer = self
-        sanityChecker.delegate = self
+//        sanityChecker.delegate = self
         sanityChecker.coordinator = self
     }
 
@@ -85,26 +85,26 @@ class MoreCoordinator: Coordinator, ShowAlert {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    // MARK: Import
-    func showImport() {
-        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
-        let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
-        vc.title = initialAccountPresenter.type.getViewModel().title
-        navigationController.pushViewController(vc, animated: true)
-    }
+//    // MARK: Import
+//    func showImport() {
+//        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
+//        let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
+//        vc.title = initialAccountPresenter.type.getViewModel().title
+//        navigationController.pushViewController(vc, animated: true)
+//    }
+//    
+//    // MARK: Export
+//    func showExport() {
+//        navigationController.popToRootViewController(animated: false)
+//        let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
+//        navigationController.pushViewController(vc, animated: true)
+//    }
     
-    // MARK: Export
-    func showExport() {
-        navigationController.popToRootViewController(animated: false)
-        let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showValidateIdsAndAccounts() {
-        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
-                                              keychainWrapper: dependencyProvider.keychainWrapper(),
-                                              mode: .manual)
-    }
+//    func showValidateIdsAndAccounts() {
+//        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
+//                                              keychainWrapper: dependencyProvider.keychainWrapper(),
+//                                              mode: .manual)
+//    }
 
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(navigationController: TransparentNavigationController(),
@@ -141,24 +141,17 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     func addressBookSelected() {
         showAddressBook()
     }
-
-    func importSelected() {
-        showImport()
-    }
-    
-    func exportSelected() {
-        showExport()
-    }
     
     func updateSelected() {
         showUpdatePasscode()
     }
     
+    func recoverySelected() {
+        print("+++ Recovery selected!")
+    }
+    
     func aboutSelected() {
         showAbout()
-    }
-    func validateIdsAndAccountsSelected() {
-        showValidateIdsAndAccounts()
     }
 }
 
@@ -263,7 +256,7 @@ extension MoreCoordinator: ExportPresenterDelegate {
 
 extension MoreCoordinator: AboutPresenterDelegate {}
 
-extension MoreCoordinator: ImportExport {}
+//extension MoreCoordinator: ImportExport {}
 
 extension MoreCoordinator: IdentitiesCoordinatorDelegate {
     

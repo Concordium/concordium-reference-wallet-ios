@@ -68,7 +68,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         
         let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
                                                     moreCoordinator: moreCoordinator)
-        sanityChecker.delegate = tabBarController
+//        sanityChecker.delegate = tabBarController
         self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(tabBarController, animated: true)
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {

@@ -43,7 +43,7 @@ struct SeedAccountsService {
 }
 
 extension SeedAccountsService: SeedAccountsServiceProtocol {
-    func generateAccount(
+    @MainActor func generateAccount(
         for identity: IdentityDataType,
         revealedAttributes: [String],
         requestPasswordDelegate: RequestPasswordDelegate

@@ -98,13 +98,14 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         guard let identityEntity = identity as? IdentityEntity else {
             return
         }
+        
         try realm.write {
             realm.add(identityEntity)
         }
     }
 
     func getIdentities() -> [IdentityDataType] {
-        Array(realm.objects(IdentityEntity.self))
+        return Array(realm.objects(IdentityEntity.self))
     }
 
     // swiftlint:disable line_length
@@ -113,11 +114,11 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     }
 
     func getConfirmedIdentities() -> [IdentityDataType] {
-        Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.confirmed.rawValue)'"))
+        return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.confirmed.rawValue)'"))
     }
 
     func getPendingIdentities() -> [IdentityDataType] {
-        Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.pending.rawValue)'"))
+        return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.pending.rawValue)'"))
     }
 
     func storePrivateIdObjectData(_ privateIdObjectData: PrivateIDObjectData, pwHash: String) -> Result<String, Error> {

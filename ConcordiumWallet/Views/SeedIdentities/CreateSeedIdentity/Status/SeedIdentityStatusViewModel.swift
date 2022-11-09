@@ -10,6 +10,9 @@ import Foundation
 
 enum SeedIdentityStatusEvent {
     case finish
+    case finishNewIdentityAfterSettingUpTheWallet
+    case makeNewIdentityRequest
+    case makeNewAccountRequest
 }
 
 class SeedIdentityStatusViewModel: PageViewModel<SeedIdentityStatusEvent> {
@@ -17,16 +20,23 @@ class SeedIdentityStatusViewModel: PageViewModel<SeedIdentityStatusEvent> {
     @Published var body: String
     let identityViewModel: IdentityCard.ViewModel
     @Published var continueLabel: String
+    @Published var identityRejectionError: IdentityRejectionError?
+    @Published var isIdentityConfirmed: Bool
+    @Published var isNewIdentityAfterSettingUpTheWallet: Bool
     
     init(
         title: String,
         body: String,
         identityViewModel: IdentityCard.ViewModel,
-        continueLabel: String
+        continueLabel: String,
+        isNewIdentityAfterSettingUpTheWallet: Bool
     ) {
         self.title = title
         self.body = body
         self.identityViewModel = identityViewModel
         self.continueLabel = continueLabel
+        self.identityRejectionError = nil
+        self.isIdentityConfirmed = false
+        self.isNewIdentityAfterSettingUpTheWallet = isNewIdentityAfterSettingUpTheWallet
     }
 }

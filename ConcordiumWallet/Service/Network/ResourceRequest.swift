@@ -27,6 +27,10 @@ struct ResourceRequest {
 
         let DeviceLanguageCode = NSLocale.current.identifier
         urlRequest.setValue(DeviceLanguageCode, forHTTPHeaderField: "Accept-Language")
+        
+        // add headers for the request
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type") // change as per server requirements
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
 
         if let body = body {
             urlRequest.httpBody = body

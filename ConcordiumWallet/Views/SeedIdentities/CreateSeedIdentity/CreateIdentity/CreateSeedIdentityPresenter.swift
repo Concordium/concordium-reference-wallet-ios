@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CreateSeedIdentityPresenterDelegate: AnyObject {
-    func pendingIdentityCreated(_ identity: IdentityDataType)
+    func pendingIdentityCreated(_ identity: IdentityDataType, isNewIdentityAfterSettingUpTheWallet: Bool)
     func createIdentityView(failedToLoad error: Error)
     func cancelCreateIdentity()
 }
@@ -19,15 +19,17 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
     
     private let request: IDPIdentityRequest
     private let identitiesService: SeedIdentitiesService
+    private var isNewIdentityAfterSettingUpTheWallet: Bool
     
     init(
         request: IDPIdentityRequest,
         identitiesService: SeedIdentitiesService,
-        delegate: CreateSeedIdentityPresenterDelegate
+        delegate: CreateSeedIdentityPresenterDelegate, isNewIdentityAfterSettingUpTheWallet: Bool = false
     ) {
         self.request = request
         self.identitiesService = identitiesService
         self.delegate = delegate
+        self.isNewIdentityAfterSettingUpTheWallet = isNewIdentityAfterSettingUpTheWallet
         
         super.init(
             viewModel: .init(
@@ -60,6 +62,7 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
     }
     
     private func handleIdentitySubmitted(identityCreationId: String, pollUrl: String) {
+        
         guard identityCreationId == request.id else {
             return
         }
@@ -71,7 +74,7 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
                 index: request.index
             )
             
-            delegate?.pendingIdentityCreated(identity)
+            delegate?.pendingIdentityCreated(identity, isNewIdentityAfterSettingUpTheWallet: isNewIdentityAfterSettingUpTheWallet)
         } catch {
             viewModel.alertPublisher.send(.error(.genericError(reason: error)))
         }

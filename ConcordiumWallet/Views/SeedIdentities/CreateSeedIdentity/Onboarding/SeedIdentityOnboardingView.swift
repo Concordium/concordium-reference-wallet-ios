@@ -14,7 +14,6 @@ struct SeedIdentityOnboardingView: Page {
     
     var pageBody: some View {
         VStack {
-            PageIndicator(numberOfPages: 4, currentPage: 2)
             OnboardingCarouselView(
                 title: nil,
                 pages: viewModel.pages.map {
@@ -36,7 +35,9 @@ struct SeedIdentityOnboardingView_Previews: PreviewProvider {
             viewModel: .init(
                 pages: [
                     ("The Concordium Concepts", "seed_identity_onboarding_en_1"),
-                    ("You are ready!", "seed_identity_onboarding_en_2")
+                    ("You are ready!", "seed_identity_onboarding_en_2"),
+                    ("You are ready!", "seed_identity_onboarding_en_3"),
+                    ("You are ready!", "seed_identity_onboarding_en_4")
                 ]
             )
         )

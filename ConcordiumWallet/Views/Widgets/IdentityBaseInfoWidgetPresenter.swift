@@ -29,7 +29,7 @@ struct IdentityDetailsInfoViewModel {
         switch identity.state {
         case .confirmed:
             // Show expiry date for confirmed state
-            bottomLabel = "Expires on " + GeneralFormatter.formatISO8601Date(date: identity.identityObject?.attributeList.validTo ?? "")
+            bottomLabel = "Expires on " + GeneralFormatter.formatISO8601Date(date: identity.seedIdentityObject?.attributeList.validTo ?? "")
             bottomIcon = "ok_icon"
             bottomIconTintColor = .text
             widgetColor = .primary

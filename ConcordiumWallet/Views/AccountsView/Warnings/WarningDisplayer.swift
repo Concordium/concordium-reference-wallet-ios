@@ -27,7 +27,8 @@ extension Warning: Equatable {
     static func == (lhs: Warning, rhs: Warning) -> Bool {
         switch (lhs, rhs) {
         case (.backup, backup):
-            return true
+//            return true
+            return false
         case (.identityPending(let lhs), .identityPending(let rhs)):
             return (lhs.hashedIpStatusUrl == rhs.hashedIpStatusUrl)
         default:
@@ -43,26 +44,31 @@ extension Warning: Hashable {
 
 struct WarningViewModel {
     enum Priority {
-        case warning
+//        case warning
         case info
     }
-    
+
     var imageName: String
     var text: String
     var dismissable: Bool
     var priority: Priority
-    
+
     init(warning: Warning) {
         switch warning {
-        case .backup:
-            imageName = "warning_backup"
-            text = "accounts.backupwarning.text".localized
-            dismissable = false
-            priority = .warning
+//        case .backup:
+//            imageName = "warning_backup"
+//            text = "accounts.backupwarning.text".localized
+//            dismissable = false
+//            priority = .warning
         case .identityPending(let identity):
             imageName = "warning_identity"
             text = String(format: "accounts.identitywarning.text".localized, identity.nickname)
             dismissable = true
+            priority = .info
+        default:
+            imageName = ""
+            text = ""
+            dismissable = false
             priority = .info
         }
     }
@@ -73,13 +79,13 @@ protocol WarningDisplayerDelegate: AnyObject {
 }
 
 class WarningDisplayer {
-    
+
     @Published var shownWarningDisplay: WarningViewModel?
-    
+
     @Published private var warnings: Set<Warning> = []
     private var shownWarning: Warning?
     private var cancellables: [AnyCancellable] = []
-    
+
     weak var delegate: WarningDisplayerDelegate? {
         didSet {
             $warnings.sink { [weak self] warnings in
@@ -87,12 +93,13 @@ class WarningDisplayer {
                 let firstWarning = warnings.sorted { lhs, rhs in
                     switch (lhs, rhs) {
                     case (_, .backup):
-                        return true
+//                        return true
+                        return false
                     case (.identityPending(let lhs), .identityPending(let rhs)):
                         let lhs = lhs.hashedIpStatusUrl ?? ""
                         let rhs = rhs.hashedIpStatusUrl ?? ""
                         return lhs < rhs
-                    
+
                     default:
                         return false
                     }
@@ -107,17 +114,17 @@ class WarningDisplayer {
             }.store(in: &cancellables)
         }
     }
-    
+
     init() {
     }
-    
+
     func addWarning(_ warning: Warning) {
         let dismissedIds = AppSettings.dismissedWarningIds
         if !dismissedIds.contains(warning.identifier()) {
             warnings.insert(warning)
         }
     }
-    
+
     func dismissedWarning() {
         if let shownWarning = self.shownWarning {
             var dismissedIds = AppSettings.dismissedWarningIds
@@ -126,13 +133,13 @@ class WarningDisplayer {
             warnings.remove(shownWarning)
         }
     }
-    
+
     func pressedWarning() {
         if let shownWarning = shownWarning {
             self.delegate?.performAction(for: shownWarning)
         }
     }
-    
+
     func clearIdentityWarnings() {
         warnings = warnings.filter {
             if case .identityPending = $0 {
@@ -142,7 +149,7 @@ class WarningDisplayer {
             }
         }
     }
-    
+
     func clearBackupWarnings() {
         warnings = warnings.filter {
             if case .backup = $0 {
@@ -152,5 +159,5 @@ class WarningDisplayer {
             }
         }
     }
-    
+
 }

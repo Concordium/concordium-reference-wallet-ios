@@ -206,9 +206,9 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
     func viewDidAppear() {
         checkPendingAccountsStatusesIfNeeded()
-        appSettingsDelegate?.checkForAppSettings(showBackup: { [weak self] in
-            self?.performAction(for: .backup)
-        })
+//        appSettingsDelegate?.checkForAppSettings(showBackup: { [weak self] in
+//            self?.performAction(for: .backup)
+//        })
     }
     
     func refresh() {
@@ -315,28 +315,28 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if finalizedAccounts.count > 1 {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            displayBackupAlert(notification: .multiple)
+//            displayBackupAlert(notification: .multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
+//            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
     }
     
-    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
-        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
-            self?.delegate?.didSelectMakeBackup()
-        }, dismissCompletion: { [weak self] in
-            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
-                self?.delegate?.didSelectMakeBackup()
-            }, dismissCompletion: {
-            })
-            self?.alertDisplayer.enqueueAlert(extraAlert)
-        })
-        self.alertDisplayer.enqueueAlert(alert)
-    }
+//    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
+//        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
+//            self?.delegate?.didSelectMakeBackup()
+//        }, dismissCompletion: { [weak self] in
+//            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
+//                self?.delegate?.didSelectMakeBackup()
+//            }, dismissCompletion: {
+//            })
+//            self?.alertDisplayer.enqueueAlert(extraAlert)
+//        })
+//        self.alertDisplayer.enqueueAlert(alert)
+//    }
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)

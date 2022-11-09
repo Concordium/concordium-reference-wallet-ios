@@ -18,11 +18,9 @@ protocol MoreMenuViewProtocol: AnyObject {
 protocol MoreMenuPresenterDelegate: AnyObject {
     func identitiesSelected()
     func addressBookSelected()
-    func importSelected()
-    func exportSelected()
     func updateSelected()
+    func recoverySelected()
     func aboutSelected()
-    func validateIdsAndAccountsSelected()
 }
 
 // MARK: -
@@ -32,10 +30,8 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func viewDidLoad()
     func userSelectedIdentities()
     func userSelectedAddressBook()
-    func userSelectedImport()
-    func userSelectedExport()
     func userSelectedUpdate()
-    func userSelectedValidate()
+    func userSelectedRecovery()
     func userSelectedAbout()
 }
 
@@ -60,21 +56,15 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
         delegate?.addressBookSelected()
     }
 
-    func userSelectedImport() {
-        delegate?.importSelected()
-    }
-    
-    func userSelectedExport() {
-        delegate?.exportSelected()
-    }
-
     func userSelectedUpdate() {
         delegate?.updateSelected()
     }
+    
+    func userSelectedRecovery() {
+        delegate?.recoverySelected()
+    }
+
     func userSelectedAbout() {
         delegate?.aboutSelected()
-    }
-    func userSelectedValidate() {
-        delegate?.validateIdsAndAccountsSelected()
     }
 }

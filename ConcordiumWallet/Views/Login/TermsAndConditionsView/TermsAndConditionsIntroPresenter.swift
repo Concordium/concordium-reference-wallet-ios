@@ -27,6 +27,6 @@ class TermsAndConditionsIntroPresenter: TermsAndConditionsPresenterProtocol {
     }
     
     func viewDidLoad() {
-        appSettingsDelegate?.checkForAppSettings(showBackup: nil)
+//        appSettingsDelegate?.checkForAppSettings(showBackup: nil)
     }
 }

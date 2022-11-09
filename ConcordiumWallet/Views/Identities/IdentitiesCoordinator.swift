@@ -96,11 +96,16 @@ class IdentitiesCoordinator: Coordinator {
     }
 
     func showCreateNewIdentity() {
-        let createIdentityCoordinator = CreateIdentityCoordinator(navigationController: BaseNavigationController(),
-                dependencyProvider: dependencyProvider, parentCoordinator: self)
-        childCoordinators.append(createIdentityCoordinator)
-        createIdentityCoordinator.start()
-        navigationController.present(createIdentityCoordinator.navigationController, animated: true, completion: nil)
+        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+            navigationController: BaseNavigationController(),
+            action: .createIdentity,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        
+        childCoordinators.append(seedIdentitiesCoordinator)
+        seedIdentitiesCoordinator.start()
+        navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
     }
 }
 
@@ -150,4 +155,11 @@ extension IdentitiesCoordinator: ContactSupportButtonWidgetPresenterDelegate {
 
 extension IdentitiesCoordinator: CopyReferenceWidgetPresenterDelegate {
     func copyReferenceWidgetDidCopyReference() {}
+}
+
+extension IdentitiesCoordinator: SeedIdentitiesCoordinatorDelegate {
+    func seedIdentityCoordinatorWasFinished() {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+    }
 }

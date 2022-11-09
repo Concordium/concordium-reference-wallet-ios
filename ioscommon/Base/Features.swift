@@ -14,6 +14,7 @@ struct FeatureFlag: OptionSet {
     #if DEBUG
     static let enabledFlags: FeatureFlag = [.recoveryCode]
     #else
-    static let enabledFlags: FeatureFlag = []
+//    static let enabledFlags: FeatureFlag = []
+    static let enabledFlags: FeatureFlag = [.recoveryCode]
     #endif
 }

@@ -11,7 +11,7 @@ import Combine
 
 protocol SelectIdentityProviderPresenterDelegate: RequestPasswordDelegate {
     func showIdentityProviderInfo(url: URL)
-    func createIdentityRequestCreated(_ request: IDPIdentityRequest)
+    func createIdentityRequestCreated(_ request: IDPIdentityRequest, isNewIdentityAfterSettingUpTheWallet: Bool)
 }
 
 class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderViewModel> {
@@ -19,22 +19,26 @@ class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderVi
     
     private let identititesService: SeedIdentitiesService
     private var ignoreInput = false
+    private var isNewIdentityAfterSettingUpTheWallet: Bool
     
     init(
         identitiesService: SeedIdentitiesService,
-        delegate: SelectIdentityProviderPresenterDelegate
+        delegate: SelectIdentityProviderPresenterDelegate,
+        isNewIdentityAfterSettingUpTheWallet: Bool = false
     ) {
         self.identititesService = identitiesService
 
         self.delegate = delegate
         
+        self.isNewIdentityAfterSettingUpTheWallet = isNewIdentityAfterSettingUpTheWallet
+        
         super.init(
             viewModel: .init(
-                identityProviders: []
+                identityProviders: [], isNewIdentityAfterSettingUpTheWallet : isNewIdentityAfterSettingUpTheWallet
             )
         )
         
-        viewModel.navigationTitle = "identities.seed.selectprovider.navigationtitle".localized
+        viewModel.navigationTitle = isNewIdentityAfterSettingUpTheWallet ? "newidentities.seed.selectprovider.navigationtitle".localized : "identities.seed.selectprovider.navigationtitle".localized
         viewModel.showLoading()
         
         Task {
@@ -96,7 +100,7 @@ class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderVi
                         requestPasswordDelegate: delegate
                     )
                     
-                    delegate.createIdentityRequestCreated(request)
+                    delegate.createIdentityRequestCreated(request, isNewIdentityAfterSettingUpTheWallet: self.isNewIdentityAfterSettingUpTheWallet)
                 } catch {
                     switch error {
                     case ViewError.userCancelled:
