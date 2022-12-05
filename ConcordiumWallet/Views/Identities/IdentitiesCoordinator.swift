@@ -66,17 +66,6 @@ class IdentitiesCoordinator: Coordinator {
             
             vc.primaryBottomWidget = DeleteIdentityButtonWidgetFactory.create(with: deleteIdentityButtonWidgetPresenter)
             
-            if let reference = identity.hashedIpStatusUrl {
-                vc.tertiaryLabelString = "identityCreation.automaticAccountRemoval.text".localized
-                                
-                let copyReferenceWidgetPresenter = CopyReferenceWidgetPresenter(
-                    delegate: self,
-                    reference: reference
-                )
-                
-                vc.secondaryCenterWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
-            }
-            
             if MailHelper.canSendMail {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
                 vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
@@ -161,5 +150,6 @@ extension IdentitiesCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished() {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+        NotificationCenter.default.post(name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
 }

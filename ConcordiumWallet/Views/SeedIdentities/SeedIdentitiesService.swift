@@ -25,7 +25,7 @@ struct SeedIdentitiesService {
     
     private var nextIdentityindex: Int {
         storageManager.getIdentities()
-            .count
+            .count + 1
     }
     
     func createPendingIdentity(
@@ -126,16 +126,16 @@ struct SeedIdentitiesService {
         async let ipInfoRequest = getIpInfo()
         
         let (global, identityProviderInfo) = try await (globalRequeest, ipInfoRequest)
-        let identityProviders = identityProviderInfo.map {
+        var identityProviders = identityProviderInfo.map {
             IdentityProviderDataTypeFactory.create(ipData: $0)
         }
+        identityProviders = identityProviders.filter { $0.ipInfo?.ipDescription.name != "instant_fail_provider" }
         
         var allidentities = [IdentityDataType]()
         let allowedGap = 20
         var currentGap = 0
         var currentIndex = 0
         while currentGap < allowedGap {
-            print("+++ Current gap: \(currentGap)")
             if let identity = await recoverIdentity(
                 atIndex: currentIndex,
                 generatedBy: seed,
@@ -161,23 +161,13 @@ struct SeedIdentitiesService {
         identityProviders: [IdentityProviderDataType]
     ) async -> IdentityDataType? {
         
-        print("+++ Index: \(index)")
-        print("+++ Seed: \(seed)")
-        print("+++ Global: \(global)")
-        print("+++ Indentity providers: \(identityProviders)")
-        
         for identityProvider in identityProviders {
             guard
                 let recoveryURL = identityProvider.recoverURL,
                 let ipInfo = identityProvider.ipInfo
             else {
-                print("+++ Continue.")
-                
                 continue
             }
-            
-            print("+++ recoveryURL: \(recoveryURL)")
-            print("+++ ipInfo: \(ipInfo)")
             
             do {
                 let request = try mobileWallet.createIDRecoveryRequest(
@@ -187,27 +177,14 @@ struct SeedIdentitiesService {
                     seed: seed
                 ).get()
                 
-                let data = try request.encodeToString().data(using: .utf8)!
-                let json = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+                let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
                 
-                print("+++ JSON: \(json!)")
+                let recoverResponse = try await networkManager.load(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
                 
-                let recoverRequest = ResourceRequest(url: recoveryURL, httpMethod: .post, parameters: ["state": json!])
-                print("+++ recoverRequest: \(recoverRequest)")
-                let recoverResponse = try await networkManager.load(recoverRequest, decoding: RecoverIdentityResponse.self)
-                print("+++ recoverResponse: \(recoverResponse)")
-                print("+++ recoverResponse.identityRetrievalUrl: \(recoverResponse.identityRetrievalUrl)")
-                let status = try await networkManager.load(
-                    ResourceRequest(url: recoverResponse.identityRetrievalUrl),
-                    decoding: SeedIdentityCreationStatus.self
-                )
-                print("+++ status: \(status)")
-                
-                return try createIdentityFromRecoverStatus(
-                    status,
+                return try createIdentityFromSeedIdentityObjectWrapper(
+                    recoverResponse,
                     index: index,
-                    identityProvider: identityProvider,
-                    statusURL: recoverResponse.identityRetrievalUrl
+                    identityProvider: identityProvider
                 )
                 
             } catch {
@@ -219,24 +196,18 @@ struct SeedIdentitiesService {
     }
     
     @MainActor
-    private func createIdentityFromRecoverStatus(
-        _ status: SeedIdentityCreationStatus,
+    private func createIdentityFromSeedIdentityObjectWrapper(
+        _ seedIdentityObjectWrapper: SeedIdentityObjectWrapper,
         index: Int,
-        identityProvider: IdentityProviderDataType,
-        statusURL: URL
+        identityProvider: IdentityProviderDataType
     ) throws -> IdentityDataType {
-        guard case let .done(identityObject) = status else {
-            throw MobileWalletError.invalidArgument
-        }
-        
         var identity = IdentityDataTypeFactory.create()
         identity.index = index
         identity.accountsCreated = 0
         identity.identityProvider = identityProvider
         identity.nickname = String(format: "recoveryphrase.identity.name".localized, index)
         identity.state = .confirmed
-        identity.seedIdentityObject = identityObject.identityObject.value
-        identity.ipStatusUrl = statusURL.absoluteString
+        identity.seedIdentityObject = seedIdentityObjectWrapper.value
         
         try storageManager.storeIdentity(identity)
         
@@ -283,13 +254,10 @@ struct SeedIdentitiesService {
         
         switch status {
         case .pending:
-            print("+++ Still pending.")
             return identity
         case .done(let identityWrapperShell):
-            print("+++ Confirmed. identityWrapperShell: \(identityWrapperShell)")
             return await updateIdentity(identity, withIdentityObject: identityWrapperShell.identityObject.value)
         case .error(let detail):
-            print("+++ Error. Detail: \(detail)")
             return await updateIdentity(identity, withCreationError: detail)
         }
     }

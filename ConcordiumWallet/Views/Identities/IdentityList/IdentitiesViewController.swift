@@ -81,12 +81,15 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
                                                             style: .plain,
                                                             target: self,
                                                             action: barButtonSelector)
-
     }
     
     @objc func refresh(_ sender: AnyObject) {
         presenter.refresh()
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    @objc func refreshIdentities() {
+        presenter.refresh()
     }
 
     func startRefreshTimer() {
@@ -120,6 +123,9 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
                                                selector: #selector(appWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
+        
+        //
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshIdentities), name:     Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -127,6 +133,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
         stopRefreshTimer()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
     
     @objc func appDidBecomeActive() {

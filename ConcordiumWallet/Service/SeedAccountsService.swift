@@ -121,7 +121,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         pwHash: String
     ) async -> [AccountDataType] {
         var accounts = [AccountDataType]()
-        let allowedGap = 5
+        let allowedGap = 20
         var currentGap = 0
         var currentIndex = 0
         while currentGap < allowedGap {

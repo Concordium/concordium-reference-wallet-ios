@@ -30,6 +30,7 @@ protocol IdentityDataWidgetPresenterProtocol: AnyObject {
 }
 
 class IdentityDataWidgetPresenter: IdentityDataWidgetPresenterProtocol {
+    
     var identityDataAsArray: [ChosenAttributeFormattedTuple] {
         identityViewModel.data.sorted(by: { $0.key.rawValue < $1.key.rawValue })
             .map { ($0.key, $0.value) }

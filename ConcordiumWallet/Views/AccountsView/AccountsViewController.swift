@@ -92,6 +92,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                                selector: #selector(appWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
+        
+        //
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts), name:     Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,6 +102,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         stopRefreshTimer()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 
     @objc private func didPressWarning() {
@@ -118,6 +122,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     @objc func refresh(_ sender: AnyObject) {
         presenter?.refresh()
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    @objc func refreshAccounts() {
+        presenter?.refresh()
     }
 
     func startRefreshTimer() {

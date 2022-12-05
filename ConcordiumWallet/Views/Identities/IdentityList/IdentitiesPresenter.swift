@@ -55,7 +55,9 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                             Logger.error("Error updating identities: \(error)")
                             self.identities = self.dependencyProvider.storageManager().getIdentities()
                         },
-                        receiveValue: { _ in
+                        receiveValue: { updatedPendingIdentities in
+                            print("+++ Updated pending identities: \(updatedPendingIdentities)")
+                            
                             self.identities = self.dependencyProvider.storageManager().getIdentities()
                             self.checkForIdentityFailed()
                         }).store(in: &cancellables)

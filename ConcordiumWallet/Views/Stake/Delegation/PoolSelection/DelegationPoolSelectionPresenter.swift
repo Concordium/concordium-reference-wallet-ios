@@ -67,7 +67,7 @@ class DelegationPoolViewModel {
         "delegation.pool.bottommessage.baker"
             .localized
             .stringWithHighlightedLinks(
-                ["developer.concordium.software": "https://developer.concordium.software/en/mainnet/net/concepts/concepts-delegation.html"]
+                ["https://ccdscan.io/staking": "https://ccdscan.io/staking"]
             )
     }()
     

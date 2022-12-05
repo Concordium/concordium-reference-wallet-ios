@@ -88,9 +88,6 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     with: pwHash
                 )
                 
-                print("+++ Pw hash: \(pwHash)")
-                print("+++ Seed: \(seed)")
-                
                 let identities = try await self.identitiesService.recoverIdentities(
                     with: seed
                 )

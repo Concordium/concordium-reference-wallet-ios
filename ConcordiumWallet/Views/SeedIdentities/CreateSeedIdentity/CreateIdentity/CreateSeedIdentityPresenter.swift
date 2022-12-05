@@ -50,6 +50,8 @@ class CreateSeedIdentityPresenter: SwiftUIPresenter<CreateSeedIdentityViewModel>
     }
     
     private func handleCallback(_ callback: String) {
+        print("+++ Callback: \(callback)")
+        
         guard let url = URL(string: callback) else {
             return
         }

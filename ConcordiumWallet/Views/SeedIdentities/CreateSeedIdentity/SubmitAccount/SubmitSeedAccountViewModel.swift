@@ -79,11 +79,7 @@ class AccountCardViewModel: ObservableObject {
         self.makeNewIdentityRequest = makeNewIdentityRequest
     }
     
-    var accountTitle: String {
-        String(
-            format: "identities.seed.shared.accounttitle".localized, accountIndex
-        )
-    }
+    var accountTitle = "4WHF...eNu8"
     
     var identityTitle: String {
         String(

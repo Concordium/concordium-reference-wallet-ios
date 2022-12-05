@@ -97,11 +97,11 @@ private class InternalFormatter {
     }
     
     func format(dateOfBirth: String) -> String {
-        GeneralFormatter.formatISO8601Date(date: dateOfBirth, hasDay: true, outputFormat: "dd MMMM, yyyy")
+        GeneralFormatter.formatISO8601Date(date: dateOfBirth, hasDay: true, outputFormat: "MMM d, yyyy")
     }
     
     func format(date: String) -> String {
-        GeneralFormatter.formatISO8601Date(date: date, hasDay: true)
+        GeneralFormatter.formatISO8601Date(date: date, hasDay: true, outputFormat: "MMM d, yyyy")
     }
     
     func format(countryCode: String) -> String {

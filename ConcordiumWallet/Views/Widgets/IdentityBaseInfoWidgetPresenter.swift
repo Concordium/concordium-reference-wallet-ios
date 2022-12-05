@@ -40,14 +40,14 @@ struct IdentityDetailsInfoViewModel {
             widgetColor = .fadedText
 
         case .failed:
-            bottomLabel = "identityDetails.identityStatus.failed".localized
+            bottomLabel = "" // "identityDetails.identityStatus.failed".localized
             bottomIcon = "problem_icon"
             widgetColor = .error
 
         }
         encodedImage = identity.identityProvider?.icon ?? ""
         data =
-            identity.identityObject?.attributeList.chosenAttributes.compactMap { (key, value) in
+            identity.seedIdentityObject?.attributeList.chosenAttributes.compactMap { (key, value) in
                 guard let attributeKey = ChosenAttributeKeys(rawValue: key) else { return nil }
                 return (attributeKey, AttributeFormatter.format(value: value, for: attributeKey))
         } ?? [ChosenAttributeFormattedTuple]()

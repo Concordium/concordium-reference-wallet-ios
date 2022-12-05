@@ -419,18 +419,18 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "attributes.firstName" = "First Name";
 "attributes.countryOfResidence" = "Country of residence";
 "attributes.dob" = "Date of birth";
-"attributes.idDocExpiresAt" = "ID Valid to";
-"attributes.idDocIssuedAt" = "ID Valid from";
-"attributes.idDocIssuer" = "Identity Document Issuer";
-"attributes.idDocNo" = "Identity Document number";
-"attributes.idDocType" = "Identity Document Type";
+"attributes.idDocExpiresAt" = "ID valid to";
+"attributes.idDocIssuedAt" = "ID valid from";
+"attributes.idDocIssuer" = "Identity document issuer";
+"attributes.idDocNo" = "Identity document number";
+"attributes.idDocType" = "Identity document type";
 "attributes.lastName" = "Last Name";
 "attributes.nationality" = "Country of nationality";
 "attributes.sex" = "Sex";
 "attributes.taxIDNo" = "Tax ID number";
 "attributes.nationalIDNo" = "National ID number";
 
-"sex.notKnown" = "Not known";
+"sex.notKnown" = "NA";
 "Save" = "Save";
 
 "transactionConfirmed.submitted" = "Transaction submitted!";
@@ -655,9 +655,9 @@ concordium-backup.concordiumwallet securely.";
 "delegation.pool.title.update" = "Update delegation";
 "delegation.pool.current" = "Current target %@";
 "delegation.pool.message" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"delegation.pool.bottommessage.baker" = "If you don’t already know what baker pool you want to delegate an amount to, you can read more about finding one here:
+"delegation.pool.bottommessage.baker" = "If you don't already know which baker pool you want to delegate an amount to, you can look for one here:
 
-developer.concordium.software";
+https://ccdscan.io/staking";
 "delegation.pool.bottommessage.passive" = "Passive delegation is an alternative to delegation to a specific baker pool that has lower rewards. With passive delegation you do not have to worry about the uptime or quality of a baker node.
 
 For more info you can visit
@@ -676,7 +676,7 @@ developer.concordium.software";
 "delegation.pool.sizewarning.stopdelegation" = "Stop current delegation";
 "delegation.pool.sizewarning.cancel" = "Cancel";
 
-"delegation.receipt.accounttodelegate" = "Account to delegate from";
+"delegation.receipt.accounttodelegate" = "Delegating account";
 "delegation.receipt.accounttostop" = "Account to stop delegating";
 "delegation.receipt.delegationamount" = "Delegation amount";
 "delegation.receipt.tagetbakerpool" = "Target";

@@ -235,5 +235,6 @@ extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished() {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+        NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MessageUI
 
 // MARK: View
 protocol TermsAndConditionsViewProtocol: ShowAlert {

@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import MatomoTracker
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -35,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.startAppCoordinator()
             }
             .store(in: &cancellables)
+        
+        setupMatomoTracker()
         
         return true
     }
@@ -64,10 +67,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         backgroundWindow.isHidden = false
+        
+        MatomoTracker.shared.dispatch()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         backgroundWindow.isHidden = true
+        
+        setupMatomoTracker()
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -85,6 +92,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Disable third-party keyboards
     func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier) -> Bool {
       return extensionPointIdentifier != .keyboard
+    }
+    
+    func setupMatomoTracker() {
+        
+        MatomoTracker.shared.startNewSession()
+        
+        var debug: String {
+            #if DEBUG
+                return "(debug)"
+            #else
+                return ""
+            #endif
+        }
+        
+        var version: String {
+            #if MAINNET
+            return AppSettings.appVersion
+            #else
+            return AppSettings.appVersion + " " + AppSettings.buildNumber + " " + debug
+            #endif
+        }
+        
+        MatomoTracker.shared.track(view: ["home", "version and network"])
+        
+        MatomoTracker.shared.setDimension(version, forIndex: AppConstants.MatomoTracker.versionCustomDimensionId)
+        MatomoTracker.shared.setDimension(Net.current.rawValue, forIndex: AppConstants.MatomoTracker.networkCustomDimensionId)
     }
 }
 

@@ -55,9 +55,9 @@ class SelectIdentityProviderPresenter: SwiftUIPresenter<SelectIdentityProviderVi
     }
     
     override func receive(event: SelectIdentityProviderEvent) {
-        guard !ignoreInput else {
-            return
-        }
+//        guard !ignoreInput else {
+//            return
+//        }
         
         switch event {
         case let .showInfo(url):

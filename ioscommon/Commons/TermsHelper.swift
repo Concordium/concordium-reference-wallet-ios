@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct TermsHelper {
     // swiftlint:disable function_body_length
@@ -61,6 +62,7 @@ struct TermsHelper {
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms37.details".localized, attributes: detailsAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms38.title".localized, attributes: titleAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms39.details".localized, attributes: detailsAttribute))
+        
         return text
     }
     
