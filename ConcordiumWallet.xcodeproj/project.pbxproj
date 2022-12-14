@@ -221,8 +221,6 @@
 		07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
-		0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */; };
-		108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */; };
 		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
 		1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
 		1737681C2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
@@ -696,7 +694,6 @@
 		52DCAA0127CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
 		52DCAA0227CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
 		52DCAA0327CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */; };
-		58097F2EAC5FCC65050C155D /* Pods_ProdMainNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F737C6EA3FC15A5F95047B /* Pods_ProdMainNet.framework */; };
 		6426D91C260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */; };
 		6426D91D260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */; };
 		6426D91E260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */; };
@@ -781,7 +778,6 @@
 		64FD33CC2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
 		64FD33CD2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
 		64FD33CE2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
-		7111D4FA482EED93124EAA6A /* Pods_StagingNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */; };
 		7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */; };
 		7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */; };
 		7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E224AC710C009517AD /* GTUTests.swift */; };
@@ -1923,7 +1919,6 @@
 		90C371E627DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */; };
 		90C371E727DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */; };
 		90C371E827DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */; };
-		AC3BFE9E3A0F824DD7CFCC0A /* Pods_ConcordiumWalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C8D8E9C9B9CA2D0668D94F5 /* Pods_ConcordiumWalletTests.framework */; };
 		C916DAE92467F481008EA16A /* MenuItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916DAE82467F480008EA16A /* MenuItemCellView.swift */; };
 		C924B2242430799400081E23 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
 		C924B2292431D3A200081E23 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */; };
@@ -2013,7 +2008,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		031EC89EF524F6AEC0EFAC33 /* Pods-ConcordiumWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWallet.release.xcconfig"; path = "Target Support Files/Pods-ConcordiumWallet/Pods-ConcordiumWallet.release.xcconfig"; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
 		067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfoLabel.swift; sourceTree = "<group>"; };
 		067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWarningLabel.swift; sourceTree = "<group>"; };
@@ -2082,8 +2076,6 @@
 		07E6E27527B558A30083A852 /* intro_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = intro_flow_style.css; sourceTree = "<group>"; };
 		07E8573326F1D24F001FB2D2 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.debug.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.debug.xcconfig"; sourceTree = "<group>"; };
-		129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StagingNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdTestNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E98EFD222B26FF9DAED227 /* Pods-ProdTestNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdTestNet.release.xcconfig"; path = "Target Support Files/Pods-ProdTestNet/Pods-ProdTestNet.release.xcconfig"; sourceTree = "<group>"; };
 		173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsPresenter.swift; sourceTree = "<group>"; };
@@ -2196,7 +2188,6 @@
 		19C2EFD00DA2B13DEB773973 /* IdentityProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityProviderError.swift; sourceTree = "<group>"; };
 		19C2EFED051EE58467949EAA /* AddRecipientPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipientPresenter.swift; sourceTree = "<group>"; };
 		19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceArData.swift; sourceTree = "<group>"; };
-		2115AC660A6C4D41772258FE /* Pods-ConcordiumWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWallet.debug.xcconfig"; path = "Target Support Files/Pods-ConcordiumWallet/Pods-ConcordiumWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		218F329E2705DBB800372BBD /* IdentityCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCreation.swift; sourceTree = "<group>"; };
 		22D9FDC5B2C0583E994FA513 /* Pods-StagingNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StagingNet.release.xcconfig"; path = "Target Support Files/Pods-StagingNet/Pods-StagingNet.release.xcconfig"; sourceTree = "<group>"; };
 		30C8CA551767D0F45977322A /* Pods-Mock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock.release.xcconfig"; path = "Target Support Files/Pods-Mock/Pods-Mock.release.xcconfig"; sourceTree = "<group>"; };
@@ -2267,7 +2258,6 @@
 		52D35111250AA46400858AC6 /* PublicEncriptionKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicEncriptionKey.swift; sourceTree = "<group>"; };
 		52DCA9F527CD106600CDF85E /* BurgerMenuOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuOptionCell.swift; sourceTree = "<group>"; };
 		52DCA9FF27CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenuAccountDetailsPresenter.swift; sourceTree = "<group>"; };
-		5766FABEF0289C6E2DE533F3 /* Pods-MOCK ConcordiumWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOCK ConcordiumWallet.release.xcconfig"; path = "Target Support Files/Pods-MOCK ConcordiumWallet/Pods-MOCK ConcordiumWallet.release.xcconfig"; sourceTree = "<group>"; };
 		6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+JailBroken.swift"; sourceTree = "<group>"; };
 		642A28A425FA10E20073BF8C /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		642A28AE25FB5D950073BF8C /* libmobile_wallet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmobile_wallet.a; path = Dependencies/libmobile_wallet.a; sourceTree = "<group>"; };
@@ -2291,7 +2281,6 @@
 		64FD338E2601FBC400563703 /* Credential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		64FD33CA2602330B00563703 /* CredentialResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialResponse.swift; sourceTree = "<group>"; };
 		6DBECC1129FAE710DA905F53 /* Pods-ProdMainNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.release.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.release.xcconfig"; sourceTree = "<group>"; };
-		7C8D8E9C9B9CA2D0668D94F5 /* Pods_ConcordiumWalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConcordiumWalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsServiceMockHelper.swift; sourceTree = "<group>"; };
 		7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderMockHelper.swift; sourceTree = "<group>"; };
 		7F0573E224AC710C009517AD /* GTUTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTUTests.swift; sourceTree = "<group>"; };
@@ -2524,7 +2513,6 @@
 		90C371D827DF46410046F05E /* DelegationReceiptPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationReceiptPresenter.swift; sourceTree = "<group>"; };
 		90C371DD27DF4B020046F05E /* DelegationReceiptConfirmationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationReceiptConfirmationPresenter.swift; sourceTree = "<group>"; };
 		90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
-		A945987512D55A75AE6C2D67 /* Pods-MOCK ConcordiumWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOCK ConcordiumWallet.debug.xcconfig"; path = "Target Support Files/Pods-MOCK ConcordiumWallet/Pods-MOCK ConcordiumWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		C916DAE82467F480008EA16A /* MenuItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCellView.swift; sourceTree = "<group>"; };
 		C924B2232430799400081E23 /* UILabel+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+localized.swift"; sourceTree = "<group>"; };
 		C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
@@ -2577,9 +2565,7 @@
 		C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetViewController.swift; sourceTree = "<group>"; };
-		D9F737C6EA3FC15A5F95047B /* Pods_ProdMainNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdMainNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC4C6338E39DEA7A2EA7BCC /* Pods-StagingNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StagingNet.debug.xcconfig"; path = "Target Support Files/Pods-StagingNet/Pods-StagingNet.debug.xcconfig"; sourceTree = "<group>"; };
-		EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F569CEA4618B81F7BE4AD738 /* Pods-Mock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock.debug.xcconfig"; path = "Target Support Files/Pods-Mock/Pods-Mock.debug.xcconfig"; sourceTree = "<group>"; };
 		F9DC40084E2548C4D636EFFA /* Pods-ConcordiumWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWalletTests.release.xcconfig"; path = "Target Support Files/Pods-ConcordiumWalletTests/Pods-ConcordiumWalletTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2590,7 +2576,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				642A28B125FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
-				108974343BB3D4418ABDA331 /* Pods_Mock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2600,7 +2585,6 @@
 			files = (
 				642A28B325FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
 				7F85B7BB246A9A7C00ED09B8 /* WebKit.framework in Frameworks */,
-				0D57DEAB78857280454239BD /* Pods_ProdTestNet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2610,7 +2594,6 @@
 			files = (
 				642A28B425FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
-				58097F2EAC5FCC65050C155D /* Pods_ProdMainNet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2620,7 +2603,6 @@
 			files = (
 				642A28B225FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
-				7111D4FA482EED93124EAA6A /* Pods_StagingNet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2628,7 +2610,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC3BFE9E3A0F824DD7CFCC0A /* Pods_ConcordiumWalletTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3261,10 +3242,6 @@
 			children = (
 				185035ACEBD69D1877CF8244 /* Pods-ConcordiumWalletTests.debug.xcconfig */,
 				F9DC40084E2548C4D636EFFA /* Pods-ConcordiumWalletTests.release.xcconfig */,
-				2115AC660A6C4D41772258FE /* Pods-ConcordiumWallet.debug.xcconfig */,
-				031EC89EF524F6AEC0EFAC33 /* Pods-ConcordiumWallet.release.xcconfig */,
-				A945987512D55A75AE6C2D67 /* Pods-MOCK ConcordiumWallet.debug.xcconfig */,
-				5766FABEF0289C6E2DE533F3 /* Pods-MOCK ConcordiumWallet.release.xcconfig */,
 				F569CEA4618B81F7BE4AD738 /* Pods-Mock.debug.xcconfig */,
 				30C8CA551767D0F45977322A /* Pods-Mock.release.xcconfig */,
 				0ACC4D18CC7B5F1FA9EFB00F /* Pods-ProdMainNet.debug.xcconfig */,
@@ -3282,11 +3259,6 @@
 			children = (
 				642A28AE25FB5D950073BF8C /* libmobile_wallet.a */,
 				C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */,
-				7C8D8E9C9B9CA2D0668D94F5 /* Pods_ConcordiumWalletTests.framework */,
-				EFD4DEA6863F11D37DDBAFFA /* Pods_Mock.framework */,
-				D9F737C6EA3FC15A5F95047B /* Pods_ProdMainNet.framework */,
-				14CFDAC6FBD35E46353538FC /* Pods_ProdTestNet.framework */,
-				129C295B179589B8BF15F2F8 /* Pods_StagingNet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

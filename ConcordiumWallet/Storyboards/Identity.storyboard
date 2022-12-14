@@ -313,7 +313,7 @@ You can start using your identity object once validation of your id has been com
 
 
 
-If you have previously used Concordium Mobile Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Mobile Wallet.
+If you have previously used Concordium Legacy Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Legacy Wallet.
 
 
 
@@ -549,7 +549,7 @@ How would you like to continue?]</string>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIb-5q-Esl">
                                         <rect key="frame" x="35" y="80" width="305" height="251"/>
-                                        <string key="text">[Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics. 
+                                        <string key="text">[Before you start using the Concordium Legacy Wallet, you have to set up a passcode and optionally biometrics. 
 
 It is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium will not be able to change your passcode or help you unlock your wallet if you lose your passcode.
 

@@ -305,34 +305,27 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
 
     func getTransactionsUpdateOnChanges() {
         let transactionCall = transactionsLoadingHandler.getTransactions(startingFrom: nil).eraseToAnyPublisher()
-
-        transactionCall
-                .mapError(ErrorMapper.toViewError)
-                .sink(receiveError: {[weak self] error in
-                    self?.view?.showErrorAlert(error)
-                }, receiveValue: { [weak self] (transactionsListFiltered, transactionListAll) in
-                    guard let self = self else { return }
-
-                    // Any changes since last auto update?
-                    let equal = zip(transactionListAll, self.lastTransactionListAll)
-                        .enumerated()
-                        .filter { $1.0.details.transactionHash == $1.1.details.transactionHash && $1.0.status == $1.1.status }
-                        .map { $1.0 }
-
-                    if equal.count != transactionListAll.count {
-                        self.lastTransactionListAll = transactionListAll
-
-                        self.viewModel.setTransactions(transactions: transactionsListFiltered)
-                        self.viewModel.hasTransfers = self.viewModel.transactionsList.transactions.count > 0
-                        self.viewModel.setAllAccountTransactions(transactions: transactionListAll)
-
-                        if transactionsListFiltered.count == 0 &&
-                            transactionListAll.count != 0 &&
-                            transactionListAll.last?.isLast != true {
-                            self.getTransactions(startingFrom: transactionListAll.last)
-                        }
+        let transactionCallMap = transactionCall.mapError(ErrorMapper.toViewError)
+        transactionCallMap.sink(
+            receiveError: { [weak self] error in self?.view?.showErrorAlert(error) },
+            receiveValue: { [weak self] (transactionsListFiltered, transactionListAll) in
+                guard let self = self else { return }
+                let zipped = zip(transactionListAll, self.lastTransactionListAll)
+                let enumerated = zipped.enumerated()
+                let filtered = enumerated.filter { $1.0.details.transactionHash == $1.1.details.transactionHash && $1.0.status == $1.1.status }
+                let filteredMapped = filtered.map { $1.0 }
+                if filteredMapped.count != transactionListAll.count {
+                    self.lastTransactionListAll = transactionListAll
+                    self.viewModel.setTransactions(transactions: transactionsListFiltered)
+                    self.viewModel.hasTransfers = self.viewModel.transactionsList.transactions.count > 0
+                    self.viewModel.setAllAccountTransactions(transactions: transactionListAll)
+                    if transactionsListFiltered.count == 0 &&
+                        transactionListAll.count != 0 &&
+                        transactionListAll.last?.isLast != true {
+                        self.getTransactions(startingFrom: transactionListAll.last)
                     }
-                }).store(in: &cancellables)
+                }
+            }).store(in: &cancellables)
     }
     
     func getTransactions(startingFrom transaction: TransactionViewModel? = nil) {
