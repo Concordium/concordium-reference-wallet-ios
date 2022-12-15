@@ -102,6 +102,29 @@ class IdentitiesCoordinator: Coordinator {
         createIdentityCoordinator.start()
         navigationController.present(createIdentityCoordinator.navigationController, animated: true, completion: nil)
     }
+    
+    func showPreventIdentityCreationAlert() {
+        let alert = UIAlertController(
+            title: "identityCreation.prevent.title".localized,
+            message: "identityCreation.prevent.message".localized,
+            preferredStyle: .alert
+        )
+        
+        let downloadAction = UIAlertAction(
+            title: "identityCreation.prevent.button.download".localized,
+            style: .default
+        ) { _ in
+            let appStoreUrl = "https://apps.apple.com/dk/app/concordium-mobile-wallet/id1566996491"
+            UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
+        }
+        
+        let okAction = UIAlertAction(title: "identityCreation.prevent.button.okay".localized, style: .default)
+        
+        alert.addAction(downloadAction)
+        alert.addAction(okAction)
+
+        navigationController.present(alert, animated: true)
+    }
 }
 
 extension IdentitiesCoordinator: CreateNewIdentityDelegate {
@@ -135,6 +158,10 @@ extension IdentitiesCoordinator: IdentitiesPresenterDelegate {
     
     func finishedPresentingIdentities() {
         self.delegate?.finishedDisplayingIdentities()
+    }
+    
+    func preventIdentityCreationAlert() {
+        self.showPreventIdentityCreationAlert()
     }
 }
 
