@@ -893,3 +893,8 @@ Remember to restart your node with the baker keys.";
 "identityCreation.prevent.message" = "Creation of new identities are no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new identity you must down the new Concordium Wallet for Mobile.";
 "identityCreation.prevent.button.download" = "Download the new wallet";
 "identityCreation.prevent.button.okay" = "Okay";
+
+"accountCreation.prevent.title" = "New accounts no longer supported";
+"accountCreation.prevent.message" = "Creation of new accounts is no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new account you must down the new Concordium Wallet for Mobile.";
+"accountCreation.prevent.button.download" = "Download the new wallet";
+"accountCreation.prevent.button.okay" = "Okay";
