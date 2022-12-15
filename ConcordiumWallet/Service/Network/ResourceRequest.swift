@@ -25,6 +25,8 @@ struct ResourceRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod.rawValue
 
+        urlRequest.allHTTPHeaderFields = HTTPCookie.requestHeaderFields(with: CookieJar.cookies)
+        
         let DeviceLanguageCode = NSLocale.current.identifier
         urlRequest.setValue(DeviceLanguageCode, forHTTPHeaderField: "Accept-Language")
 
