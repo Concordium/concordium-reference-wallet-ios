@@ -84,7 +84,7 @@ class AccountCardViewModel: ObservableObject {
     var identityTitle: String {
         String(
             format: "identities.seed.shared.identitytitle".localized,
-            identityIndex
+            identityIndex + 1
         )
     }
     

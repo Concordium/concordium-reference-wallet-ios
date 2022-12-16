@@ -41,7 +41,7 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
         super.init(
             viewModel: .init(
                 title: "identities.seed.submitaccount.title".localized,
-                body: isNewAccountAfterSettingUpTheWallet ? String(format: "identities.seed.submitnewaccount.body".localized, identity.index) : "identities.seed.submitaccount.body".localized,
+                body: isNewAccountAfterSettingUpTheWallet ? String(format: "identities.seed.submitnewaccount.body".localized, identity.index + 1) : "identities.seed.submitaccount.body".localized,
                 identityViewModel: identityViewModel,
                 accountViewModel: .init(
                     state: .notAvailable,

@@ -47,7 +47,7 @@ add_identity_data = "Reveal Identity Data";
 "selectPassword.button.continue" = "Continue";
 "selectPassword.passcode.title" = "Select Passcode";
 "selectPassword.passcode.descriptiveText" = "Select a 6-digit passcode to secure your wallet.";
-"selectPassword.cautionText" = "Note: you will not be able to\nrecover your account keys if this\npasscode is lost!";
+"selectPassword.cautionText" = "";
 "selectPassword.passcode2.title" = "Re-enter Passcode";
 "selectPassword.passcode2.descriptiveText" = "Re-enter your 6-digit passcode to secure your wallet";
 "selectPassword.password.title" = "Select Password";
@@ -233,7 +233,7 @@ When you have submitted your account, you will be taken to the wallet.";
 
 If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.";
 "identityrecovery.status.title.success" = "Recovery finished";
-"identityrecovery.status.message.success" = "You have succesfully recovered:";
+"identityrecovery.status.message.success" = "You have successfully recovered:";
 "identityrecovery.status.continue" = "Continue to wallet";
 "identityrecovery.status.tryagain" = "Try again";
 "identityrecovery.status.changerecoveryphrase" = "Enter another recovery phrase";
@@ -253,7 +253,7 @@ If you only have an identity and no accounts, this can also be the reason. In th
 
 "welcomeScreen.title" = "";
 "welcomeScreen.subtitle" = "Before you begin";
-"welcomeScreen.details" = "Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium will not be able to change your passcode or help you unlock your wallet if you lose your passcode.\n\nSimilarly, if someone gets your passcode, they will be able to access your accounts.\n\nSo remember to keep your passcode safe!";
+"welcomeScreen.details" = "Before you start using the Concordium Wallet for Mobile, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium is not able to change your passcode or help you unlock your wallet if you lose your passcode.\n\nSimilarly, if someone gets your passcode, they will be able to access your accounts.\n\nSo remember to keep your passcode safe!";
 "welcomeScreen.button" = "Continue";
 
 "termsAndConditionsScreen.title" = "";
@@ -569,6 +569,7 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "burgermenu.decrypt" = "Decrypt";
 "burgermenu.delegation" = "Delegation";
 "burgermenu.baking" = "Baking";
+"burgermenu.exportprivatekey" = "Export Private Key";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -1019,3 +1020,13 @@ Remember to restart your node with the baker keys.";
 "newaccount.message" = "Identity %d has been verified by the identity provider. You can now start using the identity to create accounts in the Concordium Wallet for Mobile.";
 "newaccount.create" = "Create account now";
 "newaccount.later" = "Later";
+
+"exportprivatekey.navigationtitle" = "Export account keys";
+"exportprivatekey.title" = "\nHere you can export your private account keys.";
+"exportprivatekey.toprevealmessage" = "Make sure to keep the keys safe, because they can be used to access your accounts.";
+"exportprivatekey.downrevealmessage" = "Tap to reveal your private keys for %@.";
+"exportprivatekey.done" = "Done";
+"exportprivatekey.export" = "Export to file";
+"exportprivatekey.copied" = "Copied";
+"exportprivatekey.exported" = "File exported";
+"exportprivatekey.nokeys" = "The account does not contains keys";

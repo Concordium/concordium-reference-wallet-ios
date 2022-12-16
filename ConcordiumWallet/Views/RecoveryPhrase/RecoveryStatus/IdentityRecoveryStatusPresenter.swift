@@ -101,6 +101,9 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                 )
                 
                 print("+++ Accounts: \(accounts)")
+                for account in accounts {
+                    print("+++ Balance: \(account.forecastBalance), at disposal: \(account.forecastAtDisposalBalance), encrypted: \(account.forecastEncryptedBalance), total: \(account.totalForecastBalance)")
+                }
                 
                 self.handleIdentities(identities, accounts: accounts)
             } catch {

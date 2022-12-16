@@ -23,6 +23,7 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case delegation
     case baking
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
+    case exportPrivateKey
     case dismiss
     case decrypt
     
@@ -38,6 +39,8 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             } else {
                 return String(format: "burgermenu.hideshieldedbalance".localized, accountName)
             }
+        case .exportPrivateKey:
+            return "burgermenu.exportprivatekey".localized
         case .delegation:
             return "burgermenu.delegation".localized
         case .baking:
@@ -93,7 +96,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                     .transferFilters
                 ] + stakeActions + [.shieldedBalance(accountName: account.displayName,
                                                      shouldShow: !account.showsShieldedBalance,
-                                                     delegate: showShieldedDelegate)]
+                                                     delegate: showShieldedDelegate)] + [.exportPrivateKey]
             } else {
                 if showsDecrypt {
                     self.actions = [.decrypt,

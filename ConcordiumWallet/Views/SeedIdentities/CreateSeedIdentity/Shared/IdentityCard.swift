@@ -18,7 +18,7 @@ struct IdentityCard: View {
         var title: String {
             String(
                 format: "identities.seed.shared.identitytitle".localized,
-                index
+                index + 1
             )
         }
         

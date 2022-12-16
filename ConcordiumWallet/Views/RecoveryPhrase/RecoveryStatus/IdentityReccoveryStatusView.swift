@@ -92,26 +92,34 @@ private struct IdentityList: View {
     let accounts: [AccountDataType]
     
     var body: some View {
-        ForEach(identities, id: \.id) { identity in
-            StyledLabel(
-                text: identity.nickname,
-                style: .subheading,
-                textAlignment: .leading
-            )
-            StyledLabel(
-                text: "identityrecovery.status.accountheader".localized,
-                style: .body,
-                weight: .bold,
-                textAlignment: .leading
-            )
-            ForEach(accounts, id: \.address) { account in
+        ScrollView {
+            ForEach(identities, id: \.id) { identity in
                 StyledLabel(
-                    text: "\(account.displayName) - \(GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke())",
-                    style: .body,
+                    text: identity.nickname,
+                    style: .subheading,
+                    weight: .semibold,
                     textAlignment: .leading
                 )
-            }
-        }.frame(maxWidth: .infinity)
+                Spacer()
+                StyledLabel(
+                    text: "identityrecovery.status.accountheader".localized,
+                    style: .body,
+                    weight: .semibold,
+                    textAlignment: .leading
+                )
+                ForEach(accounts, id: \.address) { account in
+                    if account.identity!.id == identity.id {
+                        StyledLabel(
+                            text: "\(account.displayName) - \(GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke())",
+                            style: .body,
+                            textAlignment: .leading
+                        )
+                    }
+                }
+                Spacer()
+                Spacer()
+            }.frame(maxWidth: .infinity)
+        }
     }
 }
 
@@ -146,7 +154,7 @@ If you only have an identity and no accounts, this can also be the reason. In th
             viewModel: .init(
                 status: .success([IdentityEntity()], [AccountEntity()]),
                 title: "Recovery finished",
-                message: "You have succesfully recovered:",
+                message: "You have successfully recovered:",
                 continueLabel: "Continue to wallet",
                 tryAgain: "Try again",
                 changeRecoveryPhrase: "Enter another recovery phrase"

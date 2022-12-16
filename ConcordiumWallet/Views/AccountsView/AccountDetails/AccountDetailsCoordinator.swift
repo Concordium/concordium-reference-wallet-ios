@@ -222,6 +222,12 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
 
         navigationController.pushViewController(onboardingCarouselViewController, animated: true)
     }
+    
+    func showExportPrivateKey(account: AccountDataType) {
+        let presenter = ExportPrivateKeyPresenter(account: account, delegate: self)
+        
+        navigationController.pushViewController(presenter.present(ExportPrivateKeyView.self), animated: true)
+    }
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
@@ -333,6 +339,9 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
             if shouldShow {
                 showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
             }
+        case .exportPrivateKey:
+            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            showExportPrivateKey(account: account)
         case .delegation:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showDelegation()
@@ -358,5 +367,15 @@ extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
         navigationController.dismiss(animated: true)
         self.childCoordinators.removeAll { $0 is BakingCoordinator }
         refreshTransactionList()
+    }
+}
+
+extension AccountDetailsCoordinator: ExportPrivateKeyPresenterDelegate {
+    func exportPrivateKey(with privateKey: String) {
+        print("+++ Export private key: \(privateKey)")
+    }
+    
+    func finishedExportingPrivateKey(with privateKey: String) {
+        navigationController.popViewController(animated: true)
     }
 }

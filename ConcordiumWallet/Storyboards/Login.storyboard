@@ -588,19 +588,19 @@ login]</string>
     </scenes>
     <designables>
         <designable name="4ZK-0o-WCh">
-            <size key="intrinsicContentSize" width="238" height="30"/>
+            <size key="intrinsicContentSize" width="99" height="30"/>
         </designable>
         <designable name="9cr-P8-SXD">
-            <size key="intrinsicContentSize" width="200" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="CBK-SI-obb">
-            <size key="intrinsicContentSize" width="220" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="iyz-kV-tML">
             <size key="intrinsicContentSize" width="108" height="30"/>
         </designable>
         <designable name="uln-a0-lso">
-            <size key="intrinsicContentSize" width="275" height="30"/>
+            <size key="intrinsicContentSize" width="187" height="30"/>
         </designable>
     </designables>
     <resources>

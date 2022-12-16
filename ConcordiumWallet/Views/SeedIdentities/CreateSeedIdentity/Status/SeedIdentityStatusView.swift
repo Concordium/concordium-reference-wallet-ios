@@ -26,7 +26,7 @@ struct SeedIdentityStatusView: Page {
                         viewModel: viewModel.identityViewModel
                     )
                 }.alert(isPresented: $viewModel.isIdentityConfirmed) { 
-                    Alert(title: Text("newaccount.title".localized), message: Text((String(format: "newaccount.message".localized, viewModel.identityViewModel.index))), primaryButton: .default(Text("newaccount.create".localized), action: {
+                    Alert(title: Text("newaccount.title".localized), message: Text((String(format: "newaccount.message".localized, viewModel.identityViewModel.index + 1))), primaryButton: .default(Text("newaccount.create".localized), action: {
                         viewModel.send(.makeNewAccountRequest)
                     }), secondaryButton: .default(Text("newaccount.later".localized)))
                 }

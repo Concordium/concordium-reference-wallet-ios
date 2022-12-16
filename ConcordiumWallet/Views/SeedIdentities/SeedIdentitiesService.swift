@@ -25,7 +25,7 @@ struct SeedIdentitiesService {
     
     private var nextIdentityindex: Int {
         storageManager.getIdentities()
-            .count + 1
+            .count
     }
     
     func createPendingIdentity(
@@ -36,7 +36,7 @@ struct SeedIdentitiesService {
         var newIdentity = IdentityDataTypeFactory.create()
         
         newIdentity.identityProvider = identityProvider
-        newIdentity.nickname = String(format: "recoveryphrase.identity.name".localized, index)
+        newIdentity.nickname = String(format: "recoveryphrase.identity.name".localized, index + 1)
         newIdentity.state = .pending
         newIdentity.ipStatusUrl = pollURL
         newIdentity.accountsCreated = 0
@@ -170,6 +170,11 @@ struct SeedIdentitiesService {
             }
             
             do {
+                print("+++ ipInfo: \(ipInfo)")
+                print("+++ global: \(global)")
+                print("+++ index: \(index)")
+                print("+++ seed: \(seed)")
+                
                 let request = try mobileWallet.createIDRecoveryRequest(
                     for: ipInfo,
                     global: global,
@@ -178,6 +183,10 @@ struct SeedIdentitiesService {
                 ).get()
                 
                 let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
+                
+                print("+++ Index: \(index)")
+                print("+++ RecoveryURL: \(recoveryURL)")
+                print("+++ recoverRequest: \(recoverRequest)")
                 
                 let recoverResponse = try await networkManager.load(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
                 
@@ -205,7 +214,7 @@ struct SeedIdentitiesService {
         identity.index = index
         identity.accountsCreated = 0
         identity.identityProvider = identityProvider
-        identity.nickname = String(format: "recoveryphrase.identity.name".localized, index)
+        identity.nickname = String(format: "recoveryphrase.identity.name".localized, index + 1)
         identity.state = .confirmed
         identity.seedIdentityObject = seedIdentityObjectWrapper.value
         

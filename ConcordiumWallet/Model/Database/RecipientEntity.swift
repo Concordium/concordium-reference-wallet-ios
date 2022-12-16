@@ -15,9 +15,7 @@ protocol RecipientDataType {
 extension RecipientDataType {
     func displayName() -> String {
         if name.isEmpty {
-            let lowerBound = address.startIndex
-            let upperBound = address.index(lowerBound, offsetBy: 8)
-            return "<" + String(address[lowerBound..<upperBound]) + ">"
+            return address.prefix(4) + "..." + address.suffix(4)
         } else {
             return name
         }
