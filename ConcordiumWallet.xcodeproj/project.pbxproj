@@ -2015,6 +2015,10 @@
 		8D4097B328323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
 		8D4097B428323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
 		8D4097B528323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
+		8DD9B1BB294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
+		8DD9B1BC294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
+		8DD9B1BD294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
+		8DD9B1BE294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
 		901F7EEE27E8A6A600C46741 /* DelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7EE927E8A6A600C46741 /* DelegationTarget.swift */; };
 		901F7EEF27E8A6A600C46741 /* DelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7EE927E8A6A600C46741 /* DelegationTarget.swift */; };
 		901F7EF027E8A6A600C46741 /* DelegationTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901F7EE927E8A6A600C46741 /* DelegationTarget.swift */; };
@@ -3096,6 +3100,7 @@
 		89EB9F5B27FEE959005F8633 /* GeneratedBakerKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedBakerKeys.swift; sourceTree = "<group>"; };
 		8D4097AC28323A1F00EBB9EA /* AppSettingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsResponse.swift; sourceTree = "<group>"; };
 		8D4097B128323F1600EBB9EA /* AppSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsService.swift; sourceTree = "<group>"; };
+		8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieJar.swift; sourceTree = "<group>"; };
 		901F7EE927E8A6A600C46741 /* DelegationTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationTarget.swift; sourceTree = "<group>"; };
 		901F7EF227E9D98C00C46741 /* TransferCostParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostParameters.swift; sourceTree = "<group>"; };
 		901F7EF727E9F47200C46741 /* StakeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeService.swift; sourceTree = "<group>"; };
@@ -3822,6 +3827,7 @@
 				19C2E7D36B6A9E135ADEB6C1 /* NetworkManager.swift */,
 				19C2E6329CED11F621E08269 /* NetworkManagerProtocol.swift */,
 				19C2EA2F9FE8F1D50D0B91C6 /* ResourceRequest.swift */,
+				8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -5934,6 +5940,7 @@
 				FA01CA0A291C5D3100BD8738 /* Date+Helper.swift in Sources */,
 				7F48C174244DCD0B00997684 /* IdentityProviderListPresenter.swift in Sources */,
 				7F168A0C24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
+				8DD9B1BB294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				FA01CA16291C5D3100BD8738 /* String+Validation.swift in Sources */,
 				64FD333025FF886E00563703 /* InputEncryptedAmount.swift in Sources */,
 				FA01C9E2291C5D3100BD8738 /* Collection+Helper.swift in Sources */,
@@ -6555,6 +6562,7 @@
 				89D467F3289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				7F85B761246A9A7C00ED09B8 /* AccountCell.swift in Sources */,
 				5237188525753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
+				8DD9B1BD294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				52A6A78024F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				89B34A302892B6C50059891C /* RecoveryPhraseInputViewModel.swift in Sources */,
 				7F85B762246A9A7C00ED09B8 /* CredentialHolderInformation.swift in Sources */,
@@ -7089,6 +7097,7 @@
 				89D467F4289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				7F85B85C246A9AB600ED09B8 /* Aci.swift in Sources */,
 				5237188625753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
+				8DD9B1BE294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				52A6A78124F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				89B34A312892B6C50059891C /* RecoveryPhraseInputViewModel.swift in Sources */,
 				7F85B85D246A9AB600ED09B8 /* IdentityObject.swift in Sources */,
@@ -7414,6 +7423,7 @@
 				901F7EF927E9F47200C46741 /* StakeService.swift in Sources */,
 				893CAC42286D9A2700BDF84C /* PageViewModel.swift in Sources */,
 				89B34A2A2892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
+				8DD9B1BC294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				89D46807289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
 				FA0CAAEC2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,

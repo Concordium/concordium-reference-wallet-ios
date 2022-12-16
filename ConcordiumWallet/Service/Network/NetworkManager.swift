@@ -66,6 +66,11 @@ final class NetworkManager: NetworkManagerProtocol {
                         }
                         return .fail(NetworkError.dataLoadingError(statusCode: response.statusCode, data: data))
                     }
+                    
+                    if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
+                        CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+                    }
+
                     return .just(data)
                 }
                 .map { data in
