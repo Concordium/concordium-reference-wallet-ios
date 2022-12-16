@@ -324,7 +324,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
 }
 
 extension AppCoordinator: AppSettingsDelegate {
-    func checkForAppSettings(showBackup: (() -> Void)?) {
+    func checkForAppSettings() {
         guard needsAppCheck else { return }
         needsAppCheck = false
         
@@ -333,26 +333,22 @@ extension AppCoordinator: AppSettingsDelegate {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] response in
-                    self?.handleAppSettings(response: response, showBackup: showBackup)
+                    self?.handleAppSettings(response: response)
                 }
             )
             .store(in: &cancellables)
     }
     
-    private func handleAppSettings(response: AppSettingsResponse, showBackup: (() -> Void)?) {
+    private func handleAppSettings(response: AppSettingsResponse) {
         showUpdateDialogIfNeeded(
-            appSettingsResponse: response,
-            showBackupOption: showBackup != nil
+            appSettingsResponse: response
         ) { action in
             switch action {
             case .update(let url, let forced):
                 if forced {
-                    self.handleAppSettings(response: response, showBackup: showBackup)
+                    self.handleAppSettings(response: response)
                 }
                 UIApplication.shared.open(url)
-            case .backup:
-                self.needsAppCheck = true
-                showBackup?()
             case .cancel:
                 break
             }

@@ -206,9 +206,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
     func viewDidAppear() {
         checkPendingAccountsStatusesIfNeeded()
-//        appSettingsDelegate?.checkForAppSettings(showBackup: { [weak self] in
-//            self?.performAction(for: .backup)
-//        })
+        appSettingsDelegate?.checkForAppSettings()
     }
     
     func refresh() {
