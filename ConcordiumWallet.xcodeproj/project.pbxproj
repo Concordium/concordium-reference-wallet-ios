@@ -2015,6 +2015,18 @@
 		8D4097B328323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
 		8D4097B428323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
 		8D4097B528323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
+		8D9E39852950485A007ED183 /* ExportTransactionLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */; };
+		8D9E39862950488B007ED183 /* ExportTransactionLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */; };
+		8D9E39872950488C007ED183 /* ExportTransactionLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */; };
+		8D9E39882950488D007ED183 /* ExportTransactionLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */; };
+		8D9E398A2950552E007ED183 /* ExportTransactionLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */; };
+		8D9E398C29505546007ED183 /* ExportTransactionLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E398B29505546007ED183 /* ExportTransactionLogViewModel.swift */; };
+		8D9E398D29505936007ED183 /* ExportTransactionLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */; };
+		8D9E398E29505936007ED183 /* ExportTransactionLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */; };
+		8D9E398F29505937007ED183 /* ExportTransactionLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */; };
+		8D9E39902950593C007ED183 /* ExportTransactionLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E398B29505546007ED183 /* ExportTransactionLogViewModel.swift */; };
+		8D9E39912950593C007ED183 /* ExportTransactionLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E398B29505546007ED183 /* ExportTransactionLogViewModel.swift */; };
+		8D9E39922950593D007ED183 /* ExportTransactionLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E398B29505546007ED183 /* ExportTransactionLogViewModel.swift */; };
 		8DD9B1BB294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
 		8DD9B1BC294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
 		8DD9B1BD294C7D60003E8CB8 /* CookieJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */; };
@@ -3100,6 +3112,9 @@
 		89EB9F5B27FEE959005F8633 /* GeneratedBakerKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedBakerKeys.swift; sourceTree = "<group>"; };
 		8D4097AC28323A1F00EBB9EA /* AppSettingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsResponse.swift; sourceTree = "<group>"; };
 		8D4097B128323F1600EBB9EA /* AppSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsService.swift; sourceTree = "<group>"; };
+		8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTransactionLogView.swift; sourceTree = "<group>"; };
+		8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTransactionLogPresenter.swift; sourceTree = "<group>"; };
+		8D9E398B29505546007ED183 /* ExportTransactionLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTransactionLogViewModel.swift; sourceTree = "<group>"; };
 		8DD9B1BA294C7D60003E8CB8 /* CookieJar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieJar.swift; sourceTree = "<group>"; };
 		901F7EE927E8A6A600C46741 /* DelegationTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationTarget.swift; sourceTree = "<group>"; };
 		901F7EF227E9D98C00C46741 /* TransferCostParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCostParameters.swift; sourceTree = "<group>"; };
@@ -4799,6 +4814,16 @@
 			path = PoolSettings;
 			sourceTree = "<group>";
 		};
+		8D9E398329504640007ED183 /* ExportTransactionLog */ = {
+			isa = PBXGroup;
+			children = (
+				8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */,
+				8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */,
+				8D9E398B29505546007ED183 /* ExportTransactionLogViewModel.swift */,
+			);
+			path = ExportTransactionLog;
+			sourceTree = "<group>";
+		};
 		901F7F4C27EB4E8A00C46741 /* Status */ = {
 			isa = PBXGroup;
 			children = (
@@ -4996,6 +5021,7 @@
 		C924B2252431D38400081E23 /* AccountDetails */ = {
 			isa = PBXGroup;
 			children = (
+				8D9E398329504640007ED183 /* ExportTransactionLog */,
 				FA0CAB18294B8E480009D5F8 /* ExportPrivateKey */,
 				19C2E456CE69EAD7FE3A4901 /* AccountAddressQR */,
 				C95CE0C12439F04D00B1A88D /* AccountDetailsIdentityData */,
@@ -5953,6 +5979,7 @@
 				FA0CAB1F294B90740009D5F8 /* ExportPrivateKeyView.swift in Sources */,
 				7F48C178244DCD0B00997684 /* UIViewController+Additions.swift in Sources */,
 				7F48C17A244DCD0B00997684 /* BaseTextfield.swift in Sources */,
+				8D9E39852950485A007ED183 /* ExportTransactionLogView.swift in Sources */,
 				C96632532459B85A0087A1F2 /* AccountTransactionsDataPresenter.swift in Sources */,
 				7F48C17B244DCD0B00997684 /* AccountsViewController.swift in Sources */,
 				7F32341324691B540019A351 /* MenuItemCellView.swift in Sources */,
@@ -6036,6 +6063,7 @@
 				FA01CA1A291C5D3100BD8738 /* UINavigationController+Helper.swift in Sources */,
 				FA01CA06291C5D3100BD8738 /* UIViewController+Helper.swift in Sources */,
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
+				8D9E398C29505546007ED183 /* ExportTransactionLogViewModel.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
 				891B1A1428ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
@@ -6099,6 +6127,7 @@
 				52B2CE5D24F68B4A0092F8EB /* GlobalWrapper.swift in Sources */,
 				7F48C1BE244DCD0B00997684 /* IdentityDataSelectionCell.swift in Sources */,
 				7F168A0824812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
+				8D9E398A2950552E007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				C96632512459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
 				7F48C1BF244DCD0B00997684 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
 				89CF2D3F2816A03100742E1E /* BakerPoolReceiptPresenter.swift in Sources */,
@@ -6367,6 +6396,7 @@
 				7F85B6EE246A9A7C00ED09B8 /* UIImage+Additions.swift in Sources */,
 				7F85B6F1246A9A7C00ED09B8 /* StandardButton.swift in Sources */,
 				89B34A2B2892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
+				8D9E398E29505936007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				8992BA24281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
 				642ED99225F2334E00A09BB3 /* UpdatePasswordCoordinator.swift in Sources */,
 				90C371C127DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */,
@@ -6795,6 +6825,7 @@
 				64FD333225FF886E00563703 /* InputEncryptedAmount.swift in Sources */,
 				90C371CA27DB90770046F05E /* StakeEntryCell.swift in Sources */,
 				8D4097AF28323A1F00EBB9EA /* AppSettingsResponse.swift in Sources */,
+				8D9E39912950593C007ED183 /* ExportTransactionLogViewModel.swift in Sources */,
 				19C2EC63A85A68BCD35F05F7 /* RecipientEntity.swift in Sources */,
 				19C2E7114A1C0B1787CE13E0 /* AccountEntity.swift in Sources */,
 				19C2E343797022555302D931 /* TransferEntity.swift in Sources */,
@@ -6849,6 +6880,7 @@
 				19C2EA98124549CBD3E4BA58 /* Importer.swift in Sources */,
 				52055F9225541AC80071F7CA /* AccountCardView.swift in Sources */,
 				19C2E94D72648CAFD27AF1BD /* ImportService.swift in Sources */,
+				8D9E39872950488C007ED183 /* ExportTransactionLogView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6902,6 +6934,7 @@
 				7F85B7EC246A9AB600ED09B8 /* UIStackView+extension.swift in Sources */,
 				7F85B7ED246A9AB600ED09B8 /* UIImage+Additions.swift in Sources */,
 				89B34A2C2892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
+				8D9E398F29505937007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				8992BA25281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
 				642ED99325F2334E00A09BB3 /* UpdatePasswordCoordinator.swift in Sources */,
 				90C371C227DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */,
@@ -7330,6 +7363,7 @@
 				64FD333325FF886E00563703 /* InputEncryptedAmount.swift in Sources */,
 				90C371CB27DB90770046F05E /* StakeEntryCell.swift in Sources */,
 				8D4097B028323A1F00EBB9EA /* AppSettingsResponse.swift in Sources */,
+				8D9E39922950593D007ED183 /* ExportTransactionLogViewModel.swift in Sources */,
 				19C2ED4301780B820D431C19 /* IdentityEntity.swift in Sources */,
 				19C2EA3D8011D47B75D8A51A /* IdentityProviderEntity.swift in Sources */,
 				19C2EDAB16ACC40067A463AD /* RecipientEntity.swift in Sources */,
@@ -7384,6 +7418,7 @@
 				19C2E76F1EB138481A96DE2C /* Importer.swift in Sources */,
 				52055F9325541AC80071F7CA /* AccountCardView.swift in Sources */,
 				19C2E39DDF7E80E640E8EEE5 /* ImportService.swift in Sources */,
+				8D9E39882950488D007ED183 /* ExportTransactionLogView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7493,6 +7528,7 @@
 				64DB66C525DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89A056E5286C559C0055C049 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				52DCA9F727CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
+				8D9E398D29505936007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				893CACA1288E616300BDF84C /* PageIndicator.swift in Sources */,
 				C96632502459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
 				527DE34C2571257600333E65 /* ReleaseSchedulePresenter.swift in Sources */,
@@ -7533,6 +7569,7 @@
 				FABA9D96291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				896B423528B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
 				89EB9F4F27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
+				8D9E39862950488B007ED183 /* ExportTransactionLogView.swift in Sources */,
 				893CAC64286DC6AD00BDF84C /* LoadingIndicator.swift in Sources */,
 				642ED97825F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */,
@@ -7773,6 +7810,7 @@
 				901F7F1227EA0D5C00C46741 /* PoolInfo.swift in Sources */,
 				891B19FE28A62FC000F4B0D6 /* Publisher+Async.swift in Sources */,
 				64FD333B25FF8A7C00563703 /* KeyList.swift in Sources */,
+				8D9E39902950593C007ED183 /* ExportTransactionLogViewModel.swift in Sources */,
 				FA01CA0B291C5D3100BD8738 /* Date+Helper.swift in Sources */,
 				52589B2225121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				52D35113250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
@@ -8014,7 +8052,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8049,7 +8087,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
@@ -8082,7 +8120,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8119,7 +8157,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8155,7 +8193,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -8187,7 +8225,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -8339,7 +8377,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8377,7 +8415,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;

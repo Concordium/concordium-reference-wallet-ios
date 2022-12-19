@@ -26,6 +26,7 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case exportPrivateKey
     case dismiss
     case decrypt
+    case exportTransactionLog
     
     func getDisplayName() -> String {
         switch self {
@@ -41,6 +42,8 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             }
         case .exportPrivateKey:
             return "burgermenu.exportprivatekey".localized
+        case .exportTransactionLog:
+            return "burgermenu.exporttransactionlog".localized
         case .delegation:
             return "burgermenu.delegation".localized
         case .baking:
@@ -96,7 +99,7 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
                     .transferFilters
                 ] + stakeActions + [.shieldedBalance(accountName: account.displayName,
                                                      shouldShow: !account.showsShieldedBalance,
-                                                     delegate: showShieldedDelegate)] + [.exportPrivateKey]
+                                                     delegate: showShieldedDelegate)] + [.exportPrivateKey] + [.exportTransactionLog]
             } else {
                 if showsDecrypt {
                     self.actions = [.decrypt,
