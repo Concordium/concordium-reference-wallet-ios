@@ -207,6 +207,9 @@ extension AccountEntity: AccountDataType {
     
     var displayName: String {
         get {
+            if name != nil && !name!.isEmpty {
+                return name!
+            }
             return address.prefix(4) + "..." + address.suffix(4)
         }
     }

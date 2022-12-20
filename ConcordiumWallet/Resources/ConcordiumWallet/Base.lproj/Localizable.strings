@@ -571,6 +571,7 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "burgermenu.baking" = "Baking";
 "burgermenu.exportprivatekey" = "Export Private Key";
 "burgermenu.exporttransactionlog" = "Export transaction logs";
+"burgermenu.renameaccount" = "Change account name";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -1040,3 +1041,8 @@ Remember to restart your node with the baker keys.";
 "exporttransactionlog.saved" = "The transaction logs have been saved.";
 "exporttransactionlog.failed" = "The download failed.";
 "exporttransactionlog.downloaded" = "downloaded";
+
+"renameaccount.title" = "Change account name";
+"renameaccount.message" = "You can enter the new account name here.";
+"renameaccount.cancel" = "Cancel";
+"renameaccount.save" = "Save";

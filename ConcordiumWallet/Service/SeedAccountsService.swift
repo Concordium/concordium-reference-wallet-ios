@@ -179,7 +179,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         
         account.address = request.accountAddress
         account.accountIndex = index
-        account.name = String(format: "recoveryphrase.account.name".localized, index)
+        account.name = account.displayName
         account.identity = identity
         account.revealedAttributes = identityAttributes
         account.encryptedBalanceStatus = .decrypted
