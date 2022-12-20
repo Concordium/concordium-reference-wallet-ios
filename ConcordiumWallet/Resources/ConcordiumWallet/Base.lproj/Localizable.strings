@@ -570,6 +570,8 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "burgermenu.delegation" = "Delegation";
 "burgermenu.baking" = "Baking";
 "burgermenu.exportprivatekey" = "Export Private Key";
+"burgermenu.exporttransactionlog" = "Export transaction logs";
+"burgermenu.renameaccount" = "Change account name";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -993,7 +995,6 @@ Remember to restart your node with the baker keys.";
 "force.update.needed.update.now" = "Update now";
 "force.update.needed.backup" = "Make backup";
 "force.update.warning.title" = "Update ready";
-"force.update.warning.message" = "There is a new update for the Concordium Mobile Wallet.\n\nIf you don’t have a backup, Concordium strongly recommends making one before updating.";
 "force.update.warning.nobackup.message" = "There is a new update for the Concordium Mobile Wallet.";
 "force.update.warning.update.now" = "Update now";
 "force.update.warning.remind.me" = "Remind me next time I open the wallet";
@@ -1032,3 +1033,18 @@ Remember to restart your node with the baker keys.";
 "exportprivatekey.nokeys" = "The account does not contains keys";
 
 "exportedaccountprivatekeys.type" = "concordium-browser-wallet-account";
+
+"exporttransactionlog.navigationtitle" = "Export transaction logs";
+"exporttransactionlog.save" = "Save transaction logs";
+"exporttransactionlog.done" = "Done";
+"exporttransactionlog.description" = "Transaction logs of an account can be generated and saved via %@\n\nIf your account contains a lot of transactions, it may take a moment for CCDScan to prepare the file. Once the logs are ready, they will be downloaded to your device as a CSV file. Please note that if the account has a lot of transactions, the file size can be quite large.\n\nYou can also visit %@ and manually generate your transaction logs from a desktop browser.";
+"exporttransactionlog.generating" = "Generating transaction logs, please hold on.";
+"exporttransactionlog.downloading" = "Downloading transaction logs.";
+"exporttransactionlog.saved" = "The transaction logs have been saved.";
+"exporttransactionlog.failed" = "The download failed.";
+"exporttransactionlog.downloaded" = "downloaded";
+
+"renameaccount.title" = "Change account name";
+"renameaccount.message" = "You can enter the new account name here.";
+"renameaccount.cancel" = "Cancel";
+"renameaccount.save" = "Save";

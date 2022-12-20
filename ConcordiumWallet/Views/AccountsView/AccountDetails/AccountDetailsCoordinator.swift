@@ -228,6 +228,45 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         
         navigationController.pushViewController(presenter.present(ExportPrivateKeyView.self), animated: true)
     }
+    
+    func showExportTransactionLog(account: AccountDataType) {
+        let presenter = ExportTransactionLogPresenter(account: account, delegate: self)
+        navigationController.pushViewController(presenter.present(ExportTransactionLogView.self), animated: true)
+    }
+    
+    func renameAccount(account: AccountDataType) {
+        let alert = UIAlertController(title: "renameaccount.title".localized, message: "renameaccount.message".localized, preferredStyle: .alert)
+
+        alert.addTextField { (textField) in
+            textField.text = account.displayName
+        }
+
+        let saveAction = UIAlertAction(title: "renameaccount.save".localized, style: .default, handler: { [weak alert] (_) in
+            if let textField = alert?.textFields![0], let newName = textField.text, !newName.isEmpty {
+                do {
+                    try account.write {
+                        var mutableAccount = $0
+                        mutableAccount.name = newName
+                    }.get()
+                    if let recipient = self.dependencyProvider.storageManager().getRecipient(withAddress: account.address) {
+                        let newRecipient = RecipientEntity(name: newName, address: account.address)
+                        try self.dependencyProvider.storageManager().editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
+                    }
+                    self.navigationController.visibleViewController?.title = newName + " " + "accountDetails.generalbalance".localized
+                }
+                catch {
+                    print("\(error.localizedDescription)")
+                }
+            }
+        })
+
+        let cancelAction = UIAlertAction(title: "renameaccount.cancel".localized, style: .cancel, handler: nil)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        navigationController.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
@@ -342,6 +381,9 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
         case .exportPrivateKey:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showExportPrivateKey(account: account)
+        case .exportTransactionLog:
+            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            showExportTransactionLog(account: account)
         case .delegation:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showDelegation()
@@ -350,6 +392,9 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
             showBaking()
         case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+        case .renameAccount:
+            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            renameAccount(account: account)
         }
     }
 }
@@ -377,5 +422,11 @@ extension AccountDetailsCoordinator: ExportPrivateKeyPresenterDelegate {
     
     func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void) {
         share(items: [url], from: navigationController, completion: completion)
+    }
+}
+
+extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
+    func finishedExportingTransactionLog() {
+        navigationController.popViewController(animated: true)
     }
 }

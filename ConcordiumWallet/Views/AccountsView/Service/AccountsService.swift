@@ -72,6 +72,12 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                     var account = $0
                     account.transactionStatus = data.status
                 }
+                if data.status == .finalized {
+                    let recipientEntity = RecipientEntity(name: account.displayName, address: account.address)
+                    do {
+                        try self.storageManager.storeRecipient(recipientEntity)
+                    } catch {}
+                }
             })
             .eraseToAnyPublisher()
     }

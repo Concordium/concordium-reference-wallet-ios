@@ -179,7 +179,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         
         account.address = request.accountAddress
         account.accountIndex = index
-        account.name = String(format: "recoveryphrase.account.name".localized, index)
+        account.name = account.displayName
         account.identity = identity
         account.revealedAttributes = identityAttributes
         account.encryptedBalanceStatus = .decrypted
@@ -197,6 +197,10 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
     @MainActor
     private func storeAccount(_ account: AccountDataType) throws {
         _ = try storageManager.storeAccount(account)
+        if account.transactionStatus == .finalized {
+            let recipientEntity = RecipientEntity(name: account.displayName, address: account.address)
+            try storageManager.storeRecipient(recipientEntity)
+        }
     }
     
     @MainActor
@@ -216,6 +220,10 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             mutableAccount.transactionStatus = status
         }.get()
         
+        if status == .finalized {
+            let recipientEntity = RecipientEntity(name: account.displayName, address: account.address)
+            try storageManager.storeRecipient(recipientEntity)
+        }
         return account
     }
     
