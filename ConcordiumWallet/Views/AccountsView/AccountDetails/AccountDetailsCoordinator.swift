@@ -371,11 +371,11 @@ extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
 }
 
 extension AccountDetailsCoordinator: ExportPrivateKeyPresenterDelegate {
-    func exportPrivateKey(with privateKey: String) {
-        print("+++ Export private key: \(privateKey)")
+    func finishedExportingPrivateKey() {
+        navigationController.popViewController(animated: true)
     }
     
-    func finishedExportingPrivateKey(with privateKey: String) {
-        navigationController.popViewController(animated: true)
+    func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void) {
+        share(items: [url], from: navigationController, completion: completion)
     }
 }

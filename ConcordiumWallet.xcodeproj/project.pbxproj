@@ -979,7 +979,6 @@
 		7F5F778E24891EA80016F8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7523EADB1400F1FC04 /* Assets.xcassets */; };
 		7F5F779024891EFB0016F8D1 /* AppIconTestNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */; };
 		7F5F779224891F220016F8D1 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
-		7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F779124891F220016F8D1 /* AppIcon.xcassets */; };
 		7F7F6D2924A0986D0017B18F /* SingleLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F6D2824A0986D0017B18F /* SingleLabelViewController.swift */; };
 		7F7F6D2A24A0986D0017B18F /* SingleLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F6D2824A0986D0017B18F /* SingleLabelViewController.swift */; };
@@ -2472,6 +2471,15 @@
 		FA0CAB25294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB23294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift */; };
 		FA0CAB26294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB23294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift */; };
 		FA0CAB27294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB23294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift */; };
+		FA0CAB2E294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB2D294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift */; };
+		FA0CAB2F294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB2D294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift */; };
+		FA0CAB30294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB2D294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift */; };
+		FA0CAB31294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB2D294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift */; };
+		FA0CAB332951191A0009D5F8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB322951191A0009D5F8 /* Environment.swift */; };
+		FA0CAB342951191A0009D5F8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB322951191A0009D5F8 /* Environment.swift */; };
+		FA0CAB352951191A0009D5F8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB322951191A0009D5F8 /* Environment.swift */; };
+		FA0CAB362951191A0009D5F8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CAB322951191A0009D5F8 /* Environment.swift */; };
+		FA0CAB38295217EF0009D5F8 /* AppIconStagingNet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0CAB37295217EF0009D5F8 /* AppIconStagingNet.xcassets */; };
 		FA0DBD842925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */; };
 		FA0DBD852925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */; };
 		FA0DBD862925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */; };
@@ -3246,6 +3254,9 @@
 		FA0CAB19294B90540009D5F8 /* ExportPrivateKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPrivateKeyViewModel.swift; sourceTree = "<group>"; };
 		FA0CAB1E294B90740009D5F8 /* ExportPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPrivateKeyView.swift; sourceTree = "<group>"; };
 		FA0CAB23294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPrivateKeyPresenter.swift; sourceTree = "<group>"; };
+		FA0CAB2D294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedAccountPrivateKeys.swift; sourceTree = "<group>"; };
+		FA0CAB322951191A0009D5F8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		FA0CAB37295217EF0009D5F8 /* AppIconStagingNet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIconStagingNet.xcassets; sourceTree = "<group>"; };
 		FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityObjectWrapper.swift; sourceTree = "<group>"; };
 		FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountView.swift; sourceTree = "<group>"; };
 		FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountPresenter.swift; sourceTree = "<group>"; };
@@ -3394,6 +3405,7 @@
 				7FD435FD249A2D34002D2AC3 /* icon-44-58.png */,
 				7F5F779124891F220016F8D1 /* AppIcon.xcassets */,
 				7F5F778F24891EFB0016F8D1 /* AppIconTestNet.xcassets */,
+				FA0CAB37295217EF0009D5F8 /* AppIconStagingNet.xcassets */,
 				7FF07A7523EADB1400F1FC04 /* Assets.xcassets */,
 				19C2EB84A6D34023C95A89C1 /* ConcordiumWallet-mock-Info.plist */,
 				19C2EA10C88B8FC7CF3A6D74 /* ConcordiumWalletMainNet-Info.plist */,
@@ -4139,6 +4151,8 @@
 				89E1A76D280EADB4008C761B /* ExportedBakerKeys.swift */,
 				89CF2D29281000B100742E1E /* TransferCostRange.swift */,
 				8928970A289A6464009688F1 /* Net.swift */,
+				FA0CAB2D294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift */,
+				FA0CAB322951191A0009D5F8 /* Environment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5659,7 +5673,6 @@
 				07E6E27B27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				90434C6B27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
 				901F7F2727EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
-				7F5F779324891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				9078543628101BFC00B655EB /* baker_update_flow_en_4.html in Resources */,
 				52055F9B25541B160071F7CA /* AccountCardView.xib in Resources */,
 				901F7F7D27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
@@ -5670,6 +5683,7 @@
 				901F7F8527F1D5DE00C46741 /* delegation_intro_flow_en_4.html in Resources */,
 				7FF07A7423EADB1200F1FC04 /* Account.storyboard in Resources */,
 				070D622227B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
+				FA0CAB38295217EF0009D5F8 /* AppIconStagingNet.xcassets in Resources */,
 				89D4681E289BCDA6007D3FC8 /* seed_identity_style.css in Resources */,
 				90434C9327FB2CDA00E4DBAA /* registerdelegation_flow_style.css in Resources */,
 				90434C8327FB111B00E4DBAA /* delegation_update_flow_en_1.html in Resources */,
@@ -6008,6 +6022,7 @@
 				901F7F3027EB023100C46741 /* AccountDelegation.swift in Sources */,
 				7F48C19B244DCD0B00997684 /* BaseView.swift in Sources */,
 				7F48C19C244DCD0B00997684 /* BiometricsEnablingPresenter.swift in Sources */,
+				FA0CAB332951191A0009D5F8 /* Environment.swift in Sources */,
 				893CAC32286C8EBA00BDF84C /* RecoveryPhraseCopyPhraseView.swift in Sources */,
 				9078546128102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				642ED97725F21FB300A09BB3 /* UpdatePasswordViewController.swift in Sources */,
@@ -6047,6 +6062,7 @@
 				7F48C254244DD56D00997684 /* ServicesProvider+mock.swift in Sources */,
 				909EAF2827F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
 				529531A9256BA711004CECE4 /* AccountBaker.swift in Sources */,
+				FA0CAB2E294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */,
 				7F48C1AB244DCD0B00997684 /* UITextField+Extensions.swift in Sources */,
 				89D46842289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
 				7F48C1AC244DCD0B00997684 /* LoginCoordinator.swift in Sources */,
@@ -6580,6 +6596,7 @@
 				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467DF289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
 				89B34A672897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
+				FA0CAB352951191A0009D5F8 /* Environment.swift in Sources */,
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */,
 				64FD333C25FF8A7C00563703 /* KeyList.swift in Sources */,
@@ -6654,6 +6671,7 @@
 				FA01C9E8291C5D3100BD8738 /* UIColor+Helper.swift in Sources */,
 				7F85B79B246A9A7C00ED09B8 /* RequestPasswordPresenter.swift in Sources */,
 				89B34A542897B6140059891C /* Collections+Indexed.swift in Sources */,
+				FA0CAB30294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */,
 				17A41E572667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				FA01CA18291C5D3100BD8738 /* String+Validation.swift in Sources */,
 				52D10F3527D0CB5F0025ED5D /* DelegationInputPresenter.swift in Sources */,
@@ -7114,6 +7132,7 @@
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467E0289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
 				89B34A682897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
+				FA0CAB362951191A0009D5F8 /* Environment.swift in Sources */,
 				7F85B869246A9AB600ED09B8 /* Details.swift in Sources */,
 				7F85B86A246A9AB600ED09B8 /* Description.swift in Sources */,
 				64FD333D25FF8A7C00563703 /* KeyList.swift in Sources */,
@@ -7188,6 +7207,7 @@
 				FA01C9E9291C5D3100BD8738 /* UIColor+Helper.swift in Sources */,
 				7F85B893246A9AB600ED09B8 /* LoginPresenter.swift in Sources */,
 				89B34A552897B6140059891C /* Collections+Indexed.swift in Sources */,
+				FA0CAB31294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */,
 				17A41E582667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				FA01CA19291C5D3100BD8738 /* String+Validation.swift in Sources */,
 				52D10F3627D0CB5F0025ED5D /* DelegationInputPresenter.swift in Sources */,
@@ -7580,6 +7600,7 @@
 				901F7F5027EB4EA900C46741 /* StakeStatusPresenter.swift in Sources */,
 				7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */,
 				896B41D428B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
+				FA0CAB2F294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */,
 				901F7F9F27F33C8800C46741 /* PendingChange.swift in Sources */,
 				893CAC92286F27B800BDF84C /* RecoveryPhraseOnboardingView.swift in Sources */,
 				89A056F9286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
@@ -7718,6 +7739,7 @@
 				19C2E05A6CFAD9B9CCECF785 /* LetterSpacingLabel.swift in Sources */,
 				89A056FE286C65F40055C049 /* RecoveryPhraseGettingStartedViewModel.swift in Sources */,
 				89CF2D452816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
+				FA0CAB342951191A0009D5F8 /* Environment.swift in Sources */,
 				19C2ECCEF3CDA2AEA44CCC76 /* IdentityConfirmedPresenter.swift in Sources */,
 				19C2EF0C9DB4F4117BCD1A0B /* IdentityConfirmedViewController.swift in Sources */,
 				FA01CA17291C5D3100BD8738 /* String+Validation.swift in Sources */,
@@ -8327,7 +8349,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
@@ -8350,7 +8372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseStagenetDistribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseStagenetDevelopment;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8365,7 +8387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
@@ -8388,7 +8410,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseStagenetDistribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseStagenetDevelopment;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;

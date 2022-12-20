@@ -1030,3 +1030,5 @@ Remember to restart your node with the baker keys.";
 "exportprivatekey.copied" = "Copied";
 "exportprivatekey.exported" = "File exported";
 "exportprivatekey.nokeys" = "The account does not contains keys";
+
+"exportedaccountprivatekeys.type" = "concordium-browser-wallet-account";

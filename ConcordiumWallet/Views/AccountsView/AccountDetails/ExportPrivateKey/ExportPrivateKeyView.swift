@@ -142,22 +142,3 @@ private extension ExportPrivateKeyState {
         }
     }
 }
-
-//private struct WordPill: View {
-//    let index: Int
-//    let word: String
-//
-//    var body: some View {
-//        ZStack(alignment: .leading) {
-//            StyledLabel(text: "\(index + 1).", style: .mono, color: Pallette.recoveryPhraseText)
-//            StyledLabel(text: word, style: .mono, color: Pallette.recoveryPhraseText)
-//                .frame(maxWidth: .infinity)
-//        }.padding([.leading, .trailing], 12)
-//            .padding([.top, .bottom], 2)
-//            .background(
-//                RoundedRectangle(cornerRadius: 10)
-//                    .strokeBorder()
-//                    .foregroundColor(Pallette.primary)
-//            )
-//    }
-//}
