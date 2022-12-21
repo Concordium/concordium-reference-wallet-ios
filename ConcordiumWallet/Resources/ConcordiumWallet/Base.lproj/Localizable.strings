@@ -1048,3 +1048,8 @@ Remember to restart your node with the baker keys.";
 "renameaccount.message" = "You can enter the new account name here.";
 "renameaccount.cancel" = "Cancel";
 "renameaccount.save" = "Save";
+
+"renameidentity.title" = "Change identity name";
+"renameidentity.message" = "You change the name of the ID card here.";
+"renameidentity.cancel" = "Cancel";
+"renameidentity.save" = "Save";

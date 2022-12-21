@@ -12,6 +12,7 @@ import UIKit
 typealias ChosenAttributeFormattedTuple = (key: ChosenAttributeKeys, value: String)
 
 struct IdentityDetailsInfoViewModel {
+    var identity: IdentityDataType
     var nickname: String
     var identityName: String
     var bottomIcon: String
@@ -23,6 +24,7 @@ struct IdentityDetailsInfoViewModel {
     var data: [ChosenAttributeFormattedTuple]
 
     init(identity: IdentityDataType) {
+        self.identity = identity
         identityName = identity.identityProviderName ?? ""
         nickname = identity.nickname
         
