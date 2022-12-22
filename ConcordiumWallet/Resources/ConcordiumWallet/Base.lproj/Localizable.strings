@@ -1053,3 +1053,14 @@ Remember to restart your node with the baker keys.";
 "renameidentity.message" = "You change the name of the ID card here.";
 "renameidentity.cancel" = "Cancel";
 "renameidentity.save" = "Save";
+
+"earn.title" = "Earning rewards";
+"earn.button.baker" = "Continue to baker setup";
+"earn.button.delegation" = "Continue to delegation setup";
+
+"earn.desc.part1" = "There are two options for earning rewards on Concordium: Baking and delegation.";
+"earn.desc.baking.header" = "Baking";
+"earn.desc.baking.text" = "As a baker you participate in the network by baking blocks on the Concordium network. This requires a minimum of %@ and access to a dedicated node.";
+"earn.desc.delegation.header" = "Delegation";
+"earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other bakers. There is no minimum amount of CCD required when delegating.";
+"earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a baker and delegator, but it is possible to stop one and change to the other.";

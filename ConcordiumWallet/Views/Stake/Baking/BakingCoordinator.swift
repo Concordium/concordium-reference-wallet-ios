@@ -307,7 +307,7 @@ extension BakingCoordinator: BakerPoolReceiptPresenterDelegate {
 
 extension BakingCoordinator: RequestPasswordDelegate {}
 
-private extension StorageManagerProtocol {
+extension StorageManagerProtocol {
     func hasPendingBakerRegistration(for account: String) -> Bool {
         !getTransfers(for: account)
             .filter { $0.transferType.isBakingTransfer }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,10 +17,7 @@
                 <outlet property="atDisposalLabel" destination="LNx-UW-mOz" id="oZ0-Jn-C8X"/>
                 <outlet property="buttonsHStackViewView" destination="Ajb-uQ-JWt" id="8mr-Jc-dAK"/>
                 <outlet property="initialAccountLabel" destination="LU5-Vd-4b2" id="8y7-m0-8Vt"/>
-                <outlet property="moreButton" destination="Xnd-bj-xcT" id="TY6-br-fJa"/>
                 <outlet property="pendingImageView" destination="z48-wC-H3p" id="qqc-jj-1vW"/>
-                <outlet property="receiveButton" destination="nJe-z8-RCe" id="5hN-H6-Mv9"/>
-                <outlet property="sendButton" destination="MBk-RH-6p4" id="fOq-mh-XkL"/>
                 <outlet property="stackCardView" destination="JQe-m8-njt" id="2ND-QS-uOe"/>
                 <outlet property="stateImageView" destination="9XF-Vj-Tyf" id="cL6-Hw-WSd"/>
                 <outlet property="stateLabel" destination="Tbq-D7-W1H" id="FBm-Ne-09x"/>
@@ -165,16 +162,15 @@
                                         <constraint firstAttribute="height" constant="5" id="d8z-kP-F6W"/>
                                     </constraints>
                                 </view>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ajb-uQ-JWt">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ajb-uQ-JWt">
                                     <rect key="frame" x="0.0" y="92" width="556" height="41"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBk-RH-6p4">
-                                            <rect key="frame" x="0.0" y="0.0" width="184.5" height="41"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="138.5" height="41"/>
                                             <color key="backgroundColor" name="primary"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="tintColor" name="buttonText"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                            <state key="normal" title="Button" image="Button_Icon_Paperplane">
+                                            <state key="normal" image="Button_Icon_Paperplane">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
                                             </state>
                                             <connections>
@@ -182,23 +178,31 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJe-z8-RCe">
-                                            <rect key="frame" x="185.5" y="0.0" width="185" height="41"/>
+                                            <rect key="frame" x="139.5" y="0.0" width="138" height="41"/>
                                             <color key="backgroundColor" name="primary"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="tintColor" name="buttonText"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                            <state key="normal" title="Button" image="Button_Icon_QR"/>
+                                            <state key="normal" image="Button_Icon_QR"/>
                                             <connections>
                                                 <action selector="pressedReceiveWithSender:" destination="-1" eventType="touchUpInside" id="ntW-0M-KZi"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xnd-bj-xcT">
-                                            <rect key="frame" x="371.5" y="0.0" width="184.5" height="41"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyl-Cm-4pd">
+                                            <rect key="frame" x="278.5" y="0.0" width="138.5" height="41"/>
                                             <color key="backgroundColor" name="primary"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="tintColor" name="buttonText"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                            <state key="normal" title="Button" image="Button_Icon_More">
+                                            <state key="normal" image="Button_Icon_Earn"/>
+                                            <connections>
+                                                <action selector="pressedEarn:" destination="-1" eventType="touchUpInside" id="lIN-zV-ku9"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xnd-bj-xcT">
+                                            <rect key="frame" x="418" y="0.0" width="138" height="41"/>
+                                            <color key="backgroundColor" name="primary"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="tintColor" name="buttonText"/>
+                                            <state key="normal" image="Button_Icon_More">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 </preferredSymbolConfiguration>
@@ -209,9 +213,7 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="MBk-RH-6p4" firstAttribute="width" secondItem="nJe-z8-RCe" secondAttribute="width" multiplier="0.997573" id="B0b-vw-JJp"/>
                                         <constraint firstAttribute="height" constant="41" id="g4j-O6-bHa"/>
-                                        <constraint firstItem="nJe-z8-RCe" firstAttribute="width" secondItem="Xnd-bj-xcT" secondAttribute="width" multiplier="1.00243" id="uPK-7Q-cab"/>
                                     </constraints>
                                 </stackView>
                             </subviews>
@@ -245,6 +247,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Button_Icon_Earn" width="21" height="28"/>
         <image name="Button_Icon_More" width="16" height="16"/>
         <image name="Button_Icon_Paperplane" width="18" height="18"/>
         <image name="Button_Icon_QR" width="19" height="19"/>

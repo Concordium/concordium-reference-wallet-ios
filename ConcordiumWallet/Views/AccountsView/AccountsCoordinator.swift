@@ -134,6 +134,8 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
             entryPoint = .details
         case .send:
             entryPoint = .send
+        case .earn:
+            entryPoint = .earn
         case .receive:
             entryPoint = .receive
         }

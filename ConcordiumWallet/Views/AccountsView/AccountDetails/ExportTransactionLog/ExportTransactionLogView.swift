@@ -98,7 +98,6 @@ struct ExportTransactionLogView: Page {
             DispatchQueue.main.async {
                 do {
                     try data.write(to: toUrl, options: .completeFileProtection)
-                    print("LC -> file written: \(toUrl.absoluteString)")
                     descriptionText = "exporttransactionlog.saved".localized
                 } catch {
                     descriptionText = "exporttransactionlog.failed".localized
@@ -112,7 +111,6 @@ struct ExportTransactionLogView: Page {
             progressVisible = true
             progress = observationProgress
             descriptionText = "exporttransactionlog.downloading".localized
-            print("LC -> PROGRESS = \(observationProgress.fractionCompleted)")
         }
         dataTask?.resume()
       }
