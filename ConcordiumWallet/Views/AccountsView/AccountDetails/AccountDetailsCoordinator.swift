@@ -337,7 +337,7 @@ class AccountDetailsCoordinator: Coordinator,
                         let newRecipient = RecipientEntity(name: newName, address: account.address)
                         try self.dependencyProvider.storageManager().editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
                     }
-                    self.navigationController.visibleViewController?.title = newName + " " + "accountDetails.generalbalance".localized
+                    self.navigationController.visibleViewController?.title = newName
                 } catch {
                     print("\(error.localizedDescription)")
                 }

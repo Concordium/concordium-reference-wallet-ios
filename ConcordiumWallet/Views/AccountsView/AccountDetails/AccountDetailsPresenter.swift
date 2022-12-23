@@ -115,9 +115,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func getTitle() -> String {
         if balanceType == .shielded {
-            return self.account.displayName + " " + "accountDetails.generalshieldedbalance".localized
+            return self.account.displayName
         } else {
-            return self.account.displayName + " " + "accountDetails.generalbalance".localized
+            return self.account.displayName
         }
     }
     
