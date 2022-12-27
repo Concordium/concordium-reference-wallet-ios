@@ -64,10 +64,17 @@ class DelegationPoolViewModel {
     }()
     
     static let bakerBottomMessage: NSAttributedString = {
-        "delegation.pool.bottommessage.baker"
-            .localized
+        var stakingLink: String {
+            #if MAINNET
+            return "delegation.pool.mainnetstakinglink".localized
+            #else
+            return "delegation.pool.testnetstakinglink".localized
+            #endif
+        }
+        
+        return String(format: "delegation.pool.bottommessage.baker".localized, stakingLink)
             .stringWithHighlightedLinks(
-                ["https://ccdscan.io/staking": "https://ccdscan.io/staking"]
+                [stakingLink: stakingLink]
             )
     }()
     

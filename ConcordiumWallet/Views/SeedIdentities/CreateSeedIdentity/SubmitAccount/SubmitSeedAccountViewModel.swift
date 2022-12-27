@@ -82,10 +82,15 @@ class AccountCardViewModel: ObservableObject {
     var accountTitle = "4WHF...eNu8"
     
     var identityTitle: String {
-        String(
-            format: "identities.seed.shared.identitytitle".localized,
-            identityIndex + 1
-        )
+        var counter = 1
+        let identities = ServicesProvider.defaultProvider().storageManager().getIdentities()
+        for identity in identities {
+            if identity.nickname == String(format: "identities.seed.shared.identitytitle".localized, counter) {
+                counter += 1
+            }
+        }
+        
+        return String(format: "identities.seed.shared.identitytitle".localized, counter - 1)
     }
     
     func update(with account: AccountDataType) {

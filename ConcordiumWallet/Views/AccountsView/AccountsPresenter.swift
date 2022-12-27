@@ -249,12 +249,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 let accountsWithPendingShieldedTransactions = updatedAccounts.filter { account in
                     (account.hasShieldedTransactions && !account.showsShieldedBalance && !account.isReadOnly)
                 }
-                for account in accountsWithPendingShieldedTransactions {
-                    // we add the alert in the queue (the queue knows whether it needs to show it and when)
-                    self.alertDisplayer.enqueueAlert(.shieldedTransfer(account: account, actionCompletion: { [weak self] in
-                        self?.delegate?.enableShielded(on: account)
-                    }, dismissCompletion: {}))
-                }
+//                for account in accountsWithPendingShieldedTransactions {
+//                    // we add the alert in the queue (the queue knows whether it needs to show it and when)
+//                    self.alertDisplayer.enqueueAlert(.shieldedTransfer(account: account, actionCompletion: { [weak self] in
+//                        self?.delegate?.enableShielded(on: account)
+//                    }, dismissCompletion: {}))
+//                }
                 
                 #warning("RNI: Intentionally set to decrypted for MArch release")
                 // TODO: readd the lock after March release
@@ -369,12 +369,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
 
     private func updatePendingIdentitiesWarnings() {
-        let identities = dependencyProvider.storageManager().getIdentities()
-        let pendingIdentities = identities.filter { $0.state == .pending }
-        warningDisplayer.clearIdentityWarnings()
-        for identity in pendingIdentities {
-            warningDisplayer.addWarning(Warning.identityPending(identity: identity))
-        }
+//        let identities = dependencyProvider.storageManager().getIdentities()
+//        let pendingIdentities = identities.filter { $0.state == .pending }
+//        warningDisplayer.clearIdentityWarnings()
+//        for identity in pendingIdentities {
+//            warningDisplayer.addWarning(Warning.identityPending(identity: identity))
+//        }
     }
     
     private func checkForIdentityFailed() {

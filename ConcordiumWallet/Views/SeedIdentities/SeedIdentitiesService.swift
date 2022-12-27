@@ -36,7 +36,7 @@ struct SeedIdentitiesService {
         var newIdentity = IdentityDataTypeFactory.create()
         
         newIdentity.identityProvider = identityProvider
-        newIdentity.nickname = String(format: "recoveryphrase.identity.name".localized, index + 1)
+        newIdentity.nickname = identityName()
         newIdentity.state = .pending
         newIdentity.ipStatusUrl = pollURL
         newIdentity.accountsCreated = 0
@@ -214,7 +214,7 @@ struct SeedIdentitiesService {
         identity.index = index
         identity.accountsCreated = 0
         identity.identityProvider = identityProvider
-        identity.nickname = String(format: "recoveryphrase.identity.name".localized, index + 1)
+        identity.nickname = identityName()
         identity.state = .confirmed
         identity.seedIdentityObject = seedIdentityObjectWrapper.value
         
@@ -283,6 +283,18 @@ struct SeedIdentitiesService {
     
     private func getGlobal() async throws -> GlobalWrapper {
         return try await networkManager.load(ResourceRequest(url: ApiConstants.global))
+    }
+    
+    private func identityName() -> String {
+        var counter = 1
+        let identities = storageManager.getIdentities()
+        for identity in identities {
+            if identity.nickname == String(format: "recoveryphrase.identity.name".localized, counter) {
+                counter += 1
+            }
+        }
+        
+        return String(format: "recoveryphrase.identity.name".localized, counter)
     }
 }
 

@@ -38,10 +38,22 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
         let identityViewModel = IdentityCard.ViewModel()
         identityViewModel.update(with: identity)
         
+        var body: String {
+            var counter = 1
+            let identities = ServicesProvider.defaultProvider().storageManager().getIdentities()
+            for identity in identities {
+                if identity.nickname == String(format: "identities.seed.shared.identitytitle".localized, counter) {
+                    counter += 1
+                }
+            }
+            
+            return isNewAccountAfterSettingUpTheWallet ? String(format: "identities.seed.submitnewaccount.body".localized, counter - 1) : "identities.seed.submitaccount.body".localized
+        }
+        
         super.init(
             viewModel: .init(
                 title: "identities.seed.submitaccount.title".localized,
-                body: isNewAccountAfterSettingUpTheWallet ? String(format: "identities.seed.submitnewaccount.body".localized, identity.index + 1) : "identities.seed.submitaccount.body".localized,
+                body: body,
                 identityViewModel: identityViewModel,
                 accountViewModel: .init(
                     state: .notAvailable,

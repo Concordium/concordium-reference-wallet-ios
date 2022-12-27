@@ -14,29 +14,38 @@ struct IdentityCard: View {
         @Published var expirationDate: String?
         @Published var image: Image?
         @Published var state: IdentityState
+        @Published var title: String
         
-        var title: String {
-            String(
-                format: "identities.seed.shared.identitytitle".localized,
-                index + 1
-            )
-        }
+//        var title: String {
+//            var counter = 1
+//            let identities = ServicesProvider.defaultProvider().storageManager().getIdentities()
+//            for identity in identities {
+//                if identity.nickname == String(format: "identities.seed.shared.identitytitle".localized, counter) {
+//                    counter += 1
+//                }
+//            }
+//
+//            return String(format: "identities.seed.shared.identitytitle".localized, counter)
+//        }
         
         init(
             index: Int = 0,
             expirationDate: String? = nil,
             image: Image? = nil,
-            state: IdentityState = .pending
+            state: IdentityState = .pending,
+            title: String = ""
         ) {
             self.index = index
             self.expirationDate = expirationDate
             self.image = image
             self.state = state
+            self.title = title
         }
         
         init(identity: IdentityDataType) {
             index = identity.index
             state = identity.state
+            title = identity.nickname
             if let validTo = identity.seedIdentityObject?.attributeList.validTo {
                 expirationDate = String(
                     format: "identities.seed.shared.expirationdate".localized,
@@ -51,6 +60,7 @@ struct IdentityCard: View {
         func update(with seedIdentity: IdentityDataType) {
             index = seedIdentity.index
             state = seedIdentity.state
+            title = seedIdentity.nickname
             if let validTo = seedIdentity.seedIdentityObject?.attributeList.validTo {
                 expirationDate = String(
                     format: "identities.seed.shared.expirationdate".localized,

@@ -26,7 +26,7 @@ struct SeedIdentityStatusView: Page {
                         viewModel: viewModel.identityViewModel
                     )
                 }.alert(isPresented: $viewModel.isIdentityConfirmed) { 
-                    Alert(title: Text("newaccount.title".localized), message: Text((String(format: "newaccount.message".localized, viewModel.identityViewModel.index + 1))), primaryButton: .default(Text("newaccount.create".localized), action: {
+                    Alert(title: Text("newaccount.title".localized), message: getAlertMessage(), primaryButton: .default(Text("newaccount.create".localized), action: {
                         viewModel.send(.makeNewAccountRequest)
                     }), secondaryButton: .default(Text("newaccount.later".localized)))
                 }
@@ -40,6 +40,18 @@ struct SeedIdentityStatusView: Page {
                 }), secondaryButton: .default(Text("newidentityrejected.later".localized)))
             }
         }.padding(.init(top: 10, leading: 16, bottom: 16, trailing: 30))
+    }
+    
+    private func getAlertMessage() -> Text {
+        var counter = 1
+        let identities = ServicesProvider.defaultProvider().storageManager().getIdentities()
+        for identity in identities {
+            if identity.nickname == String(format: "identities.seed.shared.identitytitle".localized, counter) {
+                counter += 1
+            }
+        }
+        
+        return Text((String(format: "newaccount.message".localized, counter - 1)))
     }
 }
 
