@@ -22,8 +22,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     var presenter: AccountDetailsPresenterProtocol
     var isShielded: Bool = false
     private weak var updateTimer: Timer?
-    private var buttonSlider: ButtonSlider?
-    private var buttonsShielded: ButtonsShielded?
     private let tabViewModel = MaterialTabBar.ViewModel()
     private var sendEnabled: Bool = false
     private var receiveEnabled: Bool = false
@@ -152,32 +150,29 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     }
     
     private func setupButtonSlider(isShielded: Bool) {
-        if buttonSlider == nil {
-            buttonSlider = ButtonSlider(
-                isShielded: isShielded,
-                actionSend: {
-                    if self.sendEnabled {
-                        self.presenter.userTappedSend()
-                    }
-                },
-                actionReceive: {
-                    if self.receiveEnabled {
-                        self.presenter.userTappedAddress()
-                    }
-                },
-                actionEarn: {
-                    self.presenter.showEarn()
-                },
-                actionShield: {
-                    if self.shieldEnabled {
-                        self.presenter.userTappedShieldUnshield()
-                    }
-                },
-                actionSettings: {
-                    self.presenter.burgerButtonTapped()
-                })
-        }
-        
+    let buttonSlider = ButtonSlider(
+            isShielded: isShielded,
+            actionSend: {
+                if self.sendEnabled {
+                    self.presenter.userTappedSend()
+                }
+            },
+            actionReceive: {
+                if self.receiveEnabled {
+                    self.presenter.userTappedAddress()
+                }
+            },
+            actionEarn: {
+                self.presenter.showEarn()
+            },
+            actionShield: {
+                if self.shieldEnabled {
+                    self.presenter.userTappedShieldUnshield()
+                }
+            },
+            actionSettings: {
+                self.presenter.burgerButtonTapped()
+            })
         let childView = UIHostingController(rootView: buttonSlider)
         addChild(childView)
         childView.view.frame = buttonSliderContainer.bounds
@@ -187,25 +182,22 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     }
 
     private func setupButtonsShielded() {
-        if buttonsShielded == nil {
-            buttonsShielded = ButtonsShielded(
-                actionSendShielded: {
-                    if self.sendEnabled {
-                        self.presenter.userTappedSend()
-                    }
-                },
-                actionUnshield: {
-                    if self.shieldEnabled {
-                        self.presenter.userTappedShieldUnshield()
-                    }
-                },
-                actionReceive: {
-                    if self.receiveEnabled {
-                        self.presenter.userTappedAddress()
-                    }
-                })
-        }
-
+        let buttonsShielded = ButtonsShielded(
+            actionSendShielded: {
+                if self.sendEnabled {
+                    self.presenter.userTappedSend()
+                }
+            },
+            actionUnshield: {
+                if self.shieldEnabled {
+                    self.presenter.userTappedShieldUnshield()
+                }
+            },
+            actionReceive: {
+                if self.receiveEnabled {
+                    self.presenter.userTappedAddress()
+                }
+            })
         let childView = UIHostingController(rootView: buttonsShielded)
         addChild(childView)
         childView.view.frame = buttonSliderContainer.bounds

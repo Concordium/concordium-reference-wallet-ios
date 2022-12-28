@@ -472,12 +472,6 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
         case .exportTransactionLog:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showExportTransactionLog(account: account)
-        case .delegation:
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            showDelegation()
-        case .baking:
-            keyWindow?.rootViewController?.dismiss(animated: false)
-            showBaking()
         case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         case .renameAccount:
