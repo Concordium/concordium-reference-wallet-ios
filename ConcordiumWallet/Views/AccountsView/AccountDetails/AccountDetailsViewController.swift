@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import SwiftUI
 
 class AccountDetailsFactory {
     class func create(with presenter: AccountDetailsPresenter) -> AccountDetailsViewController {
@@ -18,12 +19,15 @@ class AccountDetailsFactory {
 }
 
 class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtocol, Storyboarded, ShowAlert {
-    
     var presenter: AccountDetailsPresenterProtocol
     var isShielded: Bool = false
     private weak var updateTimer: Timer?
-    
+    private var buttonSlider: ButtonSlider?
+    private var buttonsShielded: ButtonsShielded?
     private let tabViewModel = MaterialTabBar.ViewModel()
+    private var sendEnabled: Bool = false
+    private var receiveEnabled: Bool = false
+    private var shieldEnabled: Bool = false
 
     @IBOutlet weak var tabBar: UIView!
     @IBOutlet weak var totalsStackView: UIStackView!
@@ -34,9 +38,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
     
-    @IBOutlet weak var sendView: RoundedCornerView!
-    @IBOutlet weak var shieldView: RoundedCornerView!
-    @IBOutlet weak var addressView: RoundedCornerView!
     @IBOutlet weak var backgroundShield: UIImageView!
     
     @IBOutlet weak var readOnlyView: UIView!
@@ -48,16 +49,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var atDisposalLabel: UILabel!
     @IBOutlet weak var stakedValueLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
-    @IBOutlet weak var sendImageView: UIImageView!
-    
-    @IBOutlet weak var shieldTypeLabel: UILabel!
-    @IBOutlet weak var shieldTypeImageView: UIImageView!
     
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var generalButton: UIButton!
     @IBOutlet weak var shieldedButton: UIButton!
     @IBOutlet weak var spacerView: UIView!
     @IBOutlet weak var topSpacingStackViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonSliderContainer: RoundedCornerView!
     
     @IBOutlet weak var gtuDropView: UIView! {
         didSet {
@@ -134,16 +132,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         stopRefreshTimer()
     }
     
-    func showMenuButton(iconName: String) {
-        let closeIcon = UIImage(named: iconName)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.burgerButtonTapped))
-    }
-    
-    @objc func burgerButtonTapped() {
-        // update image
-        presenter.burgerButtonTapped()
-    }
-    
     func startRefreshTimer() {
         updateTimer = Timer.scheduledTimer(timeInterval: 60.0,
                                            target: self,
@@ -163,6 +151,69 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         presenter.updateTransfersOnChanges()
     }
     
+    private func setupButtonSlider(isShielded: Bool) {
+        if buttonSlider == nil {
+            buttonSlider = ButtonSlider(
+                isShielded: isShielded,
+                actionSend: {
+                    if self.sendEnabled {
+                        self.presenter.userTappedSend()
+                    }
+                },
+                actionReceive: {
+                    if self.receiveEnabled {
+                        self.presenter.userTappedAddress()
+                    }
+                },
+                actionEarn: {
+                    self.presenter.showEarn()
+                },
+                actionShield: {
+                    if self.shieldEnabled {
+                        self.presenter.userTappedShieldUnshield()
+                    }
+                },
+                actionSettings: {
+                    self.presenter.burgerButtonTapped()
+                })
+        }
+        
+        let childView = UIHostingController(rootView: buttonSlider)
+        addChild(childView)
+        childView.view.frame = buttonSliderContainer.bounds
+        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
+        buttonSliderContainer.addSubview(childView.view)
+        childView.didMove(toParent: self)
+    }
+
+    private func setupButtonsShielded() {
+        if buttonsShielded == nil {
+            buttonsShielded = ButtonsShielded(
+                actionSendShielded: {
+                    if self.sendEnabled {
+                        self.presenter.userTappedSend()
+                    }
+                },
+                actionUnshield: {
+                    if self.shieldEnabled {
+                        self.presenter.userTappedShieldUnshield()
+                    }
+                },
+                actionReceive: {
+                    if self.receiveEnabled {
+                        self.presenter.userTappedAddress()
+                    }
+                })
+        }
+
+        let childView = UIHostingController(rootView: buttonsShielded)
+        addChild(childView)
+        childView.view.frame = buttonSliderContainer.bounds
+        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
+        buttonSliderContainer.addSubview(childView.view)
+        childView.didMove(toParent: self)
+    }
+
     // swiftlint:disable function_body_length
     func bind(to viewModel: AccountDetailsViewModel) {
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
@@ -198,22 +249,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .compactMap { $0 }
             .assign(to: \.text, on: balanceLabel)
             .store(in: &cancellables)
-    
-        viewModel.$menuState.sink {[weak self](state) in
-            guard let self = self else { return }
-            switch state {
-            case .open:
-                self.showMenuButton(iconName: "lines_open")
-            case .closed:
-                self.showMenuButton(iconName: "lines_close")
-            }
-        }.store(in: &cancellables)
         
         viewModel.$isShielded.sink { [weak self](isShielded) in
             guard let self = self else { return }
-            self.sendImageView.image = (isShielded ? UIImage(named: "send_shielded") : UIImage(named: "send"))
-            self.shieldTypeLabel.text = isShielded ? "accountDetails.unshield".localized : "accountDetails.shield".localized
-            self.shieldTypeImageView.image = (isShielded ? UIImage(named: "Icon_Unshield") : UIImage(named: "Icon_Shield_white"))
+
             self.isShielded = isShielded
             self.title = self.presenter.getTitle()
             self.atDisposalView.setHiddenIfChanged(isShielded)
@@ -235,6 +274,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             self.backgroundShield.isHidden = !isShielded
             self.totalsStackView.spacing = isShielded ? 35 : 15
             self.topSpacingStackViewConstraint.constant = isShielded ? 20 : 10
+
+            if isShielded {
+                self.setupButtonsShielded()
+            } else {
+                self.setupButtonSlider(isShielded: viewModel.isShieldedEnabled)
+            }
+
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
@@ -243,14 +289,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         viewModel.$isShieldedEnabled.sink { [weak self] enabled in
             if enabled {
                 self?.buttonsView.setHiddenIfChanged(false)
-                self?.shieldView.setHiddenIfChanged(false)
                 self?.spacerView.setHiddenIfChanged(true)
-                
             } else {
                 self?.buttonsView.setHiddenIfChanged(true)
-                self?.shieldView.setHiddenIfChanged(true)
                 self?.spacerView.setHiddenIfChanged(false)
-
             }
         }.store(in: &cancellables)
         
@@ -278,19 +320,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .store(in: &cancellables)
     }
     
-    @IBAction func sendTapped(_ sender: Any) {
-        presenter.userTappedSend()
-    }
-    
-    @IBAction func shieldTapped(_ sender: Any) {
-        // Shield/Unshield button pressed
-        presenter.userTappedShieldUnshield()
-    }
-    
-    @IBAction func addressTapped(_ sender: Any) {
-        presenter.userTappedAddress()
-    }
-    
     @IBAction func retryAccountCreationTapped(_ sender: Any) {
         presenter.userTappedRetryAccountCreation()
     }
@@ -312,6 +341,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBAction func pressedGeneral(_ sender: UIButton) {
         presenter.userSelectedGeneral()
     }
+    
     @IBAction func pressedShielded(_ sender: UIButton) {
         presenter.userSelectedShieled()
     }
@@ -420,16 +450,16 @@ extension AccountDetailsViewController {
         // Disable send and address if not finalized
         if canSend {
             if !isReadOnly {
-                sendView.enable()
-                shieldView.enable()
+                sendEnabled = true
+                shieldEnabled = true
             }
-            addressView.enable()
+            receiveEnabled = true
         } else {
-            sendView.disable()
-            shieldView.disable()
-            addressView.disable()
+            sendEnabled = false
+            receiveEnabled = false
+            shieldEnabled = false
             if isReadOnly {
-                addressView.enable()
+                receiveEnabled = true
             }
         }
     }

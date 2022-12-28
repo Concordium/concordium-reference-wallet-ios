@@ -365,7 +365,11 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR()
     }
-    
+
+    func showEarn() {
+        showEarn(account: account)
+    }
+
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
         var accountCopy = AccountDataTypeFactory.create()
         accountCopy.name = account.name
