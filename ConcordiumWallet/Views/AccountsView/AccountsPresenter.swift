@@ -124,6 +124,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func didSelectMakeBackup()
     func didSelectPendingIdentity(identity: IdentityDataType)
     func newTermsAvailable()
+    func showSettings()
 }
 
 // MARK: View
@@ -143,7 +144,7 @@ protocol AccountsPresenterProtocol: AnyObject {
     func viewWillAppear()
     func viewDidAppear()
     func refresh()
-    
+    func showSettings()
     func userPressedCreate()
     func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
@@ -153,7 +154,7 @@ protocol AccountsPresenterProtocol: AnyObject {
 
 class AccountsPresenter: AccountsPresenterProtocol {
     weak var view: AccountsViewProtocol?
-    weak var delegate: AccountsPresenterDelegate?
+    private weak var delegate: AccountsPresenterDelegate?
     private var cancellables: [AnyCancellable] = []
     var warningDisplayer: WarningDisplayer
     var alertDisplayer = AlertDisplayer()
@@ -209,6 +210,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
         appSettingsDelegate?.checkForAppSettings()
     }
     
+    func showSettings() {
+        delegate?.showSettings()
+    }
+
     func refresh() {
         refresh(showLoadingIndicator: false)
         checkPendingAccountsStatusesIfNeeded()

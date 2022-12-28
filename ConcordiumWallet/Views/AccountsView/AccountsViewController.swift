@@ -72,8 +72,15 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
         warningMessageView.applyConcordiumEdgeStyle(color: .yellowBorder)
         warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "button_slider_settings"),
+                                                           style: .plain, target: self, action: #selector(self.settingsTapped))
     }
 
+    @objc func settingsTapped() {
+        presenter?.showSettings()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.viewWillAppear()
@@ -92,8 +99,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                                selector: #selector(appWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
-        
-        //
         NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts), name:     Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
     
@@ -215,11 +220,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self.warningMessageLabel.text = warning.text
                 self.warningMessageImageView.image = UIImage(named: warning.imageName)
                 self.warningDismissButton.isHidden = !warning.dismissable
-//                self.showBackupWarningBanner(true)
-//                self.warningMessageView.applyConcordiumEdgeStyle(color: warning.priority == .warning ? .yellowBorder : .primary)
                 self.warningMessageView.applyConcordiumEdgeStyle(color: .primary)
-            } else {
-                self.showBackupWarningBanner(false)
             }
         }.store(in: &cancellables)
     }
@@ -273,27 +274,6 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     @IBAction func dismissWarning(_ sender: Any) {
         presenter?.userPressedDisimissWarning()
-    }
-    
-    private func showBackupWarningBanner(_ show: Bool) {
-//        let duration: TimeInterval = 0.25
-//
-//        if show {
-//            UIView.animate(withDuration: duration, animations: {  [weak self] in
-//                self?.balanceViewTopConstraint.isActive = false
-//                self?.balanceViewWarningTopConstraint.isActive = true
-//                self?.view.layoutIfNeeded()
-//            }, completion: { [weak self] _ in
-//                self?.warningMessageView.isHidden = false
-//            })
-//        } else {
-//            UIView.animate(withDuration: duration, animations: { [weak self] in
-//                self?.warningMessageView.isHidden = true
-//                self?.balanceViewTopConstraint.isActive = true
-//                self?.balanceViewWarningTopConstraint.isActive = false
-//                self?.view.layoutIfNeeded()
-//            })
-//        }
     }
 }
 

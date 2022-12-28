@@ -799,7 +799,6 @@
 		7F48C142244DCD0B00997684 /* IdentityRevokersWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB12A9323F2D2E700B49DFA /* IdentityRevokersWidgetViewController.swift */; };
 		7F48C143244DCD0B00997684 /* PasscodeFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E8407241E809400DE8F3A /* PasscodeFieldViewController.swift */; };
 		7F48C146244DCD0B00997684 /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8DEA72448623300CA06D8 /* ScanAddressQRPresenter.swift */; };
-		7F48C148244DCD0B00997684 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
 		7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938F534241FBEA600ECAD47 /* ServicesProvider.swift */; };
 		7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092B242762440022250B /* CreationFailedPresenter.swift */; };
 		7F48C14D244DCD0B00997684 /* AccountConfirmedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092524275C5A0022250B /* AccountConfirmedPresenter.swift */; };
@@ -1007,7 +1006,6 @@
 		7F85B6DD246A9A7C00ED09B8 /* URL+queryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A752E24464813003FDBE2 /* URL+queryParameters.swift */; };
 		7F85B6DE246A9A7C00ED09B8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8D24598D6500B7673F /* Transaction.swift */; };
 		7F85B6E1246A9A7C00ED09B8 /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8DEA72448623300CA06D8 /* ScanAddressQRPresenter.swift */; };
-		7F85B6E3246A9A7C00ED09B8 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
 		7F85B6E5246A9A7C00ED09B8 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938F534241FBEA600ECAD47 /* ServicesProvider.swift */; };
 		7F85B6E6246A9A7C00ED09B8 /* CreationFailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092B242762440022250B /* CreationFailedPresenter.swift */; };
 		7F85B6E7246A9A7C00ED09B8 /* SubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21399324236ECB00D2A5C4 /* SubmissionStatus.swift */; };
@@ -1193,7 +1191,6 @@
 		7F85B7DC246A9AB600ED09B8 /* URL+queryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A752E24464813003FDBE2 /* URL+queryParameters.swift */; };
 		7F85B7DD246A9AB600ED09B8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8D24598D6500B7673F /* Transaction.swift */; };
 		7F85B7E0246A9AB600ED09B8 /* ScanAddressQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8DEA72448623300CA06D8 /* ScanAddressQRPresenter.swift */; };
-		7F85B7E2246A9AB600ED09B8 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
 		7F85B7E4246A9AB600ED09B8 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938F534241FBEA600ECAD47 /* ServicesProvider.swift */; };
 		7F85B7E5246A9AB600ED09B8 /* CreationFailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092B242762440022250B /* CreationFailedPresenter.swift */; };
 		7F85B7E6246A9AB600ED09B8 /* SubmissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21399324236ECB00D2A5C4 /* SubmissionStatus.swift */; };
@@ -1460,7 +1457,6 @@
 		7FF07AC923EADBB100F1FC04 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
 		7FF07AD423EADBB100F1FC04 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */; };
 		7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
-		7FF07AE823EAFF5000F1FC04 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
 		7FF07AEC23EB01FA00F1FC04 /* AccountsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AEB23EB01FA00F1FC04 /* AccountsCoordinator.swift */; };
 		7FF07AEE23EB075D00F1FC04 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */; };
 		7FF07AF023EB082000F1FC04 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AEF23EB082000F1FC04 /* AccountsViewController.swift */; };
@@ -2988,7 +2984,6 @@
 		7FF07A9F23EADBB100F1FC04 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
-		7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		7FF07AEB23EB01FA00F1FC04 /* AccountsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsCoordinator.swift; sourceTree = "<group>"; };
 		7FF07AED23EB075D00F1FC04 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		7FF07AEF23EB082000F1FC04 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
@@ -4474,7 +4469,6 @@
 		7FF07AE623EAE0ED00F1FC04 /* RootView */ = {
 			isa = PBXGroup;
 			children = (
-				7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */,
 				17A41E542667AE1D0079BD3A /* BlockingViewController.swift */,
 			);
 			path = RootView;
@@ -5908,7 +5902,6 @@
 				FABA9D9B291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
 				FA0CAB1A294B90540009D5F8 /* ExportPrivateKeyViewModel.swift in Sources */,
-				7F48C148244DCD0B00997684 /* MainTabBarController.swift in Sources */,
 				075A4BC3271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				89CF2D59281A66C400742E1E /* (null) in Sources */,
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
@@ -6438,7 +6431,6 @@
 				89D4684E289CECC6007D3FC8 /* SeedIdentityObject.swift in Sources */,
 				891B19DF28A39C8D00F4B0D6 /* SeedAccountsService.swift in Sources */,
 				7F85B6E1246A9A7C00ED09B8 /* ScanAddressQRPresenter.swift in Sources */,
-				7F85B6E3246A9A7C00ED09B8 /* MainTabBarController.swift in Sources */,
 				896B423B28B496A800D1F271 /* SelectIdentityView.swift in Sources */,
 				89D46878289D2233007D3FC8 /* SeedIdentityStatusPresenter.swift in Sources */,
 				7F85B6E5246A9A7C00ED09B8 /* ServicesProvider.swift in Sources */,
@@ -6986,7 +6978,6 @@
 				7F85B7E0246A9AB600ED09B8 /* ScanAddressQRPresenter.swift in Sources */,
 				896B423C28B496A800D1F271 /* SelectIdentityView.swift in Sources */,
 				89D46879289D2233007D3FC8 /* SeedIdentityStatusPresenter.swift in Sources */,
-				7F85B7E2246A9AB600ED09B8 /* MainTabBarController.swift in Sources */,
 				528EB733255C129D00010554 /* InitialAccountsCoordinator.swift in Sources */,
 				7F85B7E4246A9AB600ED09B8 /* ServicesProvider.swift in Sources */,
 				901F7F5227EB4EA900C46741 /* StakeStatusPresenter.swift in Sources */,
@@ -7519,7 +7510,6 @@
 				C93A752F24464813003FDBE2 /* URL+queryParameters.swift in Sources */,
 				7FA0AE9224598D6500B7673F /* Transaction.swift in Sources */,
 				7FD8DEA92448623300CA06D8 /* ScanAddressQRPresenter.swift in Sources */,
-				7FF07AE823EAFF5000F1FC04 /* MainTabBarController.swift in Sources */,
 				C938F535241FBEA600ECAD47 /* ServicesProvider.swift in Sources */,
 				893CAC3D286D97A700BDF84C /* Page.swift in Sources */,
 				64DB66D225DE6A1300F4C605 /* AboutViewController.swift in Sources */,
