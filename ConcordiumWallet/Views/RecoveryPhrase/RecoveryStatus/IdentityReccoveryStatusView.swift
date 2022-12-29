@@ -110,7 +110,7 @@ private struct IdentityList: View {
                 ForEach(accounts, id: \.address) { account in
                     if account.identity!.id == identity.id {
                         StyledLabel(
-                            text: "\(account.displayName) - \(GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke())",
+                            text: "\(account.displayName) - \(GTU(intValue: account.finalizedBalance).displayValueWithGStroke())",
                             style: .body,
                             textAlignment: .leading
                         )

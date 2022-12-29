@@ -136,17 +136,26 @@ struct SeedIdentitiesService {
         var currentGap = 0
         var currentIndex = 0
         while currentGap < allowedGap {
-            if let identity = await recoverIdentity(
-                atIndex: currentIndex,
-                generatedBy: seed,
-                global: global,
-                identityProviders: identityProviders
-            ) {
-                allidentities.append(identity)
+            var foundIdentity = false
+            
+            for identityProvider in identityProviders {
+                if let identity = await recoverIdentity(
+                    atIndex: currentIndex,
+                    generatedBy: seed,
+                    global: global,
+                    identityProvider: identityProvider
+                ) {
+                    allidentities.append(identity)
+                    foundIdentity = true
+                }
+            }
+            
+            if foundIdentity == true {
                 currentGap = 0
             } else {
                 currentGap += 1
             }
+            
             currentIndex += 1
         }
         
@@ -158,50 +167,37 @@ struct SeedIdentitiesService {
         atIndex index: Int,
         generatedBy seed: Seed,
         global: GlobalWrapper,
-        identityProviders: [IdentityProviderDataType]
+        identityProvider: IdentityProviderDataType
     ) async -> IdentityDataType? {
         
-        for identityProvider in identityProviders {
-            guard
-                let recoveryURL = identityProvider.recoverURL,
-                let ipInfo = identityProvider.ipInfo
-            else {
-                continue
-            }
-            
-            do {
-                print("+++ ipInfo: \(ipInfo)")
-                print("+++ global: \(global)")
-                print("+++ index: \(index)")
-                print("+++ seed: \(seed)")
-                
-                let request = try mobileWallet.createIDRecoveryRequest(
-                    for: ipInfo,
-                    global: global,
-                    index: index,
-                    seed: seed
-                ).get()
-                
-                let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
-                
-                print("+++ Index: \(index)")
-                print("+++ RecoveryURL: \(recoveryURL)")
-                print("+++ recoverRequest: \(recoverRequest)")
-                
-                let recoverResponse = try await networkManager.load(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
-                
-                return try createIdentityFromSeedIdentityObjectWrapper(
-                    recoverResponse,
-                    index: index,
-                    identityProvider: identityProvider
-                )
-                
-            } catch {
-                continue
-            }
+        guard
+            let recoveryURL = identityProvider.recoverURL,
+            let ipInfo = identityProvider.ipInfo
+        else {
+            return nil
         }
         
-        return nil
+        do {
+            let request = try mobileWallet.createIDRecoveryRequest(
+                for: ipInfo,
+                global: global,
+                index: index,
+                seed: seed
+            ).get()
+            
+            let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
+            
+            let recoverResponse = try await networkManager.load(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
+            
+            return try createIdentityFromSeedIdentityObjectWrapper(
+                recoverResponse,
+                index: index,
+                identityProvider: identityProvider
+            )
+            
+        } catch {
+            return nil
+        }
     }
     
     @MainActor

@@ -365,7 +365,11 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR()
     }
-    
+
+    func showEarn() {
+        showEarn(account: account)
+    }
+
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
         var accountCopy = AccountDataTypeFactory.create()
         accountCopy.name = account.name
@@ -468,12 +472,6 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
         case .exportTransactionLog:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showExportTransactionLog(account: account)
-        case .delegation:
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            showDelegation()
-        case .baking:
-            keyWindow?.rootViewController?.dismiss(animated: false)
-            showBaking()
         case .decrypt, .dismiss:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         case .renameAccount:

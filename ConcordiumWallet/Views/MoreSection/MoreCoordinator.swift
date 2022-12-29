@@ -29,7 +29,6 @@ class MoreCoordinator: Coordinator, ShowAlert {
         self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
                                           storageManager: dependencyProvider.storageManager())
         sanityChecker.errorDisplayer = self
-//        sanityChecker.delegate = self
         sanityChecker.coordinator = self
     }
 
@@ -56,7 +55,6 @@ class MoreCoordinator: Coordinator, ShowAlert {
     
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(delegate: self))
-        vc.tabBarItem = UITabBarItem(title: "more_tab_title".localized, image: UIImage(named: "tab_bar_other_icon"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }
 

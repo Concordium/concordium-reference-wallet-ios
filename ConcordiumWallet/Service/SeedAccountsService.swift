@@ -97,19 +97,19 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         pwHash: String
     ) async throws -> [AccountDataType] {
         let global = try await getGlobal()
-        
+
         return await withTaskGroup(
             of: [AccountDataType].self
         ) { group in
             for identity in identities {
                 group.addTask { await recoverAccounts(for: identity, global: global, seed: seed, pwHash: pwHash) }
             }
-            
+
             var allAccounts = [AccountDataType]()
             for await accounts in group {
                 allAccounts.append(contentsOf: accounts)
             }
-            
+
             return allAccounts
         }
     }
@@ -133,12 +133,12 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
                     accountNumber: currentIndex,
                     seed: seed
                 ).get()
-                
+
                 if let existingAccount = await getAccount(withAddress: request.accountAddress) {
                     accounts.append(existingAccount)
                     currentGap = 0
                 } else {
-                    let account = try createAccount(
+                    var account = try createAccount(
                         at: currentIndex,
                         createRequest: request,
                         identity: identity,
@@ -146,13 +146,16 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
                         transactionStatus: .finalized,
                         pwHash: pwHash
                     )
-                    
-                    let accountBalance = try await getAccountBalance(for: account.address)
-                    
-                    if accountBalance.currentBalance != nil && accountBalance.finalizedBalance != nil {
+
+                    let accountBalance = try await getAccountBalance(for: request.accountAddress)
+
+                    if accountBalance.finalizedBalance != nil {
+                        account.finalizedBalance = Int(accountBalance.finalizedBalance!.accountAmount!)!
+                        account.accountIndex = accountBalance.finalizedBalance!.accountIndex
+
                         try await storeAccount(account)
                         accounts.append(account)
-                        
+
                         currentGap = 0
                     } else {
                         currentGap += 1
@@ -163,7 +166,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             }
             currentIndex += 1
         }
-        
+
         return accounts
     }
     

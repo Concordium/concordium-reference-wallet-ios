@@ -61,3 +61,7 @@ extension String {
         return String(self[start...])
     }
 }
+
+extension LosslessStringConvertible {
+    var string: String { .init(self) }
+}

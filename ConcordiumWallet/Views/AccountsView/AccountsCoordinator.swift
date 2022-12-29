@@ -24,31 +24,31 @@ class AccountsCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-
     weak var delegate: AccountsCoordinatorDelegate?
+    weak var accountsPresenterDelegate: AccountsPresenterDelegate?
 
     private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: DependencyProvider
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
-        appSettingsDelegate: AppSettingsDelegate?
+        appSettingsDelegate: AppSettingsDelegate?,
+        accountsPresenterDelegate: AccountsPresenterDelegate
     ) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.appSettingsDelegate = appSettingsDelegate
+        self.accountsPresenterDelegate = accountsPresenterDelegate
     }
 
     func start() {
-        let vc = AccountsFactory.create(
-            with: AccountsPresenter(
-                dependencyProvider: dependencyProvider,
-                delegate: self,
-                appSettingsDelegate: appSettingsDelegate
-            )
+        let AccountsPresenter = AccountsPresenter(
+            dependencyProvider: dependencyProvider,
+            delegate: self.accountsPresenterDelegate!,
+            appSettingsDelegate: appSettingsDelegate
         )
-        vc.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
-        navigationController.viewControllers = [vc]
+        let accountsViewController = AccountsFactory.create(with: AccountsPresenter)
+        navigationController.viewControllers = [accountsViewController]
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
@@ -112,6 +112,9 @@ class AccountsCoordinator: Coordinator {
 }
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
+    func showSettings() {
+    }
+    
     func didSelectMakeBackup() {
         showExport()
     }
@@ -127,6 +130,7 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func createNewIdentity() {
         delegate?.createNewIdentity()
     }
+    
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         let entryPoint: AccountDetailsFlowEntryPoint!
         switch action {

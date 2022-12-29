@@ -21,7 +21,6 @@ protocol TransactionsFetcher {
 // MARK: View
 protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountDetailsViewModel)
-    func showMenuButton(iconName: String)
 }
 
 // MARK: -
@@ -36,6 +35,7 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
+    func showEarn()
 
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
@@ -58,6 +58,7 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func gtuDropTapped()
     func burgerButtonTapped()
     func pressedUnlock()
+    func showEarn()
 
     func userSelectedIdentityData()
     func userSelectedGeneral()
@@ -221,6 +222,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                     delegate.accountDetailsPresenterShieldUnshield(self, balanceType: self.balanceType)
                     self.shouldRefresh = true
             }).store(in: &cancellables)
+    }
+    
+    func showEarn() {
+        delegate?.showEarn()
     }
     
     func userTappedAddress() {

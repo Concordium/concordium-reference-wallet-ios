@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Icon_Send_Shielded.pdf",
+      "filename" : "Back_Arrow.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }

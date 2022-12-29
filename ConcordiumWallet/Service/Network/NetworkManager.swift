@@ -107,26 +107,26 @@ final class NetworkManager: NetworkManagerProtocol {
         }
         
         do {
-            print("+++ Request url: \(request.url)")
-            
             let (data, response) = try await session.load(request: request)
             
-            print("+++ data: \(data)")
-            print("+++ response: \(response)")
-            
             guard 200..<300 ~= response.statusCode else {
-                Logger.error("+++ RX \(response.statusCode) \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
+                Logger.error("RX \(response.statusCode) \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
                 if let error = try? ServerErrorMessage(data: data) {
                     throw NetworkError.serverError(error: error)
                 }
                 throw NetworkError.dataLoadingError(statusCode: response.statusCode, data: data)
             }
             
-            print("+++ Data response: \(String(data: data, encoding: .utf8)!)")
+            var dataString = String(data: data, encoding: .utf8)!
+            dataString = dataString.replacingOccurrences(of: "\\", with: "")
+            if dataString.hasPrefix("\"") == true {
+                dataString = String(dataString.dropFirst())
+            }
+            if dataString.hasSuffix("\"") == true {
+                dataString = String(dataString.dropLast())
+            }
             
-            print("+++ Decoded: \(try decoder.decode(T.self, from: data))")
-            
-            return try decoder.decode(T.self, from: data)
+            return try decoder.decode(T.self, from: Data(dataString.utf8))
         } catch {
             if error is DecodingError {
                 print("+++ Decoding error: \(error)")

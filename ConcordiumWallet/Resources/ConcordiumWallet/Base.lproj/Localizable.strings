@@ -567,8 +567,6 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "burgermenu.showshieldedbalance" = "Show shielded balance on %@";
 "burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
 "burgermenu.decrypt" = "Decrypt";
-"burgermenu.delegation" = "Delegation";
-"burgermenu.baking" = "Baking";
 "burgermenu.exportprivatekey" = "Export Private Key";
 "burgermenu.exporttransactionlog" = "Export transaction logs";
 "burgermenu.renameaccount" = "Change account name";

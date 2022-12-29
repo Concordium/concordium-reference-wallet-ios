@@ -92,18 +92,11 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     with: seed
                 )
                 
-                print("+++ Identities: \(identities)")
-                
                 let accounts = try await self.accountsService.recoverAccounts(
                     for: identities,
                     seed: seed,
                     pwHash: pwHash
                 )
-                
-                print("+++ Accounts: \(accounts)")
-                for account in accounts {
-                    print("+++ Balance: \(account.forecastBalance), at disposal: \(account.forecastAtDisposalBalance), encrypted: \(account.forecastEncryptedBalance), total: \(account.totalForecastBalance)")
-                }
                 
                 self.handleIdentities(identities, accounts: accounts)
             } catch {

@@ -20,8 +20,6 @@ protocol BurgerMenuAccountDetailsDismissDelegate: AnyObject {
 enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
     case releaseSchedule
     case transferFilters
-    case delegation
-    case baking
     case shieldedBalance(accountName: String, shouldShow: Bool, delegate: ShowShieldedDelegate?)
     case exportPrivateKey
     case dismiss
@@ -45,10 +43,6 @@ enum BurgerMenuAccountDetailsAction: BurgerMenuAction {
             return "burgermenu.exportprivatekey".localized
         case .exportTransactionLog:
             return "burgermenu.exporttransactionlog".localized
-        case .delegation:
-            return "burgermenu.delegation".localized
-        case .baking:
-            return "burgermenu.baking".localized
         case .decrypt:
             return "burgermenu.decrypt".localized
         case .renameAccount:
@@ -82,43 +76,34 @@ class BurgerMenuAccountDetailsPresenter: BurgerMenuPresenterProtocol {
         self.account = account
         self.dismissDelegate = dismissDelegate
         if account.isReadOnly {
-            self.actions = [.releaseSchedule,
-                            .transferFilters]
+            self.actions = [
+                .releaseSchedule,
+                .transferFilters]
         } else {
             if balance == .balance {
-                let stakeActions: [BurgerMenuAccountDetailsAction]
-                let pendingTransfers = dependencyProvider.storageManager().getTransfers(for: account.address)
-                
-                if account.baker != nil || pendingTransfers.contains(where: { $0.transferType.isBakingTransfer }) {
-                    stakeActions = [.baking]
-                } else if account.delegation != nil || pendingTransfers.contains(where: { $0.transferType.isDelegationTransfer }) {
-                    stakeActions = [.delegation]
-                } else {
-                    stakeActions = [.delegation, .baking]
-                }
-                
                 self.actions = [
                     .releaseSchedule,
-                    .transferFilters
-                ] + stakeActions + [.shieldedBalance(accountName: account.displayName,
-                                                     shouldShow: !account.showsShieldedBalance,
-                                                     delegate: showShieldedDelegate)] +
-                                                     [.exportPrivateKey] +
-                                                     [.exportTransactionLog] +
-                                                     [.renameAccount]
+                    .transferFilters,
+                    .shieldedBalance(accountName: account.displayName,
+                                     shouldShow: !account.showsShieldedBalance,
+                                     delegate: showShieldedDelegate),
+                     .exportPrivateKey,
+                     .exportTransactionLog,
+                     .renameAccount]
             } else {
                 if showsDecrypt {
-                    self.actions = [.decrypt,
-                                    .shieldedBalance(accountName: account.displayName,
-                                                     shouldShow: !account.showsShieldedBalance,
-                                                     delegate: showShieldedDelegate)]
+                    self.actions = [
+                        .decrypt,
+                        .shieldedBalance(accountName: account.displayName,
+                                         shouldShow: !account.showsShieldedBalance,
+                                         delegate: showShieldedDelegate)]
                 } else {
-                    self.actions = [.shieldedBalance(accountName: account.displayName,
-                                                     shouldShow: !account.showsShieldedBalance,
-                                                     delegate: showShieldedDelegate)]
+                    self.actions = [
+                        .shieldedBalance(accountName: account.displayName,
+                                         shouldShow: !account.showsShieldedBalance,
+                                         delegate: showShieldedDelegate)]
                 }
             }
-            
         }
     }
     

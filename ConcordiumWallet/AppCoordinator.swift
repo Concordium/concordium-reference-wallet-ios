@@ -16,6 +16,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
     
+    private var accountsCoordinator: AccountsCoordinator?
     private var needsAppCheck = true
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
@@ -56,24 +57,18 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showMainTabbar() {
-        let accountsCoordinator = AccountsCoordinator(
-            navigationController: BaseNavigationController(),
+        navigationController.setupBaseNavigationControllerStyle()
+        
+        accountsCoordinator = AccountsCoordinator(
+            navigationController: self.navigationController,
             dependencyProvider: defaultProvider,
-            appSettingsDelegate: self
+            appSettingsDelegate: self,
+            accountsPresenterDelegate: self
         )
+        // accountsCoordinator?.delegate = self
+        accountsCoordinator?.start()
         
-        let moreCoordinator = MoreCoordinator(navigationController: BaseNavigationController(),
-                                              dependencyProvider: defaultProvider,
-                                              parentCoordinator: self)
-        
-        let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
-                                                    moreCoordinator: moreCoordinator)
-//        sanityChecker.delegate = tabBarController
-        self.navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.pushViewController(tabBarController, animated: true)
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
-            // reload accounts tab
-            accountsCoordinator.start()
             self.showDelegationWarningIfNeeded()
         })
     }
@@ -246,6 +241,50 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                     }).store(in: &self.cancellables)
             }
         }
+    }
+}
+
+extension AppCoordinator: AccountsPresenterDelegate {
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        accountsCoordinator?.userPerformed(action: action, on: account)
+    }
+
+    func enableShielded(on account: AccountDataType) {
+    }
+
+    func noValidIdentitiesAvailable() {
+    }
+
+    func tryAgainIdentity() {
+    }
+
+    func didSelectMakeBackup() {
+    }
+
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+    }
+
+    func newTermsAvailable() {
+        accountsCoordinator?.showNewTerms()
+    }
+    
+    func showSettings() {
+        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+                                              dependencyProvider: defaultProvider,
+                                              parentCoordinator: self)
+        moreCoordinator.start()
+    }
+}
+
+extension AppCoordinator: AccountsCoordinatorDelegate {
+    func createNewIdentity() {
+    }
+
+    func createNewAccount() {
+        accountsCoordinator?.showCreateNewAccount()
+    }
+
+    func showIdentities() {
     }
 }
 
