@@ -564,8 +564,8 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
-"burgermenu.showshieldedbalance" = "Show shielded balance on %@";
-"burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
+"burgermenu.showshieldedbalance" = "Show shielded balance";
+"burgermenu.hideshieldedbalance" = "Hide shielded balance";
 "burgermenu.decrypt" = "Decrypt";
 "burgermenu.exportprivatekey" = "Export Private Key";
 "burgermenu.exporttransactionlog" = "Export transaction logs";
@@ -1064,3 +1064,5 @@ Remember to restart your node with the baker keys.";
 "earn.desc.delegation.header" = "Delegation";
 "earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other bakers. There is no minimum amount of CCD required when delegating.";
 "earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a baker and delegator, but it is possible to stop one and change to the other.";
+
+"accountsettings.navigationtitle" = "Account settings";
