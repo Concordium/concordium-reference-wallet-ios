@@ -180,7 +180,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 if $0.count > 0 {
                     self.dataSource?.apply(snapshot)
                 }
+                
+                let offset = self.tableView.contentOffset
                 self.tableView.reloadData()
+                self.tableView.contentOffset = offset
                 
         }.store(in: &cancellables)
         
