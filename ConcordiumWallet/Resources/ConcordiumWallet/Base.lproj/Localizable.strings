@@ -467,6 +467,7 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "export.button.continue" = "Continue";
 "export.unfinalizedAccounts" = "The following accounts are either failed or not ready on the chain, so they cannot be exported. \n";
 "more.update" = "Update Passcode & Biometrics";
+"more.update.successfully" = "Passcode was successfully changed";
 "more.updatePasswordAndBiometrics.title" = "Update Passcode & Biometrics";
 "more.update.button.continue" = "Continue";
 "more.update.error.nonFinalizedItems" = "All identities and accounts must be finalized before passcode can be changed. Please wait, then try again. If you have any failed identities, these must also be deleted first.";
