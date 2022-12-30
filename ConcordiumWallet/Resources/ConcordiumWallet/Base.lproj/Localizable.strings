@@ -1040,9 +1040,10 @@ Remember to restart your node with the baker keys.";
 "exporttransactionlog.description" = "Transaction logs of an account can be generated and saved via %@\n\nIf your account contains a lot of transactions, it may take a moment for CCDScan to prepare the file. Once the logs are ready, they will be downloaded to your device as a CSV file. Please note that if the account has a lot of transactions, the file size can be quite large.\n\nYou can also visit %@ and manually generate your transaction logs from a desktop browser.";
 "exporttransactionlog.generating" = "Generating transaction logs, please hold on.";
 "exporttransactionlog.downloading" = "Downloading transaction logs.";
-"exporttransactionlog.saved" = "The transaction logs have been saved.";
+"exporttransactionlog.saved" = "The transaction logs have been downloaded.";
 "exporttransactionlog.failed" = "The download failed.";
 "exporttransactionlog.downloaded" = "downloaded";
+"exporttransactionlog.save.completed" = "The transaction logs have been saved.";
 
 "renameaccount.title" = "Change account name";
 "renameaccount.message" = "You can enter the new account name here.";

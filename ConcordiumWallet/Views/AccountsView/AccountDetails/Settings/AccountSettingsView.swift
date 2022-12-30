@@ -12,7 +12,6 @@ struct AccountSettingsMenuItem: Identifiable {
     let id: Int
     let text: String
     let action: AccountSettingsLogEvent
-    let visible: Bool = true
 }
 
 struct AccountSettingsView: Page {

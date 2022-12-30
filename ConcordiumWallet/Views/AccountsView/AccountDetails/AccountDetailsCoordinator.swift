@@ -477,7 +477,11 @@ extension AccountDetailsCoordinator: ExportPrivateKeyPresenterDelegate {
 }
 
 extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
-    func finishedExportingTransactionLog() {
+    func saveTapped(url: URL, completion: @escaping (Bool) -> Void) {
+        share(items: [url], from: navigationController, completion: completion)
+    }
+    
+    func doneTapped() {
         navigationController.popViewController(animated: true)
     }
 }

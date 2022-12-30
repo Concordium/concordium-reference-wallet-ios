@@ -9,14 +9,17 @@
 import Foundation
 
 enum ExportTransactionLogEvent {
-    case doneTapped
+    case save
+    case done
 }
 
 class ExportTransactionLogViewModel: PageViewModel<ExportTransactionLogEvent> {
     @Published var account: AccountDataType
+    @Published var descriptionText: String
     
     init(account: AccountDataType) {
         self.account = account
+        descriptionText = ""
     }
     
     func getDownloadUrl() -> URL? {
@@ -29,10 +32,28 @@ class ExportTransactionLogViewModel: PageViewModel<ExportTransactionLogEvent> {
             urlString = "https://api-ccdscan.stagenet.io/rest/export/statement?accountAddress="
         #endif
         return URL(string: "\(urlString)\(account.address)")!
-//        return URL(string: "https://api-ccdscan.mainnet.concordium.software/rest/export/statement?accountAddress=35CJPZohio6Ztii2zy1AYzJKvuxbGG44wrBn7hLHiYLoF2nxnh")
+    }
+    
+    func getTempFileUrl() -> URL {
+        let documentDirectory = FileManager.default.urls(for: .documentationDirectory, in: .userDomainMask).first!
+        try? FileManager.default.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
+        let fileUrl = documentDirectory.appendingPathComponent(getFileName())
+        return fileUrl
     }
 
-    func getFileName() -> String {
+    func deleteTempFile() {
+        do {
+            try FileManager.default.removeItem(at: getTempFileUrl())
+        } catch {
+            print("\(error)")
+        }
+    }
+    
+    func saved() {
+        descriptionText = "exporttransactionlog.save.completed".localized
+    }
+    
+    private func getFileName() -> String {
         return "\(account.address).csv"
     }
 }
