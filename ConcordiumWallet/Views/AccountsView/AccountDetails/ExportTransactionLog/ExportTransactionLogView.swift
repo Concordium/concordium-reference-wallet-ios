@@ -19,13 +19,12 @@ struct ExportTransactionLogView: Page {
     @State private var doneDisabled = true
     @State private var pendingIconVisible = false
     @State private var progressVisible = false
-    @State private var descriptionText = ""
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var pageBody: some View {
         VStack {
-            Text(.init(descriptionText))
+            Text(.init(viewModel.descriptionText))
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(16)
@@ -47,28 +46,23 @@ struct ExportTransactionLogView: Page {
                 Button("exporttransactionlog.save".localized) {
                     saveVisible = false
                     doneVisible = true
-                    descriptionText = "exporttransactionlog.generating".localized
+                    viewModel.descriptionText = "exporttransactionlog.generating".localized
                     pendingIconVisible = true
-
-                    let documentDirectory = FileManager.default.urls(for: .documentationDirectory, in: .userDomainMask).first!
-                    try? FileManager.default.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
-                    let fileUrl = documentDirectory.appendingPathComponent(viewModel.getFileName())
-                    
-                    downloadPhoto(toUrl: fileUrl)
+                    downloadLog(toUrl: viewModel.getTempFileUrl())
                 }
                 .applyStandardButtonStyle()
             }
 
             if doneVisible {
                 Button("exporttransactionlog.done".localized) {
-                    self.viewModel.send(.doneTapped)
+                    self.viewModel.send(.done)
                 }
                 .applyStandardButtonStyle(disabled: doneDisabled)
             }
         }
         .padding(16)
         .onAppear(perform: {
-            descriptionText = String(format: "exporttransactionlog.description".localized, getCCDScanLink(), getCCDScanLink())
+            viewModel.descriptionText = String(format: "exporttransactionlog.description".localized, getCCDScanLink(), getCCDScanLink())
         })
         .onDisappear(perform: {
             dataTask?.cancel()
@@ -85,10 +79,10 @@ struct ExportTransactionLogView: Page {
         #endif
     }
 
-    private func downloadPhoto(toUrl: URL) {
+    private func downloadLog(toUrl: URL) {
         guard let url = viewModel.getDownloadUrl()
         else {
-            descriptionText = "exporttransactionlog.failed".localized
+            viewModel.descriptionText = "exporttransactionlog.failed".localized
             pendingIconVisible = false
             doneDisabled = false
             return
@@ -98,9 +92,10 @@ struct ExportTransactionLogView: Page {
             DispatchQueue.main.async {
                 do {
                     try data.write(to: toUrl, options: .completeFileProtection)
-                    descriptionText = "exporttransactionlog.saved".localized
+                    viewModel.descriptionText = "exporttransactionlog.saved".localized
+                    self.viewModel.send(.save)
                 } catch {
-                    descriptionText = "exporttransactionlog.failed".localized
+                    viewModel.descriptionText = "exporttransactionlog.failed".localized
                 }
                 doneDisabled = false
                 progressVisible = false
@@ -110,7 +105,9 @@ struct ExportTransactionLogView: Page {
             pendingIconVisible = false
             progressVisible = true
             progress = observationProgress
-            descriptionText = "exporttransactionlog.downloading".localized
+            DispatchQueue.main.async {
+                viewModel.descriptionText = "exporttransactionlog.downloading".localized
+            }
         }
         dataTask?.resume()
       }

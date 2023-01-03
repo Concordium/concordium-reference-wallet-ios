@@ -208,6 +208,12 @@ extension MoreCoordinator: UpdatePasswordCoordinatorDelegate {
     func passcodeChanged() {
         navigationController.popViewController(animated: false)
         childCoordinators.removeAll(where: { $0 is UpdatePasswordCoordinator })
+        let options = AlertOptions(title: "",
+                                 message: "more.update.successfully".localized,
+                                 actions: [AlertAction(name: "ok".localized,
+                                                       completion: {},
+                                                       style: .default)] )
+        showAlert(with: options)
     }
 }
 

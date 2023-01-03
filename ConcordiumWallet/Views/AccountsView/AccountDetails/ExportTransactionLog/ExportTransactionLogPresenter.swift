@@ -6,10 +6,11 @@
 //  Copyright © 2022 concordium. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ExportTransactionLogPresenterDelegate: AnyObject {
-    func finishedExportingTransactionLog()
+    func saveTapped(url: URL, completion: @escaping (Bool) -> Void)
+    func doneTapped()
 }
 
 class ExportTransactionLogPresenter: SwiftUIPresenter<ExportTransactionLogViewModel> {
@@ -30,8 +31,15 @@ class ExportTransactionLogPresenter: SwiftUIPresenter<ExportTransactionLogViewMo
     override func receive(event: ExportTransactionLogEvent) {
         Task {
             switch event {
-            case .doneTapped:
-                delegate?.finishedExportingTransactionLog()
+            case .save:
+                delegate?.saveTapped(url: viewModel.getTempFileUrl(), completion: { success in
+                    self.viewModel.deleteTempFile()
+                    if success {
+                        self.viewModel.saved()
+                    }
+                })
+            case .done:
+                delegate?.doneTapped()
             }
         }
     }

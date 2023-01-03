@@ -260,8 +260,10 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     }
     
     private func shouldShowPoolSizeWarning(response: BakerPoolResponse) -> Bool {
-        // The alert should only be shown if you are not currently in cooldown
-        guard let delegation = self.account.delegation, delegation.pendingChange?.change == .NoChange else {
+        // The alert should only be shown if you are not currently in cooldown and bakerId is different
+        guard let delegation = self.account.delegation,
+              delegation.pendingChange?.change == .NoChange,
+              delegation.delegationTargetBakerID.string != viewModel.bakerId else {
             return false
         }
         
