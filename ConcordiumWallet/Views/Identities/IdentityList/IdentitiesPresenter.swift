@@ -56,8 +56,6 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
                             self.identities = self.dependencyProvider.storageManager().getIdentities()
                         },
                         receiveValue: { updatedPendingIdentities in
-                            print("+++ Updated pending identities: \(updatedPendingIdentities)")
-                            
                             self.identities = self.dependencyProvider.storageManager().getIdentities()
                             self.checkForIdentityFailed()
                         }).store(in: &cancellables)
@@ -94,17 +92,17 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
     }
 
     override func createIdentitySelected() {
-        guard !identities.contains(where: { $0.state == .pending }) else {
-            view?.showAlert(with: AlertOptions(
-                title: nil,
-                message: "identityCreation.hasPending".localized,
-                actions: [
-                    AlertAction(name: "OK".localized, completion: nil, style: .default)
-                ]
-            ))
-            
-            return
-        }
+//        guard !identities.contains(where: { $0.state == .pending }) else {
+//            view?.showAlert(with: AlertOptions(
+//                title: nil,
+//                message: "identityCreation.hasPending".localized,
+//                actions: [
+//                    AlertAction(name: "OK".localized, completion: nil, style: .default)
+//                ]
+//            ))
+//
+//            return
+//        }
         
         self.delegate?.createIdentitySelected()
     }

@@ -93,7 +93,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
     }
 
     func startRefreshTimer() {
-        updateTimer = Timer.scheduledTimer(timeInterval: 60.0,
+        updateTimer = Timer.scheduledTimer(timeInterval: 5.0,
                                            target: self,
                                            selector: #selector(refreshOnTimerCallback),
                                            userInfo: nil,
