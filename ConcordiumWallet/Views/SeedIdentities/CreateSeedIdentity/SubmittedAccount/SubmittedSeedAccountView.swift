@@ -42,7 +42,7 @@ private struct AccountCard: View {
             VStack {
                 HStack {
                     StyledLabel(text: viewModel.accountTitle, style: .body)
-                    StyledLabel(text: viewModel.identityTitle, style: .body, color: Pallette.fadedText)
+                    StyledLabel(text: viewModel.identityNickname, style: .body, color: Pallette.fadedText)
                     Spacer()
                 }
                 HStack {

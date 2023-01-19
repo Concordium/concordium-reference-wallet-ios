@@ -20,42 +20,43 @@ struct ButtonSlider: View {
     var actionSettings: () -> Void
     
     @State var position: Int = 0
+    @State var disabled: Bool = false
     
     var body: some View {
-        HStack {
-            Spacer()
-            Button(action: moveBack) {
-                Image("button_slider_back")
-            }
-            Spacer()
+//        HStack {
+//            Spacer()
+//            Button(action: moveBack) {
+//                Image("button_slider_back")
+//            }
+//            Spacer()
             HStack(alignment: .center, spacing: 0) {
-                VerticalLine()
-                if position == 0 {
-                    ActionButton(imageName: "button_slider_send", action: actionSend)
+//                VerticalLine()
+//                if position == 0 {
+                    ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionSend)
                     VerticalLine()
-                }
-                ActionButton(imageName: "button_slider_receive", action: actionReceive)
+//                }
+                ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
                 VerticalLine()
-                ActionButton(imageName: "button_slider_earn", action: actionEarn)
+                ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
                 VerticalLine()
                 if isShielded {
-                    ActionButton(imageName: "button_slider_shield", action: actionShield)
+                    ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
                     VerticalLine()
-                    if position == 1 {
-                        ActionButton(imageName: "button_slider_settings", action: actionSettings)
-                        VerticalLine()
-                    }
+//                    if position == 1 {
+                        ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
+//                        VerticalLine()
+//                    }
                 } else {
-                    ActionButton(imageName: "button_slider_settings", action: actionSettings)
-                    VerticalLine()
+                    ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
+//                    VerticalLine()
                 }
             }
-            Spacer()
-            Button(action: moveForward) {
-                Image("button_slider_forward")
-            }
-            Spacer()
-        }
+//            Spacer()
+//            Button(action: moveForward) {
+//                Image("button_slider_forward")
+//            }
+//            Spacer()
+//        }
         .frame(maxWidth: .infinity, maxHeight: size)
         .background(Pallette.primary)
         .cornerRadius(5)
@@ -82,17 +83,18 @@ struct ButtonSlider: View {
 
 struct ActionButton: View {
     let imageName: String
+    var disabled: Bool = false
     var action: () -> Void
 
     var body: some View {
         ZStack {
             Image(imageName)
         }
-        .frame(maxWidth: size, maxHeight: size)
-        .background(Pallette.primary)
+        .frame(maxWidth: .infinity, maxHeight: size)
+        .background(disabled ? Pallette.inactiveButton : Pallette.primary)
         .onTapGesture {
             self.action()
-        }
+        }.disabled(disabled)
     }
 }
 

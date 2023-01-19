@@ -41,7 +41,7 @@ class SubmittedAccountCardViewModel: ObservableObject {
     
     @Published var state: State
     @Published var accountIndex: Int
-    @Published var identityIndex: Int
+    @Published var identityNickname: String
     @Published var totalLabel: String
     @Published var totalAmount: GTU
     @Published var atDisposalLabel: String
@@ -51,7 +51,7 @@ class SubmittedAccountCardViewModel: ObservableObject {
     init(
         state: State = .notAvailable,
         accountIndex: Int = 0,
-        identityIndex: Int = 0,
+        identityNickname: String = "",
         totalLabel: String = "",
         totalAmount: GTU = .zero,
         atDisposalLabel: String = "",
@@ -60,7 +60,7 @@ class SubmittedAccountCardViewModel: ObservableObject {
     ) {
         self.state = state
         self.accountIndex = accountIndex
-        self.identityIndex = identityIndex
+        self.identityNickname = identityNickname
         self.totalLabel = totalLabel
         self.totalAmount = totalAmount
         self.atDisposalLabel = atDisposalLabel
@@ -69,18 +69,6 @@ class SubmittedAccountCardViewModel: ObservableObject {
     }
     
     var accountTitle = "4WHF...eNu8"
-    
-    var identityTitle: String {
-        var counter = 1
-        let identities = ServicesProvider.defaultProvider().storageManager().getIdentities()
-        for identity in identities {
-            if identity.nickname == String(format: "identities.seed.shared.identitytitle".localized, counter) {
-                counter += 1
-            }
-        }
-        
-        return String(format: "identities.seed.shared.identitytitle".localized, counter)
-    }
     
     func update(with account: AccountDataType) {
         state = .pending

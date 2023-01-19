@@ -14,38 +14,26 @@ struct IdentityCard: View {
         @Published var expirationDate: String?
         @Published var image: Image?
         @Published var state: IdentityState
-        @Published var title: String
-        
-//        var title: String {
-//            var counter = 1
-//            let identities = ServicesProvider.defaultProvider().storageManager().getIdentities()
-//            for identity in identities {
-//                if identity.nickname == String(format: "identities.seed.shared.identitytitle".localized, counter) {
-//                    counter += 1
-//                }
-//            }
-//
-//            return String(format: "identities.seed.shared.identitytitle".localized, counter)
-//        }
+        @Published var nickname: String
         
         init(
             index: Int = 0,
             expirationDate: String? = nil,
             image: Image? = nil,
             state: IdentityState = .pending,
-            title: String = ""
+            nickname: String = ""
         ) {
             self.index = index
             self.expirationDate = expirationDate
             self.image = image
             self.state = state
-            self.title = title
+            self.nickname = nickname
         }
         
         init(identity: IdentityDataType) {
             index = identity.index
             state = identity.state
-            title = identity.nickname
+            nickname = identity.nickname
             if let validTo = identity.seedIdentityObject?.attributeList.validTo {
                 expirationDate = String(
                     format: "identities.seed.shared.expirationdate".localized,
@@ -60,7 +48,7 @@ struct IdentityCard: View {
         func update(with seedIdentity: IdentityDataType) {
             index = seedIdentity.index
             state = seedIdentity.state
-            title = seedIdentity.nickname
+            nickname = seedIdentity.nickname
             if let validTo = seedIdentity.seedIdentityObject?.attributeList.validTo {
                 expirationDate = String(
                     format: "identities.seed.shared.expirationdate".localized,
@@ -107,7 +95,7 @@ struct IdentityCard: View {
                 StyledLabel(text: "Identity", style: .body, weight: .light)
             }
             Spacer()
-            StyledLabel(text: viewModel.title, style: .heading)
+            StyledLabel(text: viewModel.nickname, style: .heading)
             Spacer()
             StyledLabel(text: viewModel.expirationDate ?? "", style: .body, color: Pallette.fadedText)
         }
@@ -135,7 +123,8 @@ struct IdentityCard_Previews: PreviewProvider {
                 index: 1,
                 expirationDate: "Expires September, 2024",
                 image: Image("concordium_title"),
-                state: .pending
+                state: .pending,
+                nickname: "Identity 1"
             )
         )
         
@@ -144,7 +133,8 @@ struct IdentityCard_Previews: PreviewProvider {
                 index: 2,
                 expirationDate: nil,
                 image: nil,
-                state: .pending
+                state: .pending,
+                nickname: "Identity 2"
             )
         )
     }

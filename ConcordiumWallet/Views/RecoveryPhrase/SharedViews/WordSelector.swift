@@ -67,5 +67,12 @@ struct WordSelection: View {
                 return
             }
         }
+        
+        if selectedIndex < 23 {
+            selectedIndex += 1
+        }
+        else {
+            selectedIndex = 0
+        }
     }
 }

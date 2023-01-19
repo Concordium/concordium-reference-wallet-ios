@@ -68,7 +68,9 @@ final class NetworkManager: NetworkManagerProtocol {
                     }
                     
                     if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
+//                        print("+++ Response coockie 1: \(fields)")
                         CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+//                        print("+++ Response coockie 1: \(CookieJar.cookies)")
                     }
 
                     return .just(data)
@@ -126,13 +128,19 @@ final class NetworkManager: NetworkManagerProtocol {
                 dataString = String(dataString.dropLast())
             }
             
+            if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
+//                print("+++ Response coockie 2: \(fields)")
+                CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+//                print("+++ Response coockie 2: \(CookieJar.cookies)")
+            }
+            
             return try decoder.decode(T.self, from: Data(dataString.utf8))
         } catch {
             if error is DecodingError {
-                print("+++ Decoding error: \(error)")
+                print("Decoding error: \(error)")
                 throw NetworkError.jsonDecodingError(error: error)
             } else {
-                print("+++ Other error: \(error)")
+                print("Other error: \(error)")
                 throw NetworkError.communicationError(error: error)
             }
         }

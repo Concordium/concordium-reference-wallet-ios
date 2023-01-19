@@ -56,6 +56,7 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
         case .wordSelected(let index, let word):
             // TODO: Test phrase
 //            viewModel.selectedWords = ["interest", "spy", "champion", "install", "appear", "solution", "digital", "intact", "expose", "order", "minute", "match", "train", "possible", "practice", "leave", "first", "matter", "zero", "brief", "tag", "mushroom", "anger", "tide"]
+//            viewModel.selectedWords = ["grant", "mandate", "usage", "asthma", "invite", "state", "silent", "hover", "lunch", "result", "diagram", "chapter", "ecology", "orbit", "shed", "subject", "bachelor", "violin", "tape", "visit", "rigid", "leopard", "myself", "minute"]
 //            viewModel.selectedWords = ["ginger", "name", "viable", "else", "sight", "agree", "stamp", "draw", "ticket", "course", "ceiling", "slot", "water", "siren", "hood", "spatial", "attend", "paddle", "hockey", "goat", "turkey", "feature", "goddess", "idea"]
             viewModel.selectedWords[index] = word
             if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {

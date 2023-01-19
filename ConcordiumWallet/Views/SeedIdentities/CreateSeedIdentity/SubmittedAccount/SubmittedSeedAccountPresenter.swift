@@ -43,7 +43,7 @@ class SubmittedSeedAccountPresenter: SwiftUIPresenter<SubmittedSeedAccountViewMo
                 accountViewModel: .init(
                     state: .notAvailable,
                     accountIndex: identity.accountsCreated,
-                    identityIndex: identity.index,
+                    identityNickname: identity.nickname,
                     totalLabel: "identities.seed.submitaccount.total".localized,
                     totalAmount: .zero,
                     atDisposalLabel: "identities.seed.submitaccount.atdisposal".localized,

@@ -2529,6 +2529,10 @@
 		FA93AE37295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
 		FA93AE38295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
 		FA93AE39295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
+		FA93AE402970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
+		FA93AE412970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
+		FA93AE422970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
+		FA93AE432970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
 		FABA9D95291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D96291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D97291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
@@ -3313,6 +3317,7 @@
 		FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityObjectWrapper.swift; sourceTree = "<group>"; };
 		FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileWalletFacade.swift; sourceTree = "<group>"; };
 		FA93AE35295D372F0050B409 /* MobileWallet.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MobileWallet.xcframework; sourceTree = "<group>"; };
+		FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachableObject.swift; sourceTree = "<group>"; };
 		FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountView.swift; sourceTree = "<group>"; };
 		FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountPresenter.swift; sourceTree = "<group>"; };
 		FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountViewModel.swift; sourceTree = "<group>"; };
@@ -4413,6 +4418,7 @@
 				891B19FC28A62FC000F4B0D6 /* Publisher+Async.swift */,
 				FA0CAAEA2934ECE40009D5F8 /* UserDefaultsQueue.swift */,
 				FA0CAAEF2934EE410009D5F8 /* MatomoTracker.swift */,
+				FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -6302,6 +6308,7 @@
 				7F48C26E244E17D100997684 /* IPInfo.swift in Sources */,
 				529531B6256BDE1B004CECE4 /* ReleaseScheduleEntity.swift in Sources */,
 				89D46812289BC7AD007D3FC8 /* SeedIdentityOnboardingView.swift in Sources */,
+				FA93AE402970FF8A0050B409 /* DetachableObject.swift in Sources */,
 				7F48C1F3244DCD0B00997684 /* AccountAddressQRViewController.swift in Sources */,
 				FA01CA02291C5D3100BD8738 /* UIButton+Helper.swift in Sources */,
 				7F5F77802487D19B0016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
@@ -6847,6 +6854,7 @@
 				FA01CA04291C5D3100BD8738 /* UIButton+Helper.swift in Sources */,
 				5248E7DE257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				528EB74C255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
+				FA93AE422970FF8A0050B409 /* DetachableObject.swift in Sources */,
 				7F85B7B0246A9A7C00ED09B8 /* TransactionViewModel.swift in Sources */,
 				FABA9D9D291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				89B34A352892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
@@ -7394,6 +7402,7 @@
 				FA01CA05291C5D3100BD8738 /* UIButton+Helper.swift in Sources */,
 				5248E7DF257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				528EB74D255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
+				FA93AE432970FF8A0050B409 /* DetachableObject.swift in Sources */,
 				7F85B8AD246A9AB600ED09B8 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				FABA9D9E291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				89B34A362892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
@@ -7878,6 +7887,7 @@
 				19C2EE0C233940BF5B80070B /* IdentitiesPresenter.swift in Sources */,
 				897D0F1A288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */,
 				19C2EE3A42B0C3F81028CC6F /* IdentitiesViewController.swift in Sources */,
+				FA93AE412970FF8A0050B409 /* DetachableObject.swift in Sources */,
 				52D10F3927D0F51A0025ED5D /* DelegationCoordinator.swift in Sources */,
 				901F7F3F27EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				6426D91D260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */,
@@ -8181,7 +8191,7 @@
 				MARKETING_VERSION = 1.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.recoveryphrasewalletid.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8212,7 +8222,7 @@
 				MARKETING_VERSION = 1.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.recoveryphrasewalletid.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8228,12 +8238,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Recovery Phrase";
+				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8246,10 +8256,10 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseTestnetDistribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dist";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8265,12 +8275,12 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Recovery Phrase";
+				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8283,10 +8293,10 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseTestnetDistribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dist";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8300,9 +8310,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8317,8 +8329,10 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.mainnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen mainnet wallet with seed phrase dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8332,9 +8346,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8349,8 +8365,10 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.mainnet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen mainnet wallet with seed phrase dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8485,12 +8503,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "StageNet Recovery Phrase";
+				INFOPLIST_KEY_CFBundleDisplayName = "StageNet Seed Phrase Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8503,10 +8521,10 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.stagenet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseStagenetDistribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen stagenet wallet with seed phrase dist";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8523,12 +8541,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "StageNet Recovery Phrase";
+				INFOPLIST_KEY_CFBundleDisplayName = "StageNet Seed Phrase Wallet";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8541,10 +8559,10 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.recoveryphrasewallet.stagenet;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RecoveryPhraseStagenetDistribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen stagenet wallet with seed phrase dist";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;

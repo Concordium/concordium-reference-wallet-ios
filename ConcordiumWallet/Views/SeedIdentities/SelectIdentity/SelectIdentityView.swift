@@ -16,8 +16,9 @@ struct SelectIdentityView: Page {
             VStack {
                 StyledLabel(text: viewModel.title, style: .title)
                     .padding([.top], 60)
-                ForEach(viewModel.identities, id: \.index) { identity in
+                ForEach(viewModel.identities, id: \.nickname) { identity in
                     IdentityCard(viewModel: .init(identity: identity))
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.send(.identitySelected(identity))
                         }

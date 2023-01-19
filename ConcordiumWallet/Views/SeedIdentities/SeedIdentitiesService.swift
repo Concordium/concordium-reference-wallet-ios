@@ -23,11 +23,6 @@ struct SeedIdentitiesService {
         self.mobileWallet = mobileWallet
     }
     
-    private var nextIdentityindex: Int {
-        storageManager.getIdentities()
-            .count
-    }
-    
     func createPendingIdentity(
         identityProvider: IdentityProviderDataType,
         pollURL: String,
@@ -67,7 +62,7 @@ struct SeedIdentitiesService {
         from ipInfo: IPInfoResponseElement,
         requestPasswordDelegate: RequestPasswordDelegate
     ) async throws -> IDPIdentityRequest {
-        let index = nextIdentityindex
+        let index = nextIdentityIndex(for: ipInfo)
         let identityProvider = IdentityProviderDataTypeFactory.create(ipData: ipInfo)
         
         let (id, request) = try await createSeedIdentityRequest(
@@ -284,13 +279,24 @@ struct SeedIdentitiesService {
     private func identityName() -> String {
         var counter = 1
         let identities = storageManager.getIdentities()
-        for identity in identities {
-            if identity.nickname == String(format: "recoveryphrase.identity.name".localized, counter) {
-                counter += 1
+        
+        while identities.contains(where: {$0.nickname == String(format: "recoveryphrase.identity.name".localized, counter)}) {
+            counter += 1
+        }
+
+        return String(format: "recoveryphrase.identity.name".localized, counter)
+    }
+    
+    private func nextIdentityIndex(for ipInfo: IPInfoResponseElement) -> Int {
+        var maxIndex = 0
+        
+        for identity in storageManager.getIdentities() {
+            if identity.identityProvider?.ipInfo?.ipIdentity == ipInfo.ipInfo.ipIdentity && identity.index > maxIndex {
+                maxIndex = identity.index
             }
         }
         
-        return String(format: "recoveryphrase.identity.name".localized, counter)
+        return maxIndex + 1
     }
 }
 

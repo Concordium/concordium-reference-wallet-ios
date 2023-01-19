@@ -16,6 +16,7 @@ struct AccountSettingsMenuItem: Identifiable {
 
 struct AccountSettingsView: Page {
     @ObservedObject var viewModel: AccountSettingsViewModel
+    @State private var selectedMenuItemText: String?
 
     var pageBody: some View {
         List(getMenuItems()) { menuItem in
@@ -25,9 +26,18 @@ struct AccountSettingsView: Page {
                 Image(systemName: "chevron.right")
             }
             .padding([.top, .bottom], 8)
+            .contentShape(Rectangle())
             .onTapGesture {
+                selectedMenuItemText = menuItem.text
+                
                 self.viewModel.send(menuItem.action)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    selectedMenuItemText = nil
+                }
             }
+            .animation(.default)
+            .listRowBackground(selectedMenuItemText == menuItem.text ? Color.init(white: 0.85) : .clear)
         }
         .listStyle(.plain)
     }

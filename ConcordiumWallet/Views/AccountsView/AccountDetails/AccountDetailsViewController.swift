@@ -26,6 +26,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     private var sendEnabled: Bool = false
     private var receiveEnabled: Bool = false
     private var shieldEnabled: Bool = false
+    private var viewModel: AccountDetailsViewModel!
 
     @IBOutlet weak var tabBar: UIView!
     @IBOutlet weak var totalsStackView: UIStackView!
@@ -131,7 +132,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     }
     
     func startRefreshTimer() {
-        updateTimer = Timer.scheduledTimer(timeInterval: 60.0,
+        updateTimer = Timer.scheduledTimer(timeInterval: 5.0,
                                            target: self,
                                            selector: #selector(refreshOnTimerCallback),
                                            userInfo: nil,
@@ -150,7 +151,9 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     }
     
     private func setupButtonSlider(isShielded: Bool) {
-    let buttonSlider = ButtonSlider(
+        let areActionsEnabled = viewModel.accountState == .finalized && !viewModel.isReadOnly
+        
+        let buttonSlider = ButtonSlider(
             isShielded: isShielded,
             actionSend: {
                 if self.sendEnabled {
@@ -172,7 +175,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             },
             actionSettings: {
                 self.presenter.burgerButtonTapped()
-            })
+            },
+            disabled: !areActionsEnabled)
         let childView = UIHostingController(rootView: buttonSlider)
         addChild(childView)
         childView.view.frame = buttonSliderContainer.bounds
@@ -208,6 +212,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 
     // swiftlint:disable function_body_length
     func bind(to viewModel: AccountDetailsViewModel) {
+        self.viewModel = viewModel
+        
         self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
         
         tabViewModel.$selectedIndex
@@ -403,6 +409,7 @@ extension AccountDetailsViewController {
                 errorMessageLabel.superview?.isHidden = true
             } else {
                 self.gtuDropView.isHidden = true
+                errorMessageLabel.superview?.isHidden = false
             }
         }
 #endif
