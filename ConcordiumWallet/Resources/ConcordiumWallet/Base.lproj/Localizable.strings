@@ -882,12 +882,17 @@ Remember to restart your node with the baker keys.";
 "force.update.needed.nobackup.message" = "You must update your Concordium Legacy Wallet to continue.";
 "force.update.needed.update.now" = "Update now";
 "force.update.needed.backup" = "Make backup";
-"force.update.warning.title" = "Update ready";
-"force.update.warning.message" = "There is a new update for the Concordium Legacy Wallet.\n\nIf you don’t have a backup, Concordium strongly recommends making one before updating.";
+//"force.update.warning.title" = "Update ready";
+//"force.update.warning.message" = "There is a new update for the Concordium Legacy Wallet.\n\nIf you don’t have a backup, Concordium strongly recommends making one before updating.";
 "force.update.warning.nobackup.message" = "There is a new update for the Concordium Legacy Wallet.";
-"force.update.warning.update.now" = "Update now";
-"force.update.warning.remind.me" = "Remind me next time I open the wallet";
+//"force.update.warning.update.now" = "Update now";
+//"force.update.warning.remind.me" = "Remind me next time I open the wallet";
 "force.update.warning.backup" = "Make backup";
+
+"force.update.warning.title" = "New wallet app available";
+"force.update.warning.message" = "Going forward the Concordium Legacy Wallet will not receive any new features. We therefor recommend that you install the new Concordium Wallet for Mobile, to be able to use all the latest Concordium features. You will still be able to access your existing accounts and identities in the Concordium Legacy Wallet, but be sure to keep a backup of your private keys.";
+"force.update.warning.update.now" = "Download the new wallet app";
+"force.update.warning.remind.me" = "Remind me next time I open the wallet";
 
 "identityCreation.prevent.title" = "New identities no longer supported";
 "identityCreation.prevent.message" = "Creation of new identities are no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new identity you must down the new Concordium Wallet for Mobile.";

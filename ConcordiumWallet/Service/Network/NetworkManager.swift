@@ -28,10 +28,6 @@ final class NetworkManager: NetworkManagerProtocol {
             return Fail(error: NetworkError.invalidRequest).eraseToAnyPublisher()
         }
         
-        if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
-            CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
-        }
-        
         return load(request)
     }
     func load<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {

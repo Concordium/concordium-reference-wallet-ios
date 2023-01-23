@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 import RealmSwift
 
 class MockedData: ShowToast {
