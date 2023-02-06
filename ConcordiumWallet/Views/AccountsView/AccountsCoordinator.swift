@@ -72,6 +72,19 @@ class AccountsCoordinator: Coordinator {
         }
     }
     
+    func showCreateNewIdentity() {
+        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+            navigationController: BaseNavigationController(),
+            action: .createIdentity,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        
+        childCoordinators.append(seedIdentitiesCoordinator)
+        seedIdentitiesCoordinator.start()
+        navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
+    }
+    
     func show(account: AccountDataType, entryPoint: AccountDetailsFlowEntryPoint) {
         let accountDetailsCoordinator = AccountDetailsCoordinator(navigationController: navigationController,
                                                                   dependencyProvider: dependencyProvider,
@@ -238,9 +251,10 @@ extension AccountsCoordinator: TermsAndConditionsPresenterDelegate {
 }
 
 extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
-    func seedIdentityCoordinatorWasFinished() {
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+        
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 }

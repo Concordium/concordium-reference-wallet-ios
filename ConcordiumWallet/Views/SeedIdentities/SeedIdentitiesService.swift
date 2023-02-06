@@ -116,7 +116,7 @@ struct SeedIdentitiesService {
     
     func recoverIdentities(
         with seed: Seed
-    ) async throws -> [IdentityDataType] {
+    ) async throws -> ([IdentityDataType], [String]) {
         async let globalRequeest = getGlobal()
         async let ipInfoRequest = getIpInfo()
         
@@ -127,6 +127,7 @@ struct SeedIdentitiesService {
         identityProviders = identityProviders.filter { $0.ipInfo?.ipDescription.name != "instant_fail_provider" }
         
         var allidentities = [IdentityDataType]()
+        var failedIdentityProviders = [String]()
         let allowedGap = 20
         var currentGap = 0
         var currentIndex = 0
@@ -134,14 +135,19 @@ struct SeedIdentitiesService {
             var foundIdentity = false
             
             for identityProvider in identityProviders {
-                if let identity = await recoverIdentity(
+                let (identity, failedIdentityProvider) = await recoverIdentity(
                     atIndex: currentIndex,
                     generatedBy: seed,
                     global: global,
                     identityProvider: identityProvider
-                ) {
-                    allidentities.append(identity)
+                )
+                
+                if identity != nil {
+                    allidentities.append(identity!)
                     foundIdentity = true
+                }
+                if failedIdentityProvider != nil && !failedIdentityProviders.contains(failedIdentityProvider!) {
+                    failedIdentityProviders.append(failedIdentityProvider!)
                 }
             }
             
@@ -154,7 +160,7 @@ struct SeedIdentitiesService {
             currentIndex += 1
         }
         
-        return allidentities
+        return (allidentities, failedIdentityProviders)
     }
     
     @MainActor
@@ -163,13 +169,13 @@ struct SeedIdentitiesService {
         generatedBy seed: Seed,
         global: GlobalWrapper,
         identityProvider: IdentityProviderDataType
-    ) async -> IdentityDataType? {
+    ) async -> (IdentityDataType?, String?) {
         
         guard
-            let recoveryURL = identityProvider.recoverURL,
+            var recoveryURL = identityProvider.recoverURL,
             let ipInfo = identityProvider.ipInfo
         else {
-            return nil
+            return (nil, identityProvider.ipInfo?.ipDescription.name)
         }
         
         do {
@@ -182,16 +188,35 @@ struct SeedIdentitiesService {
             
             let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
             
-            let recoverResponse = try await networkManager.load(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
+//            if recoveryURL.absoluteString == "https://id-service.testnet.concordium.com/api/v1/recover" {
+//                recoveryURL = URL(string: "https://jashdjdshfjdhfdhjakfjhak.co")!
+//            }
             
-            return try createIdentityFromSeedIdentityObjectWrapper(
+            let recoverResponse = try await networkManager.loadRecovery(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
+            
+            return try (createIdentityFromSeedIdentityObjectWrapper(
                 recoverResponse,
                 index: index,
                 identityProvider: identityProvider
-            )
-            
+            ), nil)
+        } catch NetworkError.dataLoadingError(let statusCode, let data) {
+            if statusCode == 404 {
+                var json: [String: Any]?
+                
+                do {
+                    json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                } catch {}
+                
+                if json != nil {
+                    return(nil, nil)
+                } else {
+                    return(nil, identityProvider.ipInfo?.ipDescription.name)
+                }
+            } else {
+                return(nil, identityProvider.ipInfo?.ipDescription.name)
+            }
         } catch {
-            return nil
+            return (nil, identityProvider.ipInfo?.ipDescription.name)
         }
     }
     

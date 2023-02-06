@@ -20,6 +20,8 @@ protocol SeedMobileWalletProtocol {
     
     func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) -> Result<Seed, Error>
     func store(recoveryPhrase: RecoveryPhrase, withDelegate requestPasswordDelegate: RequestPasswordDelegate) async throws -> Seed
+    
+    func updateSeed(oldPwHash: String, newPwHash: String) throws -> Seed?
  
     @MainActor
     func createIDRequest(
@@ -96,6 +98,16 @@ class SeedMobileWallet: SeedMobileWalletProtocol {
         let pwHash = try await requestPasswordDelegate.requestUserPassword(keychain: keychain)
         
         return try store(recoveryPhrase: recoveryPhrase, with: pwHash).get()
+    }
+    
+    func updateSeed(oldPwHash: String, newPwHash: String) throws -> Seed? {
+        if let seed = getSeed(with: oldPwHash) {
+            try keychain.store(key: seedKey, value: seed.value, securedByPassword: newPwHash).get()
+            
+            return seed
+        }
+        
+        return nil
     }
     
     func createIDRequest(

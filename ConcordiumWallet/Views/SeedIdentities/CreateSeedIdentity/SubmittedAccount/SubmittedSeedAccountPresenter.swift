@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol SubmittedSeedAccountPresenterDelegate: AnyObject {
-    func accountHasBeenFinished()
+    func accountHasBeenFinished(for identity: IdentityDataType)
 }
 
 class SubmittedSeedAccountPresenter: SwiftUIPresenter<SubmittedSeedAccountViewModel> {
@@ -95,7 +95,7 @@ class SubmittedSeedAccountPresenter: SwiftUIPresenter<SubmittedSeedAccountViewMo
     override func receive(event: SubmittedSeedAccountEvent) {
         switch event {
         case .finishAccount:
-            delegate?.accountHasBeenFinished()
+            delegate?.accountHasBeenFinished(for: identity)
         }
     }
 }

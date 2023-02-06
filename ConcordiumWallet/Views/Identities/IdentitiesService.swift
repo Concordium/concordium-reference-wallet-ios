@@ -108,22 +108,23 @@ class IdentitiesService {
             }
         }
         return networkManager.load(URLRequest(url: url))
-                .tryMap { (status: IdentityCreationStatus) in
+                .tryMap { (status: SeedIdentityCreationStatus) in
                     try self.parse(status: status, for: identity)
                 }
                 .eraseToAnyPublisher()
     }
 
-    private func parse(status: IdentityCreationStatus, for identity: IdentityDataType) throws -> IdentityDataType {
-        if status.status == .done, let identityObjectWrapper = status.token {
-//             return try addErrorMessage("ERROR", to: identity)
-            return try self.addIdentityObject(identityObjectWrapper, to: identity)
-        } else if status.status == .error, let errorMessage = status.detail {
-            return try addErrorMessage(errorMessage, to: identity)
-        } else  if status.status == .pending {
+    private func parse(status: SeedIdentityCreationStatus, for identity: IdentityDataType) throws -> IdentityDataType {
+        switch status {
+        case .pending:
             return identity
+        case .done(let identityWrapperShell):
+            return try self.addIdentityObject(identityWrapperShell, to: identity)
+        case .error(let detail):
+            return try addErrorMessage(detail, to: identity)
+        default:
+            throw NetworkError.invalidResponse
         }
-        throw NetworkError.invalidResponse
     }
 
     private func addErrorMessage(_ error: String, to identity: IdentityDataType) throws -> IdentityDataType {
@@ -133,12 +134,12 @@ class IdentitiesService {
         return identity.withUpdated(identityCreationError: error)
     }
 
-    private func addIdentityObject(_ identityObjectWrapper: IdentityWrapperShell, to identity: IdentityDataType) throws -> IdentityDataType {
-        let updatedIdentity = identity.withUpdated(identityObject: identityObjectWrapper.identityObject.value)
+    private func addIdentityObject(_ updateIdentityObject: UpdateIdentityObject, to identity: IdentityDataType) throws -> IdentityDataType {
+        let updatedIdentity = identity.withUpdated(seedIdentityObject: updateIdentityObject.identityObject.value)
         if let account = storageManager.getAccounts(for: updatedIdentity).first {
             _ = try account.write {
                 var account = $0
-                account.credential = identityObjectWrapper.credential.toCredential()
+//                account.credential = identityObjectWrapper.credential.toCredential()
                 account.transactionStatus = .finalized
             }.get()
             self.addAccountToRecipientList(account: account)

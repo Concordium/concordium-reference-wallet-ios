@@ -84,12 +84,14 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        presenter.refresh()
+        presenter.refresh(pendingIdentity: nil)
         tableView.refreshControl?.endRefreshing()
     }
     
-    @objc func refreshIdentities() {
-        presenter.refresh()
+    @objc func refreshIdentities(_ notification: NSNotification) {
+        if let identity = notification.userInfo?["identity"] as? IdentityDataType {
+            presenter.refresh(pendingIdentity: identity.state == .pending ? identity : nil)
+        }
     }
 
     func startRefreshTimer() {
@@ -108,7 +110,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
     }
     
     @objc func refreshOnTimerCallback() {
-        presenter.refresh()
+        presenter.refresh(pendingIdentity: nil)
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +127,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
                                                object: nil)
         
         //
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshIdentities), name:     Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshIdentities(_:)), name:     Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -137,7 +139,7 @@ class IdentitiesViewController: BaseViewController, Storyboarded, ShowToast, Sup
     }
     
     @objc func appDidBecomeActive() {
-        presenter.refresh()
+        presenter.refresh(pendingIdentity: nil)
         startRefreshTimer()
     }
     

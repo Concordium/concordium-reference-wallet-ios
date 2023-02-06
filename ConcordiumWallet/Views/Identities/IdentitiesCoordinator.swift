@@ -146,9 +146,11 @@ extension IdentitiesCoordinator: CopyReferenceWidgetPresenterDelegate {
 }
 
 extension IdentitiesCoordinator: SeedIdentitiesCoordinatorDelegate {
-    func seedIdentityCoordinatorWasFinished() {
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
-        NotificationCenter.default.post(name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
+        
+        let identityDict = ["identity" : identity]
+        NotificationCenter.default.post(name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil, userInfo: identityDict)
     }
 }

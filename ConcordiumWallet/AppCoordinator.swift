@@ -283,6 +283,7 @@ extension AppCoordinator: AccountsPresenterDelegate {
 
 extension AppCoordinator: AccountsCoordinatorDelegate {
     func createNewIdentity() {
+        accountsCoordinator?.showCreateNewIdentity()
     }
 
     func createNewAccount() {
@@ -413,7 +414,7 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
 }
 
 extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
-    func seedIdentityCoordinatorWasFinished() {
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         showMainTabbar()
     }
 }

@@ -145,7 +145,15 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     }
     
     func recoverySelected() {
-        print("+++ Recovery selected!")
+        let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
+            dependencyProvider: ServicesProvider.defaultProvider(),
+            navigationController: navigationController,
+            delegate: self
+        )
+        recoveryPhraseCoordinator.start()
+        self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+        childCoordinators.append(recoveryPhraseCoordinator)
+        self.navigationController.setupBaseNavigationControllerStyle()
     }
     
     func aboutSelected() {
@@ -272,5 +280,19 @@ extension MoreCoordinator: IdentitiesCoordinatorDelegate {
         self.childCoordinators.removeAll { coordinator in
             coordinator is CreateExportPasswordCoordinator
         }
+    }
+}
+
+extension MoreCoordinator: RecoveryPhraseCoordinatorDelegate {
+    func recoveryPhraseCoordinator(createdNewSeed seed: Seed) {
+        print("+++ recoveryPhraseCoordinator createdNewSeed")
+//        showSeedIdentityCreation()
+//        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+    }
+    
+    func recoveryPhraseCoordinatorFinishedRecovery() {
+        print("+++ recoveryPhraseCoordinatorFinishedRecovery")
+//        showMainTabbar()
+//        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
 }

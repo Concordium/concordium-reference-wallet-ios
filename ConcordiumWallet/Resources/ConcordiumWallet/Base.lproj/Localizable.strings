@@ -228,13 +228,14 @@ When you have submitted your account, you will be taken to the wallet.";
 "identityrecovery.status.navigationtitle" = "Recovering your accounts and identities";
 "identityrecovery.status.title.fetching" = "Recovering IDs and accounts";
 "identityrecovery.status.message.fetching" = "Scanning the Concordium blockchain. Hang on while we find your account and identities.";
-"identityrecovery.status.title.failed" = "We found nothing to recover.";
-"identityrecovery.status.message.failed" = "There was no accounts to be found for the secret recovery phrase. Did you maybe enter a wrong recovery phrase?
-
-If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.";
+"identityrecovery.status.title.emptyResponse" = "Recovery finished";
+"identityrecovery.status.message.emptyResponse" = "Nothing new was found.";
 "identityrecovery.status.title.success" = "Recovery finished";
 "identityrecovery.status.message.success" = "You have successfully recovered:";
-"identityrecovery.status.continue" = "Continue to wallet";
+"identityrecovery.status.title.partial" = "Recovery may be partial";
+"identityrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nYou have succesfully recovered:";
+"identityrecovery.status.continuelong" = "Continue to wallet";
+"identityrecovery.status.continue" = "Continue";
 "identityrecovery.status.tryagain" = "Try again";
 "identityrecovery.status.changerecoveryphrase" = "Enter another recovery phrase";
 "identityrecovery.status.accountheader" = "Accounts:";
@@ -1068,3 +1069,8 @@ Remember to restart your node with the baker keys.";
 "earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a baker and delegator, but it is possible to stop one and change to the other.";
 
 "accountsettings.navigationtitle" = "Account settings";
+
+"identitiespresenteridentityrejected.title" = "Identity rejected";
+"identitiespresenteridentityrejected.message" = "Your identity request was unfortunately rejected.\n\nRejected identity requests cannot be resolved, so the rejected identity will be discarded, after dismissing this notification.\n\nDo you want to make another request now?";
+"identitiespresenteridentityrejected.tryagain" = "Request another identity";
+"identitiespresenteridentityrejected.later" = "Later";

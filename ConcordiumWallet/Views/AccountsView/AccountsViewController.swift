@@ -99,7 +99,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                                selector: #selector(appWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts), name:     Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name:     Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name:     Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -116,7 +117,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
 
     @objc func appDidBecomeActive() {
-        presenter?.refresh()
+        presenter?.refresh(pendingIdentity: nil)
         startRefreshTimer()
     }
     
@@ -125,12 +126,18 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        presenter?.refresh()
+        presenter?.refresh(pendingIdentity: nil)
         tableView.refreshControl?.endRefreshing()
     }
     
-    @objc func refreshAccounts() {
-        presenter?.refresh()
+    @objc func refreshAccounts(_ notification: NSNotification) {
+        if let identity = notification.userInfo?["identity"] as? IdentityDataType {
+            presenter?.refresh(pendingIdentity: identity.state == .pending ? identity : nil)
+        }
+    }
+    
+    func reloadView() {
+        tableView.reloadData()
     }
 
     func startRefreshTimer() {
@@ -149,7 +156,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
     
     @objc func refreshOnTimerCallback() {
-        presenter?.refresh()
+        presenter?.refresh(pendingIdentity: nil)
     }
     
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: AccountViewModel) -> UITableViewCell? {

@@ -11,7 +11,7 @@ import UIKit
 import SafariServices
 
 protocol SeedIdentitiesCoordinatorDelegate: AnyObject {
-    func seedIdentityCoordinatorWasFinished()
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType)
 }
 
 class SeedIdentitiesCoordinator: Coordinator {
@@ -192,7 +192,7 @@ extension SeedIdentitiesCoordinator: SeedIdentityStatusPresenterDelegate {
     }
     
     func seedNewIdentityStatusDidFinish(with identity: IdentityDataType) {
-        delegate?.seedIdentityCoordinatorWasFinished()
+        delegate?.seedIdentityCoordinatorWasFinished(for: identity)
     }
     
     func makeNewIdentityRequestAfterSettingUpWallet() {
@@ -209,7 +209,7 @@ extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
         if isNewAccountAfterSettingUpTheWallet {
             showSubmittedAccount(for: identity)
         } else {
-            delegate?.seedIdentityCoordinatorWasFinished()
+            delegate?.seedIdentityCoordinatorWasFinished(for: identity)
         }
     }
     
@@ -225,7 +225,7 @@ extension SeedIdentitiesCoordinator: SelectIdentityPresenterDelegate {
 }
 
 extension SeedIdentitiesCoordinator: SubmittedSeedAccountPresenterDelegate {
-    func accountHasBeenFinished() {
-        delegate?.seedIdentityCoordinatorWasFinished()
+    func accountHasBeenFinished(for identity: IdentityDataType) {
+        delegate?.seedIdentityCoordinatorWasFinished(for: identity)
     }
 }

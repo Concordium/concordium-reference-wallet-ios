@@ -10,7 +10,7 @@ import Foundation
 
 protocol IdentityRecoveryStatusPresenterDelegate: RequestPasswordDelegate {
     func identityRecoveryCompleted()
-    func reenterRecoveryPhrase()
+//    func reenterRecoveryPhrase()
 }
 
 class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusViewModel> {
@@ -41,9 +41,10 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                 status: .fetching,
                 title: "identityrecovery.status.title.fetching".localized,
                 message: "identityrecovery.status.message.fetching".localized,
+                continueLongLabel: "identityrecovery.status.continuelong".localized,
                 continueLabel: "identityrecovery.status.continue".localized,
-                tryAgain: "identityrecovery.status.tryagain".localized,
-                changeRecoveryPhrase: "identityrecovery.status.changerecoveryphrase".localized
+                tryAgain: "identityrecovery.status.tryagain".localized
+//                changeRecoveryPhrase: "identityrecovery.status.changerecoveryphrase".localized
             )
         )
         
@@ -62,10 +63,10 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                 
                 fetchIdentities()
             }
-        case .changeRecoveryPhrase:
-            if case .emptyResponse = viewModel.status {
-                delegate?.reenterRecoveryPhrase()
-            }
+//        case .changeRecoveryPhrase:
+//            if case .emptyResponse = viewModel.status {
+//                delegate?.reenterRecoveryPhrase()
+//            }
         case .finish:
             if !viewModel.status.isFecthing {
                 delegate?.identityRecoveryCompleted()
@@ -88,7 +89,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     with: pwHash
                 )
                 
-                let identities = try await self.identitiesService.recoverIdentities(
+                let (identities, failedIdentityProviders) = try await self.identitiesService.recoverIdentities(
                     with: seed
                 )
                 
@@ -98,39 +99,48 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     pwHash: pwHash
                 )
                 
-                self.handleIdentities(identities, accounts: accounts)
+                self.handleIdentities(identities, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
             } catch {
-                self.viewModel.status = .failed
-                self.viewModel.showAlert(
-                    .alert(
-                        .init(
-                            title: "identityrecovery.status.requestfailed.title".localized,
-                            message: "identityrecovery.status.requestfailed.message".localized,
-                            actions: [
-                                .init(
-                                    name: "identityrecovery.status.requestfailed.retry".localized,
-                                    completion: nil,
-                                    style: .default
-                                ),
-                                .init(
-                                    name: "identityrecovery.status.requestfailed.later".localized,
-                                    completion: nil,
-                                    style: .default
-                                )
-                            ]
-                        )
-                    )
-                )
+//                self.viewModel.status = .failed
+//                self.viewModel.showAlert(
+//                    .alert(
+//                        .init(
+//                            title: "identityrecovery.status.requestfailed.title".localized,
+//                            message: "identityrecovery.status.requestfailed.message".localized,
+//                            actions: [
+//                                .init(
+//                                    name: "identityrecovery.status.requestfailed.retry".localized,
+//                                    completion: nil,
+//                                    style: .default
+//                                ),
+//                                .init(
+//                                    name: "identityrecovery.status.requestfailed.later".localized,
+//                                    completion: nil,
+//                                    style: .default
+//                                )
+//                            ]
+//                        )
+//                    )
+//                )
             }
             self.viewModel.hideLoading()
         }
     }
     
-    private func handleIdentities(_ identities: [IdentityDataType], accounts: [AccountDataType]) {
-        if identities.isEmpty {
+    private func handleIdentities(_ identities: [IdentityDataType], accounts: [AccountDataType], failedIdentitiesProviders: [String]) {
+        if !failedIdentitiesProviders.isEmpty {
+            var failedIdentitiesProvidersString = ""
+            for identityProvider in failedIdentitiesProviders {
+                failedIdentitiesProvidersString += "\n* \(identityProvider)"
+            }
+            
+            viewModel.status = .partial(identities, accounts, failedIdentitiesProviders)
+            viewModel.title = "identityrecovery.status.title.partial".localized
+            viewModel.message = String(format: "identityrecovery.status.message.partial".localized, failedIdentitiesProvidersString)
+        } else if identities.isEmpty {
             viewModel.status = .emptyResponse
-            viewModel.title = "identityrecovery.status.title.failed".localized
-            viewModel.message = "identityrecovery.status.message.failed".localized
+            viewModel.title = "identityrecovery.status.title.emptyResponse".localized
+            viewModel.message = "identityrecovery.status.message.emptyResponse".localized
         } else {
             viewModel.status = .success(identities, accounts)
             viewModel.title = "identityrecovery.status.title.success".localized

@@ -134,6 +134,7 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
                             identityProviderSupport: String,
                             reference: String,
                             completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
+    func reloadView()
     var isOnScreen: Bool { get }
 }
 
@@ -143,7 +144,7 @@ protocol AccountsPresenterProtocol: AnyObject {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidAppear()
-    func refresh()
+    func refresh(pendingIdentity: IdentityDataType?)
     func showSettings()
     func userPressedCreate()
     func userPerformed(action: AccountCardAction, on accountIndex: Int)
@@ -161,6 +162,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private weak var appSettingsDelegate: AppSettingsDelegate?
 
+    var pendingIdentity: IdentityDataType?
+    
     var accounts: [AccountDataType] = [] {
         didSet {
             updateViewState()
@@ -168,6 +171,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private var viewModel = AccountsListViewModel()
+    
+    var identities = [IdentityDataType]() {
+        didSet {
+            self.view?.reloadView()
+        }
+    }
     
     private func updateViewState() {
         if accounts.count > 0 {
@@ -214,7 +223,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
         delegate?.showSettings()
     }
 
-    func refresh() {
+    func refresh(pendingIdentity: IdentityDataType? = nil) {
+        if self.pendingIdentity == nil {
+            self.pendingIdentity = pendingIdentity
+        }
+        refreshPendingIdentities()
         refresh(showLoadingIndicator: false)
         checkPendingAccountsStatusesIfNeeded()
     }
@@ -353,6 +366,52 @@ class AccountsPresenter: AccountsPresenterProtocol {
         for pendingAccount in newPendingAccounts {
             dependencyProvider.storageManager().storePendingAccount(with: pendingAccount)
         }
+    }
+    
+    private func refreshPendingIdentities() {
+        dependencyProvider.identitiesService()
+                .updatePendingIdentities()
+                .sink(
+                        receiveError: { error in
+                            Logger.error("Error updating identities: \(error)")
+                            self.identities = self.dependencyProvider.storageManager().getIdentities()
+                        },
+                        receiveValue: { updatedPendingIdentities in
+                            self.identities = self.dependencyProvider.storageManager().getIdentities()
+                            self.checkIfConfirmedOrFailed()
+                        }).store(in: &cancellables)
+    }
+    
+    private func checkIfConfirmedOrFailed() {
+        if let pendingIdentity = pendingIdentity {
+            for identity in identities {
+                if identity.id == pendingIdentity.id {
+                    if identity.state == .confirmed {
+                        showConfirmedIdentityAlert()
+                    } else if identity.state == .failed {
+                        showFailedIdentityAlert()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func showConfirmedIdentityAlert() {
+//        view?.showAlert(with: AlertOptions(title: "newaccount.title".localized, message: String(format: "newaccount.message".localized, pendingIdentity!.nickname), actions: [AlertAction(name: "newaccount.create".localized, completion: {
+//            self.pendingIdentity = nil
+//        }, style: .default), AlertAction(name: "newaccount.later".localized, completion: {
+//            self.pendingIdentity = nil
+//        }, style: .cancel)]))
+        
+        self.pendingIdentity = nil
+    }
+    
+    private func showFailedIdentityAlert() {
+        view?.showAlert(with: AlertOptions(title: "identitiespresenteridentityrejected.title".localized, message: "identitiespresenteridentityrejected.message".localized, actions: [AlertAction(name: "identitiespresenteridentityrejected.tryagain".localized, completion: {
+            self.delegate?.createNewIdentity()
+        }, style: .default), AlertAction(name: "identitiespresenteridentityrejected.later".localized, completion: nil, style: .cancel)]))
+        
+        self.pendingIdentity = nil
     }
     
     private func checkForNewTerms() {

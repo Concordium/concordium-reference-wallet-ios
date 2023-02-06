@@ -16,18 +16,23 @@ struct IdentityReccoveryStatusView: Page {
             Image(imageName)
                 .resizable()
                 .frame(width: 110, height: 110)
-                .foregroundColor(titleColor)
+                .foregroundColor(Pallette.primary)
             StyledLabel(
                 text: viewModel.title,
                 style: .title,
-                color: titleColor
+                color: Pallette.primary
             ).padding([.top, .bottom], 44)
             StyledLabel(
                 text: viewModel.message,
                 style: .body,
-                color: messageColor
-            ).padding(.init(top: 0, leading: 16, bottom: 44, trailing: 16))
+                color: Pallette.text
+            ).padding(.init(top: 0, leading: 16, bottom: 44, trailing: 16)).fixedSize(horizontal: false, vertical: true)
             if case let .success(identities, accounts) = viewModel.status {
+                IdentityList(
+                    identities: identities,
+                    accounts: accounts
+                )
+            } else if case let .partial(identities, accounts, failedIdentityProviders) = viewModel.status {
                 IdentityList(
                     identities: identities,
                     accounts: accounts
@@ -43,46 +48,57 @@ struct IdentityReccoveryStatusView: Page {
         switch viewModel.status {
         case .fetching:
             EmptyView()
-        case .emptyResponse:
-            Button(viewModel.tryAgain) {
-                viewModel.send(.fetchIdentities)
-            }
-            .applyStandardButtonStyle()
-            .padding([.bottom], 16)
-            Button(viewModel.changeRecoveryPhrase) {
-                viewModel.send(.changeRecoveryPhrase)
-            }.applyStandardButtonStyle()
-        case .failed, .success:
-            Button(viewModel.continueLabel) {
+//        case .emptyResponse:
+//            Button(viewModel.tryAgain) {
+//                viewModel.send(.fetchIdentities)
+//            }
+//            .applyStandardButtonStyle()
+//            .padding([.bottom], 16)
+//            Button(viewModel.changeRecoveryPhrase) {
+//                viewModel.send(.changeRecoveryPhrase)
+//            }.applyStandardButtonStyle()
+        case .success, .emptyResponse:
+            Button(viewModel.continueLongLabel) {
                 viewModel.send(.finish)
             }.applyStandardButtonStyle()
+        case .partial:
+            HStack(spacing: 16.0) {
+                Button(viewModel.tryAgain) {
+                    viewModel.send(.fetchIdentities)
+                }
+                .applyStandardButtonStyle()
+                Button(viewModel.continueLabel) {
+                    viewModel.send(.finish)
+                }
+                .applyStandardButtonStyle()
+            }
         }
     }
     
-    private var titleColor: Color {
-        if viewModel.status == .emptyResponse {
-            return Pallette.error
-        } else {
-            return Pallette.primary
-        }
-    }
+//    private var titleColor: Color {
+//        if viewModel.status == .emptyResponse {
+//            return Pallette.error
+//        } else {
+//            return Pallette.primary
+//        }
+//    }
     
-    private var messageColor: Color {
-        if viewModel.status == .fetching {
-            return Pallette.fadedText
-        } else {
-            return Pallette.text
-        }
-    }
+//    private var messageColor: Color {
+//        if viewModel.status == .fetching {
+//            return Pallette.fadedText
+//        } else {
+//            return Pallette.text
+//        }
+//    }
     
     private var imageName: String {
         switch viewModel.status {
         case .fetching:
             return "import_pending"
-        case .emptyResponse:
-            return "error"
-        case .failed, .success:
+        case .success, .emptyResponse:
             return "confirm"
+        case .partial:
+            return "partial"
         }
     }
 }
@@ -130,35 +146,36 @@ struct IdentityReccoveryStatusView_Previews: PreviewProvider {
                 status: .fetching,
                 title: "Recovering IDs and accounts",
                 message: "Scanning the Concordium blockchain. Hang on while we find your account and identities.",
-                continueLabel: "Continue to wallet",
-                tryAgain: "Try again",
-                changeRecoveryPhrase: "Enter another recovery phrase"
+                continueLongLabel: "Continue to wallet",
+                continueLabel: "Continue",
+                tryAgain: "Try again"
+//                changeRecoveryPhrase: "Enter another recovery phrase"
             )
         )
         
-        IdentityReccoveryStatusView(
-            viewModel: .init(
-                status: .failed,
-                title: "We found nothing to recover.",
-                message: """
-There was no accounts to be found for the secret recovery phrase. Did you maybe enter a wrong recovery phrase?
-
-If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.
-""",
-                continueLabel: "Continue to wallet",
-                tryAgain: "Try again",
-                changeRecoveryPhrase: "Enter another recovery phrase")
-        )
+//        IdentityReccoveryStatusView(
+//            viewModel: .init(
+//                status: .emptyResponse,
+//                title: "We found nothing to recover.",
+//                message: """
+//There was no accounts to be found for the secret recovery phrase. Did you maybe enter a wrong recovery phrase?
+//
+//If you only have an identity and no accounts, this can also be the reason. In this case please specify which identity provider you used to get your identity, so we can send them a request.
+//""",
+//                continueLabel: "Continue to wallet",
+//                tryAgain: "Try again"
+////                changeRecoveryPhrase: "Enter another recovery phrase")
+//        )
         
-        IdentityReccoveryStatusView(
-            viewModel: .init(
-                status: .success([IdentityEntity()], [AccountEntity()]),
-                title: "Recovery finished",
-                message: "You have successfully recovered:",
-                continueLabel: "Continue to wallet",
-                tryAgain: "Try again",
-                changeRecoveryPhrase: "Enter another recovery phrase"
-            )
-        )
+//        IdentityReccoveryStatusView(
+//            viewModel: .init(
+//                status: .success([IdentityEntity()], [AccountEntity()]),
+//                title: "Recovery finished",
+//                message: "You have successfully recovered:",
+//                continueLabel: "Continue to wallet",
+//                tryAgain: "Try again"
+////                changeRecoveryPhrase: "Enter another recovery phrase"
+//            )
+//        )
     }
 }
