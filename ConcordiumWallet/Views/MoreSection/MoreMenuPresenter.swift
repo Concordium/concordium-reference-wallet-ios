@@ -19,7 +19,7 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func identitiesSelected()
     func addressBookSelected()
     func updateSelected()
-    func recoverySelected()
+    func recoverySelected() async throws
     func aboutSelected()
 }
 
@@ -31,7 +31,7 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func userSelectedIdentities()
     func userSelectedAddressBook()
     func userSelectedUpdate()
-    func userSelectedRecovery()
+    func userSelectedRecovery() async
     func userSelectedAbout()
 }
 
@@ -60,8 +60,12 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
         delegate?.updateSelected()
     }
     
-    func userSelectedRecovery() {
-        delegate?.recoverySelected()
+    func userSelectedRecovery() async {
+        do {
+            try await delegate?.recoverySelected()
+        } catch {
+            print(error)
+        }
     }
 
     func userSelectedAbout() {

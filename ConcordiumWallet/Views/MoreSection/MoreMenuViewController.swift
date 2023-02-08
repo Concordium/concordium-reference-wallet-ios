@@ -75,7 +75,7 @@ extension MoreMenuViewController: UITableViewDelegate {
         case .update:
             presenter.userSelectedUpdate()
         case .recovery:
-            presenter.userSelectedRecovery()
+            Task { await presenter.userSelectedRecovery() }
         case .about:
             presenter.userSelectedAbout()
         }

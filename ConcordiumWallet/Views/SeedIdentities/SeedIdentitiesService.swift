@@ -226,6 +226,10 @@ struct SeedIdentitiesService {
         index: Int,
         identityProvider: IdentityProviderDataType
     ) throws -> IdentityDataType {
+        if let retrievedIdentity = storageManager.getIdentity(matchingSeedIdentityObject: seedIdentityObjectWrapper.value) {
+            return retrievedIdentity
+        }
+        
         var identity = IdentityDataTypeFactory.create()
         identity.index = index
         identity.accountsCreated = 0

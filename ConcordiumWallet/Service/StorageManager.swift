@@ -9,7 +9,8 @@ import RealmSwift
 protocol StorageManagerProtocol {
     func storeIdentity(_: IdentityDataType) throws
     func getIdentities() -> [IdentityDataType]
-    func getIdentity(matching identityObject: IdentityObject) -> IdentityDataType?
+    func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType?
+    func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType?
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
@@ -109,8 +110,14 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     }
 
     // swiftlint:disable line_length
-    func getIdentity(matching identityObject: IdentityObject) -> IdentityDataType? {
+    func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType? {
         getIdentities().first { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub == identityObject.preIdentityObject.pubInfoForIP.idCredPub }
+    }
+    
+    func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType? {
+        getIdentities().first {
+            $0.seedIdentityObject?.preIdentityObject.idCredPub == seedIdentityObject.preIdentityObject.idCredPub
+        }
     }
 
     func getConfirmedIdentities() -> [IdentityDataType] {

@@ -232,8 +232,10 @@ When you have submitted your account, you will be taken to the wallet.";
 "identityrecovery.status.message.emptyResponse" = "Nothing new was found.";
 "identityrecovery.status.title.success" = "Recovery finished";
 "identityrecovery.status.message.success" = "You have successfully recovered:";
+"identitynewrecovery.status.message.success" = "The following has been recovered and added to the wallet:";
 "identityrecovery.status.title.partial" = "Recovery may be partial";
 "identityrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nYou have succesfully recovered:";
+"identitynewrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nThe following has been recovered and added to the wallet:";
 "identityrecovery.status.continuelong" = "Continue to wallet";
 "identityrecovery.status.continue" = "Continue";
 "identityrecovery.status.tryagain" = "Try again";
@@ -337,7 +339,10 @@ When you have submitted your account, you will be taken to the wallet.";
 "accountConfirmed.submittedMessage" = "This may take a few minutes to
 process on-chain.";
 "accountFailed.title" = "Account creation failed!";
-"accountFailed.tryLater" = "Please try again.";
+"accountFailed.errorMessage" = "Your wallet seems to not be synchronized with the blockchain. You must first make a recovery of existing accounts, before you can make a new one.";
+"accountFailed.tryLater" = "Start the recovery flow, by pressing the button bellow.";
+"accountFailed.buttonTitle" = "Start recovery";
+
 "accountDetails.failedMessage" = "Account creation failed in the process of creation";
 "accountDetails.committedMessage" = "Account creation in progress.\n\nYou can start using this account once it’s been finalized on the chain.";
 

@@ -12,6 +12,7 @@ import Combine
 protocol SubmitSeedAccountPresenterDelegate: RequestPasswordDelegate {
     func accountHasBeenSubmitted(_ account: AccountDataType, isNewAccountAfterSettingUpTheWallet: Bool, forIdentity identity: IdentityDataType)
     func makeNewIdentityRequest()
+    func showAccountFailed(error: Error)
 }
 
 class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
@@ -113,7 +114,8 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
                         
                         self.delegate?.accountHasBeenSubmitted(account, isNewAccountAfterSettingUpTheWallet: isNewAccountAfterSettingUpTheWallet, forIdentity: identity)
                     } catch {
-                        self.viewModel.alertPublisher.send(.error(ErrorMapper.toViewError(error: error)))
+                        print("+++ Error: \(error)")
+                        delegate.showAccountFailed(error: error)
                     }
                 }
             }

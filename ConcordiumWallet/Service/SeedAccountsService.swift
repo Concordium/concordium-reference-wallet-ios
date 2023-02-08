@@ -82,8 +82,12 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
         
         try await storeAccount(account)
         
+        print("+++ Izgleda pagja tuka dole")
+        
         let submissionResponse = try await submitCredentialRequest(request)
         account = try await updateAccount(account, withSubmissionsId: submissionResponse.submissionID)
+        
+        print("+++ Do tuka ne ide")
         
         let status = try await getSubmissionStatus(for: submissionResponse)
         account = try await updateAccount(account, withSubmissionStatus: status.status)
@@ -134,8 +138,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
                     seed: seed
                 ).get()
 
-                if let existingAccount = await getAccount(withAddress: request.accountAddress) {
-                    accounts.append(existingAccount)
+                if await getAccount(withAddress: request.accountAddress) != nil {
                     currentGap = 0
                 } else {
                     var account = try createAccount(

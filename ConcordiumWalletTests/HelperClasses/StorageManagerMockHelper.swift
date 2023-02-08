@@ -15,7 +15,7 @@ class StorageManagerMockHelper: StorageManagerProtocol {
         NYI()
     }
     
-    func getIdentity(matching identityObject: IdentityObject) -> IdentityDataType? {
+    func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType? {
         NYI()
     }
     

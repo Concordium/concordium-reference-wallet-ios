@@ -9,7 +9,7 @@ import Combine
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate { }
 
-class MoreCoordinator: Coordinator, ShowAlert {
+class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
     
     var childCoordinators = [Coordinator]()
@@ -17,6 +17,7 @@ class MoreCoordinator: Coordinator, ShowAlert {
     private var dependencyProvider: DependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
+    private var accountsCoordinator: AccountsCoordinator?
     
     weak var delegate: MoreCoordinatorDelegate?
     
@@ -136,6 +137,7 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     func identitiesSelected() {
         showIdentities()
     }
+    
     func addressBookSelected() {
         showAddressBook()
     }
@@ -144,16 +146,41 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
         showUpdatePasscode()
     }
     
-    func recoverySelected() {
-        let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
-            dependencyProvider: ServicesProvider.defaultProvider(),
-            navigationController: navigationController,
+    func recoverySelected() async throws {
+        
+        let pwHash = try await self.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        let seedValue = try dependencyProvider.keychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
+        
+        let presenter = IdentityRecoveryStatusPresenter(
+            recoveryPhrase: nil,
+            recoveryPhraseService: nil,
+            seed: Seed(value: seedValue),
+            pwHash: pwHash,
+            identitiesService: dependencyProvider.seedIdentitiesService(),
+            accountsService: dependencyProvider.seedAccountsService(),
+            keychain: dependencyProvider.keychainWrapper(),
             delegate: self
         )
-        recoveryPhraseCoordinator.start()
-        self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
-        childCoordinators.append(recoveryPhraseCoordinator)
-        self.navigationController.setupBaseNavigationControllerStyle()
+        
+        replaceTopController(with: presenter.present(IdentityReccoveryStatusView.self))
+    }
+    
+    private func replaceTopController(with controller: UIViewController) {
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [controller], animated: true)
+    }
+    
+    func showMainTabbar() {
+        navigationController.setupBaseNavigationControllerStyle()
+
+        accountsCoordinator = AccountsCoordinator(
+            navigationController: self.navigationController,
+            dependencyProvider: ServicesProvider.defaultProvider(),
+            appSettingsDelegate: self,
+            accountsPresenterDelegate: self
+        )
+        // accountsCoordinator?.delegate = self
+        accountsCoordinator?.start()
     }
     
     func aboutSelected() {
@@ -283,16 +310,58 @@ extension MoreCoordinator: IdentitiesCoordinatorDelegate {
     }
 }
 
-extension MoreCoordinator: RecoveryPhraseCoordinatorDelegate {
-    func recoveryPhraseCoordinator(createdNewSeed seed: Seed) {
-        print("+++ recoveryPhraseCoordinator createdNewSeed")
-//        showSeedIdentityCreation()
-//        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+extension MoreCoordinator: IdentityRecoveryStatusPresenterDelegate {
+    func identityRecoveryCompleted() {
+        showMainTabbar()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
     
-    func recoveryPhraseCoordinatorFinishedRecovery() {
-        print("+++ recoveryPhraseCoordinatorFinishedRecovery")
-//        showMainTabbar()
-//        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+    func reenterRecoveryPhrase() {
+        print("Reenter recovery phrase.")
+    }
+}
+
+extension MoreCoordinator: AppSettingsDelegate {
+    func checkForAppSettings() {
+    }
+}
+
+extension MoreCoordinator: AccountsPresenterDelegate {
+    func createNewIdentity() {
+        accountsCoordinator?.showCreateNewIdentity()
+    }
+
+    func createNewAccount() {
+        accountsCoordinator?.showCreateNewAccount()
+    }
+    
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        accountsCoordinator?.userPerformed(action: action, on: account)
+    }
+
+    func enableShielded(on account: AccountDataType) {
+    }
+
+    func noValidIdentitiesAvailable() {
+    }
+
+    func tryAgainIdentity() {
+    }
+
+    func didSelectMakeBackup() {
+    }
+
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+    }
+
+    func newTermsAvailable() {
+        accountsCoordinator?.showNewTerms()
+    }
+    
+    func showSettings() {
+        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+                                              dependencyProvider: ServicesProvider.defaultProvider(),
+                                              parentCoordinator: self)
+        moreCoordinator.start()
     }
 }

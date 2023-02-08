@@ -14,16 +14,20 @@ protocol IdentityRecoveryStatusPresenterDelegate: RequestPasswordDelegate {
 }
 
 class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusViewModel> {
-    private let recoveryPhrase: RecoveryPhrase
-    private let recoveryPhraseService: RecoveryPhraseServiceProtocol
+    private let recoveryPhrase: RecoveryPhrase?
+    private let recoveryPhraseService: RecoveryPhraseServiceProtocol?
+    private var seed: Seed?
+    private var pwHash: String?
     private let identitiesService: SeedIdentitiesService
     private let accountsService: SeedAccountsService
     private let keychain: KeychainWrapperProtocol
     private weak var delegate: IdentityRecoveryStatusPresenterDelegate?
     
     init(
-        recoveryPhrase: RecoveryPhrase,
-        recoveryPhraseService: RecoveryPhraseServiceProtocol,
+        recoveryPhrase: RecoveryPhrase?,
+        recoveryPhraseService: RecoveryPhraseServiceProtocol?,
+        seed: Seed? = nil,
+        pwHash: String? = nil,
         identitiesService: SeedIdentitiesService,
         accountsService: SeedAccountsService,
         keychain: KeychainWrapperProtocol,
@@ -31,6 +35,8 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
     ) {
         self.recoveryPhrase = recoveryPhrase
         self.recoveryPhraseService = recoveryPhraseService
+        self.seed = seed
+        self.pwHash = pwHash
         self.identitiesService = identitiesService
         self.accountsService = accountsService
         self.keychain = keychain
@@ -82,24 +88,51 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
         Task {
             do {
                 self.viewModel.showLoading()
-                let pwHash = try await delegate.requestUserPassword(keychain: keychain)
                 
-                let seed = try await self.recoveryPhraseService.store(
-                    recoveryPhrase: self.recoveryPhrase,
-                    with: pwHash
-                )
+                if self.pwHash == nil {
+                    self.pwHash = try await delegate.requestUserPassword(keychain: keychain)
+                }
+                
+                if self.seed == nil && self.recoveryPhrase != nil && self.recoveryPhraseService != nil {
+                    self.seed = try await self.recoveryPhraseService!.store(
+                        recoveryPhrase: self.recoveryPhrase!,
+                        with: self.pwHash!
+                    )
+                }
                 
                 let (identities, failedIdentityProviders) = try await self.identitiesService.recoverIdentities(
-                    with: seed
+                    with: self.seed!
                 )
                 
                 let accounts = try await self.accountsService.recoverAccounts(
                     for: identities,
-                    seed: seed,
-                    pwHash: pwHash
+                    seed: self.seed!,
+                    pwHash: self.pwHash!
                 )
                 
-                self.handleIdentities(identities, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
+                let storageManager: StorageManager = StorageManager(keychain: keychain)
+                
+                var recoveredIdentities: [IdentityDataType] = []
+                
+                for identity in identities {
+                    if storageManager.getIdentity(matchingSeedIdentityObject: identity.seedIdentityObject!) == nil {
+                        recoveredIdentities.append(identity)
+                    } else {
+                        var identityHasRecoveredAccount = false
+                        
+                        for account in accounts {
+                            if account.identity!.id == identity.id {
+                                identityHasRecoveredAccount = true
+                            }
+                        }
+                        
+                        if identityHasRecoveredAccount {
+                            recoveredIdentities.append(identity)
+                        }
+                    }
+                }
+                
+                self.handleIdentities(recoveredIdentities, accounts: accounts, failedIdentitiesProviders: failedIdentityProviders)
             } catch {
 //                self.viewModel.status = .failed
 //                self.viewModel.showAlert(
@@ -136,7 +169,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
             
             viewModel.status = .partial(identities, accounts, failedIdentitiesProviders)
             viewModel.title = "identityrecovery.status.title.partial".localized
-            viewModel.message = String(format: "identityrecovery.status.message.partial".localized, failedIdentitiesProvidersString)
+            viewModel.message = recoveryPhrase != nil ? String(format: "identityrecovery.status.message.partial".localized, failedIdentitiesProvidersString) : String(format: "identitynewrecovery.status.message.partial".localized, failedIdentitiesProvidersString)
         } else if identities.isEmpty {
             viewModel.status = .emptyResponse
             viewModel.title = "identityrecovery.status.title.emptyResponse".localized
@@ -144,7 +177,7 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
         } else {
             viewModel.status = .success(identities, accounts)
             viewModel.title = "identityrecovery.status.title.success".localized
-            viewModel.message = "identityrecovery.status.message.success".localized
+            viewModel.message = recoveryPhrase != nil ? "identityrecovery.status.message.success".localized : "identitynewrecovery.status.message.success".localized
         }
     }
 }

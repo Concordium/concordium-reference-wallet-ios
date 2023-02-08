@@ -28,6 +28,8 @@ class SeedIdentitiesCoordinator: Coordinator {
     private let dependencyProvider: IdentitiesFlowCoordinatorDependencyProvider
     private let identititesService: SeedIdentitiesService
     private weak var delegate: SeedIdentitiesCoordinatorDelegate?
+    private var creationFailedUIMode: CreationFailedUIMode = .identity
+    private var accountsCoordinator: AccountsCoordinator?
     
     init(
         navigationController: UINavigationController,
@@ -134,6 +136,42 @@ class SeedIdentitiesCoordinator: Coordinator {
         
         navigationController.setViewControllers([presenter.present(SubmittedSeedAccountView.self)], animated: true)
     }
+    
+    func recoverySelected() async throws {
+        let pwHash = try await self.requestUserPassword(keychain: KeychainWrapper())
+        let seedValue = try KeychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
+        
+        let presenter = IdentityRecoveryStatusPresenter(
+            recoveryPhrase: nil,
+            recoveryPhraseService: nil,
+            seed: Seed(value: seedValue),
+            pwHash: pwHash,
+            identitiesService: dependencyProvider.seedIdentitiesService(),
+            accountsService: dependencyProvider.seedAccountsService(),
+            keychain: KeychainWrapper(),
+            delegate: self
+        )
+        
+        replaceTopController(with: presenter.present(IdentityReccoveryStatusView.self))
+    }
+    
+    private func replaceTopController(with controller: UIViewController) {
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [controller], animated: true)
+    }
+    
+    func showMainTabbar() {
+        navigationController.setupBaseNavigationControllerStyle()
+
+        accountsCoordinator = AccountsCoordinator(
+            navigationController: self.navigationController,
+            dependencyProvider: ServicesProvider.defaultProvider(),
+            appSettingsDelegate: self,
+            accountsPresenterDelegate: self
+        )
+        // accountsCoordinator?.delegate = self
+        accountsCoordinator?.start()
+    }
 }
 
 extension SeedIdentitiesCoordinator: SeedIdentityOnboardingPresenterDelegate {
@@ -164,6 +202,7 @@ extension SeedIdentitiesCoordinator: CreateSeedIdentityPresenterDelegate {
     
     func createIdentityView(failedToLoad error: Error) {
         navigationController.dismiss(animated: true) {
+            self.creationFailedUIMode = .identity
             let vc = CreationFailedFactory.create(
                 with: CreationFailedPresenter(
                     serverError: error,
@@ -182,7 +221,21 @@ extension SeedIdentitiesCoordinator: CreateSeedIdentityPresenterDelegate {
 
 extension SeedIdentitiesCoordinator: CreationFailedPresenterDelegate {
     func finish() {
-        
+        if creationFailedUIMode == .identity {
+            navigationController.dismiss(animated: true)
+            childCoordinators.removeAll()
+        } else if creationFailedUIMode == .account {
+            print("+++ Recover now!")
+            Task {
+                do {
+                    navigationController.dismiss(animated: false)
+                    childCoordinators.removeAll()
+                    try await recoverySelected()
+                } catch {
+                    print("+++ Error.")
+                }
+            }
+        }
     }
 }
 
@@ -216,6 +269,12 @@ extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
     func makeNewIdentityRequest() {
         showIdentityProviders(enablePop: false)
     }
+    
+    func showAccountFailed(error: Error) {
+        creationFailedUIMode = .account
+        let vc = CreationFailedFactory.create(with: CreationFailedPresenter(serverError: error, delegate: self, mode: .account))
+        showModally(vc, from: navigationController)
+    }
 }
 
 extension SeedIdentitiesCoordinator: SelectIdentityPresenterDelegate {
@@ -227,5 +286,69 @@ extension SeedIdentitiesCoordinator: SelectIdentityPresenterDelegate {
 extension SeedIdentitiesCoordinator: SubmittedSeedAccountPresenterDelegate {
     func accountHasBeenFinished(for identity: IdentityDataType) {
         delegate?.seedIdentityCoordinatorWasFinished(for: identity)
+    }
+}
+
+extension SeedIdentitiesCoordinator: IdentityRecoveryStatusPresenterDelegate {
+    func identityRecoveryCompleted() {
+        showMainTabbar()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+    }
+    
+    func reenterRecoveryPhrase() {
+        print("Reenter recovery phrase.")
+    }
+}
+
+extension SeedIdentitiesCoordinator: AppSettingsDelegate {
+    func checkForAppSettings() {
+    }
+}
+
+extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
+    func createNewIdentity() {
+        accountsCoordinator?.showCreateNewIdentity()
+    }
+
+    func createNewAccount() {
+        accountsCoordinator?.showCreateNewAccount()
+    }
+    
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        accountsCoordinator?.userPerformed(action: action, on: account)
+    }
+
+    func enableShielded(on account: AccountDataType) {
+    }
+
+    func noValidIdentitiesAvailable() {
+    }
+
+    func tryAgainIdentity() {
+    }
+
+    func didSelectMakeBackup() {
+    }
+
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+    }
+
+    func newTermsAvailable() {
+        accountsCoordinator?.showNewTerms()
+    }
+    
+    func showSettings() {
+        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+                                              dependencyProvider: ServicesProvider.defaultProvider(),
+                                              parentCoordinator: self)
+        moreCoordinator.start()
+    }
+}
+
+extension SeedIdentitiesCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate {
+    func finishedDisplayingIdentities() {
+    }
+    
+    func noIdentitiesFound() {
     }
 }
