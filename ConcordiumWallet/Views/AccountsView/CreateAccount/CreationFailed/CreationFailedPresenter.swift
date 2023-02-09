@@ -61,18 +61,20 @@ class CreationFailedPresenter: CreationFailedPresenterProtocol {
             view?.set(errorMessage: serverError.localizedDescription)
         }
         switch mode {
-            case .account:
-                view?.set(errorTitle: "accountFailed.title".localized)
-                view?.set(viewControllerTitle: "creationFailed.account".localized)
+        case .account:
+            view?.set(errorTitle: "accountFailed.title".localized)
+            view?.set(viewControllerTitle: "creationFailed.account".localized)
             view?.set(errorMessage: "accountFailed.errorMessage".localized)
             view?.set(tryAgainMessage: "accountFailed.tryLater".localized)
             view?.set(buttonTitle: "accountFailed.buttonTitle".localized)
-            case .identity:
-                view?.set(errorTitle: "identityFailed.title".localized)
-                view?.set(viewControllerTitle: "creationFailed.identity".localized)
-            case .transfer:
-                view?.set(errorTitle: "transactionFailed.title".localized)
-                view?.set(viewControllerTitle: "creationFailed.transfer".localized)
+        case .identity:
+            view?.set(errorTitle: "identityFailed.title".localized)
+            view?.set(viewControllerTitle: "creationFailed.identity".localized)
+            view?.set(buttonTitle: "Ok".localized)
+        case .transfer:
+            view?.set(errorTitle: "transactionFailed.title".localized)
+            view?.set(viewControllerTitle: "creationFailed.transfer".localized)
+            view?.set(buttonTitle: "Ok".localized)
         }
     }
 

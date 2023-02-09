@@ -1079,3 +1079,6 @@ Remember to restart your node with the baker keys.";
 "identitiespresenteridentityrejected.message" = "Your identity request was unfortunately rejected.\n\nRejected identity requests cannot be resolved, so the rejected identity will be discarded, after dismissing this notification.\n\nDo you want to make another request now?";
 "identitiespresenteridentityrejected.tryagain" = "Request another identity";
 "identitiespresenteridentityrejected.later" = "Later";
+
+"recover.identityKey" = "identity";
+"recover.isNewlyCreatedKey" = "isNewlyCreated";

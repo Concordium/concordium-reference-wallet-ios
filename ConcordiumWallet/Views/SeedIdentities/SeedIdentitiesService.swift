@@ -116,7 +116,7 @@ struct SeedIdentitiesService {
     
     func recoverIdentities(
         with seed: Seed
-    ) async throws -> ([IdentityDataType], [String]) {
+    ) async throws -> ([[String: Any]], [String]) {
         async let globalRequeest = getGlobal()
         async let ipInfoRequest = getIpInfo()
         
@@ -126,7 +126,7 @@ struct SeedIdentitiesService {
         }
         identityProviders = identityProviders.filter { $0.ipInfo?.ipDescription.name != "instant_fail_provider" }
         
-        var allidentities = [IdentityDataType]()
+        var allidentities = [[String: Any]]()
         var failedIdentityProviders = [String]()
         let allowedGap = 20
         var currentGap = 0
@@ -169,7 +169,7 @@ struct SeedIdentitiesService {
         generatedBy seed: Seed,
         global: GlobalWrapper,
         identityProvider: IdentityProviderDataType
-    ) async -> (IdentityDataType?, String?) {
+    ) async -> ([String: Any]?, String?) {
         
         guard
             var recoveryURL = identityProvider.recoverURL,
@@ -225,9 +225,9 @@ struct SeedIdentitiesService {
         _ seedIdentityObjectWrapper: SeedIdentityObjectWrapper,
         index: Int,
         identityProvider: IdentityProviderDataType
-    ) throws -> IdentityDataType {
+    ) throws -> [String: Any] {
         if let retrievedIdentity = storageManager.getIdentity(matchingSeedIdentityObject: seedIdentityObjectWrapper.value) {
-            return retrievedIdentity
+            return ["identity": retrievedIdentity, "isNewlyCreated": false]
         }
         
         var identity = IdentityDataTypeFactory.create()
@@ -240,7 +240,7 @@ struct SeedIdentitiesService {
         
         try storageManager.storeIdentity(identity)
         
-        return identity
+        return ["recover.identityKey".localized: identity, "recover.isNewlyCreatedKey".localized: true]
     }
     
     private func createIdentityObjectRequest(

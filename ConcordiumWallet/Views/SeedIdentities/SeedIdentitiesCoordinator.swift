@@ -229,7 +229,8 @@ extension SeedIdentitiesCoordinator: CreationFailedPresenterDelegate {
             Task {
                 do {
                     navigationController.dismiss(animated: false)
-                    childCoordinators.removeAll()
+//                    childCoordinators.removeAll()
+                    childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
                     try await recoverySelected()
                 } catch {
                     print("+++ Error.")

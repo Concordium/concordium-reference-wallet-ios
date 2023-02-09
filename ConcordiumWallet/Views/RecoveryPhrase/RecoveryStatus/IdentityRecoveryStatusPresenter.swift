@@ -104,30 +104,37 @@ class IdentityRecoveryStatusPresenter: SwiftUIPresenter<IdentityRecoveryStatusVi
                     with: self.seed!
                 )
                 
+                print("+++ Identities count: \(identities.count)")
+                
                 let accounts = try await self.accountsService.recoverAccounts(
                     for: identities,
                     seed: self.seed!,
                     pwHash: self.pwHash!
                 )
                 
+                print("+++ Accounts count: \(accounts.count)")
+                
                 let storageManager: StorageManager = StorageManager(keychain: keychain)
                 
                 var recoveredIdentities: [IdentityDataType] = []
                 
                 for identity in identities {
-                    if storageManager.getIdentity(matchingSeedIdentityObject: identity.seedIdentityObject!) == nil {
-                        recoveredIdentities.append(identity)
+                    let isIdentityNewlyCreated = (identity["recover.isNewlyCreatedKey".localized] as? Bool)!
+                    let recoveredIdentity = (identity["recover.identityKey".localized] as? IdentityDataType)!
+                    
+                    if isIdentityNewlyCreated { recoveredIdentities.append(recoveredIdentity)
                     } else {
                         var identityHasRecoveredAccount = false
                         
                         for account in accounts {
-                            if account.identity!.id == identity.id {
+                            if account.identity!.id ==
+                                recoveredIdentity.id {
                                 identityHasRecoveredAccount = true
                             }
                         }
                         
                         if identityHasRecoveredAccount {
-                            recoveredIdentities.append(identity)
+                            recoveredIdentities.append(recoveredIdentity)
                         }
                     }
                 }

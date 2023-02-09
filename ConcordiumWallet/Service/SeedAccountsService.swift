@@ -17,7 +17,7 @@ protocol SeedAccountsServiceProtocol {
     ) async throws -> AccountDataType
     
     func recoverAccounts(
-        for identities: [IdentityDataType],
+        for identities: [[String: Any]],
         seed: Seed,
         pwHash: String
     ) async throws -> [AccountDataType]
@@ -80,14 +80,15 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             pwHash: pwHash
         )
         
-        try await storeAccount(account)
-        
         print("+++ Izgleda pagja tuka dole")
         
         let submissionResponse = try await submitCredentialRequest(request)
-        account = try await updateAccount(account, withSubmissionsId: submissionResponse.submissionID)
+        
+        try await storeAccount(account)
         
         print("+++ Do tuka ne ide")
+        
+        account = try await updateAccount(account, withSubmissionsId: submissionResponse.submissionID)
         
         let status = try await getSubmissionStatus(for: submissionResponse)
         account = try await updateAccount(account, withSubmissionStatus: status.status)
@@ -96,7 +97,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
     }
     
     func recoverAccounts(
-        for identities: [IdentityDataType],
+        for identities: [[String: Any]],
         seed: Seed,
         pwHash: String
     ) async throws -> [AccountDataType] {
@@ -106,7 +107,7 @@ extension SeedAccountsService: SeedAccountsServiceProtocol {
             of: [AccountDataType].self
         ) { group in
             for identity in identities {
-                group.addTask { await recoverAccounts(for: identity, global: global, seed: seed, pwHash: pwHash) }
+                group.addTask { await recoverAccounts(for: (identity["recover.identityKey".localized] as? IdentityDataType)!, global: global, seed: seed, pwHash: pwHash) }
             }
 
             var allAccounts = [AccountDataType]()
