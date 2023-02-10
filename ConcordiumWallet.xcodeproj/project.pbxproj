@@ -1589,18 +1589,18 @@
 		89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		89CF2D50281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		89CF2D51281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
-		89CF2D54281A539700742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D55281A539700742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D56281A539700742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D57281A539700742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D59281A66C400742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5A281A66C400742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5B281A66C400742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5C281A66C400742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5E281A9E3100742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5F281A9E3100742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D60281A9E3100742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		89CF2D61281A9E3100742E1E /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		89CF2D54281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D55281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D56281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D57281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D59281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D5A281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D5B281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D5C281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D5E281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D5F281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D60281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		89CF2D61281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		89D081682861C82F0091344D /* BalanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D081672861C82F0091344D /* BalanceTests.swift */; };
 		89E1A75827FF1073008C761B /* BakingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75727FF1073008C761B /* BakingCoordinator.swift */; };
 		89E1A75927FF1073008C761B /* BakingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1A75727FF1073008C761B /* BakingCoordinator.swift */; };
@@ -2339,8 +2339,8 @@
 		7F7F6D2D24A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdentityButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		7F7F6D2E24A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdentityButtonWidgetViewController.swift; sourceTree = "<group>"; };
 		7F7F6D3824A13A8D0017B18F /* WidgetAndLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAndLabelViewController.swift; sourceTree = "<group>"; };
-		7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdTestNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProdMainNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F85B7CD246A9A7C00ED09B8 /* Concordium Legacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Concordium Legacy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F85B8CC246A9AB600ED09B8 /* Concordium Legacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Concordium Legacy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F85B8E22472D37600ED09B8 /* MoreMenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuPresenter.swift; sourceTree = "<group>"; };
 		7F85B8E32472D37600ED09B8 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		7F85B8E42472D37600ED09B8 /* MoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuViewController.swift; sourceTree = "<group>"; };
@@ -2391,7 +2391,7 @@
 		7FEC203423F1D435009BD4C9 /* IdentityProviderListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderListPresenter.swift; sourceTree = "<group>"; };
 		7FEC203523F1D435009BD4C9 /* IdentityProviderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityProviderListViewController.swift; sourceTree = "<group>"; };
 		7FEEF6FA24532475007C25F2 /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
-		7FF07A6923EADB1200F1FC04 /* StagingNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StagingNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FF07A6923EADB1200F1FC04 /* Concordium Legacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Concordium Legacy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF07A6C23EADB1200F1FC04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FF07A7323EADB1200F1FC04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
 		7FF07A7523EADB1400F1FC04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -3565,11 +3565,11 @@
 		7FF07A6A23EADB1200F1FC04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7FF07A6923EADB1200F1FC04 /* StagingNet.app */,
+				7FF07A6923EADB1200F1FC04 /* Concordium Legacy.app */,
 				7FF07A7F23EADB1500F1FC04 /* ConcordiumWalletTests.xctest */,
 				7F48C211244DCD0B00997684 /* Mock.app */,
-				7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */,
-				7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */,
+				7F85B7CD246A9A7C00ED09B8 /* Concordium Legacy.app */,
+				7F85B8CC246A9AB600ED09B8 /* Concordium Legacy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4177,7 +4177,7 @@
 			);
 			name = ProdTestNet;
 			productName = ConcordiumWallet;
-			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
+			productReference = 7F85B7CD246A9A7C00ED09B8 /* Concordium Legacy.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7F85B7CF246A9AB600ED09B8 /* ProdMainNet */ = {
@@ -4197,7 +4197,7 @@
 			);
 			name = ProdMainNet;
 			productName = ConcordiumWallet;
-			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
+			productReference = 7F85B8CC246A9AB600ED09B8 /* Concordium Legacy.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7FF07A6823EADB1200F1FC04 /* StagingNet */ = {
@@ -4217,7 +4217,7 @@
 			);
 			name = StagingNet;
 			productName = ConcordiumWallet;
-			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
+			productReference = 7FF07A6923EADB1200F1FC04 /* Concordium Legacy.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7FF07A7E23EADB1500F1FC04 /* ConcordiumWalletTests */ = {
@@ -4922,7 +4922,7 @@
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
 				7F48C148244DCD0B00997684 /* MainTabBarController.swift in Sources */,
 				075A4BC3271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
-				89CF2D59281A66C400742E1E /* BuildFile in Sources */,
+				89CF2D59281A66C400742E1E /* (null) in Sources */,
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
 				1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
@@ -4944,7 +4944,7 @@
 				7F48C278244E17D100997684 /* PreIdentityObject.swift in Sources */,
 				7F48C26A244E17D100997684 /* IDRequest.swift in Sources */,
 				7F48C150244DCD0B00997684 /* Fonts.swift in Sources */,
-				89CF2D54281A539700742E1E /* BuildFile in Sources */,
+				89CF2D54281A539700742E1E /* (null) in Sources */,
 				6426D91C260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */,
 				C92C64F9244EE7C500675ECE /* TransferCost.swift in Sources */,
 				90C371C327DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
@@ -5184,7 +5184,7 @@
 				7F48C1E6244DCD0B00997684 /* Result+Additions.swift in Sources */,
 				7F48C1E7244DCD0B00997684 /* ErrorMapper.swift in Sources */,
 				7F48C1E8244DCD0B00997684 /* LoginPresenter.swift in Sources */,
-				89CF2D5E281A9E3100742E1E /* BuildFile in Sources */,
+				89CF2D5E281A9E3100742E1E /* (null) in Sources */,
 				89E1A75D27FF1C2D008C761B /* String+Lines.swift in Sources */,
 				7F48C26D244E17D100997684 /* IPArDatum.swift in Sources */,
 				89EB9F5227FEDCF5005F8633 /* BakerPoolGenerateKeyViewController.swift in Sources */,
@@ -5364,7 +5364,7 @@
 				7F85B6FF246A9A7C00ED09B8 /* LoadProtocol.swift in Sources */,
 				7F85B700246A9A7C00ED09B8 /* BaseButton.swift in Sources */,
 				52DCA9F827CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
-				89CF2D60281A9E3100742E1E /* BuildFile in Sources */,
+				89CF2D60281A9E3100742E1E /* (null) in Sources */,
 				7F85B701246A9A7C00ED09B8 /* BaseLabel.swift in Sources */,
 				7F85B702246A9A7C00ED09B8 /* ArDatum.swift in Sources */,
 				7F85B704246A9A7C00ED09B8 /* IdentityRevokersWidgetPresenter.swift in Sources */,
@@ -5403,7 +5403,7 @@
 				077AC5FB26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B722246A9A7C00ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
-				89CF2D56281A539700742E1E /* BuildFile in Sources */,
+				89CF2D56281A539700742E1E /* (null) in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
 				7FB64A0B247D568400DC500E /* ExportViewController.swift in Sources */,
 				8992BB232840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
@@ -5661,7 +5661,7 @@
 				89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */,
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
-				89CF2D5B281A66C400742E1E /* BuildFile in Sources */,
+				89CF2D5B281A66C400742E1E /* (null) in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				19C2E579BB5DAF759AC46842 /* ExportVersionContainer.swift in Sources */,
 				19C2E03B6A8491C1646E0AB2 /* ExportAccount.swift in Sources */,
@@ -5782,7 +5782,7 @@
 				7F85B7FD246A9AB600ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
 				7F85B7FE246A9AB600ED09B8 /* LoadProtocol.swift in Sources */,
 				52DCA9F927CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
-				89CF2D61281A9E3100742E1E /* BuildFile in Sources */,
+				89CF2D61281A9E3100742E1E /* (null) in Sources */,
 				7F85B7FF246A9AB600ED09B8 /* BaseButton.swift in Sources */,
 				7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */,
 				7F85B801246A9AB600ED09B8 /* ArDatum.swift in Sources */,
@@ -5821,7 +5821,7 @@
 				077AC5FC26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B81E246A9AB600ED09B8 /* JSONObject.swift in Sources */,
-				89CF2D57281A539700742E1E /* BuildFile in Sources */,
+				89CF2D57281A539700742E1E /* (null) in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				7F85B821246A9AB600ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
 				8992BB242840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
@@ -6079,7 +6079,7 @@
 				89CF2D23280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */,
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
-				89CF2D5C281A66C400742E1E /* BuildFile in Sources */,
+				89CF2D5C281A66C400742E1E /* (null) in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				19C2E3E3584E12D4D72365FA /* ExportValues.swift in Sources */,
 				19C2ED5F84858C29CA6CDAC8 /* ExportIdentityData.swift in Sources */,
@@ -6403,7 +6403,7 @@
 				89CF2D452816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
 				19C2ECCEF3CDA2AEA44CCC76 /* IdentityConfirmedPresenter.swift in Sources */,
 				19C2EF0C9DB4F4117BCD1A0B /* IdentityConfirmedViewController.swift in Sources */,
-				89CF2D5F281A9E3100742E1E /* BuildFile in Sources */,
+				89CF2D5F281A9E3100742E1E /* (null) in Sources */,
 				19C2EE0C233940BF5B80070B /* IdentitiesPresenter.swift in Sources */,
 				19C2EE3A42B0C3F81028CC6F /* IdentitiesViewController.swift in Sources */,
 				52D10F3927D0F51A0025ED5D /* DelegationCoordinator.swift in Sources */,
@@ -6429,7 +6429,7 @@
 				89E1A75E27FF1C2D008C761B /* String+Lines.swift in Sources */,
 				8992BA5B282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				19C2E678EF032F92BCB63531 /* Result+Additions.swift in Sources */,
-				89CF2D55281A539700742E1E /* BuildFile in Sources */,
+				89CF2D55281A539700742E1E /* (null) in Sources */,
 				078967092742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				070D61DA27B290E400B6903C /* OnboardingCarouselPresenter.swift in Sources */,
 				19C2E19E5F252739424456FE /* ErrorMapper.swift in Sources */,
@@ -6479,7 +6479,7 @@
 				909EAF1F27F71FAD001930AE /* PendingChangeEntity.swift in Sources */,
 				8992BA562828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				19C2E365F833136A91177D42 /* AddRecipientViewController.swift in Sources */,
-				89CF2D5A281A66C400742E1E /* BuildFile in Sources */,
+				89CF2D5A281A66C400742E1E /* (null) in Sources */,
 				19C2E321C4CCC444BF89ED2E /* SendFundsCoordinator.swift in Sources */,
 				19C2E44740A7724544A27531 /* ServicesProvider+prod.swift in Sources */,
 				529531AA256BA711004CECE4 /* AccountBaker.swift in Sources */,
@@ -6708,7 +6708,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
@@ -6722,10 +6722,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Concordium Legacy";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -6742,7 +6742,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
@@ -6756,10 +6756,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Concordium Legacy";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -6775,7 +6775,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -6789,10 +6789,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mainnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Concordium Legacy";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -6808,7 +6808,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -6822,10 +6822,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mainnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Concordium Legacy";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -6960,7 +6960,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -6974,10 +6974,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Concordium Legacy";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
@@ -6995,7 +6995,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -7009,10 +7009,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Concordium Legacy";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";

@@ -6,6 +6,7 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
+import Foundation
 import Combine
 import UIKit
 

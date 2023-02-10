@@ -164,6 +164,11 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
+            
+            if (topController as? TransparentNavigationController)?.viewControllers.last is EnterPasswordViewController {
+                return
+            }
+            
             topController.dismiss(animated: false) {
                 Logger.trace("logout due to application timeout")
                 self.childCoordinators.removeAll()

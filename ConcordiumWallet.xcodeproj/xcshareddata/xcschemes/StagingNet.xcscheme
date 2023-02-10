@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7FF07A6823EADB1200F1FC04"
-               BuildableName = "StagingNet.app"
+               BuildableName = "Concordium Legacy.app"
                BlueprintName = "StagingNet"
                ReferencedContainer = "container:ConcordiumWallet.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FF07A6823EADB1200F1FC04"
-            BuildableName = "StagingNet.app"
+            BuildableName = "Concordium Legacy.app"
             BlueprintName = "StagingNet"
             ReferencedContainer = "container:ConcordiumWallet.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FF07A6823EADB1200F1FC04"
-            BuildableName = "StagingNet.app"
+            BuildableName = "Concordium Legacy.app"
             BlueprintName = "StagingNet"
             ReferencedContainer = "container:ConcordiumWallet.xcodeproj">
          </BuildableReference>
