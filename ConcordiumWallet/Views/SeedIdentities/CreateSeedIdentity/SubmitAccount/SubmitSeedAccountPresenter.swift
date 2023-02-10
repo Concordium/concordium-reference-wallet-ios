@@ -13,6 +13,7 @@ protocol SubmitSeedAccountPresenterDelegate: RequestPasswordDelegate {
     func accountHasBeenSubmitted(_ account: AccountDataType, isNewAccountAfterSettingUpTheWallet: Bool, forIdentity identity: IdentityDataType)
     func makeNewIdentityRequest()
     func showAccountFailed(error: Error)
+    func cancelAccountCreation()
 }
 
 class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
@@ -114,8 +115,12 @@ class SubmitSeedAccountPresenter: SwiftUIPresenter<SubmitSeedAccountViewModel> {
                         
                         self.delegate?.accountHasBeenSubmitted(account, isNewAccountAfterSettingUpTheWallet: isNewAccountAfterSettingUpTheWallet, forIdentity: identity)
                     } catch {
-                        print("+++ Error: \(error)")
-                        delegate.showAccountFailed(error: error)
+//                        print("+++ Error: \(type(of: error))")
+                        if error is GeneralError {
+                            delegate.cancelAccountCreation()
+                        } else {
+                            delegate.showAccountFailed(error: error)
+                        }
                     }
                 }
             }

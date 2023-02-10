@@ -308,7 +308,7 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
             }
             if submissionStatus.status == .finalized {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.storageManager.removeTransfer(transfer)
                 }
                 

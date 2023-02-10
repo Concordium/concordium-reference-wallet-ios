@@ -276,6 +276,10 @@ extension SeedIdentitiesCoordinator: SubmitSeedAccountPresenterDelegate {
         let vc = CreationFailedFactory.create(with: CreationFailedPresenter(serverError: error, delegate: self, mode: .account))
         showModally(vc, from: navigationController)
     }
+    
+    func cancelAccountCreation() {
+        navigationController.dismiss(animated: true)
+    }
 }
 
 extension SeedIdentitiesCoordinator: SelectIdentityPresenterDelegate {
