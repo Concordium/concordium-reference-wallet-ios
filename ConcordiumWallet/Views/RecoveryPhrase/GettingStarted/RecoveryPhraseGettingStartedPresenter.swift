@@ -14,8 +14,22 @@ protocol RecoveryPhraseGettingStartedPresenterDelegate: AnyObject {
 }
 
 class RecoveryPhraseGettingStartedPresenter: SwiftUIPresenter<RecoveryPhraseGettingStartedViewModel> {
+    private let longPressesTimeTresholdDifference = 1.0
+    
     private weak var delegate: RecoveryPhraseGettingStartedPresenterDelegate?
     private let recoveryPhraseService: RecoveryPhraseServiceProtocol
+    
+    var createNewWalletDemoMode: Bool {
+        didSet {
+            viewModel.demoMode = createNewWalletDemoMode && recoverWalletDemoMode
+        }
+    }
+    
+    var recoverWalletDemoMode: Bool {
+        didSet {
+            viewModel.demoMode = createNewWalletDemoMode && recoverWalletDemoMode
+        }
+    }
     
     init(
         recoveryPhraseService: RecoveryPhraseServiceProtocol,
@@ -23,6 +37,8 @@ class RecoveryPhraseGettingStartedPresenter: SwiftUIPresenter<RecoveryPhraseGett
     ) {
         self.recoveryPhraseService = recoveryPhraseService
         self.delegate = delegate
+        self.createNewWalletDemoMode = false
+        self.recoverWalletDemoMode = false
         
         super.init(
             viewModel: .init(
@@ -58,6 +74,37 @@ class RecoveryPhraseGettingStartedPresenter: SwiftUIPresenter<RecoveryPhraseGett
             }
         case .recoverWallet:
             delegate?.recoverWallet()
+        case .createNewWalletDemoMode:
+            #if MAINNET
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == false {
+                createNewWalletDemoMode = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + longPressesTimeTresholdDifference) {
+                    if self.recoverWalletDemoMode == false {
+                        self.createNewWalletDemoMode = false
+                    }
+                }
+            }
+            #endif
+        case .recoverWalletDemoMode:
+            #if MAINNET
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == false {
+                recoverWalletDemoMode = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + longPressesTimeTresholdDifference) {
+                    if self.createNewWalletDemoMode == false {
+                        self.recoverWalletDemoMode = false
+                    }
+                }
+            }
+            #endif
+        case .enterDemoMode:
+            // Enter demo mode
+            UserDefaults.setBool(true, forKey: "demomode.userdefaultskey".localized)
+            
+            createNewWalletDemoMode = false
+            recoverWalletDemoMode = false
+        case .cancelDemoMode:
+            createNewWalletDemoMode = false
+            recoverWalletDemoMode = false
         }
     }
 }

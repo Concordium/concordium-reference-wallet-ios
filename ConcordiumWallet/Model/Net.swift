@@ -6,6 +6,7 @@
 //  Copyright © 2022 concordium. All rights reserved.
 //
 
+import Foundation
 
 enum Net: String, Codable {
     case main = "Mainnet"
@@ -13,6 +14,9 @@ enum Net: String, Codable {
     
     static var current: Net {
         #if MAINNET
+        if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+            return .test
+        }
         return .main
         #else
         return .test

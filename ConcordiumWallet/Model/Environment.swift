@@ -15,6 +15,9 @@ enum Environment: String, Codable {
     
     static var current: Environment {
         #if MAINNET
+        if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+            return .test
+        }
         return .main
         #elseif TESTNET
         return .test

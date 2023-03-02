@@ -73,6 +73,9 @@ struct ExportTransactionLogView: Page {
         #if TESTNET
             return "[testnet.CCDScan.io](https://testnet.ccdscan.io)"
         #elseif MAINNET
+        if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+            return "[testnet.CCDScan.io](https://testnet.ccdscan.io)"
+        }
             return "[CCDScan.io](https://ccdscan.io)"
         #else
             return "[stagenet.CCDScan.io](https://stagenet.ccdscan.io)"

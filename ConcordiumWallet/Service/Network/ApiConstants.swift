@@ -16,7 +16,9 @@ struct ApiConstants {
 #if TESTNET
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.testnet.concordium.com")!
 #elseif MAINNET
-    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.mainnet.concordium.software")!
+    static var proxyUrl: URL {
+        return URL(string: overriddenProxyUrl ?? (UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true ? "https://wallet-proxy.testnet.concordium.com" : "https://wallet-proxy.mainnet.concordium.software"))!
+    }
 #else // Staging
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.stagenet.concordium.com")!
 #endif
@@ -24,7 +26,9 @@ struct ApiConstants {
     #if TESTNET
     static let scheme = "concordiumwallettest"
     #elseif MAINNET
-    static let scheme = "concordiumwallet"
+    static var scheme: String {
+        return UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true ? "concordiumwallettest" : "concordiumwallet"
+    }
     #else // Staging
     static let scheme = "concordiumwalletstaging"
     #endif

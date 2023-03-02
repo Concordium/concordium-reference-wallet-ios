@@ -26,7 +26,11 @@ class AboutViewController: BaseViewController, AboutViewProtocol, Storyboarded, 
             let version = AppSettings.appVersion
             let buildNo = AppSettings.buildNumber
 #if MAINNET
-            versionLabel.text = "\(version)"
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+                versionLabel.text = "\(version) (\(buildNo))"
+            } else {
+                versionLabel.text = "\(version)"
+            }
 #else
             versionLabel.text = "\(version) (\(buildNo))"
 #endif

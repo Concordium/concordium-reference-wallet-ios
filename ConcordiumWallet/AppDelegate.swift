@@ -108,6 +108,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var version: String {
             #if MAINNET
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+                return AppSettings.appVersion + " " + AppSettings.buildNumber + " " + debug
+            }
             return AppSettings.appVersion
             #else
             return AppSettings.appVersion + " " + AppSettings.buildNumber + " " + debug

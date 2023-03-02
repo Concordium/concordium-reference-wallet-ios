@@ -17,31 +17,47 @@ struct RecoveryPhraseGettingStartedView: Page {
             VStack {
                 StyledLabel(text: viewModel.title, style: .title)
                     .padding([.top, .bottom], 60)
-                GettingStartedSection(section: viewModel.createNewWalletSection, bottomPadding: 70) {
+                GettingStartedSection(section: viewModel.createNewWalletSection, bottomPadding: 70, tapAction: {
                     viewModel.send(.createNewWallet)
-                }
-                GettingStartedSection(section: viewModel.recoverWalletSection, bottomPadding: 30) {
+                }, longPressAction: {
+                    viewModel.send(.createNewWalletDemoMode)
+                })
+                GettingStartedSection(section: viewModel.recoverWalletSection, bottomPadding: 30, tapAction: {
                     viewModel.send(.recoverWallet)
-                }
+                }, longPressAction: {
+                    viewModel.send(.recoverWalletDemoMode)
+                })
             }.frame(maxWidth: .infinity)
                 .padding([.leading, .trailing], 36)
+                .alert(isPresented: $viewModel.demoMode) {
+                    Alert(title: Text("demomode.title".localized), message: Text("demomode.message".localized), primaryButton: .default(Text("demomode.activate".localized), action: {
+                        viewModel.send(.enterDemoMode)
+                    }), secondaryButton: .cancel(Text("demomode.cancel".localized), action: {
+                        viewModel.send(.cancelDemoMode)
+                    }))
+                }
         }
     }
 }
 
 private struct GettingStartedSection: View {
+    let longPressDuration = 30.0
+    
     let section: RecoveryPhraseGettingStartedViewModel.Section
     let bottomPadding: CGFloat?
-    let action: () -> Void
+    let tapAction: () -> Void
+    let longPressAction: () -> Void
     
     init(
         section: RecoveryPhraseGettingStartedViewModel.Section,
         bottomPadding: CGFloat? = nil,
-        action: @escaping () -> Void
+        tapAction: @escaping () -> Void,
+        longPressAction: @escaping () -> Void
     ) {
         self.section = section
         self.bottomPadding = bottomPadding
-        self.action = action
+        self.tapAction = tapAction
+        self.longPressAction = longPressAction
     }
     
     @ViewBuilder
@@ -55,12 +71,32 @@ private struct GettingStartedSection: View {
             Spacer()
         }
         if let bottomPadding = bottomPadding {
-            Button(section.buttonTitle, action: action)
+            Button(section.buttonTitle, action: {})
                 .applyStandardButtonStyle()
                 .padding([.bottom], bottomPadding)
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: longPressDuration)
+                        .onEnded { _ in
+                            longPressAction()
+                        }
+                )
+                .highPriorityGesture(TapGesture()
+                                        .onEnded { _ in
+                                            tapAction()
+                                        })
         } else {
-            Button(section.buttonTitle, action: action)
+            Button(section.buttonTitle, action: {})
                 .applyStandardButtonStyle()
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: longPressDuration)
+                        .onEnded { _ in
+                            longPressAction()
+                        }
+                )
+                .highPriorityGesture(TapGesture()
+                                        .onEnded { _ in
+                                            tapAction()
+                                        })
         }
     }
 }

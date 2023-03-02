@@ -11,44 +11,37 @@ import UIKit
 
 extension UserDefaults {
     // Any Object
-    class func setObject(_ object: Any, forKey key: String)
-    {
+    class func setObject(_ object: Any, forKey key: String) {
         UserDefaults.standard.set(object, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func object(forKey key: String) -> Any?
-    {
+    class func object(forKey key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
     }
     
-    class func removeObject(forKey key: String)
-    {
+    class func removeObject(forKey key: String) {
         UserDefaults.standard.removeObject(forKey: key)
         UserDefaults.standard.synchronize()
     }
     
     // Bool
-    class func setBool(_ value: Bool, forKey key: String)
-    {
+    class func setBool(_ value: Bool, forKey key: String) {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func bool(forKey key: String) -> Bool
-    {
+    class func bool(forKey key: String) -> Bool {
         return UserDefaults.standard.bool(forKey: key)
     }
     
     // Int
-    class func setInteger(_ value: Int, forKey key: String)
-    {
+    class func setInteger(_ value: Int, forKey key: String) {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func integer(forKey key: String) -> Int
-    {
+    class func integer(forKey key: String) -> Int {
         return UserDefaults.standard.integer(forKey: key)
     }
     

@@ -66,6 +66,9 @@ class DelegationPoolViewModel {
     static let bakerBottomMessage: NSAttributedString = {
         var stakingLink: String {
             #if MAINNET
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+                return "delegation.pool.testnetstakinglink".localized
+            }
             return "delegation.pool.mainnetstakinglink".localized
             #else
             return "delegation.pool.testnetstakinglink".localized

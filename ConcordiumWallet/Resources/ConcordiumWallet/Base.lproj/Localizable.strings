@@ -1082,3 +1082,10 @@ Remember to restart your node with the baker keys.";
 
 "recover.identityKey" = "identity";
 "recover.isNewlyCreatedKey" = "isNewlyCreated";
+
+"demomode.title" = "Wallet Demo Mode";
+"demomode.message" = "You now have the option to activate the wallet demo mode. This means that the wallet will use the Concordium Testnet backend and blockchain, where you can make demo identities and accounts to try out the wallet.\n\nThe demo mode activation is permanent, and you will have to reinstall the wallet to get out of it again. We therefore recommend activating it, if you are here to review the wallet.";
+"demomode.activate" = "Activate Wallet Demo Mode";
+"demomode.cancel" = "Cancel";
+
+"demomode.userdefaultskey" = "Demo Mode";

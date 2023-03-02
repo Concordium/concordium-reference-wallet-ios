@@ -27,7 +27,11 @@ class ExportTransactionLogViewModel: PageViewModel<ExportTransactionLogEvent> {
         #if TESTNET
             urlString = "https://api-ccdscan.testnet.concordium.com/rest/export/statement?accountAddress="
         #elseif MAINNET
+        if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+            urlString = "https://api-ccdscan.testnet.concordium.com/rest/export/statement?accountAddress="
+        } else {
             urlString = "https://api-ccdscan.mainnet.concordium.software/rest/export/statement?accountAddress="
+        }
         #else
             urlString = "https://api-ccdscan.stagenet.io/rest/export/statement?accountAddress="
         #endif

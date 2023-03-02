@@ -11,6 +11,10 @@ import Foundation
 enum RecoveryPhraseGettingStartedEvent {
     case createNewWallet
     case recoverWallet
+    case createNewWalletDemoMode
+    case recoverWalletDemoMode
+    case enterDemoMode
+    case cancelDemoMode
 }
 
 class RecoveryPhraseGettingStartedViewModel: PageViewModel<RecoveryPhraseGettingStartedEvent> {
@@ -23,6 +27,7 @@ class RecoveryPhraseGettingStartedViewModel: PageViewModel<RecoveryPhraseGetting
     @Published var title: String
     @Published var createNewWalletSection: Section
     @Published var recoverWalletSection: Section
+    @Published var demoMode: Bool
     
     init(
         title: String,
@@ -32,5 +37,6 @@ class RecoveryPhraseGettingStartedViewModel: PageViewModel<RecoveryPhraseGetting
         self.title = title
         self.createNewWalletSection = createNewWalletSection
         self.recoverWalletSection = recoverWalletSection
+        self.demoMode = false
     }
 }
