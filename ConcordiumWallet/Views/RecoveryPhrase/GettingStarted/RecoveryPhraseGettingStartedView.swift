@@ -41,7 +41,7 @@ struct RecoveryPhraseGettingStartedView: Page {
 }
 
 private struct GettingStartedSection: View {
-    let longPressDuration = 30.0
+    let longPressDuration = 10.0
     
     let section: RecoveryPhraseGettingStartedViewModel.Section
     let bottomPadding: CGFloat?
