@@ -93,9 +93,26 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
         }
     }
 
+//    override func createIdentitySelected() {
+//        self.delegate?.preventIdentityCreationAlert()
+//    }
+    
     override func createIdentitySelected() {
-        self.delegate?.preventIdentityCreationAlert()
+        guard !identities.contains(where: { $0.state == .pending }) else {
+            view?.showAlert(with: AlertOptions(
+                title: nil,
+                message: "identityCreation.hasPending".localized,
+                actions: [
+                    AlertAction(name: "OK".localized, completion: nil, style: .default)
+                ]
+            ))
+            
+            return
+        }
+        
+        self.delegate?.createIdentitySelected()
     }
+
 
     override func userSelectedIdentity(index: Int) {
         if index < viewModels.count {

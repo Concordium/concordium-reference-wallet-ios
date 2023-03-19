@@ -127,8 +127,8 @@ You can show the shielded balance of the account via the option below, or later 
 
 "gettingstarted.title" = "Getting started";
 "gettingstarted.subtitle" = "Are you new to Concordium?";
-//"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must go through a verification process to obtain your Concordium identity and your initial account. You will be guided through this process in the next pages.\n\n\nIf you have previously used Concordium Legacy Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Legacy Wallet.\n\n\nHow would you like to continue?";
-"gettingstarted.details" = "Going forward all new users of Concordium must use one of the second generation Concordium Wallets. This means that new identities cannot be created with the Concordium Legacy Wallet.\n\nHowever, if you already have existing legacy identities and accounts, you can still access them by importing them.";
+"gettingstarted.details" = "If this is your first time using the Concordium blockchain, you must go through a verification process to obtain your Concordium identity and your initial account. You will be guided through this process in the next pages.\n\n\nIf you have previously used Concordium Legacy Wallet, you can also import already existing accounts if you have a backup from a previous installation of the Concordium Legacy Wallet.\n\n\nHow would you like to continue?";
+//"gettingstarted.details" = "Going forward all new users of Concordium must use one of the second generation Concordium Wallets. This means that new identities cannot be created with the Concordium Legacy Wallet.\n\nHowever, if you already have existing legacy identities and accounts, you can still access them by importing them.";
 "gettingstarted.newaccount" = "I want to create my initial account";
 "gettingstarted.importaccount" = "I want to import existing accounts";
 

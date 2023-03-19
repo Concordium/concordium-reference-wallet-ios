@@ -270,26 +270,28 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
 
     @IBAction func createNewButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(
-            title: "accountCreation.prevent.title".localized,
-            message: "accountCreation.prevent.message".localized,
-            preferredStyle: .alert
-        )
+        presenter?.userPressedCreate()
         
-        let downloadAction = UIAlertAction(
-            title: "accountCreation.prevent.button.download".localized,
-            style: .default
-        ) { _ in
-            let appStoreUrl = "https://apps.apple.com/dk/app/concordium-mobile-wallet/id1566996491"
-            UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
-        }
-        
-        let okAction = UIAlertAction(title: "accountCreation.prevent.button.okay".localized, style: .default)
-        
-        alert.addAction(downloadAction)
-        alert.addAction(okAction)
-
-        present(alert, animated: true)
+//        let alert = UIAlertController(
+//            title: "accountCreation.prevent.title".localized,
+//            message: "accountCreation.prevent.message".localized,
+//            preferredStyle: .alert
+//        )
+//
+//        let downloadAction = UIAlertAction(
+//            title: "accountCreation.prevent.button.download".localized,
+//            style: .default
+//        ) { _ in
+//            let appStoreUrl = "https://apps.apple.com/dk/app/concordium-mobile-wallet/id1566996491"
+//            UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
+//        }
+//
+//        let okAction = UIAlertAction(title: "accountCreation.prevent.button.okay".localized, style: .default)
+//
+//        alert.addAction(downloadAction)
+//        alert.addAction(okAction)
+//
+//        present(alert, animated: true)
     }
 
     @IBAction func dismissWarning(_ sender: Any) {

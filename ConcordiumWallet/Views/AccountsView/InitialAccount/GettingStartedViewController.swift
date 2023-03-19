@@ -25,7 +25,7 @@ class GettingStartedViewController: BaseViewController, GettingStartedViewProtoc
     
     @IBOutlet weak var createAccountButton: StandardButton! {
         didSet {
-            createAccountButton.setTitle("gettingstarted.button.download".localized, for: .normal)
+            createAccountButton.setTitle("gettingstarted.newaccount".localized, for: .normal)
         }
     }
     
@@ -63,8 +63,10 @@ class GettingStartedViewController: BaseViewController, GettingStartedViewProtoc
     }
 
     @IBAction func createAccountsTapped(_ sender: Any) {
-        let appStoreUrl = "https://apps.apple.com/dk/app/concordium-mobile-wallet/id1566996491"
-        UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
+        presenter.userTappedCreateAccount()
+        
+//        let appStoreUrl = "https://apps.apple.com/dk/app/concordium-mobile-wallet/id1566996491"
+//        UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
     }
     
     @IBAction func importTapped(_ sender: Any) {
