@@ -8236,9 +8236,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8254,12 +8254,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dist";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8273,9 +8273,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8291,12 +8291,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dist";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8312,7 +8312,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8327,7 +8327,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8348,7 +8348,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8363,7 +8363,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8501,9 +8501,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8519,12 +8519,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen stagenet wallet with seed phrase dist";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen stagenet wallet with seed phrase dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8539,9 +8539,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8557,12 +8557,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen stagenet wallet with seed phrase dist";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen stagenet wallet with seed phrase dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
