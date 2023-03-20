@@ -36,6 +36,7 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
     func showEarn()
+    func showScan()
 
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
@@ -59,6 +60,7 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func burgerButtonTapped()
     func pressedUnlock()
     func showEarn()
+    func showScan()
 
     func userSelectedIdentityData()
     func userSelectedGeneral()
@@ -226,6 +228,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func showEarn() {
         delegate?.showEarn()
+    }
+    
+    func showScan() {
+        delegate?.showScan()
     }
     
     func userTappedAddress() {

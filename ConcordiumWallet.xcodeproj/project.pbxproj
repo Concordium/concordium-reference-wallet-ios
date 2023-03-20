@@ -2556,6 +2556,16 @@
 		FACE21C0290991DE00B089DF /* seed_identity_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = FACE21BA290991DE00B089DF /* seed_identity_onboarding_en_4.html */; };
 		FACE21C1290991DE00B089DF /* seed_identity_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = FACE21BA290991DE00B089DF /* seed_identity_onboarding_en_4.html */; };
 		FACE21C2290991DE00B089DF /* seed_identity_onboarding_en_4.html in Resources */ = {isa = PBXBuildFile; fileRef = FACE21BA290991DE00B089DF /* seed_identity_onboarding_en_4.html */; };
+		FAE0FF8A29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */; };
+		FAE0FF8B29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */; };
+		FAE0FF8C29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */; };
+		FAE0FF8D29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */; };
+		FAE0FF8E29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */; };
+		FAE0FF9029C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */; };
+		FAE0FF9129C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */; };
+		FAE0FF9229C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */; };
+		FAE0FF9329C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */; };
+		FAE0FF9429C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3323,6 +3333,8 @@
 		FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountViewModel.swift; sourceTree = "<group>"; };
 		FACE21B9290991DE00B089DF /* seed_identity_onboarding_en_3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = seed_identity_onboarding_en_3.html; sourceTree = "<group>"; };
 		FACE21BA290991DE00B089DF /* seed_identity_onboarding_en_4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = seed_identity_onboarding_en_4.html; sourceTree = "<group>"; };
+		FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountQRPresenter.swift; sourceTree = "<group>"; };
+		FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountQRViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4446,6 +4458,7 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FAE0FF8729C7E6C0000483CC /* WalletConnect */,
 				891B19F628A6132D00F4B0D6 /* SeedIdentities */,
 				89A056E1286C55030055C049 /* RecoveryPhrase */,
 				52A0A0B927D0B376001C162D /* Stake */,
@@ -5265,6 +5278,23 @@
 				FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */,
 			);
 			path = SubmittedAccount;
+			sourceTree = "<group>";
+		};
+		FAE0FF8729C7E6C0000483CC /* WalletConnect */ = {
+			isa = PBXGroup;
+			children = (
+				FAE0FF8829C7E703000483CC /* ScanAccountQR */,
+			);
+			path = WalletConnect;
+			sourceTree = "<group>";
+		};
+		FAE0FF8829C7E703000483CC /* ScanAccountQR */ = {
+			isa = PBXGroup;
+			children = (
+				FAE0FF8929C7E74E000483CC /* ScanAccountQRPresenter.swift */,
+				FAE0FF8F29C7E76D000483CC /* ScanAccountQRViewController.swift */,
+			);
+			path = ScanAccountQR;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -6191,6 +6221,7 @@
 				89CF2D442816AF9D00742E1E /* BakerPoolReceiptType.swift in Sources */,
 				901F7F0D27EA0D5C00C46741 /* CurrentPaydayStatus.swift in Sources */,
 				7F48C1B4244DCD0B00997684 /* LoginErrorLabel.swift in Sources */,
+				FAE0FF8A29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */,
 				89E1A76E280EADB4008C761B /* ExportedBakerKeys.swift in Sources */,
 				891B19FD28A62FC000F4B0D6 /* Publisher+Async.swift in Sources */,
 				077AC5F426E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
@@ -6288,6 +6319,7 @@
 				7F48C1E8244DCD0B00997684 /* LoginPresenter.swift in Sources */,
 				89CF2D5E281A9E3100742E1E /* (null) in Sources */,
 				89E1A75D27FF1C2D008C761B /* String+Lines.swift in Sources */,
+				FAE0FF9029C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */,
 				89D4688628A224ED007D3FC8 /* SeedIdentityCreationStatus.swift in Sources */,
 				7F48C26D244E17D100997684 /* IPArDatum.swift in Sources */,
 				89EB9F5227FEDCF5005F8633 /* BakerPoolGenerateKeyViewController.swift in Sources */,
@@ -6646,6 +6678,7 @@
 				7F85B750246A9A7C00ED09B8 /* AccountsCoordinator.swift in Sources */,
 				8992BB322840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				9078546928116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
+				FAE0FF8C29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */,
 				89B34A0E2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				FA93AE2A295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */,
@@ -6908,6 +6941,7 @@
 				89CF2D5B281A66C400742E1E /* (null) in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F8291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
+				FAE0FF9229C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */,
 				19C2E579BB5DAF759AC46842 /* ExportVersionContainer.swift in Sources */,
 				19C2E03B6A8491C1646E0AB2 /* ExportAccount.swift in Sources */,
 				528EB76525647DD800010554 /* Key.swift in Sources */,
@@ -7194,6 +7228,7 @@
 				7F85B84E246A9AB600ED09B8 /* LoginCoordinator.swift in Sources */,
 				8992BB332840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				9078546A28116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
+				FAE0FF8D29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */,
 				7F85B84F246A9AB600ED09B8 /* AccountsCoordinator.swift in Sources */,
 				89B34A0F2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				FA93AE2B295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */,
@@ -7456,6 +7491,7 @@
 				89CF2D5C281A66C400742E1E /* (null) in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F9291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
+				FAE0FF9329C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */,
 				19C2E3E3584E12D4D72365FA /* ExportValues.swift in Sources */,
 				19C2ED5F84858C29CA6CDAC8 /* ExportIdentityData.swift in Sources */,
 				528EB76625647DD800010554 /* Key.swift in Sources */,
@@ -7588,6 +7624,7 @@
 				64FD33CC2602330B00563703 /* CredentialResponse.swift in Sources */,
 				067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */,
 				64FD334F25FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
+				FAE0FF9129C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */,
 				C938F5372423432000ECAD47 /* IdentityChoosePresenter.swift in Sources */,
 				897D0F1F288EA47E001CEC3B /* RecoveryPhraseConfirmPhraseViewModel.swift in Sources */,
 				7FA0AE9524598D6500B7673F /* Origin.swift in Sources */,
@@ -7827,6 +7864,7 @@
 				FA01CA03291C5D3100BD8738 /* UIButton+Helper.swift in Sources */,
 				7F85B8F02472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
 				901F7F5F27EB501200C46741 /* DelegationStatusPresenter.swift in Sources */,
+				FAE0FF8B29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */,
 				909EAF2927F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
 				89B34A032892AACE0059891C /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				89B34A342892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
@@ -8104,6 +8142,8 @@
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,
 				893CAC6E286EC1FD00BDF84C /* CopyPhraseTests.swift in Sources */,
+				FAE0FF8E29C7E74E000483CC /* ScanAccountQRPresenter.swift in Sources */,
+				FAE0FF9429C7E76D000483CC /* ScanAccountQRViewController.swift in Sources */,
 				7F0573F224AC7449009517AD /* GeneralFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

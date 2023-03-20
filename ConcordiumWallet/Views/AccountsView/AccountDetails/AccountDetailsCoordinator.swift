@@ -342,6 +342,10 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func showEarn() {
         showEarn(account: account)
     }
+    
+    func showScan() {
+        print("Show scan")
+    }
 
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
         var accountCopy = AccountDataTypeFactory.create()
