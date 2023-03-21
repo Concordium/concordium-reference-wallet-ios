@@ -9,13 +9,19 @@ on:
 jobs:
   build:
     runs-on: macos-11
+    strategy:
+      matrix:
+        scheme:
+        - StagingNet
+        - ProdTestNet
+        - ProdMainNet
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Build 'StagingNet' scheme
+    - name: Build scheme '${{matrix.scheme}}'
       # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).
       uses: mxcl/xcodebuild@v1
       with:
         platform: iOS
         action: build
-        scheme: StagingNet
+        scheme: "${{matrix.scheme}}"
