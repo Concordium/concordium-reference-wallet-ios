@@ -12,9 +12,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: debug
-      run: ls
-    - name: Build
+    - name: Build 'StagingNet' scheme
+      # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).
       uses: mxcl/xcodebuild@v1
       with:
         platform: iOS
