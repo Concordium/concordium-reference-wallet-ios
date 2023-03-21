@@ -1,50 +1,52 @@
 {
-  "pins" : [
-    {
-      "identity" : "mnemonicswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zcash-hackworks/MnemonicSwift",
-      "state" : {
-        "revision" : "716a2c32ac2bbd8a1499ac834077df42b75edc85",
-        "version" : "2.2.4"
+  "object": {
+    "pins": [
+      {
+        "package": "MnemonicSwift",
+        "repositoryURL": "https://github.com/zcash-hackworks/MnemonicSwift",
+        "state": {
+          "branch": null,
+          "revision": "716a2c32ac2bbd8a1499ac834077df42b75edc85",
+          "version": "2.2.4"
+        }
+      },
+      {
+        "package": "RealmDatabase",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": null,
+          "revision": "6f6a0f415bd33cf2ced4467e36a47f7c84f0a1d7",
+          "version": "12.5.1"
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-swift",
+        "state": {
+          "branch": null,
+          "revision": "ae0ceea258fd8f58392881cc4b2228bff62f74f5",
+          "version": "10.28.7"
+        }
+      },
+      {
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto.git",
+        "state": {
+          "branch": null,
+          "revision": "75ec60b8b4cc0f085c3ac414f3dca5625fa3588e",
+          "version": "2.2.4"
+        }
+      },
+      {
+        "package": "SwiftCBOR",
+        "repositoryURL": "https://github.com/unrelentingtech/SwiftCBOR",
+        "state": {
+          "branch": null,
+          "revision": "edc01765cf6b3685bb622bb09242ef5964fb991b",
+          "version": "0.4.6"
+        }
       }
-    },
-    {
-      "identity" : "realm-core",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-core",
-      "state" : {
-        "revision" : "fd48276f88f3d55dbdcdc9e8cbf32541811d5865",
-        "version" : "12.1.0"
-      }
-    },
-    {
-      "identity" : "realm-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-swift",
-      "state" : {
-        "revision" : "d3aaab84885e0de9a7a49955874cee160adee164",
-        "version" : "10.28.1"
-      }
-    },
-    {
-      "identity" : "swift-crypto",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-crypto.git",
-      "state" : {
-        "revision" : "d9825fa541df64b1a7b182178d61b9a82730d01f",
-        "version" : "2.1.0"
-      }
-    },
-    {
-      "identity" : "swiftcbor",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/unrelentingtech/SwiftCBOR",
-      "state" : {
-        "revision" : "98a59c305cca5c5367c3422d5e127661d4e76e24",
-        "version" : "0.4.5"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }
