@@ -19,3 +19,4 @@ jobs:
       with:
         platform: iOS
         action: build
+        scheme: StagingNet
