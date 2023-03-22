@@ -314,10 +314,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                     guard let self = self else { return }
 
                     // Any changes since last auto update?
-                    let equal = zip(transactionListAll, self.lastTransactionListAll)
+                    let equalUnmapped = zip(transactionListAll, self.lastTransactionListAll)
                         .enumerated()
                         .filter { $1.0.details.transactionHash == $1.1.details.transactionHash && $1.0.status == $1.1.status }
-                        .map { $1.0 }
+                    let equal = equalUnmapped.map { $1.0 }
 
                     if equal.count != transactionListAll.count {
                         self.lastTransactionListAll = transactionListAll

@@ -11,10 +11,12 @@ jobs:
     runs-on: macos-11
     strategy:
       matrix:
-        scheme:
-        - StagingNet
-        - ProdTestNet
-        - ProdMainNet
+        scheme: [StagingNet, ProdTestNet, ProdMainNet]
+        action: build
+      include:
+      - scheme: Mock
+        action: test
+        
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -24,6 +26,5 @@ jobs:
       with:
         platform: iOS
         scheme: "${{matrix.scheme}}"
-        action: test
+        action: "${{matrix.action}}"
         code-coverage: true
-        platform: "iOS Simulator,name=iPhone 12"
