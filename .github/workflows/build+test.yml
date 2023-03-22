@@ -23,5 +23,6 @@ jobs:
       uses: mxcl/xcodebuild@v1
       with:
         platform: iOS
-        action: build
         scheme: "${{matrix.scheme}}"
+        action: test
+        code-coverage: true
