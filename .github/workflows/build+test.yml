@@ -12,10 +12,10 @@ jobs:
     strategy:
       matrix:
         scheme: [StagingNet, ProdTestNet, ProdMainNet]
-        action: build
-      include:
-      - scheme: Mock
-        action: test
+        action: [build]
+        include:
+        - scheme: Mock
+          action: test
         
     steps:
     - name: Checkout
