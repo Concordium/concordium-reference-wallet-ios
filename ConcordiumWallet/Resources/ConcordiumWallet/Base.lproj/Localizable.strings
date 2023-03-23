@@ -891,7 +891,7 @@ Remember to restart your node with the baker keys.";
 "force.update.warning.backup" = "Make backup";
 
 "force.update.warning.title" = "New wallet app available";
-"force.update.warning.message" = "Going forward the Concordium Legacy Wallet will not receive any new features. We therefor recommend that you install the new Concordium Wallet for Mobile, to be able to use all the latest Concordium features. You will still be able to access your existing accounts and identities in the Concordium Legacy Wallet, but be sure to keep a backup of your private keys.";
+"force.update.warning.message" = "Going forward the Concordium Legacy Wallet will not receive any new features. Therefore, we recommend that you install the new Concordium Wallet for Mobile to use all the latest Concordium features. You can still access your existing accounts and identities in the Concordium Legacy Wallet, but you cannot create new ones. Be sure to keep a backup of your private keys.";
 "force.update.warning.update.now" = "Download the new wallet app";
 "force.update.warning.remind.me" = "Remind me next time I open the wallet";
 

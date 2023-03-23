@@ -60,18 +60,18 @@ extension ShowAlert {
             )
         ]
         
-        if showBackupOption {
-            actions.insert(
-                AlertAction(
-                    name: "force.update.warning.backup".localized,
-                    completion: {
-                        actionHandler(.backup)
-                    },
-                    style: .default
-                ),
-                at: 1
-            )
-        }
+//        if showBackupOption {
+//            actions.insert(
+//                AlertAction(
+//                    name: "force.update.warning.backup".localized,
+//                    completion: {
+//                        actionHandler(.backup)
+//                    },
+//                    style: .default
+//                ),
+//                at: 1
+//            )
+//        }
         
         let alertOptions = AlertOptions(
             title: "force.update.warning.title".localized,
