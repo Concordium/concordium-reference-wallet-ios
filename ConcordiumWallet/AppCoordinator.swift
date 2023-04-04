@@ -279,6 +279,11 @@ extension AppCoordinator: AccountsPresenterDelegate {
                                               parentCoordinator: self)
         moreCoordinator.start()
     }
+    
+    func showScan() {
+        let vc = ScanQRFactory.create(with: ScanQRPresenter(wallet: defaultProvider.mobileWallet(), delegate: self, type: .WalletConnect))
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension AppCoordinator: AccountsCoordinatorDelegate {
@@ -416,5 +421,13 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
 extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         showMainTabbar()
+    }
+}
+
+extension AppCoordinator: ScanQRPresenterDelegate {
+    func scanQr(didScanQrCode qrCode: String) {
+        print("+++ Scanned qr code: \(qrCode)")
+        
+        navigationController.pushViewController(SelectAccountFactory.create(with: SelectAccountPresenter()), animated: true)
     }
 }

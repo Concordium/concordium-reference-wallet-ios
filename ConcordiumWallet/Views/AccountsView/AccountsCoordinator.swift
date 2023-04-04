@@ -128,6 +128,9 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func showSettings() {
     }
     
+    func showScan() {
+    }
+    
     func didSelectMakeBackup() {
         showExport()
     }

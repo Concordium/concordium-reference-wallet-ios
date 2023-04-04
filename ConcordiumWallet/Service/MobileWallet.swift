@@ -8,6 +8,7 @@ import Combine
 
 protocol MobileWalletProtocol {
     func check(accountAddress: String) -> Bool
+    func checkWalletConnect(qrCode: String) -> Bool
     func createIdRequestAndPrivateData(initialAccountName: String,
                                        identityName: String,
                                        identityProvider: IdentityProviderDataType,
@@ -90,6 +91,10 @@ class MobileWallet: MobileWalletProtocol {
     
     func check(accountAddress: String) -> Bool {
         walletFacade.checkAccountAddress(input: accountAddress)
+    }
+    
+    func checkWalletConnect(qrCode: String) -> Bool {
+        return !qrCode.isEmpty && qrCode.lowercased().hasPrefix("wc:")
     }
 
     /// Creates an identity request and the associated private data.

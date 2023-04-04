@@ -1,25 +1,25 @@
 //
-//  ScanAccountQRViewController.swift
+//  ScanQRViewController.swift
 //  ConcordiumWallet
 //
-//  Created by Aleksandar Dimov on 13.3.23.
-//  Copyright © 2023 concordium. All rights reserved.
+//  Created by Concordium on 16/04/2020.
+//  Copyright © 2020 concordium. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
 
-class ScanAccountQRFactory {
-    class func create(with presenter: ScanAccountQRPresenter) -> ScanAccountQRViewController {
-        ScanAccountQRViewController.instantiate(fromStoryboard: "SendFund") {coder in
-            return ScanAccountQRViewController(coder: coder, presenter: presenter)
+class ScanQRFactory {
+    class func create(with presenter: ScanQRPresenter) -> ScanQRViewController {
+        ScanQRViewController.instantiate(fromStoryboard: "SendFund") {coder in
+            return ScanQRViewController(coder: coder, presenter: presenter)
         }
     }
 }
 
-class ScanAccountQRViewController: BaseViewController, Storyboarded, ShowToast {
+class ScanQRViewController: BaseViewController, Storyboarded, ShowToast {
 
-    var presenter: ScanAccountQRPresenterProtocol
+	var presenter: ScanQRPresenterProtocol
 
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -30,7 +30,7 @@ class ScanAccountQRViewController: BaseViewController, Storyboarded, ShowToast {
         }
     }
     
-    init?(coder: NSCoder, presenter: ScanAccountQRPresenterProtocol) {
+    init?(coder: NSCoder, presenter: ScanQRPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
     }
@@ -41,7 +41,7 @@ class ScanAccountQRViewController: BaseViewController, Storyboarded, ShowToast {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "scanQr.title".localized
+        title = presenter.type == .Address ? "scanAddressQr.title".localized : "scanWalletConnectQr.title".localized
 
         presenter.view = self
         presenter.viewDidLoad()
@@ -100,6 +100,8 @@ class ScanAccountQRViewController: BaseViewController, Storyboarded, ShowToast {
         if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
+        
+        scanGuide.tintColor = .white
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,7 +117,7 @@ class ScanAccountQRViewController: BaseViewController, Storyboarded, ShowToast {
     }
 }
 
-extension ScanAccountQRViewController: AVCaptureMetadataOutputObjectsDelegate {
+extension ScanQRViewController: AVCaptureMetadataOutputObjectsDelegate {
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
@@ -129,7 +131,7 @@ extension ScanAccountQRViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
 }
 
-extension ScanAccountQRViewController: ScanAccountQRViewProtocol {
+extension ScanQRViewController: ScanQRViewProtocol {
     func showQrValid() {
         scanGuide.tintColor = .green
     }

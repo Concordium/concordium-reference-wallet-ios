@@ -348,6 +348,9 @@ extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
                                               parentCoordinator: self)
         moreCoordinator.start()
     }
+    
+    func showScan() {
+    }
 }
 
 extension SeedIdentitiesCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate {

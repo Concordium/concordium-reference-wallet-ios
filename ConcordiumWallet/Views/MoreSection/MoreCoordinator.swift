@@ -73,7 +73,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     }
 
     func showScanAddressQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
+        let vc = ScanQRFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -212,13 +212,13 @@ extension MoreCoordinator: AddRecipientPresenterDelegate {
     }
 }
 
-extension MoreCoordinator: ScanAddressQRPresenterDelegate, AddRecipientCoordinatorHelper {
-    func scanAddressQr(didScanAddress address: String) {
+extension MoreCoordinator: ScanQRPresenterDelegate, AddRecipientCoordinatorHelper {
+    func scanQr(didScanQrCode qrCode: String) {
         let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
 
         self.navigationController.popToViewController(addRecipientViewController, animated: true)
 
-        addRecipientViewController.presenter.setAccountAddress(address)
+        addRecipientViewController.presenter.setAccountAddress(qrCode)
     }
 }
 
@@ -363,5 +363,8 @@ extension MoreCoordinator: AccountsPresenterDelegate {
                                               dependencyProvider: ServicesProvider.defaultProvider(),
                                               parentCoordinator: self)
         moreCoordinator.start()
+    }
+    
+    func showScan() {
     }
 }

@@ -344,7 +344,8 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     }
     
     func showScan() {
-        print("Show scan")
+        let vc = ScanQRFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self, type: .WalletConnect))
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
@@ -487,5 +488,13 @@ extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
     
     func doneTapped() {
         navigationController.popViewController(animated: true)
+    }
+}
+
+extension AccountDetailsCoordinator: ScanQRPresenterDelegate {
+    func scanQr(didScanQrCode qrCode: String) {
+        print("+++ Scanned qr code: \(qrCode)")
+        
+        navigationController.pushViewController(SelectAccountFactory.create(with: SelectAccountPresenter()), animated: true)
     }
 }

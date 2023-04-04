@@ -37,22 +37,26 @@ struct ButtonSlider: View {
                     VerticalLine()
                     ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
                     VerticalLine()
-                }
-                if position == 1 {
+                } else if position == 1 {
                     ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
                     VerticalLine()
                 }
                 ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
                 VerticalLine()
                 if isShielded {
-                    ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
+                    ActionButton(imageName: "button_slider_scan", disabled: disabled, action: actionScan)
                     VerticalLine()
                     if position == 1 {
+                        ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
+                        VerticalLine()
+                    } else if position == 2 {
+                        ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
+                        VerticalLine()
                         ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
                         VerticalLine()
                     }
                 } else {
-                    ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionScan)
+                    ActionButton(imageName: "button_slider_scan", disabled: disabled, action: actionScan)
                     VerticalLine()
                     if position == 1 {
                         ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
@@ -79,11 +83,11 @@ struct ButtonSlider: View {
     
     private func moveForward() {
         if isShielded {
-            if position < 1 {
+            if position < 2 {
                 position += 1
             }
         } else {
-            if position < 0 {
+            if position < 1 {
                 position += 1
             }
         }

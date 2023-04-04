@@ -410,10 +410,11 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "accountAddress.copy" = "COPY";
 "accountAddress.title" = "Address";
 "accountAddress.toast.addressCopied" = "Address copied";
-"scanQr.title" = "Scan QR Code";
+"scanAddressQr.title" = "Scan QR Code";
 "scanQr.unsupportedMessage.title" = "Scanning not supported";
 "scanQr.unsupportedMessage.message" = "Your device does not support scanning a code from an item. Please use a device with a camera.";
 "scanQr.invalidQr" = "Invalid QR code";
+"scanWalletConnectQr.title" = "Scan to Open Session";
 
 "addRecipient.title" = "New Recipient";
 "addRecipient.addressInvalid" = "Invalid account address";

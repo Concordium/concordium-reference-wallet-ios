@@ -111,7 +111,7 @@ protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter)
     func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
-    func sendFundPresenterShowScanQRCode(delegate: ScanAddressQRPresenterDelegate)
+    func sendFundPresenterShowScanQRCode(delegate: ScanQRPresenterDelegate)
     func sendFundPresenter(didSelectTransferAmount amount: GTU,
                            energyUsed energy: Int,
                            from account: AccountDataType,
@@ -466,9 +466,9 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 }
 
-extension SendFundPresenter: ScanAddressQRPresenterDelegate {
-    func scanAddressQr(didScanAddress: String) {
-        self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: didScanAddress))
+extension SendFundPresenter: ScanQRPresenterDelegate {
+    func scanQr(didScanQrCode: String) {
+        self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: didScanQrCode))
         self.delegate?.dismissQR()
     }
 }

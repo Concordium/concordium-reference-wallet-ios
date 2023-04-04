@@ -73,12 +73,19 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         warningMessageView.applyConcordiumEdgeStyle(color: .yellowBorder)
         warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "button_slider_settings"),
-                                                           style: .plain, target: self, action: #selector(self.settingsTapped))
+        // swiftlint:disable:next line_length
+        let settingsButton = UIBarButtonItem(image: UIImage(named: "button_slider_settings"), style: .plain, target: self, action: #selector(self.settingsTapped))
+        // swiftlint:disable:next line_length
+        let scanButton = UIBarButtonItem(image: UIImage(named: "button_slider_scan"), style: .plain, target: self, action: #selector(self.scanTapped))
+        navigationItem.leftBarButtonItems = [settingsButton, scanButton]
     }
 
     @objc func settingsTapped() {
         presenter?.showSettings()
+    }
+    
+    @objc func scanTapped() {
+        presenter?.showScan()
     }
     
     override func viewWillAppear(_ animated: Bool) {
