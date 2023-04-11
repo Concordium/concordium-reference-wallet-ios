@@ -1,0 +1,30 @@
+name: Build and test
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  build:
+    runs-on: macos-11
+    strategy:
+      matrix:
+        scheme: [StagingNet, ProdTestNet, ProdMainNet]
+        action: [build]
+        include:
+        - scheme: Mock
+          action: test
+        
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build scheme '${{matrix.scheme}}'
+      # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).
+      uses: mxcl/xcodebuild@v1
+      with:
+        platform: iOS
+        scheme: "${{matrix.scheme}}"
+        action: "${{matrix.action}}"
+        code-coverage: true
