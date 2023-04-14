@@ -76,7 +76,8 @@ class AttributesFormatterTests: XCTestCase {
                       ("1", "Passport".localized),
                       ("2", "National ID".localized),
                       ("3", "Driving License".localized),
-                      ("4", "Immigration Card".localized)
+                      ("4", "Immigration Card".localized),
+                      ("x", "x")
                      ]
         
         for value in values {

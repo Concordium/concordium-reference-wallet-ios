@@ -123,23 +123,20 @@ private class InternalFormatter {
     }
     
     func format(documentType: String) -> String {
-        guard let documentTypeEnum = DocumentType(rawValue: documentType) else {
-            return ""
-        }
-        var formattedDocumentType = ""
-        switch documentTypeEnum {
+        switch DocumentType(rawValue: documentType) {
+            case nil:
+                return documentType; // unknown type; no localized string available
             case .na:
-                formattedDocumentType = "Not applicable".localized
+                return  "Not applicable".localized
             case .drivingLicense:
-                formattedDocumentType = "Driving License".localized
+                return "Driving License".localized
             case .ImmigrationCard:
-                formattedDocumentType = "Immigration Card".localized
+                return "Immigration Card".localized
             case .nationalIDCard:
-                formattedDocumentType = "National ID".localized
+                return "National ID".localized
             case .passport:
-                formattedDocumentType = "Passport".localized
+                return "Passport".localized
         }
-        return formattedDocumentType
     }
     
     func countryName(for countryCode: String) -> String {
