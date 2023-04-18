@@ -78,6 +78,7 @@
 	<string>Enable FaceID for more convenient login</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>WorkSans.ttf</string>
 		<string>RobotoMono.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

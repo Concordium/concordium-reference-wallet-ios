@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol LoginCoordinatorDelegate: AppSettingsDelegate {
     func loginDone()
@@ -62,13 +63,18 @@ class LoginCoordinator: Coordinator {
         let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showTermsAndConditionsScreenSwiftUI() {
+        let hostingViewController = UIHostingController(rootView: TermsAndConditionsView())
+        navigationController.pushViewController(hostingViewController, animated: true)
+    }
 
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
         if passwordCreated {
             showLogin()
         } else {    
-            showTermsAndConditionsScreen()
+            showTermsAndConditionsScreenSwiftUI()
         }
     }
 }

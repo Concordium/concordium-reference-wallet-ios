@@ -135,6 +135,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoMono.ttf</string>
+		<string>WorkSans.ttf</string>
 	</array>
 </dict>
 </plist>

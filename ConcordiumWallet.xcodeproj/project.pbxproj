@@ -437,6 +437,7 @@
 		218F32A02705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
 		218F32A12705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
 		218F32A22705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
+		34149D9AE2D1648CEAF0CB24 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -750,6 +751,14 @@
 		644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB67F25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB68025DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
+		64B307B929EF35F70010517A /* WorkSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64B307B829EF35E70010517A /* WorkSans.ttf */; };
+		64B307BA29EF35F80010517A /* WorkSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64B307B829EF35E70010517A /* WorkSans.ttf */; };
+		64B307BC29EF35F90010517A /* WorkSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64B307B829EF35E70010517A /* WorkSans.ttf */; };
+		64B307BD29EF35F90010517A /* WorkSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64B307B829EF35E70010517A /* WorkSans.ttf */; };
+		64CEDAC229E6BED4005127CB /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CEDAC129E6BED4005127CB /* TermsAndConditionsView.swift */; };
+		64CEDAC329E6BED4005127CB /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CEDAC129E6BED4005127CB /* TermsAndConditionsView.swift */; };
+		64CEDAC429E6BED4005127CB /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CEDAC129E6BED4005127CB /* TermsAndConditionsView.swift */; };
+		64CEDAC529E6BED4005127CB /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CEDAC129E6BED4005127CB /* TermsAndConditionsView.swift */; };
 		64DB66B325DE643D00F4C605 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DB66B225DE643D00F4C605 /* AboutViewController.swift */; };
 		64DB66BA25DE649D00F4C605 /* AboutPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DB66B925DE649D00F4C605 /* AboutPresenter.swift */; };
 		64DB66C525DE6A1000F4C605 /* AboutPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DB66B925DE649D00F4C605 /* AboutPresenter.swift */; };
@@ -2065,6 +2074,7 @@
 		90C371E627DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */; };
 		90C371E727DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */; };
 		90C371E827DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */; };
+		A25519D3A9A2CC35E3F10289 /* Pods_ProdMainNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD26B0E4290111AE1EF291FA /* Pods_ProdMainNet.framework */; };
 		C916DAE92467F481008EA16A /* MenuItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916DAE82467F480008EA16A /* MenuItemCellView.swift */; };
 		C924B2242430799400081E23 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
 		C924B2292431D3A200081E23 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */; };
@@ -2127,6 +2137,7 @@
 		C9DE5077242CF7CC00DE0EF5 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */; };
 		C9E3727824277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */; };
 		C9E3727924277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */; };
+		F7109BB27E1B48D640C7B92B /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2413,6 +2424,8 @@
 		642ED98F25F2334E00A09BB3 /* UpdatePasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordCoordinator.swift; sourceTree = "<group>"; };
 		644BB67225DFB4220086ED48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ConcordiumWallet/main.swift; sourceTree = "<group>"; };
 		644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConcordiumApplication.swift; path = ConcordiumWallet/ConcordiumApplication.swift; sourceTree = "<group>"; };
+		64B307B829EF35E70010517A /* WorkSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorkSans.ttf; path = ../../../../Downloads/Work_Sans/WorkSans.ttf; sourceTree = "<group>"; };
+		64CEDAC129E6BED4005127CB /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		64DB66B225DE643D00F4C605 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		64DB66B925DE649D00F4C605 /* AboutPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPresenter.swift; sourceTree = "<group>"; };
 		64FD332F25FF886E00563703 /* InputEncryptedAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputEncryptedAmount.swift; sourceTree = "<group>"; };
@@ -2687,6 +2700,7 @@
 		90C371D827DF46410046F05E /* DelegationReceiptPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationReceiptPresenter.swift; sourceTree = "<group>"; };
 		90C371DD27DF4B020046F05E /* DelegationReceiptConfirmationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationReceiptConfirmationPresenter.swift; sourceTree = "<group>"; };
 		90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
+		AD26B0E4290111AE1EF291FA /* Pods_ProdMainNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProdMainNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C916DAE82467F480008EA16A /* MenuItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCellView.swift; sourceTree = "<group>"; };
 		C924B2232430799400081E23 /* UILabel+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+localized.swift"; sourceTree = "<group>"; };
 		C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
@@ -2774,6 +2788,7 @@
 				642A28B425FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
 				893CAC57286DBA2800BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
+				A25519D3A9A2CC35E3F10289 /* Pods_ProdMainNet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2786,6 +2801,7 @@
 				642A28B225FB5DB90073BF8C /* libmobile_wallet.a in Frameworks */,
 				893CAC53286DBA1D00BDF84C /* MnemonicSwift in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
+				F7109BB27E1B48D640C7B92B /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2793,6 +2809,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34149D9AE2D1648CEAF0CB24 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2862,13 +2879,13 @@
 		06AA2A9B23F58C420001F964 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				64B307B729EF35DC0010517A /* Fonts */,
 				9078545528102BD000B655EB /* BakerRemoveOnboarding */,
 				9078542828101BFC00B655EB /* BakerRegisterOnboarding */,
 				9078542128101BFC00B655EB /* BakerUpdateOnboarding */,
 				90434C6227FB103500E4DBAA /* RemoveDelegationOnboarding */,
 				90434C6127FB102600E4DBAA /* UpdateDelegationOnboarding */,
 				901F7F6227F1D5A100C46741 /* RegisterDelegationOnboarding */,
-				9024FB5827E09B830057EA91 /* RobotoMono.ttf */,
 				07E6E26E27B558A30083A852 /* IntroductionFlowOnboarding  */,
 				070D61F727B3C54500B6903C /* SchieldedBalanceOnboarding */,
 				17A41E4E266790220079BD3A /* Entitlements */,
@@ -3026,6 +3043,7 @@
 				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
 				8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */,
 				8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */,
+				64CEDAC129E6BED4005127CB /* TermsAndConditionsView.swift */,
 			);
 			path = TermsAndConditionsView;
 			sourceTree = "<group>";
@@ -3416,6 +3434,15 @@
 			path = Update;
 			sourceTree = "<group>";
 		};
+		64B307B729EF35DC0010517A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9024FB5827E09B830057EA91 /* RobotoMono.ttf */,
+				64B307B829EF35E70010517A /* WorkSans.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		64DB66AC25DE636A00F4C605 /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -3430,6 +3457,7 @@
 			children = (
 				642A28AE25FB5D950073BF8C /* libmobile_wallet.a */,
 				C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */,
+				AD26B0E4290111AE1EF291FA /* Pods_ProdMainNet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4383,13 +4411,13 @@
 			buildConfigurationList = 7F48C20E244DCD0B00997684 /* Build configuration list for PBXNativeTarget "Mock" */;
 			buildPhases = (
 				7F48C13A244DCD0B00997684 /* Sources */,
-				7F48C1FE244DCD0B00997684 /* ShellScript */,
 				7F48C1FF244DCD0B00997684 /* Frameworks */,
 				7F48C202244DCD0B00997684 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				64B307DC29EF4B0D0010517A /* PBXTargetDependency */,
 			);
 			name = Mock;
 			packageProductDependencies = (
@@ -4436,6 +4464,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				64B307CA29EF48380010517A /* PBXTargetDependency */,
 			);
 			name = ProdMainNet;
 			packageProductDependencies = (
@@ -4459,6 +4488,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				64B307D829EF4AE50010517A /* PBXTargetDependency */,
 			);
 			name = StagingNet;
 			packageProductDependencies = (
@@ -4613,6 +4643,7 @@
 				7F48C250244DCD7100997684 /* 3.3.1.TX_backend_submitTransfer.json in Resources */,
 				7F48C241244DCD7100997684 /* 3.3.2.RX_backend_submitTransfer.json in Resources */,
 				7F48C245244DCD7100997684 /* 1.2.1.TX-lib_create_id_request_and_private_data.json in Resources */,
+				64B307B929EF35F70010517A /* WorkSans.ttf in Resources */,
 				07E6E28227B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
 				070D625427B3DD5600B6903C /* shielding_2.svg in Resources */,
 				7FF9190D250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
@@ -4657,6 +4688,7 @@
 			files = (
 				90434C8027FB111B00E4DBAA /* delegation_update_flow_en_3.html in Resources */,
 				7F85B7BE246A9A7C00ED09B8 /* LaunchScreen.storyboard in Resources */,
+				64B307BD29EF35F90010517A /* WorkSans.ttf in Resources */,
 				5237186D25751F2100B2BC31 /* 4.5.2.RX_lib_generate_accounts.json in Resources */,
 				070D622327B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
 				070D625227B3DD5600B6903C /* unshielding_1.svg in Resources */,
@@ -4754,6 +4786,7 @@
 				90434C6D27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
 				9078544028101BFC00B655EB /* baker_update_flow_en_2.html in Resources */,
 				901F7F7F27F1D5DE00C46741 /* delegation_intro_flow_en_3.html in Resources */,
+				64B307BC29EF35F90010517A /* WorkSans.ttf in Resources */,
 				901F7F8B27F1D5DE00C46741 /* delegation_intro_flow_en_5.html in Resources */,
 				07E6E27D27B558A30083A852 /* intro_flow_onboarding_en_4.html in Resources */,
 				9078544828101BFC00B655EB /* registerbaker_flow_style.css in Resources */,
@@ -4820,6 +4853,7 @@
 				9078543228101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
 				070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */,
+				64B307BA29EF35F80010517A /* WorkSans.ttf in Resources */,
 				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
 				06A5129823F545DA008050B4 /* Widget.storyboard in Resources */,
 				070D624927B3D67100B6903C /* shielded_balance_style.css in Resources */,
@@ -4888,23 +4922,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7F48C1FE244DCD0B00997684 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
 		7F85B7B7246A9A7C00ED09B8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5159,6 +5176,7 @@
 				893CAC32286C8EBA00BDF84C /* RecoveryPhraseCopyPhraseView.swift in Sources */,
 				9078546128102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				642ED97725F21FB300A09BB3 /* UpdatePasswordViewController.swift in Sources */,
+				64CEDAC229E6BED4005127CB /* TermsAndConditionsView.swift in Sources */,
 				7F48C19F244DCD0B00997684 /* IdentitiesCoordinator.swift in Sources */,
 				901F7F4827EB4D6A00C46741 /* BakerDataHandler.swift in Sources */,
 				7F48C1A1244DCD0B00997684 /* CreateAccountCoordinator.swift in Sources */,
@@ -5825,6 +5843,7 @@
 				19C2E48CCDA5C4711F3C2436 /* EncryptionMetadata.swift in Sources */,
 				52589B2825128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				070D61E127B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
+				64CEDAC429E6BED4005127CB /* TermsAndConditionsView.swift in Sources */,
 				5211BAAE24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
 				5251EFA027BE895D006991DD /* WarningDisplayer.swift in Sources */,
@@ -6275,6 +6294,7 @@
 				19C2E31A01A86DD6F42D0845 /* DataStoreProtocol.swift in Sources */,
 				52589B2925128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				070D61E227B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
+				64CEDAC529E6BED4005127CB /* TermsAndConditionsView.swift in Sources */,
 				5211BAAF24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
 				5251EFA127BE895D006991DD /* WarningDisplayer.swift in Sources */,
@@ -6753,6 +6773,7 @@
 				642A293E25FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
 				901F7F4927EB4D6A00C46741 /* BakerDataHandler.swift in Sources */,
 				64FD33902601FBC400563703 /* Credential.swift in Sources */,
+				64CEDAC329E6BED4005127CB /* TermsAndConditionsView.swift in Sources */,
 				077AC5F526E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				19C2EE3C99F939CE7AF40DA1 /* ImportService.swift in Sources */,
 				89E1A75927FF1073008C761B /* BakingCoordinator.swift in Sources */,
@@ -6785,6 +6806,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		64B307CA29EF48380010517A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 64B307C929EF48380010517A /* RswiftLibrary */;
+		};
+		64B307D829EF4AE50010517A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 64B307D729EF4AE50010517A /* RswiftGenerateInternalResources */;
+		};
+		64B307DC29EF4B0D0010517A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 64B307DB29EF4B0D0010517A /* RswiftGenerateInternalResources */;
+		};
 		7F85B8DF246D3A8600ED09B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F85B7CF246A9AB600ED09B8 /* ProdMainNet */;
@@ -6845,14 +6878,14 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6883,7 +6916,7 @@
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6915,7 +6948,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6948,7 +6981,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6980,7 +7013,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7012,7 +7045,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7086,7 +7119,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7142,7 +7175,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -7163,7 +7196,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7197,7 +7230,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7324,6 +7357,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		64B307BE29EF46CF0010517A /* XCRemoteSwiftPackageReference "R.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		8927A66D286AC6820007CAF1 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
@@ -7351,6 +7392,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		64B307C929EF48380010517A /* RswiftLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64B307BE29EF46CF0010517A /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = RswiftLibrary;
+		};
+		64B307D729EF4AE50010517A /* RswiftGenerateInternalResources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64B307BE29EF46CF0010517A /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = "plugin:RswiftGenerateInternalResources";
+		};
+		64B307DB29EF4B0D0010517A /* RswiftGenerateInternalResources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64B307BE29EF46CF0010517A /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = "plugin:RswiftGenerateInternalResources";
+		};
 		8927A66E286AC6820007CAF1 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8927A66D286AC6820007CAF1 /* XCRemoteSwiftPackageReference "realm-swift" */;
