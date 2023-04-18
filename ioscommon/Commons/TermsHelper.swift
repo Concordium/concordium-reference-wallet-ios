@@ -31,6 +31,8 @@ struct TermsHelper {
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms11.details".localized, attributes: detailsAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms12.title".localized, attributes: titleAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms13.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms39.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms39.details".localized, attributes: detailsAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms14.title".localized, attributes: titleAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms15.details".localized, attributes: detailsAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms16.title".localized, attributes: titleAttribute))

@@ -27,6 +27,7 @@ final class NetworkManager: NetworkManagerProtocol {
         guard let request = resource.request else {
             return Fail(error: NetworkError.invalidRequest).eraseToAnyPublisher()
         }
+        
         return load(request)
     }
     func load<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {

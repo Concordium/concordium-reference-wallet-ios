@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 // MARK: -
 // MARK: Presenter Delegate
@@ -17,6 +18,7 @@ protocol IdentitiesPresenterDelegate: AnyObject {
     func noValidIdentitiesAvailable()
     func tryAgainIdentity()
     func finishedPresentingIdentities()
+    func preventIdentityCreationAlert()
 }
 
 class IdentitiesPresenter: IdentityGeneralPresenter {
@@ -91,6 +93,10 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
         }
     }
 
+//    override func createIdentitySelected() {
+//        self.delegate?.preventIdentityCreationAlert()
+//    }
+    
     override func createIdentitySelected() {
         guard !identities.contains(where: { $0.state == .pending }) else {
             view?.showAlert(with: AlertOptions(
@@ -106,6 +112,7 @@ class IdentitiesPresenter: IdentityGeneralPresenter {
         
         self.delegate?.createIdentitySelected()
     }
+
 
     override func userSelectedIdentity(index: Int) {
         if index < viewModels.count {

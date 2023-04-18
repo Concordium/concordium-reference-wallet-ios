@@ -43,7 +43,7 @@ extension ShowAlert {
         showBackupOption: Bool,
         actionHandler: @escaping (ForceUpdateAction) -> Void
     ) {
-        var actions = [
+        let actions = [
             AlertAction(
                 name: "force.update.warning.update.now".localized,
                 completion: {
@@ -60,22 +60,28 @@ extension ShowAlert {
             )
         ]
         
-        if showBackupOption {
-            actions.insert(
-                AlertAction(
-                    name: "force.update.warning.backup".localized,
-                    completion: {
-                        actionHandler(.backup)
-                    },
-                    style: .default
-                ),
-                at: 1
-            )
-        }
+//        if showBackupOption {
+//            actions.insert(
+//                AlertAction(
+//                    name: "force.update.warning.backup".localized,
+//                    completion: {
+//                        actionHandler(.backup)
+//                    },
+//                    style: .default
+//                ),
+//                at: 1
+//            )
+//        }
+        
+//        let alertOptions = AlertOptions(
+//            title: "force.update.warning.title".localized,
+//            message: showBackupOption ? "force.update.warning.message".localized : "force.update.warning.nobackup.message".localized,
+//            actions: actions)
+//        showAlert(with: alertOptions)
         
         let alertOptions = AlertOptions(
             title: "force.update.warning.title".localized,
-            message: showBackupOption ? "force.update.warning.message".localized : "force.update.warning.nobackup.message".localized,
+            message: "force.update.warning.message".localized,
             actions: actions)
         showAlert(with: alertOptions)
     }
