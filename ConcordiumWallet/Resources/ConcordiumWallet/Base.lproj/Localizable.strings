@@ -261,6 +261,7 @@ When you have submitted your account, you will be taken to the wallet.";
 "welcomeScreen.tos.checkbox.link" = "terms and conditions.";
 
 "welcomeScreen.button" = "Continue";
+"welcomeScreen.create.password" = "Create password";
 
 "termsAndConditionsScreen.title" = "";
 "termsAndConditionsScreen.subtitle" = "Terms and conditions for Concordium Wallet for Mobile";
