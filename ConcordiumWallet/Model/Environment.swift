@@ -12,6 +12,7 @@ enum Environment: String, Codable {
     case main = "production"
     case test = "prod_testnet"
     case staging = "staging"
+    case mock = "mock"
     
     static var current: Environment {
         #if MAINNET
@@ -24,7 +25,7 @@ enum Environment: String, Codable {
         #elseif STAGINGNET
         return .staging
         #else // Mock
-        return ""
+        return .mock
         #endif
     }
 }
