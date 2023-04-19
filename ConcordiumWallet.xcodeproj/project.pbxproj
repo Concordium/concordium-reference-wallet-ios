@@ -2537,7 +2537,6 @@
 		FABA9D96291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D97291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D98291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
-		FABA9D99291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D9B291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
 		FABA9D9C291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
 		FABA9D9D291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
@@ -8094,7 +8093,6 @@
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
 				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
 				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
-				FABA9D99291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				896B41DA28B37B9B00D1F271 /* ConcordiumTestCase.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
