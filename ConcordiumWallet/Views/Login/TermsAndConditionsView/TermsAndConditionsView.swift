@@ -72,7 +72,7 @@ struct TermsAndConditionsView: View {
             .padding(8)
 
             Button {
-                viewModel.didAcceptTermsAndConditions?()
+                viewModel.continueButtonTapped()
             } label: {
                 Text("welcomeScreen.create.password".localized)
                     .frame(maxWidth: .infinity)
