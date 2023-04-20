@@ -65,8 +65,12 @@ class LoginCoordinator: Coordinator {
     }
     
     func showTermsAndConditionsScreenSwiftUI() {
-        let hostingViewController = UIHostingController(rootView: TermsAndConditionsView())
-        navigationController.pushViewController(hostingViewController, animated: true)
+        let viewModel = TermsAndConditionsViewModel()
+        viewModel.didAcceptTermsAndConditions = { [weak self] in
+            self?.showInitialScreen()
+        }
+        let vc = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func start() {
@@ -74,7 +78,7 @@ class LoginCoordinator: Coordinator {
         if passwordCreated {
             showLogin()
         } else {    
-            showTermsAndConditionsScreenSwiftUI()
+            showTermsAndConditionsScreen()
         }
     }
 }

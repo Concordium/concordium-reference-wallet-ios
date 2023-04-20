@@ -9,5 +9,6 @@
 import Foundation
 
 protocol AppSettingsDelegate: AnyObject {
+    func checkForLatestTermsAndConditions()
     func checkForAppSettings(showBackup: (() -> Void)?)
 }

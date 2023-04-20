@@ -2,54 +2,73 @@
 //  TermsAndConditionsView.swift
 //  ConcordiumWallet
 //
-//  Created by Milan Wykop on 12/04/2023.
+//  Created by Milan Sawicki on 12/04/2023.
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
 import SwiftUI
 
-struct TermsAndConditionsView: View {
-    @Environment(\.colorScheme) var colorScheme
-    private static var termsAndConditionsURL = "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions.html"
-    @State var termsAndConditionsAccepted = false
-    var body: some View {
-        ZStack {
-            colorScheme == .dark ? Color.black : Color.white
-            VStack {
-                ZStack {
-                    Image("Background_squares")
-                    Image("padlock")
-                }
-                Text("welcomeScreen.subtitle".localized)
-                    .font(Font(UIFont.WorkSans(size: 25, .semibold)))
-                    .padding(8)
-                Text("welcomeScreen.details".localized)
-                    .font(Font(UIFont.WorkSans(size: 15, .light)))
-                    .multilineTextAlignment(.center)
-                    .padding(8)
+protocol TermsAndConditionsViewModelProtocol {
+    var termsAndConditionsAccepted: Bool { get set }
+    var didAcceptTermsAndConditions: (() -> Void)? { get set }
+}
 
-                Spacer()
-                Toggle(isOn: $termsAndConditionsAccepted) {
-                    Text("welcomeScreen.toc.checkbox".localized)
-                        .font(Font(UIFont.WorkSans(size: 14, .light)))
-                }
-                .toggleStyle(SwitchToggleStyle(tint: Pallette.primary))
-                .padding(8)
-                Button {
-                } label: {
-                    Text("welcomeScreen.create.password".localized)
-                        .frame(maxWidth: .infinity)
-                }
-                .applyStandardButtonStyle(disabled: !termsAndConditionsAccepted)
-                .padding(8)
-            }
-            .padding()
-        }
+class TermsAndConditionsViewModel: TermsAndConditionsViewModelProtocol, ObservableObject {
+    var didAcceptTermsAndConditions: (() -> Void)?
+
+    @Published var termsAndConditionsAccepted = false
+
+    /// Called on button tap.
+    func continueButtonTapped() {
+        guard termsAndConditionsAccepted else { return }
+        didAcceptTermsAndConditions?()
     }
 }
 
-struct TermsAndConditionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TermsAndConditionsView()
+struct TermsAndConditionsView: View {
+    @ObservedObject var viewModel: TermsAndConditionsViewModel
+
+    private var toslink: AttributedString {
+        var result = AttributedString("welcomeScreen.tos.checkbox.link".localized)
+        result.font = UIFont.WorkSans(size: 14, .semibold)
+        result.foregroundColor = Pallette.primary
+        result.link = URL(string: TermsAndConditionsView.termsAndConditionsURL)
+        return result
+    }
+
+    private static var termsAndConditionsURL = "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions.html"
+
+    var body: some View {
+        VStack {
+            ZStack {
+                Image("Background_squares")
+                Image("padlock")
+            }
+            Text("welcomeScreen.subtitle".localized)
+                .font(Font(UIFont.WorkSans(size: 25, .semibold)))
+                .padding(8)
+            Text("welcomeScreen.details".localized)
+                .font(Font(UIFont.WorkSans(size: 15, .light)))
+                .multilineTextAlignment(.center)
+                .padding(8)
+
+            Spacer()
+            Toggle(isOn: $viewModel.termsAndConditionsAccepted) {
+                Text("welcomeScreen.tos.checkbox.regular".localized).font(Font(UIFont.WorkSans(size: 14, .light))) +
+                    Text(toslink)
+            }
+            .toggleStyle(SwitchToggleStyle(tint: Pallette.primary))
+            .padding(8)
+
+            Button {
+                viewModel.didAcceptTermsAndConditions?()
+            } label: {
+                Text("welcomeScreen.create.password".localized)
+                    .frame(maxWidth: .infinity)
+            }
+            .applyStandardButtonStyle(disabled: !viewModel.termsAndConditionsAccepted)
+            .padding(8)
+        }
+        .padding()
     }
 }
