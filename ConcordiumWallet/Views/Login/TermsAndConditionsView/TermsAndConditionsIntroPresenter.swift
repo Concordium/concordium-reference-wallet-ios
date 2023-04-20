@@ -27,6 +27,7 @@ class TermsAndConditionsIntroPresenter: TermsAndConditionsPresenterProtocol {
     }
     
     func viewDidLoad() {
+        appSettingsDelegate?.checkForLatestTermsAndConditions()
         appSettingsDelegate?.checkForAppSettings()
     }
 }

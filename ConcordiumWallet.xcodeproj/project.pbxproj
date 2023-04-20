@@ -732,6 +732,14 @@
 		644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB67F25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB68025DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
+		649C5E8129F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
+		649C5E8229F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
+		649C5E8329F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
+		649C5E8429F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
+		649C5E8629F6C35D00408948 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */; };
+		649C5E8729F6C35D00408948 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */; };
+		649C5E8829F6C35D00408948 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */; };
+		649C5E8929F6C35D00408948 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */; };
 		64DB66B325DE643D00F4C605 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DB66B225DE643D00F4C605 /* AboutViewController.swift */; };
 		64DB66BA25DE649D00F4C605 /* AboutPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DB66B925DE649D00F4C605 /* AboutPresenter.swift */; };
 		64DB66C525DE6A1000F4C605 /* AboutPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DB66B925DE649D00F4C605 /* AboutPresenter.swift */; };
@@ -2875,6 +2883,8 @@
 		642ED98F25F2334E00A09BB3 /* UpdatePasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordCoordinator.swift; sourceTree = "<group>"; };
 		644BB67225DFB4220086ED48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ConcordiumWallet/main.swift; sourceTree = "<group>"; };
 		644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConcordiumApplication.swift; path = ConcordiumWallet/ConcordiumApplication.swift; sourceTree = "<group>"; };
+		649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsResponse.swift; sourceTree = "<group>"; };
+		649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		64DB66B225DE643D00F4C605 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		64DB66B925DE649D00F4C605 /* AboutPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPresenter.swift; sourceTree = "<group>"; };
 		64FD332F25FF886E00563703 /* InputEncryptedAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputEncryptedAmount.swift; sourceTree = "<group>"; };
@@ -3610,6 +3620,7 @@
 		173768182652A72300A48758 /* TermsAndConditionsView */ = {
 			isa = PBXGroup;
 			children = (
+				649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */,
 				173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */,
 				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
 				8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */,
@@ -4183,6 +4194,7 @@
 		7FA3FE4923F44B9700A3D8B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */,
 				89D467E5289B8F36007D3FC8 /* RecoveryPhrase */,
 				5211BABA2502140C00EE1658 /* AccountBalanceTypeEnum.swift */,
 				074917CE273C02900087225F /* AccountSubmissionStatus.swift */,
@@ -5928,6 +5940,7 @@
 				528EB759256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
 				527DE3462571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				897D0F23288EA9C3001CEC3B /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
+				649C5E8629F6C35D00408948 /* TermsAndConditionsView.swift in Sources */,
 				7F48C146244DCD0B00997684 /* ScanAddressQRPresenter.swift in Sources */,
 				FABA9D9B291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
@@ -6348,6 +6361,7 @@
 				5237187F25753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
 				19C2EF25D40012E140F9B773 /* GTU.swift in Sources */,
 				19C2E2157275F953BF8D33B0 /* AccountDetailsViewModel.swift in Sources */,
+				649C5E8129F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */,
 				C94ED71E2461B2030071A4FB /* TransactionDetailPresenter.swift in Sources */,
 				19C2E87C10444F6659AB3E8C /* AccountTransactionsLoadingCellView.swift in Sources */,
 				19C2E0C630D5ECCCC0B72DAF /* AccountDetailsPresenter.swift in Sources */,
@@ -6551,6 +6565,7 @@
 				07519F7626FB5AAB00F4E6E3 /* Memo.swift in Sources */,
 				7F85B720246A9A7C00ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				89CF2D32281167EF00742E1E /* BakerPoolSettingsPresenter.swift in Sources */,
+				649C5E8829F6C35D00408948 /* TermsAndConditionsView.swift in Sources */,
 				891B19FA28A6135900F4B0D6 /* SeedIdentitiesService.swift in Sources */,
 				077AC5FB26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
@@ -6801,6 +6816,7 @@
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
+				649C5E8329F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */,
 				077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B7A0246A9A7C00ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
 				9074C71627D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
@@ -7099,6 +7115,7 @@
 				07519F7726FB5AAB00F4E6E3 /* Memo.swift in Sources */,
 				7F85B81D246A9AB600ED09B8 /* AccountTransactionsDataCellView.swift in Sources */,
 				89CF2D33281167EF00742E1E /* BakerPoolSettingsPresenter.swift in Sources */,
+				649C5E8929F6C35D00408948 /* TermsAndConditionsView.swift in Sources */,
 				891B19FB28A6135900F4B0D6 /* SeedIdentitiesService.swift in Sources */,
 				077AC5FC26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
@@ -7349,6 +7366,7 @@
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
+				649C5E8429F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */,
 				077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B89D246A9AB600ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
 				9074C71727D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
@@ -7970,6 +7988,7 @@
 				52589B2725128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				528EB741255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				642ED98225F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
+				649C5E8229F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */,
 				909EAF1F27F71FAD001930AE /* PendingChangeEntity.swift in Sources */,
 				8992BA562828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				19C2E365F833136A91177D42 /* AddRecipientViewController.swift in Sources */,
@@ -8070,6 +8089,7 @@
 				8DD48C812953138400CA9085 /* EarnPresenter.swift in Sources */,
 				077AC5F526E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				19C2EE3C99F939CE7AF40DA1 /* ImportService.swift in Sources */,
+				649C5E8729F6C35D00408948 /* TermsAndConditionsView.swift in Sources */,
 				89E1A75927FF1073008C761B /* BakingCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8173,7 +8193,7 @@
 					"COCOAPODS=1",
 				);
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8206,7 +8226,7 @@
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8242,7 +8262,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8279,7 +8299,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8315,7 +8335,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8351,7 +8371,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8507,7 +8527,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "StageNet Seed Phrase Wallet";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8545,7 +8565,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "StageNet Seed Phrase Wallet";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8577,7 +8597,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				INFOPLIST_FILE = ConcordiumWalletTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8599,7 +8619,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WP87SA38DK;
 				INFOPLIST_FILE = ConcordiumWalletTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

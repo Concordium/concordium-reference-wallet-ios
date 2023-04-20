@@ -256,7 +256,10 @@ When you have submitted your account, you will be taken to the wallet.";
 
 "welcomeScreen.title" = "";
 "welcomeScreen.subtitle" = "Before you begin";
-"welcomeScreen.details" = "Before you start using the Concordium Wallet for Mobile, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium is not able to change your passcode or help you unlock your wallet if you lose your passcode.\n\nSimilarly, if someone gets your passcode, they will be able to access your accounts.\n\nSo remember to keep your passcode safe!";
+"welcomeScreen.details" = "Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium will not be able to change your passcode or help you unlock your wallet if you lose your passcode.";
+"welcomeScreen.tos.checkbox.regular" = "I have read and agree to the ";
+"welcomeScreen.tos.checkbox.link" = "terms and conditions.";
+
 "welcomeScreen.button" = "Continue";
 
 "termsAndConditionsScreen.title" = "";

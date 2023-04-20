@@ -62,6 +62,15 @@ class LoginCoordinator: Coordinator {
         let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showTermsAndConditionsScreenSwiftUI() {
+        let viewModel = TermsAndConditionsViewModel()
+        viewModel.didAcceptTermsAndConditions = { [weak self] in
+            self?.showInitialScreen()
+        }
+        let vc = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
+        navigationController.pushViewController(vc, animated: true)
+    }
 
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
