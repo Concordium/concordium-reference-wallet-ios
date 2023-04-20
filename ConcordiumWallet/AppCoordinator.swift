@@ -33,8 +33,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             clearAppDataFromPreviousInstall()
         }
 
-        
-        
         AppSettings.hasRunBefore = true
         showLogin()
     }
@@ -370,16 +368,6 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
 }
 
 extension AppCoordinator: AppSettingsDelegate {
-    func checkForLatestTermsAndConditions() {
-        defaultProvider.appSettingsService()
-            .getTermsAndConditionsVersion()
-            .sink(receiveError: { error in
-                print(error)
-            }, receiveValue: { value in
-                print(value)
-            })
-            .store(in: &cancellables)
-    }
 
     func checkForAppSettings() {
         guard needsAppCheck else { return }

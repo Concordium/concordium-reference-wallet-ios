@@ -15,7 +15,6 @@ protocol AppSettingsServiceProtocol {
 }
 
 class AppSettingsService: AppSettingsServiceProtocol {
-
     let networkManager: NetworkManagerProtocol
 
     init(networkManager: NetworkManagerProtocol) {
@@ -28,7 +27,7 @@ class AppSettingsService: AppSettingsServiceProtocol {
         let request = ResourceRequest(url: ApiConstants.appSettings, parameters: ["platform": "ios", "appVersion": appVersion])
         return networkManager.load(request)
     }
-    
+
     func getTermsAndConditionsVersion() -> AnyPublisher<TermsAndConditionsResponse, Error> {
         networkManager.load(ResourceRequest(url: ApiConstants.latestTermsAndCondition))
     }
