@@ -9,18 +9,29 @@
 import SwiftUI
 
 protocol TermsAndConditionsViewModelProtocol {
+    var storageManager: StorageManagerProtocol { get set }
     var termsAndConditionsAccepted: Bool { get set }
     var didAcceptTermsAndConditions: (() -> Void)? { get set }
 }
 
 class TermsAndConditionsViewModel: TermsAndConditionsViewModelProtocol, ObservableObject {
     var didAcceptTermsAndConditions: (() -> Void)?
-
+    var storageManager: StorageManagerProtocol
+    var termsAndConditions: TermsAndConditionsResponse
     @Published var termsAndConditionsAccepted = false
 
+    init(
+        storageManager: StorageManagerProtocol,
+        termsAndConditions: TermsAndConditionsResponse
+    ) {
+        self.storageManager = storageManager
+        self.termsAndConditions = termsAndConditions
+    }
+    
     /// Called on button tap.
     func continueButtonTapped() {
         guard termsAndConditionsAccepted else { return }
+        storageManager.storeLastAcceptedTermsAndConditionsVersion(termsAndConditions.version)
         didAcceptTermsAndConditions?()
     }
 }
@@ -32,7 +43,7 @@ struct TermsAndConditionsView: View {
         var result = AttributedString("welcomeScreen.tos.checkbox.link".localized)
         result.font = UIFont.WorkSans(size: 14, .semibold)
         result.foregroundColor = Pallette.primary
-        result.link = URL(string: TermsAndConditionsView.termsAndConditionsURL)
+        result.link = viewModel.termsAndConditions.url
         return result
     }
 
