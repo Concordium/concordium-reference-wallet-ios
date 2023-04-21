@@ -14,7 +14,7 @@ struct RecoveryPhraseSetupCompleteView: Page {
     var pageBody: some View {
         ZStack {
             VStack {
-                PageIndicator(numberOfPages: 4, currentPage: 1)
+                PageIndicator(numberOfPages: 4, currentPage: 2)
                     .padding([.top, .bottom], 10)
                 StyledLabel(text: viewModel.title, style: .body)
                 Spacer()

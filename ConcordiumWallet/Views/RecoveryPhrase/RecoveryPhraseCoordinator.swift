@@ -8,19 +8,30 @@
 
 import Foundation
 import UIKit
+import Combine
 
-class RecoveryPhraseCoordinator: Coordinator {
+protocol RecoveryPhraseCoordinatorDelegate: AnyObject {
+    func recoveryPhraseCoordinator(createdNewSeed seed: Seed)
+    func recoveryPhraseCoordinatorFinishedRecovery()
+}
+
+class RecoveryPhraseCoordinator: Coordinator, RequestPasswordDelegate, ShowAlert {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
     private let dependencyProvider: LoginDependencyProvider
+    private weak var delegate: RecoveryPhraseCoordinatorDelegate?
+    
+    private var cancellables = [AnyCancellable]()
     
     init(
         dependencyProvider: LoginDependencyProvider,
-        navigationController: UINavigationController
+        navigationController: UINavigationController,
+        delegate: RecoveryPhraseCoordinatorDelegate
     ) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
+        self.delegate = delegate
     }
     
     func start() {
@@ -42,8 +53,7 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseOnboardingView.self)], animated: true)
+        replaceTopController(with: presenter.present(RecoveryPhraseOnboardingView.self))
     }
     
     func presentCopyPhrase(with recoveryPhrase: RecoveryPhrase) {
@@ -52,8 +62,7 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseCopyPhraseView.self)], animated: true)
+        replaceTopController(with: presenter.present(RecoveryPhraseCopyPhraseView.self))
     }
     
     func presentConfirmPhrase(with recoveryPhrase: RecoveryPhrase) {
@@ -63,8 +72,7 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
-        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseConfirmPhraseView.self)], animated: true)
+        replaceTopController(with: presenter.present(RecoveryPhraseConfirmPhraseView.self))
     }
     
     func presentSetupComplete(with recoveryPhrase: RecoveryPhrase) {
@@ -73,8 +81,49 @@ class RecoveryPhraseCoordinator: Coordinator {
             delegate: self
         )
         
+        navigationController.setViewControllers([presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
+    }
+    
+    func presentRecoverIntro() {
+        let presenter = RecoveryPhraseRecoverIntroPresenter(delegate: self)
+        
+        navigationController.pushViewController(presenter.present(RecoveryPhraseRecoverIntroView.self), animated: true)
+    }
+    
+    func presentRecoverInput() {
+        let presenter = RecoveryPhraseInputPresenter(
+            recoveryService: dependencyProvider.recoveryPhraseService(),
+            delegate: self
+        )
+        
+        navigationController.pushViewController(presenter.present(RecoveryPhraseInputView.self), animated: true)
+    }
+    
+    func presentRecoveryCompleted(with recoveryPhrase: RecoveryPhrase) {
+        let presenter = RecoveryPhraseRecoverCompletePresenter(
+            recoveryPhrase: recoveryPhrase,
+            delegate: self
+        )
+        
+        navigationController.setViewControllers([presenter.present(RecoveryPhraseRecoverCompleteView.self)], animated: true)
+    }
+    
+    func presentIdentityRecovery(with recoveryPhrase: RecoveryPhrase) {
+        let presenter = IdentityRecoveryStatusPresenter(
+            recoveryPhrase: recoveryPhrase,
+            recoveryPhraseService: dependencyProvider.recoveryPhraseService(),
+            identitiesService: dependencyProvider.seedIdentitiesService(),
+            accountsService: dependencyProvider.seedAccountsService(),
+            keychain: dependencyProvider.keychainWrapper(),
+            delegate: self
+        )
+        
+        replaceTopController(with: presenter.present(IdentityReccoveryStatusView.self))
+    }
+    
+    private func replaceTopController(with controller: UIViewController) {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
-        navigationController.setViewControllers(viewControllers + [presenter.present(RecoveryPhraseSetupCompleteView.self)], animated: true)
+        navigationController.setViewControllers(viewControllers + [controller], animated: true)
     }
 }
 
@@ -84,7 +133,7 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseGettingStartedPresenterDelega
     }
     
     func recoverWallet() {
-        
+        presentRecoverIntro()
     }
 }
 
@@ -108,6 +157,47 @@ extension RecoveryPhraseCoordinator: RecoveryPhraseConfirmPhrasePresenterDelegat
 
 extension RecoveryPhraseCoordinator: RecoveryPhraseSetupCompletePresenterDelegate {
     func recoveryPhraseSetupFinished(with recoveryPhrase: RecoveryPhrase) {
-        
+        Task {
+            do {
+                let pwHash = try await self.requestUserPassword(keychain: self.dependencyProvider.keychainWrapper())
+                
+                let seed = try self.dependencyProvider.seedMobileWallet()
+                    .store(recoveryPhrase: recoveryPhrase, with: pwHash)
+                    .get()
+                
+                self.delegate?.recoveryPhraseCoordinator(createdNewSeed: seed)
+            } catch {
+                if case GeneralError.userCancelled = error { return }
+                self.showErrorAlert(ErrorMapper.toViewError(error: error))
+            }
+        }
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverIntroPresenterDelegate {
+    func recoverIntroWasFinished() {
+        presentRecoverInput()
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseInputPresenterDelegate {
+    func phraseInputReceived(validPhrase: RecoveryPhrase) {
+        presentRecoveryCompleted(with: validPhrase)
+    }
+}
+
+extension RecoveryPhraseCoordinator: RecoveryPhraseRecoverCompletePresenterDelegate {
+    func completeRecovery(with recoveryPhrase: RecoveryPhrase) {
+        presentIdentityRecovery(with: recoveryPhrase)
+    }
+}
+
+extension RecoveryPhraseCoordinator: IdentityRecoveryStatusPresenterDelegate {
+    func identityRecoveryCompleted() {
+        delegate?.recoveryPhraseCoordinatorFinishedRecovery()
+    }
+    
+    func reenterRecoveryPhrase() {
+        presentRecoverInput()
     }
 }

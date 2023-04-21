@@ -36,7 +36,6 @@ class IdentitiesCoordinator: Coordinator {
     func showInitial(animated: Bool = false) {
         let identitiesPresenter = IdentitiesPresenter(dependencyProvider: dependencyProvider, delegate: self)
         let vc = IdentitiesFactory.create(with: identitiesPresenter, flow: .show)
-        vc.tabBarItem = UITabBarItem(title: "identities_tab_title".localized, image: UIImage(named: "tab_bar_identities_icon"), tag: 0)
         navigationController.pushViewController(vc, animated: animated)
     }
 
@@ -66,17 +65,6 @@ class IdentitiesCoordinator: Coordinator {
             
             vc.primaryBottomWidget = DeleteIdentityButtonWidgetFactory.create(with: deleteIdentityButtonWidgetPresenter)
             
-            if let reference = identity.hashedIpStatusUrl {
-                vc.tertiaryLabelString = "identityCreation.automaticAccountRemoval.text".localized
-                                
-                let copyReferenceWidgetPresenter = CopyReferenceWidgetPresenter(
-                    delegate: self,
-                    reference: reference
-                )
-                
-                vc.secondaryCenterWidget = CopyReferenceWidgetFactory.create(with: copyReferenceWidgetPresenter)
-            }
-            
             if MailHelper.canSendMail {
                 let contactSupportButtonWidgetPresenter = ContactSupportButtonWidgetPresenter(identity: identity, delegate: self)
                 vc.secondaryBottomWidget = ContactSupportButtonWidgetFactory.create(with: contactSupportButtonWidgetPresenter)
@@ -96,11 +84,16 @@ class IdentitiesCoordinator: Coordinator {
     }
 
     func showCreateNewIdentity() {
-        let createIdentityCoordinator = CreateIdentityCoordinator(navigationController: BaseNavigationController(),
-                dependencyProvider: dependencyProvider, parentCoordinator: self)
-        childCoordinators.append(createIdentityCoordinator)
-        createIdentityCoordinator.start()
-        navigationController.present(createIdentityCoordinator.navigationController, animated: true, completion: nil)
+        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+            navigationController: BaseNavigationController(),
+            action: .createIdentity,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        
+        childCoordinators.append(seedIdentitiesCoordinator)
+        seedIdentitiesCoordinator.start()
+        navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
     }
 }
 
@@ -150,4 +143,14 @@ extension IdentitiesCoordinator: ContactSupportButtonWidgetPresenterDelegate {
 
 extension IdentitiesCoordinator: CopyReferenceWidgetPresenterDelegate {
     func copyReferenceWidgetDidCopyReference() {}
+}
+
+extension IdentitiesCoordinator: SeedIdentitiesCoordinatorDelegate {
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+        
+        let identityDict = ["identity" : identity]
+        NotificationCenter.default.post(name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil, userInfo: identityDict)
+    }
 }

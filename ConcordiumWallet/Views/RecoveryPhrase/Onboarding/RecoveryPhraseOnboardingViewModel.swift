@@ -13,5 +13,16 @@ enum RecoveryPhraseOnboardingEvent {
 }
 
 class RecoveryPhraseOnboardingViewModel: PageViewModel<RecoveryPhraseOnboardingEvent> {
+    @Published var message: String
+    @Published var continueLabel: String
     
+    init(
+        message: String,
+        continueLabel: String
+    ) {
+        self.message = message
+        self.continueLabel = continueLabel
+        
+        super.init()
+    }
 }

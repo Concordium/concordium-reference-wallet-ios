@@ -20,4 +20,20 @@ struct AppConstants {
     struct Support {
         static let concordiumSupportMail: String = Bundle.main.object(forInfoDictionaryKey: "Concordium Support Mail") as? String ?? ""
     }
+    
+    //
+    struct MatomoTracker {
+        static let baseUrl: String = "https://concordium.matomo.cloud/matomo.php"
+        static let siteId = "4"
+        static let versionCustomDimensionId: Int = 1
+        static let networkCustomDimensionId: Int = 2
+        
+        static let migratedFromFourPointFourSharedInstance = "migratedFromFourPointFourSharedInstance"
+    }
+    
+    //
+    struct Email {
+        static let contact = "contact@concordium.software"
+        static let support = "support@concordium.software"
+    }
 }

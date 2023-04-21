@@ -16,7 +16,9 @@ struct ApiConstants {
 #if TESTNET
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.testnet.concordium.com")!
 #elseif MAINNET
-    static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.mainnet.concordium.software")!
+    static var proxyUrl: URL {
+        return URL(string: overriddenProxyUrl ?? (UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true ? "https://wallet-proxy.testnet.concordium.com" : "https://wallet-proxy.mainnet.concordium.software"))!
+    }
 #else // Staging
     static let proxyUrl = URL(string: overriddenProxyUrl ?? "https://wallet-proxy.stagenet.concordium.com")!
 #endif
@@ -24,13 +26,16 @@ struct ApiConstants {
     #if TESTNET
     static let scheme = "concordiumwallettest"
     #elseif MAINNET
-    static let scheme = "concordiumwallet"
+    static var scheme: String {
+        return UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true ? "concordiumwallettest" : "concordiumwallet"
+    }
     #else // Staging
     static let scheme = "concordiumwalletstaging"
     #endif
     static let notabeneCallback = "\(scheme)://identity-issuer/callback"
 
     static let ipInfo = proxyUrl.appendingPathComponent("/v0/ip_info")
+    static let ipInfoV1 = proxyUrl.appendingPathComponent("/v1/ip_info")
     static let global = proxyUrl.appendingPathComponent("/v0/global")
     static let submitCredential = proxyUrl.appendingPathComponent("/v0/submitCredential")
     static let submissionStatus = proxyUrl.appendingPathComponent("/v0/submissionStatus")
@@ -45,7 +50,7 @@ struct ApiConstants {
     static let bakerPool = proxyUrl.appendingPathComponent("/v0/bakerPool")
     static let chainParameters = proxyUrl.appendingPathComponent("/v0/chainParameters")
     static let passiveDelegation = proxyUrl.appendingPathComponent("/v0/passiveDelegation")
-    static let appSettings = proxyUrl.appendingPathComponent("/v0/appSettings")
+    static let appSettings = proxyUrl.appendingPathComponent("/v1/appSettings")
 
     /// Generate a callback URI associated with an identifier
     static func callbackUri(with identityCreationID: String) -> String {

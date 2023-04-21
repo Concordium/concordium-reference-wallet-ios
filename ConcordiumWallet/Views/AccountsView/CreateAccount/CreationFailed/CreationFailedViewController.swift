@@ -28,7 +28,17 @@ class CreationFailedViewController: BaseViewController, CreationFailedViewProtoc
             errorLabel.text = ""
         }
     }
-
+    @IBOutlet weak var okButton: StandardButton! {
+        didSet {
+            okButton.setTitle("", for: .normal)
+        }
+    }
+    @IBOutlet weak var tryAgainLabel: UILabel! {
+        didSet {
+            tryAgainLabel.text = ""
+        }
+    }
+    
     var presenter: CreationFailedPresenterProtocol
 
     init?(coder: NSCoder, presenter: CreationFailedPresenterProtocol) {
@@ -57,6 +67,14 @@ class CreationFailedViewController: BaseViewController, CreationFailedViewProtoc
     
     func set(viewControllerTitle: String) {
         title = viewControllerTitle
+    }
+    
+    func set(tryAgainMessage: String) {
+        tryAgainLabel.text = tryAgainMessage
+    }
+    
+    func set(buttonTitle: String) {
+        okButton.setTitle(buttonTitle, for: .normal)
     }
 
     @IBAction func finishAction(_ sender: Any) {

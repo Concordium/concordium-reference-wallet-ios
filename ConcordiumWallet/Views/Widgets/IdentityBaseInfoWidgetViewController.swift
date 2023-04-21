@@ -16,8 +16,8 @@ class IdentityBaseInfoWidgetFactory {
     }
 }
 
-class IdentityBaseInfoWidgetViewController: BaseViewController, IdentityBaseInfoWidgetViewProtocol, Storyboarded {
-
+class IdentityBaseInfoWidgetViewController: BaseViewController, IdentityBaseInfoWidgetViewProtocol, Storyboarded, IdentityCardViewDelegate {
+    
     var presenter: IdentityBaseInfoWidgetPresenterProtocol
     
     @IBOutlet weak var identityCardView: IdentityCardView!
@@ -41,6 +41,36 @@ class IdentityBaseInfoWidgetViewController: BaseViewController, IdentityBaseInfo
         identityCardView.expirationDateLabel?.text = presenter.identityViewModel.bottomLabel
         identityCardView.statusIcon.image = UIImage(named: presenter.identityViewModel.bottomIcon)
         identityCardView.applyConcordiumEdgeStyle(color: presenter.identityViewModel.widgetColor)
+        
+        identityCardView.delegate = self
+    }
+    
+    func edit() {
+        let alert = UIAlertController(title: "renameidentity.title".localized, message: "renameidentity.message".localized, preferredStyle: .alert)
 
+        alert.addTextField { (textField) in
+            textField.text = self.presenter.identityViewModel.nickname
+        }
+
+        let saveAction = UIAlertAction(title: "renameidentity.save".localized, style: .default, handler: { [weak alert] (_) in
+            if let textField = alert?.textFields![0], let newName = textField.text, !newName.isEmpty {
+                do {
+                    try self.presenter.identityViewModel.identity.write {
+                        var mutableIdentity = $0
+                        mutableIdentity.nickname = newName
+                    }.get()
+                    self.identityCardView.titleLabel?.text = newName
+                } catch {
+                    print("\(error.localizedDescription)")
+                }
+            }
+        })
+
+        let cancelAction = UIAlertAction(title: "renameidentity.cancel".localized, style: .cancel, handler: nil)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
     }
 }

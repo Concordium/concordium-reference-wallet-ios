@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct TermsHelper {
     // swiftlint:disable function_body_length
@@ -38,27 +39,30 @@ struct TermsHelper {
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms18.title".localized, attributes: titleAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms19.details".localized, attributes: detailsAttribute))
         text.append(NSAttributedString(string: "termsAndConditionsScreen.terms20.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms22.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms23.subtitle".localized, attributes: subtitleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms24.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms25.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms26a.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms26.paragraph1".localized, attributes: paragraphAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms26.paragraph2".localized, attributes: paragraphAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms26.paragraph3".localized, attributes: paragraphAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms26b.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms27.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms28.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms29.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms30.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms31.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms32.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms33.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms34.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms35.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms36.details".localized, attributes: detailsAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms37.title".localized, attributes: titleAttribute))
-        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms38.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms21.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms22.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms23.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms24.subtitle".localized, attributes: subtitleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms25.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms26.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms27a.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms27.paragraph1".localized, attributes: paragraphAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms27.paragraph2".localized, attributes: paragraphAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms27.paragraph3".localized, attributes: paragraphAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms27b.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms28.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms29.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms30.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms31.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms32.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms33.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms34.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms35.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms36.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms37.details".localized, attributes: detailsAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms38.title".localized, attributes: titleAttribute))
+        text.append(NSAttributedString(string: "termsAndConditionsScreen.terms39.details".localized, attributes: detailsAttribute))
+        
         return text
     }
     

@@ -207,12 +207,10 @@ extension AccountEntity: AccountDataType {
     
     var displayName: String {
         get {
-            if let name = name, name.count > 0 {
-                return name
+            if name != nil && !name!.isEmpty {
+                return name!
             }
-            let lowerBound = address.startIndex
-            let upperBound = address.index(lowerBound, offsetBy: 8)
-            return "<" + String(address[lowerBound..<upperBound]) + ">"
+            return address.prefix(4) + "..." + address.suffix(4)
         }
     }
     

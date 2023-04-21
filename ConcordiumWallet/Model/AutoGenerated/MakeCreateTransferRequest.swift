@@ -17,8 +17,8 @@ struct MakeCreateTransferRequest: Codable {
     let delegationTarget: DelegationTarget?
     let openStatus: String?
     let metadataURL: String?
-    let transactionFeeCommission: Double?
-    let bakingRewardCommission: Double?
+    let transactionFeeCommission: String?
+    let bakingRewardCommission: String?
     let finalizationRewardCommission: Double?
     let bakerKeys: GeneratedBakerKeys?
     let keys: AccountKeys?
@@ -83,8 +83,8 @@ extension MakeCreateTransferRequest {
         delegationTarget: DelegationTarget?? = nil,
         openStatus: String?? = nil,
         metadataURL: String?? = nil,
-        transactionFeeCommission: Double?? = nil,
-        bakingRewardCommission: Double?? = nil,
+        transactionFeeCommission: String?? = nil,
+        bakingRewardCommission: String?? = nil,
         finalizationRewardCommission: Double?? = nil,
         bakerKeys: GeneratedBakerKeys?? = nil,
         keys: AccountKeys?? = nil,

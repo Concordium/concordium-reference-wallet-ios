@@ -18,42 +18,71 @@ protocol AccountsCoordinatorDelegate: AnyObject {
 }
 
 class AccountsCoordinator: Coordinator {
+    typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider &
+    StakeCoordinatorDependencyProvider &
+    IdentitiesFlowCoordinatorDependencyProvider
+    
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-
     weak var delegate: AccountsCoordinatorDelegate?
+    weak var accountsPresenterDelegate: AccountsPresenterDelegate?
 
     private weak var appSettingsDelegate: AppSettingsDelegate?
-    private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider
-
+    private var dependencyProvider: DependencyProvider
     init(
         navigationController: UINavigationController,
-        dependencyProvider: AccountsFlowCoordinatorDependencyProvider & StakeCoordinatorDependencyProvider,
-        appSettingsDelegate: AppSettingsDelegate?
+        dependencyProvider: DependencyProvider,
+        appSettingsDelegate: AppSettingsDelegate?,
+        accountsPresenterDelegate: AccountsPresenterDelegate
     ) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
         self.appSettingsDelegate = appSettingsDelegate
+        self.accountsPresenterDelegate = accountsPresenterDelegate
     }
 
     func start() {
-        let vc = AccountsFactory.create(
-            with: AccountsPresenter(
-                dependencyProvider: dependencyProvider,
-                delegate: self,
-                appSettingsDelegate: appSettingsDelegate
-            )
+        let AccountsPresenter = AccountsPresenter(
+            dependencyProvider: dependencyProvider,
+            delegate: self.accountsPresenterDelegate!,
+            appSettingsDelegate: appSettingsDelegate
         )
-        vc.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
-        navigationController.viewControllers = [vc]
+        let accountsViewController = AccountsFactory.create(with: AccountsPresenter)
+        navigationController.viewControllers = [accountsViewController]
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
-        let createAccountCoordinator = CreateAccountCoordinator(navigationController: BaseNavigationController(),
-                dependencyProvider: dependencyProvider, parentCoordinator: self)
-        childCoordinators.append(createAccountCoordinator)
-        createAccountCoordinator.start(withDefaultValuesFrom: account)
-        navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
+        if FeatureFlag.enabledFlags.contains(.recoveryCode) {
+            let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+                navigationController: BaseNavigationController(),
+                action: .createAccount,
+                dependencyProvider: dependencyProvider,
+                delegate: self
+            )
+            
+            childCoordinators.append(seedIdentitiesCoordinator)
+            seedIdentitiesCoordinator.start()
+            navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
+        } else {
+            let createAccountCoordinator = CreateAccountCoordinator(navigationController: BaseNavigationController(),
+                                                                    dependencyProvider: dependencyProvider, parentCoordinator: self)
+            childCoordinators.append(createAccountCoordinator)
+            createAccountCoordinator.start(withDefaultValuesFrom: account)
+            navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
+        }
+    }
+    
+    func showCreateNewIdentity() {
+        let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
+            navigationController: BaseNavigationController(),
+            action: .createIdentity,
+            dependencyProvider: dependencyProvider,
+            delegate: self
+        )
+        
+        childCoordinators.append(seedIdentitiesCoordinator)
+        seedIdentitiesCoordinator.start()
+        navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
     }
     
     func show(account: AccountDataType, entryPoint: AccountDetailsFlowEntryPoint) {
@@ -96,6 +125,9 @@ class AccountsCoordinator: Coordinator {
 }
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
+    func showSettings() {
+    }
+    
     func didSelectMakeBackup() {
         showExport()
     }
@@ -111,6 +143,7 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func createNewIdentity() {
         delegate?.createNewIdentity()
     }
+    
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         let entryPoint: AccountDetailsFlowEntryPoint!
         switch action {
@@ -118,6 +151,8 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
             entryPoint = .details
         case .send:
             entryPoint = .send
+        case .earn:
+            entryPoint = .earn
         case .receive:
             entryPoint = .receive
         }
@@ -212,5 +247,14 @@ extension AccountsCoordinator: ExportPresenterDelegate {
 extension AccountsCoordinator: TermsAndConditionsPresenterDelegate {
     func userTappedAcceptTerms() {
         navigationController.dismiss(animated: true)
+    }
+}
+
+extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
+        navigationController.dismiss(animated: true)
+        childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
+        
+        NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 }

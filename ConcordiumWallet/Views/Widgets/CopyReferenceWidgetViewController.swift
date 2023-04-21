@@ -40,8 +40,6 @@ class CopyReferenceWidgetViewController: BaseViewController, CopyReferenceWidget
         
         presenter.view = self
         presenter.viewDidLoad()
-        
-        label.text = String(format: "identityCreation.issuanceReference.text".localized, presenter.reference)
     }
     
     func showToast() {

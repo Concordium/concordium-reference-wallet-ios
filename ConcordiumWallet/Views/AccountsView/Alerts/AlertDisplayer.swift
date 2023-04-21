@@ -10,36 +10,36 @@ import Foundation
 import Combine
 
 enum AlertType {
-    case backup(notification: FinalizedAccountsNotification, actionCompletion: () -> Void, dismissCompletion: () -> Void)
-    case backupExtra(notification: FinalizedAccountsNotification, actionCompletion: () -> Void, dismissCompletion: () -> Void)
+//    case backup(notification: FinalizedAccountsNotification, actionCompletion: () -> Void, dismissCompletion: () -> Void)
+//    case backupExtra(notification: FinalizedAccountsNotification, actionCompletion: () -> Void, dismissCompletion: () -> Void)
     case shieldedTransfer(account: AccountDataType, actionCompletion: () -> Void, dismissCompletion: () -> Void)
     
     func priority() -> AlertDisplayPriority {
         switch self {
-        case .backup:
-            return .High
-        case .backupExtra:
-            return .Medium
+//        case .backup:
+//            return .High
+//        case .backupExtra:
+//            return .Medium
         case .shieldedTransfer:
             return .Low
         }
     }
     func identifier() -> String {
         switch self {
-        case .backup(let notification, _, _):
-            switch notification {
-            case .singleAccount(let accountName):
-                return "backup" + "single" + accountName
-            case .multiple:
-                return "backup" + "multiple"
-            }
-        case .backupExtra(let notification, _, _):
-            switch notification {
-            case .singleAccount(let accountName):
-                return "backupConfirmation" + "single" + accountName
-            case .multiple:
-                return "backupConfirmation" + "multiple"
-            }
+//        case .backup(let notification, _, _):
+//            switch notification {
+//            case .singleAccount(let accountName):
+//                return "backup" + "single" + accountName
+//            case .multiple:
+//                return "backup" + "multiple"
+//            }
+//        case .backupExtra(let notification, _, _):
+//            switch notification {
+//            case .singleAccount(let accountName):
+//                return "backupConfirmation" + "single" + accountName
+//            case .multiple:
+//                return "backupConfirmation" + "multiple"
+//            }
         case .shieldedTransfer(let account, _, _):
             return "shieldedTransfer" + account.address
         }
@@ -48,59 +48,59 @@ enum AlertType {
     // swiftlint:disable function_body_length
     func getAlertOptions(alertDismissedCompletion: @escaping () -> Void) -> AlertOptions {
         switch self {
-        case .backup(let notification, let action, let dismiss):
-            let title: String
-            let message: String
-            
-            switch notification {
-            case .singleAccount(let accountName):
-                title = "accountfinalized.single.alert.title".localized
-                message = String(format: "accountfinalized.single.alert.message".localized, accountName)
-            case .multiple:
-                title = "accountfinalized.multiple.alert.title".localized
-                message = "accountfinalized.multiple.alert.message".localized
-            }
-            
-            return AlertOptions(title: title, message: message, actions: [
-                AlertAction(
-                    name: "ok".localized,
-                    completion: {
-                        dismiss()
-                        alertDismissedCompletion()
-                    },
-                    style: .default),
-                AlertAction(
-                    name: "accountfinalized.alert.action.backup".localized,
-                    completion: {
-                        action()
-                        alertDismissedCompletion()
-                    },
-                    style: .default)
-            ])
-            
-        case .backupExtra(_, let action, let dismiss):
-            return AlertOptions(
-                title: "accountfinalized.extrabackup.alert.title".localized,
-                message: "accountfinalized.extrabackup.alert.message".localized,
-                actions: [
-                    AlertAction(
-                        name: "accountfinalized.extrabackup.alert.action.dismiss".localized,
-                        completion: {
-                            dismiss()
-                            alertDismissedCompletion()
-                        },
-                        style: .destructive
-                    ),
-                    AlertAction(
-                        name: "accountfinalized.alert.action.backup".localized,
-                        completion: {
-                            action()
-                            alertDismissedCompletion()
-                        },
-                        style: .default
-                    )
-                ]
-            )
+//        case .backup(let notification, let action, let dismiss):
+//            let title: String
+//            let message: String
+//            
+//            switch notification {
+//            case .singleAccount(let accountName):
+//                title = "accountfinalized.single.alert.title".localized
+//                message = String(format: "accountfinalized.single.alert.message".localized, accountName)
+//            case .multiple:
+//                title = "accountfinalized.multiple.alert.title".localized
+//                message = "accountfinalized.multiple.alert.message".localized
+//            }
+//            
+//            return AlertOptions(title: title, message: message, actions: [
+//                AlertAction(
+//                    name: "ok".localized,
+//                    completion: {
+//                        dismiss()
+//                        alertDismissedCompletion()
+//                    },
+//                    style: .default),
+//                AlertAction(
+//                    name: "accountfinalized.alert.action.backup".localized,
+//                    completion: {
+//                        action()
+//                        alertDismissedCompletion()
+//                    },
+//                    style: .default)
+//            ])
+//            
+//        case .backupExtra(_, let action, let dismiss):
+//            return AlertOptions(
+//                title: "accountfinalized.extrabackup.alert.title".localized,
+//                message: "accountfinalized.extrabackup.alert.message".localized,
+//                actions: [
+//                    AlertAction(
+//                        name: "accountfinalized.extrabackup.alert.action.dismiss".localized,
+//                        completion: {
+//                            dismiss()
+//                            alertDismissedCompletion()
+//                        },
+//                        style: .destructive
+//                    ),
+//                    AlertAction(
+//                        name: "accountfinalized.alert.action.backup".localized,
+//                        completion: {
+//                            action()
+//                            alertDismissedCompletion()
+//                        },
+//                        style: .default
+//                    )
+//                ]
+//            )
         case .shieldedTransfer(let account, let action, let dismiss):
             let showActionName = String(format: "accounts.alert.shiededtransactions.show".localized, account.displayName)
             let message = String(format: "accounts.alert.shiededtransactions.message".localized, account.displayName, account.displayName)

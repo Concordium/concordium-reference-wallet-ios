@@ -10,6 +10,7 @@ import XCTest
 import Combine
 @testable import Mock
 
+@MainActor
 class CopyPhraseTests: XCTestCase {
     func test_phrase_is_initially_hidden() throws {
         let (presenter, _) = try createPresenter()

@@ -7,12 +7,13 @@
 //
 
 import RealmSwift
+import Foundation
 
 struct RealmHelper {
     
     // Set the new schema version. This must be greater than the previously used
     // version (if you've never set a schema version before, the version is 0).
-    private static let schemaVersion: UInt64 = 13
+    private static let schemaVersion: UInt64 = 14
     
     static let realmConfiguration = Realm.Configuration(
         schemaVersion: schemaVersion,
@@ -26,4 +27,16 @@ struct RealmHelper {
                 // And will update the schema on disk automatically
             }
         })
+    
+    //Used to expose generic
+    static func DetachedCopy<T:Codable>(of object:T) -> T?{
+        do{
+            let json = try JSONEncoder().encode(object)
+            return try JSONDecoder().decode(T.self, from: json)
+        }
+        catch let error{
+            print(error)
+            return nil
+        }
+    }
 }

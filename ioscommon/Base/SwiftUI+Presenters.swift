@@ -22,6 +22,7 @@ extension EventHandler {
     }
 }
 
+@MainActor
 class SwiftUIPresenter<ViewModel: PageModel & EventHandler> {
     var cancellables = Set<AnyCancellable>()
     
@@ -67,6 +68,13 @@ private class HostingController<ViewModel: PageModel & EventHandler, Content: Pa
                 self?.showAlert(with: options)
             case let .error(error):
                 self?.showErrorAlert(error)
+            case let .recoverableError(error, recoverActionTitle, hasCancel, completion):
+                self?.showRecoverableErrorAlert(
+                    error,
+                    recoverActionTitle: recoverActionTitle,
+                    hasCancel: hasCancel,
+                    completion: completion
+                )
             }
         }.store(in: &cancellables)
     }

@@ -9,9 +9,12 @@ extension ServicesProvider {
     static func defaultProvider() -> ServicesProvider {
         let keychain: KeychainWrapper = KeychainWrapper()
         let storageManager: StorageManager = StorageManager(keychain: keychain)
-        return ServicesProvider(mobileWallet: MobileWallet(storageManager: storageManager, keychain: keychain),
-                networkManager: NetworkManager(),
-                storageManager: storageManager,
-                keychainWrapper: keychain)
+        return ServicesProvider(
+            mobileWallet: MobileWallet(storageManager: storageManager, keychain: keychain),
+            seedMobileWallet: SeedMobileWallet(keychain: keychain),
+            networkManager: NetworkManager(),
+            storageManager: storageManager,
+            keychainWrapper: keychain
+        )
     }
 }

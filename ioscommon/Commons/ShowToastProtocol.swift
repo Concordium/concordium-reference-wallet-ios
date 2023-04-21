@@ -17,6 +17,7 @@ extension ShowToast {
         OperationQueue.main.addOperation({
             let toastView = ToastLabel()
             toastView.text = toastMessage
+            toastView.textColor = .white
             toastView.backgroundColor = UIColor.primary.withAlphaComponent(0.9)
             toastView.textAlignment = .center
             toastView.frame = CGRect(x: 0.0, y: 0.0, width: (view?.frame.size.width ?? 0.0) / 2.0, height: 70.0)

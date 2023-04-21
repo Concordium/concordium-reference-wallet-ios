@@ -19,7 +19,7 @@ class IdentityImporter {
                         pwHash: String,
                         importReport: inout ImportedItemsReport) -> IdentityDataType? {
         do {
-            if let existingEntity = storageManager.getIdentity(matching: identityDataToImport.identityObject) {
+            if let existingEntity = storageManager.getIdentity(matchingIdentityObject: identityDataToImport.identityObject) {
                 // Here we have an identity stored.
                 // We check whether the identity has its keys and if it does, we try to
                 // import its accounts and mark it as duplicate in the report

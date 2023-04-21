@@ -247,7 +247,7 @@ class MobileWallet: MobileWalletProtocol {
         if transferType == .transferToPublic || transferType == .encryptedTransfer {
             secretEncryptionKey = try getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
         }
-     
+        
         let makeCreateTransferRequest = MakeCreateTransferRequest(from: fromAccount.address,
                                                                   to: toAccount,
                                                                   expiry: Int(expiry.timeIntervalSince1970),
@@ -258,8 +258,8 @@ class MobileWallet: MobileWalletProtocol {
                                                                   delegationTarget: delegationTarget,
                                                                   openStatus: openStatus,
                                                                   metadataURL: metadataURL,
-                                                                  transactionFeeCommission: transactionFeeCommission,
-                                                                  bakingRewardCommission: bakingRewardCommission,
+                                                                  transactionFeeCommission: transactionFeeCommission?.string,
+                                                                  bakingRewardCommission: bakingRewardCommission?.string,
                                                                   finalizationRewardCommission: finalizationRewardCommission,
                                                                   bakerKeys: bakerKeys,
                                                                   keys: privateAccountKeys,
@@ -269,6 +269,7 @@ class MobileWallet: MobileWalletProtocol {
                                                                   senderSecretKey: secretEncryptionKey,
                                                                   inputEncryptedAmount: inputEncryptedAmount,
                                                                   receiverPublicKey: receiverPublicKey)
+        
         guard let input = try makeCreateTransferRequest.jsonString() else {
             throw MobileWalletError.invalidArgument
         }
@@ -425,11 +426,7 @@ class MobileWallet: MobileWalletProtocol {
         // the identity is invalid if the privateIdObjectData cannot be retrieved from storage
         let allIdentities = storageManager.getIdentities()
         let invalidIdentities = allIdentities.filter { identity in
-            if let key = identity.encryptedPrivateIdObjectData,
-                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
-                return false // it is not invalid because we have privateIdObjectData
-            }
-            return true // invalid becaut privateIdObjectData could not be retrieved
+            isInvalidIdentity(identity, pwHash: pwHash)
         }
         for identity in allIdentities {
             let identityAccounts = storageManager.getAccounts(for: identity)
@@ -457,5 +454,17 @@ class MobileWallet: MobileWalletProtocol {
         }
 
         return report
+    }
+    
+    private func isInvalidIdentity(_ identity: IdentityDataType, pwHash: String) -> Bool {
+        if identity.seedIdentityObject != nil {
+            return false
+        } else {
+            if let key = identity.encryptedPrivateIdObjectData,
+                (try? storageManager.getPrivateIdObjectData(key: key, pwHash: pwHash).get()) != nil {
+                return false // it is not invalid because we have privateIdObjectData
+            }
+            return true // invalid becaut privateIdObjectData could not be retrieved
+        }
     }
 }

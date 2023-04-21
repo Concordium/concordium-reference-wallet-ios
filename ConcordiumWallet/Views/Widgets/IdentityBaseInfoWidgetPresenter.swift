@@ -12,6 +12,7 @@ import UIKit
 typealias ChosenAttributeFormattedTuple = (key: ChosenAttributeKeys, value: String)
 
 struct IdentityDetailsInfoViewModel {
+    var identity: IdentityDataType
     var nickname: String
     var identityName: String
     var bottomIcon: String
@@ -23,13 +24,14 @@ struct IdentityDetailsInfoViewModel {
     var data: [ChosenAttributeFormattedTuple]
 
     init(identity: IdentityDataType) {
+        self.identity = identity
         identityName = identity.identityProviderName ?? ""
         nickname = identity.nickname
         
         switch identity.state {
         case .confirmed:
             // Show expiry date for confirmed state
-            bottomLabel = "Expires on " + GeneralFormatter.formatISO8601Date(date: identity.identityObject?.attributeList.validTo ?? "")
+            bottomLabel = "Expires on " + GeneralFormatter.formatISO8601Date(date: identity.seedIdentityObject?.attributeList.validTo ?? "")
             bottomIcon = "ok_icon"
             bottomIconTintColor = .text
             widgetColor = .primary
@@ -40,14 +42,14 @@ struct IdentityDetailsInfoViewModel {
             widgetColor = .fadedText
 
         case .failed:
-            bottomLabel = "identityDetails.identityStatus.failed".localized
+            bottomLabel = "" // "identityDetails.identityStatus.failed".localized
             bottomIcon = "problem_icon"
             widgetColor = .error
 
         }
         encodedImage = identity.identityProvider?.icon ?? ""
         data =
-            identity.identityObject?.attributeList.chosenAttributes.compactMap { (key, value) in
+            identity.seedIdentityObject?.attributeList.chosenAttributes.compactMap { (key, value) in
                 guard let attributeKey = ChosenAttributeKeys(rawValue: key) else { return nil }
                 return (attributeKey, AttributeFormatter.format(value: value, for: attributeKey))
         } ?? [ChosenAttributeFormattedTuple]()

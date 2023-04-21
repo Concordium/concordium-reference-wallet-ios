@@ -65,7 +65,7 @@ class AccountViewModel: Hashable {
         atDisposalName = "accounts.atdisposal".localized
         
         if !createMode {
-            areActionsEnabled = !account.isReadOnly // actions are enabled if the account is not readonly
+            areActionsEnabled = account.transactionStatus == .finalized && !account.isReadOnly // actions are enabled if the account is not readonly
             if totalLockStatus != .decrypted {
                 totalAmount += " + "
             }
@@ -124,6 +124,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func didSelectMakeBackup()
     func didSelectPendingIdentity(identity: IdentityDataType)
     func newTermsAvailable()
+    func showSettings()
 }
 
 // MARK: View
@@ -133,6 +134,7 @@ protocol AccountsViewProtocol: ShowAlert, Loadable {
                             identityProviderSupport: String,
                             reference: String,
                             completion: @escaping (_ option: IdentityFailureAlertOption) -> Void)
+    func reloadView()
     var isOnScreen: Bool { get }
 }
 
@@ -142,8 +144,8 @@ protocol AccountsPresenterProtocol: AnyObject {
     func viewDidLoad()
     func viewWillAppear()
     func viewDidAppear()
-    func refresh()
-    
+    func refresh(pendingIdentity: IdentityDataType?)
+    func showSettings()
     func userPressedCreate()
     func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
@@ -153,13 +155,15 @@ protocol AccountsPresenterProtocol: AnyObject {
 
 class AccountsPresenter: AccountsPresenterProtocol {
     weak var view: AccountsViewProtocol?
-    weak var delegate: AccountsPresenterDelegate?
+    private weak var delegate: AccountsPresenterDelegate?
     private var cancellables: [AnyCancellable] = []
     var warningDisplayer: WarningDisplayer
     var alertDisplayer = AlertDisplayer()
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private weak var appSettingsDelegate: AppSettingsDelegate?
 
+    var pendingIdentity: IdentityDataType?
+    
     var accounts: [AccountDataType] = [] {
         didSet {
             updateViewState()
@@ -167,6 +171,12 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     private var viewModel = AccountsListViewModel()
+    
+    var identities = [IdentityDataType]() {
+        didSet {
+            self.view?.reloadView()
+        }
+    }
     
     private func updateViewState() {
         if accounts.count > 0 {
@@ -206,12 +216,18 @@ class AccountsPresenter: AccountsPresenterProtocol {
 
     func viewDidAppear() {
         checkPendingAccountsStatusesIfNeeded()
-        appSettingsDelegate?.checkForAppSettings(showBackup: { [weak self] in
-            self?.performAction(for: .backup)
-        })
+        appSettingsDelegate?.checkForAppSettings()
     }
     
-    func refresh() {
+    func showSettings() {
+        delegate?.showSettings()
+    }
+
+    func refresh(pendingIdentity: IdentityDataType? = nil) {
+        if self.pendingIdentity == nil {
+            self.pendingIdentity = pendingIdentity
+        }
+        refreshPendingIdentities()
         refresh(showLoadingIndicator: false)
         checkPendingAccountsStatusesIfNeeded()
     }
@@ -238,11 +254,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.identifyPendingAccounts(updatedAccounts: updatedAccounts)
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
-                let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
+                let totalBalance = updatedAccounts.reduce(into: 0, { $0 += $1.forecastBalance })
                 let atDisposal = updatedAccounts
                     .filter {!$0.isReadOnly}
-                    .reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
-                let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + ($1.baker?.stakedAmount ?? 0) })
+                    .reduce(into: 0, { $0 += $1.forecastAtDisposalBalance })
+                let staked = updatedAccounts.reduce(into: 0, { $0 += ($1.baker?.stakedAmount ?? 0) })
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
 //                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
@@ -315,28 +331,28 @@ class AccountsPresenter: AccountsPresenterProtocol {
         if finalizedAccounts.count > 1 {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            displayBackupAlert(notification: .multiple)
+//            displayBackupAlert(notification: .multiple)
             finalizedAccounts.forEach { markPendingAccountAsFinalized(account: $0) }
         } else if finalizedAccounts.count == 1, let account = finalizedAccounts.first {
             AppSettings.needsBackupWarning = true
             checkForBackup()
-            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
+//            displayBackupAlert(notification: .singleAccount(accountName: account.name ?? ""))
             markPendingAccountAsFinalized(account: account)
         }
     }
     
-    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
-        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
-            self?.delegate?.didSelectMakeBackup()
-        }, dismissCompletion: { [weak self] in
-            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
-                self?.delegate?.didSelectMakeBackup()
-            }, dismissCompletion: {
-            })
-            self?.alertDisplayer.enqueueAlert(extraAlert)
-        })
-        self.alertDisplayer.enqueueAlert(alert)
-    }
+//    private func displayBackupAlert(notification: FinalizedAccountsNotification) {
+//        let alert = AlertType.backup(notification: notification, actionCompletion: { [weak self] in
+//            self?.delegate?.didSelectMakeBackup()
+//        }, dismissCompletion: { [weak self] in
+//            let extraAlert = AlertType.backupExtra(notification: notification, actionCompletion: { [weak self] in
+//                self?.delegate?.didSelectMakeBackup()
+//            }, dismissCompletion: {
+//            })
+//            self?.alertDisplayer.enqueueAlert(extraAlert)
+//        })
+//        self.alertDisplayer.enqueueAlert(alert)
+//    }
     
     private func markPendingAccountAsFinalized(account: AccountDataType) {
         dependencyProvider.storageManager().removePendingAccount(with: account.address)
@@ -350,6 +366,52 @@ class AccountsPresenter: AccountsPresenterProtocol {
         for pendingAccount in newPendingAccounts {
             dependencyProvider.storageManager().storePendingAccount(with: pendingAccount)
         }
+    }
+    
+    private func refreshPendingIdentities() {
+        dependencyProvider.identitiesService()
+                .updatePendingIdentities()
+                .sink(
+                        receiveError: { error in
+                            Logger.error("Error updating identities: \(error)")
+                            self.identities = self.dependencyProvider.storageManager().getIdentities()
+                        },
+                        receiveValue: { updatedPendingIdentities in
+                            self.identities = self.dependencyProvider.storageManager().getIdentities()
+                            self.checkIfConfirmedOrFailed()
+                        }).store(in: &cancellables)
+    }
+    
+    private func checkIfConfirmedOrFailed() {
+        if let pendingIdentity = pendingIdentity {
+            for identity in identities {
+                if identity.id == pendingIdentity.id {
+                    if identity.state == .confirmed {
+                        showConfirmedIdentityAlert()
+                    } else if identity.state == .failed {
+                        showFailedIdentityAlert()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func showConfirmedIdentityAlert() {
+//        view?.showAlert(with: AlertOptions(title: "newaccount.title".localized, message: String(format: "newaccount.message".localized, pendingIdentity!.nickname), actions: [AlertAction(name: "newaccount.create".localized, completion: {
+//            self.pendingIdentity = nil
+//        }, style: .default), AlertAction(name: "newaccount.later".localized, completion: {
+//            self.pendingIdentity = nil
+//        }, style: .cancel)]))
+        
+        self.pendingIdentity = nil
+    }
+    
+    private func showFailedIdentityAlert() {
+        view?.showAlert(with: AlertOptions(title: "identitiespresenteridentityrejected.title".localized, message: "identitiespresenteridentityrejected.message".localized, actions: [AlertAction(name: "identitiespresenteridentityrejected.tryagain".localized, completion: {
+            self.delegate?.createNewIdentity()
+        }, style: .default), AlertAction(name: "identitiespresenteridentityrejected.later".localized, completion: nil, style: .cancel)]))
+        
+        self.pendingIdentity = nil
     }
     
     private func checkForNewTerms() {

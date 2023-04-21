@@ -323,7 +323,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             if selectedRecipient.address == self.account.address {
                 // if we try to make a simple or an encrypted transfer to own account, we show an error
                 if self.transferType == .simpleTransfer || self.transferType == .encryptedTransfer {
-                    self.view?.showToast(withMessage: "".localized, time: 1)
+                    self.view?.showToast(withMessage: "sendFund.sendingToOwnAccountDisallowed".localized, time: 1)
                     return
                 }
                 

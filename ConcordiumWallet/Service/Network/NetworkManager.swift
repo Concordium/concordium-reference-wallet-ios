@@ -8,27 +8,37 @@ import Combine
 
 protocol NetworkSession {
     func load(request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLSession.DataTaskPublisher.Failure>
+    func load(request: URLRequest) async throws -> (Data, HTTPURLResponse)
 }
 
 extension URLSession: NetworkSession {
     func load(request: URLRequest) -> AnyPublisher<DataTaskPublisher.Output, DataTaskPublisher.Failure> {
         dataTaskPublisher(for: request).eraseToAnyPublisher()
     }
+    
+    func load(request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+        return try await withCheckedThrowingContinuation { continuation in
+            dataTask(with: request) { data, urlResponse, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let data = data, let response = urlResponse as? HTTPURLResponse {
+                    continuation.resume(returning: (data, response))
+                } else {
+                    continuation.resume(throwing: NetworkError.invalidResponse)
+                }
+            }.resume()
+        }
+    }
 }
 
 final class NetworkManager: NetworkManagerProtocol {
     private let session: NetworkSession
+    private let decoder = newJSONDecoder()
 
     init(session: NetworkSession = URLSession(configuration: URLSessionConfiguration.ephemeral)) {
         self.session = session
     }
 
-    func load<T: Decodable>(_ resource: ResourceRequest) -> AnyPublisher<T, Error> {
-        guard let request = resource.request else {
-            return Fail(error: NetworkError.invalidRequest).eraseToAnyPublisher()
-        }
-        return load(request)
-    }
     func load<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
         if Logger.shouldLog(on: .debug) {
             if
@@ -56,6 +66,11 @@ final class NetworkManager: NetworkManagerProtocol {
                         }
                         return .fail(NetworkError.dataLoadingError(statusCode: response.statusCode, data: data))
                     }
+                    
+                    if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
+                        CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+                    }
+
                     return .just(data)
                 }
                 .map { data in
@@ -76,5 +91,91 @@ final class NetworkManager: NetworkManagerProtocol {
                 // comment this in to force loading indicator
 //                .delay(for: 1.0, scheduler: RunLoop.main)
                 .eraseToAnyPublisher()
+    }
+    
+    func load<T>(_ request: URLRequest) async throws -> T where T: Decodable {
+        if Logger.shouldLog(on: .debug) {
+            if
+                let bodyData = request.httpBody,
+                let bodyString = String(data: bodyData, encoding: .utf8),
+                let httpMethod = request.httpMethod
+            {
+                Logger.debug("TX \(String(describing: httpMethod)) \(String(describing: request.url)):\n\(bodyString)")
+            } else if let httpMethod = request.httpMethod {
+                Logger.debug("TX \(String(describing: httpMethod)) \(request)")
+            }
+        }
+        
+        do {
+            let (data, response) = try await session.load(request: request)
+            
+            guard 200..<300 ~= response.statusCode else {
+                Logger.error("RX \(response.statusCode) \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
+                if let error = try? ServerErrorMessage(data: data) {
+                    throw NetworkError.serverError(error: error)
+                }
+                throw NetworkError.dataLoadingError(statusCode: response.statusCode, data: data)
+            }
+            
+            var dataString = String(data: data, encoding: .utf8)!
+            dataString = dataString.replacingOccurrences(of: "\\", with: "")
+            if dataString.hasPrefix("\"") == true {
+                dataString = String(dataString.dropFirst())
+            }
+            if dataString.hasSuffix("\"") == true {
+                dataString = String(dataString.dropLast())
+            }
+            
+            if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
+                CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+            }
+            
+            return try decoder.decode(T.self, from: Data(dataString.utf8))
+        } catch {
+            if error is DecodingError {
+                print("Decoding error: \(error)")
+                throw NetworkError.jsonDecodingError(error: error)
+            } else {
+                print("Other error: \(error)")
+                throw NetworkError.communicationError(error: error)
+            }
+        }
+    }
+    
+    func loadRecovery<T>(_ request: URLRequest) async throws -> T where T: Decodable {
+        if Logger.shouldLog(on: .debug) {
+            if
+                let bodyData = request.httpBody,
+                let bodyString = String(data: bodyData, encoding: .utf8),
+                let httpMethod = request.httpMethod
+            {
+                Logger.debug("TX \(String(describing: httpMethod)) \(String(describing: request.url)):\n\(bodyString)")
+            } else if let httpMethod = request.httpMethod {
+                Logger.debug("TX \(String(describing: httpMethod)) \(request)")
+            }
+        }
+        
+        let (data, response) = try await session.load(request: request)
+        
+        guard 200..<300 ~= response.statusCode else {
+            Logger.error("RX \(response.statusCode) \(String(describing: request.url)):\n\(String(data: data, encoding: .utf8) ?? "")")
+            
+            throw NetworkError.dataLoadingError(statusCode: response.statusCode, data: data)
+        }
+        
+        var dataString = String(data: data, encoding: .utf8)!
+        dataString = dataString.replacingOccurrences(of: "\\", with: "")
+        if dataString.hasPrefix("\"") == true {
+            dataString = String(dataString.dropFirst())
+        }
+        if dataString.hasSuffix("\"") == true {
+            dataString = String(dataString.dropLast())
+        }
+        
+        if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
+            CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+        }
+        
+        return try decoder.decode(T.self, from: Data(dataString.utf8))
     }
 }

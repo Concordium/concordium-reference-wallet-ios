@@ -72,8 +72,15 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
         warningMessageView.applyConcordiumEdgeStyle(color: .yellowBorder)
         warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "button_slider_settings"),
+                                                           style: .plain, target: self, action: #selector(self.settingsTapped))
     }
 
+    @objc func settingsTapped() {
+        presenter?.showSettings()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.viewWillAppear()
@@ -92,6 +99,8 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                                selector: #selector(appWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name:     Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name:     Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,6 +108,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         stopRefreshTimer()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 
     @objc private func didPressWarning() {
@@ -107,7 +117,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
 
     @objc func appDidBecomeActive() {
-        presenter?.refresh()
+        presenter?.refresh(pendingIdentity: nil)
         startRefreshTimer()
     }
     
@@ -116,12 +126,22 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        presenter?.refresh()
+        presenter?.refresh(pendingIdentity: nil)
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    @objc func refreshAccounts(_ notification: NSNotification) {
+        if let identity = notification.userInfo?["identity"] as? IdentityDataType {
+            presenter?.refresh(pendingIdentity: identity.state == .pending ? identity : nil)
+        }
+    }
+    
+    func reloadView() {
+        tableView.reloadData()
     }
 
     func startRefreshTimer() {
-        updateTimer = Timer.scheduledTimer(timeInterval: 60.0,
+        updateTimer = Timer.scheduledTimer(timeInterval: 5.0,
                                            target: self,
                                            selector: #selector(refreshOnTimerCallback),
                                            userInfo: nil,
@@ -136,7 +156,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
     
     @objc func refreshOnTimerCallback() {
-        presenter?.refresh()
+        presenter?.refresh(pendingIdentity: nil)
     }
     
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: AccountViewModel) -> UITableViewCell? {
@@ -167,7 +187,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 if $0.count > 0 {
                     self.dataSource?.apply(snapshot)
                 }
+                
+                let offset = self.tableView.contentOffset
                 self.tableView.reloadData()
+                self.tableView.contentOffset = offset
                 
         }.store(in: &cancellables)
         
@@ -207,10 +230,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 self.warningMessageLabel.text = warning.text
                 self.warningMessageImageView.image = UIImage(named: warning.imageName)
                 self.warningDismissButton.isHidden = !warning.dismissable
-                self.showBackupWarningBanner(true)
-                self.warningMessageView.applyConcordiumEdgeStyle(color: warning.priority == .warning ? .yellowBorder : .primary)
-            } else {
-                self.showBackupWarningBanner(false)
+                self.warningMessageView.applyConcordiumEdgeStyle(color: .primary)
             }
         }.store(in: &cancellables)
     }

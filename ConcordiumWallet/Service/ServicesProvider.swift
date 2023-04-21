@@ -7,6 +7,7 @@ import Foundation
 
 protocol WalletAndStorageDependencyProvider {
     func mobileWallet() -> MobileWalletProtocol
+    func seedMobileWallet() -> SeedMobileWalletProtocol
     func storageManager() -> StorageManagerProtocol
 }
 
@@ -19,6 +20,8 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
     func identitiesService() -> IdentitiesService
+    func seedIdentitiesService() -> SeedIdentitiesService
+    func seedAccountsService() -> SeedAccountsService
 }
 
 protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -30,6 +33,9 @@ protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
     func appSettingsService() -> AppSettingsService
     func recoveryPhraseService() -> RecoveryPhraseService
+    func seedMobileWallet() -> SeedMobileWalletProtocol
+    func seedIdentitiesService() -> SeedIdentitiesService
+    func seedAccountsService() -> SeedAccountsService
 }
 
 protocol ImportDependencyProvider {
@@ -46,15 +52,19 @@ protocol StakeCoordinatorDependencyProvider: WalletAndStorageDependencyProvider 
 
 class ServicesProvider {
     private let _mobileWallet: MobileWalletProtocol
+    private let _seedMobileWallet: SeedMobileWalletProtocol
     private let _networkManager: NetworkManagerProtocol
     private let _storageManager: StorageManagerProtocol
-    private let _keychainWrapper: KeychainWrapper
+    private let _keychainWrapper: KeychainWrapperProtocol
 
     init(mobileWallet: MobileWalletProtocol,
+         seedMobileWallet: SeedMobileWalletProtocol,
          networkManager: NetworkManagerProtocol,
          storageManager: StorageManagerProtocol,
-         keychainWrapper: KeychainWrapper) {
+         keychainWrapper: KeychainWrapperProtocol
+    ) {
         self._mobileWallet = mobileWallet
+        self._seedMobileWallet = seedMobileWallet
         self._networkManager = networkManager
         self._storageManager = storageManager
         self._keychainWrapper = keychainWrapper
@@ -74,6 +84,23 @@ extension ServicesProvider: WalletAndStorageDependencyProvider {
 extension ServicesProvider: IdentitiesFlowCoordinatorDependencyProvider {
     func identitiesService() -> IdentitiesService {
         IdentitiesService(networkManager: _networkManager, storageManager: _storageManager)
+    }
+    
+    func seedIdentitiesService() -> SeedIdentitiesService {
+        SeedIdentitiesService(
+            networkManager: _networkManager,
+            storageManager: _storageManager,
+            mobileWallet: _seedMobileWallet
+        )
+    }
+    
+    func seedAccountsService() -> SeedAccountsService {
+        SeedAccountsService(
+            mobileWallet: _seedMobileWallet,
+            networkManager: _networkManager,
+            storageManager: _storageManager,
+            keychainWrapper: _keychainWrapper
+        )
     }
 }
 
@@ -104,7 +131,14 @@ extension ServicesProvider: LoginDependencyProvider {
     }
     
     func recoveryPhraseService() -> RecoveryPhraseService {
-        RecoveryPhraseService(keychainWrapper: _keychainWrapper)
+        RecoveryPhraseService(
+            keychainWrapper: _keychainWrapper,
+            mobileWallet: _seedMobileWallet
+        )
+    }
+    
+    func seedMobileWallet() -> SeedMobileWalletProtocol {
+        _seedMobileWallet
     }
 }
 

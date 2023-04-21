@@ -46,7 +46,7 @@ class RequestPasswordPresenter: EnterPasswordPresenterProtocol {
         }
     }
     
-    private func receivePWHash(_ pwHash: String, fallback: () -> Void) {
+    private func receivePWHash(_ pwHash: String, fallback: @escaping () -> Void) {
         let passwordCheck = self.keychain
                 .checkPasswordHash(pwHash: pwHash)
                 .onFailure { _ in

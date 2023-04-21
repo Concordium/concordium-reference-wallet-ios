@@ -5,9 +5,17 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol RequestPasswordDelegate: AnyObject {
     func requestUserPassword(keychain: KeychainWrapperProtocol) -> AnyPublisher<String, Error>
+}
+
+extension RequestPasswordDelegate {
+    @MainActor
+    func requestUserPassword(keychain: KeychainWrapperProtocol) async throws -> String {
+        return try await requestUserPassword(keychain: keychain).awaitFirst()
+    }
 }
 
 extension RequestPasswordDelegate where Self: Coordinator {
@@ -21,7 +29,7 @@ extension RequestPasswordDelegate where Self: Coordinator {
         enterPasswordTransparentController.viewControllers = [enterPasswordController]
 
         requestPasswordPresenter.performBiometricLogin(fallback: { [weak self] in
-            self?.navigationController.present(enterPasswordTransparentController, animated: true)
+            self?.present(controller: enterPasswordTransparentController, animated: true)
             modalPasswordVCShown = true
         })
 
@@ -42,5 +50,11 @@ extension RequestPasswordDelegate where Self: Coordinator {
             .flatMap { cleanup(.success($0)) }
             .catch { cleanup(.failure($0)) }
             .eraseToAnyPublisher()
+    }
+    
+    private nonisolated func present(controller: UIViewController, animated: Bool) {
+        Task {
+            await self.navigationController.present(controller, animated: animated)
+        }
     }
 }

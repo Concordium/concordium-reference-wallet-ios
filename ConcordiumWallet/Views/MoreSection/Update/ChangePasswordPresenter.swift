@@ -137,6 +137,9 @@ class ChangePasswordPresenter: EnterPasswordPresenterProtocol {
                             // Now we are ready to start the (recoverable) transition.
                             AppSettings.passwordChangeInProgress = true
                             try self.updatePasscode(for: accounts, fromPwHash: oldPwHash, toPwHash: newPwHash)
+                            let keychain: KeychainWrapper = KeychainWrapper()
+                            let seedMobileWallet = SeedMobileWallet(keychain: keychain)
+                            _ = try seedMobileWallet.updateSeed(oldPwHash: oldPwHash, newPwHash: newPwHash)
                             self.delegate?.passwordSelectionDone(pwHash: newPwHash)
                         }
                         

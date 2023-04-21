@@ -16,6 +16,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
     
+    private var accountsCoordinator: AccountsCoordinator?
     private var needsAppCheck = true
     private var cancellables: [AnyCancellable] = []
     private var sanityChecker: SanityChecker
@@ -44,6 +45,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         let keychain = defaultProvider.keychainWrapper()
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.password.rawValue)
         _ = keychain.deleteKeychainItem(withKey: KeychainKeys.loginPassword.rawValue)
+        try? defaultProvider.seedMobileWallet().removeSeed()
     }
 
     private func showLogin() {
@@ -55,24 +57,18 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     func showMainTabbar() {
-        let accountsCoordinator = AccountsCoordinator(
-            navigationController: BaseNavigationController(),
+        navigationController.setupBaseNavigationControllerStyle()
+        
+        accountsCoordinator = AccountsCoordinator(
+            navigationController: self.navigationController,
             dependencyProvider: defaultProvider,
-            appSettingsDelegate: self
+            appSettingsDelegate: self,
+            accountsPresenterDelegate: self
         )
+        // accountsCoordinator?.delegate = self
+        accountsCoordinator?.start()
         
-        let moreCoordinator = MoreCoordinator(navigationController: BaseNavigationController(),
-                                              dependencyProvider: defaultProvider,
-                                              parentCoordinator: self)
-        
-        let tabBarController = MainTabBarController(accountsCoordinator: accountsCoordinator,
-                                                    moreCoordinator: moreCoordinator)
-        sanityChecker.delegate = tabBarController
-        self.navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.pushViewController(tabBarController, animated: true)
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
-            // reload accounts tab
-            accountsCoordinator.start()
             self.showDelegationWarningIfNeeded()
         })
     }
@@ -149,14 +145,19 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
     func showInitialIdentityCreation() {
         if FeatureFlag.enabledFlags.contains(.recoveryCode) {
-            let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
-                dependencyProvider: defaultProvider,
-                navigationController: navigationController
-            )
-            recoveryPhraseCoordinator.start()
-            self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
-            childCoordinators.append(recoveryPhraseCoordinator)
-            self.navigationController.setupBaseNavigationControllerStyle()
+            if defaultProvider.seedMobileWallet().hasSetupRecoveryPhrase {
+                showSeedIdentityCreation()
+            } else {
+                let recoveryPhraseCoordinator = RecoveryPhraseCoordinator(
+                    dependencyProvider: defaultProvider,
+                    navigationController: navigationController,
+                    delegate: self
+                )
+                recoveryPhraseCoordinator.start()
+                self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+                childCoordinators.append(recoveryPhraseCoordinator)
+                self.navigationController.setupBaseNavigationControllerStyle()
+            }
         } else {
             let initialAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
                                                                             parentCoordinator: self,
@@ -169,12 +170,31 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
     }
     
+    func showSeedIdentityCreation() {
+        let coordinator = SeedIdentitiesCoordinator(
+            navigationController: navigationController,
+            action: .createInitialIdentity,
+            dependencyProvider: defaultProvider,
+            delegate: self
+        )
+        
+        coordinator.start()
+        
+        childCoordinators.append(coordinator)
+        self.navigationController.setupBaseNavigationControllerStyle()
+    }
+    
     func logout() {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
+            
+            if (topController as? TransparentNavigationController)?.viewControllers.last is EnterPasswordViewController {
+                return
+            }
+            
             topController.dismiss(animated: false) {
                 Logger.trace("logout due to application timeout")
                 self.childCoordinators.removeAll()
@@ -226,6 +246,51 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                     }).store(in: &self.cancellables)
             }
         }
+    }
+}
+
+extension AppCoordinator: AccountsPresenterDelegate {
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        accountsCoordinator?.userPerformed(action: action, on: account)
+    }
+
+    func enableShielded(on account: AccountDataType) {
+    }
+
+    func noValidIdentitiesAvailable() {
+    }
+
+    func tryAgainIdentity() {
+    }
+
+    func didSelectMakeBackup() {
+    }
+
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+    }
+
+    func newTermsAvailable() {
+        accountsCoordinator?.showNewTerms()
+    }
+    
+    func showSettings() {
+        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+                                              dependencyProvider: defaultProvider,
+                                              parentCoordinator: self)
+        moreCoordinator.start()
+    }
+}
+
+extension AppCoordinator: AccountsCoordinatorDelegate {
+    func createNewIdentity() {
+        accountsCoordinator?.showCreateNewIdentity()
+    }
+
+    func createNewAccount() {
+        accountsCoordinator?.showCreateNewAccount()
+    }
+
+    func showIdentities() {
     }
 }
 
@@ -304,7 +369,7 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
 }
 
 extension AppCoordinator: AppSettingsDelegate {
-    func checkForAppSettings(showBackup: (() -> Void)?) {
+    func checkForAppSettings() {
         guard needsAppCheck else { return }
         needsAppCheck = false
         
@@ -313,29 +378,43 @@ extension AppCoordinator: AppSettingsDelegate {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] response in
-                    self?.handleAppSettings(response: response, showBackup: showBackup)
+                    self?.handleAppSettings(response: response)
                 }
             )
             .store(in: &cancellables)
     }
     
-    private func handleAppSettings(response: AppSettingsResponse, showBackup: (() -> Void)?) {
+    private func handleAppSettings(response: AppSettingsResponse) {
         showUpdateDialogIfNeeded(
-            appSettingsResponse: response,
-            showBackupOption: showBackup != nil
+            appSettingsResponse: response
         ) { action in
             switch action {
             case .update(let url, let forced):
                 if forced {
-                    self.handleAppSettings(response: response, showBackup: showBackup)
+                    self.handleAppSettings(response: response)
                 }
                 UIApplication.shared.open(url)
-            case .backup:
-                self.needsAppCheck = true
-                showBackup?()
             case .cancel:
                 break
             }
         }
+    }
+}
+
+extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
+    func recoveryPhraseCoordinator(createdNewSeed seed: Seed) {
+        showSeedIdentityCreation()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+    }
+    
+    func recoveryPhraseCoordinatorFinishedRecovery() {
+        showMainTabbar()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+    }
+}
+
+extension AppCoordinator: SeedIdentitiesCoordinatorDelegate {
+    func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
+        showMainTabbar()
     }
 }

@@ -5,6 +5,7 @@
 
 import Foundation
 
+@MainActor
 protocol AddRecipientCoordinatorHelper: Coordinator {
     func getAddRecipientViewController(dependencyProvider: WalletAndStorageDependencyProvider) -> AddRecipientViewController
 }

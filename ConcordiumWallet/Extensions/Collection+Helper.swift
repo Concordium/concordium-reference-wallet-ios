@@ -1,0 +1,30 @@
+//
+//  Collection+Helper.swift
+//  ConcordiumWallet
+//
+//  Created by Aleksandar Dimov on 2.11.22.
+//  Copyright © 2022 concordium. All rights reserved.
+//
+
+import Foundation
+
+extension Collection {
+    func unfoldSubSequences(limitedTo maxLength: Int) -> UnfoldSequence<SubSequence,Index> {
+        sequence(state: startIndex) { start in
+            guard start < self.endIndex else { return nil }
+            let end = self.index(start, offsetBy: maxLength, limitedBy: self.endIndex) ?? self.endIndex
+            defer { start = end }
+            return self[start..<end]
+        }
+    }
+
+    func every(n: Int) -> UnfoldSequence<Element,Index> {
+        sequence(state: startIndex) { index in
+            guard index < endIndex else { return nil }
+            defer { index = self.index(index, offsetBy: n, limitedBy: endIndex) ?? endIndex }
+            return self[index]
+        }
+    }
+
+    var pairs: [SubSequence] { .init(unfoldSubSequences(limitedTo: 2)) }
+}
