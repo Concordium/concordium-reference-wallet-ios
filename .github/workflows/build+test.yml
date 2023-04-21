@@ -32,5 +32,6 @@ jobs:
         code-coverage: true
         code-sign-certificate: ${{ secrets.CERTIFICATE_BASE64 }}
         code-sign-certificate-passphrase: ${{ secrets.CERTIFICATE_PASSPHRASE}}
-        mobile-provisioning-profiles-base64: ${{ secrets.IPHONE_PROVISIONING_PROFILE_BASE64 }}
+        #mobile-provisioning-profiles-base64: ${{ secrets.IPHONE_PROVISIONING_PROFILE_BASE64 }}
+        provisioning-profiles-base64: ${{ secrets.IPHONE_PROVISIONING_PROFILE_BASE64 }}
 
