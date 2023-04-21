@@ -22,19 +22,27 @@ class InputPhraseTests: ConcordiumTestCase {
         XCTAssertNil(presenter.viewModel.error)
     }
     
-    func test_suggestions_are_shown_after_entering_3_characters() {
+    func test_suggestions_are_shown_after_entering_2_characters() {
         let (presenter, _) = createPresenter()
         
         presenter.viewModel.currentInput = "v"
         XCTAssert(presenter.viewModel.currentSuggestions.isEmpty)
         presenter.viewModel.currentInput = "ve"
-        XCTAssert(presenter.viewModel.currentSuggestions.isEmpty)
+        XCTAssertEqual(
+            presenter.viewModel.currentSuggestions,
+            ["vehicle", "velvet", "vendor", "venture"]
+        )
         presenter.viewModel.currentInput = "ver"
         XCTAssertEqual(
             presenter.viewModel.currentSuggestions,
             ["verb", "verify", "version", "very"]
         )
         presenter.viewModel.currentInput = "ve"
+        XCTAssertEqual(
+            presenter.viewModel.currentSuggestions,
+            ["vehicle", "velvet", "vendor", "venture"]
+        )
+        presenter.viewModel.currentInput = "v"
         XCTAssert(presenter.viewModel.currentSuggestions.isEmpty)
     }
     

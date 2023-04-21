@@ -32,7 +32,7 @@ class AttributesFormatterTests: XCTestCase {
         let formattedDate = AttributeFormatter.format(value: dateInput, for: .idDocIssuedAt)
         
         // Assert
-        XCTAssertEqual(formattedDate, "April, 2020")
+        XCTAssertEqual(formattedDate, "Apr 1, 2020")
     }
     
     func testFormatSex() {

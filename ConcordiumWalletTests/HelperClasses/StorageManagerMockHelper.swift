@@ -7,6 +7,10 @@ import Foundation
 @testable import Mock
 
 class StorageManagerMockHelper: StorageManagerProtocol {
+    func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType? {
+        NYI()
+    }
+
     func storeIdentity(_: IdentityDataType) throws {
         NYI()
     }

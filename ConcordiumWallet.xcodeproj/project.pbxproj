@@ -2537,17 +2537,14 @@
 		FABA9D96291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D97291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D98291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
-		FABA9D99291888E40094012B /* SubmittedSeedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */; };
 		FABA9D9B291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
 		FABA9D9C291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
 		FABA9D9D291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
 		FABA9D9E291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
-		FABA9D9F291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */; };
 		FABA9DA12918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */; };
 		FABA9DA22918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */; };
 		FABA9DA32918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */; };
 		FABA9DA42918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */; };
-		FABA9DA52918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA9DA02918890B0094012B /* SubmittedSeedAccountViewModel.swift */; };
 		FACE21BB290991DE00B089DF /* seed_identity_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = FACE21B9290991DE00B089DF /* seed_identity_onboarding_en_3.html */; };
 		FACE21BC290991DE00B089DF /* seed_identity_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = FACE21B9290991DE00B089DF /* seed_identity_onboarding_en_3.html */; };
 		FACE21BD290991DE00B089DF /* seed_identity_onboarding_en_3.html in Resources */ = {isa = PBXBuildFile; fileRef = FACE21B9290991DE00B089DF /* seed_identity_onboarding_en_3.html */; };
@@ -8082,7 +8079,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */,
-				FABA9DA52918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */,
 				19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */,
 				8992BA4C2823DF6F005279C9 /* StakeDataHandlerTests.swift in Sources */,
 				896B41D828B3796B00D1F271 /* InMemoryKeychain.swift in Sources */,
@@ -8093,12 +8089,10 @@
 				897D0F322891227C001CEC3B /* ConfirmPhraseTests.swift in Sources */,
 				8992BA492823DD8E005279C9 /* StorageManagerMockHelper.swift in Sources */,
 				89D081682861C82F0091344D /* BalanceTests.swift in Sources */,
-				FABA9D9F291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				891B1A0328A6393700F4B0D6 /* AwaitPublisherTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
 				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
 				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
-				FABA9D99291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				896B41DA28B37B9B00D1F271 /* ConcordiumTestCase.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
@@ -8169,9 +8163,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8191,8 +8186,9 @@
 				MARKETING_VERSION = 1.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8204,9 +8200,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8222,8 +8219,9 @@
 				MARKETING_VERSION = 1.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
