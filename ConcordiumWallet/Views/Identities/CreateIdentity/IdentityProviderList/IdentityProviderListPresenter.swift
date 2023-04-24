@@ -184,6 +184,7 @@ extension IdentityProviderListPresenter: IdentityProviderListPresenterProtocol {
                     self?.view?.showErrorAlert(error)
                 }, receiveValue: { [weak self] (resourceRequest, identityCreation) in
                     guard let self = self else { return }
+                    
                     let urlRequest = resourceRequest.request
                     self.delegate?.identityRequestURLGenerated(urlRequest: urlRequest!, createdIdentity: identityCreation)
                     self.openingIDPDialog = false

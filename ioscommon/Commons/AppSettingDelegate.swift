@@ -9,5 +9,5 @@
 import Foundation
 
 protocol AppSettingsDelegate: AnyObject {
-    func checkForAppSettings(showBackup: (() -> Void)?)
+    func checkForAppSettings()
 }

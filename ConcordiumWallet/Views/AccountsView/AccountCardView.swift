@@ -16,6 +16,7 @@ enum AccountCardAction {
     case tap
     case send
     case receive
+    case earn
     case more
 }
 
@@ -50,10 +51,6 @@ class AccountCardView: UIView, NibLoadable {
     
     @IBOutlet weak private var stackCardView: UIStackView!
     
-    @IBOutlet weak private var sendButton: UIButton!
-    @IBOutlet weak private var receiveButton: UIButton!
-    @IBOutlet weak private var moreButton: UIButton!
-    
     @IBOutlet weak private var buttonsHStackViewView: UIStackView!
     
     weak var delegate: AccountCardViewDelegate?
@@ -80,12 +77,8 @@ class AccountCardView: UIView, NibLoadable {
     }
     
     func setup(accountViewModel: AccountViewModel) {
-
         setupStaticStrings(accountTotal: accountViewModel.totalName,
-                           atDisposal: accountViewModel.atDisposalName,
-                           sendButtonTitle: accountViewModel.sendTitle,
-                           receiveButtonTitle: accountViewModel.receiveTitle,
-                           moreButtonTitle: accountViewModel.moreTitle)
+                           atDisposal: accountViewModel.atDisposalName)
         let state: AccountCardViewState!
         if accountViewModel.isBaking {
             state = .baking
@@ -116,17 +109,10 @@ class AccountCardView: UIView, NibLoadable {
     }
     
     private func setupStaticStrings(accountTotal: String,
-                                    atDisposal: String,
-                                    sendButtonTitle: String,
-                                    receiveButtonTitle: String,
-                                    moreButtonTitle: String
+                                    atDisposal: String
     ) {
         totalLabel.text = accountTotal
         atDisposalLabel.text = atDisposal
-        sendButton.setTitle(sendButtonTitle, for: .normal)
-        receiveButton.setTitle(receiveButtonTitle, for: .normal)
-        moreButton.setTitle(moreButtonTitle, for: .normal)
-        moreButton.layer.masksToBounds = true
         buttonsHStackViewView.layer.masksToBounds = true
     }
     
@@ -203,7 +189,11 @@ class AccountCardView: UIView, NibLoadable {
     @IBAction private func pressedReceive(sender: Any) {
         delegate?.perform(action: .receive)
     }
-    
+
+    @IBAction func pressedEarn(_ sender: Any) {
+        delegate?.perform(action: .earn)
+    }
+
     @IBAction private func pressedMore(sender: Any) {
         delegate?.perform(action: .more)
     }

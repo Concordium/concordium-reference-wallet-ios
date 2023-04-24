@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol ShieldedAmountType: DataStoreProtocol {
+protocol ShieldedAmountType: Object, DataStoreProtocol {
     var primaryKey: String { get set }
     var account: AccountDataType? { get set }
     var encryptedValue: String { get set }

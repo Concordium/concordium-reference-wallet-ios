@@ -19,8 +19,10 @@ identity_provider_list_title = "Getting verified"; /*  */
 passcode_selection_title = "Select Passcode"; /*  */
 add_identity_data = "Reveal Identity Data";
 
+"identities.seed.selectprovider.navigationtitle" = "Your first identity";
 "identityProviders.subtitle" = "Choosing an identity provider";
-"identityProviders.details" =  "The identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
+"identityProviders.details" =  "As mentioned, the identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
+"newidentities.seed.selectprovider.navigationtitle" = "Request a new identity";
 "errorAlert.title" = "An error occurred";
 "errorAlert.okButton" = "OK";
 "errorAlert.cancelButton" = "Cancel";
@@ -45,7 +47,7 @@ add_identity_data = "Reveal Identity Data";
 "selectPassword.button.continue" = "Continue";
 "selectPassword.passcode.title" = "Select Passcode";
 "selectPassword.passcode.descriptiveText" = "Select a 6-digit passcode to secure your wallet.";
-"selectPassword.cautionText" = "Note: you will not be able to\nrecover your account keys if this\npasscode is lost!";
+"selectPassword.cautionText" = "";
 "selectPassword.passcode2.title" = "Re-enter Passcode";
 "selectPassword.passcode2.descriptiveText" = "Re-enter your 6-digit passcode to secure your wallet";
 "selectPassword.password.title" = "Select Password";
@@ -76,7 +78,7 @@ add_identity_data = "Reveal Identity Data";
 "import.report.recipientAccountsTitle" = "Recipient Accounts:";
 "selectPassword.biometrics.title.faceId"="Enable FaceID";
 "selectPassword.biometrics.title.touchId"="Enable TouchID";
-"selectPassword.biometrics.infoText.faceIdText"="Enable FaceID for more convenient login.";
+"selectPassword.biometrics.infoText.faceIdText"="Enable FaceID for more convenient login.\nThis setting can also be changed later.";
 "selectPassword.biometrics.infoText.touchIdText"="Enable TouchID for more convenient login.";
 "selectPassword.biometrics.enableButton.faceIdText"="Enable FaceID";
 "selectPassword.biometrics.enableButton.touchIdText"="Enable TouchID";
@@ -130,6 +132,9 @@ You can show the shielded balance of the account via the option below, or later 
 "gettingstarted.newaccount" = "I want to create my initial account";
 "gettingstarted.importaccount" = "I want to import existing accounts";
 
+"recoveryphrase.account.name" = "Account %d";
+"recoveryphrase.identity.name" = "Identity %d";
+
 "recoveryphrase.gettingstarted.navigationtitle" = "Getting started";
 "recoveryphrase.gettingstarted.title" = "Are you new to Concordium?";
 "recoveryphrase.gettingstarted.new.title" = "I'm new!";
@@ -146,19 +151,96 @@ You will be guided through each step of the process.";
 "recoveryphrase.gettingstarted.recover.body" = "If you previosly set up a Concordium wallet with a secret recovery phrase, you can restore your wallet here.";
 "recoveryphrase.gettingstarted.recover.buttontitle" = "Recover wallet";
 
+"recoveryphrase.onboarding.message" = "\nIt is now time to set up your secret recovery phrase.
+
+The secret recovery phrase is a series of 24 words that will grant you access to create accounts and identities on Concordium.
+
+At the same time, it is also the only way to regain access to your accounts and identities if you lose your device or it breaks. This means that it is very important that you write it down and keep it somewhere safe. It it also very important that no one but you has access to the secret recovery phrase.
+
+Concordium cannot recreate your secret recovery phrase or help you regain access to your accounts without it.
+
+If you lose your secret recovery phrase, you risk losing your accounts!";
+"recoveryphrase.onboarding.continue" = "Continue";
+
 "recoveryphrase.copyphrase.navigationtitle" = "Secret recovery phrase";
-"recoveryphrase.copyphrase.title" = "Please write all 24 words down in the right order.";
-"recoveryphrase.copyphrase.revealmessage" = "Tap to reveal your secret recovery phrase. Make sure noone else can see it.";
+"recoveryphrase.copyphrase.title" = "\nPlease write all 24 words down in the right order.";
+"recoveryphrase.copyphrase.revealmessage" = "Tap to reveal your secret recovery phrase. Make sure no one else can see it.";
 "recoveryphrase.copyphrase.validationmessage" = "I confirm I have written down my 24 word secret recovery phrase.";
 "recoveryphrase.copyphrase.continue" = "Continue";
 
 "recoveryphrase.confirmphrase.navigationtitle" = "Secret recovery phrase";
-"recoveryphrase.confirmphrase.title" = "Pick the correct suggestion on the right, for each index.";
+"recoveryphrase.confirmphrase.title" = "\nPick the correct suggestion on the right, for each index.";
 "recoveryphrase.confirmphrase.validationerror" = "Incorrect secret recovery phrase. Please verify that each index has the right word.";
 
 "recoveryphrase.setupcomplete.navigationtitle" = "Secret recovery phrase";
 "recoveryphrase.setupcomplete.title" = "Your secret recovery phrase has been successfully setup!";
 "recoveryphrase.setupcomplete.continue" = "Continue";
+
+"recoveryphrase.recover.intro.navigationtitle" = "Recover your wallet";
+"recoveryphrase.recover.intro.title" = "How to recover your wallet:";
+"recoveryphrase.recover.intro.body" = "There are two steps to recovering a wallet:
+
+1. Entering your secret recover phrase
+2. Recovering your accounts and identities
+
+The first step is manual process, in which you have to enter all your 24 words one by one.
+
+The second step is most often automatic, but in some cases you will have to make some additional inputs. We’ll get back to that.
+
+Let’s get to the secrect recovery phrase!";
+"recoveryphrase.recover.intro.continue" = "Continue";
+
+"recoveryphrase.recover.explanation.navigationtitle" = "Recover your wallet";
+
+"recoveryphrase.recover.input.navigationtitle" = "Your secret recovery phrase";
+"recoveryphrase.recover.input.title" = "Enter the correct word for each index.";
+"recoveryphrase.recover.input.clearall" = "Clear all";
+"recoveryphrase.recover.input.clearbelow" = "Clear below";
+"recoveryphrase.recover.input.validationerror" = "Invalid secret recovery phrase. Please verify that all words are entered correctly.";
+
+"recoveryphrase.recover.complete.navigationtitle" = "Your secret recovery phrase";
+"recoveryphrase.recover.complete.title" = "Your secret recovery phrase has been successfully entered! Tap continue to recover your accounts and identities.";
+"recoveryphrase.recover.complete.continue" = "Continue";
+
+"identities.seed.status.navigationtitle" = "Your first identity";
+"identities.seed.status.title" = "Verification request submitted!";
+"identities.seed.status.body" = "Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can create your first account.";
+"identities.seed.status.continue" = "Continue";
+"newidentities.seed.status.navigationtitle" = "Request a new identity";
+"newidentities.seed.status.body" = "Your request has been submitted with the identity provider. Now you just have to wait for a moment for them to process your submission. Once your identity is verified, you can use it to create accounts.";
+"newidentities.seed.status.continue" = "Finish";
+
+"identities.seed.shared.identitytitle" = "Identity %d";
+"identities.seed.shared.accounttitle" = "Account %d";
+"identities.seed.shared.expirationdate" = "Expires on %@";
+
+"identities.seed.submitaccount.navigationtitle" = "Your first account";
+"identities.seed.submitnewaccount.navigationtitle" = "Create new account";
+"identities.seed.submitaccount.title" = "Account submission";
+"identities.seed.submitaccount.body" = "Once the identity provider has verified your identity, you will be able to submit your first Concordium account. So hang on for a bit and wait for them to finish. You can also come back later to submit your account.
+
+When you have submitted your account, you will be taken to the wallet.";
+"identities.seed.submitnewaccount.body" = "Submit a new account for %@?";
+"identities.seed.submitaccount.total" = "Total";
+"identities.seed.submitaccount.atdisposal" = "At disposal";
+"identities.seed.submitaccount.submit" = "Submit account";
+
+"identityrecovery.status.navigationtitle" = "Recovering your accounts and identities";
+"identityrecovery.status.title.fetching" = "Recovering IDs and accounts";
+"identityrecovery.status.message.fetching" = "Scanning the Concordium blockchain. Hang on while we find your account and identities.";
+"identityrecovery.status.title.emptyResponse" = "Recovery finished";
+"identityrecovery.status.message.emptyResponse" = "Nothing new was found.";
+"identityrecovery.status.title.success" = "Recovery finished";
+"identityrecovery.status.message.success" = "You have successfully recovered:";
+"identitynewrecovery.status.message.success" = "The following has been recovered and added to the wallet:";
+"identityrecovery.status.title.partial" = "Recovery may be partial";
+"identityrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nYou have succesfully recovered:";
+"identitynewrecovery.status.message.partial" = "There was a problem contacting some identity providers. This means that some identities and accounts may not have been recovered. If you can see that something is missing, you can try to restart the recovery process, or you can try again later by starting the recovery process from the settings menu. The affected identity providers:\n%@\n\nThe following has been recovered and added to the wallet:";
+"identityrecovery.status.continuelong" = "Continue to wallet";
+"identityrecovery.status.continue" = "Continue";
+"identityrecovery.status.tryagain" = "Try again";
+"identityrecovery.status.changerecoveryphrase" = "Enter another recovery phrase";
+"identityrecovery.status.accountheader" = "Accounts:";
 
 "initialaccountinfo.title" = "Initial account creation";
 "initialaccountinfo.subtitle" = "The initial account";
@@ -182,53 +264,53 @@ You will be guided through each step of the process.";
 "welcomeScreen.create.password" = "Create password";
 
 "termsAndConditionsScreen.title" = "";
-"termsAndConditionsScreen.subtitle" = "Terms and conditions for Concordium Mobile Wallet";
-"termsAndConditionsScreen.terms1.title" = "Effective from November 18th 2021\n\nIntroduction\n\n";
-"termsAndConditionsScreen.terms2.details" = "Concordium Mobile Wallet is a digital wallet that is offered worldwide by Concordium Software ApS (‘Concordium Software’). At developer.concordium.software, you can read about how the app works. Concordium Software may continually change and/or adjust the functions of Concordium Mobile Wallet. Concordium Software’s terms and conditions apply to Concordium Mobile Wallet users worldwide.\n\nThe wallet will register and use data about you. Concordium Software will not register or use data about you.\n\n";
+"termsAndConditionsScreen.subtitle" = "Terms and conditions for Concordium Wallet for Mobile";
+"termsAndConditionsScreen.terms1.title" = "Effective from 1 September 2022\n\nIntroduction\n\n";
+"termsAndConditionsScreen.terms2.details" = "Concordium Wallet for Mobile is a digital wallet that is offered by Concordium Software ApS (‘Concordium Software’). At developer.concordium.software you can read about how the app works. Concordium Software may continually change and/or adjust the functions of Concordium Wallet for Mobile. Concordium Software’s terms and conditions apply to Concordium Wallet for Mobile users.\n\nThe wallet itself will register and use data about you. Concordium Software will not register or use data about you.\n\n";
 "termsAndConditionsScreen.terms3.title" = "Terms and conditions for all services and functions\n\n";
 "termsAndConditionsScreen.terms4.subtitle" = "Parties to the agreement\n\n";
-"termsAndConditionsScreen.terms5.details" = "When you register with Concordium Mobile Wallet, you enter into an agreement with:\n\nConcordium Software ApS, Østergade 13, 2., 1100 København K, Denmark. CVR no.: 42334758. Our email address is contact@concordium.software.\n\n";
-"termsAndConditionsScreen.terms6.title" = "What do you need in order to register with Concordium Mobile Wallet\n\n";
-"termsAndConditionsScreen.terms7a.details" = "The following is required to register with Concordium Mobile Wallet:\n\n";
-"termsAndConditionsScreen.terms7.paragraph1" = "•    Have a mobile device (e.g., smartphone or tablet). You can see which operating systems can be used at developer.concordium.software.\n\n";
-"termsAndConditionsScreen.terms7.paragraph2" = "•    Verify your identity with an identity provider. The identity provider will know the identity of the initial account creator.\n\n";
+"termsAndConditionsScreen.terms5.details" = "When you register with Concordium Wallet for Mobile, you enter into an agreement with:\n\nConcordium Software ApS, Amaliegade 4, 1256 København K, Denmark. CVR no.: 42334758. Our email address is contact@concordium.software.\n\n";
+"termsAndConditionsScreen.terms6.title" = "What do you need in order to register with Concordium Wallet for Mobile\n\n";
+"termsAndConditionsScreen.terms7a.details" = "The following is required to register with Concordium Wallet for Mobile:\n\n";
+"termsAndConditionsScreen.terms7.paragraph1" = "•    Have a mobile device (e.g., smartphone or tablet). You can see which operating systems can be used at developer.concordium.software.\n";
+"termsAndConditionsScreen.terms7.paragraph2" = "•    Verify your identity with an identity provider. The identity provider will know your identity.\n\n";
 "termsAndConditionsScreen.terms7b.details" = "You must be at least 18 years old to register.\n\n";
-"termsAndConditionsScreen.terms8.title" = "Registering as a Concordium Mobile Wallet user\n\n";
-"termsAndConditionsScreen.terms9.details" = "Before you can use Concordium Mobile Wallet, you will need to create an initial account and register with an identity provider by following the instructions in the app. An identity provider is a third-party supplier and independent of Concordium Software. The Concordium Mobile Wallet stores data from the identity provider, but Concordium Software does not.\n\nAfter you have created the initial account and registered with an identity provider, you can create additional accounts (‘regular accounts’) with which you will be able to carry out transactions.\n\nPlease note that you can only register one account as the initial account.\n\n";
+"termsAndConditionsScreen.terms8.title" = "Registering as a Concordium Wallet for Mobile user\n\n";
+"termsAndConditionsScreen.terms9.details" = "When you register in Concordium Wallet for Mobile, you will generate private keys and you will receive a unique 24-word recovery phrase that must be stored in a safe place. The recovery phrase is the \"master key\" for all of your accounts - it is your private keys in mnemonic form. These words, when entered into another Concordium Wallet (not including the Concordium Desktop Wallet) in the correct order, will recover all of the private keys of accounts in your original wallet. The recovery phrase is used as your personal backup of your private keys. If you lose the private keys and the recovery phrase, you will lose access to any funds in the account(s) permanently.\n\nBefore you can use Concordium Wallet for Mobile, you will need to create a digital identity certificate with an identity provider by following the instructions in the app. An identity provider is a third-party supplier and independent of Concordium Software. The Concordium Wallet for Mobile stores data in encrypted form from the identity provider, which Concordium Software does not have access to.\n\nAfter you have created your digital identity certificate and your first account, you can create additional accounts. Concordium Software may impose a limit to how many accounts you can create in a single Concordium Wallet for Mobile.\n\n";
 "termsAndConditionsScreen.terms10.title" = "Activation code and personal password\n\n";
-"termsAndConditionsScreen.terms11.details" = "When you register in Concordium Mobile Wallet, you will need to create a personal passcode. If your mobile device supports it, you can subsequently activate your fingerprint or use facial recognition instead of the 6-digit password. You should be aware that all fingerprints/facial recognitions linked to your mobile device can be used to log on to Concordium Mobile Wallet and use the functions. You are therefore obliged to ensure that you have only activated your own fingerprints and your own facial recognition if you want to use them instead of the 6-digit password for access to Concordium Mobile Wallet. Concordium Mobile Wallet does not store your fingerprints or facial recognition.\n\n";
+"termsAndConditionsScreen.terms11.details" = "When you register in Concordium Wallet for Mobile, you will need to create a personal passcode. If your mobile device supports it, you can subsequently activate your fingerprint or use facial recognition instead of the 6-digit password. You should be aware that all fingerprints/facial recognitions linked to your mobile device can be used to log on to Concordium Wallet for Mobile and use the functions. You are therefore obliged to ensure that you have only activated your own fingerprints and your own facial recognition if you want to use them instead of the 6-digit password for access to Concordium Wallet for Mobile. Concordium Wallet for Mobile does not store your fingerprints or facial recognition.\n\n";
 "termsAndConditionsScreen.terms12.title" = "Other obligations etc.\n\n";
-"termsAndConditionsScreen.terms13.details" = "You have a duty to ensure that the details you provide are correct and updated at any given time. Your Concordium Mobile Wallet is personal and may be used only by you. You must not disclose your passwords to others, write them down, or save them on your mobile device.\n\nConcordium Mobile Wallet must not be used for illegal activities or purposes.\n\nYou must not use Concordium Mobile Wallet in a way that harasses other Concordium Mobile Wallet users.\n\nAll transaction requests are irreversible. You are yourself responsible for ensuring that the recipient of a transaction via Concordium Mobile Wallet is the intended recipient, and you must verify that the transaction amount is correct. You are responsible for providing the correct account to persons and users who want to transfer funds to you.\n\nTo prevent unauthorized use of Concordium Mobile Wallet, you must store your mobile device so that others cannot gain unauthorized access to it. If possible, you should lock your device with a password or keypad lock. Do not disclose the password to third parties.\n\nYou are obliged to verify your identity with an identity provider. The identity provider will know the identity of the initial account creator. Your identity can be revealed via the process of anonymity revocation, which can happen under stringent regulations, such as a court order.\n\nYou are solely responsible for safekeeping your passwords, PINs, account keys, encryption keys, identity, and any other codes you use to access the Concordium Mobile Wallet or any information, CCD, or voucher. If you lose access to the Mobile Wallet, private keys, or identity, and you have not separately stored a backup of your accounts and the corresponding password(s), you acknowledge and agree that any CCD you have associated with that account will become inaccessible.\n\nPlease note: If you have chosen to use assistants based on speech recognition (e.g., Siri) or patterns of use, this means that information about your use of Concordium Mobile Wallet, including recipients, amounts, and messages, is sent to the provider of the assistant. Your own use of any assistant determines what information is sent.\n\nConcordium Mobile Wallet does not send any information.\n\n";
-"termsAndConditionsScreen.terms14.title" = "Term\n\n";
-"termsAndConditionsScreen.terms15.details" = "This agreement will apply between you and Concordium Software from your download of the Concordium Mobile Wallet, and until you have completely removed the Concordium Mobile Wallet in its entirety from your device.\n\nThe section Concordium Software’s liability for damages shall apply indefinitely.\n\n";
-"termsAndConditionsScreen.terms16.title" = "Fees and charges\n\n";
-"termsAndConditionsScreen.terms17.details" = "Concordium Software currently does not charge any fee for registration with Concordium Mobile Wallet. Concordium Mobile Wallet does not charge a transaction fee; however, you have to pay a transaction fee for transactions on the blockchain.\n\nAny other costs and charges related to your use of the Concordium Mobile Wallet shall be paid by you, including but not limited to costs to the identity provider, if any.\n\nIf we introduce new functions, features, products, or services, these may be subject to fees from the start without you receiving any notice of changed terms and conditions. You will always be informed about the fee before you register for the function, feature, product, or service.\n\n";
-"termsAndConditionsScreen.terms18.title" = "Changes\n\n";
-"termsAndConditionsScreen.terms19.details" = "You will be notified on concordium.software if we change the terms and conditions. We may change the terms and conditions without notice. You can read the terms and conditions at concordium.software, from which you can also print, download, or email them.\n\nIf you do not wish to be covered by the new terms and conditions, you must notify us before the new terms and conditions enter into force. If you notify us that you do not wish to be covered by the new terms and conditions, we will consider the Concordium Mobile Wallet agreement to be terminated from the date on which the new terms and conditions enter into force. If we do not hear from you, we will regard it as your acceptance of the changes.\n\n";
-"termsAndConditionsScreen.terms20.title" = "Intellectual property rights and license\n\n";
-"termsAndConditionsScreen.terms22.details" = "Concordium Software retains all right, title, and interest in and to all of Concordium Software’s brands, logos, and trademarks, including, but not limited to, Concordium Mobile Wallet, Concordium Desktop Wallet, Concordium Client, and variations of the wording of the said brands, logos, and trademarks.\n\n";
-"termsAndConditionsScreen.terms23.subtitle" = "Our notification of unauthorized use and security threats\n\n";
-"termsAndConditionsScreen.terms24.details" = "We may issue information about general security threats through concordium.software and social media.\n\n";
-"termsAndConditionsScreen.terms25.title" = "Concordium Software’s liability for damages\n\n";
-"termsAndConditionsScreen.terms26a.details" = "Concordium Software is not liable for damages for late or defective performance of the Concordium Mobile Wallet and/or our contractual obligations resulting from error or negligence.\n\nEven in areas in which stricter liability applies, Concordium Software is not liable for losses arising from\n\n";
-"termsAndConditionsScreen.terms26.paragraph1" = "•    Breakdown of or lack of access to IT systems or damage to data in these systems attributable to any of the events listed below regardless of whether Concordium Software or a third-party supplier is responsible for the operation of these systems, power failure, or breakdown of Concordium Software’s power supply system or telecommunications, statutory intervention or administrative acts, acts of God, war, revolution, riot, civil unrest, sabotage, terrorism, or vandalism (including computer virus attacks or hacking).\n\n";
-"termsAndConditionsScreen.terms26.paragraph2" = "•    Strikes, lockouts, boycotts, or picketing, regardless of whether Concordium Software or its organization is itself a party to or has started such an industrial dispute and regardless of its cause. This also applies if the dispute affects only parts of Concordium Software.\n\n";
-"termsAndConditionsScreen.terms26.paragraph3" = "•    Other circumstances beyond or within the control of Concordium Software.\n\n";
-"termsAndConditionsScreen.terms26b.details" = "Please be advised that Concordium Software is not liable for any defects or deficiencies in the goods or services for which you pay using Concordium Mobile Wallet, Concordium Software accepts no liability for the fundraising campaigns to which you make contributions using Concordium Mobile Wallet. If you have any complaints regarding the delivered goods, services, or fundraising campaigns, you must contact the seller and/or the fundraiser.\n\nConcordium Software does not undertake any liability for the conduct of the seller/fundraiser in general.\n\n";
-"termsAndConditionsScreen.terms27.title" = "Privacy\n\n";
-"termsAndConditionsScreen.terms28.details" = "Concordium Software respects your privacy to the effect that Concordium Software will not monitor, edit, or disclose any personal information about you or your account, including its contents or your use of the Concordium Mobile Wallet, without your prior consent unless Concordium Software in good faith beliefs that such action is necessary to: (i) comply with legal process or other legal requirements of any governmental authority; (ii) protect and defend the rights or property of Concordium Software; (iii) enforce this Agreement; (iv) protect the interests of users of the Concordium Mobile Wallet other than you or any other person; (v) operate or conduct maintenance and repair of Concordium’s services or equipment, including the Concordium Mobile Wallet as authorized by law; or (vi) if your identity is revoked in accordance with the identity revocation process as required to comply with (i). You are assumed to have no expectation of privacy with respect to the Internet generally. Your IP address is transmitted and recorded with each message or other information you send from the Concordium Mobile Wallet. When you create an identity with a third party supplier, you have entered an agreement directly with such a third supplier and such a third party supplier will store data about you and in this case, the third party supplier’s privacy policy and terms and conditions apply.\n\n";
-
-"termsAndConditionsScreen.terms29.title" = "Data retention and deletion\n\n";
-"termsAndConditionsScreen.terms30.details" = "Concordium as a company does not retain or delete any user identifiable information. However, to get an account you must obtain an identity object issued by an identity provider. The identity object contains some user identifiable information such as your name. By default the identity object is only stored in the wallet and is not visible on the chain. Some data derived from the identity object is sent to the chain, but by default it is not possible to obtain user identifiable information from the information stored in the account on the chain. However, if you choose to reveal any attributes associated with your account, these attributes will be visible on-chain, and can never be deleted.\n\n";
-
-"termsAndConditionsScreen.terms31.title" = "Governing law and venue\n\n";
-"termsAndConditionsScreen.terms32.details" = "The agreement and any dispute arising out of the agreement are governed by Danish law and such disputes must be heard by Copenhagen District Court or the jurisdiction of the defendant’s domicile unless otherwise provided by absolute consumer rights in Denmark. This applies without consideration for rules in international private law which may lead to the application of other law than Danish law.\n\n";
-"termsAndConditionsScreen.terms33.title" = "Complaints\n\n";
-"termsAndConditionsScreen.terms34.details" = "You can always write to Concordium Software if you disagree with us. In this way, we make sure that such disagreement is not based on a misunderstanding. The address is Østergade 13, 2., 1100 København K.\n\n";
-"termsAndConditionsScreen.terms35.title" = "New copy of these terms and conditions\n\n";
-"termsAndConditionsScreen.terms36.details" = "You can always find the latest version on concordium.software.\n\nYou can contact Concordium Mobile Wallet support via support@concordium.software.\n\n";
-"termsAndConditionsScreen.terms37.title" = "Acceptance\n\n";
-"termsAndConditionsScreen.terms38.details" = "The first time you open the Concordium Mobile Wallet, you’ll be asked to click \"Yes, I Accept\" to confirm that you agree to these terms and conditions.";
+"termsAndConditionsScreen.terms13.details" = "You have a duty to ensure that the details you provide are correct and updated at any given time. Your Concordium Wallet for Mobile is personal and may be used only by you. You must not disclose your passwords to others, write them down, or save them on your mobile device. You must not disclose your 24-word recovery phrase to others or store them digitally on your computer or mobile device.\n\nConcordium Wallet for Mobile must not be used for illegal activities or purposes.\n\nYou must not use Concordium Wallet for Mobile in a way that harasses other Concordium blockchain users.\n\nAll transaction requests are irreversible. You are yourself responsible for ensuring that the recipient of a transaction via Concordium Wallet for Mobile is the intended recipient, and you must verify that the transaction amount is correct. You are responsible for providing the correct account to persons and users who want to transfer funds to you.\n\nTo prevent unauthorized use of Concordium Wallet for Mobile, you must store your mobile device so that others cannot gain unauthorized access to it. If possible, you should lock your device with a password or keypad lock. Do not disclose the password to third parties.\n\nYou are obliged to verify your identity with an identity provider. Your identity can be revealed via the process of anonymity revocation, which can happen under stringent regulations, such as a court order.\n\nYou are solely responsible for safekeeping your passwords, PINs, account keys, encryption keys, identity, and any other codes you use to access the Concordium Wallet for Mobile or any information, CCD, or voucher. If you lose access to the Concordium Wallet for Mobile, private keys, or identity, and you have not separately stored a backup of your accounts and the corresponding password(s), or your personal recovery phrase, you acknowledge and agree that any coins or tokens you have associated with that account will become inaccessible.\n\nPlease note: If you have chosen to use assistants based on speech recognition (e.g., Siri) or patterns of use, this means that information about your use of Concordium Wallet for Mobile, including recipients, amounts, and messages, is sent to the provider of the assistant. Your own use of any assistant determines what information is sent. Concordium Wallet for Mobile does not send any information.\n\n";
+"termsAndConditionsScreen.terms14.title" = "Baking and Delegation\n\n";
+"termsAndConditionsScreen.terms15.details" = "Node runners are awarded CCD for running nodes on the Concordium blockchain through a process called baking. Other CCD holders can be rewarded for supporting this process through delegation. The Concordium Wallet for Mobile supports management of baking and delegation. Each account can only have one baking or deleagtion process active at a given time.\n\nWhile engaged in baking or delegation, the allocated CCD will remain in the account in a locked form. Termination of baking and delegation activates a cool-down period, where baking and delegation is still active, however, the CCDs will not be available in the wallet until the cool-down period is over. Read more about baking and delegation on developer.concordium.software\n\nWhen activating, managing and terminating baking and delegation blockchain transaction fees apply. You should always ensure you have sufficient CCD in your available balance to cover these fees.\n\nWhen activating baking and delegation from the Concordium Wallet for Mobile you acknowlegde and understand how these features work and that historic performance is not a guarantee for future performance.\n\nConcordium Software does not assume any responsibility for the amount of rewards generated from baking and delegation.\n\n";
+"termsAndConditionsScreen.terms16.title" = "Term\n\n";
+"termsAndConditionsScreen.terms17.details" = "This agreement will apply between you and Concordium Software from your download of the Concordium Wallet for Mobile, and until you have completely removed the Concordium Wallet for Mobile in its entirety from your device.\n\nThe section Concordium Software’s liability for damages shall apply indefinitely.\n\n";
+"termsAndConditionsScreen.terms18.title" = "Fees and charges\n\n";
+"termsAndConditionsScreen.terms19.details" = "Concordium Software currently does not charge any fee for registration with Concordium Wallet for Mobile. Concordium Wallet for Mobile does not charge a transaction fee; however, you have to pay a transaction fee for transactions on the blockchain.\n\nAny other costs and charges related to your use of the Concordium Wallet for Mobile shall be paid by you, including but not limited to costs to the identity provider, if any.\n\nIf we introduce new functions, features, products, or services, these may be subject to fees from the start without you receiving any notice of changed terms and conditions. You will always be informed about the fee before you register for the function, feature, product, or service.\n\n";
+"termsAndConditionsScreen.terms20.title" = "Changes\n\n";
+"termsAndConditionsScreen.terms21.details" = "You will be notified on developer.concordium.software if we change the terms and conditions. We may change the terms and conditions without notice. You can read the terms and conditions at developer.concordium.software, from which you can also print, download, or email them.\n\nIf you do not wish to be covered by the new terms and conditions, you must notify us before the new terms and conditions enter into force. If you notify us that you do not wish to be covered by the new terms and conditions, we will consider the Concordium Wallet for Mobile agreement to be terminated from the date on which the new terms and conditions enter into force. If we do not hear from you, we will regard it as your acceptance of the changes.\n\n";
+"termsAndConditionsScreen.terms22.title" = "Intellectual property rights and license\n\n";
+"termsAndConditionsScreen.terms23.details" = "Concordium Software retains all right, title, and interest in and to all of Concordium Software’s brands, logos, and trademarks, including, but not limited to, Concordium Wallet for Mobile, Concordium Desktop Wallet, Concordium Browser Wallet, Concordium Client, and variations of the wording of the said brands, logos, and trademarks.\n\n";
+"termsAndConditionsScreen.terms24.subtitle" = "Our notification of unauthorized use and security threats\n\n";
+"termsAndConditionsScreen.terms25.details" = "We may issue information about general security threats through developer.concordium.software and social media.\n\n";
+"termsAndConditionsScreen.terms26.title" = "Concordium Software’s liability for damages\n\n";
+"termsAndConditionsScreen.terms27a.details" = "Concordium Software is not liable for damages for late or defective performance of the Concordium Wallet for Mobile and/or our contractual obligations resulting from error or negligence.\n\nEven in areas in which stricter liability applies, Concordium Software is not liable for losses arising from\n\n";
+"termsAndConditionsScreen.terms27.paragraph1" = "•    Breakdown of or lack of access to IT systems or damage to data in these systems attributable to any of the events listed below regardless of whether Concordium Software or a third-party supplier is responsible for the operation of these systems, power failure, or breakdown of Concordium Software’s power supply system or telecommunications, statutory intervention or administrative acts, acts of God, war, revolution, riot, civil unrest, sabotage, terrorism, or vandalism (including computer virus attacks or hacking).\n\n";
+"termsAndConditionsScreen.terms27.paragraph2" = "•    Strikes, lockouts, boycotts, or picketing, regardless of whether Concordium Software, its organization or closely related companies, is itself a party to or has started such an industrial dispute and regardless of its cause. This also applies if the dispute affects only parts of Concordium Software.\n\n";
+"termsAndConditionsScreen.terms27.paragraph3" = "•    Other circumstances beyond or within the control of Concordium Software.\n\n";
+"termsAndConditionsScreen.terms27b.details" = "Please be advised that Concordium Software is not liable for any defects or deficiencies in the goods or services for which you pay using Concordium Wallet for Mobile. Concordium Software accepts no liability for the fundraising campaigns to which you make contributions using Concordium Wallet for Mobile. If you have any complaints regarding the delivered goods, services, or fundraising campaigns, you must contact the seller and/or the fundraiser.\n\nConcordium Software does not undertake any liability for the conduct of the seller/fundraiser in general.\n\n";
+"termsAndConditionsScreen.terms28.title" = "Privacy\n\n";
+"termsAndConditionsScreen.terms29.details" = "Concordium Software respects your privacy to the effect that Concordium Software will not monitor, edit, or disclose any personal information about you or your account, including its contents or your use of the Concordium Wallet for Mobile, without your prior consent unless Concordium Software in good faith beliefs that such action is necessary to: (i) comply with legal process or other legal requirements of any governmental authority; (ii) protect and defend the rights or property of Concordium Software; (iii) enforce this Agreement; (iv) protect the interests of users of the Concordium Wallet for Mobile other than you or any other person; (v) operate or conduct maintenance and repair of Concordium’s services or equipment, including the Concordium Wallet for Mobile as authorized by law; or (vi) if your identity is revoked in accordance with the identity revocation process as required to comply with (i). You are assumed to have no expectation of privacy with respect to the Internet generally. Your IP address is transmitted and recorded with each message or other information you send from the Concordium Wallet for Mobile. When you create an identity with a third party supplier, you have entered an agreement directly with such a third supplier and such a third party supplier will store data about you and in this case, the third party supplier’s privacy policy and terms and conditions apply.\n\n";
+"termsAndConditionsScreen.terms30.title" = "Data retention and deletion\n\n";
+"termsAndConditionsScreen.terms31.details" = "Concordium as a company does not retain and therefore cannot delete any user identifiable information. However, to get an account you must obtain an identity object issued by an identity provider. The identity object contains some user identifiable information such as your name. By default the identity object is only stored encrypted in the wallet and is not visible on the chain. Some data derived from the identity object is sent to the chain, but by default it is not possible to obtain user identifiable information from the information stored in the account on the chain. However, if you choose to reveal any attributes associated with your account, these attributes will be visible on-chain, and can never be deleted.\n\n";
+"termsAndConditionsScreen.terms32.title" = "Governing law and venue\n\n";
+"termsAndConditionsScreen.terms33.details" = "The agreement and any dispute arising out of the agreement are governed by Danish law and such disputes must be heard by Copenhagen District Court or the jurisdiction of the defendant’s domicile unless otherwise provided by absolute consumer rights in Denmark. This applies without consideration for rules in international private law which may lead to the application of other law than Danish law.\n\n";
+"termsAndConditionsScreen.terms34.title" = "Complaints\n\n";
+"termsAndConditionsScreen.terms35.details" = "You can always write to Concordium Software if you disagree with us. In this way, we make sure that such disagreement is not based on a misunderstanding. The address is Amaliegade 4, 1256 København K, Denmark.\n\n";
+"termsAndConditionsScreen.terms36.title" = "New copy of these terms and conditions\n\n";
+"termsAndConditionsScreen.terms37.details" = "You can always find the latest version on developer.concordium.software.\n\nYou can contact Concordium Wallet for Mobile support via support@concordium.software.\n\n";
+"termsAndConditionsScreen.terms38.title" = "Acceptance\n\n";
+"termsAndConditionsScreen.terms39.details" = "The first time you open the Concordium Wallet for Mobile, you’ll be asked to click \"Yes, I Accept\" to confirm that you agree to these terms and conditions.\n";
 "termsAndConditionsScreen.button" = "Yes, I accept";
 
 "okay.gotit" = "Okay, got it!";
@@ -261,7 +343,10 @@ You will be guided through each step of the process.";
 "accountConfirmed.submittedMessage" = "This may take a few minutes to
 process on-chain.";
 "accountFailed.title" = "Account creation failed!";
-"accountFailed.tryLater" = "Please try again.";
+"accountFailed.errorMessage" = "Your wallet seems to not be synchronized with the blockchain. You must first make a recovery of existing accounts, before you can make a new one.";
+"accountFailed.tryLater" = "Start the recovery flow, by pressing the button bellow.";
+"accountFailed.buttonTitle" = "Start recovery";
+
 "accountDetails.failedMessage" = "Account creation failed in the process of creation";
 "accountDetails.committedMessage" = "Account creation in progress.\n\nYou can start using this account once it’s been finalized on the chain.";
 
@@ -290,7 +375,7 @@ process on-chain.";
 "sendFund.addMemo" = "Optional: Add memo";
 "sendFund.pasteRecipient" = "Paste recipient address";
 
-"sendFund.sendingToOwnAccountDisallowed" = "Recipient account is not allowed be the same as sending account";
+"sendFund.sendingToOwnAccountDisallowed" = "Sender and recipient accounts cannot be the same";
 "sendFund.insufficientFunds" = "Insufficient funds";
 "sendFund.confirmation.shield" = "Are you sure you want to shield";
 "sendFund.confirmation.unshield" = "Are you sure you want to unshield";
@@ -344,18 +429,18 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "attributes.firstName" = "First Name";
 "attributes.countryOfResidence" = "Country of residence";
 "attributes.dob" = "Date of birth";
-"attributes.idDocExpiresAt" = "ID Valid to";
-"attributes.idDocIssuedAt" = "ID Valid from";
-"attributes.idDocIssuer" = "Identity Document Issuer";
-"attributes.idDocNo" = "Identity Document number";
-"attributes.idDocType" = "Identity Document Type";
+"attributes.idDocExpiresAt" = "ID valid to";
+"attributes.idDocIssuedAt" = "ID valid from";
+"attributes.idDocIssuer" = "Identity document issuer";
+"attributes.idDocNo" = "Identity document number";
+"attributes.idDocType" = "Identity document type";
 "attributes.lastName" = "Last Name";
 "attributes.nationality" = "Country of nationality";
 "attributes.sex" = "Sex";
 "attributes.taxIDNo" = "Tax ID number";
 "attributes.nationalIDNo" = "National ID number";
 
-"sex.notKnown" = "Not known";
+"sex.notKnown" = "NA";
 "Save" = "Save";
 
 "transactionConfirmed.submitted" = "Transaction submitted!";
@@ -387,26 +472,25 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 
 "more.identities" = "Your identity cards";
 "more.addressBook" = "Address Book";
-"more.import" = "Restore from backup";
-"more.export" = "Make backup";
 "export.title" = "Export";
 "export.explainingText" = "Here you can export your identities, accounts and the address book.\n\nThe exported data includes private keys which give access to your identities and accounts. For this reason the data will be encrypted under a password that you will be asked to select during the process. It is important that you store the password safely and securely. The password will be needed for access to exported data (e.g. if you want to import an account into the Concordium Client).";
 "export.button.continue" = "Continue";
 "export.unfinalizedAccounts" = "The following accounts are either failed or not ready on the chain, so they cannot be exported. \n";
 "more.update" = "Update Passcode & Biometrics";
+"more.update.successfully" = "Passcode was successfully changed";
 "more.updatePasswordAndBiometrics.title" = "Update Passcode & Biometrics";
 "more.update.button.continue" = "Continue";
-"more.update.error.nonFinalizedItems" = "All identities and accounts must be finalized before passcode can be changed. Please wait, then try again.";
+"more.update.error.nonFinalizedItems" = "All identities and accounts must be finalized before passcode can be changed. Please wait, then try again. If you have any failed identities, these must also be deleted first.";
 "more.updatePasswordAndBiometrics.infoText" = "By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them.";
-"more.validateIdsAndAccounts" = "Verify keys";
+"more.recovery" = "Recovery";
 "more.validateIdsAndAccount.warningTitle" = "⚠️ Warning ⚠️";
-"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?\n";
+//"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?\n";
 "more.validateIdsAndAccount.removeFromApp" = "Remove from app";
-"more.validateIdsAndAccount.remindLater" = "Remind me later";
-"more.validateIdsAndAccount.keep" = "Keep as read-only";
+//"more.validateIdsAndAccount.remindLater" = "Remind me later";
+//"more.validateIdsAndAccount.keep" = "Keep as read-only";
 "more.validateIdsAndAccount.identity" = "\nIdentity: %@\n";
 "more.validateIdsAndAccount.account" = "Account: %@\n";
-"more.validateIdsAndAccount.import" = "Import from backup";
+//"more.validateIdsAndAccount.import" = "Import from backup";
 "more.validateIdsAndAccount.simpleWarningTitle" = "Warning";
 "more.validateIdsAndAccount.idsWithFunctioningAccounts" = "The following keyless identities have accounts that still function. These identities will be kept, but can’t be used. If you make an export, these identites and related accounts will not be included.";
 "more.validateIdsAndAccount.okay" = "Okay";
@@ -491,11 +575,12 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 
 "burgermenu.releaseschedule" = "Release Schedule";
 "burgermenu.transferfilters" = "Transfer Filters";
-"burgermenu.showshieldedbalance" = "Show shielded balance on %@";
-"burgermenu.hideshieldedbalance" = "Hide shielded balance on %@";
+"burgermenu.showshieldedbalance" = "Show shielded balance";
+"burgermenu.hideshieldedbalance" = "Hide shielded balance";
 "burgermenu.decrypt" = "Decrypt";
-"burgermenu.delegation" = "Delegation";
-"burgermenu.baking" = "Baking";
+"burgermenu.exportprivatekey" = "Export Private Key";
+"burgermenu.exporttransactionlog" = "Export transaction logs";
+"burgermenu.renameaccount" = "Change account name";
 
 "supportmail.copied" = "Reference text copied";
 "supportmail.subject" = "Issuance reference: %@";
@@ -541,6 +626,11 @@ concordium-backup.concordiumwallet securely.";
 "onboardingcarousel.introflow.page4.title" = "Backup your private keys";
 "onboardingcarousel.introflow.page5.title" = "You are ready!";
 
+"onboardingcarousel.seedflow.title" = "Introduction";
+"onboardingcarousel.seedflow.page1.title" = "Welcome to Concordium";
+"onboardingcarousel.seedflow.page2.title" = "A Concordium Identity";
+"onboardingcarousel.seedflow.page3.title" = "Getting verified";
+"onboardingcarousel.seedflow.page4.title" = "Your first account";
 
 "stake.inputamount.currentamounts" = "Current amounts on your account:";
 "stake.inputamount.continue" = "Continue";
@@ -577,9 +667,11 @@ concordium-backup.concordiumwallet securely.";
 "delegation.pool.title.update" = "Update delegation";
 "delegation.pool.current" = "Current target %@";
 "delegation.pool.message" = "You can delegate to an open pool of your choice, or you can stake using passive delegation.";
-"delegation.pool.bottommessage.baker" = "If you don’t already know what baker pool you want to delegate an amount to, you can read more about finding one here:
+"delegation.pool.bottommessage.baker" = "If you don't already know which baker pool you want to delegate an amount to, you can look for one here:
 
-developer.concordium.software";
+%@";
+"delegation.pool.mainnetstakinglink" = "https://ccdscan.io/staking";
+"delegation.pool.testnetstakinglink" = "https://testnet.ccdscan.io/staking";
 "delegation.pool.bottommessage.passive" = "Passive delegation is an alternative to delegation to a specific baker pool that has lower rewards. With passive delegation you do not have to worry about the uptime or quality of a baker node.
 
 For more info you can visit
@@ -598,7 +690,7 @@ developer.concordium.software";
 "delegation.pool.sizewarning.stopdelegation" = "Stop current delegation";
 "delegation.pool.sizewarning.cancel" = "Cancel";
 
-"delegation.receipt.accounttodelegate" = "Account to delegate from";
+"delegation.receipt.accounttodelegate" = "Delegating account";
 "delegation.receipt.accounttostop" = "Account to stop delegating";
 "delegation.receipt.delegationamount" = "Delegation amount";
 "delegation.receipt.tagetbakerpool" = "Target";
@@ -914,8 +1006,90 @@ Remember to restart your node with the baker keys.";
 "force.update.needed.update.now" = "Update now";
 "force.update.needed.backup" = "Make backup";
 "force.update.warning.title" = "Update ready";
-"force.update.warning.message" = "There is a new update for the Concordium Mobile Wallet.\n\nIf you don’t have a backup, Concordium strongly recommends making one before updating.";
 "force.update.warning.nobackup.message" = "There is a new update for the Concordium Mobile Wallet.";
 "force.update.warning.update.now" = "Update now";
 "force.update.warning.remind.me" = "Remind me next time I open the wallet";
 "force.update.warning.backup" = "Make backup";
+
+"identityrejected.title" = "Identity rejected";
+"identityrejected.message" = "Your identity request was unfortunately rejected with the following reason:\n\n%@\n\nFor security reasons rejected identity requests cannot be resolved, which means you have to submit a new request.";
+"identityrejected.tryagain" = "Make new identity request";
+
+"newidentityrejected.title" = "Identity rejected";
+"newidentityrejected.message" = "Your identity request was unfortunately rejected with the following reason:\n\n%@\n\nRejected identity requests cannot be resolved, so the rejected identity will be discarded, after dismissing this notification.\n\nDo you want to make another request now?";
+"newidentityrejected.tryagain" = "Request another identity";
+"newidentityrejected.later" = "Later";
+
+"selectidentity.navigationtitle" = "Create new account";
+"selectidentity.title" = "Select identity to submit account with";
+
+"submittedaccount.navigationtitle" = "Create new account";
+"submittedaccount.title" = "Account submitted";
+"submittedaccount.body" = "Once it's finalized you can use the account from the account overview.";
+"submittedaccount.finish" = "Finish";
+
+"newaccount.title" = "Identity verified";
+"newaccount.message" = "%@ has been verified by the identity provider. You can now start using the identity to create accounts in the Concordium Wallet for Mobile.";
+"newaccount.create" = "Create account now";
+"newaccount.later" = "Later";
+
+"exportprivatekey.navigationtitle" = "Export account keys";
+"exportprivatekey.title" = "\nHere you can export your private account keys.";
+"exportprivatekey.toprevealmessage" = "Make sure to keep the keys safe, because they can be used to access your accounts.";
+"exportprivatekey.downrevealmessage" = "Tap to reveal your private keys for %@.";
+"exportprivatekey.done" = "Done";
+"exportprivatekey.export" = "Export to file";
+"exportprivatekey.copied" = "Copied";
+"exportprivatekey.exported" = "File exported";
+"exportprivatekey.nokeys" = "The account does not contains keys";
+
+"exportedaccountprivatekeys.type" = "concordium-browser-wallet-account";
+
+"exporttransactionlog.navigationtitle" = "Export transaction logs";
+"exporttransactionlog.save" = "Save transaction logs";
+"exporttransactionlog.done" = "Done";
+"exporttransactionlog.description" = "Transaction logs of an account can be generated and saved via %@\n\nIf your account contains a lot of transactions, it may take a moment for CCDScan to prepare the file. Once the logs are ready, they will be downloaded to your device as a CSV file. Please note that if the account has a lot of transactions, the file size can be quite large.\n\nYou can also visit %@ and manually generate your transaction logs from a desktop browser.";
+"exporttransactionlog.generating" = "Generating transaction logs, please hold on.";
+"exporttransactionlog.downloading" = "Downloading transaction logs.";
+"exporttransactionlog.saved" = "The transaction logs have been downloaded.";
+"exporttransactionlog.failed" = "The download failed.";
+"exporttransactionlog.downloaded" = "downloaded";
+"exporttransactionlog.save.completed" = "The transaction logs have been saved.";
+
+"renameaccount.title" = "Change account name";
+"renameaccount.message" = "You can enter the new account name here.";
+"renameaccount.cancel" = "Cancel";
+"renameaccount.save" = "Save";
+
+"renameidentity.title" = "Change identity name";
+"renameidentity.message" = "You change the name of the ID card here.";
+"renameidentity.cancel" = "Cancel";
+"renameidentity.save" = "Save";
+
+"earn.title" = "Earning rewards";
+"earn.button.baker" = "Continue to baker setup";
+"earn.button.delegation" = "Continue to delegation setup";
+
+"earn.desc.part1" = "There are two options for earning rewards on Concordium: Baking and delegation.";
+"earn.desc.baking.header" = "Baking";
+"earn.desc.baking.text" = "As a baker you participate in the network by baking blocks on the Concordium network. This requires a minimum of %@ and access to a dedicated node.";
+"earn.desc.delegation.header" = "Delegation";
+"earn.desc.delegation.text" = "If you don't have access to your own node you may delegate your stake to one of the other bakers. There is no minimum amount of CCD required when delegating.";
+"earn.desc.part2" = "Choose the option that suits you below to learn more.\n\nNOTE: A single account cannot both be a baker and delegator, but it is possible to stop one and change to the other.";
+
+"accountsettings.navigationtitle" = "Account settings";
+
+"identitiespresenteridentityrejected.title" = "Identity rejected";
+"identitiespresenteridentityrejected.message" = "Your identity request was unfortunately rejected.\n\nRejected identity requests cannot be resolved, so the rejected identity will be discarded, after dismissing this notification.\n\nDo you want to make another request now?";
+"identitiespresenteridentityrejected.tryagain" = "Request another identity";
+"identitiespresenteridentityrejected.later" = "Later";
+
+"recover.identityKey" = "identity";
+"recover.isNewlyCreatedKey" = "isNewlyCreated";
+
+"demomode.title" = "Wallet Demo Mode";
+"demomode.message" = "You now have the option to activate the wallet demo mode. This means that the wallet will use the Concordium Testnet backend and blockchain, where you can make demo identities and accounts to try out the wallet.\n\nThe demo mode activation is permanent, and you will have to reinstall the wallet to get out of it again. We therefore recommend activating it, if you are here to review the wallet.";
+"demomode.activate" = "Activate Wallet Demo Mode";
+"demomode.cancel" = "Cancel";
+
+"demomode.userdefaultskey" = "Demo Mode";

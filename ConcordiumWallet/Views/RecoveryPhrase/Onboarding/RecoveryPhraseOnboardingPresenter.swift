@@ -21,7 +21,12 @@ class RecoveryPhraseOnboardingPresenter: SwiftUIPresenter<RecoveryPhraseOnboardi
         self.recoveryPhrase = recoveryPhrase
         self.delegate = delegate
         
-        super.init(viewModel: .init())
+        super.init(
+            viewModel: .init(
+                message: "recoveryphrase.onboarding.message".localized,
+                continueLabel: "recoveryphrase.onboarding.continue".localized
+            )
+        )
         
         viewModel.navigationTitle = "recoveryphrase.copyphrase.navigationtitle".localized
     }

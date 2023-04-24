@@ -40,6 +40,13 @@ struct ExportService {
         try? FileManager.default.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
         return documentDirectory.appendingPathComponent(fileHandle.pathComponent)
     }
+    
+    private func urlForFileForAccountWithAddress(accountAddress: String) -> URL {
+        let documentDirectory = FileManager.default.urls(for: .documentationDirectory, in: .userDomainMask).first!
+        // it appears that the documentation directory does not necessarily exist in advance - create it if it doesn't
+        try? FileManager.default.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
+        return documentDirectory.appendingPathComponent("\(accountAddress).export")
+    }
 
     func deleteExportFile() throws {
         try FileManager.default.removeItem(at: urlForFile(.backup))
@@ -66,6 +73,18 @@ struct ExportService {
     func export(bakerKeys: ExportedBakerKeys) throws -> URL {
         let keyData = try bakerKeys.jsonData()
         let url = urlForFile(.bakerKeys)
+        
+        try keyData.write(to: url, options: .completeFileProtection)
+        return url
+    }
+    
+    func deleteAccountPrivateKeys(forAccountWithAddress accountAddress: String) throws {
+        try FileManager.default.removeItem(at: urlForFileForAccountWithAddress(accountAddress: accountAddress))
+    }
+    
+    func export(accountPrivateKeys: ExportedAccountPrivateKeys, forAccountWithAddress accountAddress: String) throws -> URL {
+        let keyData = try accountPrivateKeys.jsonData()
+        let url = urlForFileForAccountWithAddress(accountAddress: accountAddress)
         
         try keyData.write(to: url, options: .completeFileProtection)
         return url
@@ -168,7 +187,12 @@ extension ExportIdentityData {
               let privateIdObjectData = privateIdObjectData
                 else { return nil }
         
-        let ipMetaData = Metadata(support: identityProvider.support, issuanceStart: identityProvider.issuanceStartURL, icon: identityProvider.icon)
+        let ipMetaData = Metadata(
+            support: identityProvider.support,
+            issuanceStart: identityProvider.issuanceStartURL,
+            recoveryStart: identityProvider.recoveryStartURL,
+            icon: identityProvider.icon
+        )
       
         let identityProviderElm = IPInfoResponseElement(ipInfo: ipInfo, arsInfos: arsInfo, metadata: ipMetaData)
         self.init(nextAccountNumber: identity.accountsCreated,

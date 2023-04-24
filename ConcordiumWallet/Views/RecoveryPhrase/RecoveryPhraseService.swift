@@ -13,6 +13,12 @@ protocol RecoveryPhraseServiceProtocol {
     func generateRecoveryPhrase() -> Result<RecoveryPhrase, Error>
     
     func generateSuggestions(from words: RecoveryPhrase, maxNumberOfSuggestions: Int) -> [[String]]
+    
+    func suggestions(for word: String) -> [String]
+    
+    func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error>
+    
+    func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) async throws -> Seed
 }
 
 extension RecoveryPhraseServiceProtocol {
@@ -28,18 +34,45 @@ extension RecoveryPhraseServiceProtocol {
                 .shuffled()
         }
     }
+    
+    func suggestions(for word: String) -> [String] {
+        let lowercased = word.lowercased()
+        
+        let words = String.mnemonics.filter { $0.starts(with: lowercased) }
+        
+        return Array(words[0..<min(words.count, 4)])
+    }
+    
+    func validate(recoveryPhrase: [String]) -> Result<RecoveryPhrase, Error> {
+        return Result {
+            let phrase = recoveryPhrase.joined(separator: " ")
+            
+            try Mnemonic.validate(mnemonic: phrase)
+            
+            return try RecoveryPhrase(phrase: phrase)
+        }
+    }
 }
 
 struct RecoveryPhraseService {
     private static let recoveryPhraseKey = "CCD.RecoveryPhrase"
     private let keychainWrapper: KeychainWrapperProtocol
+    private let mobileWallet: SeedMobileWalletProtocol
     
-    init(keychainWrapper: KeychainWrapperProtocol) {
+    init(
+        keychainWrapper: KeychainWrapperProtocol,
+        mobileWallet: SeedMobileWalletProtocol
+    ) {
         self.keychainWrapper = keychainWrapper
+        self.mobileWallet = mobileWallet
     }
 }
 
-extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {}
+extension RecoveryPhraseService: RecoveryPhraseServiceProtocol {
+    func store(recoveryPhrase: RecoveryPhrase, with pwHash: String) throws -> Seed {
+        try mobileWallet.store(recoveryPhrase: recoveryPhrase, with: pwHash).get()
+    }
+}
 
 private extension RandomAccessCollection where Element: Equatable {
     func randomSequence(ofLength length: Int, skipping elements: Element...) -> [Element] {

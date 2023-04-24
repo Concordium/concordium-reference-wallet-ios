@@ -72,8 +72,8 @@ private struct WordContainer: View {
             }.padding(12)
             VStack {
                 Image("reveal")
-                Text(verbatim: state.hiddenMessage)
-                    .multilineTextAlignment(.center)
+                StyledLabel(text: state.hiddenMessage, style: .mono, color: Pallette.fadedText)
+                    .padding([.leading, .trailing], 16)
             }.opacity(state.areWordsShown ? 0 : 1)
         }
         .background(
@@ -156,7 +156,7 @@ struct RecoveryPhraseCopyPhraseView_Previews: PreviewProvider {
         RecoveryPhraseCopyPhraseView(
             viewModel: .init(
                 title: "Please write all 24 words down in the right order.",
-                recoveryPhrase: .hidden(message: "Tap to reveal your secret recovery phrase. Make sure noone else can see it."),
+                recoveryPhrase: .hidden(message: "Tap to reveal your secret recovery phrase. Make sure no one else can see it."),
                 copyValidationTitle: "I confirm I have written down my 24 word secret recovery phrase.",
                 hasCopiedPhrase: false,
                 buttonTitle: "Continue"

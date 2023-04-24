@@ -5,29 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array>
-				<string>icon-22-29.png</string>
-				<string>icon-44-58.png</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Concordium ID File</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>com.concordium.id.concordiumwallet</string>
-			</array>
-			<key>NSExportableTypes</key>
-			<array>
-				<string>com.concordium.id.concordiumwallet</string>
-			</array>
-		</dict>
-	</array>
+	<array/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -98,29 +76,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Concordium ID File</string>
-			<key>UTTypeIconFiles</key>
-			<array/>
-			<key>UTTypeIdentifier</key>
-			<string>com.concordium.id.concordiumwallet</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<string>concordiumwallet</string>
-				<key>public.mime-type</key>
-				<array>
-					<string>application/octet-stream</string>
-				</array>
-			</dict>
-		</dict>
-	</array>
 </dict>
 </plist>

@@ -72,6 +72,12 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                     var account = $0
                     account.transactionStatus = data.status
                 }
+                if data.status == .finalized {
+                    let recipientEntity = RecipientEntity(name: account.displayName, address: account.address)
+                    do {
+                        try self.storageManager.storeRecipient(recipientEntity)
+                    } catch {}
+                }
             })
             .eraseToAnyPublisher()
     }
@@ -302,7 +308,10 @@ class AccountsService: AccountsServiceProtocol, SubmissionStatusService {
                 _ = try? self.storageManager.storeShieldedAmount(amount: shieldedAmount)
             }
             if submissionStatus.status == .finalized {
-                self.storageManager.removeTransfer(transfer)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.storageManager.removeTransfer(transfer)
+                }
+                
                 return nil
             } else {
                 return transfer.withUpdated(cost: submissionStatus.cost,

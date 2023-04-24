@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 class IdentityProviderWebViewFactory {
-    class func create(with presenter: IdentityProviderWebViewPresenter) -> IdentityProviderWebViewViewController {
+    class func create(with presenter: IdentityProviderWebViewPresenterProtocol) -> IdentityProviderWebViewViewController {
         IdentityProviderWebViewViewController.instantiate(fromStoryboard: "Identity") {coder in
             return IdentityProviderWebViewViewController(coder: coder, presenter: presenter)
         }

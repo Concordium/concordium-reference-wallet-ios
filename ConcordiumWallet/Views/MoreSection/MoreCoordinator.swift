@@ -9,7 +9,7 @@ import Combine
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate { }
 
-class MoreCoordinator: Coordinator, ShowAlert {
+class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
     
     var childCoordinators = [Coordinator]()
@@ -17,6 +17,7 @@ class MoreCoordinator: Coordinator, ShowAlert {
     private var dependencyProvider: DependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
+    private var accountsCoordinator: AccountsCoordinator?
     
     weak var delegate: MoreCoordinatorDelegate?
     
@@ -29,7 +30,6 @@ class MoreCoordinator: Coordinator, ShowAlert {
         self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
                                           storageManager: dependencyProvider.storageManager())
         sanityChecker.errorDisplayer = self
-        sanityChecker.delegate = self
         sanityChecker.coordinator = self
     }
 
@@ -56,7 +56,6 @@ class MoreCoordinator: Coordinator, ShowAlert {
     
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(delegate: self))
-        vc.tabBarItem = UITabBarItem(title: "more_tab_title".localized, image: UIImage(named: "tab_bar_other_icon"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }
 
@@ -85,26 +84,26 @@ class MoreCoordinator: Coordinator, ShowAlert {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    // MARK: Import
-    func showImport() {
-        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
-        let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
-        vc.title = initialAccountPresenter.type.getViewModel().title
-        navigationController.pushViewController(vc, animated: true)
-    }
+//    // MARK: Import
+//    func showImport() {
+//        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
+//        let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
+//        vc.title = initialAccountPresenter.type.getViewModel().title
+//        navigationController.pushViewController(vc, animated: true)
+//    }
+//    
+//    // MARK: Export
+//    func showExport() {
+//        navigationController.popToRootViewController(animated: false)
+//        let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
+//        navigationController.pushViewController(vc, animated: true)
+//    }
     
-    // MARK: Export
-    func showExport() {
-        navigationController.popToRootViewController(animated: false)
-        let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showValidateIdsAndAccounts() {
-        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
-                                              keychainWrapper: dependencyProvider.keychainWrapper(),
-                                              mode: .manual)
-    }
+//    func showValidateIdsAndAccounts() {
+//        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
+//                                              keychainWrapper: dependencyProvider.keychainWrapper(),
+//                                              mode: .manual)
+//    }
 
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(navigationController: TransparentNavigationController(),
@@ -138,27 +137,54 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     func identitiesSelected() {
         showIdentities()
     }
+    
     func addressBookSelected() {
         showAddressBook()
-    }
-
-    func importSelected() {
-        showImport()
-    }
-    
-    func exportSelected() {
-        showExport()
     }
     
     func updateSelected() {
         showUpdatePasscode()
     }
     
+    func recoverySelected() async throws {
+        
+        let pwHash = try await self.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        let seedValue = try dependencyProvider.keychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
+        
+        let presenter = IdentityRecoveryStatusPresenter(
+            recoveryPhrase: nil,
+            recoveryPhraseService: nil,
+            seed: Seed(value: seedValue),
+            pwHash: pwHash,
+            identitiesService: dependencyProvider.seedIdentitiesService(),
+            accountsService: dependencyProvider.seedAccountsService(),
+            keychain: dependencyProvider.keychainWrapper(),
+            delegate: self
+        )
+        
+        replaceTopController(with: presenter.present(IdentityReccoveryStatusView.self))
+    }
+    
+    private func replaceTopController(with controller: UIViewController) {
+        let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
+        navigationController.setViewControllers(viewControllers + [controller], animated: true)
+    }
+    
+    func showMainTabbar() {
+        navigationController.setupBaseNavigationControllerStyle()
+
+        accountsCoordinator = AccountsCoordinator(
+            navigationController: self.navigationController,
+            dependencyProvider: ServicesProvider.defaultProvider(),
+            appSettingsDelegate: self,
+            accountsPresenterDelegate: self
+        )
+        // accountsCoordinator?.delegate = self
+        accountsCoordinator?.start()
+    }
+    
     func aboutSelected() {
         showAbout()
-    }
-    func validateIdsAndAccountsSelected() {
-        showValidateIdsAndAccounts()
     }
 }
 
@@ -217,6 +243,12 @@ extension MoreCoordinator: UpdatePasswordCoordinatorDelegate {
     func passcodeChanged() {
         navigationController.popViewController(animated: false)
         childCoordinators.removeAll(where: { $0 is UpdatePasswordCoordinator })
+        let options = AlertOptions(title: "",
+                                 message: "more.update.successfully".localized,
+                                 actions: [AlertAction(name: "ok".localized,
+                                                       completion: {},
+                                                       style: .default)] )
+        showAlert(with: options)
     }
 }
 
@@ -263,7 +295,7 @@ extension MoreCoordinator: ExportPresenterDelegate {
 
 extension MoreCoordinator: AboutPresenterDelegate {}
 
-extension MoreCoordinator: ImportExport {}
+//extension MoreCoordinator: ImportExport {}
 
 extension MoreCoordinator: IdentitiesCoordinatorDelegate {
     
@@ -275,5 +307,61 @@ extension MoreCoordinator: IdentitiesCoordinatorDelegate {
         self.childCoordinators.removeAll { coordinator in
             coordinator is CreateExportPasswordCoordinator
         }
+    }
+}
+
+extension MoreCoordinator: IdentityRecoveryStatusPresenterDelegate {
+    func identityRecoveryCompleted() {
+        showMainTabbar()
+        childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
+    }
+    
+    func reenterRecoveryPhrase() {
+        print("Reenter recovery phrase.")
+    }
+}
+
+extension MoreCoordinator: AppSettingsDelegate {
+    func checkForAppSettings() {
+    }
+}
+
+extension MoreCoordinator: AccountsPresenterDelegate {
+    func createNewIdentity() {
+        accountsCoordinator?.showCreateNewIdentity()
+    }
+
+    func createNewAccount() {
+        accountsCoordinator?.showCreateNewAccount()
+    }
+    
+    func userPerformed(action: AccountCardAction, on account: AccountDataType) {
+        accountsCoordinator?.userPerformed(action: action, on: account)
+    }
+
+    func enableShielded(on account: AccountDataType) {
+    }
+
+    func noValidIdentitiesAvailable() {
+    }
+
+    func tryAgainIdentity() {
+    }
+
+    func didSelectMakeBackup() {
+    }
+
+    func didSelectPendingIdentity(identity: IdentityDataType) {
+    }
+
+    func newTermsAvailable() {
+        accountsCoordinator?.showNewTerms()
+    }
+    
+    func showSettings() {
+        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+                                              dependencyProvider: ServicesProvider.defaultProvider(),
+                                              parentCoordinator: self)
+        moreCoordinator.start()
     }
 }

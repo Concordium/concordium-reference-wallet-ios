@@ -19,9 +19,15 @@ enum AccountDetailsFlowEntryPoint {
     case send
     case receive
     case enableShielded
+    case earn
 }
 
-class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
+class AccountDetailsCoordinator: Coordinator,
+                                 RequestPasswordDelegate,
+                                 EarnPresenterDelegate,
+                                 DelegationOnboardingCoordinatorDelegate,
+                                 DelegationStatusPresenterDelegate
+{
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: AccountDetailsDelegate?
 
@@ -58,6 +64,8 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
             showAccountAddressQR()
         case .enableShielded:
             showEnableShielding()
+        case .earn:
+            showEarn(account: account)
         }
     }
     
@@ -67,6 +75,71 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showEarn(account: AccountDataType) {
+        if account.baker == nil && account.delegation == nil {
+            let presenter = EarnPresenter(account: account, delegate: self)
+            navigationController.pushViewController(presenter.present(EarnView.self), animated: true)
+        } else if account.baker != nil {
+            let bakingCoordinator = BakingCoordinator(
+                navigationController: BaseNavigationController(),
+                dependencyProvider: dependencyProvider,
+                account: account,
+                parentCoordinator: self)
+            bakingCoordinator.start()
+            childCoordinators.append(bakingCoordinator)
+            navigationController.present(bakingCoordinator.navigationController, animated: true)
+            self.navigationController.popViewController(animated: false)
+        } else if account.delegation != nil {
+            let coordinator = DelegationCoordinator(navigationController: BaseNavigationController(),
+                                                              dependencyProvider: dependencyProvider ,
+                                                              account: account,
+                                                              parentCoordinator: self)
+            coordinator.showStatus()
+            childCoordinators.append(coordinator)
+            navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+        }
+    }
+    
+    func baker() {
+        let bakingCoordinator = BakingCoordinator(
+            navigationController: BaseNavigationController(),
+            dependencyProvider: dependencyProvider,
+            account: account,
+            parentCoordinator: self)
+        bakingCoordinator.start()
+        childCoordinators.append(bakingCoordinator)
+        navigationController.present(bakingCoordinator.navigationController, animated: true)
+        self.navigationController.popViewController(animated: false)
+    }
+     
+    func delegation() {
+        self.navigationController.popViewController(animated: false)
+        let onboardingDelegator = DelegationOnboardingCoordinator(navigationController: navigationController,
+                                                                  parentCoordinator: self,
+                                                                  mode: .register)
+        childCoordinators.append(onboardingDelegator)
+        onboardingDelegator.start()
+    }
+
+    func finished(mode: DelegationOnboardingMode) {
+        self.navigationController.popViewController(animated: false)
+        let coordinator = DelegationCoordinator(navigationController: BaseNavigationController(),
+                                                          dependencyProvider: dependencyProvider,
+                                                          account: account,
+                                                          parentCoordinator: self)
+        coordinator.showPoolSelection(dataHandler: DelegationDataHandler(account: account, isRemoving: false))
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+    }
+
+    func pressedDismiss() {
+        navigationController.dismiss(animated: false)
+    }
+
+    func closed() {
+        self.navigationController.popViewController(animated: true)
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
@@ -118,33 +191,6 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showBurgerMenuOverlay(account: AccountDataType,
-                               balanceType: AccountBalanceTypeEnum,
-                               showsDecrypt: Bool,
-                               burgerMenuDismissDelegate: BurgerMenuAccountDetailsDismissDelegate,
-                               showShieldedDelegate: ShowShieldedDelegate) {
-        let presenter = BurgerMenuAccountDetailsPresenter(
-            delegate: self,
-            account: account,
-            balance: balanceType,
-            showsDecrypt: showsDecrypt,
-            dismissDelegate: burgerMenuDismissDelegate,
-            showShieldedDelegate: showShieldedDelegate,
-            dependencyProvider: dependencyProvider
-        )
-        
-        let vc = BurgerMenuFactory.create(with: presenter)
-        vc.modalPresentationStyle = .overFullScreen
-        presenter.view = vc
-        let keyWindow = UIApplication.shared.connectedScenes
-            .filter({$0.activationState == .foregroundActive})
-            .map({$0 as? UIWindowScene})
-            .compactMap({$0})
-            .first?.windows
-            .filter({$0.isKeyWindow}).first
-        keyWindow?.rootViewController?.present(vc, animated: false, completion: nil)
-    }
-    
     func showReleaseSchedule(account: AccountDataType) {
         let vc = ReleaseScheduleDataFactory.create(with: ReleaseSchedulePresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
@@ -170,6 +216,18 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true)
+    }
+    
+    func pressedStop(cost: GTU, energy: Int) {
+        
+    }
+    
+    func pressedRegisterOrUpdate() {
+        
+    }
+    
+    func pressedClose() {
+        
     }
 
     func showTransferFilters(account: AccountDataType) {
@@ -222,6 +280,50 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
 
         navigationController.pushViewController(onboardingCarouselViewController, animated: true)
     }
+    
+    func showExportPrivateKey(account: AccountDataType) {
+        let presenter = ExportPrivateKeyPresenter(account: account, delegate: self)
+        
+        navigationController.pushViewController(presenter.present(ExportPrivateKeyView.self), animated: true)
+    }
+    
+    func showExportTransactionLog(account: AccountDataType) {
+        let presenter = ExportTransactionLogPresenter(account: account, delegate: self)
+        navigationController.pushViewController(presenter.present(ExportTransactionLogView.self), animated: true)
+    }
+    
+    func renameAccount(account: AccountDataType) {
+        let alert = UIAlertController(title: "renameaccount.title".localized, message: "renameaccount.message".localized, preferredStyle: .alert)
+
+        alert.addTextField { (textField) in
+            textField.text = account.displayName
+        }
+
+        let saveAction = UIAlertAction(title: "renameaccount.save".localized, style: .default, handler: { [weak alert] (_) in
+            if let textField = alert?.textFields![0], let newName = textField.text, !newName.isEmpty {
+                do {
+                    try account.write {
+                        var mutableAccount = $0
+                        mutableAccount.name = newName
+                    }.get()
+                    if let recipient = self.dependencyProvider.storageManager().getRecipient(withAddress: account.address) {
+                        let newRecipient = RecipientEntity(name: newName, address: account.address)
+                        try self.dependencyProvider.storageManager().editRecipient(oldRecipient: recipient, newRecipient: newRecipient)
+                    }
+                    self.navigationController.viewControllers.last(where: { $0 is AccountDetailsViewController })?.title = newName
+                } catch {
+                    print("\(error.localizedDescription)")
+                }
+            }
+        })
+
+        let cancelAction = UIAlertAction(title: "renameaccount.cancel".localized, style: .cancel, handler: nil)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        navigationController.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
@@ -236,7 +338,11 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR()
     }
-    
+
+    func showEarn() {
+        showEarn(account: account)
+    }
+
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount account: AccountDataType) {
         var accountCopy = AccountDataTypeFactory.create()
         accountCopy.name = account.name
@@ -252,11 +358,8 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func accountDetailsShowBurgerMenu(_ accountDetailsPresenter: AccountDetailsPresenter,
                                       balanceType: AccountBalanceTypeEnum,
                                       showsDecrypt: Bool) {
-        self.showBurgerMenuOverlay(account: accountDetailsPresenter.account,
-                                   balanceType: balanceType,
-                                   showsDecrypt: showsDecrypt,
-                                   burgerMenuDismissDelegate: accountDetailsPresenter,
-                                   showShieldedDelegate: accountDetailsPresenter)
+        let presenter = AccountSettingsPresenter(account: account, delegate: self)
+        navigationController.pushViewController(presenter.present(AccountSettingsView.self), animated: true)
     }
     
     func transactionSelected(viewModel: TransactionViewModel) {
@@ -268,16 +371,21 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     }
 }
 
-extension AccountDetailsCoordinator: OnboardingCarouselPresenterDelegate {
+extension AccountDetailsCoordinator: ShowShieldedDelegate {
     func onboardingCarouselClosed() {
-        navigationController.popViewController(animated: true)
     }
 
     func onboardingCarouselSkiped() {
+        account = account.withShowShielded(true)
+        self.navigationController.popViewController(animated: false)
+        accountDetailsPresenter?.viewDidLoad()
         self.navigationController.popViewController(animated: true)
     }
 
     func onboardingCarouselFinished() {
+        account = account.withShowShielded(true)
+        self.navigationController.popViewController(animated: false)
+        accountDetailsPresenter?.viewDidLoad()
         self.navigationController.popViewController(animated: true)
     }
 }
@@ -310,38 +418,35 @@ extension AccountDetailsCoordinator: TransactionDetailPresenterDelegate {
     
 }
 
-extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
-    typealias Action = BurgerMenuAccountDetailsAction
-    func pressedOption(action: BurgerMenuAccountDetailsAction, account: AccountDataType) {
-        let keyWindow = UIApplication.shared.connectedScenes
-            .filter({$0.activationState == .foregroundActive})
-            .map({$0 as? UIWindowScene})
-            .compactMap({$0})
-            .first?.windows
-            .filter({$0.isKeyWindow}).first
-        
-        switch action {
-        case .releaseSchedule:
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            showReleaseSchedule(account: account)
-        case .transferFilters:
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            showTransferFilters(account: account)
-        case .shieldedBalance(_, let shouldShow, let showShieldedDelegate):
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            // we only go to the onboarding flow if we should show the shielded balance
-            if shouldShow {
-                showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
-            }
-        case .delegation:
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            showDelegation()
-        case .baking:
-            keyWindow?.rootViewController?.dismiss(animated: false)
-            showBaking()
-        case .decrypt, .dismiss:
-            keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-        }
+extension AccountDetailsCoordinator: AccountSettingsPresenterDelegate {
+    func transferFiltersTapped() {
+        showTransferFilters(account: account)
+    }
+
+    func releaseScheduleTapped() {
+        showReleaseSchedule(account: account)
+    }
+    
+    func showShieldedTapped() {
+        showShieldedBalanceOnboarding(showShieldedDelegate: self)
+    }
+    
+    func hideShieldedTapped() {
+        account = account.withShowShielded(false)
+        accountDetailsPresenter?.viewDidLoad()
+        self.navigationController.popViewController(animated: true)
+    }
+    
+    func exportPrivateKeyTapped() {
+        showExportPrivateKey(account: account)
+    }
+    
+    func exportTransactionLogTapped() {
+        showExportTransactionLog(account: account)
+    }
+    
+    func renameAccountTapped() {
+        renameAccount(account: account)
     }
 }
 
@@ -358,5 +463,25 @@ extension AccountDetailsCoordinator: BakingCoordinatorDelegate {
         navigationController.dismiss(animated: true)
         self.childCoordinators.removeAll { $0 is BakingCoordinator }
         refreshTransactionList()
+    }
+}
+
+extension AccountDetailsCoordinator: ExportPrivateKeyPresenterDelegate {
+    func finishedExportingPrivateKey() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func shareExportedFile(url: URL, completion: @escaping (Bool) -> Void) {
+        share(items: [url], from: navigationController, completion: completion)
+    }
+}
+
+extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
+    func saveTapped(url: URL, completion: @escaping (Bool) -> Void) {
+        share(items: [url], from: navigationController, completion: completion)
+    }
+    
+    func doneTapped() {
+        navigationController.popViewController(animated: true)
     }
 }

@@ -205,7 +205,7 @@ class TransactionDetailViewController: BaseViewController, TransactionDetailView
             let title = "accountDetails.blockHash".localized
             let value = blockHashValue
             var displayValue = value
-            if value.count > 8 { // Value can be "Failed", otherwise cut first 8 chars from blockhash.
+            if value.count > 9 { // Value can be "Failed", otherwise cut first 8 chars from blockhash.
                 displayValue = String(value[..<value.index(value.startIndex, offsetBy: 8)])
             }
             let displayVM = TransactionDetailItemViewModel(title: title, value: value, displayValue: displayValue)

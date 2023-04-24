@@ -64,10 +64,20 @@ class DelegationPoolViewModel {
     }()
     
     static let bakerBottomMessage: NSAttributedString = {
-        "delegation.pool.bottommessage.baker"
-            .localized
+        var stakingLink: String {
+            #if MAINNET
+            if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+                return "delegation.pool.testnetstakinglink".localized
+            }
+            return "delegation.pool.mainnetstakinglink".localized
+            #else
+            return "delegation.pool.testnetstakinglink".localized
+            #endif
+        }
+        
+        return String(format: "delegation.pool.bottommessage.baker".localized, stakingLink)
             .stringWithHighlightedLinks(
-                ["developer.concordium.software": "https://developer.concordium.software/en/mainnet/net/concepts/concepts-delegation.html"]
+                [stakingLink: stakingLink]
             )
     }()
     
@@ -253,8 +263,10 @@ class DelegationPoolSelectionPresenter: DelegationPoolSelectionPresenterProtocol
     }
     
     private func shouldShowPoolSizeWarning(response: BakerPoolResponse) -> Bool {
-        // The alert should only be shown if you are not currently in cooldown
-        guard let delegation = self.account.delegation, delegation.pendingChange?.change == .NoChange else {
+        // The alert should only be shown if you are not currently in cooldown and bakerId is different
+        guard let delegation = self.account.delegation,
+              delegation.pendingChange?.change == .NoChange,
+              delegation.delegationTargetBakerID.string != viewModel.bakerId else {
             return false
         }
         

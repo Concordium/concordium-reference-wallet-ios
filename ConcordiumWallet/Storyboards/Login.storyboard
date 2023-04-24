@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,14 +15,14 @@
             <objects>
                 <viewController storyboardIdentifier="EnterPasswordViewController" id="L41-Q7-fYr" customClass="EnterPasswordViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tFw-is-USo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="concordium_prism_background" translatesAutoresizingMaskIntoConstraints="NO" id="elr-9S-ua5">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Note: you will not be able to recover your account keys if this passcode is lost!]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="nb5-2V-0mH" customClass="LoginWarningLabel" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="20" y="261" width="280" height="61"/>
+                                <rect key="frame" x="20" y="308" width="350" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="43" id="Ex0-LX-xzy"/>
                                 </constraints>
@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Select a 6-digit passcode to secure your wallet.]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="UJG-07-GO3" customClass="LoginInfoLabel" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="50" y="60" width="220" height="55"/>
+                                <rect key="frame" x="50" y="107" width="290" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="55" id="Cpi-xu-iae"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="FeZ-qB-ZEW"/>
@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-LM-BsX" customClass="LoginErrorLabel" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="15" y="135" width="290" height="36"/>
+                                <rect key="frame" x="15" y="182" width="360" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Oqb-g4-Wrm"/>
                                 </constraints>
@@ -52,7 +52,7 @@ Please try again</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBK-SI-obb" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="10" y="410" width="300" height="50"/>
+                                <rect key="frame" x="10" y="740" width="370" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Zm6-HN-qx7"/>
@@ -68,7 +68,7 @@ Please try again</string>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzM-0l-Pwn">
-                                <rect key="frame" x="0.0" y="181" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="228" width="390" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="gEv-fg-xWq"/>
                                 </constraints>
@@ -77,7 +77,7 @@ Please try again</string>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uln-a0-lso" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="10" y="410" width="300" height="50"/>
+                                <rect key="frame" x="10" y="740" width="370" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="sbs-lD-AKK"/>
@@ -93,7 +93,7 @@ Please try again</string>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="xW0-tr-peB">
-                                <rect key="frame" x="141.5" y="134.5" width="37" height="37"/>
+                                <rect key="frame" x="176.66666666666666" y="181.66666666666666" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
@@ -209,7 +209,7 @@ Please try again</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ1-bn-cNp">
-                                <rect key="frame" x="96.5" y="7" width="11" height="21"/>
+                                <rect key="frame" x="96.666666666666671" y="7" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="whiteText"/>
                                 <nil key="highlightedColor"/>
@@ -227,19 +227,19 @@ Please try again</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wzr-Lf-YP8">
-                                <rect key="frame" x="222.5" y="7" width="11" height="21"/>
+                                <rect key="frame" x="222.66666666666666" y="7" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="whiteText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-od-juJ">
-                                <rect key="frame" x="264.5" y="7" width="11" height="21"/>
+                                <rect key="frame" x="264.66666666666669" y="7" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="whiteText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNd-7q-de9">
-                                <rect key="frame" x="306.5" y="7" width="11" height="21"/>
+                                <rect key="frame" x="306.66666666666669" y="7" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="whiteText"/>
                                 <nil key="highlightedColor"/>
@@ -254,7 +254,7 @@ Please try again</string>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YP0-sn-p82">
-                                <rect key="frame" x="76.5" y="0.0" width="261" height="35"/>
+                                <rect key="frame" x="76.666666666666686" y="0.0" width="261" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="i3W-Tn-ja6"/>
                                 </constraints>
@@ -321,7 +321,7 @@ Please try again</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Fx-zd-ZhZ" userLabel="PasswordField">
-                                <rect key="frame" x="70" y="0.0" width="274" height="34"/>
+                                <rect key="frame" x="70" y="47" width="274" height="34"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="i3P-9B-IW9"/>
@@ -331,7 +331,7 @@ Please try again</string>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7G-Tx-4Ys" userLabel="View1">
-                                <rect key="frame" x="70" y="44" width="274" height="1"/>
+                                <rect key="frame" x="70" y="91" width="274" height="1"/>
                                 <color key="backgroundColor" name="fadedText"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="olF-Zg-9nV"/>
@@ -365,11 +365,11 @@ Please try again</string>
             <objects>
                 <viewController storyboardIdentifier="UpdatePasswordViewController" id="jSB-b7-VPY" customClass="UpdatePasswordViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mg8-cb-LWD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ejt-hX-Wvx">
-                                <rect key="frame" x="25" y="176" width="270" height="128"/>
+                                <rect key="frame" x="25" y="316" width="340" height="225"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them. </string>
                                 <color key="textColor" name="fadedText"/>
@@ -377,7 +377,7 @@ Please try again</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cr-P8-SXD" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="10" y="410" width="300" height="50"/>
+                                <rect key="frame" x="10" y="740" width="370" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Rsb-fE-K9b"/>
@@ -419,14 +419,14 @@ Please try again</string>
             <objects>
                 <viewController storyboardIdentifier="BiometricsEnablingViewController" id="N0R-V7-CiN" customClass="BiometricsEnablingViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fOx-A6-30Q">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="concordium_prism_background" translatesAutoresizingMaskIntoConstraints="NO" id="fem-Uh-RVG">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="faceid" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wz7-OB-BdY">
-                                <rect key="frame" x="82" y="162.5" width="156" height="154.5"/>
+                                <rect key="frame" x="117" y="345.33333333333331" width="156" height="154"/>
                                 <color key="tintColor" name="whiteText"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="U41-iE-WsC"/>
@@ -434,7 +434,7 @@ Please try again</string>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyz-kV-tML" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="15" y="410" width="290" height="50"/>
+                                <rect key="frame" x="15" y="760" width="360" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Nti-8F-oVI"/>
@@ -447,7 +447,7 @@ Please try again</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLk-eL-ZIT" customClass="BaseButton" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="96" y="365" width="128" height="30"/>
+                                <rect key="frame" x="131" y="715" width="128" height="30"/>
                                 <state key="normal" title="[Continue without]">
                                     <color key="titleColor" name="primary"/>
                                 </state>
@@ -459,7 +459,7 @@ Please try again</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBw-4l-oA3" customClass="LoginInfoLabel" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16.5" y="71" width="287.5" height="41"/>
+                                <rect key="frame" x="51.333333333333343" y="253.33333333333334" width="287.66666666666663" height="40.666666666666657"/>
                                 <string key="text">[Enable faceId for more convenient 
 login]</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -501,11 +501,11 @@ login]</string>
             <objects>
                 <viewController storyboardIdentifier="TermsAndConditionsViewController" id="zfl-R3-S0W" customClass="TermsAndConditionsViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ygT-48-cIv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Terms and conditions]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRa-y1-76e">
-                                <rect key="frame" x="20" y="0.0" width="280" height="24"/>
+                                <rect key="frame" x="20" y="47" width="350" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" name="primary"/>
                                 <nil key="highlightedColor"/>
@@ -514,19 +514,19 @@ login]</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JmN-EX-A5H">
-                                <rect key="frame" x="0.0" y="34" width="320" height="446"/>
+                                <rect key="frame" x="0.0" y="81" width="390" height="729"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PND-Js-7Up" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="112"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Terms]" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpP-Bz-odh">
-                                                <rect key="frame" x="15" y="15" width="290" height="17"/>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="[Terms]" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpP-Bz-odh">
+                                                <rect key="frame" x="15" y="15" width="360" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" name="fadedText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZK-0o-WCh" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="52" width="290" height="50"/>
+                                                <rect key="frame" x="15" y="52" width="360" height="50"/>
                                                 <color key="backgroundColor" name="primary"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="1zU-2E-qcf"/>
@@ -588,19 +588,19 @@ login]</string>
     </scenes>
     <designables>
         <designable name="4ZK-0o-WCh">
-            <size key="intrinsicContentSize" width="238" height="30"/>
+            <size key="intrinsicContentSize" width="99" height="30"/>
         </designable>
         <designable name="9cr-P8-SXD">
-            <size key="intrinsicContentSize" width="200" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="CBK-SI-obb">
-            <size key="intrinsicContentSize" width="220" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="iyz-kV-tML">
             <size key="intrinsicContentSize" width="108" height="30"/>
         </designable>
         <designable name="uln-a0-lso">
-            <size key="intrinsicContentSize" width="275" height="30"/>
+            <size key="intrinsicContentSize" width="187" height="30"/>
         </designable>
     </designables>
     <resources>

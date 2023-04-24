@@ -17,3 +17,27 @@ func newJSONEncoder() -> JSONEncoder {
     }
     return encoder
 }
+
+extension Encodable {
+    func encodeToString(encoder: JSONEncoder = newJSONEncoder(), encoding: String.Encoding = .utf8) throws -> String {
+        guard let string = String(data: try encoder.encode(self), encoding: encoding) else {
+            throw GeneralError.unexpectedNullValue
+        }
+        
+        return string
+    }
+}
+
+extension Decodable {
+    static func decodeFromSring(
+        _ string: String,
+        decoder: JSONDecoder = newJSONDecoder(),
+        encoding: String.Encoding = .utf8
+    ) throws -> Self {
+        guard let data = string.data(using: encoding) else {
+            throw GeneralError.unexpectedNullValue
+        }
+        
+        return try decoder.decode(Self.self, from: data)
+    }
+}

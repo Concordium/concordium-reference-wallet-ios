@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -21,10 +21,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rah-qW-lHM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuItemCellView" rowHeight="60" id="CdD-cT-b8B" customClass="MenuItemCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CdD-cT-b8B" id="fdH-cz-Q55">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -349,7 +349,7 @@ The exported data includes private keys which give access to your identities and
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIn-MP-E05" userLabel="SupportTitle">
-                                                <rect key="frame" x="25" y="30" width="62" height="20.333333333333329"/>
+                                                <rect key="frame" x="25" y="30" width="71" height="24"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
@@ -358,14 +358,14 @@ The exported data includes private keys which give access to your identities and
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="If you encountered a problem, or need help with something, you can reach out to us via support@concordium.software" translatesAutoresizingMaskIntoConstraints="NO" id="aEu-nm-C2l" userLabel="SupportText">
-                                                <rect key="frame" x="25" y="58.333333333333343" width="364" height="73"/>
+                                                <rect key="frame" x="25" y="62" width="364" height="82"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" name="fadedText"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSE-qQ-4qg" userLabel="ContactTitle">
-                                                <rect key="frame" x="24.999999999999996" y="171.33333333333334" width="61.666666666666657" height="20.333333333333343"/>
+                                                <rect key="frame" x="25" y="184" width="71.333333333333329" height="24"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
@@ -374,7 +374,7 @@ The exported data includes private keys which give access to your identities and
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTP-hx-eoh" userLabel="ContactText">
-                                                <rect key="frame" x="25" y="199.66666666666666" width="364" height="72.999999999999972"/>
+                                                <rect key="frame" x="25" y="216" width="364" height="82"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <string key="text">For more info about Concordium you can visit  
 concordium.com</string>
@@ -383,7 +383,7 @@ concordium.com</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-Jn-SR8">
-                                                <rect key="frame" x="25" y="312.66666666666669" width="92" height="20.333333333333314"/>
+                                                <rect key="frame" x="25" y="338" width="106" height="24"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
@@ -392,7 +392,7 @@ concordium.com</string>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x.x.x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fef-Ow-gPa">
-                                                <rect key="frame" x="25" y="341" width="364" height="18"/>
+                                                <rect key="frame" x="25" y="370" width="364" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" name="fadedText"/>
                                                 <nil key="highlightedColor"/>
@@ -452,14 +452,14 @@ concordium.com</string>
     </scenes>
     <designables>
         <designable name="0zv-VA-uW2">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="krx-rP-ALL">
-            <size key="intrinsicContentSize" width="157" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
     </designables>
     <resources>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="confirm" width="195" height="195"/>
         <image name="import_pending" width="110" height="110"/>
         <namedColor name="barButton">

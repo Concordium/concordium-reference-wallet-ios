@@ -11,6 +11,7 @@ protocol IdentityProviderDataType: AnyObject {
     var arsInfos: [String: ArsInfo]? { get set }
     var icon: String { get set }
     var issuanceStartURL: String { get set }
+    var recoveryStartURL: String? { get set }
     var support: String? { get set }
     init(ipData: IPInfoResponseElement)
 }
@@ -26,6 +27,7 @@ class IdentityProviderEntity: Object {
     @objc dynamic var arsInfosJson: String = ""
     @objc dynamic var icon: String = ""
     @objc dynamic var issuanceStartURL: String = ""
+    @objc dynamic var recoveryStartURL: String?
     @objc dynamic var support: String? = ""
 
     required convenience init(ipData: IPInfoResponseElement) {
@@ -34,6 +36,7 @@ class IdentityProviderEntity: Object {
         self.arsInfos = ipData.arsInfos
         self.icon = ipData.metadata.icon
         self.issuanceStartURL = ipData.metadata.issuanceStart
+        self.recoveryStartURL = ipData.metadata.recoveryStart
         self.support = ipData.metadata.support
     }
 }

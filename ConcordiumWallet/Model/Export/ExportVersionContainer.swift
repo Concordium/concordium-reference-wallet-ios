@@ -16,6 +16,9 @@ struct ExportVersionContainer: Codable {
 
 private func currentEnvironemt() -> String {
     #if MAINNET
+    if UserDefaults.bool(forKey: "demomode.userdefaultskey".localized) == true {
+        return "testnet"
+    }
     return "mainnet"
     #elseif TESTNET
     return "testnet"

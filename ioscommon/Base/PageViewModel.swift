@@ -8,6 +8,7 @@
 
 import Combine
 
+@MainActor
 class PageViewModel<Event>: ObservableObject, PageModel, EventHandler {
     @Published var navigationTitle: String?
     

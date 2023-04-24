@@ -9,7 +9,8 @@ import RealmSwift
 protocol StorageManagerProtocol {
     func storeIdentity(_: IdentityDataType) throws
     func getIdentities() -> [IdentityDataType]
-    func getIdentity(matching identityObject: IdentityObject) -> IdentityDataType?
+    func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType?
+    func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType?
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
@@ -83,11 +84,15 @@ enum StorageError: Error {
 }
 
 class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_body_length
-    private var realm: Realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+    private var realm: Realm
     private var keychain: KeychainWrapperProtocol
 
-    init(keychain: KeychainWrapperProtocol) {
+    init(
+        keychain: KeychainWrapperProtocol,
+        configuration: Realm.Configuration = RealmHelper.realmConfiguration
+    ) {
         self.keychain = keychain
+        self.realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }
@@ -98,26 +103,33 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         guard let identityEntity = identity as? IdentityEntity else {
             return
         }
+        
         try realm.write {
             realm.add(identityEntity)
         }
     }
 
     func getIdentities() -> [IdentityDataType] {
-        Array(realm.objects(IdentityEntity.self))
+        return Array(realm.objects(IdentityEntity.self))
     }
 
     // swiftlint:disable line_length
-    func getIdentity(matching identityObject: IdentityObject) -> IdentityDataType? {
+    func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType? {
         getIdentities().first { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub == identityObject.preIdentityObject.pubInfoForIP.idCredPub }
+    }
+    
+    func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType? {
+        getIdentities().first {
+            $0.seedIdentityObject?.preIdentityObject.idCredPub == seedIdentityObject.preIdentityObject.idCredPub
+        }
     }
 
     func getConfirmedIdentities() -> [IdentityDataType] {
-        Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.confirmed.rawValue)'"))
+        return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.confirmed.rawValue)'"))
     }
 
     func getPendingIdentities() -> [IdentityDataType] {
-        Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.pending.rawValue)'"))
+        return Array(realm.objects(IdentityEntity.self).filter("stateString == '\(IdentityState.pending.rawValue)'"))
     }
 
     func storePrivateIdObjectData(_ privateIdObjectData: PrivateIDObjectData, pwHash: String) -> Result<String, Error> {

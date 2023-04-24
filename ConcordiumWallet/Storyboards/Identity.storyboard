@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -58,7 +58,7 @@ You can pick one from the list below. To read more about them before deciding, c
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityProviderCell" rowHeight="95" id="xWx-nU-e5g" customClass="IdentityProviderCell" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="285.5" width="375" height="95"/>
+                                        <rect key="frame" x="0.0" y="291" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xWx-nU-e5g" id="rt4-4t-TUY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
@@ -151,6 +151,7 @@ You can pick one from the list below. To read more about them before deciding, c
                     <connections>
                         <outlet property="detailsTextView" destination="kSl-bC-Nj9" id="zYR-k4-EGH"/>
                         <outlet property="tableView" destination="b3S-ih-yUk" id="pzc-jw-Sei"/>
+                        <outlet property="titleLabel" destination="nql-yl-NFs" id="8Ad-Qv-xi8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lzy-In-Wvg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -402,14 +403,14 @@ How would you like to continue?]</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentityCell" id="z5F-8M-xsD" customClass="IdentityCell" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="375" height="221"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z5F-8M-xsD" id="FHV-qe-9m3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDA-GU-4dR" customClass="IdentityCardView" customModule="Mock" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="8" width="343" height="205"/>
+                                                    <rect key="frame" x="16" y="8" width="343" height="0.0"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
                                             </subviews>
@@ -547,15 +548,8 @@ How would you like to continue?]</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTh-XR-yZH">
                                 <rect key="frame" x="0.0" y="69" width="375" height="518"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIb-5q-Esl">
-                                        <rect key="frame" x="35" y="80" width="305" height="251"/>
-                                        <string key="text">[Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometrics. 
-
-It is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium will not be able to change your passcode or help you unlock your wallet if you lose your passcode.
-
-Similarly, if someone gets your passcode, they will be able to access your accounts.
-
-So remember to keep your passcode safe!]</string>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIb-5q-Esl">
+                                        <rect key="frame" x="35" y="80" width="305" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="text"/>
                                         <nil key="highlightedColor"/>
@@ -651,7 +645,7 @@ You can press continue to have a look at the app, while you wait.]</string>
                                     <constraint firstAttribute="height" constant="160" id="yyj-Dk-6fH"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQ8-TI-BZm" customClass="AccountCardView" customModule="Mock" customModuleProvider="target">
                                 <rect key="frame" x="20" y="376.5" width="335" height="139"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -691,22 +685,22 @@ You can press continue to have a look at the app, while you wait.]</string>
     </scenes>
     <designables>
         <designable name="MRM-MM-HP3">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="Sbp-1u-Y29">
-            <size key="intrinsicContentSize" width="162" height="30"/>
+            <size key="intrinsicContentSize" width="112" height="30"/>
         </designable>
         <designable name="XPb-gG-l6K">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="YIs-du-qey">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="h8Y-S7-jdl">
-            <size key="intrinsicContentSize" width="69" height="30"/>
+            <size key="intrinsicContentSize" width="85" height="30"/>
         </designable>
         <designable name="ilq-Bf-T4l">
-            <size key="intrinsicContentSize" width="186" height="30"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
     </designables>
     <resources>
@@ -731,7 +725,7 @@ You can press continue to have a look at the app, while you wait.]</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

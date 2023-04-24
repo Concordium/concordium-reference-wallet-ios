@@ -11,4 +11,8 @@ import UIKit
 
 class MenuItemCellView: UITableViewCell {
     @IBOutlet weak var menuItemTitleLabel: UILabel!
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        backgroundColor = highlighted ? UIColor(white: 0.85, alpha: 1.0) : .clear
+    }
 }

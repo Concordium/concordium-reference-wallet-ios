@@ -9,6 +9,7 @@ import Foundation
 struct Metadata: Codable {
     let support: String?
     let issuanceStart: String
+    let recoveryStart: String?
     let icon: String
 }
 
@@ -33,11 +34,13 @@ extension Metadata {
     func with(
         support: String?? = nil,
         issuanceStart: String? = nil,
+        recoveryStart: String? = nil,
         icon: String? = nil
     ) -> Metadata {
         return Metadata(
             support: support ?? self.support,
             issuanceStart: issuanceStart ?? self.issuanceStart,
+            recoveryStart: recoveryStart ?? self.recoveryStart,
             icon: icon ?? self.icon
         )
     }

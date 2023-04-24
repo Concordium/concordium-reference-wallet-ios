@@ -36,6 +36,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
     private var cancellables = Set<AnyCancellable>()
     private var stakeService: StakeServiceProtocol
     private var transactionService: TransactionsServiceProtocol
+    private var storageManager: StorageManagerProtocol
     let validator: StakeAmountInputValidator
     
     // swiftlint:disable function_body_length
@@ -50,6 +51,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
         self.bakerPoolResponse = bakerPoolResponse
         self.stakeService = dependencyProvider.stakeService()
         self.transactionService = dependencyProvider.transactionsService()
+        self.storageManager = dependencyProvider.storageManager()
     
         isInCooldown = self.account.delegation?.isInCooldown ?? false
         let newPool: PoolDelegationData? = dataHandler.getNewEntry()
@@ -165,6 +167,20 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self.viewModel.transactionFee = String(format: "stake.inputamount.transactionfee".localized, cost.displayValueWithGStroke())
             }
             .store(in: &cancellables)
+        
+        stakeService.getChainParameters()
+            .showLoadingIndicator(in: nil)
+            .sink { [weak self] error in
+                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            } receiveValue: { [weak self] chainParametersResponse in
+                let params = ChainParametersEntity(delegatorCooldown: chainParametersResponse.delegatorCooldown,
+                                                   poolOwnerCooldown: chainParametersResponse.poolOwnerCooldown)
+                do {
+                    _ = try self?.storageManager.updateChainParms(params)
+                } catch let error {
+                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                }
+            }.store(in: &cancellables)
         
         viewModel.gtuAmount(
             currentAmount: dataHandler.getCurrentEntry(DelegationAmountData.self)?.amount,

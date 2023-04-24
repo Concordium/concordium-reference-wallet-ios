@@ -21,7 +21,6 @@ protocol TransactionsFetcher {
 // MARK: View
 protocol AccountDetailsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountDetailsViewModel)
-    func showMenuButton(iconName: String)
 }
 
 // MARK: -
@@ -36,6 +35,7 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
+    func showEarn()
 
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
@@ -58,6 +58,7 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func gtuDropTapped()
     func burgerButtonTapped()
     func pressedUnlock()
+    func showEarn()
 
     func userSelectedIdentityData()
     func userSelectedGeneral()
@@ -115,9 +116,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     
     func getTitle() -> String {
         if balanceType == .shielded {
-            return self.account.displayName + " " + "accountDetails.generalshieldedbalance".localized
+            return self.account.displayName
         } else {
-            return self.account.displayName + " " + "accountDetails.generalbalance".localized
+            return self.account.displayName
         }
     }
     
@@ -223,6 +224,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             }).store(in: &cancellables)
     }
     
+    func showEarn() {
+        delegate?.showEarn()
+    }
+    
     func userTappedAddress() {
         delegate?.accountDetailsPresenterAddress(self)
         shouldRefresh = true
@@ -313,6 +318,14 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 }, receiveValue: { [weak self] (transactionsListFiltered, transactionListAll) in
                     guard let self = self else { return }
 
+                    // The old implementation
+//                    // Any changes since last auto update?
+//                    let equal = zip(transactionListAll, self.lastTransactionListAll)
+//                        .enumerated()
+//                        .filter { $1.0.details.transactionHash == $1.1.details.transactionHash && $1.0.status == $1.1.status }
+//                        .map { $1.0 }
+                    
+                    // The new implementation
                     // Any changes since last auto update?
                     let equalUnmapped = zip(transactionListAll, self.lastTransactionListAll)
                         .enumerated()

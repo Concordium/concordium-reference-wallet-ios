@@ -24,23 +24,38 @@ class IdentitiesService {
     }
     
     func createIdentityObjectRequest(on url: String, with idRequest: IDRequest) throws -> ResourceRequest {
-        let issuanceStartURL = URL(string: url)!
-
-        let originalParameters = issuanceStartURL.queryParameters
-        guard let idRequestString = try idRequest.jsonString() else {
+        return try createIdentityObjectRequest(
+            issuanceStartURL: url,
+            idRequestString: try idRequest.encodeToString(),
+            redirectURI: idRequest.redirectURI
+        )
+    }
+    
+    private func createIdentityObjectRequest(
+        issuanceStartURL: String,
+        idRequestString: String,
+        redirectURI: String
+    ) throws -> ResourceRequest {
+        guard let startURL = URL(string: issuanceStartURL),
+              let urlWithoutParams = startURL.urlWithoutParameters
+        else {
             throw GeneralError.unexpectedNullValue
         }
+        
+        let originalParameters = startURL.queryParameters
+        
         var parameters: [String: String] = [
             "response_type": "code",
-            "redirect_uri": idRequest.redirectURI,
+            "redirect_uri": redirectURI,
             "scope": "identity",
             "state": idRequestString
         ]
-        // To handle any present parameters in the original url
+        
         if let originalParameters = originalParameters {
             parameters = parameters.merging(originalParameters) { $1 }
         }
-        return ResourceRequest(url: issuanceStartURL.urlWithoutParameters!, parameters: parameters)
+        
+        return ResourceRequest(url: urlWithoutParams, parameters: parameters)
     }
     
     func getInitialAccountStatus(for account: AccountDataType) -> AnyPublisher<AccountSubmissionStatus, Error> {
@@ -93,22 +108,23 @@ class IdentitiesService {
             }
         }
         return networkManager.load(URLRequest(url: url))
-                .tryMap { (status: IdentityCreationStatus) in
+                .tryMap { (status: SeedIdentityCreationStatus) in
                     try self.parse(status: status, for: identity)
                 }
                 .eraseToAnyPublisher()
     }
 
-    private func parse(status: IdentityCreationStatus, for identity: IdentityDataType) throws -> IdentityDataType {
-        if status.status == .done, let identityObjectWrapper = status.token {
-//             return try addErrorMessage("ERROR", to: identity)
-            return try self.addIdentityObject(identityObjectWrapper, to: identity)
-        } else if status.status == .error, let errorMessage = status.detail {
-            return try addErrorMessage(errorMessage, to: identity)
-        } else  if status.status == .pending {
+    private func parse(status: SeedIdentityCreationStatus, for identity: IdentityDataType) throws -> IdentityDataType {
+        switch status {
+        case .pending:
             return identity
+        case .done(let identityWrapperShell):
+            return try self.addIdentityObject(identityWrapperShell, to: identity)
+        case .error(let detail):
+            return try addErrorMessage(detail, to: identity)
+        default:
+            throw NetworkError.invalidResponse
         }
-        throw NetworkError.invalidResponse
     }
 
     private func addErrorMessage(_ error: String, to identity: IdentityDataType) throws -> IdentityDataType {
@@ -118,12 +134,12 @@ class IdentitiesService {
         return identity.withUpdated(identityCreationError: error)
     }
 
-    private func addIdentityObject(_ identityObjectWrapper: IdentityWrapperShell, to identity: IdentityDataType) throws -> IdentityDataType {
-        let updatedIdentity = identity.withUpdated(identityObject: identityObjectWrapper.identityObject.value)
+    private func addIdentityObject(_ updateIdentityObject: UpdateIdentityObject, to identity: IdentityDataType) throws -> IdentityDataType {
+        let updatedIdentity = identity.withUpdated(seedIdentityObject: updateIdentityObject.identityObject.value)
         if let account = storageManager.getAccounts(for: updatedIdentity).first {
             _ = try account.write {
                 var account = $0
-                account.credential = identityObjectWrapper.credential.toCredential()
+//                account.credential = identityObjectWrapper.credential.toCredential()
                 account.transactionStatus = .finalized
             }.get()
             self.addAccountToRecipientList(account: account)

@@ -25,7 +25,7 @@ protocol IdentitiesPresenterProtocol: AnyObject {
     func createIdentitySelected()
 
     func cancel()
-    func refresh()
+    func refresh(pendingIdentity: IdentityDataType?)
 }
 
 /// Handle the shared logic between identities and chooseIdentities presenters
@@ -38,7 +38,7 @@ class IdentityGeneralPresenter: IdentitiesPresenterProtocol {
     func viewWillAppear() {
     }
 
-    func refresh() {
+    func refresh(pendingIdentity: IdentityDataType? = nil) {
     }
 
     func userSelectedIdentity(index: Int) {
@@ -59,6 +59,7 @@ class IdentityGeneralPresenter: IdentitiesPresenterProtocol {
     var identities = [IdentityDataType]() {
            didSet {
                self.viewModels = identities.compactMap(IdentityInfoViewModel.init)
+               self.view?.reloadView()
            }
        }
     
