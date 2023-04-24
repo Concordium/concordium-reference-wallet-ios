@@ -324,9 +324,6 @@ extension MoreCoordinator: IdentityRecoveryStatusPresenterDelegate {
 extension MoreCoordinator: AppSettingsDelegate {
     func checkForAppSettings() {
     }
-    func checkForLatestTermsAndConditions() {
-        
-    }
 }
 
 extension MoreCoordinator: AccountsPresenterDelegate {

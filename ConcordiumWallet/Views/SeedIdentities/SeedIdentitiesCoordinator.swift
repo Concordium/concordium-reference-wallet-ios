@@ -306,10 +306,7 @@ extension SeedIdentitiesCoordinator: IdentityRecoveryStatusPresenterDelegate {
 }
 
 extension SeedIdentitiesCoordinator: AppSettingsDelegate {
-    func checkForLatestTermsAndConditions() {
-        
-    }
-    
+
     func checkForAppSettings() {
     }
 }
