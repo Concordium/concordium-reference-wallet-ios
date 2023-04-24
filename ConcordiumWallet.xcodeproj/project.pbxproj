@@ -732,6 +732,11 @@
 		644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB67F25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB68025DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
+		6458C2D729F6F34C00CC363A /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2D629F6F34C00CC363A /* LoginCoordinatorTests.swift */; };
+		6458C2DA29F6F60700CC363A /* LoginCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2D929F6F60700CC363A /* LoginCoordinatorMock.swift */; };
+		6458C2DC29F725CB00CC363A /* TransServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DB29F725CB00CC363A /* TransServiceMock.swift */; };
+		6458C2DE29F7262800CC363A /* DependencyProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */; };
+		6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */; };
 		649C5E8129F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
 		649C5E8229F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
 		649C5E8329F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
@@ -781,7 +786,7 @@
 		64FD33CD2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
 		64FD33CE2602330B00563703 /* CredentialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FD33CA2602330B00563703 /* CredentialResponse.swift */; };
 		7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */; };
-		7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */; };
+		7F0573E924AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E024AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift */; };
 		7F0573EA24AC710C009517AD /* GTUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E224AC710C009517AD /* GTUTests.swift */; };
 		7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573E624AC710C009517AD /* TransactionsLoadingHandlerTests.swift */; };
 		7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0573EC24AC7173009517AD /* AttributesFormatterTests.swift */; };
@@ -2891,6 +2896,11 @@
 		642ED98F25F2334E00A09BB3 /* UpdatePasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordCoordinator.swift; sourceTree = "<group>"; };
 		644BB67225DFB4220086ED48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ConcordiumWallet/main.swift; sourceTree = "<group>"; };
 		644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConcordiumApplication.swift; path = ConcordiumWallet/ConcordiumApplication.swift; sourceTree = "<group>"; };
+		6458C2D629F6F34C00CC363A /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
+		6458C2D929F6F60700CC363A /* LoginCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorMock.swift; sourceTree = "<group>"; };
+		6458C2DB29F725CB00CC363A /* TransServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransServiceMock.swift; sourceTree = "<group>"; };
+		6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyProviderMock.swift; sourceTree = "<group>"; };
+		6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerMock.swift; sourceTree = "<group>"; };
 		649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsResponse.swift; sourceTree = "<group>"; };
 		649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		649C5E9529F6C65C00408948 /* WorkSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorkSans.ttf; sourceTree = "<group>"; };
@@ -2904,7 +2914,7 @@
 		64FD338E2601FBC400563703 /* Credential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		64FD33CA2602330B00563703 /* CredentialResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialResponse.swift; sourceTree = "<group>"; };
 		7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsServiceMockHelper.swift; sourceTree = "<group>"; };
-		7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderMockHelper.swift; sourceTree = "<group>"; };
+		7F0573E024AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsFlowCoordinatorDependencyProvider.swift; sourceTree = "<group>"; };
 		7F0573E224AC710C009517AD /* GTUTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTUTests.swift; sourceTree = "<group>"; };
 		7F0573E624AC710C009517AD /* TransactionsLoadingHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsLoadingHandlerTests.swift; sourceTree = "<group>"; };
 		7F0573EC24AC7173009517AD /* AttributesFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesFormatterTests.swift; sourceTree = "<group>"; };
@@ -4028,6 +4038,28 @@
 			path = Update;
 			sourceTree = "<group>";
 		};
+		6458C2D429F6F33100CC363A /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				6458C2D629F6F34C00CC363A /* LoginCoordinatorTests.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		6458C2D829F6F5F300CC363A /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */,
+				7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */,
+				7F0573E024AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift */,
+				6458C2D929F6F60700CC363A /* LoginCoordinatorMock.swift */,
+				6458C2DB29F725CB00CC363A /* TransServiceMock.swift */,
+				6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */,
+				6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		649C5E9429F6C65C00408948 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -4057,9 +4089,7 @@
 		7F0573DD24AC710C009517AD /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
-				8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */,
-				7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */,
-				7F0573E024AC710C009517AD /* DependencyProviderMockHelper.swift */,
+				6458C2D829F6F5F300CC363A /* Mocks */,
 				8992BA392823A8E0005279C9 /* NotYetImplemented.swift */,
 				89B34A762897E5790059891C /* Combine+TestHelpers.swift */,
 				896B41D728B3796B00D1F271 /* InMemoryKeychain.swift */,
@@ -4373,6 +4403,7 @@
 		7FF07A8223EADB1500F1FC04 /* ConcordiumWalletTests */ = {
 			isa = PBXGroup;
 			children = (
+				6458C2D429F6F33100CC363A /* Coordinators */,
 				89D081662861C7D20091344D /* Account */,
 				8992BA4A2823DF60005279C9 /* Staking */,
 				7F0573DD24AC710C009517AD /* HelperClasses */,
@@ -8126,7 +8157,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F0573E924AC710C009517AD /* DependencyProviderMockHelper.swift in Sources */,
+				6458C2DA29F6F60700CC363A /* LoginCoordinatorMock.swift in Sources */,
+				7F0573E924AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift in Sources */,
+				6458C2DE29F7262800CC363A /* DependencyProviderMock.swift in Sources */,
 				19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */,
 				8992BA4C2823DF6F005279C9 /* StakeDataHandlerTests.swift in Sources */,
 				896B41D828B3796B00D1F271 /* InMemoryKeychain.swift in Sources */,
@@ -8139,9 +8172,12 @@
 				89D081682861C82F0091344D /* BalanceTests.swift in Sources */,
 				891B1A0328A6393700F4B0D6 /* AwaitPublisherTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
+				6458C2DC29F725CB00CC363A /* TransServiceMock.swift in Sources */,
 				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
+				6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */,
 				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
 				896B41DA28B37B9B00D1F271 /* ConcordiumTestCase.swift in Sources */,
+				6458C2D729F6F34C00CC363A /* LoginCoordinatorTests.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,

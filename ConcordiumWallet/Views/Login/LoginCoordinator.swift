@@ -82,13 +82,14 @@ class LoginCoordinator: Coordinator {
         let version = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
         dependencyProvider.appSettingsService()
             .getTermsAndConditionsVersion()
-            .sink(receiveError: { error in
-                print(error)
+            .sink(receiveError: { _ in
             }, receiveValue: { [weak self] termsAndConditions in
-                if passwordCreated && termsAndConditions.version == version {
-                    self?.showLogin()
-                } else {
+                if passwordCreated {
                     self?.show(termsAndConditions: termsAndConditions)
+                } else if termsAndConditions.version != version {
+                    self?.show(termsAndConditions: termsAndConditions)
+                } else {
+                    self?.showLogin()
                 }
             })
             .store(in: &cancellables)
