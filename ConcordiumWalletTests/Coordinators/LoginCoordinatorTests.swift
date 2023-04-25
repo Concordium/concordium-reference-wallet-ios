@@ -17,7 +17,7 @@ class LoginCoordinatorTests: XCTestCase {
     func test_start() {
         //given
         
-        sut = .init(navigationController: .init(), parentCoordinator: <#T##LoginCoordinatorDelegate#>, dependencyProvider: <#T##LoginDependencyProvider#>)
+        sut = .init(navigationController: .init(), parentCoordinator: LoginCoordinatorDelegateMock(), dependencyProvider: LoginDependencyProvider())
         
     }
 }
