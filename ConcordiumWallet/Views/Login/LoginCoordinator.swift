@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 import UIKit
 
+// sourcery: AutoMockable
 protocol LoginCoordinatorDelegate: AppSettingsDelegate {
     func loginDone()
     func passwordSelectionDone()
@@ -84,12 +85,10 @@ class LoginCoordinator: Coordinator {
             .getTermsAndConditionsVersion()
             .sink(receiveError: { _ in
             }, receiveValue: { [weak self] termsAndConditions in
-                if passwordCreated {
-                    self?.show(termsAndConditions: termsAndConditions)
-                } else if termsAndConditions.version != version {
-                    self?.show(termsAndConditions: termsAndConditions)
-                } else {
+                if passwordCreated && termsAndConditions.version == version {
                     self?.showLogin()
+                } else {
+                    self?.show(termsAndConditions: termsAndConditions)
                 }
             })
             .store(in: &cancellables)

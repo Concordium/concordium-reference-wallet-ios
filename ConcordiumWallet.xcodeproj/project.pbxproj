@@ -431,6 +431,7 @@
 		19C2EFC9AF9159B6494E2784 /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EA2F9FE8F1D50D0B91C6 /* ResourceRequest.swift */; };
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C2EEC7EFFF9C46A7786EF7 /* 4.1.2.RX_backend_accBalance.json */; };
+		378E0C441D6924E404784EAA /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153AF2B8166B46422D71155 /* AutoMockable.generated.swift */; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -737,7 +738,6 @@
 		6458C2DC29F725CB00CC363A /* TransServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DB29F725CB00CC363A /* TransServiceMock.swift */; };
 		6458C2DE29F7262800CC363A /* DependencyProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */; };
 		6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */; };
-		6458C2E229F7EA8500CC363A /* AppSettingsServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2E129F7EA8500CC363A /* AppSettingsServiceMock.swift */; };
 		649C5E8129F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
 		649C5E8229F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
 		649C5E8329F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
@@ -2902,7 +2902,6 @@
 		6458C2DB29F725CB00CC363A /* TransServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransServiceMock.swift; sourceTree = "<group>"; };
 		6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyProviderMock.swift; sourceTree = "<group>"; };
 		6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerMock.swift; sourceTree = "<group>"; };
-		6458C2E129F7EA8500CC363A /* AppSettingsServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsServiceMock.swift; sourceTree = "<group>"; };
 		649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsResponse.swift; sourceTree = "<group>"; };
 		649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		649C5E9529F6C65C00408948 /* WorkSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorkSans.ttf; sourceTree = "<group>"; };
@@ -3262,6 +3261,7 @@
 		90C371D827DF46410046F05E /* DelegationReceiptPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationReceiptPresenter.swift; sourceTree = "<group>"; };
 		90C371DD27DF4B020046F05E /* DelegationReceiptConfirmationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationReceiptConfirmationPresenter.swift; sourceTree = "<group>"; };
 		90C371E427DF6DBB0046F05E /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
+		A153AF2B8166B46422D71155 /* AutoMockable.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		C916DAE82467F480008EA16A /* MenuItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCellView.swift; sourceTree = "<group>"; };
 		C924B2232430799400081E23 /* UILabel+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+localized.swift"; sourceTree = "<group>"; };
 		C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
@@ -4020,6 +4020,14 @@
 			path = AccountDetailsBurgerMenu;
 			sourceTree = "<group>";
 		};
+		641C553129F859EA00FCE410 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				A153AF2B8166B46422D71155 /* AutoMockable.generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		642ED92325E8DF0600A09BB3 /* TransferFilters */ = {
 			isa = PBXGroup;
 			children = (
@@ -4051,6 +4059,7 @@
 		6458C2D829F6F5F300CC363A /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				641C553129F859EA00FCE410 /* Generated */,
 				8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */,
 				7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */,
 				7F0573E024AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift */,
@@ -4058,7 +4067,6 @@
 				6458C2DB29F725CB00CC363A /* TransServiceMock.swift */,
 				6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */,
 				6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */,
-				6458C2E129F7EA8500CC363A /* AppSettingsServiceMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -4095,8 +4103,8 @@
 				6458C2D829F6F5F300CC363A /* Mocks */,
 				8992BA392823A8E0005279C9 /* NotYetImplemented.swift */,
 				89B34A762897E5790059891C /* Combine+TestHelpers.swift */,
-				896B41D728B3796B00D1F271 /* InMemoryKeychain.swift */,
 				896B41D928B37B9B00D1F271 /* ConcordiumTestCase.swift */,
+				896B41D728B3796B00D1F271 /* InMemoryKeychain.swift */,
 			);
 			path = HelperClasses;
 			sourceTree = "<group>";
@@ -8176,7 +8184,6 @@
 				891B1A0328A6393700F4B0D6 /* AwaitPublisherTests.swift in Sources */,
 				7F0573ED24AC7173009517AD /* AttributesFormatterTests.swift in Sources */,
 				6458C2DC29F725CB00CC363A /* TransServiceMock.swift in Sources */,
-				6458C2E229F7EA8500CC363A /* AppSettingsServiceMock.swift in Sources */,
 				89B34A5C2897C8190059891C /* InputPhraseTests.swift in Sources */,
 				6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */,
 				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
@@ -8187,6 +8194,7 @@
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,
 				893CAC6E286EC1FD00BDF84C /* CopyPhraseTests.swift in Sources */,
 				7F0573F224AC7449009517AD /* GeneralFormatterTests.swift in Sources */,
+				378E0C441D6924E404784EAA /* AutoMockable.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

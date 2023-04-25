@@ -9,31 +9,27 @@
 import Foundation
 @testable import Mock
 
-class LoginCoordinatorMock: LoginCoordinator {
-    
-}
-
-class LoginDependencyProviderMock: LoginDependencyProvider {
-    func appSettingsService() -> AppSettingsService {
-        fatalError("identitiesService() has not been implemented")
+class LoginDependencyProviderStub: LoginDependencyProvider {
+    func appSettingsService() -> AppSettingsServiceProtocol {
+        AppSettingsServiceProtocolMock()
     }
-    
+
     func recoveryPhraseService() -> RecoveryPhraseService {
         fatalError("identitiesService() has not been implemented")
     }
-    
+
     func seedIdentitiesService() -> SeedIdentitiesService {
         fatalError("identitiesService() has not been implemented")
     }
-    
+
     func seedAccountsService() -> SeedAccountsService {
         fatalError("identitiesService() has not been implemented")
     }
-    
+
     func keychainWrapper() -> KeychainWrapperProtocol {
         InMemoryKeychain()
     }
-    
+
     func transactionsService() -> TransactionsServiceProtocol {
         fatalError("transactionsService() has not been implemented")
     }
@@ -45,13 +41,13 @@ class LoginDependencyProviderMock: LoginDependencyProvider {
     func identitiesService() -> IdentitiesService {
         fatalError("identitiesService() has not been implemented")
     }
-    
+
     func mobileWallet() -> MobileWalletProtocol {
         fatalError("mobileWallet() has not been implemented")
     }
 
     func storageManager() -> StorageManagerProtocol {
-        fatalError("storageManager() has not been implemented")
+        StorageManagerMock()
     }
 
     func seedMobileWallet() -> SeedMobileWalletProtocol {

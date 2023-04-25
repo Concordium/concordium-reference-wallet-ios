@@ -10,7 +10,7 @@ import Foundation
 @testable import Mock
 class StorageManagerMock: StorageManagerMockHelper {
     var transfers = [TransferDataType]()
-
+    var latestTermsAndConditionsVersion: String!
     override func getRecipient(withAddress address: String) -> RecipientDataType? {
         RecipientEntity()
     }
@@ -23,5 +23,9 @@ class StorageManagerMock: StorageManagerMockHelper {
         let transferEntity = TransferEntity()
         transferEntity.createdAt = Date(timeIntervalSince1970: Double(time))
         transfers.append(transferEntity)
+    }
+    
+    override func getLastAcceptedTermsAndConditionsVersion() -> String {
+        latestTermsAndConditionsVersion
     }
 }

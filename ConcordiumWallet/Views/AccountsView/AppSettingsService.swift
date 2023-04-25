@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 
+// sourcery: AutoMockable
 protocol AppSettingsServiceProtocol {
     func getAppSettings() -> AnyPublisher<AppSettingsResponse, Error>
     func getTermsAndConditionsVersion() -> AnyPublisher<TermsAndConditionsResponse, Error>

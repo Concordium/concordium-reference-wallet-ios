@@ -7,7 +7,7 @@ import Foundation
 @testable import Mock
 
 class AccountsFlowCoordinatorDependencyProviderMock: AccountsFlowCoordinatorDependencyProvider {
-    func appSettingsService() -> AppSettingsService {
+    func appSettingsService() -> AppSettingsServiceProtocol {
         fatalError("appSettingsService() has not been implemented")
     }
     

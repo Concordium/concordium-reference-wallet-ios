@@ -11,13 +11,66 @@ import XCTest
 @testable import Mock
 
 class LoginCoordinatorTests: XCTestCase {
-    
     var sut: LoginCoordinator!
+    var termsAndConditionsLink = "http://wallet-proxy.mainnet.concordium.software/v0/termsAndConditionsVersion"
+
+    @MainActor func test_start_new_terms_available() {
+        // given
+        let appSettingsMock = AppSettingsServiceProtocolMock()
+        let storageManagerMock = StorageManagerMock()
+        let keychainMock = InMemoryKeychain()
+        let dependecyProvider = LoginDependencyProviderMock()
+        
+        dependecyProvider.appSettingsServiceReturnValue = appSettingsMock
+        dependecyProvider.keychainWrapperReturnValue = keychainMock
+        dependecyProvider.storageManagerReturnValue = storageManagerMock
+
+        storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
+        let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.1")
+        appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
+
+        // when
+        sut = .init(
+            navigationController: .init(),
+            parentCoordinator: LoginCoordinatorDelegateMock(),
+            dependencyProvider: dependecyProvider
+        )
+        sut.start()
+
+        // then
+        XCTAssertTrue(appSettingsMock.getTermsAndConditionsVersionCalled)
+        XCTAssertEqual(appSettingsMock.getTermsAndConditionsVersionCallsCount, 1)
+        
+    }
     
-    func test_start() {
-        //given
+    @MainActor func test_start_password_set_terms_up_to_date() {
+        // given
+        let appSettingsMock = AppSettingsServiceProtocolMock()
+        let storageManagerMock = StorageManagerMock()
+        let keychainMock = InMemoryKeychain()
+        let dependecyProvider = LoginDependencyProviderMock()
         
-        sut = .init(navigationController: .init(), parentCoordinator: LoginCoordinatorDelegateMock(), dependencyProvider: LoginDependencyProvider())
-        
+        dependecyProvider.appSettingsServiceReturnValue = appSettingsMock
+        dependecyProvider.keychainWrapperReturnValue = keychainMock
+        dependecyProvider.storageManagerReturnValue = storageManagerMock
+        dependecyProvider.mobileWalletReturnValue = MobileWalletProtocolMock()
+
+        keychainMock.storePassword(password: "anypass")
+        storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
+        let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
+        appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
+
+        // when
+        sut = .init(
+            navigationController: .init(),
+            parentCoordinator: LoginCoordinatorDelegateMock(),
+            dependencyProvider: dependecyProvider
+        )
+        sut.start()
+
+        // then
+        XCTAssertTrue(appSettingsMock.getTermsAndConditionsVersionCalled)
+        XCTAssertEqual(appSettingsMock.getTermsAndConditionsVersionCallsCount, 1)
+        XCTAssertTrue(sut.navigationController.topViewController is EnterPasswordViewController)
     }
 }

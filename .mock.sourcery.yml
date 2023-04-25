@@ -1,0 +1,10 @@
+sources:
+  - 'ConcordiumWallet'
+  - 'ioscommon'
+templates:
+  - 'ConcordiumWalletTests/HelperClasses/Mocks/Templates'
+output:
+  path: ConcordiumWalletTests/HelperClasses/Mocks/Generated
+args:
+  autoMockableTestableImports: [Mock]
+  autoMockableImports: [Combine]
