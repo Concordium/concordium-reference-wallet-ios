@@ -25,7 +25,6 @@ jobs:
       # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).
       uses: mxcl/xcodebuild@v1
       with:
-        swift: "~5.6"
         platform: iOS
         scheme: "${{matrix.scheme}}"
         action: "${{matrix.action}}"
