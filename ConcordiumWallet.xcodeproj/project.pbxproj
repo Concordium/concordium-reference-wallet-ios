@@ -734,7 +734,6 @@
 		644BB67F25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		644BB68025DFB4630086ED48 /* ConcordiumApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */; };
 		6458C2D729F6F34C00CC363A /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2D629F6F34C00CC363A /* LoginCoordinatorTests.swift */; };
-		6458C2DA29F6F60700CC363A /* LoginCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2D929F6F60700CC363A /* LoginCoordinatorMock.swift */; };
 		6458C2DC29F725CB00CC363A /* TransServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DB29F725CB00CC363A /* TransServiceMock.swift */; };
 		6458C2DE29F7262800CC363A /* DependencyProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */; };
 		6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */; };
@@ -2903,7 +2902,6 @@
 		644BB67225DFB4220086ED48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ConcordiumWallet/main.swift; sourceTree = "<group>"; };
 		644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConcordiumApplication.swift; path = ConcordiumWallet/ConcordiumApplication.swift; sourceTree = "<group>"; };
 		6458C2D629F6F34C00CC363A /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
-		6458C2D929F6F60700CC363A /* LoginCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorMock.swift; sourceTree = "<group>"; };
 		6458C2DB29F725CB00CC363A /* TransServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransServiceMock.swift; sourceTree = "<group>"; };
 		6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyProviderMock.swift; sourceTree = "<group>"; };
 		6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerMock.swift; sourceTree = "<group>"; };
@@ -4071,7 +4069,6 @@
 				8992BA482823DD8E005279C9 /* StorageManagerMockHelper.swift */,
 				7F0573DF24AC710C009517AD /* TransactionsServiceMockHelper.swift */,
 				7F0573E024AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift */,
-				6458C2D929F6F60700CC363A /* LoginCoordinatorMock.swift */,
 				6458C2DB29F725CB00CC363A /* TransServiceMock.swift */,
 				6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */,
 				6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */,
@@ -8189,7 +8186,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6458C2DA29F6F60700CC363A /* LoginCoordinatorMock.swift in Sources */,
 				7F0573E924AC710C009517AD /* AccountsFlowCoordinatorDependencyProvider.swift in Sources */,
 				6458C2DE29F7262800CC363A /* DependencyProviderMock.swift in Sources */,
 				19C2E724D198C8F480B6ADE2 /* KeychainWrapperTest.swift in Sources */,
