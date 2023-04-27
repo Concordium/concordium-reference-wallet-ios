@@ -9,7 +9,7 @@
 import XCTest
 import SwiftUI
 @testable import Mock
-
+import Combine
 class LoginCoordinatorTests: XCTestCase {
     var sut: LoginCoordinator!
     var termsAndConditionsLink = "http://wallet-proxy.mainnet.concordium.software/v0/termsAndConditionsVersion"
@@ -42,7 +42,6 @@ class LoginCoordinatorTests: XCTestCase {
         XCTAssertTrue(appSettingsMock.getTermsAndConditionsVersionCalled)
         XCTAssertEqual(appSettingsMock.getTermsAndConditionsVersionCallsCount, 1)
         XCTAssertTrue(sut.navigationController.topViewController is UIHostingController<TermsAndConditionsView>)
-
     }
     
     @MainActor

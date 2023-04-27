@@ -2,7 +2,7 @@
 //  StorageManagerMock.swift
 //  ConcordiumWalletTests
 //
-//  Created by Milan Wykop on 24/04/2023.
+//  Created by Milan Sawicki on 24/04/2023.
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
