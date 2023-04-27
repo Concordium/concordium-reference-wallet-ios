@@ -57,15 +57,6 @@ class LoginCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showTermsAndConditionsScreen() {
-        let TermsAndConditionsPresenter = TermsAndConditionsIntroPresenter(
-            delegate: self,
-            appSettingsDelegate: parentCoordinator
-        )
-        let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
-        navigationController.pushViewController(vc, animated: true)
-    }
-
     func show(termsAndConditions: TermsAndConditionsResponse) {
         let viewModel = TermsAndConditionsViewModel(
             storageManager: dependencyProvider.storageManager(),
