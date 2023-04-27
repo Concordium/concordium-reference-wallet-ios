@@ -8,34 +8,6 @@
 
 import SwiftUI
 
-protocol TermsAndConditionsViewModelProtocol {
-    var storageManager: StorageManagerProtocol { get set }
-    var termsAndConditionsAccepted: Bool { get set }
-    var didAcceptTermsAndConditions: (() -> Void)? { get set }
-}
-
-class TermsAndConditionsViewModel: TermsAndConditionsViewModelProtocol, ObservableObject {
-    var didAcceptTermsAndConditions: (() -> Void)?
-    var storageManager: StorageManagerProtocol
-    var termsAndConditions: TermsAndConditionsResponse
-    @Published var termsAndConditionsAccepted = false
-
-    init(
-        storageManager: StorageManagerProtocol,
-        termsAndConditions: TermsAndConditionsResponse
-    ) {
-        self.storageManager = storageManager
-        self.termsAndConditions = termsAndConditions
-    }
-    
-    /// Called on button tap.
-    func continueButtonTapped() {
-        guard termsAndConditionsAccepted else { return }
-        storageManager.storeLastAcceptedTermsAndConditionsVersion(termsAndConditions.version)
-        didAcceptTermsAndConditions?()
-    }
-}
-
 struct TermsAndConditionsView: View {
     @ObservedObject var viewModel: TermsAndConditionsViewModel
 
@@ -74,8 +46,7 @@ struct TermsAndConditionsView: View {
             Button {
                 viewModel.continueButtonTapped()
             } label: {
-                Text("welcomeScreen.create.password".localized)
-                    .frame(maxWidth: .infinity)
+                Text(viewModel.buttonTitle).frame(maxWidth: .infinity)
             }
             .applyStandardButtonStyle(disabled: !viewModel.termsAndConditionsAccepted)
             .padding(8)

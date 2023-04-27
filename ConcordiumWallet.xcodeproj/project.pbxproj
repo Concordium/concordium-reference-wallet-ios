@@ -738,6 +738,11 @@
 		6458C2DC29F725CB00CC363A /* TransServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DB29F725CB00CC363A /* TransServiceMock.swift */; };
 		6458C2DE29F7262800CC363A /* DependencyProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */; };
 		6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */; };
+		6461F5DB29FB240400975BC5 /* TermsAndConditionsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6461F5DA29FB240400975BC5 /* TermsAndConditionsViewModelTests.swift */; };
+		6461F5DD29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */; };
+		6461F5DE29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */; };
+		6461F5DF29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */; };
+		6461F5E029FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */; };
 		649C5E8129F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
 		649C5E8229F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
 		649C5E8329F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */; };
@@ -2902,6 +2907,8 @@
 		6458C2DB29F725CB00CC363A /* TransServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransServiceMock.swift; sourceTree = "<group>"; };
 		6458C2DD29F7262800CC363A /* DependencyProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyProviderMock.swift; sourceTree = "<group>"; };
 		6458C2DF29F7280D00CC363A /* StorageManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerMock.swift; sourceTree = "<group>"; };
+		6461F5DA29FB240400975BC5 /* TermsAndConditionsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewModelTests.swift; sourceTree = "<group>"; };
+		6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewModel.swift; sourceTree = "<group>"; };
 		649C5E8029F6C34C00408948 /* TermsAndConditionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsResponse.swift; sourceTree = "<group>"; };
 		649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		649C5E9529F6C65C00408948 /* WorkSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorkSans.ttf; sourceTree = "<group>"; };
@@ -3648,6 +3655,7 @@
 				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
 				8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */,
 				8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */,
+				6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */,
 			);
 			path = TermsAndConditionsView;
 			sourceTree = "<group>";
@@ -4071,6 +4079,14 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		6461F5D729FB23BE00975BC5 /* Terms&Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				6461F5DA29FB240400975BC5 /* TermsAndConditionsViewModelTests.swift */,
+			);
+			path = "Terms&Conditions";
+			sourceTree = "<group>";
+		};
 		649C5E9429F6C65C00408948 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -4112,6 +4128,7 @@
 		7F0573E124AC710C009517AD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				6461F5D729FB23BE00975BC5 /* Terms&Conditions */,
 				893CAC6C286EC1CE00BDF84C /* RecoveryPhrase */,
 				7F0573E224AC710C009517AD /* GTUTests.swift */,
 				7F0573EC24AC7173009517AD /* AttributesFormatterTests.swift */,
@@ -6318,6 +6335,7 @@
 				642ED99025F2334E00A09BB3 /* UpdatePasswordCoordinator.swift in Sources */,
 				FA0CAB24294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				89B34A072892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
+				6461F5DD29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
 				52055F9025541AC80071F7CA /* AccountCardView.swift in Sources */,
 				7F48C1D3244DCD0B00997684 /* IdentityDataWidgetViewController.swift in Sources */,
 				529531AD256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
@@ -6832,6 +6850,7 @@
 				7F85B787246A9A7C00ED09B8 /* LetterSpacingLabel.swift in Sources */,
 				7F85B788246A9A7C00ED09B8 /* IdentityConfirmedPresenter.swift in Sources */,
 				89D467DB289B8CAA007D3FC8 /* PrivateIDObjectDataWrapper.swift in Sources */,
+				6461F5DF29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
 				52B2CE4B24F6806B0092F8EB /* ArsInfo.swift in Sources */,
 				8992BA502824FE96005279C9 /* BakingAlerts.swift in Sources */,
 				7F85B789246A9A7C00ED09B8 /* IdentityConfirmedViewController.swift in Sources */,
@@ -7383,6 +7402,7 @@
 				5243C035278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				7F85B882246A9AB600ED09B8 /* Metadata.swift in Sources */,
 				89D467DC289B8CAA007D3FC8 /* PrivateIDObjectDataWrapper.swift in Sources */,
+				6461F5E029FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
 				52B2CE4C24F6806B0092F8EB /* ArsInfo.swift in Sources */,
 				8992BA512824FE96005279C9 /* BakingAlerts.swift in Sources */,
 				7F85B885246A9AB600ED09B8 /* CreateIDRequest.swift in Sources */,
@@ -8098,6 +8118,7 @@
 				19C2E3643856360A24C488A0 /* BaseViewController.swift in Sources */,
 				19C2ECE25FA448BA5D0B27D7 /* SingleSection.swift in Sources */,
 				528EB728255ABACE00010554 /* PublicKeys.swift in Sources */,
+				6461F5DE29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
 				896B423A28B496A800D1F271 /* SelectIdentityView.swift in Sources */,
 				89CF2D26280FDAB800742E1E /* StakeAmountInputValidator.swift in Sources */,
 				19C2EA90B0630C36EEBD53C4 /* AES256Encryption.swift in Sources */,
@@ -8188,6 +8209,7 @@
 				6458C2E029F7280D00CC363A /* StorageManagerMock.swift in Sources */,
 				89B34A772897E5790059891C /* Combine+TestHelpers.swift in Sources */,
 				896B41DA28B37B9B00D1F271 /* ConcordiumTestCase.swift in Sources */,
+				6461F5DB29FB240400975BC5 /* TermsAndConditionsViewModelTests.swift in Sources */,
 				6458C2D729F6F34C00CC363A /* LoginCoordinatorTests.swift in Sources */,
 				7F0573E824AC710C009517AD /* TransactionsServiceMockHelper.swift in Sources */,
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
