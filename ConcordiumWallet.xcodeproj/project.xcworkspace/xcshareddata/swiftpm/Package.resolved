@@ -46,6 +46,15 @@
       }
     },
     {
+      "identity" : "swift-mobile-lib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Concordium/swift-mobile-lib",
+      "state" : {
+        "revision" : "363faad126ee2bc95b292dd56a76c3e20a43ed64",
+        "version" : "0.1.0"
+      }
+    },
+    {
       "identity" : "swiftcbor",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/unrelentingtech/SwiftCBOR",
