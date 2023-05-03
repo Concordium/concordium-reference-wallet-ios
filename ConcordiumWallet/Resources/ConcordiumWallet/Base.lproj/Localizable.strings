@@ -1090,3 +1090,6 @@ Remember to restart your node with the baker keys.";
 "demomode.cancel" = "Cancel";
 
 "demomode.userdefaultskey" = "Demo Mode";
+
+"selectaccount.title" = "Choose an account to open session";
+"selectaccount.description" = "Choose which account you want to open the session with";

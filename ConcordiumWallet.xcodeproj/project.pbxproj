@@ -2521,6 +2521,88 @@
 		FA0DBD862925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */; };
 		FA0DBD872925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */; };
 		FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */ = {isa = PBXBuildFile; productRef = FA0DBD89292BF4360051C0D7 /* MatomoTracker */; };
+		FA2BC93C2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9372A027E7100EF3154 /* AuthRequestInteractor.swift */; };
+		FA2BC93D2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9372A027E7100EF3154 /* AuthRequestInteractor.swift */; };
+		FA2BC93E2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9372A027E7100EF3154 /* AuthRequestInteractor.swift */; };
+		FA2BC93F2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9372A027E7100EF3154 /* AuthRequestInteractor.swift */; };
+		FA2BC9402A027E7100EF3154 /* AuthRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9382A027E7100EF3154 /* AuthRequestRouter.swift */; };
+		FA2BC9412A027E7100EF3154 /* AuthRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9382A027E7100EF3154 /* AuthRequestRouter.swift */; };
+		FA2BC9422A027E7100EF3154 /* AuthRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9382A027E7100EF3154 /* AuthRequestRouter.swift */; };
+		FA2BC9432A027E7100EF3154 /* AuthRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9382A027E7100EF3154 /* AuthRequestRouter.swift */; };
+		FA2BC9442A027E7100EF3154 /* AuthRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9392A027E7100EF3154 /* AuthRequestModule.swift */; };
+		FA2BC9452A027E7100EF3154 /* AuthRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9392A027E7100EF3154 /* AuthRequestModule.swift */; };
+		FA2BC9462A027E7100EF3154 /* AuthRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9392A027E7100EF3154 /* AuthRequestModule.swift */; };
+		FA2BC9472A027E7100EF3154 /* AuthRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9392A027E7100EF3154 /* AuthRequestModule.swift */; };
+		FA2BC9482A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93A2A027E7100EF3154 /* AuthRequestPresenter.swift */; };
+		FA2BC9492A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93A2A027E7100EF3154 /* AuthRequestPresenter.swift */; };
+		FA2BC94A2A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93A2A027E7100EF3154 /* AuthRequestPresenter.swift */; };
+		FA2BC94B2A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93A2A027E7100EF3154 /* AuthRequestPresenter.swift */; };
+		FA2BC94C2A027E7100EF3154 /* AuthRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93B2A027E7100EF3154 /* AuthRequestView.swift */; };
+		FA2BC94D2A027E7100EF3154 /* AuthRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93B2A027E7100EF3154 /* AuthRequestView.swift */; };
+		FA2BC94E2A027E7100EF3154 /* AuthRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93B2A027E7100EF3154 /* AuthRequestView.swift */; };
+		FA2BC94F2A027E7100EF3154 /* AuthRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC93B2A027E7100EF3154 /* AuthRequestView.swift */; };
+		FA2BC9592A027FE200EF3154 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = FA2BC9582A027FE200EF3154 /* WalletConnect */; };
+		FA2BC95B2A027FE200EF3154 /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = FA2BC95A2A027FE200EF3154 /* Web3Wallet */; };
+		FA2BC9622A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95D2A02807B00EF3154 /* SessionProposalPresenter.swift */; };
+		FA2BC9632A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95D2A02807B00EF3154 /* SessionProposalPresenter.swift */; };
+		FA2BC9642A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95D2A02807B00EF3154 /* SessionProposalPresenter.swift */; };
+		FA2BC9652A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95D2A02807B00EF3154 /* SessionProposalPresenter.swift */; };
+		FA2BC9662A02807C00EF3154 /* SessionProposalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95E2A02807B00EF3154 /* SessionProposalRouter.swift */; };
+		FA2BC9672A02807C00EF3154 /* SessionProposalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95E2A02807B00EF3154 /* SessionProposalRouter.swift */; };
+		FA2BC9682A02807C00EF3154 /* SessionProposalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95E2A02807B00EF3154 /* SessionProposalRouter.swift */; };
+		FA2BC9692A02807C00EF3154 /* SessionProposalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95E2A02807B00EF3154 /* SessionProposalRouter.swift */; };
+		FA2BC96A2A02807C00EF3154 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95F2A02807B00EF3154 /* SessionProposalView.swift */; };
+		FA2BC96B2A02807C00EF3154 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95F2A02807B00EF3154 /* SessionProposalView.swift */; };
+		FA2BC96C2A02807C00EF3154 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95F2A02807B00EF3154 /* SessionProposalView.swift */; };
+		FA2BC96D2A02807C00EF3154 /* SessionProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC95F2A02807B00EF3154 /* SessionProposalView.swift */; };
+		FA2BC96E2A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9602A02807B00EF3154 /* SessionProposalInteractor.swift */; };
+		FA2BC96F2A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9602A02807B00EF3154 /* SessionProposalInteractor.swift */; };
+		FA2BC9702A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9602A02807B00EF3154 /* SessionProposalInteractor.swift */; };
+		FA2BC9712A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9602A02807B00EF3154 /* SessionProposalInteractor.swift */; };
+		FA2BC9722A02807C00EF3154 /* SessionProposalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9612A02807B00EF3154 /* SessionProposalModule.swift */; };
+		FA2BC9732A02807C00EF3154 /* SessionProposalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9612A02807B00EF3154 /* SessionProposalModule.swift */; };
+		FA2BC9742A02807C00EF3154 /* SessionProposalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9612A02807B00EF3154 /* SessionProposalModule.swift */; };
+		FA2BC9752A02807C00EF3154 /* SessionProposalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9612A02807B00EF3154 /* SessionProposalModule.swift */; };
+		FA2BC97C2A02820600EF3154 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9772A02820500EF3154 /* SessionRequestView.swift */; };
+		FA2BC97D2A02820600EF3154 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9772A02820500EF3154 /* SessionRequestView.swift */; };
+		FA2BC97E2A02820600EF3154 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9772A02820500EF3154 /* SessionRequestView.swift */; };
+		FA2BC97F2A02820600EF3154 /* SessionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9772A02820500EF3154 /* SessionRequestView.swift */; };
+		FA2BC9802A02820600EF3154 /* SessionRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9782A02820500EF3154 /* SessionRequestRouter.swift */; };
+		FA2BC9812A02820600EF3154 /* SessionRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9782A02820500EF3154 /* SessionRequestRouter.swift */; };
+		FA2BC9822A02820600EF3154 /* SessionRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9782A02820500EF3154 /* SessionRequestRouter.swift */; };
+		FA2BC9832A02820600EF3154 /* SessionRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9782A02820500EF3154 /* SessionRequestRouter.swift */; };
+		FA2BC9842A02820600EF3154 /* SessionRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9792A02820600EF3154 /* SessionRequestInteractor.swift */; };
+		FA2BC9852A02820600EF3154 /* SessionRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9792A02820600EF3154 /* SessionRequestInteractor.swift */; };
+		FA2BC9862A02820600EF3154 /* SessionRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9792A02820600EF3154 /* SessionRequestInteractor.swift */; };
+		FA2BC9872A02820600EF3154 /* SessionRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9792A02820600EF3154 /* SessionRequestInteractor.swift */; };
+		FA2BC9882A02820600EF3154 /* SessionRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97A2A02820600EF3154 /* SessionRequestPresenter.swift */; };
+		FA2BC9892A02820600EF3154 /* SessionRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97A2A02820600EF3154 /* SessionRequestPresenter.swift */; };
+		FA2BC98A2A02820600EF3154 /* SessionRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97A2A02820600EF3154 /* SessionRequestPresenter.swift */; };
+		FA2BC98B2A02820600EF3154 /* SessionRequestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97A2A02820600EF3154 /* SessionRequestPresenter.swift */; };
+		FA2BC98C2A02820600EF3154 /* SessionRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97B2A02820600EF3154 /* SessionRequestModule.swift */; };
+		FA2BC98D2A02820600EF3154 /* SessionRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97B2A02820600EF3154 /* SessionRequestModule.swift */; };
+		FA2BC98E2A02820600EF3154 /* SessionRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97B2A02820600EF3154 /* SessionRequestModule.swift */; };
+		FA2BC98F2A02820600EF3154 /* SessionRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC97B2A02820600EF3154 /* SessionRequestModule.swift */; };
+		FA2BC9962A0282C100EF3154 /* WalletRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9912A0282C000EF3154 /* WalletRouter.swift */; };
+		FA2BC9972A0282C100EF3154 /* WalletRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9912A0282C000EF3154 /* WalletRouter.swift */; };
+		FA2BC9982A0282C100EF3154 /* WalletRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9912A0282C000EF3154 /* WalletRouter.swift */; };
+		FA2BC9992A0282C100EF3154 /* WalletRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9912A0282C000EF3154 /* WalletRouter.swift */; };
+		FA2BC99A2A0282C100EF3154 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9922A0282C000EF3154 /* WalletView.swift */; };
+		FA2BC99B2A0282C100EF3154 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9922A0282C000EF3154 /* WalletView.swift */; };
+		FA2BC99C2A0282C100EF3154 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9922A0282C000EF3154 /* WalletView.swift */; };
+		FA2BC99D2A0282C100EF3154 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9922A0282C000EF3154 /* WalletView.swift */; };
+		FA2BC99E2A0282C100EF3154 /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9932A0282C000EF3154 /* WalletPresenter.swift */; };
+		FA2BC99F2A0282C100EF3154 /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9932A0282C000EF3154 /* WalletPresenter.swift */; };
+		FA2BC9A02A0282C100EF3154 /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9932A0282C000EF3154 /* WalletPresenter.swift */; };
+		FA2BC9A12A0282C100EF3154 /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9932A0282C000EF3154 /* WalletPresenter.swift */; };
+		FA2BC9A22A0282C100EF3154 /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9942A0282C000EF3154 /* WalletInteractor.swift */; };
+		FA2BC9A32A0282C100EF3154 /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9942A0282C000EF3154 /* WalletInteractor.swift */; };
+		FA2BC9A42A0282C100EF3154 /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9942A0282C000EF3154 /* WalletInteractor.swift */; };
+		FA2BC9A52A0282C100EF3154 /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9942A0282C000EF3154 /* WalletInteractor.swift */; };
+		FA2BC9A62A0282C100EF3154 /* WalletModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9952A0282C000EF3154 /* WalletModule.swift */; };
+		FA2BC9A72A0282C100EF3154 /* WalletModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9952A0282C000EF3154 /* WalletModule.swift */; };
+		FA2BC9A82A0282C100EF3154 /* WalletModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9952A0282C000EF3154 /* WalletModule.swift */; };
+		FA2BC9A92A0282C100EF3154 /* WalletModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2BC9952A0282C000EF3154 /* WalletModule.swift */; };
 		FA6A4F0629DB461D00A48CB2 /* SelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A4F0529DB461D00A48CB2 /* SelectAccountViewController.swift */; };
 		FA6A4F0729DB461D00A48CB2 /* SelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A4F0529DB461D00A48CB2 /* SelectAccountViewController.swift */; };
 		FA6A4F0829DB461D00A48CB2 /* SelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A4F0529DB461D00A48CB2 /* SelectAccountViewController.swift */; };
@@ -2529,6 +2611,10 @@
 		FA6A4F0C29DB463500A48CB2 /* SelectAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A4F0A29DB463500A48CB2 /* SelectAccountPresenter.swift */; };
 		FA6A4F0D29DB463500A48CB2 /* SelectAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A4F0A29DB463500A48CB2 /* SelectAccountPresenter.swift */; };
 		FA6A4F0E29DB463500A48CB2 /* SelectAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A4F0A29DB463500A48CB2 /* SelectAccountPresenter.swift */; };
+		FA8C75F529F47554009D8994 /* SelectAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8C75F429F47554009D8994 /* SelectAccountCell.swift */; };
+		FA8C75F629F47554009D8994 /* SelectAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8C75F429F47554009D8994 /* SelectAccountCell.swift */; };
+		FA8C75F729F47554009D8994 /* SelectAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8C75F429F47554009D8994 /* SelectAccountCell.swift */; };
+		FA8C75F829F47554009D8994 /* SelectAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8C75F429F47554009D8994 /* SelectAccountCell.swift */; };
 		FA93AE28295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */; };
 		FA93AE29295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */; };
 		FA93AE2A295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */; };
@@ -3323,8 +3409,29 @@
 		FA0CAB322951191A0009D5F8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		FA0CAB37295217EF0009D5F8 /* AppIconStagingNet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIconStagingNet.xcassets; sourceTree = "<group>"; };
 		FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityObjectWrapper.swift; sourceTree = "<group>"; };
+		FA2BC9372A027E7100EF3154 /* AuthRequestInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequestInteractor.swift; sourceTree = "<group>"; };
+		FA2BC9382A027E7100EF3154 /* AuthRequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequestRouter.swift; sourceTree = "<group>"; };
+		FA2BC9392A027E7100EF3154 /* AuthRequestModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequestModule.swift; sourceTree = "<group>"; };
+		FA2BC93A2A027E7100EF3154 /* AuthRequestPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequestPresenter.swift; sourceTree = "<group>"; };
+		FA2BC93B2A027E7100EF3154 /* AuthRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequestView.swift; sourceTree = "<group>"; };
+		FA2BC95D2A02807B00EF3154 /* SessionProposalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProposalPresenter.swift; sourceTree = "<group>"; };
+		FA2BC95E2A02807B00EF3154 /* SessionProposalRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProposalRouter.swift; sourceTree = "<group>"; };
+		FA2BC95F2A02807B00EF3154 /* SessionProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProposalView.swift; sourceTree = "<group>"; };
+		FA2BC9602A02807B00EF3154 /* SessionProposalInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProposalInteractor.swift; sourceTree = "<group>"; };
+		FA2BC9612A02807B00EF3154 /* SessionProposalModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProposalModule.swift; sourceTree = "<group>"; };
+		FA2BC9772A02820500EF3154 /* SessionRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRequestView.swift; sourceTree = "<group>"; };
+		FA2BC9782A02820500EF3154 /* SessionRequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRequestRouter.swift; sourceTree = "<group>"; };
+		FA2BC9792A02820600EF3154 /* SessionRequestInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRequestInteractor.swift; sourceTree = "<group>"; };
+		FA2BC97A2A02820600EF3154 /* SessionRequestPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRequestPresenter.swift; sourceTree = "<group>"; };
+		FA2BC97B2A02820600EF3154 /* SessionRequestModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRequestModule.swift; sourceTree = "<group>"; };
+		FA2BC9912A0282C000EF3154 /* WalletRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRouter.swift; sourceTree = "<group>"; };
+		FA2BC9922A0282C000EF3154 /* WalletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		FA2BC9932A0282C000EF3154 /* WalletPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletPresenter.swift; sourceTree = "<group>"; };
+		FA2BC9942A0282C000EF3154 /* WalletInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletInteractor.swift; sourceTree = "<group>"; };
+		FA2BC9952A0282C000EF3154 /* WalletModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletModule.swift; sourceTree = "<group>"; };
 		FA6A4F0529DB461D00A48CB2 /* SelectAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountViewController.swift; sourceTree = "<group>"; };
 		FA6A4F0A29DB463500A48CB2 /* SelectAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountPresenter.swift; sourceTree = "<group>"; };
+		FA8C75F429F47554009D8994 /* SelectAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountCell.swift; sourceTree = "<group>"; };
 		FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileWalletFacade.swift; sourceTree = "<group>"; };
 		FA93AE35295D372F0050B409 /* MobileWallet.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MobileWallet.xcframework; sourceTree = "<group>"; };
 		FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachableObject.swift; sourceTree = "<group>"; };
@@ -3342,8 +3449,10 @@
 			files = (
 				FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */,
 				FA93AE36295D372F0050B409 /* MobileWallet.xcframework in Frameworks */,
+				FA2BC9592A027FE200EF3154 /* WalletConnect in Frameworks */,
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
+				FA2BC95B2A027FE200EF3154 /* Web3Wallet in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5268,13 +5377,70 @@
 			path = ExportPrivateKey;
 			sourceTree = "<group>";
 		};
+		FA2BC9362A027E2A00EF3154 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				FA2BC9372A027E7100EF3154 /* AuthRequestInteractor.swift */,
+				FA2BC9392A027E7100EF3154 /* AuthRequestModule.swift */,
+				FA2BC93A2A027E7100EF3154 /* AuthRequestPresenter.swift */,
+				FA2BC9382A027E7100EF3154 /* AuthRequestRouter.swift */,
+				FA2BC93B2A027E7100EF3154 /* AuthRequestView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		FA2BC95C2A02804B00EF3154 /* SessionProposal */ = {
+			isa = PBXGroup;
+			children = (
+				FA2BC9602A02807B00EF3154 /* SessionProposalInteractor.swift */,
+				FA2BC9612A02807B00EF3154 /* SessionProposalModule.swift */,
+				FA2BC95D2A02807B00EF3154 /* SessionProposalPresenter.swift */,
+				FA2BC95E2A02807B00EF3154 /* SessionProposalRouter.swift */,
+				FA2BC95F2A02807B00EF3154 /* SessionProposalView.swift */,
+			);
+			path = SessionProposal;
+			sourceTree = "<group>";
+		};
+		FA2BC9762A0281D600EF3154 /* SessionRequest */ = {
+			isa = PBXGroup;
+			children = (
+				FA2BC9792A02820600EF3154 /* SessionRequestInteractor.swift */,
+				FA2BC97B2A02820600EF3154 /* SessionRequestModule.swift */,
+				FA2BC97A2A02820600EF3154 /* SessionRequestPresenter.swift */,
+				FA2BC9782A02820500EF3154 /* SessionRequestRouter.swift */,
+				FA2BC9772A02820500EF3154 /* SessionRequestView.swift */,
+			);
+			path = SessionRequest;
+			sourceTree = "<group>";
+		};
+		FA2BC9902A02829400EF3154 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				FA2BC9942A0282C000EF3154 /* WalletInteractor.swift */,
+				FA2BC9952A0282C000EF3154 /* WalletModule.swift */,
+				FA2BC9932A0282C000EF3154 /* WalletPresenter.swift */,
+				FA2BC9912A0282C000EF3154 /* WalletRouter.swift */,
+				FA2BC9922A0282C000EF3154 /* WalletView.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
 		FA6A4F0429DB45F100A48CB2 /* SelectAccount */ = {
 			isa = PBXGroup;
 			children = (
+				FA8C75EE29F474F2009D8994 /* Cells */,
 				FA6A4F0A29DB463500A48CB2 /* SelectAccountPresenter.swift */,
 				FA6A4F0529DB461D00A48CB2 /* SelectAccountViewController.swift */,
 			);
 			path = SelectAccount;
+			sourceTree = "<group>";
+		};
+		FA8C75EE29F474F2009D8994 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA8C75F429F47554009D8994 /* SelectAccountCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		FABA9D93291888B20094012B /* SubmittedAccount */ = {
@@ -5290,6 +5456,10 @@
 		FAE0FF8729C7E6C0000483CC /* WalletConnect */ = {
 			isa = PBXGroup;
 			children = (
+				FA2BC9902A02829400EF3154 /* Wallet */,
+				FA2BC9762A0281D600EF3154 /* SessionRequest */,
+				FA2BC95C2A02804B00EF3154 /* SessionProposal */,
+				FA2BC9362A027E2A00EF3154 /* Auth */,
 				FA6A4F0429DB45F100A48CB2 /* SelectAccount */,
 			);
 			path = WalletConnect;
@@ -5318,6 +5488,8 @@
 				8927A677286AC72E0007CAF1 /* SwiftCBOR */,
 				893CAC50286DBA1200BDF84C /* MnemonicSwift */,
 				FA0DBD89292BF4360051C0D7 /* MatomoTracker */,
+				FA2BC9582A027FE200EF3154 /* WalletConnect */,
+				FA2BC95A2A027FE200EF3154 /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5451,6 +5623,7 @@
 				8927A676286AC72E0007CAF1 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 				893CAC4F286DBA1200BDF84C /* XCRemoteSwiftPackageReference "MnemonicSwift" */,
 				FA0DBD88292BF4360051C0D7 /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
+				FA2BC9572A027FE200EF3154 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -5924,6 +6097,7 @@
 				89EB9F5C27FEE959005F8633 /* GeneratedBakerKeys.swift in Sources */,
 				7F48C13C244DCD0B00997684 /* WidgetViewController.swift in Sources */,
 				7F48C13D244DCD0B00997684 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
+				FA2BC9622A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */,
 				7F48C13E244DCD0B00997684 /* IdentityBaseInfoWidgetPresenter.swift in Sources */,
 				89D467EC289B9B94007D3FC8 /* Seed.swift in Sources */,
 				89B34A4D2897B43B0059891C /* RecoveryPhraseRecoverCompleteView.swift in Sources */,
@@ -5935,6 +6109,7 @@
 				FA93AE28295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */,
 				074917CF273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				901F7EF827E9F47200C46741 /* StakeService.swift in Sources */,
+				FA2BC9662A02807C00EF3154 /* SessionProposalRouter.swift in Sources */,
 				7F48C142244DCD0B00997684 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				528EB74F255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89B34A42289407530059891C /* String+Mnemonics.swift in Sources */,
@@ -5944,6 +6119,7 @@
 				52589B2625128F8700ADD35B /* AccountMultiBalanceCell.swift in Sources */,
 				8927A680286ACAC50007CAF1 /* MaterialTabBar.swift in Sources */,
 				896B41D328B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
+				FA2BC9802A02820600EF3154 /* SessionRequestRouter.swift in Sources */,
 				528EB754256400C400010554 /* RevealAttributesViewController.swift in Sources */,
 				07619A81269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				079F310726EB69DD00ED96D3 /* SettingsHelper.swift in Sources */,
@@ -5997,6 +6173,7 @@
 				7F48C150244DCD0B00997684 /* Fonts.swift in Sources */,
 				89CF2D54281A539700742E1E /* (null) in Sources */,
 				6426D91C260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */,
+				FA2BC99E2A0282C100EF3154 /* WalletPresenter.swift in Sources */,
 				C92C64F9244EE7C500675ECE /* TransferCost.swift in Sources */,
 				90C371C327DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
 				642A28A525FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
@@ -6019,6 +6196,7 @@
 				7F48C158244DCD0B00997684 /* StandardButton.swift in Sources */,
 				070D625D27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				64FD338F2601FBC400563703 /* Credential.swift in Sources */,
+				FA2BC9722A02807C00EF3154 /* SessionProposalModule.swift in Sources */,
 				5237188325753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
 				893CAC74286F0FDC00BDF84C /* Features.swift in Sources */,
 				7F48C15A244DCD0B00997684 /* AppDelegate.swift in Sources */,
@@ -6085,6 +6263,7 @@
 				89B34A652897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				89D4684C289CECC6007D3FC8 /* SeedIdentityObject.swift in Sources */,
 				FA0CAB1F294B90740009D5F8 /* ExportPrivateKeyView.swift in Sources */,
+				FA8C75F529F47554009D8994 /* SelectAccountCell.swift in Sources */,
 				7F48C178244DCD0B00997684 /* UIViewController+Additions.swift in Sources */,
 				7F48C17A244DCD0B00997684 /* BaseTextfield.swift in Sources */,
 				8D9E39852950485A007ED183 /* ExportTransactionLogView.swift in Sources */,
@@ -6096,6 +6275,7 @@
 				89D467F1289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				5211BAA324FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
 				893CACA0288E616300BDF84C /* PageIndicator.swift in Sources */,
+				FA2BC9A22A0282C100EF3154 /* WalletInteractor.swift in Sources */,
 				079F310226EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				07519F7E26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				7F48C17F244DCD0B00997684 /* IdentityDataRowCellView.swift in Sources */,
@@ -6105,6 +6285,7 @@
 				FA01C9EA291C5D3100BD8738 /* UIApplication+Helper.swift in Sources */,
 				52CE0C79250FFEC70018B5D1 /* Encrypted.swift in Sources */,
 				9078546728116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
+				FA2BC99A2A0282C100EF3154 /* WalletView.swift in Sources */,
 				7F48C182244DCD0B00997684 /* JSONObject.swift in Sources */,
 				7F48C27A244E17D100997684 /* ServerErrorMessage.swift in Sources */,
 				7FA0AE9C246047B400B7673F /* Origin.swift in Sources */,
@@ -6121,6 +6302,7 @@
 				7F48C25A244E17D100997684 /* IdentityObject.swift in Sources */,
 				7F48C18B244DCD0B00997684 /* CreateIdentityCoordinator.swift in Sources */,
 				528EB730255C129D00010554 /* InitialAccountsCoordinator.swift in Sources */,
+				FA2BC9962A0282C100EF3154 /* WalletRouter.swift in Sources */,
 				8992BA26281FFDDB005279C9 /* BakerPoolStatusPresenter.swift in Sources */,
 				7F48C18C244DCD0B00997684 /* TransparentNavigationController.swift in Sources */,
 				89D4683D289BE895007D3FC8 /* SelectIdentityProviderPresenter.swift in Sources */,
@@ -6152,6 +6334,7 @@
 				7F48C19C244DCD0B00997684 /* BiometricsEnablingPresenter.swift in Sources */,
 				FA0CAB332951191A0009D5F8 /* Environment.swift in Sources */,
 				893CAC32286C8EBA00BDF84C /* RecoveryPhraseCopyPhraseView.swift in Sources */,
+				FA2BC97C2A02820600EF3154 /* SessionRequestView.swift in Sources */,
 				9078546128102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				642ED97725F21FB300A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				FA01C9D2291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
@@ -6175,6 +6358,7 @@
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				8D9E398C29505546007ED183 /* ExportTransactionLogViewModel.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
+				FA2BC9442A027E7100EF3154 /* AuthRequestModule.swift in Sources */,
 				891B1A1428ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				901F7F4327EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
@@ -6214,6 +6398,7 @@
 				642ED94325EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
 				07A799BB27C5108E00251603 /* Validator.swift in Sources */,
 				7F48C1B2244DCD0B00997684 /* IdentityInfoViewModel.swift in Sources */,
+				FA2BC9402A027E7100EF3154 /* AuthRequestRouter.swift in Sources */,
 				5211BAB6250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
 				7F48C1B3244DCD0B00997684 /* ResourceRequest.swift in Sources */,
 				89D4682D289BCFB6007D3FC8 /* SeedIdentityOnboardingPresenter.swift in Sources */,
@@ -6224,6 +6409,7 @@
 				891B19FD28A62FC000F4B0D6 /* Publisher+Async.swift in Sources */,
 				077AC5F426E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				7F48C1B5244DCD0B00997684 /* NetworkManagerProtocol.swift in Sources */,
+				FA2BC9842A02820600EF3154 /* SessionRequestInteractor.swift in Sources */,
 				7F48C1B6244DCD0B00997684 /* Publisher+Utils.swift in Sources */,
 				7F7F6D3D24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
 				52055F8B2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */,
@@ -6252,6 +6438,7 @@
 				642ED92C25E8DFE300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				89B34A3D289403930059891C /* AutoFocusTextField.swift in Sources */,
 				7F48C1C3244DCD0B00997684 /* AccountDetailsIdentityDataViewController.swift in Sources */,
+				FA2BC9882A02820600EF3154 /* SessionRequestPresenter.swift in Sources */,
 				52D35112250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
 				891B19CE28A2563100F4B0D6 /* SubmitSeedAccountView.swift in Sources */,
 				7F48C1C7244DCD0B00997684 /* AccountDetailsIdentityDataCellView.swift in Sources */,
@@ -6278,11 +6465,13 @@
 				7FA0AE9B246047AA00B7673F /* OriginTypeEnum.swift in Sources */,
 				52B2CE4924F6806B0092F8EB /* ArsInfo.swift in Sources */,
 				8DD48C7A2953136E00CA9085 /* EarnView.swift in Sources */,
+				FA2BC9A62A0282C100EF3154 /* WalletModule.swift in Sources */,
 				7F48C1DA244DCD0B00997684 /* LetterSpacingLabel.swift in Sources */,
 				FABA9D95291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				8992BB212840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				7F48C1DB244DCD0B00997684 /* IdentityConfirmedPresenter.swift in Sources */,
 				893CAC37286D914E00BDF84C /* RecoveryPhraseCopyPhrasePresenter.swift in Sources */,
+				FA2BC98C2A02820600EF3154 /* SessionRequestModule.swift in Sources */,
 				89B349F1289260EB0059891C /* SuggestionBox.swift in Sources */,
 				070D61DF27B2A25200B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				FA01C9EE291C5D3100BD8738 /* UIView+Dimensions.swift in Sources */,
@@ -6302,6 +6491,7 @@
 				901F7EEE27E8A6A600C46741 /* DelegationTarget.swift in Sources */,
 				7F48C1E1244DCD0B00997684 /* UIView+Additions.swift in Sources */,
 				8D5776D0295B42930059C309 /* ButtonsShielded.swift in Sources */,
+				FA2BC96A2A02807C00EF3154 /* SessionProposalView.swift in Sources */,
 				7F48C1E2244DCD0B00997684 /* PasswordFieldViewController.swift in Sources */,
 				893CAC46286DA7F000BDF84C /* View+Modifiers.swift in Sources */,
 				070D61D727B2907000B6903C /* OnboardingCarouselViewController.swift in Sources */,
@@ -6314,6 +6504,7 @@
 				7FA0AE9A246047A000B7673F /* AccountBalance.swift in Sources */,
 				7F48C1E5244DCD0B00997684 /* SubmissionStatusEnum.swift in Sources */,
 				7F48C1E6244DCD0B00997684 /* Result+Additions.swift in Sources */,
+				FA2BC94C2A027E7100EF3154 /* AuthRequestView.swift in Sources */,
 				7F48C1E7244DCD0B00997684 /* ErrorMapper.swift in Sources */,
 				7F48C1E8244DCD0B00997684 /* LoginPresenter.swift in Sources */,
 				89CF2D5E281A9E3100742E1E /* (null) in Sources */,
@@ -6386,6 +6577,7 @@
 				19C2E0C630D5ECCCC0B72DAF /* AccountDetailsPresenter.swift in Sources */,
 				19C2EF989E5BF0616456B7DC /* TransactionViewModel.swift in Sources */,
 				19C2E7B99EE6FDCDAE1FFEBC /* TransactionsLoadingHandler.swift in Sources */,
+				FA2BC93C2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */,
 				19C2E251696B00014A65F012 /* AccountsService.swift in Sources */,
 				19C2EFB280053D318746CFEE /* TransactionsService.swift in Sources */,
 				893CAC91286F27B800BDF84C /* RecoveryPhraseOnboardingView.swift in Sources */,
@@ -6415,6 +6607,7 @@
 				19C2E7F2807A2D3480A59C3A /* ExportVersionContainer.swift in Sources */,
 				19C2EC182A9F122A326021F6 /* ExportAccount.swift in Sources */,
 				19C2EC33180F59E8660A215D /* ExportRecipient.swift in Sources */,
+				FA2BC9482A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */,
 				19C2E0E206CBB8B15F4E17B4 /* IdentityAttributeEntity.swift in Sources */,
 				529457C1274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				FA01CA1E291C5D3100BD8738 /* UITextView+Helper.swift in Sources */,
@@ -6441,6 +6634,7 @@
 				89CF2D3A28168B2A00742E1E /* BakerPoolReceiptConfirmationPresenter.swift in Sources */,
 				19C2E6F6503A4A0ED31EFB07 /* ExportContainer.swift in Sources */,
 				19C2E7D2050B9833655301C2 /* CreateExportPasswordPresenter.swift in Sources */,
+				FA2BC96E2A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */,
 				19C2E7A533F6848B74AC9847 /* ExportPresenter.swift in Sources */,
 				079F30FD26EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				19C2EC22A19C3BFED64FE5CE /* ExportService.swift in Sources */,
@@ -6487,6 +6681,7 @@
 				FA01C9EC291C5D3100BD8738 /* UIApplication+Helper.swift in Sources */,
 				52A6A77624F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				8928970D289A6464009688F1 /* Net.swift in Sources */,
+				FA2BC96C2A02807C00EF3154 /* SessionProposalView.swift in Sources */,
 				527DE3482571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				7F85B6DB246A9A7C00ED09B8 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				7F85B6DC246A9A7C00ED09B8 /* PasscodeFieldViewController.swift in Sources */,
@@ -6508,6 +6703,7 @@
 				7F85B6E8246A9A7C00ED09B8 /* AccountConfirmedPresenter.swift in Sources */,
 				7F85B6E9246A9A7C00ED09B8 /* LoginInfoLabel.swift in Sources */,
 				7F85B6EA246A9A7C00ED09B8 /* String+Additions.swift in Sources */,
+				FA2BC94A2A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */,
 				7F85B6EB246A9A7C00ED09B8 /* Fonts.swift in Sources */,
 				8992BA572828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				891B19D028A2563100F4B0D6 /* SubmitSeedAccountView.swift in Sources */,
@@ -6530,6 +6726,7 @@
 				897D0F3C28914652001CEC3B /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				89D4688828A224ED007D3FC8 /* SeedIdentityCreationStatus.swift in Sources */,
 				7F85B6FA246A9A7C00ED09B8 /* Origin.swift in Sources */,
+				FA2BC9742A02807C00EF3154 /* SessionProposalModule.swift in Sources */,
 				6426D91E260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */,
 				FA0CAAED2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,
 				7F85B6FB246A9A7C00ED09B8 /* KeychainWrapper.swift in Sources */,
@@ -6564,6 +6761,7 @@
 				64FD33CD2602330B00563703 /* CredentialResponse.swift in Sources */,
 				FA01CA1C291C5D3100BD8738 /* UINavigationController+Helper.swift in Sources */,
 				52589B2325121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
+				FA2BC9822A02820600EF3154 /* SessionRequestRouter.swift in Sources */,
 				90434C8927FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				7F85B714246A9A7C00ED09B8 /* UIViewController+Additions.swift in Sources */,
 				529457C3274EB7440027EAA2 /* TermsHelper.swift in Sources */,
@@ -6590,6 +6788,7 @@
 				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B722246A9A7C00ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
 				89CF2D56281A539700742E1E /* (null) in Sources */,
+				FA2BC9702A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */,
 				893CAC8E286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
 				7FB64A0B247D568400DC500E /* ExportViewController.swift in Sources */,
@@ -6633,6 +6832,7 @@
 				7F85B73E246A9A7C00ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
 				52D0CF1D25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				893CAC39286D914E00BDF84C /* RecoveryPhraseCopyPhrasePresenter.swift in Sources */,
+				FA2BC9862A02820600EF3154 /* SessionRequestInteractor.swift in Sources */,
 				90C371E727DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */,
 				901F7FAD27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				90C371DB27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
@@ -6688,6 +6888,7 @@
 				7F7F6D3124A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				FA01C9DC291C5D3100BD8738 /* UserDefaults+Helper.swift in Sources */,
 				7F85B753246A9A7C00ED09B8 /* StorageManager.swift in Sources */,
+				FA2BC93E2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */,
 				7F85B754246A9A7C00ED09B8 /* NetworkManager.swift in Sources */,
 				7F85B755246A9A7C00ED09B8 /* IdentityInfoViewModel.swift in Sources */,
 				7F85B756246A9A7C00ED09B8 /* ResourceRequest.swift in Sources */,
@@ -6727,6 +6928,7 @@
 				7F85B766246A9A7C00ED09B8 /* IdentityCell.swift in Sources */,
 				7F85B767246A9A7C00ED09B8 /* UILabel+localized.swift in Sources */,
 				89A056F5286C58B00055C049 /* RecoveryPhraseCoordinator.swift in Sources */,
+				FA2BC99C2A0282C100EF3154 /* WalletView.swift in Sources */,
 				FA0CAB1C294B90540009D5F8 /* ExportPrivateKeyViewModel.swift in Sources */,
 				7F85B768246A9A7C00ED09B8 /* OriginTypeEnum.swift in Sources */,
 				FABA9D97291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
@@ -6739,12 +6941,14 @@
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
 				901F7F4027EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
+				FA2BC9642A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */,
 				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467DF289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
 				89B34A672897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				FA0CAB352951191A0009D5F8 /* Environment.swift in Sources */,
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
 				7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */,
+				FA2BC9462A027E7100EF3154 /* AuthRequestModule.swift in Sources */,
 				64FD333C25FF8A7C00563703 /* KeyList.swift in Sources */,
 				7F85B770246A9A7C00ED09B8 /* ShowAlertProtocol.swift in Sources */,
 				901F7F1327EA0D5C00C46741 /* PoolInfo.swift in Sources */,
@@ -6766,6 +6970,7 @@
 				7F85B77A246A9A7C00ED09B8 /* IPArDatum.swift in Sources */,
 				07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B77B246A9A7C00ED09B8 /* IPInfo.swift in Sources */,
+				FA2BC94E2A027E7100EF3154 /* AuthRequestView.swift in Sources */,
 				89D467E9289B8F74007D3FC8 /* CreateIDRequestV1.swift in Sources */,
 				7F85B77C246A9A7C00ED09B8 /* CreateCredentialRequest.swift in Sources */,
 				7F85B77D246A9A7C00ED09B8 /* IPInfoResponseElement.swift in Sources */,
@@ -6787,6 +6992,7 @@
 				8992BA502824FE96005279C9 /* BakingAlerts.swift in Sources */,
 				7F85B789246A9A7C00ED09B8 /* IdentityConfirmedViewController.swift in Sources */,
 				7F85B78A246A9A7C00ED09B8 /* IdentitiesPresenter.swift in Sources */,
+				FA8C75F729F47554009D8994 /* SelectAccountCell.swift in Sources */,
 				7F85B78B246A9A7C00ED09B8 /* IdentitiesViewController.swift in Sources */,
 				7F85B78C246A9A7C00ED09B8 /* IdentitiesService.swift in Sources */,
 				901F7F9827F33C8800C46741 /* MintDistribution.swift in Sources */,
@@ -6854,6 +7060,7 @@
 				7F85B7A4246A9A7C00ED09B8 /* SendFundViewController.swift in Sources */,
 				89D46808289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
 				8DD48C822953138400CA9085 /* EarnPresenter.swift in Sources */,
+				FA2BC9682A02807C00EF3154 /* SessionProposalRouter.swift in Sources */,
 				89E1A75F27FF1C2D008C761B /* String+Lines.swift in Sources */,
 				7F85B7A5246A9A7C00ED09B8 /* SelectRecipientPresenter.swift in Sources */,
 				7F85B7A6246A9A7C00ED09B8 /* SelectRecipientViewController.swift in Sources */,
@@ -6873,6 +7080,7 @@
 				7F85B7A9246A9A7C00ED09B8 /* SendFundsCoordinator.swift in Sources */,
 				7F85B7AA246A9A7C00ED09B8 /* ServicesProvider+prod.swift in Sources */,
 				89D467F8289B9E8A007D3FC8 /* ObjectWrapper.swift in Sources */,
+				FA2BC97E2A02820600EF3154 /* SessionRequestView.swift in Sources */,
 				7F85B7AB246A9A7C00ED09B8 /* GTU.swift in Sources */,
 				893CAC65286DC6AD00BDF84C /* LoadingIndicator.swift in Sources */,
 				7F85B7AD246A9A7C00ED09B8 /* AccountDetailsViewModel.swift in Sources */,
@@ -6887,11 +7095,14 @@
 				5248E7DE257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				528EB74C255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				FA93AE422970FF8A0050B409 /* DetachableObject.swift in Sources */,
+				FA2BC9A42A0282C100EF3154 /* WalletInteractor.swift in Sources */,
 				7F85B7B0246A9A7C00ED09B8 /* TransactionViewModel.swift in Sources */,
 				FABA9D9D291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				89B34A352892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
 				7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */,
+				FA2BC98E2A02820600EF3154 /* SessionRequestModule.swift in Sources */,
 				7F85B7B1246A9A7C00ED09B8 /* TransactionDetailInfoCellView.swift in Sources */,
+				FA2BC9A02A0282C100EF3154 /* WalletPresenter.swift in Sources */,
 				7F85B7B2246A9A7C00ED09B8 /* TransactionsLoadingHandler.swift in Sources */,
 				89D46844289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
 				89B34A592897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
@@ -6906,6 +7117,7 @@
 				891B1A1B28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				9074C71127D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */,
 				909EAF2527F72058001930AE /* AccountPendingChangeType.swift in Sources */,
+				FA2BC9422A027E7100EF3154 /* AuthRequestRouter.swift in Sources */,
 				52DCAA0227CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				89D467FD289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
 				89D4686E289D219F007D3FC8 /* SeedIdentityStatusViewModel.swift in Sources */,
@@ -6937,6 +7149,7 @@
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89D467C4289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
+				FA2BC98A2A02820600EF3154 /* SessionRequestPresenter.swift in Sources */,
 				89CF2D5B281A66C400742E1E /* (null) in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F8291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
@@ -6971,6 +7184,7 @@
 				070D61E127B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				5211BAAE24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
+				FA2BC9982A0282C100EF3154 /* WalletRouter.swift in Sources */,
 				89B34A3A2893D0A50059891C /* PageList.swift in Sources */,
 				5251EFA027BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				19C2EBBA614AB2996127C30C /* CreateExportPasswordPresenter.swift in Sources */,
@@ -6980,6 +7194,7 @@
 				89A056FA286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				7FCA399A250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				07519F8A26FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
+				FA2BC9A82A0282C100EF3154 /* WalletModule.swift in Sources */,
 				528EB742255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				19C2EAA10B0289BB2E451EEA /* ExportService.swift in Sources */,
 				19C2EBC80FC154FA2B036828 /* CreateExportPasswordCoordinator.swift in Sources */,
@@ -7037,6 +7252,7 @@
 				FA01C9ED291C5D3100BD8738 /* UIApplication+Helper.swift in Sources */,
 				52A6A77724F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				8928970E289A6464009688F1 /* Net.swift in Sources */,
+				FA2BC96D2A02807C00EF3154 /* SessionProposalView.swift in Sources */,
 				527DE3492571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				7F85B8E72472D37600ED09B8 /* MoreCoordinator.swift in Sources */,
 				7F85B7DA246A9AB600ED09B8 /* IdentityRevokersWidgetViewController.swift in Sources */,
@@ -7058,6 +7274,7 @@
 				7F85B7E6246A9AB600ED09B8 /* SubmissionStatus.swift in Sources */,
 				7F85B7E7246A9AB600ED09B8 /* AccountConfirmedPresenter.swift in Sources */,
 				7F85B7E8246A9AB600ED09B8 /* LoginInfoLabel.swift in Sources */,
+				FA2BC94B2A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */,
 				7F85B7E9246A9AB600ED09B8 /* String+Additions.swift in Sources */,
 				8992BA582828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				891B19D128A2563100F4B0D6 /* SubmitSeedAccountView.swift in Sources */,
@@ -7080,6 +7297,7 @@
 				897D0F3D28914652001CEC3B /* RecoveryPhraseSetupCompleteView.swift in Sources */,
 				89D4688928A224ED007D3FC8 /* SeedIdentityCreationStatus.swift in Sources */,
 				7F85B7F8246A9AB600ED09B8 /* IdentityChoosePresenter.swift in Sources */,
+				FA2BC9752A02807C00EF3154 /* SessionProposalModule.swift in Sources */,
 				6426D91F260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */,
 				FA0CAAEE2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,
 				7F85B7F9246A9AB600ED09B8 /* Origin.swift in Sources */,
@@ -7114,6 +7332,7 @@
 				64FD33CE2602330B00563703 /* CredentialResponse.swift in Sources */,
 				FA01CA1D291C5D3100BD8738 /* UINavigationController+Helper.swift in Sources */,
 				52589B2425121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
+				FA2BC9832A02820600EF3154 /* SessionRequestRouter.swift in Sources */,
 				90434C8A27FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				7F85B811246A9AB600ED09B8 /* AttributesFormatter.swift in Sources */,
 				529457C4274EB7440027EAA2 /* TermsHelper.swift in Sources */,
@@ -7140,6 +7359,7 @@
 				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B81E246A9AB600ED09B8 /* JSONObject.swift in Sources */,
 				89CF2D57281A539700742E1E /* (null) in Sources */,
+				FA2BC9712A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */,
 				893CAC8F286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				7F85B821246A9AB600ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
@@ -7183,6 +7403,7 @@
 				7F85B83B246A9AB600ED09B8 /* BaseView.swift in Sources */,
 				52D0CF1E25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				893CAC3A286D914E00BDF84C /* RecoveryPhraseCopyPhrasePresenter.swift in Sources */,
+				FA2BC9872A02820600EF3154 /* SessionRequestInteractor.swift in Sources */,
 				90C371E827DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */,
 				901F7FAE27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				90C371DC27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
@@ -7238,6 +7459,7 @@
 				7F7F6D3224A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				FA01C9DD291C5D3100BD8738 /* UserDefaults+Helper.swift in Sources */,
 				7F85B851246A9AB600ED09B8 /* MobileWallet.swift in Sources */,
+				FA2BC93F2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */,
 				7F85B8E82472D37600ED09B8 /* MoreMenuViewController.swift in Sources */,
 				7F85B852246A9AB600ED09B8 /* StorageManager.swift in Sources */,
 				7F85B853246A9AB600ED09B8 /* NetworkManager.swift in Sources */,
@@ -7277,6 +7499,7 @@
 				7F85B862246A9AB600ED09B8 /* AttributeList.swift in Sources */,
 				7F85B863246A9AB600ED09B8 /* IdentityDataSelectionCell.swift in Sources */,
 				89A056F6286C58B00055C049 /* RecoveryPhraseCoordinator.swift in Sources */,
+				FA2BC99D2A0282C100EF3154 /* WalletView.swift in Sources */,
 				FA0CAB1D294B90540009D5F8 /* ExportPrivateKeyViewModel.swift in Sources */,
 				7F85B864246A9AB600ED09B8 /* IdentityDataSelectionWidgetViewController.swift in Sources */,
 				FABA9D98291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
@@ -7289,12 +7512,14 @@
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				901F7F4127EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
+				FA2BC9652A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */,
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467E0289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
 				89B34A682897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
 				FA0CAB362951191A0009D5F8 /* Environment.swift in Sources */,
 				7F85B869246A9AB600ED09B8 /* Details.swift in Sources */,
 				7F85B86A246A9AB600ED09B8 /* Description.swift in Sources */,
+				FA2BC9472A027E7100EF3154 /* AuthRequestModule.swift in Sources */,
 				64FD333D25FF8A7C00563703 /* KeyList.swift in Sources */,
 				7F85B86B246A9AB600ED09B8 /* RemoteTransactions.swift in Sources */,
 				901F7F1427EA0D5C00C46741 /* PoolInfo.swift in Sources */,
@@ -7316,6 +7541,7 @@
 				7F85B873246A9AB600ED09B8 /* AccountDetailsViewController.swift in Sources */,
 				07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B874246A9AB600ED09B8 /* CreateTransferRequest.swift in Sources */,
+				FA2BC94F2A027E7100EF3154 /* AuthRequestView.swift in Sources */,
 				89D467EA289B8F75007D3FC8 /* CreateIDRequestV1.swift in Sources */,
 				7F85B877246A9AB600ED09B8 /* TransactionDetailPresenter.swift in Sources */,
 				7F85B878246A9AB600ED09B8 /* MakeCreateTransferRequest.swift in Sources */,
@@ -7337,6 +7563,7 @@
 				8992BA512824FE96005279C9 /* BakingAlerts.swift in Sources */,
 				7F85B885246A9AB600ED09B8 /* CreateIDRequest.swift in Sources */,
 				7F85B886246A9AB600ED09B8 /* LetterSpacingLabel.swift in Sources */,
+				FA8C75F829F47554009D8994 /* SelectAccountCell.swift in Sources */,
 				7F85B887246A9AB600ED09B8 /* IdentityConfirmedPresenter.swift in Sources */,
 				7F85B888246A9AB600ED09B8 /* IdentityConfirmedViewController.swift in Sources */,
 				901F7F9927F33C8800C46741 /* MintDistribution.swift in Sources */,
@@ -7404,6 +7631,7 @@
 				7F85B8A1246A9AB600ED09B8 /* Logger.swift in Sources */,
 				89D46809289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
 				8DD48C832953138500CA9085 /* EarnPresenter.swift in Sources */,
+				FA2BC9692A02807C00EF3154 /* SessionProposalRouter.swift in Sources */,
 				89E1A76027FF1C2D008C761B /* String+Lines.swift in Sources */,
 				7F85B8A2246A9AB600ED09B8 /* SendFundPresenter.swift in Sources */,
 				7F85B8A3246A9AB600ED09B8 /* SendFundViewController.swift in Sources */,
@@ -7423,6 +7651,7 @@
 				7F85B8A6246A9AB600ED09B8 /* AddRecipientPresenter.swift in Sources */,
 				7F85B8A7246A9AB600ED09B8 /* AddRecipientViewController.swift in Sources */,
 				89D467F9289B9E8A007D3FC8 /* ObjectWrapper.swift in Sources */,
+				FA2BC97F2A02820600EF3154 /* SessionRequestView.swift in Sources */,
 				7F85B8A8246A9AB600ED09B8 /* SendFundsCoordinator.swift in Sources */,
 				893CAC66286DC6AD00BDF84C /* LoadingIndicator.swift in Sources */,
 				7F85B8A9246A9AB600ED09B8 /* ServicesProvider+prod.swift in Sources */,
@@ -7437,11 +7666,14 @@
 				5248E7DF257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				528EB74D255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				FA93AE432970FF8A0050B409 /* DetachableObject.swift in Sources */,
+				FA2BC9A52A0282C100EF3154 /* WalletInteractor.swift in Sources */,
 				7F85B8AD246A9AB600ED09B8 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				FABA9D9E291888F90094012B /* SubmittedSeedAccountPresenter.swift in Sources */,
 				89B34A362892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
 				7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */,
+				FA2BC98F2A02820600EF3154 /* SessionRequestModule.swift in Sources */,
 				7F85B8AE246A9AB600ED09B8 /* AccountDetailsPresenter.swift in Sources */,
+				FA2BC9A12A0282C100EF3154 /* WalletPresenter.swift in Sources */,
 				7F85B8AF246A9AB600ED09B8 /* TransactionViewModel.swift in Sources */,
 				89D46845289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
 				89B34A5A2897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
@@ -7456,6 +7688,7 @@
 				891B1A1C28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				9074C71227D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */,
 				909EAF2627F72058001930AE /* AccountPendingChangeType.swift in Sources */,
+				FA2BC9432A027E7100EF3154 /* AuthRequestRouter.swift in Sources */,
 				52DCAA0327CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
 				89D467FE289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
 				89D4686F289D219F007D3FC8 /* SeedIdentityStatusViewModel.swift in Sources */,
@@ -7487,6 +7720,7 @@
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
 				89D467C5289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
+				FA2BC98B2A02820600EF3154 /* SessionRequestPresenter.swift in Sources */,
 				89CF2D5C281A66C400742E1E /* (null) in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F9291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
@@ -7521,6 +7755,7 @@
 				070D61E227B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				5211BAAF24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
+				FA2BC9992A0282C100EF3154 /* WalletRouter.swift in Sources */,
 				89B34A3B2893D0A50059891C /* PageList.swift in Sources */,
 				5251EFA127BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				19C2EAAD7644A803CCE64786 /* EncryptionMetadata.swift in Sources */,
@@ -7530,6 +7765,7 @@
 				89A056FB286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				7FCA399B250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				07519F8B26FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
+				FA2BC9A92A0282C100EF3154 /* WalletModule.swift in Sources */,
 				528EB743255C1EC600010554 /* InitialAccountSummaryViewController.swift in Sources */,
 				19C2E97D649F0F8D782DCA6B /* CreateExportPasswordPresenter.swift in Sources */,
 				19C2EABA3A43F2D530C4B60E /* CreateExportPasswordCoordinator.swift in Sources */,
@@ -7599,6 +7835,7 @@
 				901F7EF927E9F47200C46741 /* StakeService.swift in Sources */,
 				893CAC42286D9A2700BDF84C /* PageViewModel.swift in Sources */,
 				89B34A2A2892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
+				FA2BC99B2A0282C100EF3154 /* WalletView.swift in Sources */,
 				8DD9B1BC294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				89D46807289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
@@ -7614,9 +7851,11 @@
 				8992BA27281FFDDB005279C9 /* BakerPoolStatusPresenter.swift in Sources */,
 				7FF07AC323EADBB100F1FC04 /* UIStackView+extension.swift in Sources */,
 				7FF07ABC23EADBB100F1FC04 /* UIImage+Additions.swift in Sources */,
+				FA2BC9892A02820600EF3154 /* SessionRequestPresenter.swift in Sources */,
 				068DC81623F2E899001B2975 /* StandardButton.swift in Sources */,
 				5211BAB22501070D00EE1658 /* ShieldedAmountEntity.swift in Sources */,
 				7FF07A6D23EADB1200F1FC04 /* AppDelegate.swift in Sources */,
+				FA2BC96F2A02807C00EF3154 /* SessionProposalInteractor.swift in Sources */,
 				FABA9DA22918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */,
 				7FA8F3B5241BAC9400479F83 /* AppCoordinator.swift in Sources */,
 				64FD33CC2602330B00563703 /* CredentialResponse.swift in Sources */,
@@ -7651,6 +7890,7 @@
 				528EB73C255C1EB600010554 /* GettingStartedPresenter.swift in Sources */,
 				52A6A77524F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				9074C71027D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */,
+				FA2BC9A72A0282C100EF3154 /* WalletModule.swift in Sources */,
 				C968B9F02448C37C00E31BD8 /* TransactionSubmittedViewController.swift in Sources */,
 				C93D092C242762440022250B /* CreationFailedViewController.swift in Sources */,
 				901F7F0627EA0D5C00C46741 /* BakerStakePendingChange.swift in Sources */,
@@ -7685,9 +7925,11 @@
 				7FEC203723F1D435009BD4C9 /* IdentityProviderListViewController.swift in Sources */,
 				52055F8C2552C51F0071F7CA /* IdentityProviderCell.swift in Sources */,
 				90C371C927DB90770046F05E /* StakeEntryCell.swift in Sources */,
+				FA2BC9632A02807C00EF3154 /* SessionProposalPresenter.swift in Sources */,
 				90C371DF27DF4B020046F05E /* DelegationReceiptConfirmationPresenter.swift in Sources */,
 				C96632552459B9260087A1F2 /* AccountTransactionsDataCellView.swift in Sources */,
 				7FEB7BE724090B7900D3E0EC /* JSONObject.swift in Sources */,
+				FA2BC96B2A02807C00EF3154 /* SessionProposalView.swift in Sources */,
 				64FD333125FF886E00563703 /* InputEncryptedAmount.swift in Sources */,
 				89A05708286C6EFE0055C049 /* SwiftUILabel.swift in Sources */,
 				901F7FAC27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
@@ -7704,12 +7946,14 @@
 				644BB67425DFB4220086ED48 /* main.swift in Sources */,
 				C939821D240F8D7000C72FE2 /* RoundedCornerView.swift in Sources */,
 				7FF07B0723EC0ED300F1FC04 /* AccountsPresenter.swift in Sources */,
+				FA2BC9972A0282C100EF3154 /* WalletRouter.swift in Sources */,
 				528EB75A256400D900010554 /* RevealAttributesPresenter.swift in Sources */,
 				52D0CF212518C4680074D3C4 /* EncryptedDetails.swift in Sources */,
 				89D467F7289B9E8A007D3FC8 /* ObjectWrapper.swift in Sources */,
 				077AC5EB26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				06AA2AA023F688C60001F964 /* CreateIdentityCoordinator.swift in Sources */,
 				07519F7F26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
+				FA2BC98D2A02820600EF3154 /* SessionRequestModule.swift in Sources */,
 				529531AE256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
 				FABA9D96291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				896B423528B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
@@ -7735,11 +7979,14 @@
 				FA6A4F0729DB461D00A48CB2 /* SelectAccountViewController.swift in Sources */,
 				89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */,
 				FA6A4F0C29DB463500A48CB2 /* SelectAccountPresenter.swift in Sources */,
+				FA2BC9452A027E7100EF3154 /* AuthRequestModule.swift in Sources */,
 				C9C097A724331BC400ACA35A /* AccountDetailsCoordinator.swift in Sources */,
 				7FD8DEAA2448623300CA06D8 /* ScanQRViewController.swift in Sources */,
 				52D0CF1C25188BA30074D3C4 /* EncryptedBalance.swift in Sources */,
 				7FD8785A2406AF7C00509BDB /* CreatePasswordPresenter.swift in Sources */,
+				FA2BC9A32A0282C100EF3154 /* WalletInteractor.swift in Sources */,
 				897D0F24288EA9C3001CEC3B /* RecoveryPhraseConfirmPhrasePresenter.swift in Sources */,
+				FA2BC93D2A027E7100EF3154 /* AuthRequestInteractor.swift in Sources */,
 				06AEE69323F4065800D14834 /* WidgetView.swift in Sources */,
 				9078546828116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				896B423F28B49A6700D1F271 /* SelectIdentityPresenter.swift in Sources */,
@@ -7812,6 +8059,7 @@
 				89B34A3E289403930059891C /* AutoFocusTextField.swift in Sources */,
 				FA01C9E3291C5D3100BD8738 /* Collection+Helper.swift in Sources */,
 				19C2E86BC31ED814C1A7FD97 /* ApiConstants.swift in Sources */,
+				FA2BC9852A02820600EF3154 /* SessionRequestInteractor.swift in Sources */,
 				89D46872289D21D2007D3FC8 /* SeedIdentityStatusView.swift in Sources */,
 				19C2E3C3C60D82D846C1068A /* Aci.swift in Sources */,
 				C9420BC524410AA700086B6C /* IdentityObject.swift in Sources */,
@@ -7839,7 +8087,9 @@
 				5251EFA527C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				FA0CAAF62937DD750009D5F8 /* UITapGestureRecognizer.swift in Sources */,
 				901F7FA727F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
+				FA2BC99F2A0282C100EF3154 /* WalletPresenter.swift in Sources */,
 				C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */,
+				FA2BC9672A02807C00EF3154 /* SessionProposalRouter.swift in Sources */,
 				FA01C9D3291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
 				7FA0AE9324598D6500B7673F /* Details.swift in Sources */,
 				89D467DA289B8CAA007D3FC8 /* PrivateIDObjectDataWrapper.swift in Sources */,
@@ -7851,6 +8101,7 @@
 				7F85B8F32472D39800ED09B8 /* MoreMenuViewController.swift in Sources */,
 				901F7F4427EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				89CF2D35281167EF00742E1E /* BakerPoolSettingsViewController.swift in Sources */,
+				FA2BC9812A02820600EF3154 /* SessionRequestRouter.swift in Sources */,
 				7FA0AE9424598D6500B7673F /* RemoteTransactions.swift in Sources */,
 				5211BAA424FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
 				C94ED71F2461B2030071A4FB /* TransactionDetailViewController.swift in Sources */,
@@ -7887,6 +8138,7 @@
 				8DD48C7B2953137700CA9085 /* EarnView.swift in Sources */,
 				89D467E8289B8F74007D3FC8 /* CreateIDRequestV1.swift in Sources */,
 				893CAC5A286DBDB300BDF84C /* RecoveryPhraseService.swift in Sources */,
+				FA2BC97D2A02820600EF3154 /* SessionRequestView.swift in Sources */,
 				7F21398524236C0A00D2A5C4 /* CreateCredentialRequest.swift in Sources */,
 				7F5F77822487D3BD0016F8D1 /* IdentityProviderWebViewViewController.swift in Sources */,
 				5251EF8E27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
@@ -7965,6 +8217,7 @@
 				FA01CA0B291C5D3100BD8738 /* Date+Helper.swift in Sources */,
 				52589B2225121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				52D35113250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
+				FA2BC9492A027E7100EF3154 /* AuthRequestPresenter.swift in Sources */,
 				9078546C28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				5248E7DD257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
 				19C2E13661957027A06ED585 /* OutcomeEnum.swift in Sources */,
@@ -8013,11 +8266,13 @@
 				8992BA562828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				19C2E365F833136A91177D42 /* AddRecipientViewController.swift in Sources */,
 				89D4683E289BE895007D3FC8 /* SelectIdentityProviderPresenter.swift in Sources */,
+				FA8C75F629F47554009D8994 /* SelectAccountCell.swift in Sources */,
 				89CF2D5A281A66C400742E1E /* (null) in Sources */,
 				19C2E321C4CCC444BF89ED2E /* SendFundsCoordinator.swift in Sources */,
 				89D467F2289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				19C2E44740A7724544A27531 /* ServicesProvider+prod.swift in Sources */,
 				FA0CAB20294B90740009D5F8 /* ExportPrivateKeyView.swift in Sources */,
+				FA2BC94D2A027E7100EF3154 /* AuthRequestView.swift in Sources */,
 				529531AA256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				909EAF2427F72058001930AE /* AccountPendingChangeType.swift in Sources */,
 				19C2EDF1839B4F4F8FE11A76 /* GTU.swift in Sources */,
@@ -8072,6 +8327,7 @@
 				644BB67E25DFB4630086ED48 /* ConcordiumApplication.swift in Sources */,
 				19C2E6DE1910B724444819F5 /* RecipientEntity.swift in Sources */,
 				7FB64A0C247D568500DC500E /* ExportViewController.swift in Sources */,
+				FA2BC9732A02807C00EF3154 /* SessionProposalModule.swift in Sources */,
 				07519F9B26FCC93200F4E6E3 /* Memo.swift in Sources */,
 				19C2EC21D98697C47A31F7F4 /* AccountEntity.swift in Sources */,
 				FA0CAB25294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
@@ -8092,6 +8348,7 @@
 				FA01C9F3291C5D3100BD8738 /* String+Helper.swift in Sources */,
 				070D61DB27B290E400B6903C /* OnboardingCarouselViewController.swift in Sources */,
 				19C2EDFEB2A5FDF4A9F34675 /* ExportService.swift in Sources */,
+				FA2BC9412A027E7100EF3154 /* AuthRequestRouter.swift in Sources */,
 				89B34A0D2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				19C2E02C2E62088661C38523 /* CreateExportPasswordCoordinator.swift in Sources */,
 				891B19E328A39DC000F4B0D6 /* CreateSeedCredentialRequest.swift in Sources */,
@@ -8207,7 +8464,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = 826A447XXJ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8242,7 +8499,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = 826A447XXJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8274,7 +8531,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8290,7 +8547,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8311,7 +8568,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8327,7 +8584,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8743,6 +9000,14 @@
 				version = 7.5.2;
 			};
 		};
+		FA2BC9572A027FE200EF3154 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -8825,6 +9090,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA0DBD88292BF4360051C0D7 /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */;
 			productName = MatomoTracker;
+		};
+		FA2BC9582A027FE200EF3154 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA2BC9572A027FE200EF3154 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnect;
+		};
+		FA2BC95A2A027FE200EF3154 /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA2BC9572A027FE200EF3154 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
