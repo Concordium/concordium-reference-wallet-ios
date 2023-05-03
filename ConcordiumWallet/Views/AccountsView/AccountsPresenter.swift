@@ -125,6 +125,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func didSelectPendingIdentity(identity: IdentityDataType)
     func newTermsAvailable()
     func showSettings()
+    func showScan()
 }
 
 // MARK: View
@@ -146,6 +147,7 @@ protocol AccountsPresenterProtocol: AnyObject {
     func viewDidAppear()
     func refresh(pendingIdentity: IdentityDataType?)
     func showSettings()
+    func showScan()
     func userPressedCreate()
     func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
@@ -221,6 +223,10 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func showSettings() {
         delegate?.showSettings()
+    }
+    
+    func showScan() {
+        delegate?.showScan()
     }
 
     func refresh(pendingIdentity: IdentityDataType? = nil) {

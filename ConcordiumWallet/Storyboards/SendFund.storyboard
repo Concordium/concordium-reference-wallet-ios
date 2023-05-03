@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" axis="vertical" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="sxI-ke-w4F">
-                                <rect key="frame" x="20" y="44" width="374" height="808"/>
+                                <rect key="frame" x="20" y="48" width="374" height="804"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vko-5I-WRq">
                                         <rect key="frame" x="5" y="0.0" width="364" height="65.5"/>
@@ -100,10 +100,10 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Knm-nI-g4S">
-                                        <rect key="frame" x="130.5" y="152.5" width="113" height="241.5"/>
+                                        <rect key="frame" x="130.5" y="152.5" width="113" height="237.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Ͼ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oms-CT-B3L">
-                                                <rect key="frame" x="0.0" y="107" width="26.5" height="27.5"/>
+                                                <rect key="frame" x="0.0" y="105" width="26.5" height="27.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Oms-CT-B3L" secondAttribute="height" multiplier="19:20" id="92N-6p-xkl"/>
                                                 </constraints>
@@ -112,7 +112,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="0.00" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="4Cm-9Z-Dol">
-                                                <rect key="frame" x="30.5" y="93.5" width="82.5" height="55"/>
+                                                <rect key="frame" x="30.5" y="91.5" width="82.5" height="55"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="amount_text_field"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="4sI-e3-5UI"/>
@@ -127,7 +127,7 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uTx-3l-E5c">
-                                        <rect key="frame" x="90.5" y="421" width="193.5" height="72"/>
+                                        <rect key="frame" x="90.5" y="417" width="193.5" height="72"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="W4m-wV-Nme">
                                                 <rect key="frame" x="0.0" y="0.0" width="193.5" height="72"/>
@@ -164,7 +164,7 @@ is less than 0.01 cents]</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqd-fw-E0Y" userLabel="SelectRecipientWidgetView">
-                                        <rect key="frame" x="0.0" y="520" width="374" height="151"/>
+                                        <rect key="frame" x="0.0" y="516" width="374" height="151"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sxw-xB-mg9" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="85" width="158.5" height="41"/>
@@ -263,7 +263,7 @@ is less than 0.01 cents]</string>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xcv-BH-lVj">
-                                        <rect key="frame" x="0.0" y="698" width="374" height="110"/>
+                                        <rect key="frame" x="0.0" y="694" width="374" height="110"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5e-6S-qaG" userLabel="AddMemoWidgetView" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -430,7 +430,7 @@ is less than 0.01 cents]</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Enter your memo below.]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DND-DT-YLk">
-                                <rect key="frame" x="20" y="84" width="374" height="47"/>
+                                <rect key="frame" x="20" y="88" width="374" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -488,7 +488,7 @@ is less than 0.01 cents]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYr-x4-aOx" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="74" width="323" height="44"/>
+                                <rect key="frame" x="16" y="78" width="323" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="[Search Recipients]" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nS-zJ-XTa">
                                         <rect key="frame" x="5" y="5" width="313" height="34"/>
@@ -509,7 +509,7 @@ is less than 0.01 cents]</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFN-jH-mFy" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="354" y="74" width="44" height="44"/>
+                                <rect key="frame" x="354" y="78" width="44" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPa-Mn-IPK" customClass="BaseButton" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -533,11 +533,11 @@ is less than 0.01 cents]</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" estimatedRowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o7z-df-T8R">
-                                <rect key="frame" x="16" y="144" width="382" height="708"/>
+                                <rect key="frame" x="16" y="148" width="382" height="704"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="RecipientViewCell" textLabel="aHy-4t-EaT" detailTextLabel="SXR-gX-fDz" style="IBUITableViewCellStyleSubtitle" id="ofl-Jh-eXU">
-                                        <rect key="frame" x="0.0" y="44.5" width="382" height="66"/>
+                                        <rect key="frame" x="0.0" y="50" width="382" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ofl-Jh-eXU" id="bk8-aL-iG2">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="66"/>
@@ -600,7 +600,7 @@ is less than 0.01 cents]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ho7-fc-b03" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="94" width="382" height="40"/>
+                                <rect key="frame" x="16" y="98" width="382" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recipient Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mDy-Tz-AvT">
                                         <rect key="frame" x="12" y="3" width="358" height="34"/>
@@ -618,7 +618,7 @@ is less than 0.01 cents]</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Wx-zv-3Aq" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="16" y="149" width="323" height="40"/>
+                                <rect key="frame" x="16" y="153" width="323" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recipient address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCQ-pr-uWC">
                                         <rect key="frame" x="12" y="3" width="299" height="34"/>
@@ -637,7 +637,7 @@ is less than 0.01 cents]</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Day-NX-6wv" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
-                                <rect key="frame" x="354" y="149" width="44" height="40"/>
+                                <rect key="frame" x="354" y="153" width="44" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-w4-Xg8">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="40"/>
@@ -705,10 +705,10 @@ is less than 0.01 cents]</string>
             </objects>
             <point key="canvasLocation" x="8088" y="-85"/>
         </scene>
-        <!--Scan AddressQR View Controller-->
+        <!--ScanQR View Controller-->
         <scene sceneID="sIY-hp-knw">
             <objects>
-                <viewController storyboardIdentifier="ScanAddressQRViewController" id="CrP-7c-VlD" customClass="ScanAddressQRViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanQRViewController" id="CrP-7c-VlD" customClass="ScanQRViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UeT-JM-3HM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -747,10 +747,10 @@ is less than 0.01 cents]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Watermark_Shield" translatesAutoresizingMaskIntoConstraints="NO" id="eid-6D-Nme">
-                                <rect key="frame" x="133" y="188.5" width="148" height="173"/>
+                                <rect key="frame" x="133" y="190.5" width="148" height="173"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XXS-xJ-7Ja">
-                                <rect key="frame" x="20.5" y="210" width="373" height="486"/>
+                                <rect key="frame" x="20.5" y="212" width="373" height="486"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="otO-pB-V8q">
                                         <rect key="frame" x="64" y="0.0" width="245.5" height="194"/>
@@ -1039,28 +1039,28 @@ is less than 0.01 cents]</string>
     </scenes>
     <designables>
         <designable name="2Kc-aS-szO">
-            <size key="intrinsicContentSize" width="236" height="30"/>
+            <size key="intrinsicContentSize" width="120" height="30"/>
         </designable>
         <designable name="6Wm-nq-6Ah">
-            <size key="intrinsicContentSize" width="34" height="30"/>
+            <size key="intrinsicContentSize" width="44" height="30"/>
         </designable>
         <designable name="Agb-Wh-pXj">
-            <size key="intrinsicContentSize" width="158" height="30"/>
+            <size key="intrinsicContentSize" width="52" height="30"/>
         </designable>
         <designable name="Mfp-SX-eTS">
             <size key="intrinsicContentSize" width="58" height="32"/>
         </designable>
         <designable name="Sxw-xB-mg9">
-            <size key="intrinsicContentSize" width="174" height="21"/>
+            <size key="intrinsicContentSize" width="64" height="21"/>
         </designable>
         <designable name="aao-ws-5Uh">
-            <size key="intrinsicContentSize" width="103" height="33"/>
+            <size key="intrinsicContentSize" width="109" height="34"/>
         </designable>
         <designable name="wcx-5J-50g">
-            <size key="intrinsicContentSize" width="134" height="19"/>
+            <size key="intrinsicContentSize" width="62" height="19"/>
         </designable>
         <designable name="ysE-7N-kLa">
-            <size key="intrinsicContentSize" width="178" height="33"/>
+            <size key="intrinsicContentSize" width="188" height="34"/>
         </designable>
     </designables>
     <resources>
@@ -1101,7 +1101,7 @@ is less than 0.01 cents]</string>
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -45,8 +45,8 @@ class RecoveryPhraseConfirmPhrasePresenter: SwiftUIPresenter<RecoveryPhraseConfi
                     delegate?.recoveryPhraseHasBeenConfirmed(recoveryPhrase)
                 } else {
                     // TODO: Change for testing purposes
-//                    delegate?.recoveryPhraseHasBeenConfirmed(recoveryPhrase)
-                    viewModel.error = "recoveryphrase.confirmphrase.validationerror".localized
+                    delegate?.recoveryPhraseHasBeenConfirmed(recoveryPhrase)
+//                    viewModel.error = "recoveryphrase.confirmphrase.validationerror".localized
                 }
             }
         }

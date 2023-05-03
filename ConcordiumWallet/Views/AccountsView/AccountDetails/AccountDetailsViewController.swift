@@ -168,6 +168,9 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             actionEarn: {
                 self.presenter.showEarn()
             },
+            actionScan: {
+                self.presenter.showScan()
+            },
             actionShield: {
                 if self.shieldEnabled {
                     self.presenter.userTappedShieldUnshield()
