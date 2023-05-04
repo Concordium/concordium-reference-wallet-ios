@@ -2400,6 +2400,10 @@
 		C9DE5077242CF7CC00DE0EF5 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */; };
 		C9E3727824277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */; };
 		C9E3727924277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */; };
+		CD1152072A03E4F000A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */; };
+		CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */; };
+		CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */; };
+		CD11520D2A03E54300A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */; };
 		FA01C9D2291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
 		FA01C9D3291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
 		FA01C9D4291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
@@ -2525,10 +2529,6 @@
 		FA93AE29295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */; };
 		FA93AE2A295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */; };
 		FA93AE2B295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */; };
-		FA93AE36295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
-		FA93AE37295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
-		FA93AE38295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
-		FA93AE39295D372F0050B409 /* MobileWallet.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93AE35295D372F0050B409 /* MobileWallet.xcframework */; };
 		FA93AE402970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
 		FA93AE412970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
 		FA93AE422970FF8A0050B409 /* DetachableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */; };
@@ -3313,7 +3313,6 @@
 		FA0CAB37295217EF0009D5F8 /* AppIconStagingNet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIconStagingNet.xcassets; sourceTree = "<group>"; };
 		FA0DBD832925C2F10051C0D7 /* SeedIdentityObjectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedIdentityObjectWrapper.swift; sourceTree = "<group>"; };
 		FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileWalletFacade.swift; sourceTree = "<group>"; };
-		FA93AE35295D372F0050B409 /* MobileWallet.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MobileWallet.xcframework; sourceTree = "<group>"; };
 		FA93AE3F2970FF8A0050B409 /* DetachableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachableObject.swift; sourceTree = "<group>"; };
 		FABA9D94291888E40094012B /* SubmittedSeedAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountView.swift; sourceTree = "<group>"; };
 		FABA9D9A291888F90094012B /* SubmittedSeedAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedSeedAccountPresenter.swift; sourceTree = "<group>"; };
@@ -3328,10 +3327,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */,
-				FA93AE36295D372F0050B409 /* MobileWallet.xcframework in Frameworks */,
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
+				CD1152072A03E4F000A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3339,10 +3338,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA93AE38295D372F0050B409 /* MobileWallet.xcframework in Frameworks */,
 				FA0CAAE7292EADA00009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67C286AC73B0007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A673286AC69B0007CAF1 /* RealmSwift in Frameworks */,
+				CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC55286DBA2200BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B7BB246A9A7C00ED09B8 /* WebKit.framework in Frameworks */,
 			);
@@ -3352,10 +3351,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA93AE39295D372F0050B409 /* MobileWallet.xcframework in Frameworks */,
 				FA0CAAE9292EADA70009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67E286AC7410007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A675286AC6A20007CAF1 /* RealmSwift in Frameworks */,
+				CD11520D2A03E54300A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC57286DBA2800BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
 			);
@@ -3365,10 +3364,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA93AE37295D372F0050B409 /* MobileWallet.xcframework in Frameworks */,
 				FA0CAAE5292E92480009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67A286AC7350007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */,
+				CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC53286DBA1D00BDF84C /* MnemonicSwift in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
 			);
@@ -4174,7 +4173,6 @@
 		7FA3FE3E23F43AEB00A3D8B8 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				FA93AE35295D372F0050B409 /* MobileWallet.xcframework */,
 				FA93AE26295BCAEC0050B409 /* MobileWalletFacade.swift */,
 			);
 			path = Dependencies;
@@ -5287,6 +5285,7 @@
 				8927A677286AC72E0007CAF1 /* SwiftCBOR */,
 				893CAC50286DBA1200BDF84C /* MnemonicSwift */,
 				FA0DBD89292BF4360051C0D7 /* MatomoTracker */,
+				CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5312,6 +5311,7 @@
 				8927A67B286AC73B0007CAF1 /* SwiftCBOR */,
 				893CAC54286DBA2200BDF84C /* MnemonicSwift */,
 				FA0CAAE6292EADA00009D5F8 /* MatomoTracker */,
+				CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
@@ -5337,6 +5337,7 @@
 				8927A67D286AC7410007CAF1 /* SwiftCBOR */,
 				893CAC56286DBA2800BDF84C /* MnemonicSwift */,
 				FA0CAAE8292EADA70009D5F8 /* MatomoTracker */,
+				CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -5362,6 +5363,7 @@
 				8927A679286AC7350007CAF1 /* SwiftCBOR */,
 				893CAC52286DBA1D00BDF84C /* MnemonicSwift */,
 				FA0CAAE4292E92480009D5F8 /* MatomoTracker */,
+				CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -5420,6 +5422,7 @@
 				8927A676286AC72E0007CAF1 /* XCRemoteSwiftPackageReference "SwiftCBOR" */,
 				893CAC4F286DBA1200BDF84C /* XCRemoteSwiftPackageReference "MnemonicSwift" */,
 				FA0DBD88292BF4360051C0D7 /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
+				CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -8697,6 +8700,14 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Concordium/concordium-wallet-crypto-swift";
+			requirement = {
+				kind = exactVersion;
+				version = "0.24.0-0";
+			};
+		};
 		FA0DBD88292BF4360051C0D7 /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/matomo-org/matomo-sdk-ios.git";
@@ -8767,6 +8778,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 893CAC4F286DBA1200BDF84C /* XCRemoteSwiftPackageReference "MnemonicSwift" */;
 			productName = MnemonicSwift;
+		};
+		CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			productName = ConcordiumWalletCrypto;
+		};
+		CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			productName = ConcordiumWalletCrypto;
+		};
+		CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			productName = ConcordiumWalletCrypto;
+		};
+		CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
+			productName = ConcordiumWalletCrypto;
 		};
 		FA0CAAE4292E92480009D5F8 /* MatomoTracker */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "concordium-wallet-crypto-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift",
+      "state" : {
+        "revision" : "f7728a5274aae63e1bd5204ba455dfaf740f57a9",
+        "version" : "0.24.0-0"
+      }
+    },
+    {
       "identity" : "matomo-sdk-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/matomo-org/matomo-sdk-ios.git",

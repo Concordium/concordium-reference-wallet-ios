@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-13
     strategy:
       matrix:
         scheme: [StagingNet, ProdTestNet, ProdMainNet]
@@ -19,13 +19,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      with:
-        lfs: true
+
     - name: Build scheme '${{matrix.scheme}}'
       # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).
       uses: mxcl/xcodebuild@v1
       with:
-        swift: "~5.6"
+        swift: "~5.7"
         platform: iOS
         scheme: "${{matrix.scheme}}"
         action: "${{matrix.action}}"
