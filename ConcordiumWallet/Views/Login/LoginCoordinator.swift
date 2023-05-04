@@ -71,7 +71,6 @@ class LoginCoordinator: Coordinator {
     
     func showError() {
         let alert = UIAlertController(title: "errorAlert.title".localized, message: "errorAlert.unexpected.error".localized, preferredStyle: .alert)
-        // Create OK button with action handler
         let ok = UIAlertAction(title: "errorAlert.retry", style: .default, handler: { (action) -> Void in
             self.start()
          })
