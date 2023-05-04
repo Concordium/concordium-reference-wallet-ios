@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct TermsAndConditionsView: View {
-    @ObservedObject var viewModel: TermsAndConditionsViewModel
+    @StateObject var viewModel: TermsAndConditionsViewModel
 
-    private var toslink: AttributedString {
+    private var termsAndConditionsLink: AttributedString {
         var result = AttributedString("welcomeScreen.tos.checkbox.link".localized)
         result.font = UIFont.WorkSans(size: 14, .semibold)
         result.foregroundColor = Pallette.primary
@@ -38,7 +38,7 @@ struct TermsAndConditionsView: View {
             Spacer()
             Toggle(isOn: $viewModel.termsAndConditionsAccepted) {
                 Text("welcomeScreen.tos.checkbox.regular".localized).font(Font(UIFont.WorkSans(size: 14, .light))) +
-                    Text(toslink)
+                    Text(termsAndConditionsLink)
             }
             .toggleStyle(SwitchToggleStyle(tint: Pallette.primary))
             .padding(8)

@@ -68,13 +68,24 @@ class LoginCoordinator: Coordinator {
         let vc = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func showError() {
+        let alert = UIAlertController(title: "errorAlert.title".localized, message: "errorAlert.unexpected.error".localized, preferredStyle: .alert)
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "errorAlert.retry", style: .default, handler: { (action) -> Void in
+            self.start()
+         })
+        alert.addAction(ok)
+        navigationController.present(alert, animated: true, completion: nil)
+    }
 
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
         let version = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
         dependencyProvider.appSettingsService()
             .getTermsAndConditionsVersion()
-            .sink(receiveError: { _ in
+            .sink(receiveError: { [weak self] _ in
+                self?.showError()
             }, receiveValue: { [weak self] termsAndConditions in
                 if passwordCreated && termsAndConditions.version == version {
                     self?.showLogin()

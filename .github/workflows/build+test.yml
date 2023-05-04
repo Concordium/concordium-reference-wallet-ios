@@ -12,14 +12,17 @@ jobs:
       matrix:
         scheme: [StagingNet, ProdTestNet, ProdMainNet]
         action: [build]
+        xcode:
+        - ^14.3
         include:
         - scheme: Mock
           action: test
-        
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        xcode: ${{ matrix.xcode }}
         lfs: true
     - name: Build scheme '${{matrix.scheme}}'
       # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).

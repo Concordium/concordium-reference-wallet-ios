@@ -15,7 +15,7 @@ class LoginCoordinatorTests: XCTestCase {
     var termsAndConditionsLink = "http://wallet-proxy.mainnet.concordium.software/v0/termsAndConditionsVersion"
 
     @MainActor
-    func test_start_new_terms_available_password_not_set() {
+    func test_start__tac_never_accepted_and_password_never_set_should_show_tac_screen() {
         // given
         let appSettingsMock = AppSettingsServiceProtocolMock()
         let storageManagerMock = StorageManagerMock()
@@ -45,7 +45,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
     
     @MainActor
-    func test_start_password_set_terms_up_to_date() {
+    func test_start__password_set_and_tac_not_changed_should_display_login_view() {
         // given
         let appSettingsMock = AppSettingsServiceProtocolMock()
         let storageManagerMock = StorageManagerMock()
@@ -77,7 +77,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
     
     @MainActor
-    func test_start_password_not_set_terms_up_to_date() {
+    func test_start__password_not_set_terms_up_to_date_should_display_tac_view() {
         // given
         let appSettingsMock = AppSettingsServiceProtocolMock()
         let storageManagerMock = StorageManagerMock()
