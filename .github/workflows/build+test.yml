@@ -19,7 +19,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
     - name: Build scheme '${{matrix.scheme}}'
       # Action uses deprecated features (https://github.com/mxcl/xcodebuild/issues/89).
       uses: mxcl/xcodebuild@v1
@@ -33,3 +32,4 @@ jobs:
         code-sign-certificate-passphrase: ${{ secrets.CERTIFICATE_PASSPHRASE}}
         # Should have been 'mobile-provisioning-profiles-base64' but the parameters are swapped; see 'https://github.com/mxcl/xcodebuild/issues/93'.
         provisioning-profiles-base64: ${{ secrets.IPHONE_PROVISIONING_PROFILE_BASE64 }}
+      - run: fastlane beta
