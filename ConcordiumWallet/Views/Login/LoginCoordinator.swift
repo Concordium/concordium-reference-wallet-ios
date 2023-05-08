@@ -71,10 +71,10 @@ class LoginCoordinator: Coordinator {
     
     func showError() {
         let alert = UIAlertController(title: "errorAlert.title".localized, message: "errorAlert.unexpected.error".localized, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "errorAlert.retry", style: .default, handler: { (action) -> Void in
+        let action = UIAlertAction(title: "errorAlert.retry".localized, style: .default, handler: { (action) -> Void in
             self.start()
          })
-        alert.addAction(ok)
+        alert.addAction(action)
         navigationController.present(alert, animated: true, completion: nil)
     }
 
@@ -83,8 +83,12 @@ class LoginCoordinator: Coordinator {
         let version = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
         dependencyProvider.appSettingsService()
             .getTermsAndConditionsVersion()
-            .sink(receiveError: { [weak self] _ in
-                self?.showError()
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_):
+                    self?.showError()
+                }
             }, receiveValue: { [weak self] termsAndConditions in
                 if passwordCreated && termsAndConditions.version == version {
                     self?.showLogin()
