@@ -16,7 +16,7 @@ protocol LoginCoordinatorDelegate: AppSettingsDelegate {
     func passwordSelectionDone()
 }
 
-class LoginCoordinator: Coordinator {
+class LoginCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
 
     var navigationController: UINavigationController
@@ -69,15 +69,6 @@ class LoginCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showError(_ error: NetworkError) {
-        let alert = UIAlertController(title: "errorAlert.title".localized, message: "errorAlert.unexpected.error".localized, preferredStyle: .alert)
-        let action = UIAlertAction(title: "errorAlert.retry".localized, style: .default, handler: { _ in
-            self.start()
-        })
-        alert.addAction(action)
-        navigationController.present(alert, animated: true, completion: nil)
-    }
-
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
         let version = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
@@ -86,8 +77,9 @@ class LoginCoordinator: Coordinator {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case let .failure(error):
-                    self?.showError(error as? NetworkError ?? .communicationError(error: error))
+                case let .failure(serverError):
+                    Logger.error(serverError)
+               self?.showErrorAlert(ErrorMapper.toViewError(error: serverError))
                 }
             }, receiveValue: { [weak self] termsAndConditions in
                 if passwordCreated && termsAndConditions.version == version {

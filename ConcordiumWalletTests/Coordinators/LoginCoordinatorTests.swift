@@ -109,9 +109,8 @@ class LoginCoordinatorTests: XCTestCase {
     @MainActor
     func test_start__network_response_should_display_error_alert() {
         // given
-        let expectation = self.expectation(description: "Tokenization")
 
-        appSettingsMock.getTermsAndConditionsVersionReturnValue = Fail(error: NetworkError.invalidRequest).eraseToAnyPublisher()
+        appSettingsMock.getTermsAndConditionsVersionReturnValue = Fail(error: NetworkError.invalidResponse).eraseToAnyPublisher()
 
         sut = .init(
             navigationController: .init(),
@@ -127,11 +126,10 @@ class LoginCoordinatorTests: XCTestCase {
         appSettingsMock.getTermsAndConditionsVersion()
             .sink(receiveError: { error in
                 encounteredError = error
-                expectation.fulfill()
             }, receiveValue: { _ in })
             .store(in: &cancellables)
 
-        waitForExpectations(timeout: 1)
         XCTAssertNotNil(encounteredError)
+        XCTAssertEqual(encounteredError.localizedDescription, NetworkError.invalidResponse.localizedDescription)
     }
 }
