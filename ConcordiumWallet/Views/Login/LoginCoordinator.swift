@@ -68,12 +68,12 @@ class LoginCoordinator: Coordinator {
         let vc = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func showError() {
+
+    func showError(_ error: NetworkError) {
         let alert = UIAlertController(title: "errorAlert.title".localized, message: "errorAlert.unexpected.error".localized, preferredStyle: .alert)
-        let action = UIAlertAction(title: "errorAlert.retry".localized, style: .default, handler: { (action) -> Void in
+        let action = UIAlertAction(title: "errorAlert.retry".localized, style: .default, handler: { _ in
             self.start()
-         })
+        })
         alert.addAction(action)
         navigationController.present(alert, animated: true, completion: nil)
     }
@@ -86,8 +86,8 @@ class LoginCoordinator: Coordinator {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_):
-                    self?.showError()
+                case let .failure(error):
+                    self?.showError(error as? NetworkError ?? .communicationError(error: error))
                 }
             }, receiveValue: { [weak self] termsAndConditions in
                 if passwordCreated && termsAndConditions.version == version {
