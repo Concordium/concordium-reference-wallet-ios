@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Legacy font faces.
 struct Fonts {
     static let title = UIFont.systemFont(ofSize: 32)
     static let heading = UIFont.systemFont(ofSize: 24)
@@ -19,4 +20,22 @@ struct Fonts {
     static let cellHeading = UIFont.systemFont(ofSize: 10, weight: .medium)
     static let tabBar = UIFont.systemFont(ofSize: 14, weight: .medium)
     static let mono = UIFont(name: "RobotoMono-Regular", size: 12)
+}
+
+extension UIFont {
+    /// Enum that represent typeface styles of `WorkSans`.
+    public enum WorkSansType: String {
+        case semibold = "Roman-SemiBold"
+        case regular = "-Regular"
+        case light = "Roman-Light"
+        case bold = "Roman-Bold"
+    }
+
+    /// Main font used in the app named `WorkSans`.
+    /// - Parameters:
+    ///     - size: size of the font.
+    ///     - type: constants that represent standard typeface styles. Default value is `regular`.
+    static func WorkSans(size: CGFloat = UIFont.systemFontSize, _ type: WorkSansType = .regular) -> UIFont {
+        return UIFont(name: "WorkSans\(type.rawValue)", size: size)!
+    }
 }
