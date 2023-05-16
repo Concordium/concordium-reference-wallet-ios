@@ -114,7 +114,10 @@ class IdentitiesCoordinator: Coordinator {
             title: "identityCreation.prevent.button.download".localized,
             style: .default
         ) { _ in
-            let appStoreUrl = "https://apps.apple.com/dk/app/concordium-mobile-wallet/id1566996491"
+            var appStoreUrl = "https://testflight.apple.com/join/YaKKqYMA"
+            #if MAINNET
+                appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
+            #endif
             UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
         }
         

@@ -283,10 +283,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             style: .default
         ) { _ in
             var appStoreUrl = "https://testflight.apple.com/join/YaKKqYMA"
-            
-#if MAINNET
-    appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
-#endif
+            #if MAINNET
+                appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
+            #endif
             
             UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
         }

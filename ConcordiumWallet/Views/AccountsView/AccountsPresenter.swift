@@ -238,11 +238,11 @@ class AccountsPresenter: AccountsPresenterProtocol {
                 self.identifyPendingAccounts(updatedAccounts: updatedAccounts)
                 self.viewModel.accounts = self.createAccountViewModelWithUpdatedStatus(accounts: updatedAccounts)
 
-                let totalBalance = updatedAccounts.reduce(into: 0, { $0 = $0 + $1.forecastBalance })
+                let totalBalance = updatedAccounts.reduce(into: 0, { $0 += $1.forecastBalance })
                 let atDisposal = updatedAccounts
                     .filter {!$0.isReadOnly}
-                    .reduce(into: 0, { $0 = $0 + $1.forecastAtDisposalBalance })
-                let staked = updatedAccounts.reduce(into: 0, { $0 = $0 + ($1.baker?.stakedAmount ?? 0) })
+                    .reduce(into: 0, { $0 += $1.forecastAtDisposalBalance })
+                let staked = updatedAccounts.reduce(into: 0, { $0 += ($1.baker?.stakedAmount ?? 0) })
                 
 //                let countLocked = updatedAccounts.filter { $0.encryptedBalanceStatus != ShieldedAccountEncryptionStatus.decrypted }.count
 //                self.viewModel.totalBalanceLockStatus = countLocked > 0 ? .encrypted : .decrypted
@@ -258,7 +258,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
                     }, dismissCompletion: {}))
                 }
                 
-                #warning("RNI: Intentionally set to decrypted for MArch release")
+                #warning("RNI: Intentionally set to decrypted for March release")
                 // TODO: readd the lock after March release
                 self.viewModel.totalBalanceLockStatus = .decrypted
                 self.viewModel.totalBalance = GTU(intValue: totalBalance)
