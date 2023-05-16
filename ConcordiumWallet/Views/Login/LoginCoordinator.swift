@@ -128,9 +128,3 @@ extension LoginCoordinator: InitialAccountInfoPresenterDelegate {
         }
     }
 }
-
-extension LoginCoordinator: TermsAndConditionsPresenterDelegate {
-    func userTappedAcceptTerms() {
-        showInitialScreen()
-    }
-}
