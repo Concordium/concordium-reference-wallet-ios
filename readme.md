@@ -1,14 +1,10 @@
 # Concordium Legacy Wallet 
 
 **Concordium** 
-
 is a science-based proof-of-stake blockchain, the first in the world with identification built into the protocol and designed to meet regulatory requirements.
-**Concordium Legacy Wallet App** is a free and open-source app reference implementation for iPhone 13.0+ devices.
-
+**Concordium Legacy Wallet App** is a free and open-source app reference implementation for iPhone 13.0+ devices. 
 ## App Store
-
-You can download the latest version on [App Store](https://apps.apple.com/us/app/concordium-mobile-wallet/id1566996491)
-
+You can download the latest version on [App Store](https://apps.apple.com/us/app/concordium-mobile-wallet/id1566996491) 
 ## Getting started
 
 1. Install Xcode from the Mac App Store.
@@ -47,7 +43,6 @@ The following targets can be selected:
 **prodMainNet**: Will make the app run against the MainNet production server
 
 ## License
-
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -59,5 +54,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-See the full license [here](LICENSE-APACHE.txt).
+See the full license [here](LICENSE-APACHE.txt)
