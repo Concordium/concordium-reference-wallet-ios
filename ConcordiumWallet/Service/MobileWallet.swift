@@ -5,7 +5,7 @@
 
 import Foundation
 import Combine
-
+// sourcery: AutoMockable
 protocol MobileWalletProtocol {
     func check(accountAddress: String) -> Bool
     func createIdRequestAndPrivateData(initialAccountName: String,

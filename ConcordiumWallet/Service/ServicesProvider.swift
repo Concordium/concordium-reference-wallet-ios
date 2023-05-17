@@ -15,7 +15,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
-    func appSettingsService() -> AppSettingsService
+    func appSettingsService() -> AppSettingsServiceProtocol
 }
 
 protocol IdentitiesFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvider {
@@ -29,9 +29,10 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
+// sourcery: AutoMockable
 protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
-    func appSettingsService() -> AppSettingsService
+    func appSettingsService() -> AppSettingsServiceProtocol
     func recoveryPhraseService() -> RecoveryPhraseService
     func seedMobileWallet() -> SeedMobileWalletProtocol
     func seedIdentitiesService() -> SeedIdentitiesService
@@ -117,7 +118,7 @@ extension ServicesProvider: AccountsFlowCoordinatorDependencyProvider {
         StakeService(networkManager: _networkManager, mobileWallet: _mobileWallet)
     }
 
-    func appSettingsService() -> AppSettingsService {
+    func appSettingsService() -> AppSettingsServiceProtocol {
         AppSettingsService(networkManager: _networkManager)
     }
 }

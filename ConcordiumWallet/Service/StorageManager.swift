@@ -14,7 +14,7 @@ protocol StorageManagerProtocol {
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
-    
+
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
     /// Remove the private ID object data stored in the keychain with the associated key
@@ -25,7 +25,7 @@ protocol StorageManagerProtocol {
     /// Remove the private account keys stored in the keychain with the associated key
     func removePrivateAccountKeys(key: String)
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error>
-    
+
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error>
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error>
     /// Remove the private encryptioni key stored in the keychain with the associated key
@@ -36,15 +36,15 @@ protocol StorageManagerProtocol {
     func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error>
     // swiftlint:disable line_length
     func updateCommitmentsRandomnessPasscode(for account: AccountDataType, commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<Void, Error>
-    
+
     func getNextAccountNumber(for identity: IdentityDataType) -> Result<Int, StorageError>
     func storeAccount(_ account: AccountDataType) throws -> AccountDataType
     func getAccounts() -> [AccountDataType]
     func getAccounts(for identity: IdentityDataType) -> [AccountDataType]
     func getAccount(withAddress: String) -> AccountDataType?
     func removeAccount(account: AccountDataType?)
-    
-    func storeShieldedAmount(amount: ShieldedAmountType) throws  -> ShieldedAmountType 
+
+    func storeShieldedAmount(amount: ShieldedAmountType) throws -> ShieldedAmountType
     func getShieldedAmountsForAccount(_ account: AccountDataType) -> [ShieldedAmountType]
     func getShieldedAmount(encryptedValue: String, account: AccountDataType) -> ShieldedAmountType?
 
@@ -60,18 +60,21 @@ protocol StorageManagerProtocol {
     func getLastEncryptedBalanceTransfer(for accountAddress: String) -> TransferDataType?
     func getAllTransfers() -> [TransferDataType]
     func removeTransfer(_ transfer: TransferDataType?)
-    
+
     func removeUnfinishedIdentities()
     func removeUnfinishedAccounts()
     func removeAccountsWithoutAddress()
     func removeUnfinishedAccountsAndRelatedIdentities()
-    
+
     func getPendingAccountsAddresses() -> [String]
     func storePendingAccount(with address: String)
     func removePendingAccount(with address: String)
-    
+
     func updateChainParms(_ chainParams: ChainParametersDataType) throws -> ChainParametersDataType
     func getChainParams() -> ChainParametersEntity?
+
+    func getLastAcceptedTermsAndConditionsVersion() -> String
+    func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
 }
 
 enum StorageError: Error {
@@ -95,6 +98,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     }
 
     // MARK: Identity
+
     func storeIdentity(_ identity: IdentityDataType) throws {
         guard let identityEntity = identity as? IdentityEntity else {
             return
@@ -133,8 +137,8 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         do {
             guard let jsonData = try privateIdObjectData.jsonString() else { return .failure(StorageError.nullDataError) }
             return keychain.store(key: id, value: jsonData, securedByPassword: pwHash)
-                    .map { _ in id }
-                    .mapError { $0 as Error }
+                .map { _ in id }
+                .mapError { $0 as Error }
         } catch {
             return .failure(error)
         }
@@ -142,45 +146,45 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
 
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError> {
         keychain.getValue(for: key, securedByPassword: pwHash)
-                .flatMap {
-                    do {
-                        return try .success(PrivateIDObjectData($0))
-                    } catch {
-                        return .failure(KeychainError.itemNotFound)
-                    }
+            .flatMap {
+                do {
+                    return try .success(PrivateIDObjectData($0))
+                } catch {
+                    return .failure(KeychainError.itemNotFound)
                 }
+            }
     }
-    
+
     /// Remove the private ID object data stored in the keychain with the associated key
     func removePrivateIdObjectData(key: String) {
         _ = keychain.deleteKeychainItem(withKey: key)
     }
-    
+
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         return keychain.store(key: id, value: privateKey, securedByPassword: pwHash)
             .map { _ in id }
             .mapError { $0 as Error }
     }
-    
+
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error> {
         keychain.getValue(for: key, securedByPassword: pwHash)
-        .mapError { $0 as Error }
+            .mapError { $0 as Error }
     }
-    
+
     /// Remove the private encryptioni key stored in the keychain with the associated key
     func removePrivateEncryptionKey(key: String) {
         _ = keychain.deleteKeychainItem(withKey: key)
     }
-    
+
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error> {
         if let privateEncryptionItemKey = account.encryptedPrivateKey {
             return keychain.store(key: privateEncryptionItemKey, value: privateKey, securedByPassword: pwHash)
                 .mapError { $0 as Error }
         }
-        return .success(Void())
+        return .success(())
     }
-    
+
     func getNextAccountNumber(for identity: IdentityDataType) -> Result<Int, StorageError> {
         let identityEntity = identity as! IdentityEntity // swiftlint:disable:this force_cast
         let nextAccountNumber = identityEntity.accountsCreated
@@ -202,8 +206,9 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
             realm.delete(identityEntity)
         }
     }
-    
+
     // MARK: Account
+
     func getAccounts() -> [AccountDataType] {
         Array(realm.objects(AccountEntity.self))
     }
@@ -221,34 +226,34 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         let id = UUID().uuidString
         guard let jsonData = try? privateAccountKeys.jsonString() else { return .failure(StorageError.nullDataError) }
         return keychain.store(key: id, value: jsonData, securedByPassword: pwHash)
-                .map { _ in id }
-                .mapError { $0 as Error }
+            .map { _ in id }
+            .mapError { $0 as Error }
     }
 
     func getPrivateAccountKeys(key: String, pwHash: String) -> Result<AccountKeys, Error> {
         keychain.getValue(for: key, securedByPassword: pwHash)
-                .flatMap {
-                    do {
-                        return try .success(AccountKeys($0))
-                    } catch {
-                        return .failure(KeychainError.itemNotFound)
-                    }
+            .flatMap {
+                do {
+                    return try .success(AccountKeys($0))
+                } catch {
+                    return .failure(KeychainError.itemNotFound)
                 }
-                .mapError { $0 as Error }
+            }
+            .mapError { $0 as Error }
     }
-    
+
     /// Remove the private account keys stored in the keychain with the associated key
     func removePrivateAccountKeys(key: String) {
         _ = keychain.deleteKeychainItem(withKey: key)
     }
 
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error> {
-        guard let privateAccountDataItemKey = account.encryptedAccountData else { return .success(Void()) }
+        guard let privateAccountDataItemKey = account.encryptedAccountData else { return .success(()) }
         guard let jsonData = try? accountData.jsonString() else { return .failure(StorageError.nullDataError) }
         return keychain.store(key: privateAccountDataItemKey, value: jsonData, securedByPassword: pwHash)
-                .mapError { $0 as Error }
+            .mapError { $0 as Error }
     }
-        
+
     func storeAccount(_ account: AccountDataType) throws -> AccountDataType {
         if let accountEntity = account as? AccountEntity {
             do {
@@ -266,7 +271,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         guard let accountEntity = account as? AccountEntity else {
             return
         }
-        
+
         removePendingAccount(with: accountEntity.address)
 
         try? realm.write {
@@ -274,12 +279,11 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         }
     }
 
-    func storeShieldedAmount(amount: ShieldedAmountType) throws  -> ShieldedAmountType {
-        
+    func storeShieldedAmount(amount: ShieldedAmountType) throws -> ShieldedAmountType {
         if let account = amount.account, let existingValue = getShieldedAmount(encryptedValue: amount.encryptedValue, account: account) {
             return existingValue
         }
-        
+
         if let shieldedAmount = amount as? ShieldedAmountEntity {
             do {
                 try realm.write {
@@ -291,46 +295,46 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         }
         return amount
     }
-    
+
     func getShieldedAmountsForAccount(_ account: AccountDataType) -> [ShieldedAmountType] {
         guard let accountId = (account as? AccountEntity)?.address else { return [] }
         return Array(realm.objects(ShieldedAmountEntity.self).filter("accountEntity.address == %@", accountId))
-        
     }
-    
+
     func getShieldedAmount(encryptedValue: String, account: AccountDataType) -> ShieldedAmountType? {
         guard let address = (account as? AccountEntity)?.address else { return nil }
         return Array(realm.objects(ShieldedAmountEntity.self).filter("primaryKey == %@", address + encryptedValue)).first
     }
-    
+
     func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error> {
         let id = UUID().uuidString
         guard let jsonData = try? commitmentsRandomness.jsonString() else { return .failure(StorageError.nullDataError) }
         return keychain.store(key: id, value: jsonData, securedByPassword: pwHash)
-                .map { _ in id }
-                .mapError { $0 as Error}
-    }
-    
-    func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error> {
-        keychain.getValue(for: key, securedByPassword: pwHash)
-                .flatMap {
-                    do {
-                        return try .success(CommitmentsRandomness($0))
-                    } catch {
-                        return .failure(KeychainError.itemNotFound)
-                    }
-                }
+            .map { _ in id }
             .mapError { $0 as Error }
     }
-    
+
+    func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error> {
+        keychain.getValue(for: key, securedByPassword: pwHash)
+            .flatMap {
+                do {
+                    return try .success(CommitmentsRandomness($0))
+                } catch {
+                    return .failure(KeychainError.itemNotFound)
+                }
+            }
+            .mapError { $0 as Error }
+    }
+
     func updateCommitmentsRandomnessPasscode(for account: AccountDataType, commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<Void, Error> {
-        guard let commitmentsRandomnessItemKey = account.encryptedCommitmentsRandomness else { return .success(Void()) }
+        guard let commitmentsRandomnessItemKey = account.encryptedCommitmentsRandomness else { return .success(()) }
         guard let jsonData = try? commitmentsRandomness.jsonString() else { return .failure(StorageError.nullDataError) }
         return keychain.store(key: commitmentsRandomnessItemKey, value: jsonData, securedByPassword: pwHash)
-                .mapError { $0 as Error }
+            .mapError { $0 as Error }
     }
-    
+
     // MARK: - Recipient
+
     func getRecipients() -> [RecipientDataType] {
         Array(realm.objects(RecipientEntity.self))
     }
@@ -358,7 +362,6 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     }
 
     func editRecipient(oldRecipient: RecipientDataType, newRecipient: RecipientDataType) throws {
-
         let recipientEntity = oldRecipient as! RecipientEntity // swiftlint:disable:this force_cast
         do {
             try realm.write {
@@ -380,6 +383,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     }
 
     // MARK: Transfer
+
     func storeTransfer(_ transfer: TransferDataType) throws -> TransferDataType {
         if let transferEntity = transfer as? TransferEntity {
             do {
@@ -413,7 +417,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         let objects = realm.objects(TransferEntity.self).filter(predicate).sorted(byKeyPath: "createdAt", ascending: false)
         return objects.first
     }
-    
+
     func removeTransfer(_ transfer: TransferDataType?) {
         guard let transferEntity = transfer as? TransferEntity else {
             return
@@ -422,31 +426,31 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
             realm.delete(transferEntity)
         }
     }
-    
+
     func removeUnfinishedIdentities() {
         let unfinishedIdentities = getIdentities().filter { $0.ipStatusUrl.isEmpty }
         for identity in unfinishedIdentities {
             removeIdentity(identity)
         }
     }
-    
+
     func removeUnfinishedAccounts() {
         guard
             let unfinishedAccount = getAccounts().first(where: { $0.identity == nil || $0.identity?.ipStatusUrl == nil || $0.identity?.state == .failed })
         else {
             return
         }
-        
+
         removeAccount(account: unfinishedAccount)
     }
-    
+
     func removeAccountsWithoutAddress() {
-        let accountsWithoutAddress = getAccounts().filter { $0.address == ""}
+        let accountsWithoutAddress = getAccounts().filter { $0.address == "" }
         for account in accountsWithoutAddress {
             removeAccount(account: account)
         }
     }
-    
+
     func removeUnfinishedAccountsAndRelatedIdentities() {
         let unfinishedIdentities = getIdentities().filter { $0.ipStatusUrl.isEmpty }
         for identity in unfinishedIdentities {
@@ -456,17 +460,17 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
             }
         }
     }
-    
+
     func getPendingAccountsAddresses() -> [String] {
         let key = UserDefaultKeys.pendingAccount.rawValue
 
         guard let pendingAccountsAddresses = UserDefaults.standard.stringArray(forKey: key) else {
             return []
         }
-        
+
         return pendingAccountsAddresses
     }
-    
+
     func storePendingAccount(with address: String) {
         let key = UserDefaultKeys.pendingAccount.rawValue
 
@@ -478,30 +482,43 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
             UserDefaults.standard.set([address], forKey: key)
         }
     }
-    
+
+    func getLastAcceptedTermsAndConditionsVersion() -> String {
+        let key = UserDefaultKeys.appVersion.rawValue
+
+        guard let appVersion = UserDefaults.standard.value(forKey: key) as? String else {
+            return ""
+        }
+
+        return appVersion
+    }
+
+    func storeLastAcceptedTermsAndConditionsVersion(_ version: String) {
+        UserDefaults.standard.set(version, forKey: UserDefaultKeys.appVersion.rawValue)
+    }
+
     func removePendingAccount(with address: String) {
         let key = UserDefaultKeys.pendingAccount.rawValue
-        
+
         guard var pendingAccounts = UserDefaults.standard.stringArray(forKey: key) else {
             return
         }
-        
+
         pendingAccounts.removeAll(where: { $0 == address })
         UserDefaults.standard.set(pendingAccounts, forKey: key)
     }
-    
+
     private func excludeDocumentsAndLibraryFoldersFromBackup() {
         let documentsPaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         var documentsDirectoryURL = documentsPaths[0]
         excludeFromBackup(url: &documentsDirectoryURL)
-        
+
         let libraryPaths = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)
         var libraryURL = libraryPaths[0]
         excludeFromBackup(url: &libraryURL)
-        
     }
-    
-    private func excludeFromBackup(url:inout URL) {
+
+    private func excludeFromBackup(url: inout URL) {
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
         do {
@@ -510,7 +527,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
             Logger.debug("Unable to exclude folder from backup due to error: \(error)")
         }
     }
-    
+
     func updateChainParms(_ chainParams: ChainParametersDataType) throws -> ChainParametersDataType {
         if let existingChainParams = getChainParams() {
             try realm.write {
@@ -519,7 +536,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
             }
             return existingChainParams
         }
-        
+
         if let chainParamsEntity = chainParams as? ChainParametersEntity {
             do {
                 try realm.write {
@@ -532,6 +549,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         }
         return chainParams
     }
+
     func getChainParams() -> ChainParametersEntity? {
         Array(realm.objects(ChainParametersEntity.self)).first
     }
