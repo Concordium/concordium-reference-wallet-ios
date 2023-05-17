@@ -24,6 +24,8 @@ add_identity_data = "Reveal Identity Data";
 "identityProviders.details" =  "As mentioned, the identity provider will verify your identity using a government issued identity document, some identity attributes you provide, and a selfie.\n\nYou can pick one from the list below. To read more about them before deciding, click the links below.";
 "newidentities.seed.selectprovider.navigationtitle" = "Request a new identity";
 "errorAlert.title" = "An error occurred";
+"errorAlert.retry" = "Retry";
+"errorAlert.unexpected.error" = "Unexpected error occurred, please restart the application";
 "errorAlert.okButton" = "OK";
 "errorAlert.cancelButton" = "Cancel";
 "errorAlert.continueButton" = "Continue";
@@ -256,8 +258,12 @@ When you have submitted your account, you will be taken to the wallet.";
 
 "welcomeScreen.title" = "";
 "welcomeScreen.subtitle" = "Before you begin";
-"welcomeScreen.details" = "Before you start using the Concordium Wallet for Mobile, you have to set up a passcode and optionally biometrics.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium is not able to change your passcode or help you unlock your wallet if you lose your passcode.\n\nSimilarly, if someone gets your passcode, they will be able to access your accounts.\n\nSo remember to keep your passcode safe!";
+"welcomeScreen.details" = "Before you start using the Concordium Mobile Wallet, you have to set up a passcode and optionally biometric authentication.\n\nIt is very important to keep your passcode safe, because it is the only way to access your accounts. Concordium will not be able to change your passcode or help you unlock your wallet if you lose your passcode.";
+"welcomeScreen.tos.checkbox.regular" = "I have read and agree to the ";
+"welcomeScreen.tos.checkbox.link" = "terms and conditions.";
+
 "welcomeScreen.button" = "Continue";
+"welcomeScreen.create.password" = "Create password";
 
 "termsAndConditionsScreen.title" = "";
 "termsAndConditionsScreen.subtitle" = "Terms and conditions for Concordium Wallet for Mobile";
@@ -1089,3 +1095,4 @@ Remember to restart your node with the baker keys.";
 "demomode.cancel" = "Cancel";
 
 "demomode.userdefaultskey" = "Demo Mode";
+"unexpected_error" = "Unexpected error occurred, please restart the application";

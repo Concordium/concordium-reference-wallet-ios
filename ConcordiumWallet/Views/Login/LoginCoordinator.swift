@@ -6,19 +6,22 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
+import Combine
+import SwiftUI
 import UIKit
 
+// sourcery: AutoMockable
 protocol LoginCoordinatorDelegate: AppSettingsDelegate {
     func loginDone()
     func passwordSelectionDone()
 }
 
-class LoginCoordinator: Coordinator {
+class LoginCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
 
     var navigationController: UINavigationController
     let dependencyProvider: LoginDependencyProvider
-
+    private var cancellables: Set<AnyCancellable> = []
     private weak var parentCoordinator: LoginCoordinatorDelegate?
 
     init(navigationController: UINavigationController, parentCoordinator: LoginCoordinatorDelegate, dependencyProvider: LoginDependencyProvider) {
@@ -47,47 +50,63 @@ class LoginCoordinator: Coordinator {
             biometricsEnablingDone()
         }
     }
-    
+
     func showInitialScreen() {
         let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .welcomeScreen)
         let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showTermsAndConditionsScreen() {
-        let TermsAndConditionsPresenter = TermsAndConditionsIntroPresenter(
-            delegate: self,
-            appSettingsDelegate: parentCoordinator
+    func show(termsAndConditions: TermsAndConditionsResponse) {
+        let viewModel = TermsAndConditionsViewModel(
+            storageManager: dependencyProvider.storageManager(),
+            termsAndConditions: termsAndConditions
         )
-        let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
+        viewModel.didAcceptTermsAndConditions = { [weak self] in
+            self?.showInitialScreen()
+        }
+        let vc = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
         navigationController.pushViewController(vc, animated: true)
     }
 
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
-        if passwordCreated {
-            showLogin()
-        } else {    
-            showTermsAndConditionsScreen()
-        }
+        let version = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
+        dependencyProvider.appSettingsService()
+            .getTermsAndConditionsVersion()
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case let .failure(serverError):
+                    Logger.error(serverError)
+               self?.showErrorAlert(ErrorMapper.toViewError(error: serverError))
+                }
+            }, receiveValue: { [weak self] termsAndConditions in
+                if passwordCreated && termsAndConditions.version == version {
+                    self?.showLogin()
+                } else {
+                    self?.show(termsAndConditions: termsAndConditions)
+                }
+            })
+            .store(in: &cancellables)
     }
 }
 
 extension LoginCoordinator: CreatePasswordPresenterDelegate {
     func passwordSelectionDone(pwHash: String) {
-        self.showBiometricsEnabling(pwHash: pwHash)
+        showBiometricsEnabling(pwHash: pwHash)
     }
 }
 
 extension LoginCoordinator: LoginViewDelegate {
     func loginDone() {
-        self.parentCoordinator?.loginDone()
+        parentCoordinator?.loginDone()
     }
 }
 
 extension LoginCoordinator: BiometricsEnablingPresenterDelegate {
     func biometricsEnablingDone() {
-        self.parentCoordinator?.passwordSelectionDone()
+        parentCoordinator?.passwordSelectionDone()
     }
 }
 
@@ -95,7 +114,7 @@ extension LoginCoordinator: InitialAccountInfoPresenterDelegate {
     func userTappedClose() {
         // Nothing to do here.
     }
-    
+
     func userTappedOK(withType type: InitialAccountInfoType) {
         switch type {
         case .firstAccount:

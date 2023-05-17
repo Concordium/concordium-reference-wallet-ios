@@ -16,3 +16,4 @@ type_name:
 excluded:
   - Scripts
   - Pods
+  - 'ConcordiumWalletTests/HelperClasses/Mocks/Generated'
