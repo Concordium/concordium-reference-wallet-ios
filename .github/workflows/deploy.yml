@@ -1,25 +1,28 @@
-name: Build and test
-
 on:
   workflow_dispatch:
     inputs:
       environment:
-        type: environment
-        description: Select the environment
+        description: 'Select Environment'
+        required: true
+        default: 'testNet'
+        options:
+          - testNet
+          - mainNet
 
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
 
 jobs:
-  Build:
+  Deploy:
+    environment: $ {{ github.event.inputs.environment }}
     runs-on: macos-13
-    environment: testNet
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Release
+    - name: Build
       run: fastlane release
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -32,4 +35,3 @@ jobs:
         SLACK_CHANNEL: ${{ vars.SLACK_CHANNEL }}
         SLACK_URL: ${{ vars.SLACK_URL }}
         GIT_PRIVATE_KEY: ${{ secrets.GIT_PRIVATE_KEY }}
-
