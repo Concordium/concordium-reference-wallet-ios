@@ -14,6 +14,10 @@ extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
 }
 
+var isRunningTests: Bool {
+    return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+}
+
 // @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -30,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+        if isRunningTests {
+            return true
+        }
         application.waitForProtectedData()
             .sink { _ in
                 self.startAppCoordinator()

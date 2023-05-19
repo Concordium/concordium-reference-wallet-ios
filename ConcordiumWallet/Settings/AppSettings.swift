@@ -12,6 +12,7 @@ enum PasswordType: String {
 }
 
 enum UserDefaultKeys: String {
+    case appVersion
     case passwordType
     case biometricsEnabled
     case passwordChangeInProgress
