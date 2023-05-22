@@ -24,9 +24,13 @@ You can download the latest version on [App Store](https://apps.apple.com/us/app
 	and run `swift install.swift`
 	
 	Learn more about [MVP tempate](https://github.com/khacchan/Swift-MVP-Module)
-7. Open `ConcordiumWallet.xcworkspace` in Xcode. 
+7. Open `ConcordiumWallet.xcworkspace` in Xcode.
 
-### Following targets can be selected:
+The project only runs on physical devices - simulator is not supported. Note that this is true for the legacy branch only, not `main`.
+
+### Targets
+
+The following targets can be selected:
 
 **mock**: Allows the app to use mocked data
 

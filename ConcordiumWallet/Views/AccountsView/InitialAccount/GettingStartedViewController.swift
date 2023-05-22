@@ -63,14 +63,10 @@ class GettingStartedViewController: BaseViewController, GettingStartedViewProtoc
     }
 
     @IBAction func createAccountsTapped(_ sender: Any) {
-//        presenter.userTappedCreateAccount()
-        
-        
         var appStoreUrl = "https://testflight.apple.com/join/YaKKqYMA"
-        
-#if MAINNET
-appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
-#endif
+        #if MAINNET
+            appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
+        #endif
         
         UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
     }
