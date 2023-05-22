@@ -17,14 +17,7 @@ jobs:
     - name: Build
       run: fastlane test
       env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
-        APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
-        APPLE_KEY_ISSUER: ${{ secrets.APPLE_KEY_ISSUER }}
-        MATCH_REPO: ${{ secrets.MATCH_REPO }}
         SCHEME: ${{ vars.SCHEME }}
         APP_IDENTIFIER: ${{ vars.APP_IDENTIFIER }}
         SLACK_CHANNEL: ${{ vars.SLACK_CHANNEL }}
         SLACK_URL: ${{ vars.SLACK_URL }}
-        GIT_PRIVATE_KEY: ${{ secrets.GIT_PRIVATE_KEY }}
-
