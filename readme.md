@@ -2,7 +2,7 @@
 
 **Concordium** 
 is a science-based proof-of-stake blockchain, the first in the world with identification built into the protocol and designed to meet regulatory requirements.
-**Concordium Mobile Wallet App** is a free and open-source app reference implementation for iPhone 13.0+ devices. 
+**Concordium Mobile Wallet App** is a free and open-source reference wallet for iOS 15+ devices.
 ## App Store
 You can download the latest version on [App Store](https://apps.apple.com/us/app/concordium-mobile-wallet/id1566996491) 
 ## Getting started
