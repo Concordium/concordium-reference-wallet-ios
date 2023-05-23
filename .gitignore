@@ -65,4 +65,4 @@ fastlane/test_output
 
 #Pod
 Pods/
-fastlane/.env
+.env
