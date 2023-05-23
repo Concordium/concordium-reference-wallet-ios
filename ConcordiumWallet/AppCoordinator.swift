@@ -267,10 +267,6 @@ extension AppCoordinator: AccountsPresenterDelegate {
 
     func didSelectPendingIdentity(identity: IdentityDataType) {
     }
-
-    func newTermsAvailable() {
-        accountsCoordinator?.showNewTerms()
-    }
     
     func showSettings() {
         let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,

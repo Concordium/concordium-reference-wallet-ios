@@ -94,14 +94,6 @@ class AccountsCoordinator: Coordinator {
         accountDetailsCoordinator.start(entryPoint: entryPoint)
     }
     
-    func showNewTerms() {
-        let TermsAndConditionsPresenter = TermsAndConditionsUpdatePresenter(delegate: self)
-        let vc = TermsAndConditionsFactory.create(with: TermsAndConditionsPresenter)
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        navigationController.present(nav, animated: true, completion: nil)
-    }
-    
     func showExport() {
         let vc = ExportFactory.create(with: ExportPresenter(
             dependencyProvider: ServicesProvider.defaultProvider(),
@@ -166,10 +158,6 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     
     func noValidIdentitiesAvailable() {
         self.delegate?.noIdentitiesFound()
-    }
-    
-    func newTermsAvailable() {
-        self.showNewTerms()
     }
     
     func tryAgainIdentity() {
@@ -241,12 +229,6 @@ extension AccountsCoordinator: ExportPresenterDelegate {
     
     func exportFinished() {
         navigationController.popViewController(animated: true)
-    }
-}
-
-extension AccountsCoordinator: TermsAndConditionsPresenterDelegate {
-    func userTappedAcceptTerms() {
-        navigationController.dismiss(animated: true)
     }
 }
 
