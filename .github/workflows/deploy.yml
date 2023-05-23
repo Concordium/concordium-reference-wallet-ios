@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   Deploy:
-    environment: $ {{ github.event.inputs.environment }}
+    environment: '${{ github.event.inputs.environment }}'
     runs-on: macos-13
 
     steps:
