@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - feature/*
+jobs:
+  Test:
+    environment: Mock
+    runs-on: macos-13
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build
+      run: fastlane test
+      env:
+        SCHEME: ${{ vars.SCHEME }}
+        APP_IDENTIFIER: ${{ vars.APP_IDENTIFIER }}
+        SLACK_CHANNEL: ${{ vars.SLACK_CHANNEL }}
+        SLACK_URL: ${{ vars.SLACK_URL }}
