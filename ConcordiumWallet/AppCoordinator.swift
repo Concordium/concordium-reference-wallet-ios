@@ -55,8 +55,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             dependencyProvider: defaultProvider,
             termsAndCondtionsFactory: { [weak self] termsAndConditions in
                 guard let self = self else { return nil }
-                let viewModel = TermsAndConditionsViewModel(storageManager: self.defaultProvider.storageManager(), termsAndConditions: termsAndConditions)
-                return viewModel
+                return TermsAndConditionsViewModel(storageManager: self.defaultProvider.storageManager(), termsAndConditions: termsAndConditions)
             }
         )
         childCoordinators.append(loginCoordinator)
