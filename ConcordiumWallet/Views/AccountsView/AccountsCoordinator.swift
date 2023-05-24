@@ -125,6 +125,9 @@ class AccountsCoordinator: Coordinator {
 }
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
+    func showOpenWalletScanner() {
+    }
+    
     func showSettings() {
     }
     

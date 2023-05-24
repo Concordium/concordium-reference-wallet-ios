@@ -312,6 +312,10 @@ extension SeedIdentitiesCoordinator: AppSettingsDelegate {
 }
 
 extension SeedIdentitiesCoordinator: AccountsPresenterDelegate {
+    func showOpenWalletScanner() {
+//        accountsCoordinator?
+    }
+    
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
     }
