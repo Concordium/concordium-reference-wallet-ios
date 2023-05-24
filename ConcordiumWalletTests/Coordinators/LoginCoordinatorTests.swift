@@ -18,7 +18,7 @@ class LoginCoordinatorTests: XCTestCase {
     var keychainMock: InMemoryKeychain!
     var dependencyProvider: LoginDependencyProviderMock!
     private var cancellables: Set<AnyCancellable>!
-
+    private var tacFactory: TermsAndConditionsViewFactory!
     var termsAndConditionsLink = "http://wallet-proxy.mainnet.concordium.software/v0/termsAndConditionsVersion"
 
     override func setUp() async throws {
@@ -30,6 +30,9 @@ class LoginCoordinatorTests: XCTestCase {
         cancellables = []
         dependencyProvider.keychainWrapperReturnValue = keychainMock
         dependencyProvider.storageManagerReturnValue = storageManagerMock
+        tacFactory = { response in
+            TermsAndConditionsViewModel(storageManager: self.storageManagerMock, termsAndConditions: response)
+        }
         dependencyProvider.mobileWalletReturnValue = MobileWalletProtocolMock()
     }
 
@@ -52,7 +55,8 @@ class LoginCoordinatorTests: XCTestCase {
         sut = .init(
             navigationController: .init(),
             parentCoordinator: LoginCoordinatorDelegateMock(),
-            dependencyProvider: dependencyProvider
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: tacFactory
         )
         sut.start()
 
@@ -66,7 +70,7 @@ class LoginCoordinatorTests: XCTestCase {
     func test_start__password_set_and_tac_not_changed_should_display_login_view() {
         // given
 
-        keychainMock.storePassword(password: "anypass")
+        _ = keychainMock.storePassword(password: "anypass")
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
         appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
@@ -75,7 +79,8 @@ class LoginCoordinatorTests: XCTestCase {
         sut = .init(
             navigationController: .init(),
             parentCoordinator: LoginCoordinatorDelegateMock(),
-            dependencyProvider: dependencyProvider
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: tacFactory
         )
         sut.start()
 
@@ -86,7 +91,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     @MainActor
-    func test_start__password_not_set_terms_up_to_date_should_display_tac_view() {
+    func test_start__password_not_set_terms_up_to_date_should_display_enter_password_screen() {
         // given
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
@@ -96,14 +101,15 @@ class LoginCoordinatorTests: XCTestCase {
         sut = .init(
             navigationController: .init(),
             parentCoordinator: LoginCoordinatorDelegateMock(),
-            dependencyProvider: dependencyProvider
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: tacFactory
         )
         sut.start()
 
         // then
         XCTAssertTrue(appSettingsMock.getTermsAndConditionsVersionCalled)
         XCTAssertEqual(appSettingsMock.getTermsAndConditionsVersionCallsCount, 1)
-        XCTAssertTrue(sut.navigationController.topViewController is UIHostingController<TermsAndConditionsView>)
+        XCTAssertTrue(sut.navigationController.topViewController is InitialAccountInfoViewController)
     }
 
     @MainActor
@@ -115,7 +121,8 @@ class LoginCoordinatorTests: XCTestCase {
         sut = .init(
             navigationController: .init(),
             parentCoordinator: LoginCoordinatorDelegateMock(),
-            dependencyProvider: dependencyProvider
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: tacFactory
         )
 
         // when
@@ -131,5 +138,82 @@ class LoginCoordinatorTests: XCTestCase {
 
         XCTAssertNotNil(encounteredError)
         XCTAssertEqual(encounteredError.localizedDescription, NetworkError.invalidResponse.localizedDescription)
+    }
+
+    @MainActor
+    func test_start__password_created_new_terms_and_conditions_accepted_should_display_login() {
+        let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.1")
+        _ = keychainMock.storePassword(password: "anypass")
+        storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
+        appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
+        let viewModel = TermsAndConditionsViewModel(storageManager: storageManagerMock, termsAndConditions: returnedResponse)
+        let factory: TermsAndConditionsViewFactory = { _ in viewModel }
+
+        sut = .init(
+            navigationController: .init(),
+            parentCoordinator: LoginCoordinatorDelegateMock(),
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: factory
+        )
+
+        // when
+        sut.start()
+        viewModel.termsAndConditionsAccepted = true
+        viewModel.continueButtonTapped()
+
+        // then
+        XCTAssertTrue(sut.navigationController.topViewController is EnterPasswordViewController)
+    }
+
+    @MainActor
+    func test_start__password_created_no_new_terms_and_conditions_available_should_display_login() {
+        let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
+        _ = keychainMock.storePassword(password: "anypass")
+        storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
+        appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
+        let viewModel = TermsAndConditionsViewModel(storageManager: storageManagerMock, termsAndConditions: returnedResponse)
+        let factory: TermsAndConditionsViewFactory = { _ in viewModel }
+
+        sut = .init(
+            navigationController: .init(),
+            parentCoordinator: LoginCoordinatorDelegateMock(),
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: factory
+        )
+
+        // when
+        sut.start()
+        viewModel.termsAndConditionsAccepted = true
+        viewModel.continueButtonTapped()
+
+        // then
+        XCTAssertTrue(sut.navigationController.topViewController is EnterPasswordViewController)
+    }
+
+    @MainActor
+    func test_start__password_not_created_new_terms_and_conditions_accepted_should_display_initial_screen() {
+        // given
+        let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.1")
+        storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
+        appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
+        let viewModel = TermsAndConditionsViewModel(storageManager: storageManagerMock, termsAndConditions: returnedResponse)
+        let factory: TermsAndConditionsViewFactory = { _ in viewModel }
+        sut = .init(
+            navigationController: .init(),
+            parentCoordinator: LoginCoordinatorDelegateMock(),
+            dependencyProvider: dependencyProvider,
+            termsAndCondtionsFactory: factory
+        )
+        
+        // when
+        sut.start()
+        viewModel.termsAndConditionsAccepted = true
+        viewModel.continueButtonTapped()
+        
+        // then
+        // Not sure why but delaying the assertion is necessary for the test to pass.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertTrue(self.sut.navigationController.topViewController is InitialAccountInfoViewController)
+        }
     }
 }
