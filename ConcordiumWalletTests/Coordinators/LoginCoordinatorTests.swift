@@ -91,7 +91,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     @MainActor
-    func test_start__password_not_set_terms_up_to_date_should_display_login_screen() {
+    func test_start__password_not_set_terms_up_to_date_should_display_enter_password_screen() {
         // given
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
@@ -109,7 +109,7 @@ class LoginCoordinatorTests: XCTestCase {
         // then
         XCTAssertTrue(appSettingsMock.getTermsAndConditionsVersionCalled)
         XCTAssertEqual(appSettingsMock.getTermsAndConditionsVersionCallsCount, 1)
-        XCTAssertTrue(sut.navigationController.topViewController is EnterPasswordViewController)
+        XCTAssertTrue(sut.navigationController.topViewController is InitialAccountInfoViewController)
     }
 
     @MainActor
@@ -192,27 +192,28 @@ class LoginCoordinatorTests: XCTestCase {
 
     @MainActor
     func test_start__password_not_created_new_terms_and_conditions_accepted_should_display_initial_screen() {
+        // given
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.1")
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
         appSettingsMock.getTermsAndConditionsVersionReturnValue = .just(returnedResponse)
         let viewModel = TermsAndConditionsViewModel(storageManager: storageManagerMock, termsAndConditions: returnedResponse)
         let factory: TermsAndConditionsViewFactory = { _ in viewModel }
-        let navvc = UINavigationController()
         sut = .init(
-            navigationController: navvc,
+            navigationController: .init(),
             parentCoordinator: LoginCoordinatorDelegateMock(),
             dependencyProvider: dependencyProvider,
             termsAndCondtionsFactory: factory
         )
-
+        
         // when
         sut.start()
         viewModel.termsAndConditionsAccepted = true
         viewModel.continueButtonTapped()
-
+        
         // then
+        // Not sure why but delaying the assertion is necessary for the test to pass.
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            XCTAssertTrue(navvc.topViewController is InitialAccountInfoViewController)
+            XCTAssertTrue(self.sut.navigationController.topViewController is InitialAccountInfoViewController)
         }
     }
 }

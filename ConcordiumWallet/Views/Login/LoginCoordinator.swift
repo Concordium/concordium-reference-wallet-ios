@@ -92,7 +92,11 @@ class LoginCoordinator: Coordinator, ShowAlert {
                 }
             }, receiveValue: { [weak self] termsAndConditions in
                 if termsAndConditions.version == acceptedVersion {
-                    self?.showLogin()
+                    if passwordCreated {
+                        self?.showLogin()
+                    } else {
+                        self?.showInitialScreen()
+                    }
                 } else {
                     self?.show(termsAndConditions: termsAndConditions, isPasswordCreated: passwordCreated)
                 }
