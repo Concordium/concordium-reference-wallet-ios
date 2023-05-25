@@ -67,7 +67,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     @MainActor
-    func test_start__password_set_and_tac_not_changed_should_display_login_view() {
+    func test_start__password_set_and_tac_not_changed_should_display_login_screen() {
         // given
 
         _ = keychainMock.storePassword(password: "anypass")
@@ -91,7 +91,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     @MainActor
-    func test_start__password_not_set_terms_up_to_date_should_display_enter_password_screen() {
+    func test_start__password_not_set_terms_up_to_date_should_display_initial_screen() {
         // given
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
@@ -141,7 +141,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     @MainActor
-    func test_start__password_created_new_terms_and_conditions_accepted_should_display_login() {
+    func test_start__password_created_new_terms_and_conditions_accepted_should_display_login_screen() {
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.1")
         _ = keychainMock.storePassword(password: "anypass")
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
@@ -166,7 +166,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     @MainActor
-    func test_start__password_created_no_new_terms_and_conditions_available_should_display_login() {
+    func test_start__password_created_no_new_terms_and_conditions_available_should_display_login_screen() {
         let returnedResponse = TermsAndConditionsResponse(url: URL(string: termsAndConditionsLink)!, version: "1.0.0")
         _ = keychainMock.storePassword(password: "anypass")
         storageManagerMock.latestTermsAndConditionsVersion = "1.0.0"
