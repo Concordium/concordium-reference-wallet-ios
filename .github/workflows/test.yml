@@ -1,7 +1,7 @@
 name: Test
 
 on:
-   [push]
+   push:
 jobs:
   Test:
     runs-on: macos-13
