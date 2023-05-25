@@ -1,13 +1,9 @@
 name: Test
 
 on:
-  pull_request:
-    branches:
-      - main
-      - feature/*
+   [push]
 jobs:
   Test:
-    environment: Mock
     runs-on: macos-13
 
     steps:
@@ -20,4 +16,4 @@ jobs:
         SCHEME: ${{ vars.SCHEME }}
         APP_IDENTIFIER: ${{ vars.APP_IDENTIFIER }}
         SLACK_CHANNEL: ${{ vars.SLACK_CHANNEL }}
-        SLACK_URL: ${{ vars.SLACK_URL }}
+        SLACK_URL: ${{ secrets.SLACK_URL }}
