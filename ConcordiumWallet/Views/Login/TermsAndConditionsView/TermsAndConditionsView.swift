@@ -19,8 +19,6 @@ struct TermsAndConditionsView: View {
         return result
     }
 
-    private static var termsAndConditionsURL = "https://developer.concordium.software/en/mainnet/net/resources/terms-and-conditions.html"
-
     var body: some View {
         VStack {
             ZStack {

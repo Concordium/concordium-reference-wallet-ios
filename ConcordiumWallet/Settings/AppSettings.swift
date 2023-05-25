@@ -74,15 +74,6 @@ struct AppSettings {
     static var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
-    
-    static var acceptedTermsHash: String? {
-        get {
-            UserDefaults.standard.string(forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.acceptedTermsHash.rawValue)
-        }
-    }
 
     static var needsBackupWarning: Bool {
         get {

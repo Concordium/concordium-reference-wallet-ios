@@ -221,14 +221,6 @@
 		07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
-		1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
-		1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
-		1737681C2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
-		1737681D2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */; };
-		1737681F2652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
-		173768202652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
-		173768212652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
-		173768222652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */; };
 		17A41E552667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
 		17A41E562667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
 		17A41E572667AE1D0079BD3A /* BlockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A41E542667AE1D0079BD3A /* BlockingViewController.swift */; };
@@ -595,10 +587,6 @@
 		528EB76425647DD800010554 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528EB76225647DD700010554 /* Key.swift */; };
 		528EB76525647DD800010554 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528EB76225647DD700010554 /* Key.swift */; };
 		528EB76625647DD800010554 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528EB76225647DD700010554 /* Key.swift */; };
-		529457C1274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
-		529457C2274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
-		529457C3274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
-		529457C4274EB7440027EAA2 /* TermsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529457C0274EB7440027EAA2 /* TermsHelper.swift */; };
 		529531A9256BA711004CECE4 /* AccountBaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529531A6256BA711004CECE4 /* AccountBaker.swift */; };
 		529531AA256BA711004CECE4 /* AccountBaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529531A6256BA711004CECE4 /* AccountBaker.swift */; };
 		529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529531A6256BA711004CECE4 /* AccountBaker.swift */; };
@@ -1713,14 +1701,6 @@
 		8992BB222840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
 		8992BB232840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
 		8992BB242840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */; };
-		8992BB262840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
-		8992BB272840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
-		8992BB282840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
-		8992BB292840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */; };
-		8992BB2B2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
-		8992BB2C2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
-		8992BB2D2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
-		8992BB2E2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */; };
 		8992BB302840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
 		8992BB312840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
 		8992BB322840E966005279C9 /* AppSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */; };
@@ -1863,18 +1843,6 @@
 		89CF2D4F281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		89CF2D50281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
 		89CF2D51281945F200742E1E /* ChainParametersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CF2D4D281945F200742E1E /* ChainParametersResponse.swift */; };
-		89CF2D54281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D55281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D56281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D57281A539700742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D59281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5A281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5B281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5C281A66C400742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5E281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D5F281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D60281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		89CF2D61281A9E3100742E1E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		89D081682861C82F0091344D /* BalanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D081672861C82F0091344D /* BalanceTests.swift */; };
 		89D467C2289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D467C1289AAD4A007D3FC8 /* PrivateIDObjectData.swift */; };
 		89D467C3289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D467C1289AAD4A007D3FC8 /* PrivateIDObjectData.swift */; };
@@ -2716,8 +2684,6 @@
 		07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_1.html; sourceTree = "<group>"; };
 		07E6E27527B558A30083A852 /* intro_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = intro_flow_style.css; sourceTree = "<group>"; };
 		07E8573326F1D24F001FB2D2 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
-		173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
-		1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsPresenter.swift; sourceTree = "<group>"; };
 		17A41E4A266789F10079BD3A /* StagingNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StagingNet.entitlements; sourceTree = "<group>"; };
 		17A41E4B26678FF80079BD3A /* Concordium ID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Concordium ID.entitlements"; sourceTree = "<group>"; };
 		17A41E4C2667900A0079BD3A /* ProdMainNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProdMainNet.entitlements; sourceTree = "<group>"; };
@@ -2866,7 +2832,6 @@
 		528EB758256400D900010554 /* RevealAttributesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealAttributesPresenter.swift; sourceTree = "<group>"; };
 		528EB75D25647A7F00010554 /* CredentialValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialValue.swift; sourceTree = "<group>"; };
 		528EB76225647DD700010554 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
-		529457C0274EB7440027EAA2 /* TermsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsHelper.swift; sourceTree = "<group>"; };
 		529531A6256BA711004CECE4 /* AccountBaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBaker.swift; sourceTree = "<group>"; };
 		529531A7256BA711004CECE4 /* AccountReleaseSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountReleaseSchedule.swift; sourceTree = "<group>"; };
 		529531A8256BA711004CECE4 /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -3101,8 +3066,6 @@
 		8992BAB2283630F4005279C9 /* String+Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
 		8992BAB72836390B005279C9 /* UILabel+LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LinkRecognizer.swift"; sourceTree = "<group>"; };
 		8992BB202840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowAlertProtocol+ForceUpdate.swift"; sourceTree = "<group>"; };
-		8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsIntroPresenter.swift; sourceTree = "<group>"; };
-		8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsUpdatePresenter.swift; sourceTree = "<group>"; };
 		8992BB2F2840E966005279C9 /* AppSettingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingDelegate.swift; sourceTree = "<group>"; };
 		89A056E3286C559C0055C049 /* RecoveryPhraseGettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseGettingStartedView.swift; sourceTree = "<group>"; };
 		89A056ED286C57AF0055C049 /* SwiftUI+Presenters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Presenters.swift"; sourceTree = "<group>"; };
@@ -3648,10 +3611,6 @@
 			children = (
 				649C5E8529F6C35D00408948 /* TermsAndConditionsView.swift */,
 				649C5E9F29F6C67600408948 /* TermsAndConditionsView.swift */,
-				173768192652A87C00A48758 /* TermsAndConditionsViewController.swift */,
-				1737681E2652A8CA00A48758 /* TermsAndConditionsPresenter.swift */,
-				8992BB252840E242005279C9 /* TermsAndConditionsIntroPresenter.swift */,
-				8992BB2A2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift */,
 				6461F5DC29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift */,
 			);
 			path = TermsAndConditionsView;
@@ -4475,7 +4434,6 @@
 				89E1A75C27FF1C2D008C761B /* String+Lines.swift */,
 				7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */,
 				077FD7DB269EC49200EE749C /* SupportMailProtocol.swift */,
-				529457C0274EB7440027EAA2 /* TermsHelper.swift */,
 				C9C097A42433163A00ACA35A /* UIButton+StoryboardLocalization.swift */,
 				7FF07A9723EADBB100F1FC04 /* UIColor+Additions.swift */,
 				6426D91B260C9F47007021BB /* UIDevice+JailBroken.swift */,
@@ -5358,7 +5316,6 @@
 			buildConfigurationList = 7F48C20E244DCD0B00997684 /* Build configuration list for PBXNativeTarget "Mock" */;
 			buildPhases = (
 				7F48C13A244DCD0B00997684 /* Sources */,
-				7F48C1FE244DCD0B00997684 /* ShellScript */,
 				7F48C1FF244DCD0B00997684 /* Frameworks */,
 				7F48C202244DCD0B00997684 /* Resources */,
 				89289700289A5523009688F1 /* Embed Frameworks */,
@@ -5384,7 +5341,6 @@
 			buildConfigurationList = 7F85B7CA246A9A7C00ED09B8 /* Build configuration list for PBXNativeTarget "ProdTestNet" */;
 			buildPhases = (
 				7F85B6D2246A9A7C00ED09B8 /* Sources */,
-				7F85B7B7246A9A7C00ED09B8 /* ShellScript */,
 				7F85B7B8246A9A7C00ED09B8 /* Frameworks */,
 				7F85B7BD246A9A7C00ED09B8 /* Resources */,
 				89289706289A552A009688F1 /* Embed Frameworks */,
@@ -5410,7 +5366,6 @@
 			buildConfigurationList = 7F85B8C9246A9AB600ED09B8 /* Build configuration list for PBXNativeTarget "ProdMainNet" */;
 			buildPhases = (
 				7F85B7D1246A9AB600ED09B8 /* Sources */,
-				7F85B8B6246A9AB600ED09B8 /* ShellScript */,
 				7F85B8B7246A9AB600ED09B8 /* Frameworks */,
 				7F85B8BC246A9AB600ED09B8 /* Resources */,
 				89289709289A552E009688F1 /* Embed Frameworks */,
@@ -5436,7 +5391,6 @@
 			buildConfigurationList = 7FF07A8823EADB1500F1FC04 /* Build configuration list for PBXNativeTarget "StagingNet" */;
 			buildPhases = (
 				7FF07A6523EADB1200F1FC04 /* Sources */,
-				7FF07B0B23EC48C100F1FC04 /* ShellScript */,
 				7FF07A6623EADB1200F1FC04 /* Frameworks */,
 				7FF07A6723EADB1200F1FC04 /* Resources */,
 				89289703289A5527009688F1 /* Embed Frameworks */,
@@ -5905,77 +5859,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		7F48C1FE244DCD0B00997684 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		7F85B7B7246A9A7C00ED09B8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		7F85B8B6246A9AB600ED09B8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		7FF07B0B23EC48C100F1FC04 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		7F48C13A244DCD0B00997684 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -6029,9 +5912,7 @@
 				528EB735255C1E9800010554 /* GettingStartedViewController.swift in Sources */,
 				FA0CAB1A294B90540009D5F8 /* ExportPrivateKeyViewModel.swift in Sources */,
 				075A4BC3271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
-				89CF2D59281A66C400742E1E /* (null) in Sources */,
 				7F48C14A244DCD0B00997684 /* ServicesProvider.swift in Sources */,
-				1737681A2652A87C00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				891B1A2328AE196D00F4B0D6 /* RecoveryIdentityResponse.swift in Sources */,
 				7F48C14B244DCD0B00997684 /* CreationFailedPresenter.swift in Sources */,
 				8992BAB82836390B005279C9 /* UILabel+LinkRecognizer.swift in Sources */,
@@ -6045,7 +5926,6 @@
 				897D0F3F28914A6D001CEC3B /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,
 				8928970B289A6464009688F1 /* Net.swift in Sources */,
 				8D61F4752955E845005E9410 /* ButtonSlider.swift in Sources */,
-				1737681F2652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				9074C71427D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
 				89D467FB289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
 				7F48C267244E17D100997684 /* Description.swift in Sources */,
@@ -6060,7 +5940,6 @@
 				89D46857289CF39C007D3FC8 /* CreateSeedIdentityViewModel.swift in Sources */,
 				89A056F8286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				7F48C150244DCD0B00997684 /* Fonts.swift in Sources */,
-				89CF2D54281A539700742E1E /* (null) in Sources */,
 				6426D91C260C9F47007021BB /* UIDevice+JailBroken.swift in Sources */,
 				C92C64F9244EE7C500675ECE /* TransferCost.swift in Sources */,
 				90C371C327DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
@@ -6381,7 +6260,6 @@
 				7F48C1E6244DCD0B00997684 /* Result+Additions.swift in Sources */,
 				7F48C1E7244DCD0B00997684 /* ErrorMapper.swift in Sources */,
 				7F48C1E8244DCD0B00997684 /* LoginPresenter.swift in Sources */,
-				89CF2D5E281A9E3100742E1E /* (null) in Sources */,
 				89E1A75D27FF1C2D008C761B /* String+Lines.swift in Sources */,
 				89D4688628A224ED007D3FC8 /* SeedIdentityCreationStatus.swift in Sources */,
 				7F48C26D244E17D100997684 /* IPArDatum.swift in Sources */,
@@ -6412,7 +6290,6 @@
 				893CAC9B286F2CC800BDF84C /* Pallette.swift in Sources */,
 				901F7FAB27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				7F48C1F4244DCD0B00997684 /* AccountAddressQRCoordinator.swift in Sources */,
-				8992BB2B2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				7F48C1F5244DCD0B00997684 /* ToastLabel.swift in Sources */,
 				7F48C1F6244DCD0B00997684 /* Logger.swift in Sources */,
 				52055F812552B8F10071F7CA /* IdentityCardView.swift in Sources */,
@@ -6475,14 +6352,12 @@
 				89B34A0C2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				075A4BBE2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
-				8992BB262840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				89B34A022892AACE0059891C /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				FA01CA22291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
 				19C2E7F2807A2D3480A59C3A /* ExportVersionContainer.swift in Sources */,
 				19C2EC182A9F122A326021F6 /* ExportAccount.swift in Sources */,
 				19C2EC33180F59E8660A215D /* ExportRecipient.swift in Sources */,
 				19C2E0E206CBB8B15F4E17B4 /* IdentityAttributeEntity.swift in Sources */,
-				529457C1274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				FA01CA1E291C5D3100BD8738 /* UITextView+Helper.swift in Sources */,
 				90C371D927DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
 				19C2E3EE42E10C79DBD4D997 /* IdentityEntity.swift in Sources */,
@@ -6603,13 +6478,11 @@
 				64DB66D325DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				070D625F27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				7F85B6FE246A9A7C00ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
-				1737681C2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				897D0F1B288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */,
 				7F85B6FF246A9A7C00ED09B8 /* LoadProtocol.swift in Sources */,
 				7F85B700246A9A7C00ED09B8 /* BaseButton.swift in Sources */,
 				52DCA9F827CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				8927A682286ACAC50007CAF1 /* MaterialTabBar.swift in Sources */,
-				89CF2D60281A9E3100742E1E /* (null) in Sources */,
 				FA0CAAF22934EE410009D5F8 /* MatomoTracker.swift in Sources */,
 				7F85B701246A9A7C00ED09B8 /* BaseLabel.swift in Sources */,
 				7F85B702246A9A7C00ED09B8 /* ArDatum.swift in Sources */,
@@ -6632,7 +6505,6 @@
 				52589B2325121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				90434C8927FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				7F85B714246A9A7C00ED09B8 /* UIViewController+Additions.swift in Sources */,
-				529457C3274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				7F85B715246A9A7C00ED09B8 /* AccountTransactionsDataViewController.swift in Sources */,
 				7F85B716246A9A7C00ED09B8 /* BaseTextfield.swift in Sources */,
 				642ED97925F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,
@@ -6656,7 +6528,6 @@
 				077AC5FB26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B722246A9A7C00ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
-				89CF2D56281A539700742E1E /* (null) in Sources */,
 				893CAC8E286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
 				7FB64A0B247D568400DC500E /* ExportViewController.swift in Sources */,
@@ -6705,7 +6576,6 @@
 				90C371DB27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
 				901F7FA427F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
 				7F85B740246A9A7C00ED09B8 /* Policy.swift in Sources */,
-				173768212652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				8D61F4772955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B741246A9A7C00ED09B8 /* IdentitiesCoordinator.swift in Sources */,
 				7F85B742246A9A7C00ED09B8 /* PreIdentityObject.swift in Sources */,
@@ -6895,7 +6765,6 @@
 				7F5F77862487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
-				8992BB2D2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				897D0F3728914621001CEC3B /* RecoveryPhraseSetupCompleteViewModel.swift in Sources */,
 				896B423628B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
 				893CAC72286F0FDC00BDF84C /* Features.swift in Sources */,
@@ -7005,7 +6874,6 @@
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89D467C4289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
-				89CF2D5B281A66C400742E1E /* (null) in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F8291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
 				19C2E579BB5DAF759AC46842 /* ExportVersionContainer.swift in Sources */,
@@ -7065,7 +6933,6 @@
 				89A05709286C6EFE0055C049 /* SwiftUILabel.swift in Sources */,
 				19C2E61D1E74081C5F756486 /* RequestExportPasswordPresenter.swift in Sources */,
 				909EAF2A27F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
-				8992BB282840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				89B349F3289261A10059891C /* SuggestionBox.swift in Sources */,
 				19C2EEC653BDB392DE9D4358 /* ImportCoordinator.swift in Sources */,
 				FA01CA24291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
@@ -7155,13 +7022,11 @@
 				64DB66D425DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				070D626027B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				7F85B7FB246A9AB600ED09B8 /* MenuItemCellView.swift in Sources */,
-				1737681D2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				897D0F1C288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */,
 				7F85B7FD246A9AB600ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
 				7F85B7FE246A9AB600ED09B8 /* LoadProtocol.swift in Sources */,
 				52DCA9F927CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				8927A683286ACAC50007CAF1 /* MaterialTabBar.swift in Sources */,
-				89CF2D61281A9E3100742E1E /* (null) in Sources */,
 				FA0CAAF32934EE410009D5F8 /* MatomoTracker.swift in Sources */,
 				7F85B7FF246A9AB600ED09B8 /* BaseButton.swift in Sources */,
 				7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */,
@@ -7184,7 +7049,6 @@
 				52589B2425121FC900ADD35B /* MakeDecryptAmountRequest.swift in Sources */,
 				90434C8A27FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				7F85B811246A9AB600ED09B8 /* AttributesFormatter.swift in Sources */,
-				529457C4274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				7F85B813246A9AB600ED09B8 /* UIViewController+Additions.swift in Sources */,
 				7F85B814246A9AB600ED09B8 /* AccountTransactionsDataViewController.swift in Sources */,
 				642ED97A25F21FB500A09BB3 /* UpdatePasswordViewController.swift in Sources */,
@@ -7208,7 +7072,6 @@
 				077AC5FC26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
 				7F85B81E246A9AB600ED09B8 /* JSONObject.swift in Sources */,
-				89CF2D57281A539700742E1E /* (null) in Sources */,
 				893CAC8F286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
 				7F85B821246A9AB600ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
@@ -7257,7 +7120,6 @@
 				90C371DC27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
 				901F7FA527F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
 				7F85B83D246A9AB600ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
-				173768222652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				8D61F4782955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B83F246A9AB600ED09B8 /* Policy.swift in Sources */,
 				7F85B840246A9AB600ED09B8 /* IdentitiesCoordinator.swift in Sources */,
@@ -7447,7 +7309,6 @@
 				7F5F77872487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
-				8992BB2E2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				897D0F3828914621001CEC3B /* RecoveryPhraseSetupCompleteViewModel.swift in Sources */,
 				896B423728B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
 				893CAC71286F0FDB00BDF84C /* Features.swift in Sources */,
@@ -7557,7 +7418,6 @@
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
 				89D467C5289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
-				89CF2D5C281A66C400742E1E /* (null) in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F9291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
 				19C2E3E3584E12D4D72365FA /* ExportValues.swift in Sources */,
@@ -7617,7 +7477,6 @@
 				89A0570A286C6EFE0055C049 /* SwiftUILabel.swift in Sources */,
 				19C2E63F49CE373C58B7CDB0 /* RequestExportPasswordPresenter.swift in Sources */,
 				909EAF2B27F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
-				8992BB292840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				89B349F4289261A10059891C /* SuggestionBox.swift in Sources */,
 				19C2E9B036EA12997B62CBD3 /* ImportCoordinator.swift in Sources */,
 				FA01CA25291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
@@ -7763,7 +7622,6 @@
 				89A05708286C6EFE0055C049 /* SwiftUILabel.swift in Sources */,
 				901F7FAC27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				89D4688728A224ED007D3FC8 /* SeedIdentityCreationStatus.swift in Sources */,
-				173768202652A8CA00A48758 /* TermsAndConditionsPresenter.swift in Sources */,
 				8DD48C7E2953138100CA9085 /* EarnViewModel.swift in Sources */,
 				C968B9EF2448C37C00E31BD8 /* TransactionSubmittedPresenter.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
@@ -7942,9 +7800,7 @@
 				079F30FE26EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				C93D092824275C5A0022250B /* AccountConfirmedViewController.swift in Sources */,
-				1737681B2652A87D00A48758 /* TermsAndConditionsViewController.swift in Sources */,
 				FA01C9DF291C5D3100BD8738 /* UITextField+Helper.swift in Sources */,
-				529457C2274EB7440027EAA2 /* TermsHelper.swift in Sources */,
 				C924B2292431D3A200081E23 /* AccountDetailsViewController.swift in Sources */,
 				FA01CA0F291C5D3100BD8738 /* DateFormatter+Helper.swift in Sources */,
 				7FF618EE2437294E00269F9F /* CreateTransferRequest.swift in Sources */,
@@ -7969,7 +7825,6 @@
 				070D61E027B2A3C600B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				897D0F4028914A6D001CEC3B /* RecoveryPhraseSetupCompletePresenter.swift in Sources */,
 				C9874EC92417931E006EF386 /* IdentityDataWidgetViewController.swift in Sources */,
-				8992BB2C2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
 				C94ED71924619E560071A4FB /* TransactionCellViewModel.swift in Sources */,
 				901F7F5927EB4F7800C46741 /* StakeRowViewModel.swift in Sources */,
 				19C2EF67F718F1B0570F1E28 /* JSONSchemaSupport.swift in Sources */,
@@ -7987,7 +7842,6 @@
 				19C2ECCEF3CDA2AEA44CCC76 /* IdentityConfirmedPresenter.swift in Sources */,
 				19C2EF0C9DB4F4117BCD1A0B /* IdentityConfirmedViewController.swift in Sources */,
 				FA01CA17291C5D3100BD8738 /* String+Validation.swift in Sources */,
-				89CF2D5F281A9E3100742E1E /* (null) in Sources */,
 				89B349F2289261A00059891C /* SuggestionBox.swift in Sources */,
 				19C2EE0C233940BF5B80070B /* IdentitiesPresenter.swift in Sources */,
 				897D0F1A288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */,
@@ -8022,7 +7876,6 @@
 				89E1A75E27FF1C2D008C761B /* String+Lines.swift in Sources */,
 				8992BA5B282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				19C2E678EF032F92BCB63531 /* Result+Additions.swift in Sources */,
-				89CF2D55281A539700742E1E /* (null) in Sources */,
 				078967092742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				070D61DA27B290E400B6903C /* OnboardingCarouselPresenter.swift in Sources */,
 				19C2E19E5F252739424456FE /* ErrorMapper.swift in Sources */,
@@ -8083,7 +7936,6 @@
 				8992BA562828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				19C2E365F833136A91177D42 /* AddRecipientViewController.swift in Sources */,
 				89D4683E289BE895007D3FC8 /* SelectIdentityProviderPresenter.swift in Sources */,
-				89CF2D5A281A66C400742E1E /* (null) in Sources */,
 				19C2E321C4CCC444BF89ED2E /* SendFundsCoordinator.swift in Sources */,
 				89D467F2289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				19C2E44740A7724544A27531 /* ServicesProvider+prod.swift in Sources */,
@@ -8108,7 +7960,6 @@
 				FA01CA23291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
 				19C2E2BCDEA276F9C368C149 /* TransactionsService.swift in Sources */,
 				8992BA23281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
-				8992BB272840E242005279C9 /* TermsAndConditionsIntroPresenter.swift in Sources */,
 				19C2E1DE4F6A92CFF0B84390 /* SubmissionStatusService.swift in Sources */,
 				07519F7A26FB612700F4E6E3 /* UITextView+Extensions.swift in Sources */,
 				19C2E7AAD03217C27B15DCCB /* AddRecipientCoordinatorHelper.swift in Sources */,
@@ -8281,9 +8132,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8300,7 +8151,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8318,9 +8169,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -8333,7 +8184,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8353,7 +8204,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8369,7 +8220,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8390,7 +8241,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8406,12 +8257,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Second gen testnet wallet with seed phrase dist";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8427,7 +8278,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8442,7 +8293,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8463,7 +8314,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8478,7 +8329,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8618,7 +8469,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8634,7 +8485,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8656,7 +8507,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8672,7 +8523,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

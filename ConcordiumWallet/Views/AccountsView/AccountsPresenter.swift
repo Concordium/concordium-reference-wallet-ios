@@ -123,7 +123,6 @@ protocol AccountsPresenterDelegate: AnyObject {
     func tryAgainIdentity()
     func didSelectMakeBackup()
     func didSelectPendingIdentity(identity: IdentityDataType)
-    func newTermsAvailable()
     func showSettings()
     func showOpenWalletScanner()
 }
@@ -208,7 +207,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
     
     func viewDidLoad() {
         view?.bind(to: viewModel)
-        checkForNewTerms()
     }
     
     func viewWillAppear() {
@@ -418,15 +416,6 @@ class AccountsPresenter: AccountsPresenterProtocol {
         }, style: .default), AlertAction(name: "identitiespresenteridentityrejected.later".localized, completion: nil, style: .cancel)]))
         
         self.pendingIdentity = nil
-    }
-    
-    private func checkForNewTerms() {
-        let currentTermsHash = HashingHelper.hash(TermsHelper.currentTerms)
-        let acceptedTermsHash = AppSettings.acceptedTermsHash
-        
-        if currentTermsHash != acceptedTermsHash {
-            self.delegate?.newTermsAvailable()
-        }
     }
 
     private func checkForBackup() {

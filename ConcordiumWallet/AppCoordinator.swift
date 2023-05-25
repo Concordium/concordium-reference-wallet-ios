@@ -15,7 +15,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 
     var navigationController: UINavigationController
     let defaultProvider = ServicesProvider.defaultProvider()
-    
+
     private var accountsCoordinator: AccountsCoordinator?
     private var needsAppCheck = true
     private var cancellables: [AnyCancellable] = []
@@ -49,25 +49,31 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 
     private func showLogin() {
-        let loginCoordinator = LoginCoordinator(navigationController: navigationController,
-                                                parentCoordinator: self,
-                                                dependencyProvider: defaultProvider)
+        let loginCoordinator = LoginCoordinator(
+            navigationController: navigationController,
+            parentCoordinator: self,
+            dependencyProvider: defaultProvider,
+            termsAndCondtionsFactory: { [weak self] termsAndConditions in
+                guard let self = self else { return nil }
+                return TermsAndConditionsViewModel(storageManager: self.defaultProvider.storageManager(), termsAndConditions: termsAndConditions)
+            }
+        )
         childCoordinators.append(loginCoordinator)
         loginCoordinator.start()
     }
 
     func showMainTabbar() {
         navigationController.setupBaseNavigationControllerStyle()
-        
+
         accountsCoordinator = AccountsCoordinator(
-            navigationController: self.navigationController,
+            navigationController: navigationController,
             dependencyProvider: defaultProvider,
             appSettingsDelegate: self,
             accountsPresenterDelegate: self
         )
         // accountsCoordinator?.delegate = self
         accountsCoordinator?.start()
-        
+
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
             self.showDelegationWarningIfNeeded()
         })
@@ -154,9 +160,9 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                     delegate: self
                 )
                 recoveryPhraseCoordinator.start()
-                self.navigationController.viewControllers = Array(self.navigationController.viewControllers.lastElements(1))
+                navigationController.viewControllers = Array(navigationController.viewControllers.lastElements(1))
                 childCoordinators.append(recoveryPhraseCoordinator)
-                self.navigationController.setupBaseNavigationControllerStyle()
+                navigationController.setupBaseNavigationControllerStyle()
             }
         } else {
             let initialAccountCreateCoordinator = InitialAccountsCoordinator(navigationController: navigationController,
@@ -169,7 +175,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             navigationController.setupBaseNavigationControllerStyle()
         }
     }
-    
+
     func showSeedIdentityCreation() {
         let coordinator = SeedIdentitiesCoordinator(
             navigationController: navigationController,
@@ -177,24 +183,24 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             dependencyProvider: defaultProvider,
             delegate: self
         )
-        
+
         coordinator.start()
-        
+
         childCoordinators.append(coordinator)
-        self.navigationController.setupBaseNavigationControllerStyle()
+        navigationController.setupBaseNavigationControllerStyle()
     }
-    
+
     func logout() {
         let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
         if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
-            
+
             if (topController as? TransparentNavigationController)?.viewControllers.last is EnterPasswordViewController {
                 return
             }
-            
+
             topController.dismiss(animated: false) {
                 Logger.trace("logout due to application timeout")
                 self.childCoordinators.removeAll()
@@ -272,12 +278,8 @@ extension AppCoordinator: AccountsPresenterDelegate {
     func didSelectPendingIdentity(identity: IdentityDataType) {
     }
 
-    func newTermsAvailable() {
-        accountsCoordinator?.showNewTerms()
-    }
-    
     func showSettings() {
-        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+        let moreCoordinator = MoreCoordinator(navigationController: navigationController,
                                               dependencyProvider: defaultProvider,
                                               parentCoordinator: self)
         moreCoordinator.start()
@@ -372,7 +374,6 @@ extension AppCoordinator: IdentitiesCoordinatorDelegate, MoreCoordinatorDelegate
 }
 
 extension AppCoordinator: AppSettingsDelegate {
-
     func checkForAppSettings() {
         guard needsAppCheck else { return }
         needsAppCheck = false
@@ -387,7 +388,7 @@ extension AppCoordinator: AppSettingsDelegate {
             )
             .store(in: &cancellables)
     }
-    
+
     private func handleAppSettings(response: AppSettingsResponse) {
         showUpdateDialogIfNeeded(
             appSettingsResponse: response
@@ -410,7 +411,7 @@ extension AppCoordinator: RecoveryPhraseCoordinatorDelegate {
         showSeedIdentityCreation()
         childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
-    
+
     func recoveryPhraseCoordinatorFinishedRecovery() {
         showMainTabbar()
         childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }

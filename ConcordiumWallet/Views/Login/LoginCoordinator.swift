@@ -16,6 +16,8 @@ protocol LoginCoordinatorDelegate: AppSettingsDelegate {
     func passwordSelectionDone()
 }
 
+typealias TermsAndConditionsViewFactory = (TermsAndConditionsResponse) -> (TermsAndConditionsViewModel?)
+
 class LoginCoordinator: Coordinator, ShowAlert {
     var childCoordinators = [Coordinator]()
 
@@ -23,8 +25,14 @@ class LoginCoordinator: Coordinator, ShowAlert {
     let dependencyProvider: LoginDependencyProvider
     private var cancellables: Set<AnyCancellable> = []
     private weak var parentCoordinator: LoginCoordinatorDelegate?
-
-    init(navigationController: UINavigationController, parentCoordinator: LoginCoordinatorDelegate, dependencyProvider: LoginDependencyProvider) {
+    private var termsAndCondtionsFactory: TermsAndConditionsViewFactory
+    init(
+        navigationController: UINavigationController,
+        parentCoordinator: LoginCoordinatorDelegate,
+        dependencyProvider: LoginDependencyProvider,
+        termsAndCondtionsFactory: @escaping TermsAndConditionsViewFactory
+    ) {
+        self.termsAndCondtionsFactory = termsAndCondtionsFactory
         self.navigationController = navigationController
         self.parentCoordinator = parentCoordinator
         self.dependencyProvider = dependencyProvider
@@ -57,21 +65,22 @@ class LoginCoordinator: Coordinator, ShowAlert {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func show(termsAndConditions: TermsAndConditionsResponse) {
-        let viewModel = TermsAndConditionsViewModel(
-            storageManager: dependencyProvider.storageManager(),
-            termsAndConditions: termsAndConditions
-        )
+    func show(termsAndConditions: TermsAndConditionsResponse, isPasswordCreated: Bool) {
+        guard let viewModel = termsAndCondtionsFactory(termsAndConditions) else { return }
         viewModel.didAcceptTermsAndConditions = { [weak self] in
-            self?.showInitialScreen()
+            if isPasswordCreated {
+                self?.showLogin()
+            } else {
+                self?.showInitialScreen()
+            }
         }
-        let vc = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
-        navigationController.pushViewController(vc, animated: true)
+        let viewController = UIHostingController(rootView: TermsAndConditionsView(viewModel: viewModel))
+        navigationController.pushViewController(viewController, animated: true)
     }
 
     func start() {
         let passwordCreated = dependencyProvider.keychainWrapper().passwordCreated()
-        let version = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
+        let acceptedVersion = dependencyProvider.storageManager().getLastAcceptedTermsAndConditionsVersion()
         dependencyProvider.appSettingsService()
             .getTermsAndConditionsVersion()
             .sink(receiveCompletion: { [weak self] completion in
@@ -79,13 +88,17 @@ class LoginCoordinator: Coordinator, ShowAlert {
                 case .finished: break
                 case let .failure(serverError):
                     Logger.error(serverError)
-               self?.showErrorAlert(ErrorMapper.toViewError(error: serverError))
+                    self?.showErrorAlert(ErrorMapper.toViewError(error: serverError))
                 }
             }, receiveValue: { [weak self] termsAndConditions in
-                if passwordCreated && termsAndConditions.version == version {
-                    self?.showLogin()
+                if termsAndConditions.version == acceptedVersion {
+                    if passwordCreated {
+                        self?.showLogin()
+                    } else {
+                        self?.showInitialScreen()
+                    }
                 } else {
-                    self?.show(termsAndConditions: termsAndConditions)
+                    self?.show(termsAndConditions: termsAndConditions, isPasswordCreated: passwordCreated)
                 }
             })
             .store(in: &cancellables)
@@ -126,11 +139,5 @@ extension LoginCoordinator: InitialAccountInfoPresenterDelegate {
         case .welcomeScreen:
             showPasscodeSelection()
         }
-    }
-}
-
-extension LoginCoordinator: TermsAndConditionsPresenterDelegate {
-    func userTappedAcceptTerms() {
-        showInitialScreen()
     }
 }
