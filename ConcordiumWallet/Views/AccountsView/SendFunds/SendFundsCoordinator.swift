@@ -102,7 +102,7 @@ class SendFundsCoordinator: Coordinator {
     }
 
     func showScanAddressQR(delegate: ScanAddressQRPresenterDelegate) {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: delegate))
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: delegate))
         navigationController.pushViewController(vc, animated: true)
     }
 

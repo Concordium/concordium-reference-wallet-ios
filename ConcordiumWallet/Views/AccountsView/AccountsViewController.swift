@@ -83,7 +83,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     }
     
     @objc func scanTapped() {
-        
+        presenter?.showWalletConnectScanner()
     }
 
     override func viewWillAppear(_ animated: Bool) {

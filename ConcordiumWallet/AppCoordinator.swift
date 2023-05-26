@@ -255,7 +255,7 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 }
 
 extension AppCoordinator: AccountsPresenterDelegate {
-    func showOpenWalletScanner() {
+    func showWalletConnectScanner() {
         
     }
     

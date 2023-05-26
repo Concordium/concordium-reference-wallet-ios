@@ -124,7 +124,7 @@ protocol AccountsPresenterDelegate: AnyObject {
     func didSelectMakeBackup()
     func didSelectPendingIdentity(identity: IdentityDataType)
     func showSettings()
-    func showOpenWalletScanner()
+    func showWalletConnectScanner()
 }
 
 // MARK: View
@@ -146,7 +146,7 @@ protocol AccountsPresenterProtocol: AnyObject {
     func viewDidAppear()
     func refresh(pendingIdentity: IdentityDataType?)
     func showSettings()
-    func showOpenWalletScanner()
+    func showWalletConnectScanner()
     func userPressedCreate()
     func userPerformed(action: AccountCardAction, on accountIndex: Int)
     func userSelectedMakeBackup()
@@ -223,8 +223,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
         delegate?.showSettings()
     }
     
-    func showOpenWalletScanner() {
-        delegate?.showOpenWalletScanner()
+    func showWalletConnectScanner() {
+        delegate?.showWalletConnectScanner()
     }
     
     func refresh(pendingIdentity: IdentityDataType? = nil) {

@@ -73,7 +73,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     }
 
     func showScanAddressQR() {
-        let vc = ScanAddressQRFactory.create(with: ScanAddressQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -327,7 +327,8 @@ extension MoreCoordinator: AppSettingsDelegate {
 }
 
 extension MoreCoordinator: AccountsPresenterDelegate {
-    func showOpenWalletScanner() {
+    func showWalletConnectScanner() {
+        
     }
     
     func createNewIdentity() {

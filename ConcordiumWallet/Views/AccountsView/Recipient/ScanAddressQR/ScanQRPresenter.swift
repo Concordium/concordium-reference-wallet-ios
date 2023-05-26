@@ -28,7 +28,7 @@ protocol ScanAddressQRPresenterProtocol: AnyObject {
     func scannedQrCode(_: String)
 }
 
-class ScanAddressQRPresenter: ScanAddressQRPresenterProtocol {
+class ScanQRPresenter: ScanAddressQRPresenterProtocol {
 
     weak var view: ScanAddressQRViewProtocol?
     weak var delegate: ScanAddressQRPresenterDelegate?
