@@ -37,7 +37,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "scanQr.title".localized
@@ -47,7 +47,6 @@ class ScanQRViewController: BaseViewController, ShowToast {
         setupCaptureSession()
         setupScanGuide()
     }
-  
 
     func failed() {
         let ac = UIAlertController(title: "scanQr.unsupportedMessage.title".localized,
@@ -91,7 +90,9 @@ extension ScanQRViewController: ScanQRViewProtocol {
     func showQrInvalid() {
         scanGuide.tintColor = .red
         showToast(withMessage: "scanQr.invalidQr".localized)
-        captureSession.startRunning()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.captureSession.startRunning()
+        }
         UIView.animate(withDuration: 0.3, delay: 1.0, animations: {
             self.scanGuide.tintColor = .white
         })
@@ -99,7 +100,6 @@ extension ScanQRViewController: ScanQRViewProtocol {
 }
 
 private extension ScanQRViewController {
-    
     func setupScanGuide() {
         view.addSubview(scanGuide)
         scanGuide.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +107,7 @@ private extension ScanQRViewController {
             scanGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             scanGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             scanGuide.heightAnchor.constraint(equalToConstant: 256),
-            scanGuide.widthAnchor.constraint(equalToConstant: 256)
+            scanGuide.widthAnchor.constraint(equalToConstant: 256),
         ]
         NSLayoutConstraint.activate(constraints)
     }

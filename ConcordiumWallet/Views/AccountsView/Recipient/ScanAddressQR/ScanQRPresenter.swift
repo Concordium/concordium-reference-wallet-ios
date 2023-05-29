@@ -9,52 +9,90 @@
 import Foundation
 
 // MARK: View
+
 protocol ScanQRViewProtocol: AnyObject {
     func showQrValid()
     func showQrInvalid()
 }
 
 // MARK: -
+
 // MARK: Delegate
-protocol ScanAddressQRPresenterDelegate: AnyObject {
-    func scanAddressQr(didScanAddress: String)
+
+protocol QRCodeStrategyDelegate: AnyObject {
+    func qrScanner(didScanAddress: String)
     func qrScanner(didScanWalletConnect: String)
 }
 
 // MARK: -
+
 // MARK: Presenter
+
 protocol ScanQRPresenterProtocol: AnyObject {
-	var view: ScanQRViewProtocol? { get set }
+    var view: ScanQRViewProtocol? { get set }
     func viewDidLoad()
     func scannedQrCode(_: String)
 }
 
+protocol QRScannerStrategy {
+    var delegate: QRCodeStrategyDelegate? { get set }
+    func validate(qrCode: String) -> Bool
+    func didScan(code: String) 
+}
+
 class ScanQRPresenter: ScanQRPresenterProtocol {
-
-    enum QRScannerStrategy {
-        case address
-        case walletConnect
-    }
-
     weak var view: ScanQRViewProtocol?
-    weak var delegate: ScanAddressQRPresenterDelegate?
-    let wallet: MobileWalletProtocol
-
-    init(wallet: MobileWalletProtocol, delegate: ScanAddressQRPresenterDelegate? = nil, strategy: QRScannerStrategy) {
-        self.delegate = delegate
-        self.wallet = wallet
+    weak var delegate: QRCodeStrategyDelegate?
+    let strategy: QRScannerStrategy
+    init(strategy: QRScannerStrategy) {
+        self.strategy = strategy
     }
 
-    func viewDidLoad() {
-    }
-    
-    func scannedQrCode(_ address: String) {
-        let qrValid = wallet.check(accountAddress: address)
-        if qrValid {
+    func viewDidLoad() {}
+
+    func scannedQrCode(_ code: String) {
+        let isValid = strategy.validate(qrCode: code)
+        if isValid {
+            strategy.didScan(code: code)
             view?.showQrValid()
-            self.delegate?.scanAddressQr(didScanAddress: address)
         } else {
             view?.showQrInvalid()
         }
+    }
+}
+
+class WalletConnectStrategy: QRScannerStrategy {
+    var delegate: QRCodeStrategyDelegate?
+
+    init(delegate: QRCodeStrategyDelegate? = nil) {
+        self.delegate = delegate
+    }
+
+    func didScan(code: String) {
+        delegate?.qrScanner(didScanWalletConnect: code)
+    }
+    
+    
+    func validate(qrCode: String) -> Bool {
+        !qrCode.isEmpty && qrCode.lowercased().hasPrefix("wc:")
+    }
+}
+
+class AddressScannerStrategy: QRScannerStrategy {
+    var delegate: QRCodeStrategyDelegate?
+    let wallet: MobileWalletProtocol
+
+    
+    init(wallet: MobileWalletProtocol, delegate: QRCodeStrategyDelegate? = nil) {
+        self.wallet = wallet
+        self.delegate = delegate
+    }
+
+    func didScan(code: String) {
+        delegate?.qrScanner(didScanAddress: code)
+    }
+
+    func validate(qrCode: String) -> Bool {
+        wallet.check(accountAddress: qrCode)
     }
 }

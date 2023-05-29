@@ -253,8 +253,9 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 }
 
-extension AppCoordinator: ScanAddressQRPresenterDelegate {
-    func scanAddressQr(didScanAddress: String) {
+extension AppCoordinator: QRCodeStrategyDelegate {
+
+    func qrScanner(didScanAddress: String) {
     }
     
     func qrScanner(didScanWalletConnect: String) {
@@ -263,7 +264,7 @@ extension AppCoordinator: ScanAddressQRPresenterDelegate {
 
 extension AppCoordinator: AccountsPresenterDelegate {
     func showWalletConnectScanner() {
-        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: defaultProvider.mobileWallet(), delegate: self, strategy: .walletConnect))
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(strategy: WalletConnectStrategy(delegate: self)))
         navigationController.present(vc, animated: true)
     }
     

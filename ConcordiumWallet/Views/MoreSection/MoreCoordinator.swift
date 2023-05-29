@@ -73,7 +73,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     }
 
     func showScanAddressQR() {
-        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self, strategy: .address))
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet(), delegate: self)))
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -191,12 +191,12 @@ extension MoreCoordinator: AddRecipientPresenterDelegate {
     }
 }
 
-extension MoreCoordinator: ScanAddressQRPresenterDelegate, AddRecipientCoordinatorHelper {
+extension MoreCoordinator: QRCodeStrategyDelegate, AddRecipientCoordinatorHelper {
     func qrScanner(didScanWalletConnect: String) {
         
     }
     
-    func scanAddressQr(didScanAddress address: String) {
+    func qrScanner(didScanAddress address: String) {
         let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
 
         self.navigationController.popToViewController(addRecipientViewController, animated: true)
