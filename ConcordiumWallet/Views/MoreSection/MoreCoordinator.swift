@@ -73,7 +73,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     }
 
     func showScanAddressQR() {
-        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self))
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: self, strategy: .address))
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -83,27 +83,6 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
                                                                         mode: .edit(recipient: recipient)))
         navigationController.pushViewController(vc, animated: true)
     }
-
-//    // MARK: Import
-//    func showImport() {
-//        let initialAccountPresenter = InitialAccountInfoPresenter(delegate: self, type: .importAccount)
-//        let vc = InitialAccountInfoFactory.create(with: initialAccountPresenter)
-//        vc.title = initialAccountPresenter.type.getViewModel().title
-//        navigationController.pushViewController(vc, animated: true)
-//    }
-//    
-//    // MARK: Export
-//    func showExport() {
-//        navigationController.popToRootViewController(animated: false)
-//        let vc = ExportFactory.create(with: ExportPresenter(dependencyProvider: dependencyProvider, requestPasswordDelegate: self, delegate: self))
-//        navigationController.pushViewController(vc, animated: true)
-//    }
-    
-//    func showValidateIdsAndAccounts() {
-//        sanityChecker.requestPwAndCheckSanity(requestPasswordDelegate: self,
-//                                              keychainWrapper: dependencyProvider.keychainWrapper(),
-//                                              mode: .manual)
-//    }
 
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(navigationController: TransparentNavigationController(),
@@ -213,6 +192,10 @@ extension MoreCoordinator: AddRecipientPresenterDelegate {
 }
 
 extension MoreCoordinator: ScanAddressQRPresenterDelegate, AddRecipientCoordinatorHelper {
+    func qrScanner(didScanWalletConnect: String) {
+        
+    }
+    
     func scanAddressQr(didScanAddress address: String) {
         let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
 

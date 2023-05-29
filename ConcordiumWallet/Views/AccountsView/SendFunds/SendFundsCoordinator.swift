@@ -102,7 +102,7 @@ class SendFundsCoordinator: Coordinator {
     }
 
     func showScanAddressQR(delegate: ScanAddressQRPresenterDelegate) {
-        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: delegate))
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: dependencyProvider.mobileWallet(), delegate: delegate, strategy: .address))
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -224,6 +224,8 @@ extension SendFundsCoordinator: TransactionSubmittedPresenterDelegate {
 }
 
 extension SendFundsCoordinator: ScanAddressQRPresenterDelegate, AddRecipientCoordinatorHelper {
+    func qrScanner(didScanWalletConnect: String) {}
+    
     func scanAddressQr(didScanAddress address: String) {
         let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
 

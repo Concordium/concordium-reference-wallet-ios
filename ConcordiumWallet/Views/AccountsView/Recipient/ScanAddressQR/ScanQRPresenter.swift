@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: View
-protocol ScanAddressQRViewProtocol: AnyObject {
+protocol ScanQRViewProtocol: AnyObject {
     func showQrValid()
     func showQrInvalid()
 }
@@ -18,23 +18,29 @@ protocol ScanAddressQRViewProtocol: AnyObject {
 // MARK: Delegate
 protocol ScanAddressQRPresenterDelegate: AnyObject {
     func scanAddressQr(didScanAddress: String)
+    func qrScanner(didScanWalletConnect: String)
 }
 
 // MARK: -
 // MARK: Presenter
-protocol ScanAddressQRPresenterProtocol: AnyObject {
-	var view: ScanAddressQRViewProtocol? { get set }
+protocol ScanQRPresenterProtocol: AnyObject {
+	var view: ScanQRViewProtocol? { get set }
     func viewDidLoad()
     func scannedQrCode(_: String)
 }
 
-class ScanQRPresenter: ScanAddressQRPresenterProtocol {
+class ScanQRPresenter: ScanQRPresenterProtocol {
 
-    weak var view: ScanAddressQRViewProtocol?
+    enum QRScannerStrategy {
+        case address
+        case walletConnect
+    }
+
+    weak var view: ScanQRViewProtocol?
     weak var delegate: ScanAddressQRPresenterDelegate?
     let wallet: MobileWalletProtocol
 
-    init(wallet: MobileWalletProtocol, delegate: ScanAddressQRPresenterDelegate? = nil) {
+    init(wallet: MobileWalletProtocol, delegate: ScanAddressQRPresenterDelegate? = nil, strategy: QRScannerStrategy) {
         self.delegate = delegate
         self.wallet = wallet
     }

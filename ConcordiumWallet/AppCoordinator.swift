@@ -71,7 +71,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             appSettingsDelegate: self,
             accountsPresenterDelegate: self
         )
-        // accountsCoordinator?.delegate = self
         accountsCoordinator?.start()
 
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
@@ -254,9 +253,18 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     }
 }
 
+extension AppCoordinator: ScanAddressQRPresenterDelegate {
+    func scanAddressQr(didScanAddress: String) {
+    }
+    
+    func qrScanner(didScanWalletConnect: String) {
+    }
+}
+
 extension AppCoordinator: AccountsPresenterDelegate {
     func showWalletConnectScanner() {
-        
+        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(wallet: defaultProvider.mobileWallet(), delegate: self, strategy: .walletConnect))
+        navigationController.present(vc, animated: true)
     }
     
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {

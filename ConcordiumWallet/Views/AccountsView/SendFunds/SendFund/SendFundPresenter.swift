@@ -471,4 +471,6 @@ extension SendFundPresenter: ScanAddressQRPresenterDelegate {
         self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: didScanAddress))
         self.delegate?.dismissQR()
     }
+
+    func qrScanner(didScanWalletConnect: String) {}
 }
