@@ -265,7 +265,7 @@ extension AppCoordinator: QRCodeStrategyDelegate {
 extension AppCoordinator: AccountsPresenterDelegate {
     func showWalletConnectScanner() {
         let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(strategy: WalletConnectStrategy(delegate: self)))
-        navigationController.present(vc, animated: true)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {

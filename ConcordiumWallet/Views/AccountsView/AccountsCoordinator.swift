@@ -118,7 +118,6 @@ class AccountsCoordinator: Coordinator {
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
     func showWalletConnectScanner() {
-        print("test")
     }
     
     func showSettings() {

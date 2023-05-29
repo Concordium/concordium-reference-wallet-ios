@@ -278,7 +278,6 @@ extension MoreCoordinator: ExportPresenterDelegate {
 
 extension MoreCoordinator: AboutPresenterDelegate {}
 
-//extension MoreCoordinator: ImportExport {}
 
 extension MoreCoordinator: IdentitiesCoordinatorDelegate {
     

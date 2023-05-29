@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: View
 
+// sourcery: AutoMockable
 protocol ScanQRViewProtocol: AnyObject {
     func showQrValid()
     func showQrInvalid()
@@ -19,6 +20,7 @@ protocol ScanQRViewProtocol: AnyObject {
 
 // MARK: Delegate
 
+// sourcery: AutoMockable
 protocol QRCodeStrategyDelegate: AnyObject {
     func qrScanner(didScanAddress: String)
     func qrScanner(didScanWalletConnect: String)
