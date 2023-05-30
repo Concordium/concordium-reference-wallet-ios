@@ -39,7 +39,7 @@ platform :ios do
       increment_build_number(
         build_number: [
           latest_testflight_build_number(app_identifier: ENV["APP_IDENTIFIER"])+1,
-          get_build_number()
+          get_build_number
         ].max,
         skip_info_plist: true
       )
