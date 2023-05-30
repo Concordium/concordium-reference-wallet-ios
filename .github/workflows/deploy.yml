@@ -3,12 +3,10 @@ name: Deploy
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Select Environment'
-        required: true
-        default: 'testNet'
       choice:
         type: choice
+        description: 'environment'
+        required: true
         options:
           - testNet
           - mainNet
