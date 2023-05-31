@@ -127,6 +127,10 @@ protocol AccountsPresenterDelegate: AnyObject {
     func showWalletConnectScanner()
 }
 
+extension AccountsPresenterDelegate {
+    func showWalletConnectScanner() {}
+}
+
 // MARK: View
 protocol AccountsViewProtocol: ShowAlert, Loadable {
     func bind(to viewModel: AccountsListViewModel)

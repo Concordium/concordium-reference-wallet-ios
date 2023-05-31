@@ -117,9 +117,8 @@ class AccountsCoordinator: Coordinator {
 }
 
 extension AccountsCoordinator: AccountsPresenterDelegate {
-    func showWalletConnectScanner() {}
-    
-    func showSettings() {}
+    func showSettings() {
+    }
     
     func didSelectMakeBackup() {
         showExport()
