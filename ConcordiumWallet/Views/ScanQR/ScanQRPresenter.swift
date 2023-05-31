@@ -9,7 +9,6 @@
 import Foundation
 
 // MARK: View
-
 // sourcery: AutoMockable
 protocol ScanQRViewProtocol: AnyObject {
     func showQrValid()
@@ -17,13 +16,11 @@ protocol ScanQRViewProtocol: AnyObject {
 }
 
 // MARK: Presenter
-
 protocol ScanQRPresenterProtocol: AnyObject {
     var view: ScanQRViewProtocol? { get set }
     func viewDidLoad()
     func scannedQrCode(_: String)
 }
-
 
 class ScanQRPresenter: ScanQRPresenterProtocol {
     weak var view: ScanQRViewProtocol?
