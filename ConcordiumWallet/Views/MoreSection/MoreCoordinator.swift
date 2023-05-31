@@ -54,6 +54,12 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         identitiesCoordinator.showCreateNewIdentity()
     }
 
+    func showScanAddressQR(didScan address: String) {
+        let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
+        self.navigationController.popToViewController(addRecipientViewController, animated: true)
+        addRecipientViewController.presenter.setAccountAddress(address)
+    }
+
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(delegate: self))
         navigationController.pushViewController(vc, animated: false)
@@ -165,7 +171,6 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
             appSettingsDelegate: self,
             accountsPresenterDelegate: self
         )
-        // accountsCoordinator?.delegate = self
         accountsCoordinator?.start()
     }
 
@@ -185,10 +190,7 @@ extension MoreCoordinator: SelectRecipientPresenterDelegate {
 
     func selectRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
-            guard let self = self else { return }
-            let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
-            self.navigationController.popToViewController(addRecipientViewController, animated: true)
-            addRecipientViewController.presenter.setAccountAddress(address)
+            self?.showScanAddressQR(didScan: address)
         }
     }
 }
@@ -200,10 +202,7 @@ extension MoreCoordinator: AddRecipientPresenterDelegate {
 
     func addRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
-            guard let self = self else { return }
-            let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
-            self.navigationController.popToViewController(addRecipientViewController, animated: true)
-            addRecipientViewController.presenter.setAccountAddress(address)
+            self?.showScanAddressQR(didScan: address)
         }
     }
 }
