@@ -111,7 +111,7 @@ protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter)
     func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
-    func sendFundPresenterShowScanQRCode(delegate: QRCodeStrategyDelegate)
+    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void))
     func sendFundPresenter(didSelectTransferAmount amount: GTU,
                            energyUsed energy: Int,
                            from account: AccountDataType,
@@ -279,7 +279,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 return
             }
 
-            self.delegate?.sendFundPresenterShowScanQRCode(delegate: self)
+            self.delegate?.sendFundPresenterShowScanQRCode(didScanQRCode: { [weak self] address in
+                guard let self = self else { return }
+                self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: address))
+                  self.delegate?.dismissQR()
+            })
         }
     }
     
@@ -464,13 +468,4 @@ class SendFundPresenter: SendFundPresenterProtocol {
             completion()
         }
     }
-}
-
-extension SendFundPresenter: QRCodeStrategyDelegate {
-    func qrScanner(didScanAddress: String) {
-        self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: didScanAddress))
-        self.delegate?.dismissQR()
-    }
-
-    func qrScanner(didScanWalletConnect: String) {}
 }

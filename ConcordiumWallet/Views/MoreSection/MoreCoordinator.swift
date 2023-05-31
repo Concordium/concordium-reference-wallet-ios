@@ -3,32 +3,32 @@
 // Copyright (c) 2020 concordium. All rights reserved.
 //
 
+import Combine
 import Foundation
 import UIKit
-import Combine
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate { }
 
 class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
-    
+
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     private var dependencyProvider: DependencyProvider
     private var loginDependencyProvider: LoginDependencyProvider
     private var sanityChecker: SanityChecker
     private var accountsCoordinator: AccountsCoordinator?
-    
+
     weak var delegate: MoreCoordinatorDelegate?
-    
+
     init(navigationController: UINavigationController,
          dependencyProvider: DependencyProvider & LoginDependencyProvider & WalletAndStorageDependencyProvider,
          parentCoordinator: MoreCoordinatorDelegate) {
         self.navigationController = navigationController
         self.dependencyProvider = dependencyProvider
-        self.loginDependencyProvider = dependencyProvider
-        self.sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
-                                          storageManager: dependencyProvider.storageManager())
+        loginDependencyProvider = dependencyProvider
+        sanityChecker = SanityChecker(mobileWallet: dependencyProvider.mobileWallet(),
+                                      storageManager: dependencyProvider.storageManager())
         sanityChecker.errorDisplayer = self
         sanityChecker.coordinator = self
     }
@@ -41,25 +41,26 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
                                                           dependencyProvider: dependencyProvider,
                                                           parentCoordinator: self)
-        self.childCoordinators.append(identitiesCoordinator)
+        childCoordinators.append(identitiesCoordinator)
         identitiesCoordinator.showInitial(animated: true)
     }
-    
+
     func showCreateNewIdentity() {
         let identitiesCoordinator = IdentitiesCoordinator(navigationController: navigationController,
                                                           dependencyProvider: dependencyProvider,
                                                           parentCoordinator: self)
-        self.childCoordinators.append(identitiesCoordinator)
+        childCoordinators.append(identitiesCoordinator)
         identitiesCoordinator.start()
         identitiesCoordinator.showCreateNewIdentity()
     }
-    
+
     func showMenu() {
         let vc = MoreMenuFactory.create(with: MoreMenuPresenter(delegate: self))
         navigationController.pushViewController(vc, animated: false)
     }
 
     // MARK: Address Book
+
     func showAddressBook() {
         let vc = SelectRecipientFactory.create(with: SelectRecipientPresenter(delegate: self,
                                                                               storageManager: dependencyProvider.storageManager(),
@@ -72,8 +73,13 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showScanAddressQR() {
-        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet(), delegate: self)))
+    func showScanAddressQR(didScanQrCode: @escaping ((String) -> Void)) {
+        let vc = ScanQRViewControllerFactory.create(
+            with: ScanQRPresenter(
+                strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet()),
+                didScanQrCode: didScanQrCode
+            )
+        )
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -87,25 +93,27 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(navigationController: TransparentNavigationController(),
                                                                               dependencyProvider: dependencyProvider)
-        self.childCoordinators.append(selectExportPasswordCoordinator)
+        childCoordinators.append(selectExportPasswordCoordinator)
         selectExportPasswordCoordinator.navigationController.modalPresentationStyle = .fullScreen
         selectExportPasswordCoordinator.start()
         navigationController.present(selectExportPasswordCoordinator.navigationController, animated: true)
         return selectExportPasswordCoordinator.passwordPublisher.eraseToAnyPublisher()
     }
-    
+
     // MARK: Update password or biometrics
+
     func showUpdatePasscode() {
         let updatePasswordCoordinator = UpdatePasswordCoordinator(navigationController: navigationController,
                                                                   parentCoordinator: self,
                                                                   requestPasswordDelegate: self,
                                                                   dependencyProvider: loginDependencyProvider,
                                                                   walletAndStorage: dependencyProvider)
-        self.childCoordinators.append(updatePasswordCoordinator)
+        childCoordinators.append(updatePasswordCoordinator)
         updatePasswordCoordinator.start()
     }
-    
+
     // MARK: About
+
     func showAbout() {
         let vc = AboutFactory.create(with: AboutPresenter(delegate: self))
         navigationController.pushViewController(vc, animated: true)
@@ -116,20 +124,19 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
     func identitiesSelected() {
         showIdentities()
     }
-    
+
     func addressBookSelected() {
         showAddressBook()
     }
-    
+
     func updateSelected() {
         showUpdatePasscode()
     }
-    
+
     func recoverySelected() async throws {
-        
-        let pwHash = try await self.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
+        let pwHash = try await requestUserPassword(keychain: dependencyProvider.keychainWrapper())
         let seedValue = try dependencyProvider.keychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
-        
+
         let presenter = IdentityRecoveryStatusPresenter(
             recoveryPhrase: nil,
             recoveryPhraseService: nil,
@@ -140,20 +147,20 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
             keychain: dependencyProvider.keychainWrapper(),
             delegate: self
         )
-        
+
         replaceTopController(with: presenter.present(IdentityReccoveryStatusView.self))
     }
-    
+
     private func replaceTopController(with controller: UIViewController) {
         let viewControllers = navigationController.viewControllers.filter { $0.isPresenting(page: RecoveryPhraseGettingStartedView.self) }
         navigationController.setViewControllers(viewControllers + [controller], animated: true)
     }
-    
+
     func showMainTabbar() {
         navigationController.setupBaseNavigationControllerStyle()
 
         accountsCoordinator = AccountsCoordinator(
-            navigationController: self.navigationController,
+            navigationController: navigationController,
             dependencyProvider: ServicesProvider.defaultProvider(),
             appSettingsDelegate: self,
             accountsPresenterDelegate: self
@@ -161,7 +168,7 @@ extension MoreCoordinator: MoreMenuPresenterDelegate {
         // accountsCoordinator?.delegate = self
         accountsCoordinator?.start()
     }
-    
+
     func aboutSelected() {
         showAbout()
     }
@@ -177,7 +184,12 @@ extension MoreCoordinator: SelectRecipientPresenterDelegate {
     }
 
     func selectRecipientDidSelectQR() {
-        showScanAddressQR()
+        showScanAddressQR { [weak self] address in
+            guard let self = self else { return }
+            let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
+            self.navigationController.popToViewController(addRecipientViewController, animated: true)
+            addRecipientViewController.presenter.setAccountAddress(address)
+        }
     }
 }
 
@@ -187,32 +199,24 @@ extension MoreCoordinator: AddRecipientPresenterDelegate {
     }
 
     func addRecipientDidSelectQR() {
-        showScanAddressQR()
+        showScanAddressQR { [weak self] address in
+            guard let self = self else { return }
+            let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
+            self.navigationController.popToViewController(addRecipientViewController, animated: true)
+            addRecipientViewController.presenter.setAccountAddress(address)
+        }
     }
 }
 
-extension MoreCoordinator: QRCodeStrategyDelegate, AddRecipientCoordinatorHelper {
-    func qrScanner(didScanWalletConnect: String) {
-        
-    }
-    
-    func qrScanner(didScanAddress address: String) {
-        let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
+extension MoreCoordinator: AddRecipientCoordinatorHelper {}
 
-        self.navigationController.popToViewController(addRecipientViewController, animated: true)
-
-        addRecipientViewController.presenter.setAccountAddress(address)
-    }
-}
-
-extension MoreCoordinator: RequestPasswordDelegate {
-}
+extension MoreCoordinator: RequestPasswordDelegate {}
 
 extension MoreCoordinator: InitialAccountInfoPresenterDelegate {
     func userTappedClose() {
         navigationController.popToRootViewController(animated: true)
     }
-    
+
     func userTappedOK(withType type: InitialAccountInfoType) {
         switch type {
         case .importAccount:
@@ -227,10 +231,10 @@ extension MoreCoordinator: UpdatePasswordCoordinatorDelegate {
         navigationController.popViewController(animated: false)
         childCoordinators.removeAll(where: { $0 is UpdatePasswordCoordinator })
         let options = AlertOptions(title: "",
-                                 message: "more.update.successfully".localized,
-                                 actions: [AlertAction(name: "ok".localized,
-                                                       completion: {},
-                                                       style: .default)] )
+                                   message: "more.update.successfully".localized,
+                                   actions: [AlertAction(name: "ok".localized,
+                                                         completion: {},
+                                                         style: .default)])
         showAlert(with: options)
     }
 }
@@ -238,20 +242,20 @@ extension MoreCoordinator: UpdatePasswordCoordinatorDelegate {
 extension MoreCoordinator: ExportPresenterDelegate {
     func createExportPassword() -> AnyPublisher<String, Error> {
         let cleanup: (Result<String, Error>) -> Future<String, Error> = { [weak self] result in
-                    let future = Future<String, Error> { promise in
-                        self?.navigationController.dismiss(animated: true) {
-                            promise(result)
-                        }
-                        self?.childCoordinators.removeAll { coordinator in
-                            coordinator is CreateExportPasswordCoordinator
-                        }
-                    }
-                    return future
+            let future = Future<String, Error> { promise in
+                self?.navigationController.dismiss(animated: true) {
+                    promise(result)
                 }
+                self?.childCoordinators.removeAll { coordinator in
+                    coordinator is CreateExportPasswordCoordinator
+                }
+            }
+            return future
+        }
         return showCreateExportPassword()
-                .flatMap { cleanup(.success($0)) }
-                .catch { cleanup(.failure($0)) }
-                .eraseToAnyPublisher()
+            .flatMap { cleanup(.success($0)) }
+            .catch { cleanup(.failure($0)) }
+            .eraseToAnyPublisher()
     }
 
     func shareExportedFile(url: URL, completion: @escaping () -> Void) {
@@ -268,9 +272,9 @@ extension MoreCoordinator: ExportPresenterDelegate {
                 self.exportFinished()
             }
         }
-        self.navigationController.present(vc, animated: true)
+        navigationController.present(vc, animated: true)
     }
-    
+
     func exportFinished() {
         navigationController.popViewController(animated: true)
     }
@@ -278,15 +282,13 @@ extension MoreCoordinator: ExportPresenterDelegate {
 
 extension MoreCoordinator: AboutPresenterDelegate {}
 
-
 extension MoreCoordinator: IdentitiesCoordinatorDelegate {
-    
     func noIdentitiesFound() {
-        self.delegate?.noIdentitiesFound()
+        delegate?.noIdentitiesFound()
     }
-    
+
     func finishedDisplayingIdentities() {
-        self.childCoordinators.removeAll { coordinator in
+        childCoordinators.removeAll { coordinator in
             coordinator is CreateExportPasswordCoordinator
         }
     }
@@ -297,7 +299,7 @@ extension MoreCoordinator: IdentityRecoveryStatusPresenterDelegate {
         showMainTabbar()
         childCoordinators.removeAll { $0 is RecoveryPhraseCoordinator }
     }
-    
+
     func reenterRecoveryPhrase() {
         print("Reenter recovery phrase.")
     }
@@ -310,9 +312,8 @@ extension MoreCoordinator: AppSettingsDelegate {
 
 extension MoreCoordinator: AccountsPresenterDelegate {
     func showWalletConnectScanner() {
-        
     }
-    
+
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
     }
@@ -320,7 +321,7 @@ extension MoreCoordinator: AccountsPresenterDelegate {
     func createNewAccount() {
         accountsCoordinator?.showCreateNewAccount()
     }
-    
+
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
@@ -339,9 +340,9 @@ extension MoreCoordinator: AccountsPresenterDelegate {
 
     func didSelectPendingIdentity(identity: IdentityDataType) {
     }
-    
+
     func showSettings() {
-        let moreCoordinator = MoreCoordinator(navigationController: self.navigationController,
+        let moreCoordinator = MoreCoordinator(navigationController: navigationController,
                                               dependencyProvider: ServicesProvider.defaultProvider(),
                                               parentCoordinator: self)
         moreCoordinator.start()

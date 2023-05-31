@@ -20,19 +20,19 @@ class ScanQRViewController: BaseViewController, ShowToast {
     var captureSession: AVCaptureSession
     var previewLayer: AVCaptureVideoPreviewLayer
 
-    init(presenter: ScanQRPresenter) {
-        captureSession = AVCaptureSession()
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-
     var scanGuide: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "qr_overlay")
         image.tintColor = .white
         return image
     }()
+    
+    init(presenter: ScanQRPresenter) {
+        captureSession = AVCaptureSession()
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -58,8 +58,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-        if captureSession.isRunning == true {
+        if captureSession.isRunning {
             captureSession.stopRunning()
         }
     }

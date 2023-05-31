@@ -14,7 +14,7 @@ enum SendFundTransferType {
     case encryptedTransfer
     case transferToSecret
     case transferToPublic
-    
+
     var actualType: TransferType {
         switch self {
         case .simpleTransfer:
@@ -51,7 +51,7 @@ class SendFundsCoordinator: Coordinator {
         self.transferType = transferType
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .fullScreen
-        self.parentCoordinator = delegate
+        parentCoordinator = delegate
         self.dependencyProvider = dependencyProvider
     }
 
@@ -79,7 +79,7 @@ class SendFundsCoordinator: Coordinator {
                                                                               ownAccount: currentAccount))
         navigationController.pushViewController(vc, animated: true)
     }
-    
+
     func showAddMemo(_ memo: Memo?) {
         let addMemoPresenter = AddMemoPresenter(delegate: self, memo: memo)
         let addMemoViewController = AddMemoFactory.create(with: addMemoPresenter)
@@ -101,8 +101,13 @@ class SendFundsCoordinator: Coordinator {
         showModally(vc, from: navigationController)
     }
 
-    func showScanAddressQR(delegate: QRCodeStrategyDelegate) {
-        let vc = ScanQRViewControllerFactory.create(with: ScanQRPresenter(strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet(), delegate: self)))
+    func showScanAddressQR(didScanQRCode: @escaping ((String) -> Void)) {
+        let vc = ScanQRViewControllerFactory.create(
+            with: ScanQRPresenter(
+                strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet()),
+                didScanQrCode: didScanQRCode
+            )
+        )
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -135,7 +140,7 @@ class SendFundsCoordinator: Coordinator {
         // Pass the data to the send fund presenter
         sendFundPresenter?.setSelectedRecipient(recipient: recipient)
     }
-    
+
     func addedMemo(_ memo: Memo) {
         guard let vc = sendFundPresenter?.view as? UIViewController else { return }
         navigationController.popToViewController(vc, animated: true)
@@ -144,6 +149,10 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
+    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void)) {
+        showScanAddressQR(didScanQRCode: didScanQRCode)
+    }
+
     func sendFundPresenter(
         didSelectTransferAmount amount: GTU,
         energyUsed energy: Int,
@@ -163,25 +172,21 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
             transferType: transferType
         )
     }
-    
+
     func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?) {
         showAddMemo(memo)
     }
-    
+
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType) {
         showSelectRecipient(balanceType: balanceType, currentAccount: currentAccount)
     }
-    
-    func sendFundPresenterShowScanQRCode(delegate: QRCodeStrategyDelegate) {
-        showScanAddressQR(delegate: delegate)
-    }
 
     func sendFundPresenterClosed(_ presenter: SendFundPresenter) {
-        self.parentCoordinator?.sendFundsCoordinatorFinished()
+        parentCoordinator?.sendFundsCoordinatorFinished()
     }
-    
+
     func dismissQR() {
-        self.navigationController.popViewController(animated: true)
+        navigationController.popViewController(animated: true)
     }
 }
 
@@ -201,7 +206,9 @@ extension SendFundsCoordinator: SelectRecipientPresenterDelegate {
     }
 
     func selectRecipientDidSelectQR() {
-        showScanAddressQR(delegate: self)
+        showScanAddressQR { [weak self] address in
+            self?.qrScanner(didScanAddress: address)
+        }
     }
 }
 
@@ -211,7 +218,9 @@ extension SendFundsCoordinator: AddRecipientPresenterDelegate {
     }
 
     func addRecipientDidSelectQR() {
-        showScanAddressQR(delegate: self)
+        showScanAddressQR { [weak self] address in
+            self?.qrScanner(didScanAddress: address)
+        }
     }
 }
 
@@ -223,13 +232,11 @@ extension SendFundsCoordinator: TransactionSubmittedPresenterDelegate {
     }
 }
 
-extension SendFundsCoordinator: QRCodeStrategyDelegate, AddRecipientCoordinatorHelper {
-    func qrScanner(didScanWalletConnect: String) {}
-    
+extension SendFundsCoordinator: AddRecipientCoordinatorHelper {
     func qrScanner(didScanAddress address: String) {
         let addRecipientViewController = getAddRecipientViewController(dependencyProvider: dependencyProvider)
 
-        self.navigationController.popToViewController(addRecipientViewController, animated: true)
+        navigationController.popToViewController(addRecipientViewController, animated: true)
 
         addRecipientViewController.presenter.setAccountAddress(address)
     }
