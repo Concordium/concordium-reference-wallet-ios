@@ -81,7 +81,7 @@ platform :ios do
 	   "Build Date" => Time.new.to_s,
 	   "Error message" => message
 	 },
-        default_payloads: [:git_branch, :lane, :last_git_commit]
+        default_payloads: [:git_branch, :lane, :last_git_commit, :last_git_commit_hash]
       )
     rescue
       puts 'Oops, something went wrong. Teams returns exception'
