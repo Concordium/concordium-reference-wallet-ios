@@ -8,78 +8,95 @@
 
 import SwiftUI
 
-private let size: CGFloat = 60.0
+private let size: CGFloat = 55.00
 
-struct ButtonSlider: View {
-    var isShielded: Bool
-
-    var actionSend: () -> Void
-    var actionReceive: () -> Void
-    var actionEarn: () -> Void
-    var actionShield: () -> Void
-    var actionSettings: () -> Void
-    
-    @State var position: Int = 0
-    @State var disabled: Bool = false
-    
-    var body: some View {
-//        HStack {
-//            Spacer()
-//            Button(action: moveBack) {
-//                Image("button_slider_back")
-//            }
-//            Spacer()
-            HStack(alignment: .center, spacing: 0) {
-//                VerticalLine()
-//                if position == 0 {
-                    ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionSend)
-                    VerticalLine()
-//                }
-                ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
-                VerticalLine()
-                ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
-                VerticalLine()
-                if isShielded {
-                    ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
-                    VerticalLine()
-//                    if position == 1 {
-                        ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-//                        VerticalLine()
-//                    }
-                } else {
-                    ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-//                    VerticalLine()
-                }
-            }
-//            Spacer()
-//            Button(action: moveForward) {
-//                Image("button_slider_forward")
-//            }
-//            Spacer()
-//        }
-        .frame(maxWidth: .infinity, maxHeight: size)
-        .background(Pallette.primary)
-        .cornerRadius(5)
-    }
-    
-    private func moveBack() {
-        if position > 0 {
-            position -= 1
-        }
-    }
-    
-    private func moveForward() {
-        if isShielded {
-            if position < 1 {
-                position += 1
-            }
-        } else {
-            if position < 0 {
-                position += 1
-            }
-        }
+extension View {
+    func hidden(_ shouldHide: Bool) -> some View {
+        opacity(shouldHide ? 0 : 1)
     }
 }
+
+    struct ButtonSlider: View {
+        /// Representation of single item in slider.
+        enum SliderItem: Int, Identifiable {
+            var id: Int { rawValue }
+            case send
+            case earn
+            case receive
+            case shield
+            case settings
+            case cis2
+
+            var iconName: String {
+                switch self {
+                case .send:
+                    return "button_slider_send"
+                case .earn:
+                    return "button_slider_earn"
+                case .receive:
+                    return "button_slider_receive"
+                case .shield:
+                    return "button_slider_shield"
+                case .settings:
+                    return "button_slider_settings"
+                case .cis2:
+                    return "ccd_coins"
+                }
+            }
+        }
+
+        var isShielded: Bool
+        var actionSend: () -> Void
+        var actionReceive: () -> Void
+        var actionEarn: () -> Void
+        var actionShield: () -> Void
+        var actionSettings: () -> Void
+
+        @State var disabled: Bool = false
+        var buttons: [SliderItem] {
+            [
+                .send,
+                .earn,
+                .receive,
+                isShielded ? .shield : nil,
+                .settings,
+                .cis2,
+            ]
+            .compactMap { $0 }
+        }
+
+        var shouldHideArrows: Bool { buttons.count < 5 }
+
+        var body: some View {
+            HStack {
+                Button(action: {}) {
+                    Image("button_slider_back").padding()
+                }
+                .hidden(shouldHideArrows)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .center, spacing: 24) {
+                        VerticalLine()
+                        ForEach(buttons) { item in
+                            ActionButton(
+                                imageName: item.iconName,
+                                disabled: disabled,
+                                action: {}
+                            )
+                            .frame(height: size)
+                            VerticalLine()
+                        }
+                    }
+                }
+                Button(action: {}) {
+                    Image("button_slider_forward").padding()
+                }
+                .hidden(shouldHideArrows)
+            }
+            .frame(maxWidth: .infinity, maxHeight: size)
+            .background(Pallette.primary)
+            .cornerRadius(5)
+        }
+    }
 
 struct ActionButton: View {
     let imageName: String
@@ -87,14 +104,12 @@ struct ActionButton: View {
     var action: () -> Void
 
     var body: some View {
-        ZStack {
-            Image(imageName)
-        }
-        .frame(maxWidth: .infinity, maxHeight: size)
-        .background(disabled ? Pallette.inactiveButton : Pallette.primary)
-        .onTapGesture {
-            self.action()
-        }.disabled(disabled)
+        Image(imageName)
+            .background(disabled ? Pallette.inactiveButton : Pallette.primary)
+            .onTapGesture {
+                self.action()
+            }
+            .disabled(disabled)
     }
 }
 
@@ -110,11 +125,11 @@ struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
             isShielded: true,
-            actionSend: {
-            }, actionReceive: {
-            }, actionEarn: {
-            }, actionShield: {
-            }, actionSettings: {
-            })
+            actionSend: {},
+            actionReceive: {},
+            actionEarn: {},
+            actionShield: {},
+            actionSettings: {}
+        )
     }
 }
