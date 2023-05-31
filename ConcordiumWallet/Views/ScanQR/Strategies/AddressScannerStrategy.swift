@@ -7,7 +7,7 @@
 //
 
 class AddressScannerStrategy: QRScannerStrategy {
-    var delegate: QRCodeStrategyDelegate?
+    weak var delegate: QRCodeStrategyDelegate?
     let wallet: MobileWalletProtocol
 
     init(wallet: MobileWalletProtocol) {

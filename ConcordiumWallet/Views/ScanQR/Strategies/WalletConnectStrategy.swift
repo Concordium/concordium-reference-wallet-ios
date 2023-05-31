@@ -7,7 +7,7 @@
 //
 
 class WalletConnectStrategy: QRScannerStrategy {
-    var delegate: QRCodeStrategyDelegate?
+    weak var delegate: QRCodeStrategyDelegate?
 
     func didScan(code: String) {
         if code.lowercased().hasPrefix("wc:") {

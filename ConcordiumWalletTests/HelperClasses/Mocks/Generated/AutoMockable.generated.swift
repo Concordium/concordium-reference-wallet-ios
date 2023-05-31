@@ -548,3 +548,89 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
         }
     }
 }
+
+class QRCodeStrategyDelegateMock: QRCodeStrategyDelegate {
+    // MARK: - qrScanner
+
+    var qrScannerDidScanAddressCallsCount = 0
+    var qrScannerDidScanAddressCalled: Bool {
+        return qrScannerDidScanAddressCallsCount > 0
+    }
+
+    var qrScannerDidScanAddressReceivedDidScanAddress: String?
+    var qrScannerDidScanAddressReceivedInvocations: [String] = []
+    var qrScannerDidScanAddressClosure: ((String) -> Void)?
+
+    func qrScanner(didScanAddress: String) {
+        qrScannerDidScanAddressCallsCount += 1
+        qrScannerDidScanAddressReceivedDidScanAddress = didScanAddress
+        qrScannerDidScanAddressReceivedInvocations.append(didScanAddress)
+        qrScannerDidScanAddressClosure?(didScanAddress)
+    }
+
+    // MARK: - qrScanner
+
+    var qrScannerDidScanWalletConnectCallsCount = 0
+    var qrScannerDidScanWalletConnectCalled: Bool {
+        return qrScannerDidScanWalletConnectCallsCount > 0
+    }
+
+    var qrScannerDidScanWalletConnectReceivedDidScanWalletConnect: String?
+    var qrScannerDidScanWalletConnectReceivedInvocations: [String] = []
+    var qrScannerDidScanWalletConnectClosure: ((String) -> Void)?
+
+    func qrScanner(didScanWalletConnect: String) {
+        qrScannerDidScanWalletConnectCallsCount += 1
+        qrScannerDidScanWalletConnectReceivedDidScanWalletConnect = didScanWalletConnect
+        qrScannerDidScanWalletConnectReceivedInvocations.append(didScanWalletConnect)
+        qrScannerDidScanWalletConnectClosure?(didScanWalletConnect)
+    }
+
+    // MARK: - qrScanner
+
+    var qrScannerFailedToScanQRCodeCallsCount = 0
+    var qrScannerFailedToScanQRCodeCalled: Bool {
+        return qrScannerFailedToScanQRCodeCallsCount > 0
+    }
+
+    var qrScannerFailedToScanQRCodeReceivedFailedToScanQRCode: String?
+    var qrScannerFailedToScanQRCodeReceivedInvocations: [String] = []
+    var qrScannerFailedToScanQRCodeClosure: ((String) -> Void)?
+
+    func qrScanner(failedToScanQRCode: String) {
+        qrScannerFailedToScanQRCodeCallsCount += 1
+        qrScannerFailedToScanQRCodeReceivedFailedToScanQRCode = failedToScanQRCode
+        qrScannerFailedToScanQRCodeReceivedInvocations.append(failedToScanQRCode)
+        qrScannerFailedToScanQRCodeClosure?(failedToScanQRCode)
+    }
+}
+
+class ScanQRViewProtocolMock: ScanQRViewProtocol {
+    // MARK: - showQrValid
+
+    var showQrValidCallsCount = 0
+    var showQrValidCalled: Bool {
+        return showQrValidCallsCount > 0
+    }
+
+    var showQrValidClosure: (() -> Void)?
+
+    func showQrValid() {
+        showQrValidCallsCount += 1
+        showQrValidClosure?()
+    }
+
+    // MARK: - showQrInvalid
+
+    var showQrInvalidCallsCount = 0
+    var showQrInvalidCalled: Bool {
+        return showQrInvalidCallsCount > 0
+    }
+
+    var showQrInvalidClosure: (() -> Void)?
+
+    func showQrInvalid() {
+        showQrInvalidCallsCount += 1
+        showQrInvalidClosure?()
+    }
+}
