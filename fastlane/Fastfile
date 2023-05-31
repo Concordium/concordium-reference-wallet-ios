@@ -28,7 +28,7 @@ platform :ios do
   desc "Export accept to TestFlight"
   lane :upload_build do
     begin
-      match
+      match(readonly: true)
       app_store_connect_api_key(
         key_id: ENV["APPLE_KEY_ID"],
         issuer_id: ENV['APPLE_KEY_ISSUER'],
@@ -37,17 +37,19 @@ platform :ios do
         is_key_content_base64: true
       )
       increment_build_number(
-        build_number: latest_testflight_build_number(app_identifier: ENV["APP_IDENTIFIER"])+1,
+        build_number: [
+          latest_testflight_build_number(app_identifier: ENV["APP_IDENTIFIER"])+1,
+          get_build_number.to_i
+        ].max,
         skip_info_plist: true
       )
       gym(
-        project: $project,
         scheme: ENV["SCHEME"]
       )
       upload_to_testflight(skip_waiting_for_build_processing: true)
     rescue => exception
       on_error("Upload to TestFlight failed: #{exception}")
-      UI.user_error! "Exporting Concordium Mobile Wallet to TestFlight has failed. "
+      UI.user_error! "Exporting Concordium Mobile Wallet to TestFlight has failed with error: #{exception}"
       raise exception
     end
     on_success("Mobile Wallet - #{$version_number} (#{$build_number}) has been successfully uploaded to TestFlight.")
@@ -75,8 +77,11 @@ platform :ios do
         message: "Sorry! Unfortunately your CI build has failed! 🙁",
         channel: ENV['SLACK_CHANNEL'],
         success: false,
-        payload: { "Build Date" => Time.new.to_s },
-        default_payloads: [:git_branch, :lane, :test_result, :last_git_commit, :last_git_commit_hash]
+        payload: { 
+	   "Build Date" => Time.new.to_s,
+	   "Error message" => message
+	 },
+        default_payloads: [:git_branch, :lane, :last_git_commit, :last_git_commit_hash]
       )
     rescue
       puts 'Oops, something went wrong. Teams returns exception'
