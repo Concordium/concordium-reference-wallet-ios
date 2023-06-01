@@ -42,8 +42,6 @@ final class QRScannerViewTests: XCTestCase {
     }
 
     func test__scan_wallet_connect_when_address_strategy_expected__should_call_qr_invalid() {
-        let callback: ((String) -> Void) = { _ in }
-
         // given
         let mockWallet = MobileWalletProtocolMock()
         sut = ScanQRPresenter(strategy: AddressScannerStrategy(wallet: mockWallet), didScanQrCode: { _ in })
@@ -59,8 +57,6 @@ final class QRScannerViewTests: XCTestCase {
     }
 
     func test__scan_crypto_address_when_address_strategy_expected__should_call_qr_invalid() {
-        let callback: ((String) -> Void) = { _ in }
-
         // given
         let mockWallet = MobileWalletProtocolMock()
         sut = ScanQRPresenter(strategy: AddressScannerStrategy(wallet: mockWallet), didScanQrCode: { _ in })
