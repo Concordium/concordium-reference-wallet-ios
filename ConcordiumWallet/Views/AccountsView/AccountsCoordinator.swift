@@ -42,12 +42,13 @@ class AccountsCoordinator: Coordinator {
     }
 
     func start() {
-        let AccountsPresenter = AccountsPresenter(
+        let accountsPresenter = AccountsPresenter(
             dependencyProvider: dependencyProvider,
-            delegate: self.accountsPresenterDelegate!,
-            appSettingsDelegate: appSettingsDelegate
+            delegate: accountsPresenterDelegate!,
+            appSettingsDelegate: appSettingsDelegate,
+            walletConnectDelegate: self
         )
-        let accountsViewController = AccountsFactory.create(with: AccountsPresenter)
+        let accountsViewController = AccountsFactory.create(with: accountsPresenter)
         navigationController.viewControllers = [accountsViewController]
     }
 
@@ -238,5 +239,25 @@ extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
         
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
+    }
+}
+
+protocol WalletConnectDelegate: AnyObject {
+    func showWalletConnectScanner()
+}
+
+extension AccountsCoordinator: WalletConnectDelegate {
+    func showWalletConnectScanner() {
+        let vc = ScanQRViewControllerFactory.create(
+            with: ScanQRPresenter(
+                strategy: WalletConnectStrategy(),
+                didScanQrCode: { [weak self] address in
+                    // Successfully scanner WalletConnect QR.
+                    // TODO: Handle Wallet Connect logic here
+                    self?.navigationController.popViewController(animated: true)
+                }
+            )
+        )
+        navigationController.pushViewController(vc, animated: true)
     }
 }
