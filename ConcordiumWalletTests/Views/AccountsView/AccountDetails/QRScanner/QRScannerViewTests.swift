@@ -17,57 +17,27 @@ final class QRScannerViewTests: XCTestCase {
         view = ScanQRViewProtocolMock()
     }
 
-    func test__scan_wallet_connect_address_when_wallet_should_call_qr_valid() {
+    func test__scan_valid_qr_should_call_qr_valid() {
         // given
-        sut = ScanQRPresenter(strategy: WalletConnectStrategy(), didScanQrCode: { _ in })
+        sut = ScanQRPresenter(didScanQrCode: { _ in true })
         sut.view = view
 
         // when
-        sut.scannedQrCode("wc://theFakeAddress")
+        sut.scannedQrCode("valid")
 
         // then
         XCTAssertTrue(view.showQrValidCalled)
     }
 
-    func test__scan_crypto_address_when_wallet_connect_expected__should_call_qr_invalid() {
+    func test__scan_invalid_qr_should_call_qr_invalid() {
         // given
-        sut = ScanQRPresenter(strategy: WalletConnectStrategy(), didScanQrCode: { _ in })
+        sut = ScanQRPresenter(didScanQrCode: { _ in false })
         sut.view = view
 
         // when
-        sut.scannedQrCode("3ymDHftPfdfY7GXkG44YWPZnvWN329ueHV25eSzaTaHCptWwms")
+        sut.scannedQrCode("invalid")
 
         // then
         XCTAssertTrue(view.showQrInvalidCalled)
-    }
-
-    func test__scan_wallet_connect_when_address_strategy_expected__should_call_qr_invalid() {
-        // given
-        let mockWallet = MobileWalletProtocolMock()
-        sut = ScanQRPresenter(strategy: AddressScannerStrategy(wallet: mockWallet), didScanQrCode: { _ in })
-        sut.view = view
-        mockWallet.checkAccountAddressReturnValue = false
-        mockWallet.checkAccountAddressReceivedAccountAddress = "wc://theFakeAddress"
-
-        // when
-        sut.scannedQrCode("wc://theFakeAddress")
-
-        // then
-        XCTAssertTrue(view.showQrInvalidCalled)
-    }
-
-    func test__scan_crypto_address_when_address_strategy_expected__should_call_qr_invalid() {
-        // given
-        let mockWallet = MobileWalletProtocolMock()
-        sut = ScanQRPresenter(strategy: AddressScannerStrategy(wallet: mockWallet), didScanQrCode: { _ in })
-        sut.view = view
-        mockWallet.checkAccountAddressReturnValue = true
-        mockWallet.checkAccountAddressReceivedAccountAddress = "3ymDHftPfdfY7GXkG44YWPZnvWN329ueHV25eSzaTaHCptWwmss"
-
-        // when
-        sut.scannedQrCode("3ymDHftPfdfY7GXkG44YWPZnvWN329ueHV25eSzaTaHCptWwmss")
-
-        // then
-        XCTAssertTrue(view.showQrValidCalled)
     }
 }

@@ -101,12 +101,17 @@ class SendFundsCoordinator: Coordinator {
         showModally(vc, from: navigationController)
     }
 
-    func showScanAddressQR(didScanQRCode: @escaping ((String) -> Bool)) {
-        // TODO verify that didScanQRCode validates code
+    func showScanAddressQR(didScanQRCode: @escaping ((String) -> Void)) {
         let vc = ScanQRViewControllerFactory.create(
             with: ScanQRPresenter(
-                didScanQrCode: didScanQRCode
-            )
+                didScanQrCode: { address in
+                    // Decorate the callback by adding validation.
+                    if !self.dependencyProvider.mobileWallet().check(accountAddress: address) {
+                        return false
+                    }
+                    didScanQRCode(address)
+                    return true
+                })
         )
         navigationController.pushViewController(vc, animated: true)
     }
@@ -149,7 +154,7 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
-    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Bool)) {
+    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void)) {
         showScanAddressQR(didScanQRCode: didScanQRCode)
     }
 
@@ -207,9 +212,8 @@ extension SendFundsCoordinator: SelectRecipientPresenterDelegate {
 
     func selectRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
-            // TODO validate
+            // Validating address in SendFundsCoordinator.showScanAddressQR.
             self?.qrScanner(didScanAddress: address)
-            return true
         }
     }
 }
@@ -221,9 +225,8 @@ extension SendFundsCoordinator: AddRecipientPresenterDelegate {
 
     func addRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
-            // TODO validate
+            // Validating address in SendFundsCoordinator.showScanAddressQR.
             self?.qrScanner(didScanAddress: address)
-            return true
         }
     }
 }

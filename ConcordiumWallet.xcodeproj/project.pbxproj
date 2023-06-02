@@ -8,18 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
-		01B6A53C2A276112007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A53E2A276129007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A53F2A276143007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A5402A276143007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A5412A276145007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A5422A276148007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A5432A276148007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A5442A276148007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A5462A276170007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
-		01B6A5472A27617B007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
-		01B6A5482A27617E007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
-		01B6A5492A27617E007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
 		0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604236D23FD617F0085D14C /* TransparentNavigationController.swift */; };
 		067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */; };
 		067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */; };
@@ -2631,9 +2619,6 @@
 
 /* Begin PBXFileReference section */
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
-		01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectStrategy.swift; sourceTree = "<group>"; };
-		01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerStrategy.swift; sourceTree = "<group>"; };
-		01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressScannerStrategy.swift; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
 		067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfoLabel.swift; sourceTree = "<group>"; };
 		067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWarningLabel.swift; sourceTree = "<group>"; };
@@ -3408,16 +3393,6 @@
 			path = QRScanner;
 			sourceTree = "<group>";
 		};
-		01B6A53A2A2760F2007030F6 /* Strategies */ = {
-			isa = PBXGroup;
-			children = (
-				01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */,
-				01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */,
-				01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */,
-			);
-			path = Strategies;
-			sourceTree = "<group>";
-		};
 		0604236C23FD61560085D14C /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3729,7 +3704,6 @@
 		19C2E50D27878D62320AE14B /* ScanQR */ = {
 			isa = PBXGroup;
 			children = (
-				01B6A53A2A2760F2007030F6 /* Strategies */,
 				7FD8DEA72448623300CA06D8 /* ScanQRPresenter.swift */,
 				7FD8DEA82448623300CA06D8 /* ScanQRViewController.swift */,
 			);
@@ -6262,7 +6236,6 @@
 				FABA9D95291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				8992BB212840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				7F48C1DB244DCD0B00997684 /* IdentityConfirmedPresenter.swift in Sources */,
-				01B6A53C2A276112007030F6 /* WalletConnectStrategy.swift in Sources */,
 				893CAC37286D914E00BDF84C /* RecoveryPhraseCopyPhrasePresenter.swift in Sources */,
 				89B349F1289260EB0059891C /* SuggestionBox.swift in Sources */,
 				070D61DF27B2A25200B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
@@ -6347,7 +6320,6 @@
 				5251EFA427C6301C006991DD /* AlertDisplayer.swift in Sources */,
 				FA01C9FE291C5D3100BD8738 /* StringProtocol+Helper.swift in Sources */,
 				7F48C1FA244DCD0B00997684 /* SelectRecipientViewController.swift in Sources */,
-				01B6A5462A276170007030F6 /* AddressScannerStrategy.swift in Sources */,
 				7F48C264244E17D100997684 /* CreateTransferRequest.swift in Sources */,
 				5251EF8D27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				529531BB256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -6360,7 +6332,6 @@
 				52D10F3827D0F51A0025ED5D /* DelegationCoordinator.swift in Sources */,
 				89D467E7289B8F74007D3FC8 /* CreateIDRequestV1.swift in Sources */,
 				5237187F25753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
-				01B6A53E2A276129007030F6 /* QRScannerStrategy.swift in Sources */,
 				19C2EF25D40012E140F9B773 /* GTU.swift in Sources */,
 				19C2E2157275F953BF8D33B0 /* AccountDetailsViewModel.swift in Sources */,
 				649C5E8129F6C34C00408948 /* TermsAndConditionsResponse.swift in Sources */,
@@ -6567,7 +6538,6 @@
 				891B19FA28A6135900F4B0D6 /* SeedIdentitiesService.swift in Sources */,
 				077AC5FB26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
-				01B6A5482A27617E007030F6 /* AddressScannerStrategy.swift in Sources */,
 				7F85B722246A9A7C00ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
 				893CAC8E286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
@@ -6630,7 +6600,6 @@
 				893CAC9D286F2CC800BDF84C /* Pallette.swift in Sources */,
 				FA01CA0C291C5D3100BD8738 /* Date+Helper.swift in Sources */,
 				7F85B745246A9A7C00ED09B8 /* BaseNavigationController.swift in Sources */,
-				01B6A5402A276143007030F6 /* QRScannerStrategy.swift in Sources */,
 				7F85B746246A9A7C00ED09B8 /* TitleLabel.swift in Sources */,
 				7F85B748246A9A7C00ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				90C371C527DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
@@ -6811,7 +6780,6 @@
 				896B423628B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
 				893CAC72286F0FDC00BDF84C /* Features.swift in Sources */,
 				89EB9F5027FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
-				01B6A5432A276148007030F6 /* WalletConnectStrategy.swift in Sources */,
 				7F7F6D3524A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B79F246A9A7C00ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				528EB756256400C500010554 /* RevealAttributesViewController.swift in Sources */,
@@ -7114,7 +7082,6 @@
 				891B19FB28A6135900F4B0D6 /* SeedIdentitiesService.swift in Sources */,
 				077AC5FC26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
-				01B6A5492A27617E007030F6 /* AddressScannerStrategy.swift in Sources */,
 				7F85B81E246A9AB600ED09B8 /* JSONObject.swift in Sources */,
 				893CAC8F286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
@@ -7177,7 +7144,6 @@
 				893CAC9E286F2CC800BDF84C /* Pallette.swift in Sources */,
 				FA01CA0D291C5D3100BD8738 /* Date+Helper.swift in Sources */,
 				7F85B843246A9AB600ED09B8 /* GeneralFormatter.swift in Sources */,
-				01B6A5412A276145007030F6 /* QRScannerStrategy.swift in Sources */,
 				7F85B844246A9AB600ED09B8 /* BaseNavigationController.swift in Sources */,
 				7F85B845246A9AB600ED09B8 /* TitleLabel.swift in Sources */,
 				90C371C627DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
@@ -7358,7 +7324,6 @@
 				896B423728B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
 				893CAC71286F0FDB00BDF84C /* Features.swift in Sources */,
 				89EB9F5127FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
-				01B6A5442A276148007030F6 /* WalletConnectStrategy.swift in Sources */,
 				7F7F6D3624A09AE90017B18F /* DeleteIdentityButtonWidgetViewController.swift in Sources */,
 				7F85B89C246A9AB600ED09B8 /* GeneralError.swift in Sources */,
 				528EB757256400C600010554 /* RevealAttributesViewController.swift in Sources */,
@@ -7623,7 +7588,6 @@
 				901F7F0E27EA0D5C00C46741 /* CurrentPaydayStatus.swift in Sources */,
 				52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				5211BABC2502140C00EE1658 /* AccountBalanceTypeEnum.swift in Sources */,
-				01B6A5422A276148007030F6 /* WalletConnectStrategy.swift in Sources */,
 				528EB73C255C1EB600010554 /* GettingStartedPresenter.swift in Sources */,
 				52A6A77524F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				9074C71027D7E70F00B2DFD8 /* DelegationPoolSelectionViewController.swift in Sources */,
@@ -7807,7 +7771,6 @@
 				C924B2242430799400081E23 /* UILabel+localized.swift in Sources */,
 				7FA0AE9624598D6500B7673F /* OriginTypeEnum.swift in Sources */,
 				529531BC256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
-				01B6A53F2A276143007030F6 /* QRScannerStrategy.swift in Sources */,
 				89D46813289BC7AD007D3FC8 /* SeedIdentityOnboardingView.swift in Sources */,
 				075A4BBF2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				89E1A76F280EADB4008C761B /* ExportedBakerKeys.swift in Sources */,
@@ -8057,7 +8020,6 @@
 				89B34A392893D0A50059891C /* PageList.swift in Sources */,
 				19C2E106001E26A82B164069 /* CreateExportPasswordPresenter.swift in Sources */,
 				89D46853289CF390007D3FC8 /* CreateSeedIdentityView.swift in Sources */,
-				01B6A5472A27617B007030F6 /* AddressScannerStrategy.swift in Sources */,
 				89A05703286C6C650055C049 /* ButtonStyles.swift in Sources */,
 				19C2E75509C624B99FB08FEF /* ExportPresenter.swift in Sources */,
 				FA01C9F3291C5D3100BD8738 /* String+Helper.swift in Sources */,
