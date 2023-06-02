@@ -101,10 +101,10 @@ class SendFundsCoordinator: Coordinator {
         showModally(vc, from: navigationController)
     }
 
-    func showScanAddressQR(didScanQRCode: @escaping ((String) -> Void)) {
+    func showScanAddressQR(didScanQRCode: @escaping ((String) -> Bool)) {
+        // TODO verify that didScanQRCode validates code
         let vc = ScanQRViewControllerFactory.create(
             with: ScanQRPresenter(
-                strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet()),
                 didScanQrCode: didScanQRCode
             )
         )
@@ -149,7 +149,7 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
-    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void)) {
+    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Bool)) {
         showScanAddressQR(didScanQRCode: didScanQRCode)
     }
 
@@ -207,7 +207,9 @@ extension SendFundsCoordinator: SelectRecipientPresenterDelegate {
 
     func selectRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
+            // TODO validate
             self?.qrScanner(didScanAddress: address)
+            return true
         }
     }
 }
@@ -219,7 +221,9 @@ extension SendFundsCoordinator: AddRecipientPresenterDelegate {
 
     func addRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
+            // TODO validate
             self?.qrScanner(didScanAddress: address)
+            return true
         }
     }
 }

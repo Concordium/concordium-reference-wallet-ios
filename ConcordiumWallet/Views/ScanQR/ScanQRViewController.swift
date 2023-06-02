@@ -43,7 +43,6 @@ class ScanQRViewController: BaseViewController, ShowToast {
         title = "scanQr.title".localized
         view.backgroundColor = .black
         presenter.view = self
-        presenter.viewDidLoad()
         setupCaptureSession()
         setupScanGuide()
     }

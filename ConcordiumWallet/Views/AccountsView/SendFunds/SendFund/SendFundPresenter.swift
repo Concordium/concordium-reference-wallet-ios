@@ -111,7 +111,7 @@ protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter)
     func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
-    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void))
+    func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Bool))
     func sendFundPresenter(didSelectTransferAmount amount: GTU,
                            energyUsed energy: Int,
                            from account: AccountDataType,
@@ -219,6 +219,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         )
         .receive(on: DispatchQueue.main)
         .map { [weak self] (recipientAddress, feeMessage, amount) in
+            // Called when editing the amount or address.
             guard let self = self else { return false }
             guard let recipientAddress = recipientAddress else { return false }
             let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
@@ -280,9 +281,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }
 
             self.delegate?.sendFundPresenterShowScanQRCode(didScanQRCode: { [weak self] address in
-                guard let self = self else { return }
+                guard let self = self else { return false }
+                // TODO validate
                 self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: address))
-                  self.delegate?.dismissQR()
+                self.delegate?.dismissQR()
+                return true
             })
         }
     }
@@ -300,6 +303,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
     
     func finishedEditingRecipientAddress() {
+        // Called when keyboard is dismissed after editing receiver address.
         guard let address = selectedRecipient?.address else { return }
         if !dependencyProvider.mobileWallet().check(accountAddress: address) {
             view?.showAddressInvalid()
