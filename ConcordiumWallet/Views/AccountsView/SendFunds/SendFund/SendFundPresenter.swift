@@ -219,6 +219,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         )
         .receive(on: DispatchQueue.main)
         .map { [weak self] (recipientAddress, feeMessage, amount) in
+            // Called when editing the amount or address.
             guard let self = self else { return false }
             guard let recipientAddress = recipientAddress else { return false }
             let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
@@ -281,8 +282,9 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
             self.delegate?.sendFundPresenterShowScanQRCode(didScanQRCode: { [weak self] address in
                 guard let self = self else { return }
+                // Validating address in SendFundsCoordinator.showScanAddressQR.
                 self.setSelectedRecipient(recipient: RecipientEntity(name: "", address: address))
-                  self.delegate?.dismissQR()
+                self.delegate?.dismissQR()
             })
         }
     }
@@ -300,6 +302,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
     
     func finishedEditingRecipientAddress() {
+        // Called when keyboard is dismissed after editing receiver address.
         guard let address = selectedRecipient?.address else { return }
         if !dependencyProvider.mobileWallet().check(accountAddress: address) {
             view?.showAddressInvalid()

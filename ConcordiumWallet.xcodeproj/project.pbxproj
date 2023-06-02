@@ -8,18 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
-		01B6A53C2A276112007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A53E2A276129007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A53F2A276143007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A5402A276143007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A5412A276145007030F6 /* QRScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */; };
-		01B6A5422A276148007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A5432A276148007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A5442A276148007030F6 /* WalletConnectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */; };
-		01B6A5462A276170007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
-		01B6A5472A27617B007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
-		01B6A5482A27617E007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
-		01B6A5492A27617E007030F6 /* AddressScannerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */; };
 		0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604236D23FD617F0085D14C /* TransparentNavigationController.swift */; };
 		067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */; };
 		067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */; };
@@ -2631,9 +2619,6 @@
 
 /* Begin PBXFileReference section */
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
-		01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectStrategy.swift; sourceTree = "<group>"; };
-		01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerStrategy.swift; sourceTree = "<group>"; };
-		01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressScannerStrategy.swift; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
 		067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfoLabel.swift; sourceTree = "<group>"; };
 		067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWarningLabel.swift; sourceTree = "<group>"; };
@@ -3408,16 +3393,6 @@
 			path = QRScanner;
 			sourceTree = "<group>";
 		};
-		01B6A53A2A2760F2007030F6 /* Strategies */ = {
-			isa = PBXGroup;
-			children = (
-				01B6A53B2A276112007030F6 /* WalletConnectStrategy.swift */,
-				01B6A53D2A276129007030F6 /* QRScannerStrategy.swift */,
-				01B6A5452A27616F007030F6 /* AddressScannerStrategy.swift */,
-			);
-			path = Strategies;
-			sourceTree = "<group>";
-		};
 		0604236C23FD61560085D14C /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3729,7 +3704,6 @@
 		19C2E50D27878D62320AE14B /* ScanQR */ = {
 			isa = PBXGroup;
 			children = (
-				01B6A53A2A2760F2007030F6 /* Strategies */,
 				7FD8DEA72448623300CA06D8 /* ScanQRPresenter.swift */,
 				7FD8DEA82448623300CA06D8 /* ScanQRViewController.swift */,
 			);

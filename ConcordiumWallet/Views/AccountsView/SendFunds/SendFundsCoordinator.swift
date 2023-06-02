@@ -104,9 +104,14 @@ class SendFundsCoordinator: Coordinator {
     func showScanAddressQR(didScanQRCode: @escaping ((String) -> Void)) {
         let vc = ScanQRViewControllerFactory.create(
             with: ScanQRPresenter(
-                strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet()),
-                didScanQrCode: didScanQRCode
-            )
+                didScanQrCode: { address in
+                    // Decorate the callback by adding validation.
+                    if !self.dependencyProvider.mobileWallet().check(accountAddress: address) {
+                        return false
+                    }
+                    didScanQRCode(address)
+                    return true
+                })
         )
         navigationController.pushViewController(vc, animated: true)
     }
@@ -207,6 +212,7 @@ extension SendFundsCoordinator: SelectRecipientPresenterDelegate {
 
     func selectRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
+            // Validating address in SendFundsCoordinator.showScanAddressQR.
             self?.qrScanner(didScanAddress: address)
         }
     }
@@ -219,6 +225,7 @@ extension SendFundsCoordinator: AddRecipientPresenterDelegate {
 
     func addRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
+            // Validating address in SendFundsCoordinator.showScanAddressQR.
             self?.qrScanner(didScanAddress: address)
         }
     }

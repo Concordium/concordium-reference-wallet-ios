@@ -43,7 +43,6 @@ class ScanQRViewController: BaseViewController, ShowToast {
         title = "scanQr.title".localized
         view.backgroundColor = .black
         presenter.view = self
-        presenter.viewDidLoad()
         setupCaptureSession()
         setupScanGuide()
     }
@@ -144,7 +143,7 @@ private extension ScanQRViewController {
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.insertSublayer(previewLayer, at: 0)
 
-        if captureSession.isRunning == false {
+        if !captureSession.isRunning {
             DispatchQueue.global(qos: .background).async {
                 self.captureSession.startRunning()
             }

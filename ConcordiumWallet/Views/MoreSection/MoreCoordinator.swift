@@ -79,10 +79,9 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showScanAddressQR(didScanQrCode: @escaping ((String) -> Void)) {
+    func showScanAddressQR(didScanQrCode: @escaping ((String) -> Bool)) {
         let vc = ScanQRViewControllerFactory.create(
             with: ScanQRPresenter(
-                strategy: AddressScannerStrategy(wallet: dependencyProvider.mobileWallet()),
                 didScanQrCode: didScanQrCode
             )
         )
@@ -190,7 +189,9 @@ extension MoreCoordinator: SelectRecipientPresenterDelegate {
 
     func selectRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
+            // TODO validate
             self?.showScanAddressQR(didScan: address)
+            return true
         }
     }
 }
@@ -202,7 +203,9 @@ extension MoreCoordinator: AddRecipientPresenterDelegate {
 
     func addRecipientDidSelectQR() {
         showScanAddressQR { [weak self] address in
+            // TODO validate
             self?.showScanAddressQR(didScan: address)
+            return true
         }
     }
 }
@@ -310,8 +313,6 @@ extension MoreCoordinator: AppSettingsDelegate {
 }
 
 extension MoreCoordinator: AccountsPresenterDelegate {
-    func showWalletConnectScanner() {
-    }
 
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()

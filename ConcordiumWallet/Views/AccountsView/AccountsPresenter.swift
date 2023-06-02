@@ -166,6 +166,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     var alertDisplayer = AlertDisplayer()
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private weak var appSettingsDelegate: AppSettingsDelegate?
+    private weak var walletConnectDelegate: WalletConnectDelegate?
 
     var pendingIdentity: IdentityDataType?
     
@@ -196,7 +197,8 @@ class AccountsPresenter: AccountsPresenterProtocol {
     init(
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         delegate: AccountsPresenterDelegate,
-        appSettingsDelegate: AppSettingsDelegate?
+        appSettingsDelegate: AppSettingsDelegate?,
+        walletConnectDelegate: WalletConnectDelegate?
     ) {
         self.dependencyProvider = dependencyProvider
         self.delegate = delegate
@@ -207,6 +209,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
             self?.viewModel.warning = warningVM
         }.store(in: &cancellables)
         self.alertDisplayer.delegate = self
+        self.walletConnectDelegate = walletConnectDelegate
     }
     
     func viewDidLoad() {
@@ -228,7 +231,7 @@ class AccountsPresenter: AccountsPresenterProtocol {
     }
     
     func showWalletConnectScanner() {
-        delegate?.showWalletConnectScanner()
+        walletConnectDelegate?.showWalletConnectScanner()
     }
     
     func refresh(pendingIdentity: IdentityDataType? = nil) {
