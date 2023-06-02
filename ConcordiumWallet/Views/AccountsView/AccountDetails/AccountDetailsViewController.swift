@@ -347,11 +347,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 
 extension AccountDetailsViewController {
     func setupTabBar() {
-//        tabViewModel.tabs = [
-//            "accountDetails.transfers".localized,
-//            "accountDetails.identity_data".localized
-//        ]
-        
         tabViewModel.tabs = [
             "accountDetails.transfers".localized
         ]

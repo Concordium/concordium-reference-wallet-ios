@@ -82,7 +82,7 @@ class AddRecipientPresenter {
 
 extension AddRecipientPresenter: AddRecipientPresenterProtocol {
     func userTappedSave(name: String, address: String) {
-
+        // Called when attempting to add an entry to the address book.
         let qrValid = wallet.check(accountAddress: address)
         if !qrValid {
             view?.showAddressInvalid()
