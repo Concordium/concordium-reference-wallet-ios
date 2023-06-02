@@ -254,20 +254,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 }
 
 extension AppCoordinator: AccountsPresenterDelegate {
-    func showWalletConnectScanner() {
-        let vc = ScanQRViewControllerFactory.create(
-            with: ScanQRPresenter(
-                strategy: WalletConnectStrategy(),
-                didScanQrCode: { [weak self] address in
-                    // Successfully scanner WalletConnect QR.
-                    // TODO: Handle Wallet Connect logic here
-                    self?.navigationController.popViewController(animated: true)
-                }
-            )
-        )
-        navigationController.pushViewController(vc, animated: true)
-    }
-
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }

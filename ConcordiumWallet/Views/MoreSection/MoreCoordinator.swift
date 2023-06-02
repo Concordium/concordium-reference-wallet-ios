@@ -310,8 +310,6 @@ extension MoreCoordinator: AppSettingsDelegate {
 }
 
 extension MoreCoordinator: AccountsPresenterDelegate {
-    func showWalletConnectScanner() {
-    }
 
     func createNewIdentity() {
         accountsCoordinator?.showCreateNewIdentity()
