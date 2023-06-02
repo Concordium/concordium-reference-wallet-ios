@@ -18,39 +18,23 @@ protocol ScanQRViewProtocol: AnyObject {
 // MARK: Presenter
 protocol ScanQRPresenterProtocol: AnyObject {
     var view: ScanQRViewProtocol? { get set }
-    func viewDidLoad()
     func scannedQrCode(_: String)
 }
 
 class ScanQRPresenter: ScanQRPresenterProtocol {
     weak var view: ScanQRViewProtocol?
-    weak var delegate: QRCodeStrategyDelegate?
-    var strategy: QRScannerStrategy
-    var didScanQrCode: (_ address: String) -> Void
+    var didScanQrCode: (_ address: String) -> Bool // TODO create/use result enum
 
-    init(strategy: QRScannerStrategy, didScanQrCode: @escaping ((_ address: String) -> Void)) {
-        self.strategy = strategy
+    init(didScanQrCode: @escaping ((_ value: String) -> Bool)) {
         self.didScanQrCode = didScanQrCode
-        self.strategy.delegate = self
     }
 
-    func viewDidLoad() {}
-
-    func scannedQrCode(_ code: String) {
-        strategy.didScan(code: code)
-    }
-}
-
-extension ScanQRPresenter: QRCodeStrategyDelegate {
-    func qrScanner(didScanAddress: String) {
-        view?.showQrValid()
-    }
-
-    func qrScanner(didScanWalletConnect: String) {
-        view?.showQrValid()
-    }
-
-    func qrScanner(failedToScanQRCode: String) {
-        view?.showQrInvalid()
+    func scannedQrCode(_ value: String) {
+        let success = didScanQrCode(value)
+        if success {
+            view?.showQrValid()
+        } else {
+            view?.showQrInvalid()
+        }
     }
 }

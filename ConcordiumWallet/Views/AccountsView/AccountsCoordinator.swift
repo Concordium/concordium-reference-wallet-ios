@@ -250,11 +250,15 @@ extension AccountsCoordinator: WalletConnectDelegate {
     func showWalletConnectScanner() {
         let vc = ScanQRViewControllerFactory.create(
             with: ScanQRPresenter(
-                strategy: WalletConnectStrategy(),
-                didScanQrCode: { [weak self] address in
+                didScanQrCode: { [weak self] value in
+                    // TODO Can do more detailed check?
+                    if !value.lowercased().hasPrefix("wc:") {
+                        return false
+                    }
                     // Successfully scanner WalletConnect QR.
                     // TODO: Handle Wallet Connect logic here
                     self?.navigationController.popViewController(animated: true)
+                    return true
                 }
             )
         )
