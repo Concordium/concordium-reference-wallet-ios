@@ -21,7 +21,7 @@ class AccountsFactory {
 class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProtocol, ShowToast, SupportMail, ShowIdentityFailure {
     var presenter: AccountsPresenterProtocol?
     private weak var updateTimer: Timer?
-    
+
     // Labels
     @IBOutlet weak var tableView: UITableView!
     var dataSource: UITableViewDiffableDataSource<String, AccountViewModel>?
@@ -67,20 +67,25 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         dataSource?.defaultRowAnimation = .none
 
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
         warningMessageView.applyConcordiumEdgeStyle(color: .yellowBorder)
         warningMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressWarning)))
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "button_slider_settings"),
-                                                           style: .plain, target: self, action: #selector(self.settingsTapped))
+
+        let settingsButton = UIBarButtonItem(image: UIImage(named: "button_slider_settings"), style: .plain, target: self, action: #selector(settingsTapped))
+        let scanButton = UIBarButtonItem(image: UIImage(named: "button_slider_scan"), style: .plain, target: self, action: #selector(scanTapped))
+        navigationItem.leftBarButtonItems = [settingsButton, scanButton]
     }
 
     @objc func settingsTapped() {
         presenter?.showSettings()
     }
     
+    @objc func scanTapped() {
+        presenter?.showWalletConnectScanner()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.viewWillAppear()
@@ -99,10 +104,10 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                                selector: #selector(appWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name:     Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name:     Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAccounts(_:)), name: Notification.Name("seedIdentityCoordinatorWasFinishedNotification"), object: nil)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopRefreshTimer()
@@ -120,22 +125,22 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
         presenter?.refresh(pendingIdentity: nil)
         startRefreshTimer()
     }
-    
+
     @objc func appWillResignActive() {
         stopRefreshTimer()
     }
-    
+
     @objc func refresh(_ sender: AnyObject) {
         presenter?.refresh(pendingIdentity: nil)
         tableView.refreshControl?.endRefreshing()
     }
-    
+
     @objc func refreshAccounts(_ notification: NSNotification) {
         if let identity = notification.userInfo?["identity"] as? IdentityDataType {
             presenter?.refresh(pendingIdentity: identity.state == .pending ? identity : nil)
         }
     }
-    
+
     func reloadView() {
         tableView.reloadData()
     }
@@ -147,27 +152,27 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                            userInfo: nil,
                                            repeats: true)
     }
-    
+
     func stopRefreshTimer() {
         if updateTimer != nil {
             updateTimer?.invalidate()
             updateTimer = nil
         }
     }
-    
+
     @objc func refreshOnTimerCallback() {
         presenter?.refresh(pendingIdentity: nil)
     }
-    
+
     private func createCell(tableView: UITableView, indexPath: IndexPath, viewModel: AccountViewModel) -> UITableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell", for: indexPath) as? AccountCell
-        
+
         cell?.setup(accountViewModel: viewModel)
         cell?.delegate = self
         cell?.cellRow = indexPath.section
         return cell
     }
-    
+
     // swiftlint:disable:next function_body_length
     func bind(to viewModel: AccountsListViewModel) {
         viewModel.$viewState.sink {
@@ -178,32 +183,32 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             .receive(on: RunLoop.main)
             .sink {
                 var snapshot = NSDiffableDataSourceSnapshot<String, AccountViewModel>()
-                
+
                 for account in $0 {
                     snapshot.appendSections([account.address])
                     snapshot.appendItems([account], toSection: account.address)
                 }
-                
+
                 if $0.count > 0 {
                     self.dataSource?.apply(snapshot)
                 }
-                
+
                 let offset = self.tableView.contentOffset
                 self.tableView.reloadData()
                 self.tableView.contentOffset = offset
-                
-        }.store(in: &cancellables)
-        
+
+            }.store(in: &cancellables)
+
         viewModel.$totalBalance
-                .map { $0.displayValueWithGStroke() }
-                .assign(to: \.text, on: totalBalanceLabel)
-                .store(in: &cancellables)
-        
+            .map { $0.displayValueWithGStroke() }
+            .assign(to: \.text, on: totalBalanceLabel)
+            .store(in: &cancellables)
+
         viewModel.$staked
             .map { $0.displayValueWithGStroke() }
             .assign(to: \.text, on: stakedLabel)
             .store(in: &cancellables)
-        
+
         viewModel.$atDisposal
             .map {
                 if viewModel.totalBalanceLockStatus != ShieldedAccountEncryptionStatus.decrypted {
@@ -211,19 +216,19 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                 } else {
                     return $0.displayValueWithGStroke()
                 }
-        }.assign(to: \.text, on: atDisposalLabel)
+            }.assign(to: \.text, on: atDisposalLabel)
             .store(in: &cancellables)
-        
+
         viewModel.$totalBalanceLockStatus
             .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
             .assign(to: \.isHidden, on: atDisposalLockImageView)
             .store(in: &cancellables)
-        
+
         viewModel.$totalBalanceLockStatus
             .map { $0 == ShieldedAccountEncryptionStatus.decrypted }
-        .assign(to: \.isHidden, on: lockView)
-        .store(in: &cancellables)
-        
+            .assign(to: \.isHidden, on: lockView)
+            .store(in: &cancellables)
+
         viewModel.$warning.sink { [weak self] warning in
             guard let self = self else { return }
             if let warning = warning {
@@ -234,7 +239,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             }
         }.store(in: &cancellables)
     }
-    
+
     func showIdentityFailed(identityProviderName: String,
                             identityProviderSupport: String,
                             reference: String,
@@ -244,7 +249,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
                                  reference: reference,
                                  completion: completion)
     }
-    
+
     func setupUI(state: AccountsUIState) {
         var shouldShowAddAccountButtonInTopBar = false
         switch state {
@@ -285,12 +290,12 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
     @IBAction func dismissWarning(_ sender: Any) {
         presenter?.userPressedDisimissWarning()
     }
-    
+
     private func showBackupWarningBanner(_ show: Bool) {
         let duration: TimeInterval = 0.25
 
         if show {
-            UIView.animate(withDuration: duration, animations: {  [weak self] in
+            UIView.animate(withDuration: duration, animations: { [weak self] in
                 self?.balanceViewTopConstraint.isActive = false
                 self?.balanceViewWarningTopConstraint.isActive = true
                 self?.view.layoutIfNeeded()
@@ -313,7 +318,7 @@ extension AccountsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 15
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .clear

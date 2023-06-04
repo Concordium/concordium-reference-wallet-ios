@@ -71,7 +71,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             appSettingsDelegate: self,
             accountsPresenterDelegate: self
         )
-        // accountsCoordinator?.delegate = self
         accountsCoordinator?.start()
 
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {

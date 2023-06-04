@@ -548,3 +548,33 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
         }
     }
 }
+
+class ScanQRViewProtocolMock: ScanQRViewProtocol {
+    // MARK: - showQrValid
+
+    var showQrValidCallsCount = 0
+    var showQrValidCalled: Bool {
+        return showQrValidCallsCount > 0
+    }
+
+    var showQrValidClosure: (() -> Void)?
+
+    func showQrValid() {
+        showQrValidCallsCount += 1
+        showQrValidClosure?()
+    }
+
+    // MARK: - showQrInvalid
+
+    var showQrInvalidCallsCount = 0
+    var showQrInvalidCalled: Bool {
+        return showQrInvalidCallsCount > 0
+    }
+
+    var showQrInvalidClosure: (() -> Void)?
+
+    func showQrInvalid() {
+        showQrInvalidCallsCount += 1
+        showQrInvalidClosure?()
+    }
+}

@@ -131,9 +131,7 @@ class MobileWallet: MobileWalletProtocol {
             let revealedAttributes = account.revealedAttributes.map({
                 $0.key
             })
-    
-//            return requestPasswordDelegate.requestUserPassword(keychain: keychain)
-//            .flatMap { (pwHash) -> AnyPublisher<CreateCredentialRequest, Error> in
+
             return self.createCredential(global: global,
                                           account: account,
                                           revealedAttributes: revealedAttributes,
