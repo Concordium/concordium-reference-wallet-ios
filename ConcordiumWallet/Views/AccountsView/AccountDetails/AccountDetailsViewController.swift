@@ -155,6 +155,9 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
         let buttonSlider = ButtonSlider(
             isShielded: isShielded,
+            actionTokens: {
+                // TODO
+            },
             actionSend: {
                 if self.sendEnabled {
                     self.presenter.userTappedSend()
