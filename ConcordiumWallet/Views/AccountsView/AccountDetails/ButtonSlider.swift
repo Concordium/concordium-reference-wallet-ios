@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-private let size: CGFloat = 55.00
-
 extension View {
     func hidden(_ shouldHide: Bool) -> some View {
         opacity(shouldHide ? 0 : 1)
@@ -65,27 +63,29 @@ struct ButtonSlider: View {
     var shouldHideArrows: Bool { buttons.count < 5 }
 
     var body: some View {
-        HStack {
-            Button(action: { /* TODO */ }) {
-                Image("button_slider_back").padding()
-            }
-            .hidden(shouldHideArrows)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .center, spacing: 24) {
-                    VerticalLine()
-                    ForEach(buttons) { item in
-                        item
-                            .frame(height: size)
+        ScrollViewReader { proxy in
+            HStack {
+                Button(action: { buttons.first.map { b in proxy.scrollTo(b.id) } }) {
+                    Image("button_slider_back").padding()
+                }
+                .hidden(shouldHideArrows)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .center, spacing: 24) {
                         VerticalLine()
+                        ForEach(buttons) { btn in
+                            btn
+                            VerticalLine()
+                        }
                     }
                 }
+                
+                Button(action: { buttons.last.map { b in proxy.scrollTo(b.id) }  }) {
+                    Image("button_slider_forward").padding()
+                }
+                .hidden(shouldHideArrows)
             }
-            Button(action: { /* TODO */ }) {
-                Image("button_slider_forward").padding()
-            }
-            .hidden(shouldHideArrows)
         }
-        .frame(maxWidth: .infinity, maxHeight: size)
         .background(Pallette.primary)
         .cornerRadius(5)
     }
@@ -111,7 +111,7 @@ struct ActionButton: View, Identifiable {
 struct VerticalLine: View {
     var body: some View {
         Divider()
-            .frame(maxWidth: 1, maxHeight: size)
+            .frame(maxWidth: 1)
             .background(Pallette.whiteText)
     }
 }
