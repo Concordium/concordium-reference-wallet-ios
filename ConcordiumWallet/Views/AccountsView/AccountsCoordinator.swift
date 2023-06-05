@@ -248,20 +248,23 @@ protocol WalletConnectDelegate: AnyObject {
 
 extension AccountsCoordinator: WalletConnectDelegate {
     func showWalletConnectScanner() {
-        let vc = ScanQRViewControllerFactory.create(
-            with: ScanQRPresenter(
-                didScanQrCode: { [weak self] value in
-                    // TODO Can do more detailed check?
-                    if !value.lowercased().hasPrefix("wc:") {
-                        return false
-                    }
-                    // Successfully scanner WalletConnect QR.
-                    // TODO: Handle Wallet Connect logic here
-                    self?.navigationController.popViewController(animated: true)
-                    return true
-                }
-            )
-        )
-        navigationController.pushViewController(vc, animated: true)
+        let viewController = WalletConnectAccountSelectViewController(storageManager: dependencyProvider.storageManager())
+        navigationController.pushViewController(viewController, animated: true)
+
+//        let vc = ScanQRViewControllerFactory.create(
+//            with: ScanQRPresenter(
+//                didScanQrCode: { [weak self] value in
+//                    // TODO Can do more detailed check?
+//                    if !value.lowercased().hasPrefix("wc:") {
+//                        return false
+//                    }
+//                    // Successfully scanner WalletConnect QR.
+//                    // TODO: Handle Wallet Connect logic here
+//                    self?.navigationController.popViewController(animated: true)
+//                    return true
+//                }
+//            )
+//        )
+//        navigationController.pushViewController(vc, animated: true)
     }
 }
