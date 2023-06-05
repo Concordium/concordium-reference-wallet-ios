@@ -1045,3 +1045,9 @@ Remember to restart your node with the baker keys.";
 
 "demomode.userdefaultskey" = "Demo Mode";
 "unexpected_error" = "Unexpected error occurred, please restart the application";
+
+/* Wallet Connect */
+"walletConnct.select.account.title" = "Choose an account to open session";
+"walletConnct.select.account.header" = "Choose which account you want to open the session with.";
+"walletConnct.select.account.total" = "Total";
+"walletConnct.select.account.at.disposal" = "At disposal";
