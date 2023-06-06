@@ -8,100 +8,107 @@
 
 import SwiftUI
 
-private let size: CGFloat = 60.0
-
 struct ButtonSlider: View {
     var isShielded: Bool
-
+    var actionTokens: () -> Void
     var actionSend: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
     var actionShield: () -> Void
     var actionSettings: () -> Void
+
+    var isDisabled: Bool
     
-    @State var position: Int = 0
-    @State var disabled: Bool = false
-    
+    var buttons: [ActionButton] {
+        [
+            // TODO Uncomment once CIS-2 action has been implemented.
+//            ActionButton(
+//                imageName: "ccd_coins",
+//                action: actionTokens
+//            ),
+            ActionButton(
+                imageName: "button_slider_send",
+                action: actionSend
+            ),
+            ActionButton(
+                imageName: "button_slider_earn",
+                action: actionEarn
+            ),
+            ActionButton(
+                imageName: "button_slider_receive",
+                action: actionReceive
+            ),
+            isShielded ? ActionButton(
+                imageName: "button_slider_shield",
+                action: actionShield
+            ) : nil,
+            ActionButton(
+                imageName: "button_slider_settings",
+                action: actionSettings
+            ),
+        ]
+        .compactMap { $0 }
+    }
+
+    var displayArrows: Bool { buttons.count > 5 }
+
     var body: some View {
-//        HStack {
-//            Spacer()
-//            Button(action: moveBack) {
-//                Image("button_slider_back")
-//            }
-//            Spacer()
-            HStack(alignment: .center, spacing: 0) {
-//                VerticalLine()
-//                if position == 0 {
-                    ActionButton(imageName: "button_slider_send", disabled: disabled, action: actionSend)
-                    VerticalLine()
-//                }
-                ActionButton(imageName: "button_slider_receive", disabled: disabled, action: actionReceive)
-                VerticalLine()
-                ActionButton(imageName: "button_slider_earn", disabled: disabled, action: actionEarn)
-                VerticalLine()
-                if isShielded {
-                    ActionButton(imageName: "button_slider_shield", disabled: disabled, action: actionShield)
-                    VerticalLine()
-//                    if position == 1 {
-                        ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-//                        VerticalLine()
-//                    }
+        ScrollViewReader { proxy in
+            HStack {
+                if displayArrows {
+                    Button(action: { buttons.first.map { b in withAnimation { proxy.scrollTo(b.id) } } }) {
+                        Image("button_slider_back").padding()
+                    }
+                
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .center, spacing: 24) {
+                            VerticalLine()
+                            ForEach(buttons) { btn in
+                                btn
+                                VerticalLine()
+                            }
+                        }
+                    }
+                    Button(action: { buttons.last.map { b in withAnimation { proxy.scrollTo(b.id) } } }) {
+                        Image("button_slider_forward").padding()
+                    }
                 } else {
-                    ActionButton(imageName: "button_slider_settings", disabled: disabled, action: actionSettings)
-//                    VerticalLine()
+                    HStack {
+                        ForEach(buttons) { btn in
+                            VerticalLine()
+                            Spacer()
+                            btn
+                            Spacer()
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
-//            Spacer()
-//            Button(action: moveForward) {
-//                Image("button_slider_forward")
-//            }
-//            Spacer()
-//        }
-        .frame(maxWidth: .infinity, maxHeight: size)
-        .background(Pallette.primary)
+            .disabled(isDisabled)
+        }
+        .background(isDisabled ? Pallette.inactiveButton : Pallette.primary)
         .cornerRadius(5)
-    }
-    
-    private func moveBack() {
-        if position > 0 {
-            position -= 1
-        }
-    }
-    
-    private func moveForward() {
-        if isShielded {
-            if position < 1 {
-                position += 1
-            }
-        } else {
-            if position < 0 {
-                position += 1
-            }
-        }
     }
 }
 
-struct ActionButton: View {
+struct ActionButton: View, Identifiable {
     let imageName: String
-    var disabled: Bool = false
     var action: () -> Void
+    
+    var id: String { imageName }
 
     var body: some View {
-        ZStack {
-            Image(imageName)
-        }
-        .frame(maxWidth: .infinity, maxHeight: size)
-        .background(disabled ? Pallette.inactiveButton : Pallette.primary)
-        .onTapGesture {
-            self.action()
-        }.disabled(disabled)
+        Image(imageName)
+            .onTapGesture {
+                self.action()
+            }
     }
 }
 
 struct VerticalLine: View {
     var body: some View {
         Divider()
-            .frame(maxWidth: 1, maxHeight: size)
+            .frame(maxWidth: 1)
             .background(Pallette.whiteText)
     }
 }
@@ -110,11 +117,13 @@ struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
             isShielded: true,
-            actionSend: {
-            }, actionReceive: {
-            }, actionEarn: {
-            }, actionShield: {
-            }, actionSettings: {
-            })
+            actionTokens: {},
+            actionSend: {},
+            actionReceive: {},
+            actionEarn: {},
+            actionShield: {},
+            actionSettings: {},
+            isDisabled: false
+        )
     }
 }
