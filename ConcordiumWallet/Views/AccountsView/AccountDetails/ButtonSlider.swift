@@ -21,10 +21,11 @@ struct ButtonSlider: View {
     
     var buttons: [ActionButton] {
         [
-            ActionButton(
-                imageName: "ccd_coins",
-                action: actionTokens
-            ),
+            // TODO Uncomment once CIS-2 action has been implemented.
+//            ActionButton(
+//                imageName: "ccd_coins",
+//                action: actionTokens
+//            ),
             ActionButton(
                 imageName: "button_slider_send",
                 action: actionSend
@@ -58,22 +59,29 @@ struct ButtonSlider: View {
                     Button(action: { buttons.first.map { b in withAnimation { proxy.scrollTo(b.id) } } }) {
                         Image("button_slider_back").padding()
                     }
-                }
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(alignment: .center, spacing: 24) {
-                        VerticalLine()
-                        ForEach(buttons) { btn in
-                            btn
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .center, spacing: 24) {
                             VerticalLine()
+                            ForEach(buttons) { btn in
+                                btn
+                                VerticalLine()
+                            }
                         }
                     }
-                }
-                
-                if displayArrows {
                     Button(action: { buttons.last.map { b in withAnimation { proxy.scrollTo(b.id) } } }) {
                         Image("button_slider_forward").padding()
                     }
+                } else {
+                    HStack {
+                        ForEach(buttons) { btn in
+                            VerticalLine()
+                            Spacer()
+                            btn
+                            Spacer()
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
             .disabled(isDisabled)
