@@ -9,6 +9,8 @@
 import Combine
 import Foundation
 import UIKit
+import WalletConnectSign
+import WalletConnectNetworking
 
 protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
@@ -26,7 +28,7 @@ class AccountsCoordinator: Coordinator {
     var navigationController: UINavigationController
     weak var delegate: AccountsCoordinatorDelegate?
     weak var accountsPresenterDelegate: AccountsPresenterDelegate?
-
+    private var cancellables: [AnyCancellable] = []
     private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: DependencyProvider
     init(
@@ -248,8 +250,49 @@ protocol WalletConnectDelegate: AnyObject {
 
 extension AccountsCoordinator: WalletConnectDelegate {
     func showWalletConnectScanner() {
-        let viewController = WalletConnectAccountSelectViewController(storageManager: dependencyProvider.storageManager())
-        navigationController.pushViewController(viewController, animated: true)
+        let metadata = AppMetadata(
+            name: "Concordium",
+            description: "Concordium - Blockchain Wallet",
+            url: "wallet.connect",
+            icons: [],
+            verifyUrl: "verify.walletconnect.com"
+        )
+        Pair.configure(metadata: metadata)
+        Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
+
+        try! Pair.instance.cleanup()
+
+        Sign.instance.sessionProposalPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { failure in
+            print(failure)
+            }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                    let viewModel = WalletConnectAccountSelectViewModel(storageManager: self.dependencyProvider.storageManager(), proposal: value.proposal)
+                let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
+                    self.navigationController.pushViewController(viewController, animated: true)
+                
+        })
+        .store(in: &cancellables)
+
+        
+        Sign.instance.sessionRequestPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (request, _) in
+                // TODO: Display approve screen once it's done.
+                print(request)
+            }
+            .store(in: &cancellables)
+        
+        Task {
+            do {
+                try await Pair.instance.pair(uri: WalletConnectURI(string: "wc:556792d9ecea2eb698449e265d7850e0cb2f0d24124a37a0ede2f0c115995e28@2?relay-protocol=irn&symKey=77b2298f8dbdf4adf4694bd33a284248d0439dcfc239ed9bc5fb796fe9162e27")!)
+            } catch let error {
+                // TODO: handle error
+                print("ERROR!!!!!! -> \(error)")
+            }
+        }
+
 
 //        let vc = ScanQRViewControllerFactory.create(
 //            with: ScanQRPresenter(
@@ -258,6 +301,7 @@ extension AccountsCoordinator: WalletConnectDelegate {
 //                    if !value.lowercased().hasPrefix("wc:") {
 //                        return false
 //                    }
+//
 //                    // Successfully scanner WalletConnect QR.
 //                    // TODO: Handle Wallet Connect logic here
 //                    self?.navigationController.popViewController(animated: true)

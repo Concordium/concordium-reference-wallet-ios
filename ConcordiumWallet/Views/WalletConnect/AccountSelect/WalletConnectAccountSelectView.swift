@@ -7,21 +7,22 @@
 //
 
 import SwiftUI
-
 struct WalletConnectAccountSelectView: View {
-    var storageManager: StorageManagerProtocol
-    @State var accounts: [AccountDataType] = []
+    @StateObject var viewModel: WalletConnectAccountSelectViewModel
 
     var body: some View {
         Text("walletConnct.select.account.header".localized)
             .multilineTextAlignment(.center)
             .padding(32)
-        List(accounts, id: \.address) { account in
-            WalletConnectAccountItemView(account: account)              
+        List($viewModel.accounts, id: \.address) { account in
+            WalletConnectAccountItemView(account: account.wrappedValue) {
+                viewModel.didSelect(accountAddress: account.wrappedValue.address)
+            }
         }
+        .listRowSeparator(.hidden)
         .listStyle(.plain)
         .onAppear {
-            accounts = storageManager.getAccounts()
+            viewModel.getAccounts()
         }
     }
 }

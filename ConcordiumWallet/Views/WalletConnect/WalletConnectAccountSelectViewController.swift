@@ -11,8 +11,8 @@ import UIKit
 
 class WalletConnectAccountSelectViewController: UIViewController {
     private var accountSelectView: WalletConnectAccountSelectView
-    init(storageManager: StorageManagerProtocol) {
-        accountSelectView = WalletConnectAccountSelectView(storageManager: storageManager)
+    init(viewModel: WalletConnectAccountSelectViewModel) {
+        accountSelectView = WalletConnectAccountSelectView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
