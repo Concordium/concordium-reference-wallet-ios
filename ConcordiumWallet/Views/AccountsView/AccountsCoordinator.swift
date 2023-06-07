@@ -295,7 +295,6 @@ extension AccountsCoordinator: WalletConnectDelegate {
             }
         }
 
-
 //        let vc = ScanQRViewControllerFactory.create(
 //            with: ScanQRPresenter(
 //                didScanQrCode: { [weak self] value in

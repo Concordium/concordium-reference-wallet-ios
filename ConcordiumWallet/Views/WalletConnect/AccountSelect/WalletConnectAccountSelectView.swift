@@ -11,7 +11,7 @@ struct WalletConnectAccountSelectView: View {
     @StateObject var viewModel: WalletConnectAccountSelectViewModel
 
     var body: some View {
-        Text("walletConnct.select.account.header".localized)
+        Text("walletconnect.select.account.header".localized)
             .multilineTextAlignment(.center)
             .padding(32)
         List($viewModel.accounts, id: \.address) { account in

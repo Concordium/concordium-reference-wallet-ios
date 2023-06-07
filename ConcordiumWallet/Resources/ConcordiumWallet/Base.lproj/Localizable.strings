@@ -468,7 +468,6 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "accountDetails.identity_data" = "Identity data";
 
 
-
 "identityData.title" = "Identity";
 "accountConfirmed.title" = "New account";
 "identitySubmitted.title" = "Getting verified";
@@ -1047,7 +1046,10 @@ Remember to restart your node with the baker keys.";
 "unexpected_error" = "Unexpected error occurred, please restart the application";
 
 /* Wallet Connect */
-"walletConnct.select.account.title" = "Choose an account to open session";
-"walletConnct.select.account.header" = "Choose which account you want to open the session with.";
-"walletConnct.select.account.total" = "Total";
-"walletConnct.select.account.at.disposal" = "At disposal";
+"walletconnect.select.account.title" = "Choose an account to open session";
+"walletconnect.select.account.header" = "Choose which account you want to open the session with.";
+"walletconnect.select.account.total" = "Total";
+"walletconnect.select.account.at.disposal" = "At disposal";
+
+"walletconnect.approval.title" = "Transaction approval";
+"walletconnect.approval.subtitle" = "requests your signature on the following transaction:";

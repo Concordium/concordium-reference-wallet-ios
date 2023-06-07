@@ -23,7 +23,7 @@ class WalletConnectAccountSelectViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "walletConnct.select.account.title".localized
+        title = "walletconnect.select.account.title".localized
         addSwiftUIViewToController(accountSelectView)
     }
 }

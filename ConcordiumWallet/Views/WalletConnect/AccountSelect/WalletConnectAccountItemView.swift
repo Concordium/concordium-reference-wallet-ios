@@ -21,12 +21,12 @@ struct WalletConnectAccountItemView: View {
                 Spacer()
             }
             HStack(spacing: 8) {
-                Text("walletConnct.select.account.total".localized)
+                Text("walletconnect.select.account.total".localized)
                 Spacer()
                 Text("\(account.totalForecastBalance)")
             }
             HStack(spacing: 8) {
-                Text("walletConnct.select.account.at.disposal")
+                Text("walletconnect.select.account.at.disposal")
                 Spacer()
                 Text("\(account.forecastAtDisposalBalance)")
             }
