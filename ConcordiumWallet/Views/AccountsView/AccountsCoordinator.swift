@@ -269,7 +269,7 @@ extension AccountsCoordinator: WalletConnectDelegate {
                 let viewModel = WalletConnectAccountSelectViewModel(storageManager: self.dependencyProvider.storageManager(), proposal: proposal)
                     
                 viewModel.didSelectAccount = { accountAddress in
-                    self.navigationController.pushViewController(WalletConnectApprovalViewController(), animated: true)
+                    self.navigationController.pushViewController(WalletConnectApprovalViewController(view: .init(proposal: proposal.proposalData)), animated: true)
                 }
                 let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
                 self.navigationController.pushViewController(viewController, animated: true)

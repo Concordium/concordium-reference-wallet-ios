@@ -10,10 +10,9 @@ import SwiftUI
 import WalletConnectSign
 
 struct WalletConnectApprovalViewModel {
-    
-    var didAccept: (() -> ())
-    var didDecline: (() -> ())
-    
+    var didAccept: () -> Void
+    var didDecline: () -> Void
+
     init(didAccept: @escaping () -> Void, didDecline: @escaping () -> Void) {
         self.didAccept = didAccept
         self.didDecline = didDecline
@@ -21,7 +20,6 @@ struct WalletConnectApprovalViewModel {
 }
 
 struct WalletConnectApprovalView<Content: View>: View {
-    
     var title: String
     var subtitle: String?
     var contentView: Content
@@ -46,7 +44,6 @@ struct WalletConnectApprovalView<Content: View>: View {
                     Text("Decline")
                         .foregroundColor(.white)
                         .padding()
-
                 }
                 .background(Pallette.primary)
                 .cornerRadius(10)
@@ -58,7 +55,6 @@ struct WalletConnectApprovalView<Content: View>: View {
                     Text("Accept")
                         .foregroundColor(.white)
                         .padding()
-
                 }
                 .background(Pallette.primary)
                 .cornerRadius(10)
@@ -68,41 +64,31 @@ struct WalletConnectApprovalView<Content: View>: View {
 }
 
 struct WalletConnectProposalApprovalView: View {
-   
-    
-//    {connectedSession.namespaces &&
-//                                  Object.entries(connectedSession.namespaces).map(([key, ns]) => (
-//                                   <li key={key}>
-//                                       Key: {key}
-//                                       Accounts: {ns.accounts.join(', ')}
-//                                       Methods: {ns.methods.join(', ')}
-//                                       Events: {ns.events.join(', ')}
-//                                       Extension: {JSON.stringify(ns.extension)}
-//                                   </li>
-//                               ))}
-    let accountName: String
-    
-    init(proposal: Session.Proposal) {
-        accountName = proposal.proposer.name
+    let proposal: ProposalData
+
+    init(proposal: ProposalData) {
+        self.proposal = proposal
     }
-    
+
     var body: some View {
         VStack {
-            HStack {
+            HStack(spacing: 16) {
                 Image("connection_socket")
                 VStack {
                     Text("About to open connection betweeen:").foregroundColor(.white) // todo localize
-                    Text("Account name").foregroundColor(.white)
+                    Text(proposal.dappName)
+                        .foregroundColor(.white)
                 }
             }
             .padding(16)
             .background(.black)
             .cornerRadius(10)
-            HStack {
-                Text("The service will be able to see: ")
-                Spacer()
+
+            VStack(alignment: .leading, spacing: 24) {
+                Text("If you approve the connection, then \(proposal.dappName) will be able to request the wallet to perform certain actions on your behalf. ")
+                Text("This only allows \(proposal.dappName) to send requests to the wallet. Every interaction will still need your explicit approval.").multilineTextAlignment(.leading)
             }
-            .padding(16)
+            .padding()
             Spacer()
         }
     }
@@ -111,22 +97,49 @@ struct WalletConnectProposalApprovalView: View {
 struct WalletConnectApprovalView_Previews: PreviewProvider {
     static var previews: some View {
         WalletConnectApprovalView(
-            title: "walletconnect.approval.title".localized,
-            subtitle:"somedApp" + " " + "walletconnect.approval.subtitle".localized,
-            contentView: WalletConnectProposalApprovalView(proposal: ),
-            viewModel: .init(didAccept: {}, didDecline: {}
+            title: "Connection approval".localized,
+            subtitle: "somedApp" + " " + "walletconnect.approval.subtitle".localized,
+            contentView: WalletConnectProposalApprovalView(
+                proposal: .init(
+                    dappName: "dApp",
+                    namespaces: [
+                        ProposalData.ProposalNamespace(
+                            methods: ["method1", "method2"],
+                            events: ["event1", "event2"]),
+                    ]
+                )
+            ),
+            viewModel: .init(
+                didAccept: {},
+                didDecline: {}
             )
         )
-            .previewLayout(PreviewLayout.sizeThatFits)
-            .padding()
-            .previewDisplayName("Default preview")
+        .previewLayout(PreviewLayout.sizeThatFits)
+        .padding()
+        .previewDisplayName("Default preview")
     }
 }
 
-protocol SessionProposal {
-
+struct ProposalData {
+    var dappName: String
+    var namespaces: [ProposalNamespace]
+    struct ProposalNamespace: Hashable {
+        let methods: [String]
+        let events: [String]
+    }
 }
 
-extension Session.Proposal: SessionProposal {
-    
+extension Session.Proposal {
+    var proposalNamespaces: [ProposalData.ProposalNamespace] {
+        requiredNamespaces.map { _, namespace in
+            ProposalData.ProposalNamespace(
+                methods: namespace.methods.sorted(),
+                events: namespace.events.sorted()
+            )
+        }
+    }
+
+    var proposalData: ProposalData {
+        ProposalData(dappName: proposer.name, namespaces: proposalNamespaces)
+    }
 }
