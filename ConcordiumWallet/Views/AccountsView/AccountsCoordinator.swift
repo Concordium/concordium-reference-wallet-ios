@@ -263,12 +263,16 @@ extension AccountsCoordinator: WalletConnectDelegate {
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { failure in
-            print(failure)
-            }, receiveValue: { [weak self] value in
+            print(failure) // TODO: should we handle error?
+            }, receiveValue: { [weak self] (proposal, _) in
                 guard let self = self else { return }
-                    let viewModel = WalletConnectAccountSelectViewModel(storageManager: self.dependencyProvider.storageManager(), proposal: value.proposal)
+                let viewModel = WalletConnectAccountSelectViewModel(storageManager: self.dependencyProvider.storageManager(), proposal: proposal)
+                    
+                viewModel.didSelectAccount = { accountAddress in
+                    self.navigationController.pushViewController(WalletConnectApprovalViewController(), animated: true)
+                }
                 let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
-                    self.navigationController.pushViewController(viewController, animated: true)
+                self.navigationController.pushViewController(viewController, animated: true)
                 
         })
         .store(in: &cancellables)
@@ -285,7 +289,7 @@ extension AccountsCoordinator: WalletConnectDelegate {
                 print("SUCCESS \(request)")
             }
             .store(in: &cancellables)
-        let wc = "wc:c41d65834ea59d3a5bfc8daaa83c793709ecb9e6f5ad060c148f85902a10ead7@2?relay-protocol=irn&symKey=ad036d40555b8b2ebce0b255a29f9f2536f3f4cca3ac7b20a679ba82a0829b87"
+        let wc = "wc:677984ecd07d46ec44d4debf4f37f59f774fb18244f80dc6747bb2a115a45adb@2?relay-protocol=irn&symKey=41a5108321b9579e0964cb1ebd40415452fc7a6edbe801377c58e3d081213fc1"
         Task {
             do {
                 try await Pair.instance.pair(uri: WalletConnectURI(string: wc)!)
