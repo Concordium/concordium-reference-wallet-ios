@@ -30,10 +30,10 @@ class WalletConnectAccountSelectViewModel: ObservableObject {
                 let sessionNamespaces = try AutoNamespaces.build(
                     sessionProposal: proposal,
                     chains: [blockchain], // TODO: Use Genesis hash here before hitting production
-                    methods: ["eth_sendTransaction", "personal_sign"],
-                    events: ["accountsChanged", "chainChanged"],
+                    methods: ["sign_and_send_transaction"],
+                    events: ["accounts_changed", "chain_changed"],
                     accounts: [
-                        Account(blockchain: blockchain, address:"ccd:\(accountAddress)")!
+                        Account(blockchain: blockchain, address:"\(accountAddress)")!
                     ]
                 )
                 try await Sign.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)

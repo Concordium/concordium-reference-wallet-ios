@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import WalletConnectSign
 import WalletConnectNetworking
-
+import WalletConnectPairing
 protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
     func createNewAccount()
@@ -260,8 +260,6 @@ extension AccountsCoordinator: WalletConnectDelegate {
         Pair.configure(metadata: metadata)
         Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
 
-        try! Pair.instance.cleanup()
-
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { failure in
@@ -275,21 +273,25 @@ extension AccountsCoordinator: WalletConnectDelegate {
         })
         .store(in: &cancellables)
 
+        Sign.instance.pingResponsePublisher.sink { ping in
+            print(ping)
+        }
+        .store(in: &cancellables)
         
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
             .sink { (request, _) in
                 // TODO: Display approve screen once it's done.
-                print(request)
+                print("SUCCESS \(request)")
             }
             .store(in: &cancellables)
-        
+        let wc = "wc:c41d65834ea59d3a5bfc8daaa83c793709ecb9e6f5ad060c148f85902a10ead7@2?relay-protocol=irn&symKey=ad036d40555b8b2ebce0b255a29f9f2536f3f4cca3ac7b20a679ba82a0829b87"
         Task {
             do {
-                try await Pair.instance.pair(uri: WalletConnectURI(string: "wc:556792d9ecea2eb698449e265d7850e0cb2f0d24124a37a0ede2f0c115995e28@2?relay-protocol=irn&symKey=77b2298f8dbdf4adf4694bd33a284248d0439dcfc239ed9bc5fb796fe9162e27")!)
+                try await Pair.instance.pair(uri: WalletConnectURI(string: wc)!)
             } catch let error {
-                // TODO: handle error
-                print("ERROR!!!!!! -> \(error)")
+                print("error!!! \(error)")
+                let pairings = Pair.instance.getPairings()
             }
         }
 
