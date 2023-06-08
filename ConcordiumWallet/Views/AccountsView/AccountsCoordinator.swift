@@ -10,9 +10,9 @@ import Combine
 import Foundation
 import SwiftUI
 import UIKit
-import WalletConnectSign
 import WalletConnectNetworking
 import WalletConnectPairing
+import WalletConnectSign
 
 protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
@@ -23,9 +23,9 @@ protocol AccountsCoordinatorDelegate: AnyObject {
 
 class AccountsCoordinator: Coordinator {
     typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider &
-    StakeCoordinatorDependencyProvider &
-    IdentitiesFlowCoordinatorDependencyProvider
-    
+        StakeCoordinatorDependencyProvider &
+        IdentitiesFlowCoordinatorDependencyProvider
+
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var delegate: AccountsCoordinatorDelegate?
@@ -64,7 +64,7 @@ class AccountsCoordinator: Coordinator {
                 dependencyProvider: dependencyProvider,
                 delegate: self
             )
-            
+
             childCoordinators.append(seedIdentitiesCoordinator)
             seedIdentitiesCoordinator.start()
             navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
@@ -76,7 +76,7 @@ class AccountsCoordinator: Coordinator {
             navigationController.present(createAccountCoordinator.navigationController, animated: true, completion: nil)
         }
     }
-    
+
     func showCreateNewIdentity() {
         let seedIdentitiesCoordinator = SeedIdentitiesCoordinator(
             navigationController: BaseNavigationController(),
@@ -84,12 +84,12 @@ class AccountsCoordinator: Coordinator {
             dependencyProvider: dependencyProvider,
             delegate: self
         )
-        
+
         childCoordinators.append(seedIdentitiesCoordinator)
         seedIdentitiesCoordinator.start()
         navigationController.present(seedIdentitiesCoordinator.navigationController, animated: true)
     }
-    
+
     func show(account: AccountDataType, entryPoint: AccountDetailsFlowEntryPoint) {
         let accountDetailsCoordinator = AccountDetailsCoordinator(navigationController: navigationController,
                                                                   dependencyProvider: dependencyProvider,
@@ -98,7 +98,7 @@ class AccountsCoordinator: Coordinator {
         childCoordinators.append(accountDetailsCoordinator)
         accountDetailsCoordinator.start(entryPoint: entryPoint)
     }
-    
+
     func showExport() {
         let vc = ExportFactory.create(with: ExportPresenter(
             dependencyProvider: ServicesProvider.defaultProvider(),
@@ -107,13 +107,13 @@ class AccountsCoordinator: Coordinator {
         ))
         navigationController.pushViewController(vc, animated: true)
     }
-    
+
     private func showCreateExportPassword() -> AnyPublisher<String, Error> {
         let selectExportPasswordCoordinator = CreateExportPasswordCoordinator(
             navigationController: TransparentNavigationController(),
             dependencyProvider: ServicesProvider.defaultProvider()
         )
-        self.childCoordinators.append(selectExportPasswordCoordinator)
+        childCoordinators.append(selectExportPasswordCoordinator)
         selectExportPasswordCoordinator.navigationController.modalPresentationStyle = .fullScreen
         selectExportPasswordCoordinator.start()
         navigationController.present(selectExportPasswordCoordinator.navigationController, animated: true)
@@ -124,15 +124,15 @@ class AccountsCoordinator: Coordinator {
 extension AccountsCoordinator: AccountsPresenterDelegate {
     func showSettings() {
     }
-    
+
     func didSelectMakeBackup() {
         showExport()
     }
-    
+
     func didSelectPendingIdentity(identity: IdentityDataType) {
         delegate?.showIdentities()
     }
-    
+
     func createNewAccount() {
         delegate?.createNewAccount()
     }
@@ -140,7 +140,7 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
     func createNewIdentity() {
         delegate?.createNewIdentity()
     }
-    
+
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         let entryPoint: AccountDetailsFlowEntryPoint!
         switch action {
@@ -155,18 +155,18 @@ extension AccountsCoordinator: AccountsPresenterDelegate {
         }
         show(account: account, entryPoint: entryPoint)
     }
-    
+
     func enableShielded(on account: AccountDataType) {
         let entryPoint = AccountDetailsFlowEntryPoint.enableShielded
         show(account: account, entryPoint: entryPoint)
     }
-    
+
     func noValidIdentitiesAvailable() {
-        self.delegate?.noIdentitiesFound()
+        delegate?.noIdentitiesFound()
     }
-    
+
     func tryAgainIdentity() {
-        self.delegate?.createNewIdentity()
+        delegate?.createNewIdentity()
     }
 }
 
@@ -175,7 +175,7 @@ extension AccountsCoordinator: CreateNewAccountDelegate {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is CreateAccountCoordinator })
     }
-    
+
     func createNewAccountCancelled() {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is CreateAccountCoordinator })
@@ -189,7 +189,7 @@ extension AccountsCoordinator: AccountDetailsDelegate {
             childCoordinators.remove(at: lastOccurenceIndex)
         }
     }
-    
+
     func retryCreateAccount(failedAccount: AccountDataType) {
         navigationController.popViewController(animated: true)
         showCreateNewAccount(withDefaultValuesFrom: failedAccount)
@@ -205,20 +205,20 @@ extension AccountsCoordinator: RequestPasswordDelegate { }
 extension AccountsCoordinator: ExportPresenterDelegate {
     func createExportPassword() -> AnyPublisher<String, Error> {
         let cleanup: (Result<String, Error>) -> Future<String, Error> = { [weak self] result in
-                    let future = Future<String, Error> { promise in
-                        self?.navigationController.dismiss(animated: true) {
-                            promise(result)
-                        }
-                        self?.childCoordinators.removeAll { coordinator in
-                            coordinator is CreateExportPasswordCoordinator
-                        }
-                    }
-                    return future
+            let future = Future<String, Error> { promise in
+                self?.navigationController.dismiss(animated: true) {
+                    promise(result)
                 }
+                self?.childCoordinators.removeAll { coordinator in
+                    coordinator is CreateExportPasswordCoordinator
+                }
+            }
+            return future
+        }
         return showCreateExportPassword()
-                .flatMap { cleanup(.success($0)) }
-                .catch { cleanup(.failure($0)) }
-                .eraseToAnyPublisher()
+            .flatMap { cleanup(.success($0)) }
+            .catch { cleanup(.failure($0)) }
+            .eraseToAnyPublisher()
     }
 
     func shareExportedFile(url: URL, completion: @escaping () -> Void) {
@@ -226,12 +226,12 @@ extension AccountsCoordinator: ExportPresenterDelegate {
             if completed {
                 AppSettings.needsBackupWarning = false
             }
-            
+
             completion()
             self.exportFinished()
         }
     }
-    
+
     func exportFinished() {
         navigationController.popViewController(animated: true)
     }
@@ -241,7 +241,7 @@ extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
-        
+
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 }
@@ -265,11 +265,13 @@ extension AccountsCoordinator: WalletConnectDelegate {
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { failure in
-            print(failure) // TODO: should we handle error?
-            }, receiveValue: { [weak self] (proposal, _) in
+                print(failure) // TODO: should we handle error?
+            }, receiveValue: { [weak self] proposal, _ in
                 guard let self = self else { return }
-                let viewModel = WalletConnectAccountSelectViewModel(storageManager: self.dependencyProvider.storageManager(), proposal: proposal)
-                    
+                let viewModel = WalletConnectAccountSelectViewModel(
+                    storageManager: self.dependencyProvider.storageManager(), proposal: proposal
+                )
+
                 viewModel.didSelectAccount = { accountAddress in
                     self.navigationController.pushViewController(
                         UIHostingController(
@@ -277,20 +279,16 @@ extension AccountsCoordinator: WalletConnectDelegate {
                             animated: true
                     )
                 }
+
                 let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
                 self.navigationController.pushViewController(viewController, animated: true)
-                
-        })
-        .store(in: &cancellables)
 
-        Sign.instance.pingResponsePublisher.sink { ping in
-            print(ping)
-        }
-        .store(in: &cancellables)
-        
+            })
+            .store(in: &cancellables)
+
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
-            .sink { (request, _) in
+            .sink { request, _ in
                 // TODO: Display approve screen once it's done.
                 print("SUCCESS \(request)")
             }
@@ -301,7 +299,6 @@ extension AccountsCoordinator: WalletConnectDelegate {
                 try await Pair.instance.pair(uri: WalletConnectURI(string: wc)!)
             } catch let error {
                 print("error!!! \(error)")
-                let pairings = Pair.instance.getPairings()
             }
         }
 
