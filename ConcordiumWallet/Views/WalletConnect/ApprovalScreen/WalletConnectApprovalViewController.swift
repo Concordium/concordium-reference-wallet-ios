@@ -6,17 +6,16 @@
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
-import UIKit
-
-class WalletConnectApprovalViewController: UIViewController {
-
-    let view: WalletConnectProposalApprovalView
-    
-    init(view: WalletConnectProposalApprovalView) {
-        self.view = view
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addSwiftUIViewToController(view)
-    }
-}
+//import UIKit
+//
+//class WalletConnectApprovalViewController: UIViewController {
+//    
+//    init?(coder: NSCoder, view: WalletConnectProposalApprovalView) {
+//        super.init(coder: coder)
+//    }
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        addSwiftUIViewToController(view)
+//    }
+//}

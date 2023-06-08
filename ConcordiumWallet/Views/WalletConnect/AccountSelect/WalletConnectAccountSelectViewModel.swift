@@ -13,7 +13,7 @@ class WalletConnectAccountSelectViewModel: ObservableObject {
     private var storageManager: StorageManagerProtocol
     @Published var accounts: [AccountDataType] = []
     private var proposal: Session.Proposal
-    var didSelectAccount: ((_ address: String) -> ())?
+    var didSelectAccount: ((_ address: String) -> ())? // TODO should be "accountName"
     // TODO: implement WalletConnectClient
     init(storageManager: StorageManagerProtocol, proposal: Session.Proposal) {
         self.proposal = proposal

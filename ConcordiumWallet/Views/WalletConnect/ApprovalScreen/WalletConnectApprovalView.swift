@@ -64,32 +64,39 @@ struct WalletConnectApprovalView<Content: View>: View {
 }
 
 struct WalletConnectProposalApprovalView: View {
+    let accountName: String
     let proposal: ProposalData
-
-    init(proposal: ProposalData) {
-        self.proposal = proposal
+    
+    var boxText: AttributedString {
+        var d = AttributedString(proposal.dappName)
+        var a = AttributedString(accountName)
+        d.font = .body.bold()
+        a.font = .body.bold()
+        return "Open connection from application " + d + " to account " + a
     }
 
     var body: some View {
         VStack {
             HStack(spacing: 16) {
                 Image("connection_socket")
-                VStack {
-                    Text("About to open connection betweeen:").foregroundColor(.white) // todo localize
-                    Text(proposal.dappName)
-                        .foregroundColor(.white)
-                }
+                Text(boxText)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
             }
+            .frame(width: .infinity)
             .padding(16)
             .background(.black)
             .cornerRadius(10)
 
-            VStack(alignment: .leading, spacing: 24) {
-                Text("If you approve the connection, then \(proposal.dappName) will be able to request the wallet to perform certain actions on your behalf. ")
-                Text("This only allows \(proposal.dappName) to send requests to the wallet. Every interaction will still need your explicit approval.").multilineTextAlignment(.leading)
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Approving the connection will allow the application to request the following kinds of actions to be performed using the connected account:")
+                VStack(alignment: .leading) {
+                    Text("•  Sign a message")
+                    Text("•  Sign and send a transaction")
+                }
+                Text("No actions will be performed without your explicit approval.").multilineTextAlignment(.leading)
             }
             .padding()
-            Spacer()
         }
     }
 }
@@ -97,11 +104,12 @@ struct WalletConnectProposalApprovalView: View {
 struct WalletConnectApprovalView_Previews: PreviewProvider {
     static var previews: some View {
         WalletConnectApprovalView(
-            title: "Connection approval".localized,
-            subtitle: "somedApp" + " " + "walletconnect.approval.subtitle".localized,
+            title: "walletconnect.connect.approve.title".localized,
+            subtitle: "walletconnect.connect.approve.subtitle".localizedNonempty,
             contentView: WalletConnectProposalApprovalView(
+                accountName: "My Account",
                 proposal: .init(
-                    dappName: "dApp",
+                    dappName: "My dApp",
                     namespaces: [
                         ProposalData.ProposalNamespace(
                             methods: ["method1", "method2"],

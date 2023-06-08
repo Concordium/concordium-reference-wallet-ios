@@ -12,4 +12,12 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
+    
+    var localizedNonempty: String? {
+        let l = localized
+        if l.isEmpty {
+            return nil
+        }
+        return l
+    }
 }
