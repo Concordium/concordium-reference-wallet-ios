@@ -275,8 +275,33 @@ extension AccountsCoordinator: WalletConnectDelegate {
                 viewModel.didSelectAccount = { accountAddress in
                     self.navigationController.pushViewController(
                         UIHostingController(
-                            rootView: WalletConnectProposalApprovalView(accountName: accountAddress, proposal: proposal.proposalData)),
-                            animated: true
+                            rootView: WalletConnectApprovalView(
+                                title: "walletconnect.connect.approve.title".localized,
+                                subtitle: "walletconnect.connect.approve.subtitle".localizedNonempty,
+                                contentView: WalletConnectProposalApprovalView(
+                                    accountName: accountAddress,
+                                    proposal: proposal.proposalData
+                                ),
+                                viewModel: .init(
+                                    didAccept: {
+                                        // TODO Push "connected" screen that just allows user to disconnect.
+                                        //      Request events are handled by the 'sessionRequestPublisher' listener below.
+                                    },
+                                    didDecline: {
+                                        // User declined the request to connect.
+                                        Task {
+                                            do {
+                                                try await Sign.instance.reject(proposalId: proposal.id, reason: .userRejected)
+                                            } catch let error {
+                                                print("ERROR: rejection of connection failed: \(error)")
+                                            }
+                                        }
+                                        self.navigationController.popToRootViewController(animated: true)
+                                    }
+                                )
+                            )
+                        ),
+                        animated: true
                     )
                 }
 
@@ -289,16 +314,24 @@ extension AccountsCoordinator: WalletConnectDelegate {
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
             .sink { request, _ in
-                // TODO: Display approve screen once it's done.
-                print("SUCCESS \(request)")
+                print("DEBUG: Incoming request: \(request)") // TODO handle...
             }
             .store(in: &cancellables)
-        let wc = "wc:677984ecd07d46ec44d4debf4f37f59f774fb18244f80dc6747bb2a115a45adb@2?relay-protocol=irn&symKey=41a5108321b9579e0964cb1ebd40415452fc7a6edbe801377c58e3d081213fc1"
+
+        // Temporarily use hardcoded connection string rather than scanning QR code.
+        // Unsure why, but if we clear pairings and instantiate this one, it seems to connect without the proposal thing...
+        let wc = "wc:421b7265636193b8f2e47ebd43be886d8c22f0fe96a4b8986e84a5227fca530d@2?relay-protocol=irn&symKey=691b4364c2bf4ee8f1a7acecc82971a20f1e20009151e42363bd863c5416b7f9"
+        do {
+            try Pair.instance.cleanup()
+        } catch let error {
+            print("ERROR: cannot clean up pairings: \(error)")
+        }
+        
         Task {
             do {
                 try await Pair.instance.pair(uri: WalletConnectURI(string: wc)!)
             } catch let error {
-                print("error!!! \(error)")
+                print("ERROR: cannot pair: \(error)")
             }
         }
 
