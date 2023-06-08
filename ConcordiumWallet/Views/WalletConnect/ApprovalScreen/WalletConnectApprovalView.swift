@@ -83,7 +83,7 @@ struct WalletConnectProposalApprovalView: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
             }
-            .frame(width: .infinity)
+//            .frame(width: .infinity)
             .padding(16)
             .background(.black)
             .cornerRadius(10)

@@ -262,12 +262,16 @@ extension AccountsCoordinator: WalletConnectDelegate {
         Pair.configure(metadata: metadata)
         Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
 
+        // Handler for session proposals, i.e. requests for connections to be established.
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { failure in
                 print(failure) // TODO: should we handle error?
             }, receiveValue: { [weak self] proposal, _ in
                 guard let self = self else { return }
+                
+                // TODO Auto-reject proposal if namespaces include non-supported chain/method/event.
+                
                 let viewModel = WalletConnectAccountSelectViewModel(
                     storageManager: self.dependencyProvider.storageManager(), proposal: proposal
                 )
@@ -284,11 +288,28 @@ extension AccountsCoordinator: WalletConnectDelegate {
                                 ),
                                 viewModel: .init(
                                     didAccept: {
-                                        // TODO Push "connected" screen that just allows user to disconnect.
-                                        //      Request events are handled by the 'sessionRequestPublisher' listener below.
+                                        Task {
+                                            do {
+                                                try await Sign.instance.approve(
+                                                    proposalId: proposal.id,
+                                                    namespaces: [ // TODO un-hardcode
+                                                        "ccd": SessionNamespace(
+                                                            chains: [Blockchain("ccd:testnet")!],
+                                                            accounts: [Account("ccd:testnet:\(accountAddress)")!],
+                                                            methods: ["sign_and_send_transaction", "sign_message"],
+                                                            events: ["chain_changed", "accounts_changed"]
+                                                        )
+                                                ])
+                                            } catch {
+                                                print("ERROR: approval of connection failed: \(error)")
+                                            }
+                                        }
+                                        
+                                        // TODO In "sessionSettlePublisher" event listener below, push "connected" screen that just allows user to disconnect.
+                                        //      Handle request events in 'sessionRequestPublisher' listener.
                                     },
                                     didDecline: {
-                                        // User declined the request to connect.
+                                        // User declined the request to connect. Reject it and don't await completion before popping the VC.
                                         Task {
                                             do {
                                                 try await Sign.instance.reject(proposalId: proposal.id, reason: .userRejected)
@@ -296,6 +317,8 @@ extension AccountsCoordinator: WalletConnectDelegate {
                                                 print("ERROR: rejection of connection failed: \(error)")
                                             }
                                         }
+                                        
+                                        // TODO Should do in response to "reject" event?
                                         self.navigationController.popToRootViewController(animated: true)
                                     }
                                 )
@@ -310,7 +333,59 @@ extension AccountsCoordinator: WalletConnectDelegate {
 
             })
             .store(in: &cancellables)
+        
+        // For now we just print the following events.
+        Sign.instance.sessionDeletePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (sessionId, reason) in
+                print("DEBUG: Session \(sessionId) deleted with reason \(reason)")
+            }
+            .store(in: &cancellables)
+        Sign.instance.sessionEventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { event in
+                print("DEBUG: Session event: \(event)")
+            }
+            .store(in: &cancellables)
+        Sign.instance.sessionExtendPublisher
+            .sink { (sessionTopic, date) in
+                print("DEBUG: Session \(sessionTopic) extended until \(date)")
+            }
+            .store(in: &cancellables)
+        Sign.instance.sessionSettlePublisher
+            .sink { session in
+                // TODO Open "disconnect" screen.
+                print("DEBUG: Session \(session) settled")
+            }
+            .store(in: &cancellables)
+        Sign.instance.sessionUpdatePublisher
+            .sink { (sessionTopic, namespaces) in
+                print("DEBUG: Session \(sessionTopic) updated")
+            }
+            .store(in: &cancellables)
+        Sign.instance.socketConnectionStatusPublisher
+            .sink { status in
+                print("DEBUG: Socket connection status update: \(status)")
+            }
+            .store(in: &cancellables)
+        Sign.instance.sessionResponsePublisher
+            .sink { response in
+                print("DEBUG: Response: \(response)")
+            }
+            .store(in: &cancellables)
+        Sign.instance.sessionRejectionPublisher
+            .sink { (proposal, reason) in
+                print("DEBUG: Proposal \(proposal) rejected with reason \(reason)")
+            }
+            .store(in: &cancellables)
+        
+    Sign.instance.pingResponsePublisher
+        .sink { ping in
+            print("DEBUG: Ping: \(ping)")
+        }
+        .store(in: &cancellables)
 
+        // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
             .sink { request, _ in
@@ -320,7 +395,7 @@ extension AccountsCoordinator: WalletConnectDelegate {
 
         // Temporarily use hardcoded connection string rather than scanning QR code.
         // Unsure why, but if we clear pairings and instantiate this one, it seems to connect without the proposal thing...
-        let wc = "wc:421b7265636193b8f2e47ebd43be886d8c22f0fe96a4b8986e84a5227fca530d@2?relay-protocol=irn&symKey=691b4364c2bf4ee8f1a7acecc82971a20f1e20009151e42363bd863c5416b7f9"
+        let wc = "wc:39e17f8223d80748d56e528c6715f211afd3b4e0dee4ac887a79d644308d157a@2?relay-protocol=irn&symKey=c370924b1dd87b047fc8726f33d80adecc41f350635979bfbe597c58fcf5f2bd"
         do {
             try Pair.instance.cleanup()
         } catch let error {
