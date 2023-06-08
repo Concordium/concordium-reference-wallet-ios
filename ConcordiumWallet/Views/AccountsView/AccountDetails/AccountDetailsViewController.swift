@@ -155,6 +155,9 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         
         let buttonSlider = ButtonSlider(
             isShielded: isShielded,
+            actionTokens: {
+                // TODO
+            },
             actionSend: {
                 if self.sendEnabled {
                     self.presenter.userTappedSend()
@@ -176,7 +179,8 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             actionSettings: {
                 self.presenter.burgerButtonTapped()
             },
-            disabled: !areActionsEnabled)
+            isDisabled: !areActionsEnabled
+        )
         let childView = UIHostingController(rootView: buttonSlider)
         addChild(childView)
         childView.view.frame = buttonSliderContainer.bounds
