@@ -261,6 +261,12 @@ extension AccountsCoordinator: WalletConnectDelegate {
         )
         Pair.configure(metadata: metadata)
         Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
+        
+        // TODO Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
+        
+        // TODO Don't allow going back to views corresponding to previous states.
+        
+        // Register handlers for WalletConnect events.
 
         // Handler for session proposals, i.e. requests for connections to be established.
         Sign.instance.sessionProposalPublisher
@@ -268,12 +274,16 @@ extension AccountsCoordinator: WalletConnectDelegate {
             .sink(receiveCompletion: { failure in
                 print(failure) // TODO: should we handle error?
             }, receiveValue: { [weak self] proposal, _ in
+                print("DEBUG: Session \(proposal) proposed")
+                
                 guard let self = self else { return }
                 
-                // TODO Auto-reject proposal if namespaces include non-supported chain/method/event.
+                // TODO Auto-reject proposal if namespaces doesn't exactly match expected chain/method/event.
+                //      And show user appropriate error...
                 
                 let viewModel = WalletConnectAccountSelectViewModel(
-                    storageManager: self.dependencyProvider.storageManager(), proposal: proposal
+                    storageManager: self.dependencyProvider.storageManager(),
+                    proposal: proposal
                 )
 
                 viewModel.didSelectAccount = { accountAddress in
@@ -304,12 +314,9 @@ extension AccountsCoordinator: WalletConnectDelegate {
                                                 print("ERROR: approval of connection failed: \(error)")
                                             }
                                         }
-                                        
-                                        // TODO In "sessionSettlePublisher" event listener below, push "connected" screen that just allows user to disconnect.
-                                        //      Handle request events in 'sessionRequestPublisher' listener.
                                     },
                                     didDecline: {
-                                        // User declined the request to connect. Reject it and don't await completion before popping the VC.
+                                        // User declined the request to connect: Reject it.
                                         Task {
                                             do {
                                                 try await Sign.instance.reject(proposalId: proposal.id, reason: .userRejected)
@@ -318,7 +325,8 @@ extension AccountsCoordinator: WalletConnectDelegate {
                                             }
                                         }
                                         
-                                        // TODO Should do in response to "reject" event?
+                                        // Pop the VC without waiting for rejection to complete.
+                                        self.navigationController.setNavigationBarHidden(false, animated: false)
                                         self.navigationController.popToRootViewController(animated: true)
                                     }
                                 )
@@ -327,8 +335,8 @@ extension AccountsCoordinator: WalletConnectDelegate {
                         animated: true
                     )
                 }
-
                 let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
+                self.navigationController.setNavigationBarHidden(true, animated: false)
                 self.navigationController.pushViewController(viewController, animated: true)
 
             })
@@ -337,8 +345,14 @@ extension AccountsCoordinator: WalletConnectDelegate {
         // For now we just print the following events.
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { (sessionId, reason) in
+            .sink { sessionId, reason in
+                // Called when the dApp disconnects - not when we do ourselves!
                 print("DEBUG: Session \(sessionId) deleted with reason \(reason)")
+                
+                // Connection lost or disconnected: Pop "connected" screen.
+                // TODO Only do this if we're actually on that screen (i.e. the deleted session matches the currently connected one).
+                self.navigationController.setNavigationBarHidden(false, animated: false)
+                self.navigationController.popToRootViewController(animated: true)
             }
             .store(in: &cancellables)
         Sign.instance.sessionEventPublisher
@@ -348,42 +362,70 @@ extension AccountsCoordinator: WalletConnectDelegate {
             }
             .store(in: &cancellables)
         Sign.instance.sessionExtendPublisher
-            .sink { (sessionTopic, date) in
+            .receive(on: DispatchQueue.main)
+            .sink { sessionTopic, date in
                 print("DEBUG: Session \(sessionTopic) extended until \(date)")
             }
             .store(in: &cancellables)
         Sign.instance.sessionSettlePublisher
+            .receive(on: DispatchQueue.main)
             .sink { session in
-                // TODO Open "disconnect" screen.
                 print("DEBUG: Session \(session) settled")
+                
+                // Connection established: Open "connected" screen.
+                self.navigationController.pushViewController(
+                    UIHostingController(
+                        rootView: WalletConnectConnectedView(
+                            dappName: "TODO", accountName: "TODO", didDisconnect: {
+                                // User clicked the disconnect button.
+                                Task {
+                                    do {
+                                        try await Sign.instance.disconnect(topic: session.topic)
+                                    } catch let error {
+                                        print("ERROR: cannot disconnect: \(error)")
+                                    }
+                                }
+                                // Pop the VC without waiting for disconnect to complete.
+                                self.navigationController.setNavigationBarHidden(false, animated: false)
+                                self.navigationController.popToRootViewController(animated: true)
+                            }
+                        )
+                    ),
+                    animated: true
+                )
             }
             .store(in: &cancellables)
         Sign.instance.sessionUpdatePublisher
-            .sink { (sessionTopic, namespaces) in
+            .receive(on: DispatchQueue.main)
+            .sink { sessionTopic, namespaces in
                 print("DEBUG: Session \(sessionTopic) updated")
             }
             .store(in: &cancellables)
         Sign.instance.socketConnectionStatusPublisher
+            .receive(on: DispatchQueue.main)
             .sink { status in
                 print("DEBUG: Socket connection status update: \(status)")
             }
             .store(in: &cancellables)
         Sign.instance.sessionResponsePublisher
+            .receive(on: DispatchQueue.main)
             .sink { response in
                 print("DEBUG: Response: \(response)")
             }
             .store(in: &cancellables)
         Sign.instance.sessionRejectionPublisher
-            .sink { (proposal, reason) in
+            .receive(on: DispatchQueue.main)
+            .sink { proposal, reason in
                 print("DEBUG: Proposal \(proposal) rejected with reason \(reason)")
             }
             .store(in: &cancellables)
         
-    Sign.instance.pingResponsePublisher
-        .sink { ping in
-            print("DEBUG: Ping: \(ping)")
-        }
-        .store(in: &cancellables)
+        Sign.instance.pingResponsePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { ping in
+                print("DEBUG: Ping: \(ping)")
+            }
+            .store(in: &cancellables)
 
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
@@ -393,38 +435,37 @@ extension AccountsCoordinator: WalletConnectDelegate {
             }
             .store(in: &cancellables)
 
-        // Temporarily use hardcoded connection string rather than scanning QR code.
-        // Unsure why, but if we clear pairings and instantiate this one, it seems to connect without the proposal thing...
-        let wc = "wc:39e17f8223d80748d56e528c6715f211afd3b4e0dee4ac887a79d644308d157a@2?relay-protocol=irn&symKey=c370924b1dd87b047fc8726f33d80adecc41f350635979bfbe597c58fcf5f2bd"
+//        // Temporarily use hardcoded connection string rather than scanning QR code.
+//        // Unsure why, but if we clear pairings and instantiate this one, it seems to connect without the proposal thing...
+//        let wc = "wc:39e17f8223d80748d56e528c6715f211afd3b4e0dee4ac887a79d644308d157a@2?relay-protocol=irn&symKey=c370924b1dd87b047fc8726f33d80adecc41f350635979bfbe597c58fcf5f2bd"
         do {
             try Pair.instance.cleanup()
         } catch let error {
             print("ERROR: cannot clean up pairings: \(error)")
         }
         
-        Task {
-            do {
-                try await Pair.instance.pair(uri: WalletConnectURI(string: wc)!)
-            } catch let error {
-                print("ERROR: cannot pair: \(error)")
-            }
-        }
+        // Show QR code scanner.
+        let vc = ScanQRViewControllerFactory.create(
+            with: ScanQRPresenter(
+                didScanQrCode: { [weak self] value in
+                    // TODO Can do more detailed check?
+                    if !value.hasPrefix("wc:") {
+                        return false
+                    }
 
-//        let vc = ScanQRViewControllerFactory.create(
-//            with: ScanQRPresenter(
-//                didScanQrCode: { [weak self] value in
-//                    // TODO Can do more detailed check?
-//                    if !value.lowercased().hasPrefix("wc:") {
-//                        return false
-//                    }
-//
-//                    // Successfully scanner WalletConnect QR.
-//                    // TODO: Handle Wallet Connect logic here
-//                    self?.navigationController.popViewController(animated: true)
-//                    return true
-//                }
-//            )
-//        )
-//        navigationController.pushViewController(vc, animated: true)
+                    // Successfully scanner WalletConnect QR.
+                    Task {
+                        do {
+                            try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
+                        } catch let error {
+                            print("ERROR: cannot pair: \(error)")
+                        }
+                    }
+                    self?.navigationController.popViewController(animated: true)
+                    return true
+                }
+            )
+        )
+        navigationController.pushViewController(vc, animated: true)
     }
 }
