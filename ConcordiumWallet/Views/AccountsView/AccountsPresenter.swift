@@ -124,6 +124,11 @@ protocol AccountsPresenterDelegate: AnyObject {
     func didSelectMakeBackup()
     func didSelectPendingIdentity(identity: IdentityDataType)
     func showSettings()
+    func showWalletConnectScanner()
+}
+
+extension AccountsPresenterDelegate {
+    func showWalletConnectScanner() {}
 }
 
 // MARK: View

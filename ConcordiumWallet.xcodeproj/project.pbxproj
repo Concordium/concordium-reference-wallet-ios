@@ -7,7 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01024FB52A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */; };
+		01024FB62A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */; };
+		01024FB72A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */; };
+		01024FB82A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */; };
+		010BCB002A2F563000B50D67 /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010BCAFF2A2F563000B50D67 /* SocketFactory.swift */; };
+		010BCB012A2F563000B50D67 /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010BCAFF2A2F563000B50D67 /* SocketFactory.swift */; };
+		010BCB022A2F563000B50D67 /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010BCAFF2A2F563000B50D67 /* SocketFactory.swift */; };
+		010BCB032A2F563000B50D67 /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010BCAFF2A2F563000B50D67 /* SocketFactory.swift */; };
+		010BCB062A2F574E00B50D67 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 010BCB052A2F574E00B50D67 /* Starscream */; };
+		0111D7272A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7222A2DFE7000E05D35 /* AccountSelectViewController.swift */; };
+		0111D7282A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7222A2DFE7000E05D35 /* AccountSelectViewController.swift */; };
+		0111D7292A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7222A2DFE7000E05D35 /* AccountSelectViewController.swift */; };
+		0111D72A2A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7222A2DFE7000E05D35 /* AccountSelectViewController.swift */; };
+		0111D72B2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */; };
+		0111D72C2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */; };
+		0111D72D2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */; };
+		0111D72E2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */; };
+		0111D72F2A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */; };
+		0111D7302A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */; };
+		0111D7312A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */; };
+		0111D7322A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */; };
+		0111D7332A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */; };
+		0111D7342A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */; };
+		0111D7352A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */; };
+		0111D7362A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */; };
+		0111D7382A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
+		0111D7392A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
+		0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
+		0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
+		01E070572A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
+		01E070582A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
+		01E070592A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
+		01E0705A2A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
+		01E0705C2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
+		01E0705D2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
+		01E0705E2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
+		01E0705F2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
 		0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604236D23FD617F0085D14C /* TransparentNavigationController.swift */; };
 		067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */; };
 		067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */; };
@@ -2399,6 +2436,17 @@
 		CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */; };
 		CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */; };
 		CD11520D2A03E54300A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */; };
+		CD3D4C572A36515E0087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
+		CD3D4C582A3651850087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
+		CD3D4C592A3651860087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
+		CD3D4C5A2A3651860087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
+		CDAB513F2A3863A30010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB513E2A3863A30010D12B /* Web3Wallet */; };
+		CDAB51412A3863BC0010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51402A3863BC0010D12B /* Web3Wallet */; };
+		CDAB51432A3863D50010D12B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51422A3863D50010D12B /* Starscream */; };
+		CDAB51452A3863DA0010D12B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51442A3863DA0010D12B /* Starscream */; };
+		CDAB51472A3863EC0010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51462A3863EC0010D12B /* Web3Wallet */; };
+		CDAB51492A3863F40010D12B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51482A3863F40010D12B /* Starscream */; };
+		CDAB514B2A3863F80010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB514A2A3863F80010D12B /* Web3Wallet */; };
 		FA01C9D2291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
 		FA01C9D3291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
 		FA01C9D4291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
@@ -2618,7 +2666,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectViewModel.swift; sourceTree = "<group>"; };
+		010BCAFF2A2F563000B50D67 /* SocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketFactory.swift; sourceTree = "<group>"; };
+		0111D7222A2DFE7000E05D35 /* AccountSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSelectViewController.swift; sourceTree = "<group>"; };
+		0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectView.swift; sourceTree = "<group>"; };
+		0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountItemView.swift; sourceTree = "<group>"; };
+		0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectViewController.swift; sourceTree = "<group>"; };
+		0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SwiftUI.swift"; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
+		01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalViewController.swift; sourceTree = "<group>"; };
+		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
 		067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfoLabel.swift; sourceTree = "<group>"; };
 		067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWarningLabel.swift; sourceTree = "<group>"; };
@@ -3284,6 +3341,7 @@
 		C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetViewController.swift; sourceTree = "<group>"; };
+		CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectConnectedView.swift; sourceTree = "<group>"; };
 		FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Dimensions.swift"; sourceTree = "<group>"; };
 		FA01C9BD291C5D2E00BD8738 /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helper.swift"; sourceTree = "<group>"; };
 		FA01C9BE291C5D2E00BD8738 /* UserDefaults+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Helper.swift"; sourceTree = "<group>"; };
@@ -3328,10 +3386,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAB51432A3863D50010D12B /* Starscream in Frameworks */,
 				FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */,
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
+				CDAB513F2A3863A30010D12B /* Web3Wallet in Frameworks */,
 				CD1152072A03E4F000A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3342,7 +3402,9 @@
 			files = (
 				FA0CAAE7292EADA00009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67C286AC73B0007CAF1 /* SwiftCBOR in Frameworks */,
+				010BCB062A2F574E00B50D67 /* Starscream in Frameworks */,
 				8927A673286AC69B0007CAF1 /* RealmSwift in Frameworks */,
+				CDAB51472A3863EC0010D12B /* Web3Wallet in Frameworks */,
 				CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC55286DBA2200BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B7BB246A9A7C00ED09B8 /* WebKit.framework in Frameworks */,
@@ -3353,9 +3415,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAB51492A3863F40010D12B /* Starscream in Frameworks */,
 				FA0CAAE9292EADA70009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67E286AC7410007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A675286AC6A20007CAF1 /* RealmSwift in Frameworks */,
+				CDAB514B2A3863F80010D12B /* Web3Wallet in Frameworks */,
 				CD11520D2A03E54300A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC57286DBA2800BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
@@ -3371,7 +3435,9 @@
 				8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */,
 				CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC53286DBA1D00BDF84C /* MnemonicSwift in Frameworks */,
+				CDAB51412A3863BC0010D12B /* Web3Wallet in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
+				CDAB51452A3863DA0010D12B /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3385,12 +3451,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0111D7212A2DFE7000E05D35 /* WalletConnect */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D4C552A36514C0087B177 /* ConnectedScreen */,
+				01E070552A306D0100B44B2B /* ApprovalScreen */,
+				0111D7232A2DFE7000E05D35 /* AccountSelect */,
+			);
+			path = WalletConnect;
+			sourceTree = "<group>";
+		};
+		0111D7232A2DFE7000E05D35 /* AccountSelect */ = {
+			isa = PBXGroup;
+			children = (
+				0111D7222A2DFE7000E05D35 /* AccountSelectViewController.swift */,
+				0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */,
+				0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */,
+				0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */,
+				01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */,
+			);
+			path = AccountSelect;
+			sourceTree = "<group>";
+		};
 		01AD79A32A250C2A0023E063 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
 				01AD79A62A250C710023E063 /* QRScannerViewTests.swift */,
 			);
 			path = QRScanner;
+			sourceTree = "<group>";
+		};
+		01E070552A306D0100B44B2B /* ApprovalScreen */ = {
+			isa = PBXGroup;
+			children = (
+				01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */,
+				01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */,
+			);
+			path = ApprovalScreen;
 			sourceTree = "<group>";
 		};
 		0604236C23FD61560085D14C /* NavigationController */ = {
@@ -3894,6 +3991,7 @@
 		19C2EE0B35E8E0C9D94B7000 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				010BCAFF2A2F563000B50D67 /* SocketFactory.swift */,
 				19C2E48EE4A459F550BEBDEB /* ApiConstants.swift */,
 				19C2E7D36B6A9E135ADEB6C1 /* NetworkManager.swift */,
 				19C2E6329CED11F621E08269 /* NetworkManagerProtocol.swift */,
@@ -4497,6 +4595,7 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0111D7212A2DFE7000E05D35 /* WalletConnect */,
 				19C2E50D27878D62320AE14B /* ScanQR */,
 				891B19F628A6132D00F4B0D6 /* SeedIdentities */,
 				89A056E1286C55030055C049 /* RecoveryPhrase */,
@@ -5271,9 +5370,18 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		CD3D4C552A36514C0087B177 /* ConnectedScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */,
+			);
+			path = ConnectedScreen;
+			sourceTree = "<group>";
+		};
 		FA01C9BB291C5C3E00BD8738 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */,
 				FA01C9D0291C5D3000BD8738 /* CGFloat+Helper.swift */,
 				FA01C9C0291C5D2F00BD8738 /* Collection+Helper.swift */,
 				FA01C9CA291C5D3000BD8738 /* Date+Helper.swift */,
@@ -5342,6 +5450,8 @@
 				893CAC50286DBA1200BDF84C /* MnemonicSwift */,
 				FA0DBD89292BF4360051C0D7 /* MatomoTracker */,
 				CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */,
+				CDAB513E2A3863A30010D12B /* Web3Wallet */,
+				CDAB51422A3863D50010D12B /* Starscream */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5367,6 +5477,8 @@
 				893CAC54286DBA2200BDF84C /* MnemonicSwift */,
 				FA0CAAE6292EADA00009D5F8 /* MatomoTracker */,
 				CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */,
+				010BCB052A2F574E00B50D67 /* Starscream */,
+				CDAB51462A3863EC0010D12B /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
@@ -5392,6 +5504,8 @@
 				893CAC56286DBA2800BDF84C /* MnemonicSwift */,
 				FA0CAAE8292EADA70009D5F8 /* MatomoTracker */,
 				CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */,
+				CDAB51482A3863F40010D12B /* Starscream */,
+				CDAB514A2A3863F80010D12B /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -5417,6 +5531,8 @@
 				893CAC52286DBA1D00BDF84C /* MnemonicSwift */,
 				FA0CAAE4292E92480009D5F8 /* MatomoTracker */,
 				CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */,
+				CDAB51402A3863BC0010D12B /* Web3Wallet */,
+				CDAB51442A3863DA0010D12B /* Starscream */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -5476,6 +5592,8 @@
 				893CAC4F286DBA1200BDF84C /* XCRemoteSwiftPackageReference "MnemonicSwift" */,
 				FA0DBD88292BF4360051C0D7 /* XCRemoteSwiftPackageReference "matomo-sdk-ios" */,
 				CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
+				01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
+				010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -5960,6 +6078,7 @@
 				7F48C273244E17D100997684 /* MakeCreateCredentialRequest.swift in Sources */,
 				64DB66B325DE643D00F4C605 /* AboutViewController.swift in Sources */,
 				07519F8826FCB21B00F4E6E3 /* Data+Additions.swift in Sources */,
+				0111D7382A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				89B34A6A2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */,
 				7F48C153244DCD0B00997684 /* UIStackView+extension.swift in Sources */,
 				64FD33CB2602330B00563703 /* CredentialResponse.swift in Sources */,
@@ -5983,8 +6102,10 @@
 				528EB75E25647A7F00010554 /* CredentialValue.swift in Sources */,
 				C94ED725246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				901F7F5827EB4F7800C46741 /* StakeRowViewModel.swift in Sources */,
+				0111D72F2A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
 				89D46838289BE325007D3FC8 /* SelectIdentityProviderView.swift in Sources */,
 				901F7F3927EB07AE00C46741 /* BakerEntity.swift in Sources */,
+				0111D7272A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */,
 				7F48C160244DCD0B00997684 /* IdentityChoosePresenter.swift in Sources */,
 				7F48C161244DCD0B00997684 /* KeychainWrapper.swift in Sources */,
 				7F48C163244DCD0B00997684 /* UIButton+StoryboardLocalization.swift in Sources */,
@@ -6112,8 +6233,10 @@
 				FA01C9D2291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
 				891B19DD28A39C8D00F4B0D6 /* SeedAccountsService.swift in Sources */,
 				7F48C19F244DCD0B00997684 /* IdentitiesCoordinator.swift in Sources */,
+				01024FB52A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */,
 				901F7F4827EB4D6A00C46741 /* BakerDataHandler.swift in Sources */,
 				7F48C1A1244DCD0B00997684 /* CreateAccountCoordinator.swift in Sources */,
+				01E070572A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */,
 				7F85B8F42472D39800ED09B8 /* MoreMenuViewController.swift in Sources */,
 				7FA0AE9D246047BB00B7673F /* Details.swift in Sources */,
 				52DCAA0027CD619A00CDF85E /* BurgerMenuAccountDetailsPresenter.swift in Sources */,
@@ -6128,6 +6251,7 @@
 				FA01CA06291C5D3100BD8738 /* UIViewController+Helper.swift in Sources */,
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
 				8D9E398C29505546007ED183 /* ExportTransactionLogViewModel.swift in Sources */,
+				0111D72B2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
 				891B1A1428ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
@@ -6145,6 +6269,7 @@
 				528EB727255ABACE00010554 /* PublicKeys.swift in Sources */,
 				7F48C254244DD56D00997684 /* ServicesProvider+mock.swift in Sources */,
 				909EAF2827F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
+				CD3D4C572A36515E0087B177 /* WalletConnectConnectedView.swift in Sources */,
 				529531A9256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				FA0CAB2E294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */,
 				7F48C1AB244DCD0B00997684 /* UITextField+Extensions.swift in Sources */,
@@ -6189,6 +6314,7 @@
 				7F48C1BC244DCD0B00997684 /* AccountCell.swift in Sources */,
 				7F48C253244DCEF700997684 /* NetworkSessionMock.swift in Sources */,
 				52B2CE5D24F68B4A0092F8EB /* GlobalWrapper.swift in Sources */,
+				010BCB002A2F563000B50D67 /* SocketFactory.swift in Sources */,
 				7F48C1BE244DCD0B00997684 /* IdentityDataSelectionCell.swift in Sources */,
 				7F168A0824812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
 				8D9E398A2950552E007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
@@ -6228,6 +6354,7 @@
 				6461F5DD29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
 				52055F9025541AC80071F7CA /* AccountCardView.swift in Sources */,
 				7F48C1D3244DCD0B00997684 /* IdentityDataWidgetViewController.swift in Sources */,
+				0111D7332A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */,
 				529531AD256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
 				7FA0AE9B246047AA00B7673F /* OriginTypeEnum.swift in Sources */,
 				52B2CE4924F6806B0092F8EB /* ArsInfo.swift in Sources */,
@@ -6316,6 +6443,7 @@
 				7F48C1F9244DCD0B00997684 /* SelectRecipientPresenter.swift in Sources */,
 				7F48C282244E181800997684 /* URL+queryParameters.swift in Sources */,
 				7FB64A0D247D568500DC500E /* ExportViewController.swift in Sources */,
+				01E0705C2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */,
 				897D0F1E288EA47E001CEC3B /* RecoveryPhraseConfirmPhraseViewModel.swift in Sources */,
 				5251EFA427C6301C006991DD /* AlertDisplayer.swift in Sources */,
 				FA01C9FE291C5D3100BD8738 /* StringProtocol+Helper.swift in Sources */,
@@ -6538,6 +6666,7 @@
 				891B19FA28A6135900F4B0D6 /* SeedIdentitiesService.swift in Sources */,
 				077AC5FB26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BD27C5108E00251603 /* Validator.swift in Sources */,
+				0111D7352A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */,
 				7F85B722246A9A7C00ED09B8 /* IdentityDataWidgetPresenter.swift in Sources */,
 				893CAC8E286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B723246A9A7C00ED09B8 /* Global.swift in Sources */,
@@ -6571,6 +6700,7 @@
 				7F85B733246A9A7C00ED09B8 /* TransferCost.swift in Sources */,
 				7F85B736246A9A7C00ED09B8 /* AccountDetailsCoordinator.swift in Sources */,
 				89D4680F289BC757007D3FC8 /* SeedIdentityOnboardingViewModel.swift in Sources */,
+				0111D7312A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
 				5248E7D9257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				7F85B738246A9A7C00ED09B8 /* ScanQRViewController.swift in Sources */,
 				901F7F1A27EA0F1B00C46741 /* CommissionRange.swift in Sources */,
@@ -6590,8 +6720,10 @@
 				8D61F4772955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B741246A9A7C00ED09B8 /* IdentitiesCoordinator.swift in Sources */,
 				7F85B742246A9A7C00ED09B8 /* PreIdentityObject.swift in Sources */,
+				0111D72D2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A092892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				7F85B743246A9A7C00ED09B8 /* CreateAccountCoordinator.swift in Sources */,
+				0111D7292A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */,
 				642A28A725FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
 				7F85B744246A9A7C00ED09B8 /* GeneralFormatter.swift in Sources */,
 				52D35114250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
@@ -6607,6 +6739,7 @@
 				9078546D28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				891B19E428A39DC000F4B0D6 /* CreateSeedCredentialRequest.swift in Sources */,
 				64FD335025FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
+				CD3D4C592A3651860087B177 /* WalletConnectConnectedView.swift in Sources */,
 				644BB67525DFB4220086ED48 /* main.swift in Sources */,
 				8DB887B2295D777400BBEB76 /* AccountSettingsViewModel.swift in Sources */,
 				52CE0C7B250FFEC70018B5D1 /* Encrypted.swift in Sources */,
@@ -6687,6 +6820,7 @@
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
 				901F7F4027EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
+				010BCB022A2F563000B50D67 /* SocketFactory.swift in Sources */,
 				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467DF289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
 				89B34A672897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
@@ -6787,6 +6921,7 @@
 				077FD7DE269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B7A0246A9A7C00ED09B8 /* AccountAddressQRCoordinator.swift in Sources */,
 				9074C71627D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
+				01024FB72A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */,
 				7F85B7A1246A9A7C00ED09B8 /* ToastLabel.swift in Sources */,
 				642ED93525E8F12300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D3F24A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
@@ -6858,6 +6993,7 @@
 				89D467FD289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
 				89D4686E289D219F007D3FC8 /* SeedIdentityStatusViewModel.swift in Sources */,
 				7F85B7B5246A9A7C00ED09B8 /* SubmissionStatusService.swift in Sources */,
+				0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				891B19D528A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
 				FA0CAB26294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
@@ -6918,10 +7054,12 @@
 				070D61E127B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				5211BAAE24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E4034C5A942BE94EFD73 /* ExportContainer.swift in Sources */,
+				01E0705E2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */,
 				89B34A3A2893D0A50059891C /* PageList.swift in Sources */,
 				5251EFA027BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				19C2EBBA614AB2996127C30C /* CreateExportPasswordPresenter.swift in Sources */,
 				FA01C9FC291C5D3100BD8738 /* UINavigationItem+Helper.swift in Sources */,
+				01E070592A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */,
 				19C2E7AA27024C4F32B39273 /* ExportPresenter.swift in Sources */,
 				079F310426EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				89A056FA286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
@@ -7082,6 +7220,7 @@
 				891B19FB28A6135900F4B0D6 /* SeedIdentitiesService.swift in Sources */,
 				077AC5FC26E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				07A799BE27C5108E00251603 /* Validator.swift in Sources */,
+				0111D7362A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */,
 				7F85B81E246A9AB600ED09B8 /* JSONObject.swift in Sources */,
 				893CAC8F286F274900BDF84C /* RecoveryPhraseOnboardingViewModel.swift in Sources */,
 				7F85B81F246A9AB600ED09B8 /* TransactionSubmittedPresenter.swift in Sources */,
@@ -7115,6 +7254,7 @@
 				7F85B832246A9AB600ED09B8 /* TransferCost.swift in Sources */,
 				7F85B835246A9AB600ED09B8 /* AccountDetailsCoordinator.swift in Sources */,
 				89D46810289BC757007D3FC8 /* SeedIdentityOnboardingViewModel.swift in Sources */,
+				0111D7322A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
 				5248E7DA257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
 				7F85B837246A9AB600ED09B8 /* ScanQRViewController.swift in Sources */,
 				901F7F1B27EA0F1B00C46741 /* CommissionRange.swift in Sources */,
@@ -7134,8 +7274,10 @@
 				8D61F4782955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B83F246A9AB600ED09B8 /* Policy.swift in Sources */,
 				7F85B840246A9AB600ED09B8 /* IdentitiesCoordinator.swift in Sources */,
+				0111D72E2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A0A2892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				7F85B841246A9AB600ED09B8 /* PreIdentityObject.swift in Sources */,
+				0111D72A2A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */,
 				642A28A825FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
 				7F85B842246A9AB600ED09B8 /* CreateAccountCoordinator.swift in Sources */,
 				52D35115250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
@@ -7151,6 +7293,7 @@
 				9078546E28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
 				891B19E528A39DC000F4B0D6 /* CreateSeedCredentialRequest.swift in Sources */,
 				64FD335125FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
+				CD3D4C5A2A3651860087B177 /* WalletConnectConnectedView.swift in Sources */,
 				644BB67625DFB4220086ED48 /* main.swift in Sources */,
 				8DB887B3295D777500BBEB76 /* AccountSettingsViewModel.swift in Sources */,
 				52CE0C7C250FFEC70018B5D1 /* Encrypted.swift in Sources */,
@@ -7231,6 +7374,7 @@
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				901F7F4127EB07B800C46741 /* DelegationEntity.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
+				010BCB032A2F563000B50D67 /* SocketFactory.swift in Sources */,
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467E0289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
 				89B34A682897CF540059891C /* IdentityRecoveryStatusViewModel.swift in Sources */,
@@ -7331,6 +7475,7 @@
 				077FD7DF269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				7F85B89D246A9AB600ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
 				9074C71727D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
+				01024FB82A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */,
 				7F85B89E246A9AB600ED09B8 /* AccountAddressQRViewController.swift in Sources */,
 				642ED93725E8F12400A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				7F7F6D4024A13A8D0017B18F /* WidgetAndLabelViewController.swift in Sources */,
@@ -7402,6 +7547,7 @@
 				89D467FE289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
 				89D4686F289D219F007D3FC8 /* SeedIdentityStatusViewModel.swift in Sources */,
 				7F85B8B2246A9AB600ED09B8 /* AccountsService.swift in Sources */,
+				0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				891B19D628A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
 				FA0CAB27294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
@@ -7462,10 +7608,12 @@
 				070D61E227B2A3C700B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				5211BAAF24FD2C1400EE1658 /* TransferType.swift in Sources */,
 				19C2E7649714190CA01BA378 /* MockedData.swift in Sources */,
+				01E0705F2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */,
 				89B34A3B2893D0A50059891C /* PageList.swift in Sources */,
 				5251EFA127BE895D006991DD /* WarningDisplayer.swift in Sources */,
 				19C2EAAD7644A803CCE64786 /* EncryptionMetadata.swift in Sources */,
 				FA01C9FD291C5D3100BD8738 /* UINavigationItem+Helper.swift in Sources */,
+				01E0705A2A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */,
 				19C2E693A35A80A8317F32D8 /* ExportContainer.swift in Sources */,
 				079F310526EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				89A056FB286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
@@ -7535,6 +7683,7 @@
 				07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
 				075A4BC4271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F21399824236ECB00D2A5C4 /* SubmissionStatus.swift in Sources */,
+				01E070582A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */,
 				C93D092724275C5A0022250B /* AccountConfirmedPresenter.swift in Sources */,
 				901F7EF927E9F47200C46741 /* StakeService.swift in Sources */,
 				893CAC42286D9A2700BDF84C /* PageViewModel.swift in Sources */,
@@ -7584,6 +7733,7 @@
 				C95CE0C42439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift in Sources */,
 				7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */,
 				90C371C027DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */,
+				01024FB62A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */,
 				7F7F6D3024A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
 				901F7F0E27EA0D5C00C46741 /* CurrentPaydayStatus.swift in Sources */,
 				52055F872552C1D90071F7CA /* NibLoadable.swift in Sources */,
@@ -7610,6 +7760,7 @@
 				64DB66C525DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89A056E5286C559C0055C049 /* RecoveryPhraseGettingStartedView.swift in Sources */,
 				52DCA9F727CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
+				CD3D4C582A3651850087B177 /* WalletConnectConnectedView.swift in Sources */,
 				8D9E398D29505936007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				893CACA1288E616300BDF84C /* PageIndicator.swift in Sources */,
 				C96632502459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
@@ -7695,6 +7846,7 @@
 				89D46801289BA089007D3FC8 /* SeedMobileWallet.swift in Sources */,
 				7FF07AD423EADBB100F1FC04 /* BaseNavigationController.swift in Sources */,
 				89D46877289D2233007D3FC8 /* SeedIdentityStatusPresenter.swift in Sources */,
+				010BCB012A2F563000B50D67 /* SocketFactory.swift in Sources */,
 				068DC81423F2E6FC001B2975 /* TitleLabel.swift in Sources */,
 				FA01C9D7291C5D3100BD8738 /* UIView+Helper.swift in Sources */,
 				079F310826EB69DD00ED96D3 /* SettingsHelper.swift in Sources */,
@@ -7769,6 +7921,7 @@
 				C93EFF3224107F26002D6DB7 /* IdentityCell.swift in Sources */,
 				89CF2D3B28168B2A00742E1E /* BakerPoolReceiptConfirmationPresenter.swift in Sources */,
 				C924B2242430799400081E23 /* UILabel+localized.swift in Sources */,
+				0111D7282A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */,
 				7FA0AE9624598D6500B7673F /* OriginTypeEnum.swift in Sources */,
 				529531BC256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				89D46813289BC7AD007D3FC8 /* SeedIdentityOnboardingView.swift in Sources */,
@@ -7801,6 +7954,7 @@
 				FA01CA03291C5D3100BD8738 /* UIButton+Helper.swift in Sources */,
 				7F85B8F02472D39400ED09B8 /* MoreCoordinator.swift in Sources */,
 				901F7F5F27EB501200C46741 /* DelegationStatusPresenter.swift in Sources */,
+				0111D7392A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				909EAF2927F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
 				89B34A032892AACE0059891C /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				89B34A342892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
@@ -7994,6 +8148,7 @@
 				528EB75F25647A7F00010554 /* CredentialValue.swift in Sources */,
 				19C2EDBEDB57974F684F703B /* ExportAccount.swift in Sources */,
 				19C2E56B76C17E15DA67593E /* ExportRecipient.swift in Sources */,
+				0111D7302A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
 				19C2E3B9D4E93CCD41D4BFE8 /* IdentityAttributeEntity.swift in Sources */,
 				8DB887AB295D776700BBEB76 /* AccountSettingsPresenter.swift in Sources */,
 				901F7F0227EA0D5C00C46741 /* CommissionRates.swift in Sources */,
@@ -8025,10 +8180,13 @@
 				FA01C9F3291C5D3100BD8738 /* String+Helper.swift in Sources */,
 				070D61DB27B290E400B6903C /* OnboardingCarouselViewController.swift in Sources */,
 				19C2EDFEB2A5FDF4A9F34675 /* ExportService.swift in Sources */,
+				0111D72C2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A0D2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
+				01E0705D2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */,
 				19C2E02C2E62088661C38523 /* CreateExportPasswordCoordinator.swift in Sources */,
 				891B19E328A39DC000F4B0D6 /* CreateSeedCredentialRequest.swift in Sources */,
 				52A0A0C127D0B38E001C162D /* StakeAmountInputViewController.swift in Sources */,
+				0111D7342A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift in Sources */,
 				19C2EC5902117AD531D64D09 /* IdentityProviderError.swift in Sources */,
 				19C2E0CE6A3678883D0C97C0 /* IdentityCreationStatus.swift in Sources */,
 				19C2E090F282E42D21BA007A /* RequestExportPasswordPresenter.swift in Sources */,
@@ -8653,6 +8811,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.1.2;
+			};
+		};
+		01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		8927A66D286AC6820007CAF1 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
@@ -8696,6 +8870,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		010BCB052A2F574E00B50D67 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
 		8927A66E286AC6820007CAF1 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8927A66D286AC6820007CAF1 /* XCRemoteSwiftPackageReference "realm-swift" */;
@@ -8775,6 +8954,41 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
 			productName = ConcordiumWalletCrypto;
+		};
+		CDAB513E2A3863A30010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		CDAB51402A3863BC0010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		CDAB51422A3863D50010D12B /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		CDAB51442A3863DA0010D12B /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		CDAB51462A3863EC0010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		CDAB51482A3863F40010D12B /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		CDAB514A2A3863F80010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
 		};
 		FA0CAAE4292E92480009D5F8 /* MatomoTracker */ = {
 			isa = XCSwiftPackageProductDependency;
