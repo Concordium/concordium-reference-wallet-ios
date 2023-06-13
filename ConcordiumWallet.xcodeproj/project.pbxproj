@@ -45,9 +45,6 @@
 		01E0705D2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
 		01E0705E2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
 		01E0705F2A30770400B44B2B /* WalletConnectApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */; };
-		01F5F0A42A28ACF500BB4B74 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 01F5F0A32A28ACF500BB4B74 /* WalletConnect */; };
-		01F5F0A62A28ACF500BB4B74 /* Web3Modal in Frameworks */ = {isa = PBXBuildFile; productRef = 01F5F0A52A28ACF500BB4B74 /* Web3Modal */; };
-		01F5F0A82A28ACF500BB4B74 /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 01F5F0A72A28ACF500BB4B74 /* Web3Wallet */; };
 		0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604236D23FD617F0085D14C /* TransparentNavigationController.swift */; };
 		067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */; };
 		067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */; };
@@ -2443,6 +2440,13 @@
 		CD3D4C582A3651850087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
 		CD3D4C592A3651860087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
 		CD3D4C5A2A3651860087B177 /* WalletConnectConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */; };
+		CDAB513F2A3863A30010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB513E2A3863A30010D12B /* Web3Wallet */; };
+		CDAB51412A3863BC0010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51402A3863BC0010D12B /* Web3Wallet */; };
+		CDAB51432A3863D50010D12B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51422A3863D50010D12B /* Starscream */; };
+		CDAB51452A3863DA0010D12B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51442A3863DA0010D12B /* Starscream */; };
+		CDAB51472A3863EC0010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51462A3863EC0010D12B /* Web3Wallet */; };
+		CDAB51492A3863F40010D12B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB51482A3863F40010D12B /* Starscream */; };
+		CDAB514B2A3863F80010D12B /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = CDAB514A2A3863F80010D12B /* Web3Wallet */; };
 		FA01C9D2291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
 		FA01C9D3291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
 		FA01C9D4291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */; };
@@ -3382,10 +3386,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAB51432A3863D50010D12B /* Starscream in Frameworks */,
 				FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */,
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
+				CDAB513F2A3863A30010D12B /* Web3Wallet in Frameworks */,
 				CD1152072A03E4F000A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3394,16 +3400,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F5F0A42A28ACF500BB4B74 /* WalletConnect in Frameworks */,
 				FA0CAAE7292EADA00009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67C286AC73B0007CAF1 /* SwiftCBOR in Frameworks */,
 				010BCB062A2F574E00B50D67 /* Starscream in Frameworks */,
 				8927A673286AC69B0007CAF1 /* RealmSwift in Frameworks */,
-				01F5F0A82A28ACF500BB4B74 /* Web3Wallet in Frameworks */,
+				CDAB51472A3863EC0010D12B /* Web3Wallet in Frameworks */,
 				CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC55286DBA2200BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B7BB246A9A7C00ED09B8 /* WebKit.framework in Frameworks */,
-				01F5F0A62A28ACF500BB4B74 /* Web3Modal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3411,9 +3415,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAB51492A3863F40010D12B /* Starscream in Frameworks */,
 				FA0CAAE9292EADA70009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67E286AC7410007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A675286AC6A20007CAF1 /* RealmSwift in Frameworks */,
+				CDAB514B2A3863F80010D12B /* Web3Wallet in Frameworks */,
 				CD11520D2A03E54300A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC57286DBA2800BDF84C /* MnemonicSwift in Frameworks */,
 				7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */,
@@ -3429,7 +3435,9 @@
 				8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */,
 				CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC53286DBA1D00BDF84C /* MnemonicSwift in Frameworks */,
+				CDAB51412A3863BC0010D12B /* Web3Wallet in Frameworks */,
 				C99CFF6E243EFD7E0045B8E6 /* WebKit.framework in Frameworks */,
+				CDAB51452A3863DA0010D12B /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5442,6 +5450,8 @@
 				893CAC50286DBA1200BDF84C /* MnemonicSwift */,
 				FA0DBD89292BF4360051C0D7 /* MatomoTracker */,
 				CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */,
+				CDAB513E2A3863A30010D12B /* Web3Wallet */,
+				CDAB51422A3863D50010D12B /* Starscream */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5467,10 +5477,8 @@
 				893CAC54286DBA2200BDF84C /* MnemonicSwift */,
 				FA0CAAE6292EADA00009D5F8 /* MatomoTracker */,
 				CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */,
-				01F5F0A32A28ACF500BB4B74 /* WalletConnect */,
-				01F5F0A52A28ACF500BB4B74 /* Web3Modal */,
-				01F5F0A72A28ACF500BB4B74 /* Web3Wallet */,
 				010BCB052A2F574E00B50D67 /* Starscream */,
+				CDAB51462A3863EC0010D12B /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
@@ -5496,6 +5504,8 @@
 				893CAC56286DBA2800BDF84C /* MnemonicSwift */,
 				FA0CAAE8292EADA70009D5F8 /* MatomoTracker */,
 				CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */,
+				CDAB51482A3863F40010D12B /* Starscream */,
+				CDAB514A2A3863F80010D12B /* Web3Wallet */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -5521,6 +5531,8 @@
 				893CAC52286DBA1D00BDF84C /* MnemonicSwift */,
 				FA0CAAE4292E92480009D5F8 /* MatomoTracker */,
 				CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */,
+				CDAB51402A3863BC0010D12B /* Web3Wallet */,
+				CDAB51442A3863DA0010D12B /* Starscream */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -8863,21 +8875,6 @@
 			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
 		};
-		01F5F0A32A28ACF500BB4B74 /* WalletConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = WalletConnect;
-		};
-		01F5F0A52A28ACF500BB4B74 /* Web3Modal */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = Web3Modal;
-		};
-		01F5F0A72A28ACF500BB4B74 /* Web3Wallet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = Web3Wallet;
-		};
 		8927A66E286AC6820007CAF1 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8927A66D286AC6820007CAF1 /* XCRemoteSwiftPackageReference "realm-swift" */;
@@ -8957,6 +8954,41 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */;
 			productName = ConcordiumWalletCrypto;
+		};
+		CDAB513E2A3863A30010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		CDAB51402A3863BC0010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		CDAB51422A3863D50010D12B /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		CDAB51442A3863DA0010D12B /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		CDAB51462A3863EC0010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
+		};
+		CDAB51482A3863F40010D12B /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		CDAB514A2A3863F80010D12B /* Web3Wallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = Web3Wallet;
 		};
 		FA0CAAE4292E92480009D5F8 /* MatomoTracker */ = {
 			isa = XCSwiftPackageProductDependency;
