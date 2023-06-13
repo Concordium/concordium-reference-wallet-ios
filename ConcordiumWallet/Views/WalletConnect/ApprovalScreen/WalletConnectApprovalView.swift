@@ -78,15 +78,17 @@ struct WalletConnectProposalApprovalView: View {
     var body: some View {
         VStack {
             HStack(spacing: 16) {
-                Image("connection_socket")
-                Text(boxText)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
+                Group {
+                    Image("connection_socket")
+                    Text(boxText)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                }
+                .padding()
             }
-            .frame(width: .infinity)
-            .padding(16)
             .background(.black)
             .cornerRadius(10)
+            .padding(16)
 
             VStack(alignment: .leading, spacing: 12) {
                 Text("Approving the connection will allow the application to request the following kinds of actions to be performed using the connected account:")

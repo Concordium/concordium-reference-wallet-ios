@@ -46,6 +46,19 @@ class ScanQRViewController: BaseViewController, ShowToast {
         setupCaptureSession()
         setupScanGuide()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        #if DEBUG
+        let buttonItem = UIBarButtonItem(title: "DEBUG", style: .plain, target: self, action: #selector(displayDebugScreen))
+        buttonItem.tintColor = .red
+        navigationItem.rightBarButtonItem = buttonItem
+        #endif
+    }
+    
+    @objc private func displayDebugScreen() {
+        navigationController?.pushViewController(WCDebugViewController(), animated: true)
+    }
 
     func failed() {
         let ac = UIAlertController(title: "scanQr.unsupportedMessage.title".localized,
