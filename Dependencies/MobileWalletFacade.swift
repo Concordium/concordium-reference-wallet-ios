@@ -51,6 +51,10 @@ class MobileWalletFacade {
         try call(cFunction: create_credential, with: input, debugTitle: "createCredential")
     }
 
+    func createAccountTransaction(input: String) throws -> String {
+        try call(cFunction: create_account_transaction, with: input, debugTitle: "createAccountTransaction")
+    }
+
     func createTransfer(input: String) throws -> String {
         try call(cFunction: create_transfer, with: input, debugTitle: "createTransfer")
     }

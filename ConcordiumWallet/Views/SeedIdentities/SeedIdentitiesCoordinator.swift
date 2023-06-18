@@ -169,7 +169,6 @@ class SeedIdentitiesCoordinator: Coordinator {
             appSettingsDelegate: self,
             accountsPresenterDelegate: self
         )
-        // accountsCoordinator?.delegate = self
         accountsCoordinator?.start()
     }
 }

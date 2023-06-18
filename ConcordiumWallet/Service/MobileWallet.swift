@@ -41,7 +41,7 @@ protocol MobileWalletProtocol {
                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
     
     func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error>
-    
+    func createAccountTransfer(input: String) throws -> String 
     func getAccountAddressesForIdentity(global: GlobalWrapper,
                                         identityObject: IdentityObject,
                                         privateIDObjectData: PrivateIDObjectData,
@@ -167,6 +167,10 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return .failure(error)
         }
+    }
+    
+    func createAccountTransfer(input: String) throws -> String {
+        try walletFacade.createAccountTransaction(input: input)
     }
 
     func createTransfer(from fromAccount: AccountDataType,
@@ -319,7 +323,7 @@ class MobileWallet: MobileWalletProtocol {
         return storageManager.getCommitmentsRandomness(key: key, pwHash: pwHash)
             .mapError { $0 as Error }
     }
-
+    
     private func getPrivateAccountKeys(for account: AccountDataType, pwHash: String) -> Result<AccountKeys, Error> {
         guard let key = account.encryptedAccountData else { return .failure(MobileWalletError.invalidArgument) }
         return storageManager.getPrivateAccountKeys(key: key, pwHash: pwHash)
@@ -405,7 +409,7 @@ class MobileWallet: MobileWalletProtocol {
             return Result.failure(error)
         }
     }
-    
+
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error> {
         do {
             _ = try getSecretEncryptionKey(for: account, pwHash: pwHash).get()

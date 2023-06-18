@@ -40,6 +40,14 @@
 		0131338E2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */; };
 		0131338F2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */; };
 		013133902A386C9E0050AE93 /* WCDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */; };
+		013133932A389E960050AE93 /* WalletConnectActionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */; };
+		013133942A38A17D0050AE93 /* WalletConnectActionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */; };
+		013133952A38A17D0050AE93 /* WalletConnectActionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */; };
+		013133962A38A17E0050AE93 /* WalletConnectActionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */; };
+		0152810D2A3C789500493615 /* WalletConnectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */; };
+		0152810E2A3C959700493615 /* WalletConnectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */; };
+		0152810F2A3C959700493615 /* WalletConnectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */; };
+		015281102A3C959700493615 /* WalletConnectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
 		01E070572A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
 		01E070582A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
@@ -2678,6 +2686,8 @@
 		0111D7262A2DFE7000E05D35 /* WalletConnectAccountSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectViewController.swift; sourceTree = "<group>"; };
 		0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SwiftUI.swift"; sourceTree = "<group>"; };
 		0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDebugViewController.swift; sourceTree = "<group>"; };
+		013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectActionRequestView.swift; sourceTree = "<group>"; };
+		0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectCoordinator.swift; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
 		01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalViewController.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
@@ -3459,9 +3469,11 @@
 		0111D7212A2DFE7000E05D35 /* WalletConnect */ = {
 			isa = PBXGroup;
 			children = (
+				013133912A389E750050AE93 /* RequestScreen */,
 				CD3D4C552A36514C0087B177 /* ConnectedScreen */,
 				01E070552A306D0100B44B2B /* ApprovalScreen */,
 				0111D7232A2DFE7000E05D35 /* AccountSelect */,
+				0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -3476,6 +3488,14 @@
 				01024FB42A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift */,
 			);
 			path = AccountSelect;
+			sourceTree = "<group>";
+		};
+		013133912A389E750050AE93 /* RequestScreen */ = {
+			isa = PBXGroup;
+			children = (
+				013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */,
+			);
+			path = RequestScreen;
 			sourceTree = "<group>";
 		};
 		01AD79A32A250C2A0023E063 /* QRScanner */ = {
@@ -6355,6 +6375,7 @@
 				89CF2D34281167EF00742E1E /* BakerPoolSettingsViewController.swift in Sources */,
 				FA01C9E6291C5D3100BD8738 /* UIColor+Helper.swift in Sources */,
 				642ED99025F2334E00A09BB3 /* UpdatePasswordCoordinator.swift in Sources */,
+				013133932A389E960050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				FA0CAB24294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				89B34A072892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				6461F5DD29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
@@ -6516,6 +6537,7 @@
 				5211BAA724FD1D5100EE1658 /* Balance.swift in Sources */,
 				FABA9DA12918890B0094012B /* SubmittedSeedAccountViewModel.swift in Sources */,
 				19C2EF5346654ECC2B83CB96 /* TransferEntity.swift in Sources */,
+				0152810D2A3C789500493615 /* WalletConnectCoordinator.swift in Sources */,
 				19C2E8375F25819B1599F588 /* DataStoreProtocol.swift in Sources */,
 				8DB887A6295D744900BBEB76 /* AccountSettingsView.swift in Sources */,
 				19C2E8BB1D920C775A6BF7A3 /* MockedData.swift in Sources */,
@@ -6655,6 +6677,7 @@
 				7F85B716246A9A7C00ED09B8 /* BaseTextfield.swift in Sources */,
 				642ED97925F21FB400A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				7F168A0A24812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
+				013133952A38A17D0050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				7F85B717246A9A7C00ED09B8 /* AccountsViewController.swift in Sources */,
 				7F85B718246A9A7C00ED09B8 /* SubmissionResponse.swift in Sources */,
 				5211BAB32501070D00EE1658 /* ShieldedAmountEntity.swift in Sources */,
@@ -6766,6 +6789,7 @@
 				8992BB322840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				9078546928116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				89B34A0E2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
+				0152810F2A3C959700493615 /* WalletConnectCoordinator.swift in Sources */,
 				07619A83269C810B009B79E2 /* Digest+Additions.swift in Sources */,
 				FA93AE2A295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */,
 				075A4BC5271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
@@ -7210,6 +7234,7 @@
 				7F85B814246A9AB600ED09B8 /* AccountTransactionsDataViewController.swift in Sources */,
 				642ED97A25F21FB500A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				7F168A0B24812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
+				013133962A38A17E0050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				7F85B815246A9AB600ED09B8 /* BaseTextfield.swift in Sources */,
 				7FB64A0A247BC9FB00DC500E /* ExportViewController.swift in Sources */,
 				5211BAB42501070D00EE1658 /* ShieldedAmountEntity.swift in Sources */,
@@ -7321,6 +7346,7 @@
 				8992BB332840E966005279C9 /* AppSettingDelegate.swift in Sources */,
 				9078546A28116A7600B655EB /* BakerMetadataPresenter.swift in Sources */,
 				7F85B84F246A9AB600ED09B8 /* AccountsCoordinator.swift in Sources */,
+				015281102A3C959700493615 /* WalletConnectCoordinator.swift in Sources */,
 				89B34A0F2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				FA93AE2B295BCAEE0050B409 /* MobileWalletFacade.swift in Sources */,
 				07619A84269C810B009B79E2 /* Digest+Additions.swift in Sources */,
@@ -7773,6 +7799,7 @@
 				8D9E398D29505936007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				893CACA1288E616300BDF84C /* PageIndicator.swift in Sources */,
 				C96632502459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
+				0152810E2A3C959700493615 /* WalletConnectCoordinator.swift in Sources */,
 				527DE34C2571257600333E65 /* ReleaseSchedulePresenter.swift in Sources */,
 				642A28A625FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
 				068DC81223F2E479001B2975 /* BaseTextfield.swift in Sources */,
@@ -7795,6 +7822,7 @@
 				89D4688728A224ED007D3FC8 /* SeedIdentityCreationStatus.swift in Sources */,
 				8DD48C7E2953138100CA9085 /* EarnViewModel.swift in Sources */,
 				C968B9EF2448C37C00E31BD8 /* TransactionSubmittedPresenter.swift in Sources */,
+				013133942A38A17D0050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
 				891B1A1A28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
 				642A293625FB967A0073BF8C /* AccountKeys.swift in Sources */,
@@ -8382,11 +8410,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 43;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
@@ -8405,7 +8431,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8419,11 +8444,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 43;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
@@ -8442,7 +8466,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
