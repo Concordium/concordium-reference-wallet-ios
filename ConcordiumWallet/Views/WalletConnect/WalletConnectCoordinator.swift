@@ -3,24 +3,73 @@ import SwiftUI
 import UIKit
 import Web3Wallet
 
-struct CreateAccountTransactionInput: Codable {
-    var expiry: UInt64?
-    var from: String?
-//    var keys: AccountData
-//    var nonce: Int
-//    var payload: Payload
-    var type: String?
+enum SchemaType: String, Decodable {
+    case moduleSchema = "module"
+    case parameterSchema = "parameter"
+}
+
+enum SchemaVersion: Int, Decodable {
+    case v0 = 0
+    case v1 = 1
+    case v2 = 2
+}
+
+enum Schema: Decodable {
+    case moduleSchema(value: String, version: SchemaVersion?)
+    case typeSchema(value: String)
+
+    enum CodingKeys: String, CodingKey {
+        case type, value, version
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let type = try container.decode(SchemaType.self, forKey: .type)
+        let value = try container.decode(String.self, forKey: .value)
+        switch type {
+        case .moduleSchema:
+            let version = try container.decode(SchemaVersion.self, forKey: .version)
+            self = .moduleSchema(value: value, version: version)
+        case .parameterSchema:
+            self = .typeSchema(value: value)
+        }
+    }
+}
+
+struct ContractUpdateParams: Decodable {
+    let schema: Schema
+    let type: TransferType
+    let sender: String
+    let payload: [String: Any]
+    enum CodingKeys: String, CodingKey {
+        case schema, type
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        type = try container.decode(TransferType.self, forKey: .type)
+        // TODO: Check what the version should be if that's a string
+        if let schema = try? container.decode(Schema.self, forKey: .schema) {
+            self.schema = schema
+        } else {
+            schema = .moduleSchema(value: try container.decode(String.self, forKey: .schema), version: nil)
+        }
+    }
+}
+
+enum WalletConenctError: Error {
+    case unknownError
 }
 
 class WalletConnectCoordinator: Coordinator {
     typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider
-    
+
     private var cancellables: Set<AnyCancellable> = []
     private var dependencyProvider: DependencyProvider
     var childCoordinators = [Coordinator]()
 
     var navigationController: UINavigationController
-    
+
     init(navigationController: UINavigationController, dependencyProvider: DependencyProvider, parentCoodinator: Coordinator) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
@@ -136,12 +185,23 @@ private extension WalletConnectCoordinator {
             .receive(on: DispatchQueue.main)
             .sink { session in
                 print("DEBUG: Session \(session.pairingTopic) settled")
+                guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
+                    // TODO: throw an error?
+                    return
+                }
+
+                guard let account = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
+                    // TODO: throw an error?
+                    return
+                }
 
                 // Connection established: Open "connected" screen.
                 self.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectConnectedView(
-                            dappName: "TODO", accountName: "TODO", didDisconnect: {
+                            dappName: "TODO",
+                            accountName: "TODO",
+                            didDisconnect: {
                                 // User clicked the disconnect button.
                                 Task {
                                     do {
@@ -163,19 +223,62 @@ private extension WalletConnectCoordinator {
     }
 
     func authorize(request: Request) {
-//        var encryptedAccountDataKey 
-        // var encryptionKeyKey = account.encryptedPrivateKey
-        // let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get(),
-        var params = request.params.value as? [String: Any]
-//                            var keys = dependencyProvider.storageManager().getPrivateAccountKeys(key: String, pwHash: T##String)
-        var input = CreateAccountTransactionInput(
-            expiry: request.expiry,
-            from: params?["sender"] as? String,
-            type: params?["type"] as? String
-        )
-        print(input)
-//                            let response = dependencyProvider.mobileWallet().createAccountTransfer(input: )
-//                            Sign.instance.respond(topic: request.topic, requestId: request.id, response: response)
+        guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
+            // TODO: Throw an error
+            return
+        }
+
+        guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
+            // TODO: throw an error?
+            return
+        }
+
+        guard let accountAddress = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
+            // TODO: throw an error?
+            return
+        }
+
+        let account = dependencyProvider.storageManager().getAccount(withAddress: accountAddress)
+        var transfer = TransferDataTypeFactory.create()
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: request.params.value, options: []) else {
+            // TODO: throw an error?
+            return
+        }
+
+        do {
+            let params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
+
+            guard case TransferType.contractUpdate = params.type else {
+                // TODO: throw an error?
+                return
+            }
+
+            transfer.transferType = params.type
+            //        transfer.amount = String(amount.intValue)
+            transfer.fromAddress = params.sender
+            //        transfer.toAddress = recipient.address
+            //        transfer.cost = String(cost.intValue)
+            //        transfer.memo = memo?.data.hexDescription
+            //        transfer.energy = energy
+            //
+            //        dependencyProvider.transactionsService().performTransfer(TransferDataType, from: <#T##AccountDataType#>, requestPasswordDelegate: <#T##RequestPasswordDelegate#>)
+            //
+
+            //         let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get(),
+            //        var params = request.params.value as? [String: Any]
+            //                            var keys = dependencyProvider.storageManager().getPrivateAccountKeys(key: String, pwHash: T##String)
+            //        var input = CreateAccountTransactionInput(
+            //            expiry: request.expiry,
+            //            from: params?["sender"] as? String,
+            //            type: params?["type"] as? String
+            //        )
+            //        print(input)
+            //                            let response = dependencyProvider.mobileWallet().createAccountTransfer(input: )
+            //                            Sign.instance.respond(topic: request.topic, requestId: request.id, response: response)
+        } catch let exepction {
+            print("WC-exception \(exepction)")
+        }
     }
 
     func setupWalletConnectRequestBinding() {
@@ -199,7 +302,6 @@ private extension WalletConnectCoordinator {
     }
 }
 
-
 extension WalletConnectCoordinator: WalletConnectDelegate {
     fileprivate func setupBindings() {
         // For now we just print the following events.
@@ -208,14 +310,14 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             .sink { sessionId, reason in
                 // Called when the dApp disconnects - not when we do ourselves!
                 print("DEBUG: Session \(sessionId) deleted with reason \(reason)")
-                
+
                 // Connection lost or disconnected: Pop "connected" screen.
                 // TODO: Only do this if we're actually on that screen (i.e. the deleted session matches the currently connected one).
                 self.navigationController.setNavigationBarHidden(false, animated: false)
                 self.navigationController.popToRootViewController(animated: true)
             }
             .store(in: &cancellables)
-        
+
         Sign.instance.sessionEventPublisher
             .receive(on: DispatchQueue.main)
             .sink { event in
@@ -228,7 +330,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 print("DEBUG: Session \(sessionTopic) extended until \(date)")
             }
             .store(in: &cancellables)
-        
+
         Sign.instance.sessionUpdatePublisher
             .receive(on: DispatchQueue.main)
             .sink { sessionTopic, _ in
@@ -253,7 +355,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 print("DEBUG: Proposal \(proposal) rejected with reason \(reason)")
             }
             .store(in: &cancellables)
-        
+
         Sign.instance.pingResponsePublisher
             .receive(on: DispatchQueue.main)
             .sink { ping in
@@ -261,12 +363,11 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             }
             .store(in: &cancellables)
     }
-    
+
     func showWalletConnectScanner() {
 //        // Temporarily use hardcoded connection string rather than scanning QR code.
 //        // Unsure why, but if we clear pairings and instantiate this one, it seems to connect without the proposal thing...
 //        let wc = "wc:39e17f8223d80748d56e528c6715f211afd3b4e0dee4ac887a79d644308d157a@2?relay-protocol=irn&symKey=c370924b1dd87b047fc8726f33d80adecc41f350635979bfbe597c58fcf5f2bd"
-
 
         // Show QR code scanner.
         let vc = ScanQRViewControllerFactory.create(

@@ -53,9 +53,12 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+        case .contractUpdate:
+            // TODO: look here
+            return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
-   
+
     func getTransactions(for account: AccountDataType, startingFrom: Transaction? = nil) -> AnyPublisher<RemoteTransactions, Error> {
         var params = ["order": "descending"]
         params["limit"] = "20"

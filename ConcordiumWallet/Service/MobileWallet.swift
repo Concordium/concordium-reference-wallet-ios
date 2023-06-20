@@ -289,6 +289,8 @@ class MobileWallet: MobileWalletProtocol {
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
+        case .contractUpdate:
+            return try CreateTransferRequest(walletFacade.createAccountTransaction(input: input))
         }
     }
 

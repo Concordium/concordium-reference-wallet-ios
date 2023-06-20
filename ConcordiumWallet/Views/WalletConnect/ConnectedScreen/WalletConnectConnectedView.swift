@@ -1,11 +1,15 @@
 import SwiftUI
+import Web3Wallet
 
 struct WalletConnectConnectedView: View {
     let dappName: String
     let accountName: String
     let didDisconnect: () -> Void;
-    
-    init(dappName: String, accountName: String, didDisconnect: @escaping () -> Void) {
+    init(
+        dappName: String,
+        accountName: String,
+        didDisconnect: @escaping () -> Void
+    ) {
         self.dappName = dappName
         self.accountName = accountName
         self.didDisconnect = didDisconnect

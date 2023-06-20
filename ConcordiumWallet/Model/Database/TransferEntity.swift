@@ -74,6 +74,9 @@ extension TransferDataType {
                 balanceChange = (Int(cost) ?? 0)
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
                 balanceChange = (Int(cost) ?? 0)
+            case .contractUpdate:
+                // TODO: We are not sure about this. Verify the value is correct.
+                balanceChange = (Int(cost) ?? 0)
             }
         }
         
@@ -89,7 +92,6 @@ extension TransferDataType {
         case .reject:
             balanceChange = 0
         default:
-            
             switch transferType {
             case .simpleTransfer:
                 balanceChange = 0
@@ -100,6 +102,9 @@ extension TransferDataType {
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
+                balanceChange = 0
+            case .contractUpdate:
+                // TODO: We are not sure about this. Verify the value is correct. ????
                 balanceChange = 0
             }
             
