@@ -49,6 +49,10 @@
 		0152810F2A3C959700493615 /* WalletConnectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */; };
 		015281102A3C959700493615 /* WalletConnectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
+		01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
+		01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
+		01CFC6AD2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
+		01CFC6AE2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01E070572A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
 		01E070582A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
 		01E070592A30760400B44B2B /* WalletConnectApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */; };
@@ -2689,6 +2693,7 @@
 		013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectActionRequestView.swift; sourceTree = "<group>"; };
 		0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectCoordinator.swift; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
+		01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayloadEntity.swift; sourceTree = "<group>"; };
 		01E070562A30760400B44B2B /* WalletConnectApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalViewController.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
@@ -4000,6 +4005,7 @@
 				901F7F3D27EB07B800C46741 /* DelegationEntity.swift */,
 				901F7FAA27F5E31600C46741 /* ChainParametersEntity.swift */,
 				909EAF1D27F71FAD001930AE /* PendingChangeEntity.swift */,
+				01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -6039,6 +6045,7 @@
 				901F7EF827E9F47200C46741 /* StakeService.swift in Sources */,
 				7F48C142244DCD0B00997684 /* IdentityRevokersWidgetViewController.swift in Sources */,
 				528EB74F255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
+				01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
 				89B34A42289407530059891C /* String+Mnemonics.swift in Sources */,
 				7FA0AE982460479100B7673F /* WidgetButton.swift in Sources */,
 				7F85B8F12472D39500ED09B8 /* MoreCoordinator.swift in Sources */,
@@ -6578,6 +6585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89CF2D27280FDAB800742E1E /* StakeAmountInputValidator.swift in Sources */,
+				01CFC6AD2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
 				8DD48C7F2953138100CA9085 /* EarnViewModel.swift in Sources */,
 				8992BA5C282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				5211BAB8250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
@@ -7135,6 +7143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89CF2D28280FDAB800742E1E /* StakeAmountInputValidator.swift in Sources */,
+				01CFC6AE2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
 				8DD48C802953138100CA9085 /* EarnViewModel.swift in Sources */,
 				8992BA5D282A3B35005279C9 /* GTUTextFieldDelegate.swift in Sources */,
 				5211BAB9250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
@@ -8149,6 +8158,7 @@
 				8992BAB4283630F4005279C9 /* String+Links.swift in Sources */,
 				19C2E42A5B0156D1AA877CBA /* AccountDetailsViewModel.swift in Sources */,
 				19C2E17E671E62F0C6925443 /* AccountTransactionsLoadingCellView.swift in Sources */,
+				01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
 				19C2E0C5C3B047A2DC0D44D7 /* AccountDetailsPresenter.swift in Sources */,
 				89D46818289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				19C2E0045F94FFFE728C6603 /* TransactionViewModel.swift in Sources */,

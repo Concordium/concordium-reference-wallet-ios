@@ -11,7 +11,7 @@ extension Transaction: TransactionType {}
 
 extension Transaction {
     func getTotalForShielded() -> Int? {
-        if details.type == "transferToEncrypted" || details.type == "transferToPublic"{
+        if details.type == "transferToEncrypted" || details.type == "transferToPublic" {
             return -(Int(subtotal ?? "0") ?? 0)
         }
         return nil
@@ -20,7 +20,7 @@ extension Transaction {
 
 protocol TransferDataType: DataStoreProtocol, TransactionType {
     var amount: String { get set }
-    var fromAddress: String {get set }
+    var fromAddress: String { get set }
     var toAddress: String { get set }
     var expiry: Date { get set }
     var createdAt: Date { get set }
@@ -31,7 +31,7 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var energy: Int { get set }
     var transferType: TransferType { get set }
     var encryptedDetails: EncryptedDetailsDataType? { get set }
-    var nonce: Int { get set}
+    var nonce: Int { get set }
     var memo: String? { get set }
     var capital: String? { get set }
     var restakeEarnings: Bool? { get set }
@@ -42,7 +42,7 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var transactionFeeCommission: Double { get set }
     var bakingRewardCommission: Double { get set }
     var finalizationRewardCommission: Double { get set }
-    
+    var payload: Payload? { get set }
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
     func withUpdated(cost: String?, status: SubmissionStatusEnum, outcome: OutcomeEnum?) -> TransferDataType
@@ -79,10 +79,10 @@ extension TransferDataType {
                 balanceChange = (Int(cost) ?? 0)
             }
         }
-        
+
         return -balanceChange
     }
-    
+
     func getShieldedBalanceChange() -> Int {
         if .absent == transactionStatus {
             return 0
@@ -96,7 +96,7 @@ extension TransferDataType {
             case .simpleTransfer:
                 balanceChange = 0
             case .transferToSecret:
-                balanceChange = -amountAsInt()// shielding is included even if not finalized
+                balanceChange = -amountAsInt() // shielding is included even if not finalized
             case .encryptedTransfer, .transferToPublic:
                 balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
@@ -107,11 +107,10 @@ extension TransferDataType {
                 // TODO: We are not sure about this. Verify the value is correct. ????
                 balanceChange = 0
             }
-            
         }
         return -balanceChange
     }
-    
+
     func withUpdated(cost: String?, status: SubmissionStatusEnum, outcome: OutcomeEnum?) -> TransferDataType {
         _ = write {
             var transfer = $0
@@ -154,10 +153,36 @@ final class TransferEntity: Object {
     @objc dynamic var transactionFeeCommission: Double = -1
     @objc dynamic var bakingRewardCommission: Double = -1
     @objc dynamic var finalizationRewardCommission: Double = -1
-    
+    @objc dynamic var contractUpdatePayloadEntity: ContractUpdatePayloadEntity?
 }
 
 extension TransferEntity: TransferDataType {
+    var payload: Payload? {
+        get {
+            if let entity = contractUpdatePayloadEntity {
+                return .contractUpdatePayload(
+                    .init(amount: entity.amount,
+                          address: .init(
+                              index: entity.index,
+                              subindex: entity.subindex
+                          ),
+                          receiveName: entity.receiveName,
+                          maxContractExecutionEnergy: entity.maxContractExecutionEnergy,
+                          message: entity.message
+                    )
+                )
+            }
+            return nil
+        }
+        set {
+            switch newValue {
+            case let .contractUpdatePayload(payload):
+                contractUpdatePayloadEntity = .init(from: payload)
+            default: break
+            }
+        }
+    }
+
     var encryptedDetails: EncryptedDetailsDataType? {
         get {
             encryptedDetailsEntity
@@ -166,7 +191,7 @@ extension TransferEntity: TransferDataType {
             self.encryptedDetailsEntity = newValue as? EncryptedDetailsEntity
         }
     }
-    
+
     var restakeEarnings: Bool? {
         get {
             restakeEarningsBool == -1 ? nil : (restakeEarningsBool == 1)
@@ -183,7 +208,7 @@ extension TransferEntity: TransferDataType {
             }
         }
     }
-    
+
     var transactionStatus: SubmissionStatusEnum? {
         get {
             SubmissionStatusEnum(rawValue: transactionStatusString ?? "")
@@ -192,7 +217,7 @@ extension TransferEntity: TransferDataType {
             transactionStatusString = newValue?.rawValue
         }
     }
-    
+
     var transferType: TransferType {
         get {
             TransferType(rawValue: transferTypeString) ?? .simpleTransfer
@@ -201,7 +226,7 @@ extension TransferEntity: TransferDataType {
             transferTypeString = newValue.rawValue
         }
     }
-    
+
     var outcome: OutcomeEnum? {
         get {
             OutcomeEnum(rawValue: outcomeString ?? "")

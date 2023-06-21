@@ -55,7 +55,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .contractUpdate:
             // TODO: look here
-            return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
+            return performAccountTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
 
@@ -289,7 +289,7 @@ extension TransactionsService {
             }
             .eraseToAnyPublisher()
     }
-    
+
     private func performDelegationTransfer(_ pTransfer: TransferDataType,
                                            from account: AccountDataType,
                                            requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
@@ -308,14 +308,13 @@ extension TransactionsService {
                                            receiverPublicKey: nil)
             }
             .flatMap(submitTransfer)
-            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+            .flatMap { (submissionResponse: SubmissionResponse) ->  AnyPublisher<SubmissionStatus, Error> in
                 transfer.submissionId = submissionResponse.submissionID
                 return self.submissionStatus(submissionId: submissionResponse.submissionID)
             }.map { [weak self] in
                 self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
             }
             .eraseToAnyPublisher()
-        
     }
     
     private func performBakerTransfer(_ pTransfer: TransferDataType,
@@ -344,6 +343,33 @@ extension TransactionsService {
             }
             .eraseToAnyPublisher()
     }
+
+    private func performAccountTransfer(
+        _ pTransfer: TransferDataType,
+        from account: AccountDataType,
+        requestPasswordDelegate: RequestPasswordDelegate
+    ) -> AnyPublisher<TransferDataType, Error> {
+        var transfer = updateLocalTransferWithExpiration(pTransfer)
+        return getAccountNonce(for: transfer.fromAddress)
+            .flatMap { (nonce: AccNonce) -> AnyPublisher<CreateTransferRequest, Error> in
+                transfer.nonce = nonce.nonce
+                return self.createTransfer(
+                    transfer,
+                    from: account,
+                    requestPasswordDelegate:
+                    requestPasswordDelegate,
+                    payload: transfer.payload
+                )
+            }
+            .flatMap(submitTransfer)
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
+                transfer.submissionId = submissionResponse.submissionID
+                return self.submissionStatus(submissionId: submissionResponse.submissionID)
+            }.map { [weak self] in
+                self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
+            }
+            .eraseToAnyPublisher()
+    }
     
     private func createTransfer(_ transfer: TransferDataType,
                                 from account: AccountDataType,
@@ -351,7 +377,9 @@ extension TransactionsService {
                                 bakerKeys: GeneratedBakerKeys? = nil,
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
-                                receiverPublicKey: String? = nil) -> AnyPublisher<CreateTransferRequest, Error> {
+                                receiverPublicKey: String? = nil,
+                                payload: Payload? = nil
+    ) -> AnyPublisher<CreateTransferRequest, Error> {
         let transactionFeeCommission = (transfer.transactionFeeCommission == -1) ? nil : transfer.transactionFeeCommission
         let bakingRewardCommission = (transfer.bakingRewardCommission == -1) ? nil : transfer.bakingRewardCommission
         let finalizationRewardCommission = (transfer.finalizationRewardCommission == -1) ? nil : transfer.finalizationRewardCommission
@@ -363,28 +391,30 @@ extension TransactionsService {
         } else {
             delegationTarget = nil
         }
-        
-        return self.mobileWallet.createTransfer(from: account,
-                                                to: transfer.toAddress == "" ? nil : transfer.toAddress,
-                                                amount: transfer.amount == "" ? nil : transfer.amount,
-                                                nonce: transfer.nonce,
-                                                memo: transfer.memo,
-                                                capital: transfer.capital == "" ? nil : transfer.capital,
-                                                restakeEarnings: transfer.restakeEarnings,
-                                                delegationTarget: delegationTarget,
-                                                openStatus: transfer.openStatus,
-                                                metadataURL: transfer.metadataURL,
-                                                transactionFeeCommission: transactionFeeCommission,
-                                                bakingRewardCommission: bakingRewardCommission,
-                                                finalizationRewardCommission: finalizationRewardCommission,
-                                                bakerKeys: bakerKeys,
-                                                expiry: transfer.expiry,
-                                                energy: transfer.energy,
-                                                transferType: transfer.transferType,
-                                                requestPasswordDelegate: requestPasswordDelegate,
-                                                global: global,
-                                                inputEncryptedAmount: inputEncryptedAmount,
-                                                receiverPublicKey: receiverPublicKey
+
+        return self.mobileWallet.createTransfer(
+            from: account,
+            to: transfer.toAddress == "" ? nil : transfer.toAddress,
+            amount: transfer.amount == "" ? nil : transfer.amount,
+            nonce: transfer.nonce,
+            memo: transfer.memo,
+            capital: transfer.capital == "" ? nil : transfer.capital,
+            restakeEarnings: transfer.restakeEarnings,
+            delegationTarget: delegationTarget,
+            openStatus: transfer.openStatus,
+            metadataURL: transfer.metadataURL,
+            transactionFeeCommission: transactionFeeCommission,
+            bakingRewardCommission: bakingRewardCommission,
+            finalizationRewardCommission: finalizationRewardCommission,
+            bakerKeys: bakerKeys,
+            expiry: transfer.expiry,
+            energy: transfer.energy,
+            transferType: transfer.transferType,
+            requestPasswordDelegate: requestPasswordDelegate,
+            global: global,
+            inputEncryptedAmount: inputEncryptedAmount,
+            receiverPublicKey: receiverPublicKey,
+            payload: payload
         )
     }
     

@@ -5,7 +5,49 @@
 
 import Foundation
 
+enum Payload: Codable {
+    case contractUpdatePayload(ContractUpdatePayload)
+
+    enum CodingKeys: CodingKey {
+        case payload
+        case amount
+        case address
+        case receiveName
+        case maxContractExecutionEnergy
+        case message
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let message = try container.decodeIfPresent(String.self, forKey: .message) {
+            let amount = try container.decode(String.self, forKey: .amount)
+            let address = try container.decode(Address.self, forKey: .message)
+            let receiveName = try container.decode(String.self, forKey: .receiveName)
+            let energy = try container.decode(Int.self, forKey: .maxContractExecutionEnergy)
+            self = .contractUpdatePayload(
+                .init(
+                amount: amount,
+                address: address,
+                receiveName: receiveName,
+                maxContractExecutionEnergy: energy,
+                message: message
+                )
+            )
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .message, in: container, debugDescription: "failed to decode value for key message. Not a vaild payload.")
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        switch self {
+        case let .contractUpdatePayload(payload):
+            try payload.encode(to: encoder)
+        }
+    }
+}
+
 // MARK: - MakeCreateTransferRequest
+
 struct MakeCreateTransferRequest: Codable {
     let from: String?
     let to: String?
@@ -28,6 +70,8 @@ struct MakeCreateTransferRequest: Codable {
     let senderSecretKey: String?
     let inputEncryptedAmount: InputEncryptedAmount?
     let receiverPublicKey: String?
+    let type: String?
+    let payload: Payload?
 
     enum CodingKeys: String, CodingKey {
         case from = "from"
@@ -51,6 +95,8 @@ struct MakeCreateTransferRequest: Codable {
         case senderSecretKey = "senderSecretKey"
         case inputEncryptedAmount = "inputEncryptedAmount"
         case receiverPublicKey = "receiverPublicKey"
+        case payload
+        case type
     }
 }
 
@@ -93,7 +139,9 @@ extension MakeCreateTransferRequest {
         global: Global?? = nil,
         senderSecretKey: String?? = nil,
         inputEncryptedAmount: InputEncryptedAmount?? = nil,
-        receiverPublicKey: String?? = nil
+        receiverPublicKey: String?? = nil,
+        type: String?? = nil,
+        payload: Payload?? = nil
     ) -> MakeCreateTransferRequest {
         return MakeCreateTransferRequest(
             from: from ?? self.from,
@@ -116,7 +164,9 @@ extension MakeCreateTransferRequest {
             global: global ?? self.global,
             senderSecretKey: senderSecretKey ?? self.senderSecretKey,
             inputEncryptedAmount: inputEncryptedAmount ?? self.inputEncryptedAmount,
-            receiverPublicKey: receiverPublicKey ?? self.receiverPublicKey
+            receiverPublicKey: receiverPublicKey ?? self.receiverPublicKey,
+            type: type ?? self.type,
+            payload: payload ?? self.payload
         )
     }
 

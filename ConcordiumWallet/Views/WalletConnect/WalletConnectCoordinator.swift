@@ -255,8 +255,10 @@ private extension WalletConnectCoordinator {
             // TODO: throw an error?
             return
         }
-
-        let account = dependencyProvider.storageManager().getAccount(withAddress: accountAddress)
+        
+        guard let account = dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
+            return
+        }
         var transfer = TransferDataTypeFactory.create()
 
         guard let jsonData = try? JSONSerialization.data(withJSONObject: request.params.value, options: []) else {
@@ -271,29 +273,20 @@ private extension WalletConnectCoordinator {
                 // TODO: throw an error?
                 return
             }
-
             transfer.transferType = params.type
-            //        transfer.amount = String(amount.intValue)
             transfer.fromAddress = params.sender
-            //        transfer.toAddress = recipient.address
-            //        transfer.cost = String(cost.intValue)
-            //        transfer.memo = memo?.data.hexDescription
-            //        transfer.energy = energy
-            //
-            //        dependencyProvider.transactionsService().performTransfer(TransferDataType, from: <#T##AccountDataType#>, requestPasswordDelegate: <#T##RequestPasswordDelegate#>)
-            //
+            transfer.nonce = account.accountNonce
+            transfer.payload = .contractUpdatePayload(params.payload)
+            transfer.energy = params.payload.maxContractExecutionEnergy
+            
+            let result = dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: self)
+            result.sink(receiveError: { error in
+                print("WC->error \(error)")
+            }, receiveValue: { success in
+                print("WC->success \(success)")
+            })
+            .store(in: &cancellables)
 
-            //         let accountKeys = try? dependencyProvider.storageManager().getPrivateAccountKeys(key: encryptedAccountDataKey, pwHash: pwHash).get(),
-            //        var params = request.params.value as? [String: Any]
-            //                            var keys = dependencyProvider.storageManager().getPrivateAccountKeys(key: String, pwHash: T##String)
-            //        var input = CreateAccountTransactionInput(
-            //            expiry: request.expiry,
-            //            from: params?["sender"] as? String,
-            //            type: params?["type"] as? String
-            //        )
-            //        print(input)
-            //                            let response = dependencyProvider.mobileWallet().createAccountTransfer(input: )
-            //                            Sign.instance.respond(topic: request.topic, requestId: request.id, response: response)
         } catch let exepction {
             print("WC-exception \(exepction)")
         }
@@ -321,7 +314,8 @@ private extension WalletConnectCoordinator {
 }
 
 extension WalletConnectCoordinator: WalletConnectDelegate {
-    fileprivate func setupBindings() {
+    private func setupBindings() {
+        
         // For now we just print the following events.
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
@@ -383,11 +377,6 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
     }
 
     func showWalletConnectScanner() {
-//        // Temporarily use hardcoded connection string rather than scanning QR code.
-//        // Unsure why, but if we clear pairings and instantiate this one, it seems to connect without the proposal thing...
-//        let wc = "wc:39e17f8223d80748d56e528c6715f211afd3b4e0dee4ac887a79d644308d157a@2?relay-protocol=irn&symKey=c370924b1dd87b047fc8726f33d80adecc41f350635979bfbe597c58fcf5f2bd"
-
-        // Show QR code scanner.
         let vc = ScanQRViewControllerFactory.create(
             with: ScanQRPresenter(
                 didScanQrCode: { [weak self] value in
@@ -411,3 +400,5 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
 }
+
+extension WalletConnectCoordinator: RequestPasswordDelegate {}
