@@ -88,7 +88,7 @@ class WalletConnectCoordinator: Coordinator {
 
     var navigationController: UINavigationController
 
-    init(navigationController: UINavigationController, dependencyProvider: DependencyProvider, parentCoodinator: Coordinator) {
+    init(navigationController: UINavigationController, dependencyProvider: DependencyProvider) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
 
@@ -109,6 +109,10 @@ class WalletConnectCoordinator: Coordinator {
 
     func start() {
         showWalletConnectScanner()
+    }
+    
+    deinit {
+        print("WalletConnectCoordinator did deinit")
     }
 }
 
@@ -201,20 +205,20 @@ private extension WalletConnectCoordinator {
     private func setupWalletConnectSettleBinding() {
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
-            .sink { session in
+            .sink { [weak self] session in
                 print("DEBUG: Session \(session.pairingTopic) settled")
                 guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
                     // TODO: throw an error?
                     return
                 }
 
-                guard let account = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
+                guard ccdNamespace.accounts.first?.address != nil, ccdNamespace.accounts.count == 1 else {
                     // TODO: throw an error?
                     return
                 }
 
                 // Connection established: Open "connected" screen.
-                self.navigationController.pushViewController(
+                self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectConnectedView(
                             dappName: "TODO",
@@ -229,8 +233,8 @@ private extension WalletConnectCoordinator {
                                     }
                                 }
                                 // Pop the VC without waiting for disconnect to complete.
-                                self.navigationController.setNavigationBarHidden(false, animated: false)
-                                self.navigationController.popToRootViewController(animated: true)
+                                self?.navigationController.setNavigationBarHidden(false, animated: false)
+                                self?.navigationController.popToRootViewController(animated: true)
                             }
                         )
                     ),
@@ -319,14 +323,14 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         // For now we just print the following events.
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { sessionId, reason in
+            .sink { [weak self] sessionId, reason in
                 // Called when the dApp disconnects - not when we do ourselves!
                 print("DEBUG: Session \(sessionId) deleted with reason \(reason)")
 
                 // Connection lost or disconnected: Pop "connected" screen.
                 // TODO: Only do this if we're actually on that screen (i.e. the deleted session matches the currently connected one).
-                self.navigationController.setNavigationBarHidden(false, animated: false)
-                self.navigationController.popToRootViewController(animated: true)
+                self?.navigationController.setNavigationBarHidden(false, animated: false)
+                self?.navigationController.popToRootViewController(animated: true)
             }
             .store(in: &cancellables)
 
@@ -336,6 +340,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 print("DEBUG: Session event: \(event)")
             }
             .store(in: &cancellables)
+
         Sign.instance.sessionExtendPublisher
             .receive(on: DispatchQueue.main)
             .sink { sessionTopic, date in

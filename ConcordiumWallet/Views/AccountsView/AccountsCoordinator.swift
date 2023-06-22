@@ -256,9 +256,10 @@ extension AccountsCoordinator: WalletConnectDelegate {
 
         let coordinator = WalletConnectCoordinator(
             navigationController: navigationController,
-            dependencyProvider: dependencyProvider,
-            parentCoodinator: self
+            dependencyProvider: dependencyProvider
         )
+        
+        childCoordinators.append(coordinator)
         coordinator.start()
     }
 }
