@@ -413,12 +413,16 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     if !value.hasPrefix("wc:") {
                         return false
                     }
-                    // Successfully scanner WalletConnect QR.
                     Task {
                         do {
                             try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
+    
                         } catch let error {
-                            print("ERROR: cannot pair: \(error)")
+                            let ac = UIAlertController(title: "errorAlert.title".localized,
+                                                       message: error.localizedDescription,
+                                                       preferredStyle: .alert)
+                            ac.addAction(UIAlertAction(title: "errorAlert.okButton".localized, style: .default))
+                            self?.navigationController.present(ac, animated: true)
                         }
                     }
                     self?.navigationController.popViewController(animated: true)
