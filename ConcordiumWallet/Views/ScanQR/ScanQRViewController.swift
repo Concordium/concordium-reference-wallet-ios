@@ -26,7 +26,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
         image.tintColor = .white
         return image
     }()
-    
+
     init(presenter: ScanQRPresenter) {
         captureSession = AVCaptureSession()
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -43,19 +43,25 @@ class ScanQRViewController: BaseViewController, ShowToast {
         title = "scanQr.title".localized
         view.backgroundColor = .black
         presenter.view = self
-        setupCaptureSession()
         setupScanGuide()
+        setupCaptureSession()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
+            if !self.captureSession.isRunning {
+                self.captureSession.startRunning()
+            }
+        }
         #if DEBUG
-        let buttonItem = UIBarButtonItem(title: "DEBUG", style: .plain, target: self, action: #selector(displayDebugScreen))
-        buttonItem.tintColor = .red
-        navigationItem.rightBarButtonItem = buttonItem
+            let buttonItem = UIBarButtonItem(title: "DEBUG", style: .plain, target: self, action: #selector(displayDebugScreen))
+            buttonItem.tintColor = .red
+            navigationItem.rightBarButtonItem = buttonItem
         #endif
     }
-    
+
     @objc private func displayDebugScreen() {
         navigationController?.pushViewController(WCDebugViewController(), animated: true)
     }
@@ -155,11 +161,5 @@ private extension ScanQRViewController {
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.insertSublayer(previewLayer, at: 0)
-
-        if !captureSession.isRunning {
-            DispatchQueue.global(qos: .background).async {
-                self.captureSession.startRunning()
-            }
-        }
     }
 }
