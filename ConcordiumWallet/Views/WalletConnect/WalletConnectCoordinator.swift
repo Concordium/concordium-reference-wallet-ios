@@ -185,7 +185,6 @@ private extension WalletConnectCoordinator {
                                         }
 
                                         // Pop the VC without waiting for rejection to complete.
-                                        self.navigationController.setNavigationBarHidden(false, animated: false)
                                         self.navigationController.popToRootViewController(animated: true)
                                     }
                                 )
@@ -195,7 +194,6 @@ private extension WalletConnectCoordinator {
                     )
                 }
                 let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
-                self.navigationController.setNavigationBarHidden(true, animated: false)
                 self.navigationController.pushViewController(viewController, animated: true)
 
             })
@@ -233,7 +231,6 @@ private extension WalletConnectCoordinator {
                                     }
                                 }
                                 // Pop the VC without waiting for disconnect to complete.
-                                self?.navigationController.setNavigationBarHidden(false, animated: false)
                                 self?.navigationController.popToRootViewController(animated: true)
                             }
                         )
@@ -353,7 +350,6 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
 
                 // Connection lost or disconnected: Pop "connected" screen.
                 // TODO: Only do this if we're actually on that screen (i.e. the deleted session matches the currently connected one).
-                self?.navigationController.setNavigationBarHidden(false, animated: false)
                 self?.navigationController.popToRootViewController(animated: true)
             }
             .store(in: &cancellables)
