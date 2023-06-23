@@ -284,10 +284,26 @@ private extension WalletConnectCoordinator {
             transfer.energy = params.payload.maxContractExecutionEnergy
             
             let result = dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: self)
-            result.sink(receiveError: { error in
+            result.sink(receiveError: { [weak self] error in
                 print("WC->error \(error)")
-            }, receiveValue: { success in
+                Task {
+                    do {
+                        try await Sign.instance.respond(topic: session.topic, requestId: request.id, response: .error(.init(code: 1337, message: error.localizedDescription)))
+                    } catch let respondErr {
+                        print("WC->ERROR: cannot send error response: \(respondErr)")
+                    }
+                }
+                self?.navigationController.popViewController(animated: true)
+            }, receiveValue: { [weak self] success in
                 print("WC->success \(success)")
+                Task {
+                    do {
+                        try await Sign.instance.respond(topic: session.topic, requestId: request.id, response: .response(AnyCodable(success.submissionId)))
+                    } catch let respondErr {
+                        print("WC->ERROR: cannot send error response: \(respondErr)")
+                    }
+                }
+                self?.navigationController.popViewController(animated: true)
             })
             .store(in: &cancellables)
 
@@ -307,7 +323,15 @@ private extension WalletConnectCoordinator {
                         didAccept: { [weak self] in
                             self?.authorize(request: request)
                         }, didReject: {
-//                            Sign.instance.respond(topic: request.topic, requestId: request.id, response: )
+                            print("WC->info request rejected")
+                            Task {
+                                do {
+                                    try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 5000, message: "User rejected")))
+                                } catch let respondErr {
+                                    print("WC->ERROR: cannot send error response: \(respondErr)")
+                                }
+                            }
+                            self?.navigationController.popViewController(animated: true)
                         },
                         request: request
                     )
