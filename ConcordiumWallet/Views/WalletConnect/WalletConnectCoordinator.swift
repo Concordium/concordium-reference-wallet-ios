@@ -114,6 +114,7 @@ class WalletConnectCoordinator: Coordinator {
         setupWalletConnectRequestBinding()
         setupWalletConnectProposalBinding()
         setupWalletConnectSettleBinding()
+        setupBindings()
     }
 
     func start() {
@@ -395,10 +396,9 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             .sink { [weak self] sessionId, reason in
                 // Called when the dApp disconnects - not when we do ourselves!
                 print("DEBUG: Session \(sessionId) deleted with reason \(reason)")
-
-                // Connection lost or disconnected: Pop "connected" screen.
-                // TODO: Only do this if we're actually on that screen (i.e. the deleted session matches the currently connected one).
-                self?.navigationController.popToRootViewController(animated: true)
+                if self?.navigationController.topViewController is UIHostingController<WalletConnectConnectedView> {
+                    self?.navigationController.popToRootViewController(animated: true)
+                }
             }
             .store(in: &cancellables)
 
