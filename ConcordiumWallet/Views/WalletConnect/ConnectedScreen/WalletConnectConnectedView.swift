@@ -22,12 +22,18 @@ struct WalletConnectConnectedView: View {
                 .font(.system(size: 20))
             HStack {
                 Image("checkmark 1")
-                Text("Connection open between \(accountName) and \(dappName)")
+                    .padding()
+                VStack(alignment: .leading) {
+                    Text("Connection open between:")
+                    Text(accountName)
+                    Text(dappName)
+                }
+                .padding([.top, .trailing, .bottom], 16)
                 .foregroundColor(.white)
             }
-            .padding(16)
             .background(.black)
             .cornerRadius(10)
+            .padding(16)
             Spacer()
             Text("Waiting for actions...")
             Spacer()

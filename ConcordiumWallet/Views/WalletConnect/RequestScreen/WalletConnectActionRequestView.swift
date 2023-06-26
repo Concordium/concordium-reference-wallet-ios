@@ -12,6 +12,7 @@ struct WalletConnectActionRequestView: View {
     var didAccept: (() -> Void)
     var didReject: (() -> Void)
     var request: Request
+    var amount: String
     var body: some View {
         VStack {
             Text("Transaction Approval")
@@ -21,6 +22,8 @@ struct WalletConnectActionRequestView: View {
             Text("<dApp name> requests your signature on the following transaction: ")
                 .padding()
             Text("Currently available amounts: ")
+            Text("Sender account").fontWeight(.bold)
+            Text("Amount: \(amount)").fontWeight(.bold)
             Spacer()
             HStack(spacing: 16) {
                 Button(action: {
@@ -58,8 +61,18 @@ struct WalletConnectActionRequestView: View {
     }
 }
 
-//struct WalletConnectRequestScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WalletConnectActionRequestView()
-//    }
-//}
+struct WalletConnectRequestScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        WalletConnectActionRequestView(
+            didAccept: {},
+            didReject: {},
+            request: .init(
+                topic: "",
+                method: "",
+                params: .init(""),
+                chainId: Blockchain("ccd:testnet")!
+            ),
+            amount: "10.0"
+        )
+    }
+}

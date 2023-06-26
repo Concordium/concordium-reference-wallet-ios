@@ -3,83 +3,6 @@ import SwiftUI
 import UIKit
 import Web3Wallet
 
-enum SchemaType: String, Decodable {
-    case moduleSchema = "module"
-    case parameterSchema = "parameter"
-}
-
-enum SchemaVersion: Int, Decodable {
-    case v0 = 0
-    case v1 = 1
-    case v2 = 2
-}
-
-enum Schema: Decodable {
-    case moduleSchema(value: String, version: SchemaVersion?)
-    case typeSchema(value: String)
-
-    enum CodingKeys: String, CodingKey {
-        case type, value, version
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let type = try container.decode(SchemaType.self, forKey: .type)
-        let value = try container.decode(String.self, forKey: .value)
-        switch type {
-        case .moduleSchema:
-            let version = try container.decode(SchemaVersion.self, forKey: .version)
-            self = .moduleSchema(value: value, version: version)
-        case .parameterSchema:
-            self = .typeSchema(value: value)
-        }
-    }
-}
-
-// MARK: - Payload
-
-struct ContractUpdatePayload: Codable {
-    let amount: String
-    let address: Address
-    let receiveName: String
-    let maxContractExecutionEnergy: Int
-    let message: String
-}
-
-// MARK: - Address
-
-struct Address: Codable {
-    let index, subindex: Int
-}
-
-struct ContractUpdateParams: Decodable {
-    let schema: Schema
-    let type: TransferType
-    let sender: String
-    let payload: ContractUpdatePayload
-    enum CodingKeys: String, CodingKey {
-        case schema, type, sender, payload
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decode(TransferType.self, forKey: .type)
-        sender = try container.decode(String.self, forKey: .sender)
-        let payloadData = try Data(container.decode(String.self, forKey: .payload).utf8)
-        payload = try JSONDecoder().decode(ContractUpdatePayload.self, from: payloadData)
-        // TODO: Check what the version should be if that's a string
-        if let schema = try? container.decode(Schema.self, forKey: .schema) {
-            self.schema = schema
-        } else {
-            schema = .moduleSchema(value: try container.decode(String.self, forKey: .schema), version: nil)
-        }
-    }
-}
-
-enum WalletConenctError: Error {
-    case unknownError
-}
-
 protocol WalletConnectCoordiantorDelegate: AnyObject {
     func dismissWalletConnectCoordinator()
 }
@@ -114,7 +37,7 @@ class WalletConnectCoordinator: Coordinator {
         setupWalletConnectRequestBinding()
         setupWalletConnectProposalBinding()
         setupWalletConnectSettleBinding()
-        setupBindings()
+        setupDebugBindings()
     }
 
     func start() {
@@ -144,7 +67,6 @@ class WalletConnectCoordinator: Coordinator {
 }
 
 // MARK: - WalletConnect
-
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
         // TODO: Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
@@ -187,7 +109,8 @@ private extension WalletConnectCoordinator {
                                             do {
                                                 try await Sign.instance.approve(
                                                     proposalId: proposal.id,
-                                                    namespaces: [ // TODO: un-hardcode
+                                                    namespaces: [
+                                                        // TODO: un-hardcode
                                                         "ccd": SessionNamespace(
                                                             chains: [Blockchain("ccd:testnet")!],
                                                             accounts: [Account("ccd:testnet:\(account.address)")!],
@@ -250,8 +173,8 @@ private extension WalletConnectCoordinator {
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectConnectedView(
-                            dappName: "TODO",
-                            accountName: "TODO",
+                            dappName: session.peer.name,
+                            accountName: ccdNamespace.accounts.first?.address ?? "",
                             didDisconnect: {
                                 // User clicked the disconnect button.
                                 Task {
@@ -273,67 +196,14 @@ private extension WalletConnectCoordinator {
             .store(in: &cancellables)
     }
 
-    func authorize(request: Request) {
-        guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
-            self.navigationController.popViewController(animated: true)
-            self.presentError(with: "errorAlert.title".localized, message: "Session not found")
-            return
-        }
-
-        guard session.namespaces.count == 1 else {
-            self.navigationController.popViewController(animated: true)
-            self.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
-            return
-        }
-
-        guard let ccdNamespace = session.namespaces["ccd"]  else {
-            self.navigationController.popViewController(animated: true)
-            self.presentError(with: "errorAlert.title".localized, message: "ccd namespace not found")
-            return
-        }
-
-        guard let accountAddress = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
-            self.navigationController.popViewController(animated: true)
-            self.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
-            return
-        }
-        
-        guard let account = dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
-            guard session.namespaces.count == 1 else {
-                self.navigationController.popViewController(animated: true)
-                self.presentError(with: "errorAlert.title".localized, message: "Account with address \(accountAddress) not found")
-                return
-            }
-            return
-        }
-        var transfer = TransferDataTypeFactory.create()
-
+    func authorize(request: Request, transfer: TransferDataType, account: AccountDataType) {
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
-            let params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
-
-            guard case TransferType.contractUpdate = params.type else {
-                self.navigationController.popViewController(animated: true)
-                self.presentError(with: "errorAlert.title".localized, message: "Unsupported transaction type (only Update is supported)")
-                return
-            }
-            guard !params.sender.isEmpty else {
-                self.navigationController.popViewController(animated: true)
-                self.presentError(with: "errorAlert.title".localized, message: "Empty sender")
-                return
-            }
-            transfer.transferType = params.type
-            transfer.fromAddress = params.sender
-            transfer.nonce = account.accountNonce
-            transfer.payload = .contractUpdatePayload(params.payload)
-            transfer.energy = params.payload.maxContractExecutionEnergy
-
             let result = dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: self)
             result.sink(receiveError: { [weak self] error in
                 print("WC->error \(error)")
                 Task {
                     do {
-                        try await Sign.instance.respond(topic: session.topic, requestId: request.id, response: .error(.init(code: 1337, message: error.localizedDescription)))
+                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 1337, message: error.localizedDescription)))
                     } catch let error {
                         self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                     }
@@ -343,7 +213,7 @@ private extension WalletConnectCoordinator {
                 print("WC->success \(success)")
                 Task {
                     do {
-                        try await Sign.instance.respond(topic: session.topic, requestId: request.id, response: .response(AnyCodable(success.submissionId)))
+                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .response(AnyCodable(success.submissionId)))
                     } catch let error {
                         self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                     }
@@ -363,34 +233,91 @@ private extension WalletConnectCoordinator {
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] request, _ in
+            .sink { [weak self] request, context in
                 print("DEBUG: Incoming request: \(request)")
-                self?.navigationController.pushViewController(UIHostingController(
-                    rootView: WalletConnectActionRequestView(
-                        didAccept: { [weak self] in
-                            self?.authorize(request: request)
-                        }, didReject: {
-                            print("WC->info request rejected")
-                            Task {
-                                do {
-                                    try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 5000, message: "User rejected")))
-                                } catch let error {
-                                    self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Session not found")
+                    return
+                }
+
+                guard session.namespaces.count == 1 else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
+                    return
+                }
+
+                guard let ccdNamespace = session.namespaces["ccd"] else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "ccd namespace not found")
+                    return
+                }
+
+                guard let accountAddress = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
+                    return
+                }
+                
+                guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
+                    guard session.namespaces.count == 1 else {
+                        self?.navigationController.popViewController(animated: true)
+                        self?.presentError(with: "errorAlert.title".localized, message: "Account with address \(accountAddress) not found")
+                        return
+                    }
+                    return
+                }
+
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
+                    let params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
+                    
+                    guard case TransferType.contractUpdate = params.type else {
+                        self?.navigationController.popViewController(animated: true)
+                        self?.presentError(with: "errorAlert.title".localized, message: "Unsupported transaction type (only Update is supported)")
+                        return
+                    }
+                    guard !params.sender.isEmpty else {
+                        self?.navigationController.popViewController(animated: true)
+                        self?.presentError(with: "errorAlert.title".localized, message: "Empty sender")
+                        return
+                    }
+                    var transfer = TransferDataTypeFactory.create()
+                    transfer.transferType = params.type
+                    transfer.fromAddress = params.sender
+                    transfer.nonce = account.accountNonce
+                    transfer.payload = .contractUpdatePayload(params.payload)
+                    transfer.energy = params.payload.maxContractExecutionEnergy
+ 
+                    self?.navigationController.pushViewController(
+                        UIHostingController(
+                        rootView: WalletConnectActionRequestView(
+                            didAccept: { [weak self] in
+                                self?.authorize(request: request, transfer: transfer, account: account)
+                            }, didReject: { [weak self] in
+                                print("WC->info request rejected")
+                                Task {
+                                    do {
+                                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 5000, message: "User rejected")))
+                                    } catch let error {
+                                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                                    }
                                 }
-                            }
-                            self?.navigationController.popViewController(animated: true)
-                        },
-                        request: request
-                    )
-                ), animated: true)
+                                self?.navigationController.popToRootViewController(animated: true)
+                            },
+                            request: request,
+                            amount: params.payload.amount
+                        )
+                    ),
+                    animated: true)
+                } catch let exepction {
+                    print("WC-exception \(exepction)")
+                    self?.navigationController.popToRootViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: exepction.localizedDescription)
+                }
             }
             .store(in: &cancellables)
-    }
-}
-
-extension WalletConnectCoordinator: WalletConnectDelegate {
-    private func setupBindings() {
-        // For now we just print the following events.
+        
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sessionId, reason in
@@ -401,7 +328,12 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 }
             }
             .store(in: &cancellables)
+    }
+}
 
+extension WalletConnectCoordinator: WalletConnectDelegate {
+    private func setupDebugBindings() {
+        // For now we just print the following events.
         Sign.instance.sessionEventPublisher
             .receive(on: DispatchQueue.main)
             .sink { event in
