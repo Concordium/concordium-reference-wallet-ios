@@ -1,6 +1,6 @@
 import Foundation
 
 enum SchemaType: String, Decodable {
-    case moduleSchema = "module"
-    case parameterSchema = "parameter"
+    case moduleSchema = "ModuleSchema"
+    case parameterSchema = "TypeSchema"
 }

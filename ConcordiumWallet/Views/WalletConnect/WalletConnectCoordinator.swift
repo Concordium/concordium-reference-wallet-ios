@@ -3,6 +3,41 @@ import SwiftUI
 import UIKit
 import Web3Wallet
 
+let CONCORDIUM_WALLET_CONNECT_PROJECT_ID = "76324905a70fe5c388bab46d3e0564dc"
+
+// From https://docs.walletconnect.com/2.0/specs/clients/sign/error-codes
+//case .invalidMethod: return 1001
+//case .invalidEvent: return 1002
+//case .invalidUpdateRequest: return 1003
+//case .invalidExtendRequest: return 1004
+//case .invalidSessionSettleRequest: return 1005
+//case .unauthorizedMethod: return 3001
+//case .unauthorizedEvent: return 3002
+//case .unauthorizedUpdateRequest: return 3003
+//case .unauthorizedExtendRequest: return 3004
+//case .unauthorizedChain: return 3005
+//case .userRejected return 5000
+//case .userRejectedChains: return 5001
+//case .userRejectedMethods: return 5002
+//case .userRejectedEvents: return 5003
+//case .unsupportedChains: return 5100
+//case .unsupportedMethods: return 5101
+//case .unsupportedEvents: return 5102
+//case .unsupportedAccounts: return 5103
+//case .unsupportedNamespaceKey: return 5104
+//case .userDisconnected: return 6000
+//case .sessionSettlementFailed: return 7000
+//case .noSessionForTopic: return 7001
+//case .sessionRequestExpired: return 8000
+struct WalletConnectErrors {
+    static func userRejected() -> JSONRPCError {
+        JSONRPCError(code: 5000, message: "User rejected")
+    }
+    static func transactionFailed(_ data: AnyCodable) -> JSONRPCError {
+        JSONRPCError(code: 10000, message: "Transaction failed", data: data)
+    }
+}
+
 protocol WalletConnectCoordiantorDelegate: AnyObject {
     func dismissWalletConnectCoordinator()
 }
@@ -33,7 +68,7 @@ class WalletConnectCoordinator: Coordinator {
             verifyUrl: "verify.walletconnect.com"
         )
         Pair.configure(metadata: metadata)
-        Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
+        Networking.configure(projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID, socketFactory: SocketFactory())
         setupWalletConnectRequestBinding()
         setupWalletConnectProposalBinding()
         setupWalletConnectSettleBinding()
@@ -49,8 +84,8 @@ class WalletConnectCoordinator: Coordinator {
             Task {
                 do {
                     try await Sign.instance.disconnect(topic: session.topic)
-                } catch let error {
-                    print("WalletConnect: Deinitializing WalletConnectCoordinator: Error disconnecting session with topic '\(session.topic)': \(error)")
+                } catch let err {
+                    print("ERROR: WalletConnect: Deinitializing WalletConnectCoordinator: Cannot disconnect session with topic '\(session.topic)': \(err)")
                 }
             }
         }
@@ -58,8 +93,8 @@ class WalletConnectCoordinator: Coordinator {
             Task {
                 do {
                     try await Pair.instance.disconnect(topic: pairing.topic)
-                } catch let error {
-                    print("WalletConnect: Deinitializing WalletConnectCoordinator: Error disconnecting pairing with topic '\(pairing.topic)': \(error)")
+                } catch let err {
+                    print("ERROR: WalletConnect: Deinitializing WalletConnectCoordinator: Cannot disconnect pairing with topic '\(pairing.topic)': \(err)")
                 }
             }
         }
@@ -78,12 +113,10 @@ private extension WalletConnectCoordinator {
         // Handler for session proposals, i.e. requests for connections to be established.
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { failure in
-                print(failure) // TODO: should we handle error?
-            }, receiveValue: { [weak self] proposal, _ in
+            .sink { [weak self] proposal, _ in
 
                 guard let self = self else { return }
-                print("DEBUG: \(self) Session \(proposal) proposed")
+                print("DEBUG: WalletConnect: \(self) Session \(proposal) proposed")
 
                 // TODO: Auto-reject proposal if namespaces doesn't exactly match expected chain/method/event.
                 //      And show user appropriate error...
@@ -118,8 +151,8 @@ private extension WalletConnectCoordinator {
                                                             events: ["chain_changed", "accounts_changed"]
                                                         ),
                                                     ])
-                                            } catch let error {
-                                                self.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                                            } catch let err {
+                                                self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                             }
                                         }
                                     },
@@ -128,9 +161,8 @@ private extension WalletConnectCoordinator {
                                         Task {
                                             do {
                                                 try await Sign.instance.reject(proposalId: proposal.id, reason: .userRejected)
-                                                //                                                try await Sign.instance.disconnect(topic: proposal)
-                                            } catch let error {
-                                                self.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                                            } catch let err {
+                                                self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                             }
                                         }
 
@@ -145,8 +177,7 @@ private extension WalletConnectCoordinator {
                 }
                 let viewController = WalletConnectAccountSelectViewController(viewModel: viewModel)
                 self.navigationController.pushViewController(viewController, animated: true)
-
-            })
+            }
             .store(in: &cancellables)
     }
 
@@ -154,7 +185,7 @@ private extension WalletConnectCoordinator {
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
-                print("DEBUG: Session \(session.pairingTopic) settled")
+                print("DEBUG: WalletConnect: Session \(session.pairingTopic) settled")
                 guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
                     self?.navigationController.popToRootViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Unexpected namespaces")
@@ -180,8 +211,8 @@ private extension WalletConnectCoordinator {
                                 Task {
                                     do {
                                         try await Sign.instance.disconnect(topic: session.topic)
-                                    } catch let error {
-                                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                                    } catch let err {
+                                        self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                     }
                                 }
                                 // Pop the VC without waiting for disconnect to complete.
@@ -196,111 +227,124 @@ private extension WalletConnectCoordinator {
             .store(in: &cancellables)
     }
 
-    func authorize(request: Request, transfer: TransferDataType, account: AccountDataType) {
-        do {
-            let result = dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: self)
-            result.sink(receiveError: { [weak self] error in
-                print("WC->error \(error)")
-                Task {
-                    do {
-                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 1337, message: error.localizedDescription)))
-                    } catch let error {
-                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
-                    }
-                }
-                self?.navigationController.popViewController(animated: true)
-            }, receiveValue: { [weak self] success in
-                print("WC->success \(success)")
-                Task {
-                    do {
-                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .response(AnyCodable(success.submissionId)))
-                    } catch let error {
-                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
-                    }
-                }
-                self?.navigationController.popViewController(animated: true)
-            })
-            .store(in: &cancellables)
-
-        } catch let exepction {
-            print("WC-exception \(exepction)")
-            self.navigationController.popViewController(animated: true)
-            self.presentError(with: "errorAlert.title".localized, message: exepction.localizedDescription)
-        }
-    }
-
     func setupWalletConnectRequestBinding() {
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] request, context in
-                print("DEBUG: Incoming request: \(request)")
+            .sink { [weak self] request, _ in
+                print("DEBUG: WalletConnect: Incoming request: \(request)")
+                
+                // TODO Propagate errors back to the dApp.
+                
+                // Look up session for request topic for finding connected account and dApp name.
+                // TODO We should not just trust the information from the WC client, but just check it against our own connection state.
                 guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Session not found")
                     return
                 }
-
-                guard session.namespaces.count == 1 else {
+                // Look up namespace "ccd" in the session.
+                guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
                     self?.navigationController.popViewController(animated: true)
-                    self?.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
+                    self?.presentError(with: "errorAlert.title".localized, message: "Expected single namespace with key 'ccd' but got \(session.namespaces.keys)")
+                    return
+                }
+                // Look up single account address in "ccd" namespace.
+                guard ccdNamespace.accounts.count == 1, let accountAddress = ccdNamespace.accounts.first?.address else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Expected single address but got '\(ccdNamespace.accounts)'")
+                    return
+                }
+                // Get account object by address.
+                guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Account with address '\(accountAddress)' not found")
                     return
                 }
 
-                guard let ccdNamespace = session.namespaces["ccd"] else {
-                    self?.navigationController.popViewController(animated: true)
-                    self?.presentError(with: "errorAlert.title".localized, message: "ccd namespace not found")
+                var params: ContractUpdateParams
+                do {
+                    // TODO Why do we do a JSON detour instead of just plucking the fields?
+                    let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
+                    params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
+                } catch let err {
+                    print("ERROR: WalletConnect: Cannot JSON encode/decode contract update parameters: \(err)")
+                    self?.navigationController.popToRootViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                     return
                 }
-
-                guard let accountAddress = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
+                // Check that request transaction is a contract update as that's the only type we support.
+                guard case TransferType.contractUpdate = params.type else {
                     self?.navigationController.popViewController(animated: true)
-                    self?.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
+                    self?.presentError(with: "errorAlert.title".localized, message: "Unsupported transaction type '\(params.type)' (only 'Update' is supported).")
+                    return
+                }
+                // Check that sender account address isn't empty as that would result in a meaningless error when trying to look up its nonce.
+                guard !params.sender.isEmpty else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Invalid payload: Sender address is empty.")
                     return
                 }
                 
-                guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
-                    guard session.namespaces.count == 1 else {
-                        self?.navigationController.popViewController(animated: true)
-                        self?.presentError(with: "errorAlert.title".localized, message: "Account with address \(accountAddress) not found")
-                        return
-                    }
-                    return
-                }
+                var transfer = TransferDataTypeFactory.create()
+                transfer.transferType = params.type
+                transfer.fromAddress = params.sender
+                transfer.nonce = account.accountNonce
+                transfer.payload = .contractUpdatePayload(params.payload)
+                transfer.energy = params.payload.maxContractExecutionEnergy
 
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
-                    let params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
-                    
-                    guard case TransferType.contractUpdate = params.type else {
-                        self?.navigationController.popViewController(animated: true)
-                        self?.presentError(with: "errorAlert.title".localized, message: "Unsupported transaction type (only Update is supported)")
-                        return
-                    }
-                    guard !params.sender.isEmpty else {
-                        self?.navigationController.popViewController(animated: true)
-                        self?.presentError(with: "errorAlert.title".localized, message: "Empty sender")
-                        return
-                    }
-                    var transfer = TransferDataTypeFactory.create()
-                    transfer.transferType = params.type
-                    transfer.fromAddress = params.sender
-                    transfer.nonce = account.accountNonce
-                    transfer.payload = .contractUpdatePayload(params.payload)
-                    transfer.energy = params.payload.maxContractExecutionEnergy
- 
-                    self?.navigationController.pushViewController(
-                        UIHostingController(
+                self?.navigationController.pushViewController(
+                    UIHostingController(
                         rootView: WalletConnectActionRequestView(
                             didAccept: { [weak self] in
-                                self?.authorize(request: request, transfer: transfer, account: account)
+                                guard let self else {
+                                    return
+                                }
+                                dependencyProvider.transactionsService()
+                                    .performTransfer(transfer, from: account, requestPasswordDelegate: self)
+                                    .sink(receiveError: { [weak self] err in
+                                        print("ERROR: WalletConnect: Cannot submit transaction: \(err)")
+                                        Task {
+                                            do {
+                                                try await Sign.instance.respond(
+                                                    topic: request.topic,
+                                                    requestId: request.id,
+                                                    response: .error(WalletConnectErrors.transactionFailed(AnyCodable(err.localizedDescription)))
+                                                )
+                                            } catch let err {
+                                                self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                                            }
+                                        }
+                                        self?.navigationController.popViewController(animated: true)
+                                    }, receiveValue: { [weak self] val in
+                                        print("DEBUG: WalletConnect: Transaction submitted: \(val)")
+                                        Task {
+                                            do {
+                                                print("WalletConnect: RESPONDING \(RPCResult.response(AnyCodable(val.submissionId)))")
+                                                try await Sign.instance.respond(
+                                                    topic: request.topic,
+                                                    requestId: request.id,
+                                                    response: .response(AnyCodable(["hash": val.submissionId]))
+                                                )
+                                            } catch let err {
+                                                self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                                            }
+                                        }
+                                        self?.navigationController.popViewController(animated: true)
+                                    })
+                                    .store(in: &cancellables)
                             }, didReject: { [weak self] in
-                                print("WC->info request rejected")
+                                print("DEBUG: WalletConnect: Rejecting request")
                                 Task {
                                     do {
-                                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 5000, message: "User rejected")))
-                                    } catch let error {
-                                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                                        try await Sign.instance.respond(
+                                            topic: request.topic,
+                                            requestId: request.id,
+                                            response: .error(WalletConnectErrors.userRejected())
+                                        )
+                                    } catch let err {
+                                        print("ERROR: WalletConnect: Cannot reject request: \(err)")
+                                        self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                     }
                                 }
                                 self?.navigationController.popToRootViewController(animated: true)
@@ -309,12 +353,8 @@ private extension WalletConnectCoordinator {
                             amount: params.payload.amount
                         )
                     ),
-                    animated: true)
-                } catch let exepction {
-                    print("WC-exception \(exepction)")
-                    self?.navigationController.popToRootViewController(animated: true)
-                    self?.presentError(with: "errorAlert.title".localized, message: exepction.localizedDescription)
-                }
+                    animated: true
+                )
             }
             .store(in: &cancellables)
         
@@ -322,7 +362,7 @@ private extension WalletConnectCoordinator {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sessionId, reason in
                 // Called when the dApp disconnects - not when we do ourselves!
-                print("DEBUG: Session \(sessionId) deleted with reason \(reason)")
+                print("DEBUG: dApp disconnected session '\(sessionId)' with reason '\(reason)'")
                 if self?.navigationController.topViewController is UIHostingController<WalletConnectConnectedView> {
                     self?.navigationController.popToRootViewController(animated: true)
                 }
@@ -337,46 +377,46 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         Sign.instance.sessionEventPublisher
             .receive(on: DispatchQueue.main)
             .sink { event in
-                print("DEBUG: Session event: \(event)")
+                print("DEBUG: WalletConnect: Session event: \(event)")
             }
             .store(in: &cancellables)
 
         Sign.instance.sessionExtendPublisher
             .receive(on: DispatchQueue.main)
             .sink { sessionTopic, date in
-                print("DEBUG: Session \(sessionTopic) extended until \(date)")
+                print("DEBUG: WalletConnect: Session \(sessionTopic) extended until \(date)")
             }
             .store(in: &cancellables)
 
         Sign.instance.sessionUpdatePublisher
             .receive(on: DispatchQueue.main)
             .sink { sessionTopic, _ in
-                print("DEBUG: Session \(sessionTopic) updated")
+                print("DEBUG: WalletConnect: Session \(sessionTopic) updated")
             }
             .store(in: &cancellables)
         Sign.instance.socketConnectionStatusPublisher
             .receive(on: DispatchQueue.main)
             .sink { status in
-                print("DEBUG: Socket connection status update: \(status)")
+                print("DEBUG: WalletConnect: Socket connection status update: \(status)")
             }
             .store(in: &cancellables)
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
             .sink { response in
-                print("DEBUG: Response: \(response)")
+                print("DEBUG: WalletConnect: Response: \(response)")
             }
             .store(in: &cancellables)
         Sign.instance.sessionRejectionPublisher
             .receive(on: DispatchQueue.main)
             .sink { proposal, reason in
-                print("DEBUG: Proposal \(proposal) rejected with reason \(reason)")
+                print("DEBUG: WalletConnect: Proposal \(proposal) rejected with reason \(reason)")
             }
             .store(in: &cancellables)
 
         Sign.instance.pingResponsePublisher
             .receive(on: DispatchQueue.main)
             .sink { ping in
-                print("DEBUG: Ping: \(ping)")
+                print("DEBUG: WalletConnect: Ping: \(ping)")
             }
             .store(in: &cancellables)
     }
@@ -393,8 +433,8 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                         do {
                             try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
 
-                        } catch let error {
-                            self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
+                        } catch let err {
+                            self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                         }
                     }
                     self?.navigationController.popViewController(animated: true)
@@ -406,9 +446,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
     }
     
     func presentError(with title: String, message: String)  {
-        let ac = UIAlertController(title: title,
-                                   message: message,
-                                   preferredStyle: .alert)
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "errorAlert.okButton".localized, style: .default))
         self.navigationController.present(ac, animated: true)
     }

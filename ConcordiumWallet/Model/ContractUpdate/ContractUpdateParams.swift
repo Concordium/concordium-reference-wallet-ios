@@ -5,6 +5,7 @@ struct ContractUpdateParams: Decodable {
     let type: TransferType
     let sender: String
     let payload: ContractUpdatePayload
+    
     enum CodingKeys: String, CodingKey {
         case schema, type, sender, payload
     }
@@ -15,11 +16,17 @@ struct ContractUpdateParams: Decodable {
         sender = try container.decode(String.self, forKey: .sender)
         let payloadData = try Data(container.decode(String.self, forKey: .payload).utf8)
         payload = try JSONDecoder().decode(ContractUpdatePayload.self, from: payloadData)
-        // TODO: Check what the version should be if that's a string
-        if let schema = try? container.decode(Schema.self, forKey: .schema) {
-            self.schema = schema
+
+        // Attempt to decode schema from schema object, falling back to legacy base64 encoded module schema.
+        if let s = try? container.decode(Schema.self, forKey: .schema) {
+            schema = s
         } else {
-            schema = .moduleSchema(value: try container.decode(String.self, forKey: .schema), version: nil)
+            let schemaValueBase64 = try container.decode(String.self, forKey: .schema)
+            if let data = Data(base64Encoded: schemaValueBase64) {
+                schema = .moduleSchema(value: data, version: nil)
+            }
+            // Invalid Base64 encoding.
+            throw WalletConenctError.invalidSchema
         }
     }
 }
