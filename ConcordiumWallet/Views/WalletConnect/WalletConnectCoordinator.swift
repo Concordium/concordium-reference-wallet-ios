@@ -126,7 +126,16 @@ class WalletConnectCoordinator: Coordinator {
                 do {
                     try await Sign.instance.disconnect(topic: session.topic)
                 } catch let error {
-                    print("WalletConnect error disconnecting from deinit: \(error)")
+                    print("WalletConnect: Deinitializing WalletConnectCoordinator: Error disconnecting session with topic '\(session.topic)': \(error)")
+                }
+            }
+        }
+        Pair.instance.getPairings().forEach { pairing in
+            Task {
+                do {
+                    try await Pair.instance.disconnect(topic: pairing.topic)
+                } catch let error {
+                    print("WalletConnect: Deinitializing WalletConnectCoordinator: Error disconnecting pairing with topic '\(pairing.topic)': \(error)")
                 }
             }
         }
