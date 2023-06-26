@@ -36,8 +36,8 @@ enum Schema: Decodable {
     }
 }
 
-
 // MARK: - Payload
+
 struct ContractUpdatePayload: Codable {
     let amount: String
     let address: Address
@@ -47,6 +47,7 @@ struct ContractUpdatePayload: Codable {
 }
 
 // MARK: - Address
+
 struct Address: Codable {
     let index, subindex: Int
 }
@@ -79,18 +80,27 @@ enum WalletConenctError: Error {
     case unknownError
 }
 
+protocol WalletConnectCoordiantorDelegate: AnyObject {
+    func dismissWalletConnectCoordinator()
+}
+
 class WalletConnectCoordinator: Coordinator {
     typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider
 
     private var cancellables: Set<AnyCancellable> = []
     private var dependencyProvider: DependencyProvider
     var childCoordinators = [Coordinator]()
-
+    weak var parentCoordinator: WalletConnectCoordiantorDelegate?
     var navigationController: UINavigationController
 
-    init(navigationController: UINavigationController, dependencyProvider: DependencyProvider) {
+    init(
+        navigationController: UINavigationController,
+        dependencyProvider: DependencyProvider,
+        parentCoordiantor: WalletConnectCoordiantorDelegate
+    ) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
+        self.parentCoordinator = parentCoordiantor
 
         let metadata = AppMetadata(
             name: "Concordium",
@@ -101,7 +111,6 @@ class WalletConnectCoordinator: Coordinator {
         )
         Pair.configure(metadata: metadata)
         Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
-
         setupWalletConnectRequestBinding()
         setupWalletConnectProposalBinding()
         setupWalletConnectSettleBinding()
@@ -110,9 +119,17 @@ class WalletConnectCoordinator: Coordinator {
     func start() {
         showWalletConnectScanner()
     }
-    
+
     deinit {
-        print("WalletConnectCoordinator did deinit")
+        Sign.instance.getSessions().forEach { session in
+            Task {
+                do {
+                    try await Sign.instance.disconnect(topic: session.topic)
+                } catch let error {
+                    print("WalletConnect error disconnecting from deinit: \(error)")
+                }
+            }
+        }
     }
 }
 
@@ -143,7 +160,7 @@ private extension WalletConnectCoordinator {
                     storageManager: self.dependencyProvider.storageManager(),
                     proposal: proposal
                 )
-
+                         
                 viewModel.didSelect = { account in
                     self.navigationController.pushViewController(
                         UIHostingController(
@@ -168,8 +185,8 @@ private extension WalletConnectCoordinator {
                                                             events: ["chain_changed", "accounts_changed"]
                                                         ),
                                                     ])
-                                            } catch {
-                                                print("ERROR: approval of connection failed: \(error)")
+                                            } catch let error {
+                                                self.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                                             }
                                         }
                                     },
@@ -180,7 +197,7 @@ private extension WalletConnectCoordinator {
                                                 try await Sign.instance.reject(proposalId: proposal.id, reason: .userRejected)
                                                 //                                                try await Sign.instance.disconnect(topic: proposal)
                                             } catch let error {
-                                                print("ERROR: rejection of connection failed: \(error)")
+                                                self.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                                             }
                                         }
 
@@ -206,12 +223,16 @@ private extension WalletConnectCoordinator {
             .sink { [weak self] session in
                 print("DEBUG: Session \(session.pairingTopic) settled")
                 guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
-                    // TODO: throw an error?
+                    self?.navigationController.popToRootViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Unexpected namespaces")
+                    self?.parentCoordinator?.dismissWalletConnectCoordinator()
                     return
                 }
 
                 guard ccdNamespace.accounts.first?.address != nil, ccdNamespace.accounts.count == 1 else {
-                    // TODO: throw an error?
+                    self?.navigationController.popToRootViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Unexpected number of accounts")
+                    self?.parentCoordinator?.dismissWalletConnectCoordinator()
                     return
                 }
 
@@ -227,11 +248,12 @@ private extension WalletConnectCoordinator {
                                     do {
                                         try await Sign.instance.disconnect(topic: session.topic)
                                     } catch let error {
-                                        print("ERROR: cannot disconnect: \(error)")
+                                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                                     }
                                 }
                                 // Pop the VC without waiting for disconnect to complete.
                                 self?.navigationController.popToRootViewController(animated: true)
+                                self?.parentCoordinator?.dismissWalletConnectCoordinator()
                             }
                         )
                     ),
@@ -243,35 +265,51 @@ private extension WalletConnectCoordinator {
 
     func authorize(request: Request) {
         guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
-            // TODO: Throw an error
+            self.navigationController.popViewController(animated: true)
+            self.presentError(with: "errorAlert.title".localized, message: "Session not found")
             return
         }
 
-        guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
-            // TODO: throw an error?
+        guard session.namespaces.count == 1 else {
+            self.navigationController.popViewController(animated: true)
+            self.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
+            return
+        }
+
+        guard let ccdNamespace = session.namespaces["ccd"]  else {
+            self.navigationController.popViewController(animated: true)
+            self.presentError(with: "errorAlert.title".localized, message: "ccd namespace not found")
             return
         }
 
         guard let accountAddress = ccdNamespace.accounts.first?.address, ccdNamespace.accounts.count == 1 else {
-            // TODO: throw an error?
+            self.navigationController.popViewController(animated: true)
+            self.presentError(with: "errorAlert.title".localized, message: "Incorect number of namespaces")
             return
         }
         
         guard let account = dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
+            guard session.namespaces.count == 1 else {
+                self.navigationController.popViewController(animated: true)
+                self.presentError(with: "errorAlert.title".localized, message: "Account with address \(accountAddress) not found")
+                return
+            }
             return
         }
         var transfer = TransferDataTypeFactory.create()
 
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: request.params.value, options: []) else {
-            // TODO: throw an error?
-            return
-        }
-
         do {
+            let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
             let params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
 
             guard case TransferType.contractUpdate = params.type else {
-                // TODO: throw an error?
+                self.navigationController.popViewController(animated: true)
+                self.presentError(with: "errorAlert.title".localized, message: "Unsupported transaction type (only Update is supported)")
+                return
+            }
+            guard !params.sender.isEmpty else {
+                self.navigationController.popViewController(animated: true)
+                self.presentError(with: "errorAlert.title".localized, message: "Empty sender")
                 return
             }
             transfer.transferType = params.type
@@ -279,15 +317,15 @@ private extension WalletConnectCoordinator {
             transfer.nonce = account.accountNonce
             transfer.payload = .contractUpdatePayload(params.payload)
             transfer.energy = params.payload.maxContractExecutionEnergy
-            
+
             let result = dependencyProvider.transactionsService().performTransfer(transfer, from: account, requestPasswordDelegate: self)
             result.sink(receiveError: { [weak self] error in
                 print("WC->error \(error)")
                 Task {
                     do {
                         try await Sign.instance.respond(topic: session.topic, requestId: request.id, response: .error(.init(code: 1337, message: error.localizedDescription)))
-                    } catch let respondErr {
-                        print("WC->ERROR: cannot send error response: \(respondErr)")
+                    } catch let error {
+                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                     }
                 }
                 self?.navigationController.popViewController(animated: true)
@@ -296,8 +334,8 @@ private extension WalletConnectCoordinator {
                 Task {
                     do {
                         try await Sign.instance.respond(topic: session.topic, requestId: request.id, response: .response(AnyCodable(success.submissionId)))
-                    } catch let respondErr {
-                        print("WC->ERROR: cannot send error response: \(respondErr)")
+                    } catch let error {
+                        self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                     }
                 }
                 self?.navigationController.popViewController(animated: true)
@@ -306,6 +344,8 @@ private extension WalletConnectCoordinator {
 
         } catch let exepction {
             print("WC-exception \(exepction)")
+            self.navigationController.popViewController(animated: true)
+            self.presentError(with: "errorAlert.title".localized, message: exepction.localizedDescription)
         }
     }
 
@@ -324,8 +364,8 @@ private extension WalletConnectCoordinator {
                             Task {
                                 do {
                                     try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(.init(code: 5000, message: "User rejected")))
-                                } catch let respondErr {
-                                    print("WC->ERROR: cannot send error response: \(respondErr)")
+                                } catch let error {
+                                    self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                                 }
                             }
                             self?.navigationController.popViewController(animated: true)
@@ -340,7 +380,6 @@ private extension WalletConnectCoordinator {
 
 extension WalletConnectCoordinator: WalletConnectDelegate {
     private func setupBindings() {
-        
         // For now we just print the following events.
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
@@ -412,13 +451,9 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     Task {
                         do {
                             try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
-    
+
                         } catch let error {
-                            let ac = UIAlertController(title: "errorAlert.title".localized,
-                                                       message: error.localizedDescription,
-                                                       preferredStyle: .alert)
-                            ac.addAction(UIAlertAction(title: "errorAlert.okButton".localized, style: .default))
-                            self?.navigationController.present(ac, animated: true)
+                            self?.presentError(with: "errorAlert.title".localized, message: error.localizedDescription)
                         }
                     }
                     self?.navigationController.popViewController(animated: true)
@@ -427,6 +462,14 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             )
         )
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func presentError(with title: String, message: String)  {
+        let ac = UIAlertController(title: title,
+                                   message: message,
+                                   preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "errorAlert.okButton".localized, style: .default))
+        self.navigationController.present(ac, animated: true)
     }
 }
 

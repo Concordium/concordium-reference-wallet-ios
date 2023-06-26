@@ -65,13 +65,15 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     func showMainTabbar() {
         navigationController.setupBaseNavigationControllerStyle()
 
-        accountsCoordinator = AccountsCoordinator(
-            navigationController: navigationController,
-            dependencyProvider: defaultProvider,
-            appSettingsDelegate: self,
-            accountsPresenterDelegate: self
-        )
-        accountsCoordinator?.start()
+        if accountsCoordinator == nil {
+            accountsCoordinator = AccountsCoordinator(
+                navigationController: navigationController,
+                dependencyProvider: defaultProvider,
+                appSettingsDelegate: self,
+                accountsPresenterDelegate: self
+            )
+            accountsCoordinator?.start()
+        }
 
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
             self.showDelegationWarningIfNeeded()
@@ -199,10 +201,10 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             if (topController as? TransparentNavigationController)?.viewControllers.last is EnterPasswordViewController {
                 return
             }
-
             topController.dismiss(animated: false) {
                 Logger.trace("logout due to application timeout")
                 self.childCoordinators.removeAll()
+                self.accountsCoordinator = nil
                 self.showLogin()
             }
         }

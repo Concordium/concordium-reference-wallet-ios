@@ -41,6 +41,7 @@ struct WalletConnectConnectedView: View {
             .background(Pallette.primary)
             .cornerRadius(10)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -31,7 +31,7 @@ class AccountsCoordinator: Coordinator {
     weak var accountsPresenterDelegate: AccountsPresenterDelegate?
     private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: DependencyProvider
-
+    private var walletConnectCoordinator: WalletConnectCoordinator?
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
@@ -42,7 +42,6 @@ class AccountsCoordinator: Coordinator {
         self.dependencyProvider = dependencyProvider
         self.appSettingsDelegate = appSettingsDelegate
         self.accountsPresenterDelegate = accountsPresenterDelegate
-
     }
 
     func start() {
@@ -118,6 +117,10 @@ class AccountsCoordinator: Coordinator {
         selectExportPasswordCoordinator.start()
         navigationController.present(selectExportPasswordCoordinator.navigationController, animated: true)
         return selectExportPasswordCoordinator.passwordPublisher.eraseToAnyPublisher()
+    }
+    
+    deinit {
+        print("\(self) deinitialized")
     }
 }
 
@@ -222,13 +225,13 @@ extension AccountsCoordinator: ExportPresenterDelegate {
     }
 
     func shareExportedFile(url: URL, completion: @escaping () -> Void) {
-        share(items: [url], from: navigationController) { completed in
+        share(items: [url], from: navigationController) { [weak self] completed in
             if completed {
                 AppSettings.needsBackupWarning = false
             }
 
             completion()
-            self.exportFinished()
+            self?.exportFinished()
         }
     }
 
@@ -252,14 +255,19 @@ protocol WalletConnectDelegate: AnyObject {
 
 extension AccountsCoordinator: WalletConnectDelegate {
     func showWalletConnectScanner() {
-        // TODO: make a wallet coordinator a property of the accounts coordinator.
+        if walletConnectCoordinator == nil {
+            walletConnectCoordinator = WalletConnectCoordinator(
+                navigationController: navigationController,
+                dependencyProvider: dependencyProvider,
+                parentCoordiantor: self
+            )
+        }
+        walletConnectCoordinator?.start()
+    }
+}
 
-        let coordinator = WalletConnectCoordinator(
-            navigationController: navigationController,
-            dependencyProvider: dependencyProvider
-        )
-        
-        childCoordinators.append(coordinator)
-        coordinator.start()
+extension AccountsCoordinator: WalletConnectCoordiantorDelegate {
+    func dismissWalletConnectCoordinator() {
+        walletConnectCoordinator = nil
     }
 }

@@ -23,14 +23,6 @@ class WCDebugViewController: UIViewController {
 
         Pair.configure(metadata: metadata)
         Networking.configure(projectId: "76324905a70fe5c388bab46d3e0564dc", socketFactory: SocketFactory())
-
-
-//        Sign.instance.sessionsPublisher.receive(on: DispatchQueue.main)
-//            .sink { sessions in
-//                self.sessions = sessions
-//            }
-//            .store(in: &cancellables)
-        
         addSwiftUIViewToController(WCDebugView())
     }
 }
@@ -98,6 +90,8 @@ fileprivate struct WCDebugView: View {
                         buildDataCell(title: "pairingTopic", content: String(describing: session.pairingTopic))
                         buildDataCell(title: "peer", content: String(describing: session.peer))
                         buildDataCell(title: "namespaces", content: String(describing: session.namespaces))
+                        buildDataCell(title: "expiry date", content: String(describing: session.expiryDate))
+
                     }
                     Divider()
                 }
