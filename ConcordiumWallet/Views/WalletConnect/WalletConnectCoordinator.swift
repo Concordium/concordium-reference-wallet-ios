@@ -270,7 +270,7 @@ private extension WalletConnectCoordinator {
                     // TODO: Why do we do a JSON detour instead of just plucking the fields?
                     let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
                     params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
-                    var inputParams = ParameterToJsonInput(
+                    let inputParams = ParameterToJsonInput(
                         parameter: params.payload.message,
                         receiveName: params.payload.receiveName,
                         schema: params.schema,
@@ -300,8 +300,6 @@ private extension WalletConnectCoordinator {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Invalid payload: Invalid amount.")
                     return
-                    
-                    
                 }
 
                 var transfer = TransferDataTypeFactory.create()

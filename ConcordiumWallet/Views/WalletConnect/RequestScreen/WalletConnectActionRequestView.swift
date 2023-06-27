@@ -15,15 +15,15 @@ struct WalletConnectActionRequestView: View {
     let contractAddress: ContractAddress
     let transactionType: String
     let params: String
-    let didAccept: (() -> Void)
-    let didReject: (() -> Void)
+    let didAccept: () -> Void
+    let didReject: () -> Void
     let request: Request
     var body: some View {
         VStack {
             Text("Transaction Approval")
                 .bold()
                 .font(.system(size: 20))
-            
+
             Text("\(dappName) requests your signature on the following transaction: ")
                 .padding()
             HStack {
@@ -31,25 +31,25 @@ struct WalletConnectActionRequestView: View {
                 Text("\(balanceAtDisposal.displayValueWithGStroke())")
             }
             Text("Currently available amounts: ")
-        
+
+            VStack {
+                Text("Transaction: \(transactionType)")
+                    .fontWeight(.bold)
+                    .padding() // TODO: add transaction type
+                Divider()
+                buildTransactionItem(title: "Sender account", value: "Main")
+                buildTransactionItem(title: "Amount", value: amount.displayValueWithGStroke())
+                buildTransactionItem(title: "Contract index", value: "index: \(contractAddress.index) subindex: \(contractAddress.subindex)")
                 VStack {
-                    Text("Transaction: \(transactionType)")
-                        .fontWeight(.bold)
-                        .padding() // TODO: add transaction type
-                    Divider()
-                    buildTransactionItem(title: "Sender account", value: "Main")
-                    buildTransactionItem(title: "Amount", value: amount.displayValueWithGStroke())
-                    buildTransactionItem(title: "Contract index", value: "index: \(contractAddress.index) subindex: \(contractAddress.subindex)")
-                    VStack {
-                        Text(params).font(.custom("AmericanTypewriter", size: 13)).padding()
-                    }
+                    Text(params).font(.custom("AmericanTypewriter", size: 13)).padding()
                 }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.gray, lineWidth: 1)
-                )
-                .padding()
-            
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(.gray, lineWidth: 1)
+            )
+            .padding()
+
             Spacer()
 
             HStack(spacing: 16) {
@@ -61,15 +61,12 @@ struct WalletConnectActionRequestView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-
-                                    RoundedRectangle(
-
-                                        cornerRadius: 10,
-                                        style: .continuous
-                                    )
-                                    .stroke(Pallette.error, lineWidth: 2)
-
-                                )
+                            RoundedRectangle(
+                                cornerRadius: 10,
+                                style: .continuous
+                            )
+                            .stroke(Pallette.error, lineWidth: 2)
+                        )
                 })
 
                 Button(action: {
@@ -86,7 +83,7 @@ struct WalletConnectActionRequestView: View {
         }
         .padding()
     }
-    
+
     func buildTransactionItem(title: String, value: String) -> some View {
         VStack {
             Text(title).fontWeight(.bold)
