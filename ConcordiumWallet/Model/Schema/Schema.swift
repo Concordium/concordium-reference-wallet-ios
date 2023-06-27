@@ -1,13 +1,5 @@
 import Foundation
 
-struct SchemaValueBuffer: Codable {
-    enum ValueType: String, Codable {
-        case buffer = "Buffer"
-    }
-    let type: ValueType
-    let data: [UInt8]
-}
-
 enum Schema: Codable {
     case moduleSchema(value: Data, version: SchemaVersion?)
     case typeSchema(value: Data)
@@ -31,7 +23,16 @@ enum Schema: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let type = try container.decode(SchemaType.self, forKey: .type)
+        var type = try? container.decode(SchemaType.self, forKey: .type)
+        if type == nil, let brokenType = try? container.decode(SchemaTypeBroken.self, forKey: .type) {
+            switch brokenType {
+            case .moduleSchema: type = .moduleSchema
+            case .typeSchema: type = .typeSchema
+            }
+        }
+        guard let type else {
+            throw DecodingError.dataCorruptedError(forKey: .type, in: container, debugDescription: "no valid 'type' value")
+        }
         let value = try Schema.decodeValue(container)
         switch type {
         case .moduleSchema:
@@ -52,7 +53,7 @@ enum Schema: Codable {
             throw WalletConenctError.invalidSchema
         }
         // If it fails, attempt to decode as JavaScript's Buffer.
-        if let buffer = try? container.decode(SchemaValueBuffer.self, forKey: .value) {
+        if let buffer = try? container.decode(SchemaValueBufferBroken.self, forKey: .value) {
             return Data(buffer.data)
         }
         // Both attempts failed.
@@ -66,4 +67,29 @@ enum Schema: Codable {
         default: return nil
         }
     }
+}
+
+enum SchemaType: String, Decodable {
+    case moduleSchema = "module"
+    case typeSchema = "parameter"
+}
+
+/// Schema value format used by @concordium/wallet-connectors v0.3.x.
+/// JSON format: {type: "Buffer", data: [bytes]}
+/// The format is incorrect and only supported for backwards compatibility.
+/// The correct type is a base64-encoded string.
+struct SchemaValueBufferBroken: Codable {
+    enum ValueType: String, Codable {
+        case buffer = "Buffer"
+    }
+    let type: ValueType
+    let data: [UInt8]
+}
+
+/// Schema type keys used by @concordium/wallet-connectors v0.3.x.
+/// The format is incorrect and only supported for backwards compatibility.
+/// The correct keys are contained in the type `SchemaType` above.
+enum SchemaTypeBroken: String, Decodable {
+    case moduleSchema = "ModuleSchema"
+    case typeSchema = "TypeSchema"
 }

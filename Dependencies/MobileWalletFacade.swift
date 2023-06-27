@@ -33,7 +33,7 @@ class MobileWalletFacade {
         return try decodeOutput(CreateCredentialRequest.self, from: response)
     }
     
-    func decodeMessage(input: ParameterToJsonInput) throws -> String {
+    func decodeMessage(input: ContractUpdateParameterToJsonInput) throws -> String {
         return try call(
             cFunction: parameter_to_json,
             with: try encodeInput(input),

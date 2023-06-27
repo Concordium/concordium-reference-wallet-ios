@@ -37,7 +37,7 @@ protocol MobileWalletProtocol {
                         receiverPublicKey: String?,
                         payload: Payload?
     ) -> AnyPublisher<CreateTransferRequest, Error>
-    func decodeMessage(with contractParams: ParameterToJsonInput) throws -> String
+    func decodeMessage(with contractParams: ContractUpdateParameterToJsonInput) throws -> String
     func decryptEncryptedAmounts(from fromAccount: AccountDataType,
                                  _ encryptedAmounts: [String],
                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
@@ -486,7 +486,7 @@ class MobileWallet: MobileWalletProtocol {
         }
     }
     
-    func decodeMessage(with contractParams: ParameterToJsonInput) throws -> String {
+    func decodeMessage(with contractParams: ContractUpdateParameterToJsonInput) throws -> String {
         try walletFacade.decodeMessage(input: contractParams)
     }
 }

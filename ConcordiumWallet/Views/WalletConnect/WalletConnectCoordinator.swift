@@ -5,30 +5,7 @@ import Web3Wallet
 
 let CONCORDIUM_WALLET_CONNECT_PROJECT_ID = "76324905a70fe5c388bab46d3e0564dc"
 
-// From https://docs.walletconnect.com/2.0/specs/clients/sign/error-codes
-// case .invalidMethod: return 1001
-// case .invalidEvent: return 1002
-// case .invalidUpdateRequest: return 1003
-// case .invalidExtendRequest: return 1004
-// case .invalidSessionSettleRequest: return 1005
-// case .unauthorizedMethod: return 3001
-// case .unauthorizedEvent: return 3002
-// case .unauthorizedUpdateRequest: return 3003
-// case .unauthorizedExtendRequest: return 3004
-// case .unauthorizedChain: return 3005
-// case .userRejected return 5000
-// case .userRejectedChains: return 5001
-// case .userRejectedMethods: return 5002
-// case .userRejectedEvents: return 5003
-// case .unsupportedChains: return 5100
-// case .unsupportedMethods: return 5101
-// case .unsupportedEvents: return 5102
-// case .unsupportedAccounts: return 5103
-// case .unsupportedNamespaceKey: return 5104
-// case .userDisconnected: return 6000
-// case .sessionSettlementFailed: return 7000
-// case .noSessionForTopic: return 7001
-// case .sessionRequestExpired: return 8000
+// See https://docs.walletconnect.com/2.0/specs/clients/sign/error-codes for official error codes.
 struct WalletConnectErrors {
     static func userRejected() -> JSONRPCError {
         JSONRPCError(code: 5000, message: "User rejected")
@@ -265,24 +242,29 @@ private extension WalletConnectCoordinator {
                 }
 
                 var params: ContractUpdateParams
-                var messageAsString: String?
                 do {
-                    // TODO: Why do we do a JSON detour instead of just plucking the fields?
+                    // Converting from dict to ContractUpdateParams struct by serializing it as JSON and immediately
+                    // decoding it again.
                     let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
                     params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
-                    let inputParams = ParameterToJsonInput(
-                        parameter: params.payload.message,
-                        receiveName: params.payload.receiveName,
-                        schema: params.schema,
-                        schemaVersion: params.schema.version?.rawValue
-                    )
-                    messageAsString = try self?.dependencyProvider.transactionsService().decodeContractMessage(with: inputParams)
                 } catch let err {
                     print("ERROR: WalletConnect: Cannot JSON encode/decode contract update parameters: \(err)")
                     self?.navigationController.popToRootViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                     return
                 }
+                
+                let inputParams = ContractUpdateParameterToJsonInput(
+                    parameter: params.payload.message,
+                    receiveName: params.payload.receiveName,
+                    schema: params.schema,
+                    schemaVersion: params.schema.version?.rawValue
+                )
+                var message = ContractUpdateParameterRepresentation.raw(params.payload.message)
+                if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractMessage(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
+                    message = .decoded(decoded as String)
+                }
+                
                 // Check that request transaction is a contract update as that's the only type we support.
                 guard case TransferType.contractUpdate = params.type else {
                     self?.navigationController.popViewController(animated: true)
@@ -317,7 +299,7 @@ private extension WalletConnectCoordinator {
                             balanceAtDisposal: GTU(intValue: account.forecastAtDisposalBalance),
                             contractAddress: params.payload.address,
                             transactionType: params.type.rawValue,
-                            params: messageAsString ?? "- no message - ",
+                            params: message,
                             didAccept: { [weak self] in
                                 guard let self else {
                                     return

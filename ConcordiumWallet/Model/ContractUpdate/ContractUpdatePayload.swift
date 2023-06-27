@@ -13,10 +13,3 @@ struct ContractUpdatePayload: Codable {
 struct ContractAddress: Codable {
     let index, subindex: Int
 }
-
-struct ParameterToJsonInput: Codable {
-    let parameter: String
-    let receiveName: String
-    let schema: Schema
-    let schemaVersion: Int?
-}

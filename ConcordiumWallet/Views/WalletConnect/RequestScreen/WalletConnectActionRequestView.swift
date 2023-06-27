@@ -14,7 +14,7 @@ struct WalletConnectActionRequestView: View {
     let balanceAtDisposal: GTU
     let contractAddress: ContractAddress
     let transactionType: String
-    let params: String
+    let params: ContractUpdateParameterRepresentation
     let didAccept: () -> Void
     let didReject: () -> Void
     let request: Request
@@ -23,25 +23,40 @@ struct WalletConnectActionRequestView: View {
             Text("Transaction Approval")
                 .bold()
                 .font(.system(size: 20))
-
+            
             Text("\(dappName) requests your signature on the following transaction: ")
                 .padding()
             HStack {
-                Text("Balance (at disposal): ")
+                Text("Account Balance:")
                 Text("\(balanceAtDisposal.displayValueWithGStroke())")
             }
-            Text("Currently available amounts: ")
-
-            VStack {
-                Text("Transaction: \(transactionType)")
-                    .fontWeight(.bold)
-                    .padding() // TODO: add transaction type
-                Divider()
-                buildTransactionItem(title: "Sender account", value: "Main")
-                buildTransactionItem(title: "Amount", value: amount.displayValueWithGStroke())
-                buildTransactionItem(title: "Contract index", value: "index: \(contractAddress.index) subindex: \(contractAddress.subindex)")
+            ScrollView{
                 VStack {
-                    Text(params).font(.custom("AmericanTypewriter", size: 13)).padding()
+                    Text("Transaction: \(transactionType)")
+                        .fontWeight(.bold)
+                        .padding() // TODO: add transaction type
+                    Divider()
+                    buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
+                    buildTransactionItem(title: "Contract", value: Text("index: \(contractAddress.index.string) subindex: \(contractAddress.subindex.string)"))
+                    
+                    buildTransactionItem(
+                        title: "Parameter",
+                        value: VStack {
+                            switch params {
+                            case .decoded(let value):
+                                Text(value).font(.custom("Courier", size: 13)).padding()
+                            case .raw(let value):
+                                Text("Decoding message to JSON failed. Raw message:")
+                                Text(value).font(.custom("Courier", size: 13)).foregroundColor(.red).padding()
+                            }
+                        }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 2)
+                                    .stroke(.gray, lineWidth: 1)
+                            )
+                            .background(.white)
+                        
+                    )
                 }
             }
             .overlay(
@@ -84,10 +99,10 @@ struct WalletConnectActionRequestView: View {
         .padding()
     }
 
-    func buildTransactionItem(title: String, value: String) -> some View {
+    func buildTransactionItem(title: String, value: some View) -> some View {
         VStack {
             Text(title).fontWeight(.bold)
-            Text(value)
+            value
         }.padding()
     }
 }

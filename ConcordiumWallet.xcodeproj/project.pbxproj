@@ -2472,6 +2472,10 @@
 		C9DE5077242CF7CC00DE0EF5 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */; };
 		C9E3727824277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */; };
 		C9E3727924277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */; };
+		CD10E6DF2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10E6DE2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift */; };
+		CD10E6E02A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10E6DE2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift */; };
+		CD10E6E12A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10E6DE2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift */; };
+		CD10E6E22A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10E6DE2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift */; };
 		CD1152072A03E4F000A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */; };
 		CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */; };
 		CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */ = {isa = PBXBuildFile; productRef = CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */; };
@@ -3391,6 +3395,7 @@
 		C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetViewController.swift; sourceTree = "<group>"; };
+		CD10E6DE2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParameterToJsonInput.swift; sourceTree = "<group>"; };
 		CD3D4C562A36515E0087B177 /* WalletConnectConnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectConnectedView.swift; sourceTree = "<group>"; };
 		FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Dimensions.swift"; sourceTree = "<group>"; };
 		FA01C9BD291C5D2E00BD8738 /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helper.swift"; sourceTree = "<group>"; };
@@ -3538,6 +3543,7 @@
 			children = (
 				017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */,
 				017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */,
+				CD10E6DE2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift */,
 			);
 			path = ContractUpdate;
 			sourceTree = "<group>";
@@ -6185,6 +6191,7 @@
 				7F48C15C244DCD0B00997684 /* AppCoordinator.swift in Sources */,
 				7F48C15E244DCD0B00997684 /* LoginWarningLabel.swift in Sources */,
 				528EB75E25647A7F00010554 /* CredentialValue.swift in Sources */,
+				CD10E6DF2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */,
 				C94ED725246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				901F7F5827EB4F7800C46741 /* StakeRowViewModel.swift in Sources */,
 				0111D72F2A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
@@ -6747,6 +6754,7 @@
 				013133952A38A17D0050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				7F85B717246A9A7C00ED09B8 /* AccountsViewController.swift in Sources */,
 				7F85B718246A9A7C00ED09B8 /* SubmissionResponse.swift in Sources */,
+				CD10E6E12A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */,
 				5211BAB32501070D00EE1658 /* ShieldedAmountEntity.swift in Sources */,
 				7F85B71B246A9A7C00ED09B8 /* IdentityDataRowCellView.swift in Sources */,
 				075A4BC02719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
@@ -7311,6 +7319,7 @@
 				013133962A38A17E0050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				7F85B815246A9AB600ED09B8 /* BaseTextfield.swift in Sources */,
 				7FB64A0A247BC9FB00DC500E /* ExportViewController.swift in Sources */,
+				CD10E6E22A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */,
 				5211BAB42501070D00EE1658 /* ShieldedAmountEntity.swift in Sources */,
 				7F85B816246A9AB600ED09B8 /* AccountsViewController.swift in Sources */,
 				075A4BC12719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
@@ -7905,6 +7914,7 @@
 				013133942A38A17D0050AE93 /* WalletConnectActionRequestView.swift in Sources */,
 				C9874EC82417931E006EF386 /* IdentityDataWidgetPresenter.swift in Sources */,
 				891B1A1A28ADF9D500F4B0D6 /* GenerateRecoveryRequestOutput.swift in Sources */,
+				CD10E6E02A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */,
 				642A293625FB967A0073BF8C /* AccountKeys.swift in Sources */,
 				7F21398224236C0A00D2A5C4 /* Global.swift in Sources */,
 				017A5F3A2A49C2DA00E80B56 /* ContractUpdateParams.swift in Sources */,
