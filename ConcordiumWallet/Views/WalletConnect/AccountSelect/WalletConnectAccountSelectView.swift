@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+
 struct WalletConnectAccountSelectView: View {
     @StateObject var viewModel: WalletConnectAccountSelectViewModel
 
@@ -21,8 +22,6 @@ struct WalletConnectAccountSelectView: View {
         }
         .listRowSeparator(.hidden)
         .listStyle(.plain)
-        .onAppear {
-            viewModel.getAccounts()
-        }
+        .onAppear(perform: viewModel.getAccounts)
     }
 }

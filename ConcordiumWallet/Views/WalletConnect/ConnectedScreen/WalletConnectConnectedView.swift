@@ -4,7 +4,8 @@ import Web3Wallet
 struct WalletConnectConnectedView: View {
     let dappName: String
     let accountName: String
-    let didDisconnect: () -> Void;
+    let didDisconnect: () -> Void
+    
     init(
         dappName: String,
         accountName: String,
@@ -13,6 +14,15 @@ struct WalletConnectConnectedView: View {
         self.dappName = dappName
         self.accountName = accountName
         self.didDisconnect = didDisconnect
+    }
+    
+    
+    var boxText: AttributedString {
+        var d = AttributedString(dappName)
+        var a = AttributedString(accountName)
+        d.font = .body.bold()
+        a.font = .body.bold()
+        return "Application " + d + " connected to account " + a
     }
     
     var body: some View {
@@ -24,7 +34,7 @@ struct WalletConnectConnectedView: View {
                 Image("checkmark 1")
                     .padding()
                 VStack(alignment: .leading) {
-                    Text("Connection open between:")
+                    Text(boxText)
                     Text(accountName)
                     Text(dappName)
                 }
@@ -33,20 +43,20 @@ struct WalletConnectConnectedView: View {
             }
             .background(.black)
             .cornerRadius(10)
-            .padding(16)
             Spacer()
             Text("Waiting for actions...")
             Spacer()
-            Button {
-                didDisconnect()
-            } label: {
+            Button(action: didDisconnect) {
                 Text("Disconnect")
-                    .foregroundColor(.white)
                     .padding()
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(Pallette.whiteText)
+                    .background(Pallette.error)
             }
             .background(Pallette.primary)
             .cornerRadius(10)
         }
+        .padding()
         .navigationBarBackButtonHidden()
     }
 }
