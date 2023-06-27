@@ -9,22 +9,49 @@
 import SwiftUI
 import Web3Wallet
 struct WalletConnectActionRequestView: View {
-    var didAccept: (() -> Void)
-    var didReject: (() -> Void)
-    var request: Request
-    var amount: String
+    let dappName: String
+    let amount: GTU
+    let balanceAtDisposal: GTU
+    let contractAddress: ContractAddress
+    let transactionType: String
+    let params: String
+    let didAccept: (() -> Void)
+    let didReject: (() -> Void)
+    let request: Request
     var body: some View {
         VStack {
             Text("Transaction Approval")
                 .bold()
                 .font(.system(size: 20))
             
-            Text("<dApp name> requests your signature on the following transaction: ")
+            Text("\(dappName) requests your signature on the following transaction: ")
                 .padding()
+            HStack {
+                Text("Balance (at disposal): ")
+                Text("\(balanceAtDisposal.displayValueWithGStroke())")
+            }
             Text("Currently available amounts: ")
-            Text("Sender account").fontWeight(.bold)
-            Text("Amount: \(amount)").fontWeight(.bold)
+        
+                VStack {
+                    Text("Transaction: \(transactionType)")
+                        .fontWeight(.bold)
+                        .padding() // TODO: add transaction type
+                    Divider()
+                    buildTransactionItem(title: "Sender account", value: "Main")
+                    buildTransactionItem(title: "Amount", value: amount.displayValueWithGStroke())
+                    buildTransactionItem(title: "Contract index", value: "index: \(contractAddress.index) subindex: \(contractAddress.subindex)")
+                    VStack {
+                        Text(params).font(.custom("AmericanTypewriter", size: 13)).padding()
+                    }
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.gray, lineWidth: 1)
+                )
+                .padding()
+            
             Spacer()
+
             HStack(spacing: 16) {
                 Button(action: {
                     didReject()
@@ -59,20 +86,11 @@ struct WalletConnectActionRequestView: View {
         }
         .padding()
     }
-}
-
-struct WalletConnectRequestScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        WalletConnectActionRequestView(
-            didAccept: {},
-            didReject: {},
-            request: .init(
-                topic: "",
-                method: "",
-                params: .init(""),
-                chainId: Blockchain("ccd:testnet")!
-            ),
-            amount: "10.0"
-        )
+    
+    func buildTransactionItem(title: String, value: String) -> some View {
+        VStack {
+            Text(title).fontWeight(.bold)
+            Text(value)
+        }.padding()
     }
 }

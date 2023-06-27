@@ -16,6 +16,7 @@ protocol TransactionsServiceProtocol {
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
+    func decodeContractMessage(with contractParams: ParameterToJsonInput) throws -> String
 }
 
 extension TransactionsServiceProtocol {
@@ -159,6 +160,10 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
                 return values
             }
             .eraseToAnyPublisher()
+    }
+    
+    func decodeContractMessage(with contractParams: ParameterToJsonInput) throws -> String {
+        try mobileWallet.decodeMessage(with: contractParams)
     }
 }
 

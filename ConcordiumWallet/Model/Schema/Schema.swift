@@ -8,12 +8,25 @@ struct SchemaValueBuffer: Codable {
     let data: [UInt8]
 }
 
-enum Schema: Decodable {
+enum Schema: Codable {
     case moduleSchema(value: Data, version: SchemaVersion?)
     case typeSchema(value: Data)
 
     enum CodingKeys: String, CodingKey {
         case type, value, version
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        case let .moduleSchema(value: value, version: version):
+            try container.encode("module", forKey: .type)
+            try container.encode(value, forKey: .value)
+            try container.encodeIfPresent(version, forKey: .version)
+        case let .typeSchema(value: value):
+            try container.encode("parameter", forKey: .type)
+            try container.encode(value, forKey: .value)
+        }
     }
     
     init(from decoder: Decoder) throws {
@@ -24,7 +37,7 @@ enum Schema: Decodable {
         case .moduleSchema:
             let version = try? container.decode(SchemaVersion.self, forKey: .version)
             self = .moduleSchema(value: value, version: version)
-        case .parameterSchema:
+        case .typeSchema:
             self = .typeSchema(value: value)
         }
     }
@@ -44,5 +57,13 @@ enum Schema: Decodable {
         }
         // Both attempts failed.
         throw WalletConenctError.invalidSchema
+    }
+    
+    var version: SchemaVersion? {
+        switch self {
+        case let .moduleSchema(value: _, version: version):
+            return version
+        default: return nil
+        }
     }
 }

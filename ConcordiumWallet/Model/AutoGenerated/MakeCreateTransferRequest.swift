@@ -21,7 +21,7 @@ enum Payload: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let message = try container.decodeIfPresent(String.self, forKey: .message) {
             let amount = try container.decode(String.self, forKey: .amount)
-            let address = try container.decode(Address.self, forKey: .message)
+            let address = try container.decode(ContractAddress.self, forKey: .message)
             let receiveName = try container.decode(String.self, forKey: .receiveName)
             let energy = try container.decode(Int.self, forKey: .maxContractExecutionEnergy)
             self = .contractUpdatePayload(

@@ -6,33 +6,34 @@ import Web3Wallet
 let CONCORDIUM_WALLET_CONNECT_PROJECT_ID = "76324905a70fe5c388bab46d3e0564dc"
 
 // From https://docs.walletconnect.com/2.0/specs/clients/sign/error-codes
-//case .invalidMethod: return 1001
-//case .invalidEvent: return 1002
-//case .invalidUpdateRequest: return 1003
-//case .invalidExtendRequest: return 1004
-//case .invalidSessionSettleRequest: return 1005
-//case .unauthorizedMethod: return 3001
-//case .unauthorizedEvent: return 3002
-//case .unauthorizedUpdateRequest: return 3003
-//case .unauthorizedExtendRequest: return 3004
-//case .unauthorizedChain: return 3005
-//case .userRejected return 5000
-//case .userRejectedChains: return 5001
-//case .userRejectedMethods: return 5002
-//case .userRejectedEvents: return 5003
-//case .unsupportedChains: return 5100
-//case .unsupportedMethods: return 5101
-//case .unsupportedEvents: return 5102
-//case .unsupportedAccounts: return 5103
-//case .unsupportedNamespaceKey: return 5104
-//case .userDisconnected: return 6000
-//case .sessionSettlementFailed: return 7000
-//case .noSessionForTopic: return 7001
-//case .sessionRequestExpired: return 8000
+// case .invalidMethod: return 1001
+// case .invalidEvent: return 1002
+// case .invalidUpdateRequest: return 1003
+// case .invalidExtendRequest: return 1004
+// case .invalidSessionSettleRequest: return 1005
+// case .unauthorizedMethod: return 3001
+// case .unauthorizedEvent: return 3002
+// case .unauthorizedUpdateRequest: return 3003
+// case .unauthorizedExtendRequest: return 3004
+// case .unauthorizedChain: return 3005
+// case .userRejected return 5000
+// case .userRejectedChains: return 5001
+// case .userRejectedMethods: return 5002
+// case .userRejectedEvents: return 5003
+// case .unsupportedChains: return 5100
+// case .unsupportedMethods: return 5101
+// case .unsupportedEvents: return 5102
+// case .unsupportedAccounts: return 5103
+// case .unsupportedNamespaceKey: return 5104
+// case .userDisconnected: return 6000
+// case .sessionSettlementFailed: return 7000
+// case .noSessionForTopic: return 7001
+// case .sessionRequestExpired: return 8000
 struct WalletConnectErrors {
     static func userRejected() -> JSONRPCError {
         JSONRPCError(code: 5000, message: "User rejected")
     }
+
     static func transactionFailed(_ data: AnyCodable) -> JSONRPCError {
         JSONRPCError(code: 10000, message: "Transaction failed", data: data)
     }
@@ -58,7 +59,7 @@ class WalletConnectCoordinator: Coordinator {
     ) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
-        self.parentCoordinator = parentCoordiantor
+        parentCoordinator = parentCoordiantor
 
         let metadata = AppMetadata(
             name: "Concordium",
@@ -102,6 +103,7 @@ class WalletConnectCoordinator: Coordinator {
 }
 
 // MARK: - WalletConnect
+
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
         // TODO: Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
@@ -125,7 +127,7 @@ private extension WalletConnectCoordinator {
                     storageManager: self.dependencyProvider.storageManager(),
                     proposal: proposal
                 )
-                         
+
                 viewModel.didSelect = { account in
                     self.navigationController.pushViewController(
                         UIHostingController(
@@ -233,11 +235,11 @@ private extension WalletConnectCoordinator {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] request, _ in
                 print("DEBUG: WalletConnect: Incoming request: \(request)")
-                
-                // TODO Propagate errors back to the dApp.
-                
+
+                // TODO: Propagate errors back to the dApp.
+
                 // Look up session for request topic for finding connected account and dApp name.
-                // TODO We should not just trust the information from the WC client, but just check it against our own connection state.
+                // TODO: We should not just trust the information from the WC client, but just check it against our own connection state.
                 guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Session not found")
@@ -263,10 +265,18 @@ private extension WalletConnectCoordinator {
                 }
 
                 var params: ContractUpdateParams
+                var messageAsString: String?
                 do {
-                    // TODO Why do we do a JSON detour instead of just plucking the fields?
+                    // TODO: Why do we do a JSON detour instead of just plucking the fields?
                     let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
                     params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
+                    var inputParams = ParameterToJsonInput(
+                        parameter: params.payload.message,
+                        receiveName: params.payload.receiveName,
+                        schema: params.schema,
+                        schemaVersion: params.schema.version?.rawValue
+                    )
+                    messageAsString = try self?.dependencyProvider.transactionsService().decodeContractMessage(with: inputParams)
                 } catch let err {
                     print("ERROR: WalletConnect: Cannot JSON encode/decode contract update parameters: \(err)")
                     self?.navigationController.popToRootViewController(animated: true)
@@ -285,7 +295,15 @@ private extension WalletConnectCoordinator {
                     self?.presentError(with: "errorAlert.title".localized, message: "Invalid payload: Sender address is empty.")
                     return
                 }
-                
+
+                guard let amount = Int(params.payload.amount) else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Invalid payload: Invalid amount.")
+                    return
+                    
+                    
+                }
+
                 var transfer = TransferDataTypeFactory.create()
                 transfer.transferType = params.type
                 transfer.fromAddress = params.sender
@@ -296,6 +314,12 @@ private extension WalletConnectCoordinator {
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectActionRequestView(
+                            dappName: session.peer.name,
+                            amount: GTU(intValue: amount),
+                            balanceAtDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                            contractAddress: params.payload.address,
+                            transactionType: params.type.rawValue,
+                            params: messageAsString ?? "- no message - ",
                             didAccept: { [weak self] in
                                 guard let self else {
                                     return
@@ -349,15 +373,14 @@ private extension WalletConnectCoordinator {
                                 }
                                 self?.navigationController.popToRootViewController(animated: true)
                             },
-                            request: request,
-                            amount: params.payload.amount
+                            request: request
                         )
                     ),
                     animated: true
                 )
             }
             .store(in: &cancellables)
-        
+
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sessionId, reason in
@@ -444,11 +467,11 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         )
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func presentError(with title: String, message: String)  {
+
+    func presentError(with title: String, message: String) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "errorAlert.okButton".localized, style: .default))
-        self.navigationController.present(ac, animated: true)
+        navigationController.present(ac, animated: true)
     }
 }
 

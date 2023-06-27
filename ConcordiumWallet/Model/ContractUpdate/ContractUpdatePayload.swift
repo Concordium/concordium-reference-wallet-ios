@@ -3,13 +3,20 @@ import Foundation
 // MARK: - Payload
 struct ContractUpdatePayload: Codable {
     let amount: String
-    let address: Address
+    let address: ContractAddress
     let receiveName: String
     let maxContractExecutionEnergy: Int
     let message: String
 }
 
 // MARK: - Address
-struct Address: Codable {
+struct ContractAddress: Codable {
     let index, subindex: Int
+}
+
+struct ParameterToJsonInput: Codable {
+    let parameter: String
+    let receiveName: String
+    let schema: Schema
+    let schemaVersion: Int?
 }

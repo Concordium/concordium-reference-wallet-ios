@@ -37,7 +37,7 @@ protocol MobileWalletProtocol {
                         receiverPublicKey: String?,
                         payload: Payload?
     ) -> AnyPublisher<CreateTransferRequest, Error>
-
+    func decodeMessage(with contractParams: ParameterToJsonInput) throws -> String
     func decryptEncryptedAmounts(from fromAccount: AccountDataType,
                                  _ encryptedAmounts: [String],
                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
@@ -484,5 +484,9 @@ class MobileWallet: MobileWalletProtocol {
             }
             return true // invalid becaut privateIdObjectData could not be retrieved
         }
+    }
+    
+    func decodeMessage(with contractParams: ParameterToJsonInput) throws -> String {
+        try walletFacade.decodeMessage(input: contractParams)
     }
 }
