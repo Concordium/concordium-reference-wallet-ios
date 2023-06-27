@@ -24,9 +24,10 @@ struct ContractUpdateParams: Decodable {
             let schemaValueBase64 = try container.decode(String.self, forKey: .schema)
             if let data = Data(base64Encoded: schemaValueBase64) {
                 schema = .moduleSchema(value: data, version: nil)
+            } else {
+                // Invalid Base64 encoding.
+                throw WalletConenctError.invalidSchema
             }
-            // Invalid Base64 encoding.
-            throw WalletConenctError.invalidSchema
         }
     }
 }
