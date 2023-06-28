@@ -2,7 +2,7 @@ name: Test
 
 on:
   push:
-    branches-ignore: 'wip/**'
+    branches: main
   pull_request:
 
 env:
