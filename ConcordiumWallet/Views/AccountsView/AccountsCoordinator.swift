@@ -32,6 +32,7 @@ class AccountsCoordinator: Coordinator {
     private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: DependencyProvider
     private var walletConnectCoordinator: WalletConnectCoordinator?
+    
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
@@ -117,10 +118,6 @@ class AccountsCoordinator: Coordinator {
         selectExportPasswordCoordinator.start()
         navigationController.present(selectExportPasswordCoordinator.navigationController, animated: true)
         return selectExportPasswordCoordinator.passwordPublisher.eraseToAnyPublisher()
-    }
-    
-    deinit {
-        print("\(self) deinitialized")
     }
 }
 

@@ -11,7 +11,7 @@ extension Transaction: TransactionType {}
 
 extension Transaction {
     func getTotalForShielded() -> Int? {
-        if details.type == "transferToEncrypted" || details.type == "transferToPublic" {
+        if details.type == "transferToEncrypted" || details.type == "transferToPublic"{
             return -(Int(subtotal ?? "0") ?? 0)
         }
         return nil
@@ -20,7 +20,7 @@ extension Transaction {
 
 protocol TransferDataType: DataStoreProtocol, TransactionType {
     var amount: String { get set }
-    var fromAddress: String { get set }
+    var fromAddress: String {get set }
     var toAddress: String { get set }
     var expiry: Date { get set }
     var createdAt: Date { get set }
@@ -31,7 +31,7 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var energy: Int { get set }
     var transferType: TransferType { get set }
     var encryptedDetails: EncryptedDetailsDataType? { get set }
-    var nonce: Int { get set }
+    var nonce: Int { get set}
     var memo: String? { get set }
     var capital: String? { get set }
     var restakeEarnings: Bool? { get set }
@@ -75,14 +75,13 @@ extension TransferDataType {
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
                 balanceChange = (Int(cost) ?? 0)
             case .contractUpdate:
-                // TODO: We are not sure about this. Verify the value is correct.
                 balanceChange = (Int(cost) ?? 0)
             }
         }
-
+        
         return -balanceChange
     }
-
+    
     func getShieldedBalanceChange() -> Int {
         if .absent == transactionStatus {
             return 0
@@ -92,11 +91,12 @@ extension TransferDataType {
         case .reject:
             balanceChange = 0
         default:
+            
             switch transferType {
             case .simpleTransfer:
                 balanceChange = 0
             case .transferToSecret:
-                balanceChange = -amountAsInt() // shielding is included even if not finalized
+                balanceChange = -amountAsInt()// shielding is included even if not finalized
             case .encryptedTransfer, .transferToPublic:
                 balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
@@ -104,13 +104,13 @@ extension TransferDataType {
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
                 balanceChange = 0
             case .contractUpdate:
-                // TODO: We are not sure about this. Verify the value is correct. ????
                 balanceChange = 0
             }
+            
         }
         return -balanceChange
     }
-
+    
     func withUpdated(cost: String?, status: SubmissionStatusEnum, outcome: OutcomeEnum?) -> TransferDataType {
         _ = write {
             var transfer = $0
@@ -191,7 +191,7 @@ extension TransferEntity: TransferDataType {
             self.encryptedDetailsEntity = newValue as? EncryptedDetailsEntity
         }
     }
-
+    
     var restakeEarnings: Bool? {
         get {
             restakeEarningsBool == -1 ? nil : (restakeEarningsBool == 1)
@@ -208,7 +208,7 @@ extension TransferEntity: TransferDataType {
             }
         }
     }
-
+    
     var transactionStatus: SubmissionStatusEnum? {
         get {
             SubmissionStatusEnum(rawValue: transactionStatusString ?? "")
@@ -217,7 +217,7 @@ extension TransferEntity: TransferDataType {
             transactionStatusString = newValue?.rawValue
         }
     }
-
+    
     var transferType: TransferType {
         get {
             TransferType(rawValue: transferTypeString) ?? .simpleTransfer
@@ -226,7 +226,7 @@ extension TransferEntity: TransferDataType {
             transferTypeString = newValue.rawValue
         }
     }
-
+    
     var outcome: OutcomeEnum? {
         get {
             OutcomeEnum(rawValue: outcomeString ?? "")

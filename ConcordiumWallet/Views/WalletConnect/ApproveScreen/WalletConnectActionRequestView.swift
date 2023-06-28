@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Web3Wallet
+
 struct WalletConnectActionRequestView: View {
     let amount: GTU
     let balanceAtDisposal: GTU
@@ -28,7 +29,7 @@ struct WalletConnectActionRequestView: View {
                         .padding() // TODO: add transaction type
                     Divider()
                     buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
-                    buildTransactionItem(title: "Contract", value: Text("index: \(contractAddress.index.string) subindex: \(contractAddress.subindex.string)"))
+                    buildTransactionItem(title: "Contract", value: Text("\(contractAddress.index.string) (\(contractAddress.subindex.string))"))
                     
                     buildTransactionItem(
                         title: "Parameter",
@@ -46,7 +47,6 @@ struct WalletConnectActionRequestView: View {
                                     .stroke(.gray, lineWidth: 1)
                             )
                             .background(.white)
-                        
                     )
                 }
             }

@@ -16,7 +16,7 @@ protocol TransactionsServiceProtocol {
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
-    func decodeContractMessage(with contractParams: ContractUpdateParameterToJsonInput) throws -> String
+    func decodeContractParameter(with contractParams: ContractUpdateParameterToJsonInput) throws -> String
 }
 
 extension TransactionsServiceProtocol {
@@ -55,11 +55,10 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         case .registerDelegation, .removeDelegation, .updateDelegation:
             return performDelegationTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .contractUpdate:
-            // TODO: look here
             return performAccountTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         }
     }
-
+   
     func getTransactions(for account: AccountDataType, startingFrom: Transaction? = nil) -> AnyPublisher<RemoteTransactions, Error> {
         var params = ["order": "descending"]
         params["limit"] = "20"
@@ -162,8 +161,8 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
             .eraseToAnyPublisher()
     }
     
-    func decodeContractMessage(with contractParams: ContractUpdateParameterToJsonInput) throws -> String {
-        try mobileWallet.decodeMessage(with: contractParams)
+    func decodeContractParameter(with contractParams: ContractUpdateParameterToJsonInput) throws -> String {
+        try mobileWallet.parameterToJson(with: contractParams)
     }
 }
 
@@ -294,7 +293,7 @@ extension TransactionsService {
             }
             .eraseToAnyPublisher()
     }
-
+    
     private func performDelegationTransfer(_ pTransfer: TransferDataType,
                                            from account: AccountDataType,
                                            requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error> {
@@ -313,13 +312,14 @@ extension TransactionsService {
                                            receiverPublicKey: nil)
             }
             .flatMap(submitTransfer)
-            .flatMap { (submissionResponse: SubmissionResponse) ->  AnyPublisher<SubmissionStatus, Error> in
+            .flatMap { (submissionResponse: SubmissionResponse) -> AnyPublisher<SubmissionStatus, Error> in
                 transfer.submissionId = submissionResponse.submissionID
                 return self.submissionStatus(submissionId: submissionResponse.submissionID)
             }.map { [weak self] in
                 self?.updateLocalTransfer(transfer, withSubmissionStatus: $0) ?? transfer
             }
             .eraseToAnyPublisher()
+        
     }
     
     private func performBakerTransfer(_ pTransfer: TransferDataType,

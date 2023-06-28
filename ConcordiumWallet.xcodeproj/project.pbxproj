@@ -48,14 +48,10 @@
 		017A5F252A49B98700E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
 		017A5F262A49B98800E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
 		017A5F272A49B98800E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
-		017A5F2A2A49B99B00E80B56 /* SchemaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F292A49B99B00E80B56 /* SchemaType.swift */; };
 		017A5F2C2A49B9B000E80B56 /* SchemaVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */; };
 		017A5F2D2A49B9B700E80B56 /* SchemaVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */; };
 		017A5F2E2A49B9B800E80B56 /* SchemaVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */; };
 		017A5F2F2A49B9B800E80B56 /* SchemaVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */; };
-		017A5F302A49B9BA00E80B56 /* SchemaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F292A49B99B00E80B56 /* SchemaType.swift */; };
-		017A5F312A49B9BB00E80B56 /* SchemaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F292A49B99B00E80B56 /* SchemaType.swift */; };
-		017A5F322A49B9BB00E80B56 /* SchemaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F292A49B99B00E80B56 /* SchemaType.swift */; };
 		017A5F342A49B9CA00E80B56 /* ContractUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */; };
 		017A5F372A49BA0300E80B56 /* ContractUpdateParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */; };
 		017A5F392A49BA1900E80B56 /* WalletConenctError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F382A49BA1900E80B56 /* WalletConenctError.swift */; };
@@ -2716,7 +2712,6 @@
 		013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectActionRequestView.swift; sourceTree = "<group>"; };
 		0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectCoordinator.swift; sourceTree = "<group>"; };
 		017A5F232A49B97500E80B56 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
-		017A5F292A49B99B00E80B56 /* SchemaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaType.swift; sourceTree = "<group>"; };
 		017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersion.swift; sourceTree = "<group>"; };
 		017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayload.swift; sourceTree = "<group>"; };
 		017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
@@ -3537,7 +3532,6 @@
 			isa = PBXGroup;
 			children = (
 				017A5F232A49B97500E80B56 /* Schema.swift */,
-				017A5F292A49B99B00E80B56 /* SchemaType.swift */,
 				017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */,
 			);
 			path = Schema;
@@ -6210,7 +6204,6 @@
 				074C00A526FB1D2A0090F7FE /* AddMemoPresenter.swift in Sources */,
 				7F48C16C244DCD0B00997684 /* CreationFailedViewController.swift in Sources */,
 				7F48C284244EEE7700997684 /* TransactionSubmittedViewController.swift in Sources */,
-				017A5F2A2A49B99B00E80B56 /* SchemaType.swift in Sources */,
 				077AC5F926E8DD550016BF26 /* CopyReferenceWidgetViewController.swift in Sources */,
 				901F7F0927EA0D5C00C46741 /* BakerPoolResponse.swift in Sources */,
 				5248E7D7257A60F600E4F6EC /* BurgerMenuViewController.swift in Sources */,
@@ -6776,7 +6769,6 @@
 				89D46802289BA089007D3FC8 /* SeedMobileWallet.swift in Sources */,
 				9078546328102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				7F85B72D246A9A7C00ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
-				017A5F312A49B9BB00E80B56 /* SchemaType.swift in Sources */,
 				7F85B72E246A9A7C00ED09B8 /* IdentitiesPresenterProtocol.swift in Sources */,
 				077AC60026E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				075A4BBB2719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift in Sources */,
@@ -7340,7 +7332,6 @@
 				89D46803289BA089007D3FC8 /* SeedMobileWallet.swift in Sources */,
 				9078546428102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				7F85B82A246A9AB600ED09B8 /* TransparentNavigationController.swift in Sources */,
-				017A5F322A49B9BB00E80B56 /* SchemaType.swift in Sources */,
 				7F85B82C246A9AB600ED09B8 /* TransactionDetailErrorCellView.swift in Sources */,
 				077AC60126E8E1E40016BF26 /* CopyPasteHelper.swift in Sources */,
 				075A4BBC2719A02700066AF1 /* CopyReferenceInfoWidgetPresenter.swift in Sources */,
@@ -7996,7 +7987,6 @@
 				7FCA3999250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				C938F5392423835000ECAD47 /* IdentityInfoViewModel.swift in Sources */,
 				FA0CAB1B294B90540009D5F8 /* ExportPrivateKeyViewModel.swift in Sources */,
-				017A5F302A49B9BA00E80B56 /* SchemaType.swift in Sources */,
 				19C2EFC9AF9159B6494E2784 /* ResourceRequest.swift in Sources */,
 				7FCC0E8224200A2E007030EC /* LoginErrorLabel.swift in Sources */,
 				19C2E66625B60EA8C948B385 /* NetworkManagerProtocol.swift in Sources */,

@@ -58,6 +58,7 @@ class WalletConnectCoordinator: Coordinator {
     }
 
     deinit {
+        // TODO Extract the following into "nuke" function that may also be called from here (as a safeguard).
         Sign.instance.getSessions().forEach { session in
             Task {
                 do {
@@ -84,8 +85,6 @@ class WalletConnectCoordinator: Coordinator {
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
         // TODO: Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
-
-        // TODO: Don't allow going back to views corresponding to previous states.
 
         // Register handlers for WalletConnect events.
 
@@ -273,7 +272,7 @@ private extension WalletConnectCoordinator {
                     schemaVersion: params.schema.version?.rawValue
                 )
                 var message = ContractUpdateParameterRepresentation.raw(params.payload.message)
-                if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractMessage(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
+                if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
                     message = .decoded(decoded as String)
                 }
                 
