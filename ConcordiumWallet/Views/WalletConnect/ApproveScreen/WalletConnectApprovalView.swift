@@ -62,6 +62,7 @@ struct WalletConnectApprovalView<Content: View>: View {
             }.padding()
         }
         .navigationBarBackButtonHidden()
+//        .navigationBarHidden(true) // <- doesn't unhide after the view is popped...
     }
 }
 

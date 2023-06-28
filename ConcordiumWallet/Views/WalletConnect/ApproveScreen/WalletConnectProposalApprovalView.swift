@@ -47,14 +47,14 @@ struct WalletConnectProposalApprovalView: View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 16) {
-                Group {
-                    Image("connection_socket")
+            HStack {
+                Image("connection_socket")
+                    .padding()
+                VStack(alignment: .leading) {
                     Text(boxText)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
                 }
-                .padding()
+                .padding([.top, .trailing, .bottom], 16)
+                .foregroundColor(.white)
             }
             .background(.black)
             .cornerRadius(10)

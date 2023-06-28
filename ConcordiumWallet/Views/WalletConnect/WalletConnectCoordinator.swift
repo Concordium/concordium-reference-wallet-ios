@@ -112,7 +112,7 @@ private extension WalletConnectCoordinator {
                                 title: "walletconnect.connect.approve.title".localized,
                                 subtitle: "walletconnect.connect.approve.subtitle".localizedNonempty,
                                 contentView: WalletConnectProposalApprovalView(
-                                    accountName: account.address,
+                                    accountName: account.displayName,
                                     proposal: proposal.proposalData
                                 ),
                                 viewModel: .init(
@@ -168,17 +168,26 @@ private extension WalletConnectCoordinator {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 print("DEBUG: WalletConnect: Session \(session.pairingTopic) settled")
-                guard let ccdNamespace = session.namespaces["ccd"], session.namespaces.count == 1 else {
+                guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
                     self?.navigationController.popToRootViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Unexpected namespaces")
                     self?.parentCoordinator?.dismissWalletConnectCoordinator()
+                    // TODO Reject proposal.
                     return
                 }
 
-                guard ccdNamespace.accounts.first?.address != nil, ccdNamespace.accounts.count == 1 else {
+                guard ccdNamespace.accounts.count == 1, let accountAddress = ccdNamespace.accounts.first?.address else {
                     self?.navigationController.popToRootViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Unexpected number of accounts")
                     self?.parentCoordinator?.dismissWalletConnectCoordinator()
+                    // TODO Reject proposal.
+                    return
+                }
+                
+                guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
+                    self?.navigationController.popViewController(animated: true)
+                    self?.presentError(with: "errorAlert.title".localized, message: "Account with address '\(accountAddress)' not found")
+                    // TODO Reject proposal.
                     return
                 }
 
@@ -187,7 +196,7 @@ private extension WalletConnectCoordinator {
                     UIHostingController(
                         rootView: WalletConnectConnectedView(
                             dappName: session.peer.name,
-                            accountName: ccdNamespace.accounts.first?.address ?? "",
+                            accountName: account.displayName,
                             didDisconnect: {
                                 // User clicked the disconnect button.
                                 Task {

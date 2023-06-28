@@ -35,8 +35,6 @@ struct WalletConnectConnectedView: View {
                     .padding()
                 VStack(alignment: .leading) {
                     Text(boxText)
-                    Text(accountName)
-                    Text(dappName)
                 }
                 .padding([.top, .trailing, .bottom], 16)
                 .foregroundColor(.white)
