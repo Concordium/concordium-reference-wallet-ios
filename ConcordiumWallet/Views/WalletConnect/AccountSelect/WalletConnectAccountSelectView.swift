@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+
 struct WalletConnectAccountSelectView: View {
     @StateObject var viewModel: WalletConnectAccountSelectViewModel
 
@@ -14,15 +15,13 @@ struct WalletConnectAccountSelectView: View {
         Text("walletconnect.select.account.header".localized)
             .multilineTextAlignment(.center)
             .padding(32)
-        List($viewModel.accounts, id: \.address) { account in
+        List($viewModel.accounts, id: \.accountIndex) { account in
             WalletConnectAccountItemView(account: account.wrappedValue) {
-                viewModel.didSelect(accountAddress: account.wrappedValue.address)
+                viewModel.didSelect(account: account.wrappedValue)
             }
         }
         .listRowSeparator(.hidden)
         .listStyle(.plain)
-        .onAppear {
-            viewModel.getAccounts()
-        }
+        .onAppear(perform: viewModel.getAccounts)
     }
 }

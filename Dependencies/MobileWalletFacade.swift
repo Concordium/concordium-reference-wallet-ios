@@ -33,6 +33,14 @@ class MobileWalletFacade {
         return try decodeOutput(CreateCredentialRequest.self, from: response)
     }
     
+    func parameterToJson(input: ContractUpdateParameterToJsonInput) throws -> String {
+        try call(
+            cFunction: parameter_to_json,
+            with: try encodeInput(input),
+            debugTitle: "parameterToJson"
+        )
+    }
+    
     func generateRecoveryRequest(input: GenerateRecoveryRequestInput) throws -> GenerateRecoveryRequestOutput {
         let response = try call(
             cFunction: generate_recovery_request,
@@ -49,6 +57,10 @@ class MobileWalletFacade {
 
     func createCredential(input: String) throws -> String {
         try call(cFunction: create_credential, with: input, debugTitle: "createCredential")
+    }
+
+    func createAccountTransaction(input: String) throws -> String {
+        try call(cFunction: create_account_transaction, with: input, debugTitle: "createAccountTransaction")
     }
 
     func createTransfer(input: String) throws -> String {

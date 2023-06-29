@@ -33,4 +33,8 @@ class TransactionsServiceMockHelper: TransactionsServiceProtocol {
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> Combine.AnyPublisher<RemoteTransactions, Error> {
         NYI()
     }
+    
+    func decodeContractParameter(with contractParams: Mock.ContractUpdateParameterToJsonInput) throws -> String {
+        NYI()
+    }
 }

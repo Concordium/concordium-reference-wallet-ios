@@ -11,6 +11,7 @@ import SwiftUI
 struct WalletConnectAccountItemView: View {
     var account: AccountDataType
     var onSelect: (() -> Void)
+    
     var body: some View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
@@ -36,9 +37,7 @@ struct WalletConnectAccountItemView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Pallette.fadedText, lineWidth: 1)
         )
-        .onTapGesture {
-            onSelect()
-        }
+        .onTapGesture(perform: onSelect)
     }
 }
 

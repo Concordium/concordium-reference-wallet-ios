@@ -41,6 +41,8 @@ class TransactionSubmittedViewModel {
             submitedText = ""
         case .registerDelegation, .removeDelegation, .updateDelegation:
             submitedText = ""
+        case .contractUpdate:
+            submitedText = ""
         }
     }
     

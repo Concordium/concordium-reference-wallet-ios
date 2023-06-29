@@ -547,6 +547,18 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
             return verifyIdentitiesAndAccountsPwHashReturnValue
         }
     }
+    
+    func createTransfer(from fromAccount: Mock.AccountDataType, to toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: Mock.DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: Mock.GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: Mock.TransferType, requestPasswordDelegate: Mock.RequestPasswordDelegate, global: Mock.GlobalWrapper?, inputEncryptedAmount: Mock.InputEncryptedAmount?, receiverPublicKey: String?, payload: Mock.Payload?) -> AnyPublisher<Mock.CreateTransferRequest, Error> {
+        NYI()
+    }
+    
+    func parameterToJson(with contractParams: Mock.ContractUpdateParameterToJsonInput) throws -> String {
+        NYI()
+    }
+    
+    func createAccountTransfer(input: String) throws -> String {
+        NYI()
+    }
 }
 
 class ScanQRViewProtocolMock: ScanQRViewProtocol {

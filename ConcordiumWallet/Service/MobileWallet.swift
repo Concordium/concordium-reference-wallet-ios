@@ -34,14 +34,16 @@ protocol MobileWalletProtocol {
                         transferType: TransferType,
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?,
-                        receiverPublicKey: String?) -> AnyPublisher<CreateTransferRequest, Error>
-
+                        receiverPublicKey: String?,
+                        payload: Payload?
+    ) -> AnyPublisher<CreateTransferRequest, Error>
+    func parameterToJson(with contractParams: ContractUpdateParameterToJsonInput) throws -> String
     func decryptEncryptedAmounts(from fromAccount: AccountDataType,
                                  _ encryptedAmounts: [String],
                                  requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
     
     func combineEncryptedAmount(_ encryptedAmount1: String, _ encryptedAmount2: String) -> Result<String, Error>
-    
+    func createAccountTransfer(input: String) throws -> String 
     func getAccountAddressesForIdentity(global: GlobalWrapper,
                                         identityObject: IdentityObject,
                                         privateIDObjectData: PrivateIDObjectData,
@@ -168,6 +170,10 @@ class MobileWallet: MobileWalletProtocol {
             return .failure(error)
         }
     }
+    
+    func createAccountTransfer(input: String) throws -> String {
+        try walletFacade.createAccountTransaction(input: input)
+    }
 
     func createTransfer(from fromAccount: AccountDataType,
                         to toAccount: String?,
@@ -189,7 +195,9 @@ class MobileWallet: MobileWalletProtocol {
                         requestPasswordDelegate: RequestPasswordDelegate,
                         global: GlobalWrapper?,
                         inputEncryptedAmount: InputEncryptedAmount? = nil,
-                        receiverPublicKey: String? = nil)
+                        receiverPublicKey: String? = nil,
+                        payload: Payload? = nil
+    )
                     -> AnyPublisher<CreateTransferRequest, Error> {
         requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
             try self.createTransfer(fromAccount: fromAccount,
@@ -212,7 +220,9 @@ class MobileWallet: MobileWalletProtocol {
                                     pwHash: pwHash,
                                     global: global,
                                     inputEncryptedAmount: inputEncryptedAmount,
-                                    receiverPublicKey: receiverPublicKey)
+                                    receiverPublicKey: receiverPublicKey,
+                                    payload: payload
+            )
         }.eraseToAnyPublisher()
     }
 
@@ -236,38 +246,46 @@ class MobileWallet: MobileWalletProtocol {
                                 pwHash: String,
                                 global: GlobalWrapper? = nil,
                                 inputEncryptedAmount: InputEncryptedAmount? = nil,
-                                receiverPublicKey: String? = nil
-                                
+                                receiverPublicKey: String? = nil,
+                                payload: Payload? = nil
     ) throws -> CreateTransferRequest {
         let privateAccountKeys = try getPrivateAccountKeys(for: fromAccount, pwHash: pwHash).get()
         
         var secretEncryptionKey: String?
+        var type: String? = nil
         if transferType == .transferToPublic || transferType == .encryptedTransfer {
             secretEncryptionKey = try getSecretEncryptionKey(for: fromAccount, pwHash: pwHash).get()
         }
-        
-        let makeCreateTransferRequest = MakeCreateTransferRequest(from: fromAccount.address,
-                                                                  to: toAccount,
-                                                                  expiry: Int(expiry.timeIntervalSince1970),
-                                                                  nonce: nonce,
-                                                                  memo: memo,
-                                                                  capital: capital,
-                                                                  restakeEarnings: restakeEarnings,
-                                                                  delegationTarget: delegationTarget,
-                                                                  openStatus: openStatus,
-                                                                  metadataURL: metadataURL,
-                                                                  transactionFeeCommission: transactionFeeCommission?.string,
-                                                                  bakingRewardCommission: bakingRewardCommission?.string,
-                                                                  finalizationRewardCommission: finalizationRewardCommission,
-                                                                  bakerKeys: bakerKeys,
-                                                                  keys: privateAccountKeys,
-                                                                  energy: energy,
-                                                                  amount: amount,
-                                                                  global: global?.value,
-                                                                  senderSecretKey: secretEncryptionKey,
-                                                                  inputEncryptedAmount: inputEncryptedAmount,
-                                                                  receiverPublicKey: receiverPublicKey)
-        
+        if transferType == .contractUpdate {
+            type = "Update"
+        }
+
+        let makeCreateTransferRequest = MakeCreateTransferRequest(
+            from: fromAccount.address,
+            to: toAccount,
+            expiry: Int(expiry.timeIntervalSince1970),
+            nonce: nonce,
+            memo: memo,
+            capital: capital,
+            restakeEarnings: restakeEarnings,
+            delegationTarget: delegationTarget,
+            openStatus: openStatus,
+            metadataURL: metadataURL,
+            transactionFeeCommission: transactionFeeCommission?.string,
+            bakingRewardCommission: bakingRewardCommission?.string,
+            finalizationRewardCommission: finalizationRewardCommission,
+            bakerKeys: bakerKeys,
+            keys: privateAccountKeys,
+            energy: energy,
+            amount: amount,
+            global: global?.value,
+            senderSecretKey: secretEncryptionKey,
+            inputEncryptedAmount: inputEncryptedAmount,
+            receiverPublicKey: receiverPublicKey,
+            type: type,
+            payload: payload
+        )
+
         guard let input = try makeCreateTransferRequest.jsonString() else {
             throw MobileWalletError.invalidArgument
         }
@@ -285,6 +303,8 @@ class MobileWallet: MobileWalletProtocol {
             return try CreateTransferRequest(walletFacade.createConfigureDelegation(input: input))
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return try CreateTransferRequest(walletFacade.createConfigureBaker(input: input))
+        case .contractUpdate:
+            return try CreateTransferRequest(walletFacade.createAccountTransaction(input: input))
         }
     }
 
@@ -405,7 +425,7 @@ class MobileWallet: MobileWalletProtocol {
             return Result.failure(error)
         }
     }
-    
+
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error> {
         do {
             _ = try getSecretEncryptionKey(for: account, pwHash: pwHash).get()
@@ -464,5 +484,9 @@ class MobileWallet: MobileWalletProtocol {
             }
             return true // invalid becaut privateIdObjectData could not be retrieved
         }
+    }
+    
+    func parameterToJson(with contractParams: ContractUpdateParameterToJsonInput) throws -> String {
+        try walletFacade.parameterToJson(input: contractParams)
     }
 }

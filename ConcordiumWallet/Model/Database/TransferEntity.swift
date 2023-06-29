@@ -42,7 +42,7 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     var transactionFeeCommission: Double { get set }
     var bakingRewardCommission: Double { get set }
     var finalizationRewardCommission: Double { get set }
-    
+    var payload: Payload? { get set }
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
     func withUpdated(cost: String?, status: SubmissionStatusEnum, outcome: OutcomeEnum?) -> TransferDataType
@@ -74,6 +74,8 @@ extension TransferDataType {
                 balanceChange = (Int(cost) ?? 0)
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
                 balanceChange = (Int(cost) ?? 0)
+            case .contractUpdate:
+                balanceChange = (Int(cost) ?? 0)
             }
         }
         
@@ -100,6 +102,8 @@ extension TransferDataType {
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
+                balanceChange = 0
+            case .contractUpdate:
                 balanceChange = 0
             }
             
@@ -149,10 +153,36 @@ final class TransferEntity: Object {
     @objc dynamic var transactionFeeCommission: Double = -1
     @objc dynamic var bakingRewardCommission: Double = -1
     @objc dynamic var finalizationRewardCommission: Double = -1
-    
+    @objc dynamic var contractUpdatePayloadEntity: ContractUpdatePayloadEntity?
 }
 
 extension TransferEntity: TransferDataType {
+    var payload: Payload? {
+        get {
+            if let entity = contractUpdatePayloadEntity {
+                return .contractUpdatePayload(
+                    .init(amount: entity.amount,
+                          address: .init(
+                              index: entity.index,
+                              subindex: entity.subindex
+                          ),
+                          receiveName: entity.receiveName,
+                          maxContractExecutionEnergy: entity.maxContractExecutionEnergy,
+                          message: entity.message
+                    )
+                )
+            }
+            return nil
+        }
+        set {
+            switch newValue {
+            case let .contractUpdatePayload(payload):
+                contractUpdatePayloadEntity = .init(from: payload)
+            default: break
+            }
+        }
+    }
+
     var encryptedDetails: EncryptedDetailsDataType? {
         get {
             encryptedDetailsEntity
