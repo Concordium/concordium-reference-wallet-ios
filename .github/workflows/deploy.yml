@@ -11,6 +11,9 @@ concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
 
+env:
+  xcode_version: 14.3.1
+
 jobs:
   Deploy:
     environment: '${{ github.event.inputs.environment }}'
@@ -19,6 +22,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Set Xcode version
+      run: 'sudo xcode-select --switch /Applications/Xcode_${{env.xcode_version}}.app'
 
     - name: Build
       run: fastlane release

@@ -6,19 +6,18 @@ on:
   pull_request:
 
 env:
-  MACOS_VERSION: 13
-  XCODE_VERSION: 14.3.1
+  xcode_version: 14.3.1
 
 jobs:
   Test:
-    runs-on: "macos-{{env.MACOS_VERSION}}"
+    runs-on: macos-13
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
     - name: Set Xcode version
-      run: "sudo xcode-select --switch /Applications/Xcode_{{env.XCODE_VERSION}}.app"
+      run: 'sudo xcode-select --switch /Applications/Xcode_${{env.xcode_version}}.app'
 
     - name: Build
       run: fastlane test
