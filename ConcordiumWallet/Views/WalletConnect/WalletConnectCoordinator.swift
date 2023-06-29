@@ -22,13 +22,13 @@ protocol WalletConnectCoordiantorDelegate: AnyObject {
 
 class WalletConnectCoordinator: Coordinator {
     typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider
-
+    
     private var cancellables: Set<AnyCancellable> = []
     private var dependencyProvider: DependencyProvider
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: WalletConnectCoordiantorDelegate?
     var navigationController: UINavigationController
-
+    
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
@@ -37,7 +37,7 @@ class WalletConnectCoordinator: Coordinator {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
         parentCoordinator = parentCoordiantor
-
+        
         let metadata = AppMetadata(
             name: "Concordium",
             description: "Concordium - Blockchain Wallet",
@@ -52,30 +52,14 @@ class WalletConnectCoordinator: Coordinator {
         setupWalletConnectSettleBinding()
         setupDebugBindings()
     }
-
+    
     func start() {
         showWalletConnectScanner()
     }
-
+    
     func nukeWalletConnectSessionsAndPairings() {
-        Sign.instance.getSessions().forEach { session in
-            Task {
-                do {
-                    try await Sign.instance.disconnect(topic: session.topic)
-                } catch let err {
-                    print("ERROR: WalletConnect: Deinitializing WalletConnectCoordinator: Cannot disconnect session with topic '\(session.topic)': \(err)")
-                }
-            }
-        }
-        Pair.instance.getPairings().forEach { pairing in
-            Task {
-                do {
-                    try await Pair.instance.disconnect(topic: pairing.topic)
-                } catch let err {
-                    print("ERROR: WalletConnect: Deinitializing WalletConnectCoordinator: Cannot disconnect pairing with topic '\(pairing.topic)': \(err)")
-                }
-            }
-        }
+        Sign.instance.nuke()
+        Pair.instance.nuke()
     }
 }
 

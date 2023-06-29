@@ -64,6 +64,14 @@
 		017A5F402A49C32B00E80B56 /* WalletConenctError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F382A49BA1900E80B56 /* WalletConenctError.swift */; };
 		017A5F412A49C32B00E80B56 /* WalletConenctError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F382A49BA1900E80B56 /* WalletConenctError.swift */; };
 		017A5F422A49C32C00E80B56 /* WalletConenctError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F382A49BA1900E80B56 /* WalletConenctError.swift */; };
+		018EEDEA2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDE92A4DC043000EC02C /* PairingInteracting+Nuke.swift */; };
+		018EEDEB2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDE92A4DC043000EC02C /* PairingInteracting+Nuke.swift */; };
+		018EEDEC2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDE92A4DC043000EC02C /* PairingInteracting+Nuke.swift */; };
+		018EEDED2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDE92A4DC043000EC02C /* PairingInteracting+Nuke.swift */; };
+		018EEDEF2A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDEE2A4DC053000EC02C /* SignClientProtocol+Nuke.swift */; };
+		018EEDF02A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDEE2A4DC053000EC02C /* SignClientProtocol+Nuke.swift */; };
+		018EEDF12A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDEE2A4DC053000EC02C /* SignClientProtocol+Nuke.swift */; };
+		018EEDF22A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018EEDEE2A4DC053000EC02C /* SignClientProtocol+Nuke.swift */; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
 		01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
@@ -2716,6 +2724,8 @@
 		017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayload.swift; sourceTree = "<group>"; };
 		017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
 		017A5F382A49BA1900E80B56 /* WalletConenctError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConenctError.swift; sourceTree = "<group>"; };
+		018EEDE92A4DC043000EC02C /* PairingInteracting+Nuke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PairingInteracting+Nuke.swift"; sourceTree = "<group>"; };
+		018EEDEE2A4DC053000EC02C /* SignClientProtocol+Nuke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignClientProtocol+Nuke.swift"; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
 		01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayloadEntity.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
@@ -5473,6 +5483,8 @@
 				FA01C9C9291C5D3000BD8738 /* UIViewController+Helper.swift */,
 				FA01C9BE291C5D2E00BD8738 /* UserDefaults+Helper.swift */,
 				FA0CAAF42937DD750009D5F8 /* UITapGestureRecognizer.swift */,
+				018EEDE92A4DC043000EC02C /* PairingInteracting+Nuke.swift */,
+				018EEDEE2A4DC053000EC02C /* SignClientProtocol+Nuke.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6305,6 +6317,7 @@
 				9078546128102C3500B655EB /* BakingOnboardingCoordinator.swift in Sources */,
 				642ED97725F21FB300A09BB3 /* UpdatePasswordViewController.swift in Sources */,
 				FA01C9D2291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
+				018EEDEA2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */,
 				891B19DD28A39C8D00F4B0D6 /* SeedAccountsService.swift in Sources */,
 				7F48C19F244DCD0B00997684 /* IdentitiesCoordinator.swift in Sources */,
 				01024FB52A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */,
@@ -6580,6 +6593,7 @@
 				19C2E3EE42E10C79DBD4D997 /* IdentityEntity.swift in Sources */,
 				077AC5EA26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				19C2E94132B8C8B8853EB589 /* IdentityProviderEntity.swift in Sources */,
+				018EEDEF2A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */,
 				19C2ED92172857EAA39F101A /* RecipientEntity.swift in Sources */,
 				19C2E2CADC6C1C6CFCBBBA67 /* AccountEntity.swift in Sources */,
 				896B423428B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
@@ -6983,6 +6997,7 @@
 				7F85B79A246A9A7C00ED09B8 /* OutcomeEnum.swift in Sources */,
 				893CAC6A286EBF9800BDF84C /* Collections+Extensions.swift in Sources */,
 				FA01C9F0291C5D3100BD8738 /* UIView+Dimensions.swift in Sources */,
+				018EEDEC2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */,
 				89CF2D2C281000B100742E1E /* TransferCostRange.swift in Sources */,
 				FA01C9E8291C5D3100BD8738 /* UIColor+Helper.swift in Sources */,
 				7F85B79B246A9A7C00ED09B8 /* RequestPasswordPresenter.swift in Sources */,
@@ -7109,6 +7124,7 @@
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89D467C4289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
+				018EEDF12A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F8291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
 				19C2E579BB5DAF759AC46842 /* ExportVersionContainer.swift in Sources */,
@@ -7546,6 +7562,7 @@
 				7F85B892246A9AB600ED09B8 /* ErrorMapper.swift in Sources */,
 				893CAC6B286EBF9800BDF84C /* Collections+Extensions.swift in Sources */,
 				FA01C9F1291C5D3100BD8738 /* UIView+Dimensions.swift in Sources */,
+				018EEDED2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */,
 				89CF2D2D281000B100742E1E /* TransferCostRange.swift in Sources */,
 				FA01C9E9291C5D3100BD8738 /* UIColor+Helper.swift in Sources */,
 				7F85B893246A9AB600ED09B8 /* LoginPresenter.swift in Sources */,
@@ -7672,6 +7689,7 @@
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
 				89D467C5289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
+				018EEDF22A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
 				FA01C9F9291C5D3100BD8738 /* UIBarButtonItem+Helper.swift in Sources */,
 				19C2E3E3584E12D4D72365FA /* ExportValues.swift in Sources */,
@@ -7787,6 +7805,7 @@
 				89B34A2A2892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
 				8DD9B1BC294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				89D46807289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
+				018EEDF02A4DC053000EC02C /* SignClientProtocol+Nuke.swift in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
 				FA0CAAEC2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,
 				067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */,
@@ -7981,6 +8000,7 @@
 				7FD878592406AF7C00509BDB /* LoginCoordinator.swift in Sources */,
 				5211BAB7250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,
 				7FF07AEC23EB01FA00F1FC04 /* AccountsCoordinator.swift in Sources */,
+				018EEDEB2A4DC043000EC02C /* PairingInteracting+Nuke.swift in Sources */,
 				19C2E062C189A20D63953971 /* MobileWallet.swift in Sources */,
 				19C2EDA577F81B9F02A2232D /* StorageManager.swift in Sources */,
 				19C2E8A653908F8529C9E202 /* NetworkManager.swift in Sources */,
