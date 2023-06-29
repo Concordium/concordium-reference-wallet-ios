@@ -58,7 +58,6 @@ class WalletConnectCoordinator: Coordinator {
     }
 
     func nukeWalletConnectSessionsAndPairings() {
-        // TODO Extract the following into "nuke" function that may also be called from here (as a safeguard).
         Sign.instance.getSessions().forEach { session in
             Task {
                 do {
@@ -451,12 +450,11 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     Task {
                         do {
                             try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
-
                         } catch let err {
+                            self?.navigationController.popViewController(animated: true)
                             self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                         }
                     }
-                    self?.navigationController.popViewController(animated: true)
                     return true
                 }, viewDidDisappear: { [weak self] in
                         self?.nukeWalletConnectSessionsAndPairings()

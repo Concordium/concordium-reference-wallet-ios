@@ -203,7 +203,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             topController.dismiss(animated: false) {
                 Logger.trace("logout due to application timeout")
                 self.childCoordinators.removeAll()
-                self.accountsCoordinator?.childCoordinators.removeAll()
                 self.navigationController.popToRootViewController(animated: false)
                 self.showLogin()
             }
