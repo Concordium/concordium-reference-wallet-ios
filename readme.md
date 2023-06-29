@@ -1,4 +1,5 @@
-# Concordium Mobile Wallet 
+[![Test](https://github.com/Concordium/concordium-reference-wallet-ios/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Concordium/concordium-reference-wallet-ios/actions/workflows/test.yml)
+# Concordium Mobile Wallet.
 
 **Concordium** 
 is a science-based proof-of-stake blockchain, the first in the world with identification built into the protocol and designed to meet regulatory requirements.
