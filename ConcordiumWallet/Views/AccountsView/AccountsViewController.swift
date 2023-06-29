@@ -88,6 +88,7 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
         presenter?.viewWillAppear()
         startRefreshTimer()
 

@@ -81,9 +81,7 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
 
     func showScanAddressQR(didScanQrCode: @escaping ((String) -> Bool)) {
         let vc = ScanQRViewControllerFactory.create(
-            with: ScanQRPresenter(
-                didScanQrCode: didScanQrCode
-            )
+            with: ScanQRPresenter(didScanQrCode: didScanQrCode, viewWillDisappear: {})
         )
         navigationController.pushViewController(vc, animated: true)
     }

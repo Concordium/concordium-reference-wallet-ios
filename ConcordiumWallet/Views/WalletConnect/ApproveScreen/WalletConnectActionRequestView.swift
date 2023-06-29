@@ -22,7 +22,7 @@ struct WalletConnectActionRequestView: View {
                 Text("Account Balance:")
                 Text("\(balanceAtDisposal.displayValueWithGStroke())")
             }
-            ScrollView{
+            ScrollView {
                 VStack {
                     Text("Transaction: \(transactionType)")
                         .fontWeight(.bold)

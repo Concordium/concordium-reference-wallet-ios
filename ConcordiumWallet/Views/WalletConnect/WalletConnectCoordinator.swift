@@ -11,8 +11,21 @@ struct WalletConnectErrors {
         JSONRPCError(code: 5000, message: "User rejected")
     }
 
+    
     static func transactionFailed(_ data: AnyCodable) -> JSONRPCError {
         JSONRPCError(code: 10000, message: "Transaction failed", data: data)
+    }
+    
+    static func noSessionForTopic(with request: Request) -> JSONRPCError {
+        JSONRPCError(code: 7001, message: "No session for topic \(request.topic)")
+    }
+
+    static func unsupportedNamespaceKey() -> JSONRPCError {
+        JSONRPCError(code: 5104, message: "Unsupported namespace key")
+    }
+    
+    static func unsupportedAccounts() -> JSONRPCError {
+        JSONRPCError(code: 5103, message: "Unsupported accounts")
     }
 }
 
@@ -56,7 +69,7 @@ class WalletConnectCoordinator: Coordinator {
     func start() {
         showWalletConnectScanner()
     }
-
+    
     deinit {
         // TODO Extract the following into "nuke" function that may also be called from here (as a safeguard).
         Sign.instance.getSessions().forEach { session in
@@ -171,7 +184,6 @@ private extension WalletConnectCoordinator {
                     self?.navigationController.popToRootViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Unexpected namespaces")
                     self?.parentCoordinator?.dismissWalletConnectCoordinator()
-                    // TODO Reject proposal.
                     return
                 }
 
@@ -231,24 +243,36 @@ private extension WalletConnectCoordinator {
                 guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Session not found")
+                    Task(priority: .background) {
+                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(WalletConnectErrors.noSessionForTopic(with: request)))
+                    }
                     return
                 }
                 // Look up namespace "ccd" in the session.
                 guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Expected single namespace with key 'ccd' but got \(session.namespaces.keys)")
+                    Task(priority: .background) {
+                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(WalletConnectErrors.unsupportedNamespaceKey()))
+                    }
                     return
                 }
                 // Look up single account address in "ccd" namespace.
                 guard ccdNamespace.accounts.count == 1, let accountAddress = ccdNamespace.accounts.first?.address else {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Expected single address but got '\(ccdNamespace.accounts)'")
+                    Task(priority: .background) {
+                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(WalletConnectErrors.unsupportedAccounts()))
+                    }
                     return
                 }
                 // Get account object by address.
                 guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
                     self?.navigationController.popViewController(animated: true)
                     self?.presentError(with: "errorAlert.title".localized, message: "Account with address '\(accountAddress)' not found")
+                    Task(priority: .background) {
+                        try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .error(WalletConnectErrors.unsupportedAccounts()))
+                    }
                     return
                 }
 
@@ -320,7 +344,7 @@ private extension WalletConnectCoordinator {
                                     guard let self else {
                                         return
                                     }
-                                    dependencyProvider.transactionsService()
+                                    self.dependencyProvider.transactionsService()
                                         .performTransfer(transfer, from: account, requestPasswordDelegate: self)
                                         .sink(receiveError: { [weak self] err in
                                             print("ERROR: WalletConnect: Cannot submit transaction: \(err)")
@@ -369,7 +393,8 @@ private extension WalletConnectCoordinator {
                                     }
                                     self?.navigationController.popViewController(animated: true)
                                 }
-                            )
+                            ),
+                            isAcceptButtonDisabled: account.forecastAtDisposalBalance < amount
                         )
                     ),
                     animated: true
@@ -451,14 +476,15 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     Task {
                         do {
                             try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
-
                         } catch let err {
                             self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                         }
                     }
                     self?.navigationController.popViewController(animated: true)
                     return true
-                }
+                }, viewWillDisappear:
+                    { self.parentCoordinator?.dismissWalletConnectCoordinator() }
+                
             )
         )
         navigationController.pushViewController(vc, animated: true)
