@@ -23,7 +23,7 @@ struct WalletConnectApprovalView<Content: View>: View {
     var subtitle: String?
     var contentView: Content
     var viewModel: WalletConnectApprovalViewModel
-    var isAcceptButtonDisabled = false
+    var isAcceptButtonEnabled = true
     var body: some View {
         VStack(spacing: 2) {
             Text(title)
@@ -57,8 +57,8 @@ struct WalletConnectApprovalView<Content: View>: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                 }
-                .disabled(isAcceptButtonDisabled)
-                .background(isAcceptButtonDisabled ? Pallette.inactiveButton : Pallette.primary)
+                .disabled(!isAcceptButtonEnabled)
+                .background(!isAcceptButtonEnabled ? Pallette.inactiveButton : Pallette.primary)
                 .cornerRadius(10)
             }
             .padding()

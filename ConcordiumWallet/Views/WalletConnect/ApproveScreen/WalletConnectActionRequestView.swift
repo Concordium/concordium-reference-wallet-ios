@@ -16,11 +16,14 @@ struct WalletConnectActionRequestView: View {
     let transactionType: String
     let params: ContractUpdateParameterRepresentation
     let request: Request
+    let isAccountBalanceSufficient: Bool
     var body: some View {
         VStack {
             HStack {
                 Text("Account Balance:")
+                    .foregroundColor(isAccountBalanceSufficient ? .black : .red)
                 Text("\(balanceAtDisposal.displayValueWithGStroke())")
+                    .foregroundColor(isAccountBalanceSufficient ? .black : .red)
             }
             ScrollView {
                 VStack {
@@ -29,25 +32,30 @@ struct WalletConnectActionRequestView: View {
                         .padding() // TODO: add transaction type
                     Divider()
                     buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
+                        .foregroundColor(isAccountBalanceSufficient ? .black : .red)
                     buildTransactionItem(title: "Contract", value: Text("\(contractAddress.index.string) (\(contractAddress.subindex.string))"))
-                    
+
                     buildTransactionItem(
                         title: "Parameter",
                         value: VStack {
                             switch params {
-                            case .decoded(let value):
+                            case let .decoded(value):
                                 Text(value).font(.custom("Courier", size: 13)).padding()
-                            case .raw(let value):
+                            case let .raw(value):
                                 Text("Decoding message to JSON failed. Raw message:")
                                 Text(value).font(.custom("Courier", size: 13)).foregroundColor(.red).padding()
                             }
                         }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 2)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
-                            .background(.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 2)
+                                .stroke(.gray, lineWidth: 1)
+                        )
+                        .background(.white)
                     )
+                    if !isAccountBalanceSufficient {
+                        Text("Insufficient funds")
+                            .foregroundColor(.red)
+                    }
                 }
             }
             .overlay(

@@ -300,6 +300,68 @@ private extension WalletConnectCoordinator {
                 transfer.payload = .contractUpdatePayload(params.payload)
                 transfer.energy = params.payload.maxContractExecutionEnergy
 
+                let acceptRequestAction = { [weak self] in
+                    guard let self else {
+                        return
+                    }
+                    self.dependencyProvider.transactionsService()
+                        .performTransfer(transfer, from: account, requestPasswordDelegate: self)
+                        .sink(receiveError: { [weak self] err in
+                            print("ERROR: WalletConnect: Cannot submit transaction: \(err)")
+                            Task {
+                                do {
+                                    try await Sign.instance.respond(
+                                        topic: request.topic,
+                                        requestId: request.id,
+                                        response: .error(WalletConnectErrors.transactionFailed(AnyCodable(err.localizedDescription)))
+                                    )
+                                } catch let err {
+                                    self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                                }
+                            }
+                            self?.navigationController.popViewController(animated: true)
+                        }, receiveValue: { [weak self] val in
+                            print("DEBUG: WalletConnect: Transaction submitted: \(val)")
+                            Task {
+                                do {
+                                    print("WalletConnect: RESPONDING \(RPCResult.response(AnyCodable(val.submissionId)))")
+                                    try await Sign.instance.respond(
+                                        topic: request.topic,
+                                        requestId: request.id,
+                                        response: .response(AnyCodable(["hash": val.submissionId]))
+                                    )
+                                } catch let err {
+                                    self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                                }
+                            }
+                            self?.navigationController.popViewController(animated: true)
+                        })
+                        .store(in: &cancellables)
+                }
+                
+                let declineRequestAction = { [weak self] in
+                    print("DEBUG: WalletConnect: Rejecting request")
+                    Task {
+                        do {
+                            try await Sign.instance.respond(
+                                topic: request.topic,
+                                requestId: request.id,
+                                response: .error(WalletConnectErrors.userRejected())
+                            )
+                        } catch let err {
+                            print("ERROR: WalletConnect: Cannot reject request: \(err)")
+                            self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                        }
+                    }
+                    self?.navigationController.popViewController(animated: true)
+                }
+                
+                let viewModel = WalletConnectApprovalViewModel(
+                    didAccept: acceptRequestAction,
+                    didDecline: declineRequestAction
+                )
+                
+                let isAccountBalanceSufficient = account.forecastAtDisposalBalance > amount
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectApprovalView(
@@ -311,64 +373,11 @@ private extension WalletConnectCoordinator {
                                 contractAddress: params.payload.address,
                                 transactionType: params.type.rawValue,
                                 params: message,
-                                request: request
+                                request: request,
+                                isAccountBalanceSufficient: isAccountBalanceSufficient
                             ),
-                            viewModel: WalletConnectApprovalViewModel(
-                                didAccept: { [weak self] in
-                                    guard let self else {
-                                        return
-                                    }
-                                    self.dependencyProvider.transactionsService()
-                                        .performTransfer(transfer, from: account, requestPasswordDelegate: self)
-                                        .sink(receiveError: { [weak self] err in
-                                            print("ERROR: WalletConnect: Cannot submit transaction: \(err)")
-                                            Task {
-                                                do {
-                                                    try await Sign.instance.respond(
-                                                        topic: request.topic,
-                                                        requestId: request.id,
-                                                        response: .error(WalletConnectErrors.transactionFailed(AnyCodable(err.localizedDescription)))
-                                                    )
-                                                } catch let err {
-                                                    self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-                                                }
-                                            }
-                                            self?.navigationController.popViewController(animated: true)
-                                        }, receiveValue: { [weak self] val in
-                                            print("DEBUG: WalletConnect: Transaction submitted: \(val)")
-                                            Task {
-                                                do {
-                                                    print("WalletConnect: RESPONDING \(RPCResult.response(AnyCodable(val.submissionId)))")
-                                                    try await Sign.instance.respond(
-                                                        topic: request.topic,
-                                                        requestId: request.id,
-                                                        response: .response(AnyCodable(["hash": val.submissionId]))
-                                                    )
-                                                } catch let err {
-                                                    self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-                                                }
-                                            }
-                                            self?.navigationController.popViewController(animated: true)
-                                        })
-                                        .store(in: &cancellables)
-                                }, didDecline: { [weak self] in
-                                    print("DEBUG: WalletConnect: Rejecting request")
-                                    Task {
-                                        do {
-                                            try await Sign.instance.respond(
-                                                topic: request.topic,
-                                                requestId: request.id,
-                                                response: .error(WalletConnectErrors.userRejected())
-                                            )
-                                        } catch let err {
-                                            print("ERROR: WalletConnect: Cannot reject request: \(err)")
-                                            self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-                                        }
-                                    }
-                                    self?.navigationController.popViewController(animated: true)
-                                }
-                            ),
-                            isAcceptButtonDisabled: account.forecastAtDisposalBalance < amount
+                            viewModel: viewModel,
+                            isAcceptButtonEnabled: isAccountBalanceSufficient
                         )
                     ),
                     animated: true
