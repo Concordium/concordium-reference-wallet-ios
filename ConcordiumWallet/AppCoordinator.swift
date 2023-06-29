@@ -65,15 +65,13 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
     func showMainTabbar() {
         navigationController.setupBaseNavigationControllerStyle()
 
-        if accountsCoordinator == nil {
-            accountsCoordinator = AccountsCoordinator(
-                navigationController: navigationController,
-                dependencyProvider: defaultProvider,
-                appSettingsDelegate: self,
-                accountsPresenterDelegate: self
-            )
-            accountsCoordinator?.start()
-        }
+        accountsCoordinator = AccountsCoordinator(
+            navigationController: navigationController,
+            dependencyProvider: defaultProvider,
+            appSettingsDelegate: self,
+            accountsPresenterDelegate: self
+        )
+        accountsCoordinator?.start()
 
         sanityChecker.showValidateIdentitiesAlert(report: SanityChecker.lastSanityReport, mode: .automatic, completion: {
             self.showDelegationWarningIfNeeded()
@@ -206,7 +204,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
                 Logger.trace("logout due to application timeout")
                 self.childCoordinators.removeAll()
                 self.accountsCoordinator?.childCoordinators.removeAll()
-                self.accountsCoordinator = nil
                 self.navigationController.popToRootViewController(animated: false)
                 self.showLogin()
             }
