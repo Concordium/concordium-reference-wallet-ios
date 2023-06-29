@@ -40,7 +40,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
     override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
         if parent == nil {
-            presenter.viewWillDisappear()
+            presenter.viewDidDisappear?()
         }
     }
 
@@ -85,7 +85,6 @@ class ScanQRViewController: BaseViewController, ShowToast {
         if captureSession.isRunning {
             captureSession.stopRunning()
         }
-//        presenter.viewWillDisappear()
     }
 
     func found(code: String) {

@@ -31,7 +31,7 @@ class AccountsCoordinator: Coordinator {
     weak var accountsPresenterDelegate: AccountsPresenterDelegate?
     private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: DependencyProvider
-//    private var walletConnectCoordinator: WalletConnectCoordinator?
+
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,

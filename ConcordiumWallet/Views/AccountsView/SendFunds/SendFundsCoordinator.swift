@@ -111,8 +111,6 @@ class SendFundsCoordinator: Coordinator {
                     }
                     didScanQRCode(address)
                     return true
-                }, viewWillDisappear: {
-                    
                 }
             )
         )

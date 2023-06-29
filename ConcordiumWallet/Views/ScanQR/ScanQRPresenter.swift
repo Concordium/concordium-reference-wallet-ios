@@ -18,18 +18,18 @@ protocol ScanQRViewProtocol: AnyObject {
 // MARK: Presenter
 protocol ScanQRPresenterProtocol: AnyObject {
     var view: ScanQRViewProtocol? { get set }
-    var viewWillDisappear: (() -> Void) { get set }
+    var viewDidDisappear: (() -> Void)? { get }
     func scannedQrCode(_: String)
 }
 
 class ScanQRPresenter: ScanQRPresenterProtocol {
     weak var view: ScanQRViewProtocol?
-    var viewWillDisappear: (() -> Void)
+    var viewDidDisappear: (() -> Void)?
     var didScanQrCode: (_ address: String) -> Bool // TODO create/use result enum
 
-    init(didScanQrCode: @escaping ((_ value: String) -> Bool), viewWillDisappear: @escaping (() -> Void)) {
+    init(didScanQrCode: @escaping ((_ value: String) -> Bool), viewDidDisappear: (() -> Void)? = nil) {
         self.didScanQrCode = didScanQrCode
-        self.viewWillDisappear = viewWillDisappear
+        self.viewDidDisappear = viewDidDisappear
     }
 
     func scannedQrCode(_ value: String) {

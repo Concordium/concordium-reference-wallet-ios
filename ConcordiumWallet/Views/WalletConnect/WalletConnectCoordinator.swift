@@ -70,7 +70,7 @@ class WalletConnectCoordinator: Coordinator {
         showWalletConnectScanner()
     }
     
-    deinit {
+    func nukeWalletConnectSessionsAndPairings() {
         // TODO Extract the following into "nuke" function that may also be called from here (as a safeguard).
         Sign.instance.getSessions().forEach { session in
             Task {
@@ -482,9 +482,10 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     }
                     self?.navigationController.popViewController(animated: true)
                     return true
-                }, viewWillDisappear:
-                    { self.parentCoordinator?.dismissWalletConnectCoordinator() }
-                
+                }, viewDidDisappear: { [weak self] in
+                        self?.nukeWalletConnectSessionsAndPairings()
+                        self?.parentCoordinator?.dismissWalletConnectCoordinator()
+                    }
             )
         )
         navigationController.pushViewController(vc, animated: true)
