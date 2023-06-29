@@ -15,7 +15,7 @@ extension Notification.Name {
 
 class ConcordiumApplication: UIApplication {
     // Auto logout after N minutes of inactivity.
-    let timeoutInSeconds: TimeInterval = 30 // TODO: read from some config?
+    let timeoutInSeconds: TimeInterval = 5 * 60 // TODO: read from some config?
     var timeoutTimer: Timer?
 
     // Listen for any touch. If the screen receives a touch, the timer is reset.
