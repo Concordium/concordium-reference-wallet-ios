@@ -26,7 +26,7 @@ struct ContractUpdateParams: Decodable {
                 schema = .moduleSchema(value: data, version: nil)
             } else {
                 // Invalid Base64 encoding.
-                throw WalletConenctError.invalidSchema
+                throw WalletConnectError.schemaError(.invalidBase64(schemaValueBase64))
             }
         }
     }

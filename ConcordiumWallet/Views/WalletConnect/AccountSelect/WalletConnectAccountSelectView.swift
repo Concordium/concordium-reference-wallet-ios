@@ -22,6 +22,6 @@ struct WalletConnectAccountSelectView: View {
         }
         .listRowSeparator(.hidden)
         .listStyle(.plain)
-        .onAppear(perform: viewModel.getAccounts)
+        .onAppear(perform: viewModel.loadAccounts)
     }
 }
