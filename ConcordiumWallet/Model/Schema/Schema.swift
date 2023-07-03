@@ -50,14 +50,14 @@ enum Schema: Codable {
                 return data
             }
             // Invalid Base64 encoding.
-            throw WalletConenctError.invalidSchema
+            throw WalletConnectError.schemaError(.invalidBase64(valueBase64))
         }
         // If it fails, attempt to decode as JavaScript's Buffer.
         if let buffer = try? container.decode(SchemaValueBufferBroken.self, forKey: .value) {
             return Data(buffer.data)
         }
         // Both attempts failed.
-        throw WalletConenctError.invalidSchema
+        throw WalletConnectError.schemaError(.unknownFormat)
     }
     
     var version: SchemaVersion? {
