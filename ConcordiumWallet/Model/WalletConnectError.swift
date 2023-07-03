@@ -49,7 +49,6 @@ enum RequestError: Error {
 }
 
 enum WalletConnectError: Error {
-    case unknownError // TODO: remove
     case internalError(String)
     case schemaError(SchemaError)
     case sessionError(SessionError)
@@ -59,18 +58,16 @@ enum WalletConnectError: Error {
     
     var codeAndMsg: (Int, String) {
         switch self {
-        case .unknownError:
-            return (1, "Unknown error")
         case let .internalError(msg):
             return (10000, msg)
         case let .schemaError(err):
-            var (code, msg) = err.codeAndMsg
+            let (code, msg) = err.codeAndMsg
             return (code, "Schema error: \(msg)")
         case let .sessionError(err):
-            var (code, msg) = err.codeAndMsg
+            let (code, msg) = err.codeAndMsg
             return (code, "Session error: \(msg)")
         case let .requestError(err):
-            var (code, msg) = err.codeAndMsg
+            let (code, msg) = err.codeAndMsg
             return (code, "Request error: \(msg)")
         case let .transactionError(msg):
             return (11000, "Cannot submit transaction: \(msg)")
