@@ -72,10 +72,10 @@ class WalletConnectCoordinator: Coordinator {
 // MARK: - WalletConnect
 
 let expectedNamespaceKey = "ccd"
-let expectedChain = "ccd:testnet"
-let expectedBlockchains = Set([Blockchain(expectedChain)!])
-let expectedEvents = Set(["accounts_changed", "chain_changed"])
-let expectedMethods = Set(["sign_and_send_transaction", "sign_message"])
+let expectedChain = "\(expectedNamespaceKey):testnet"
+let supportedChains = Set([Blockchain(expectedChain)!])
+let supportedEvents = Set(["accounts_changed", "chain_changed"])
+let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
 
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
@@ -101,16 +101,16 @@ private extension WalletConnectCoordinator {
                     self.reject(proposal: proposal, reason: .userRejected, msg: "Unexpected namespaces: \(proposal.requiredNamespaces.keys)", shouldPresent: true)
                     return
                 }
-                if let chains = ccdNamespace.chains, chains != expectedBlockchains {
-                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(expectedBlockchains)\" bot got \(chains)", shouldPresent: true)
+                if let chains = ccdNamespace.chains, chains != supportedChains {
+                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(supportedChains)\" bot got \(chains)", shouldPresent: true)
                     return
                 }
-                if ccdNamespace.events != expectedEvents {
-                    self.reject(proposal: proposal, reason: .userRejectedEvents, msg: "Expected events \(expectedEvents) but got \(ccdNamespace.events)", shouldPresent: true)
+                if !ccdNamespace.events.isSubset(of: supportedEvents) {
+                    self.reject(proposal: proposal, reason: .userRejectedEvents, msg: "Expected subset of events \(supportedEvents) but got \(ccdNamespace.events)", shouldPresent: true)
                     return
                 }
-                if ccdNamespace.methods != expectedMethods {
-                    self.reject(proposal: proposal, reason: .userRejectedMethods, msg: "Expected methods \(expectedMethods) but got \(ccdNamespace.methods)", shouldPresent: true)
+                if !ccdNamespace.methods.isSubset(of: supportedMethods) {
+                    self.reject(proposal: proposal, reason: .userRejectedMethods, msg: "Expected subset of methods \(supportedMethods) but got \(ccdNamespace.methods)", shouldPresent: true)
                     return
                 }
 
@@ -134,10 +134,10 @@ private extension WalletConnectCoordinator {
                                                         proposalId: proposal.id,
                                                         namespaces: [
                                                             expectedNamespaceKey: SessionNamespace(
-                                                                chains: expectedBlockchains,
+                                                                chains: supportedChains,
                                                                 accounts: [Account("\(expectedChain):\(account.address)")!],
-                                                                methods: expectedMethods,
-                                                                events: expectedEvents
+                                                                methods: supportedMethods, // approve all methods, not just requested ones
+                                                                events: supportedEvents // approve all events, not just requested ones
                                                             ),
                                                         ]
                                                     )
