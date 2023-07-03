@@ -71,6 +71,12 @@ class WalletConnectCoordinator: Coordinator {
 
 // MARK: - WalletConnect
 
+let expectedNamespaceKey = "ccd"
+let expectedChain = "ccd:testnet"
+let expectedBlockchains = Set([Blockchain(expectedChain)!])
+let expectedEvents = Set(["accounts_changed", "chain_changed"])
+let expectedMethods = Set(["sign_and_send_transaction", "sign_message"])
+
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
         // TODO: Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
@@ -81,14 +87,32 @@ private extension WalletConnectCoordinator {
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] proposal, _ in
-
-                guard let self = self else { return }
+                guard let self else { return }
                 print("DEBUG: WalletConnect: \(self) Session \(proposal) proposed")
 
                 // TODO: Auto-reject proposal if namespaces doesn't exactly match expected chain/method/event.
                 //      And show user appropriate error...
                 
                 let proposalData = proposal.proposalData
+                
+                // Check chain, methods and events. Reject if they don't match (fixed) expectations.
+                // We only check required namespaces, not the optional ones.
+                guard proposal.requiredNamespaces.count == 1, let ccdNamespace = proposal.requiredNamespaces[expectedNamespaceKey] else {
+                    self.reject(proposal: proposal, reason: .userRejected, msg: "Unexpected namespaces: \(proposal.requiredNamespaces.keys)", shouldPresent: true)
+                    return
+                }
+                if let chains = ccdNamespace.chains, chains != expectedBlockchains {
+                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(expectedBlockchains)\" bot got \(chains)", shouldPresent: true)
+                    return
+                }
+                if ccdNamespace.events != expectedEvents {
+                    self.reject(proposal: proposal, reason: .userRejectedEvents, msg: "Expected events \(expectedEvents) but got \(ccdNamespace.events)", shouldPresent: true)
+                    return
+                }
+                if ccdNamespace.methods != expectedMethods {
+                    self.reject(proposal: proposal, reason: .userRejectedMethods, msg: "Expected methods \(expectedMethods) but got \(ccdNamespace.methods)", shouldPresent: true)
+                    return
+                }
 
                 let viewModel = WalletConnectAccountSelectViewModel(
                     storageManager: self.dependencyProvider.storageManager(),
@@ -109,12 +133,11 @@ private extension WalletConnectCoordinator {
                                                     try await Sign.instance.approve(
                                                         proposalId: proposal.id,
                                                         namespaces: [
-                                                            // TODO: un-hardcode
-                                                            "ccd": SessionNamespace(
-                                                                chains: [Blockchain("ccd:testnet")!],
-                                                                accounts: [Account("ccd:testnet:\(account.address)")!],
-                                                                methods: ["sign_and_send_transaction", "sign_message"],
-                                                                events: ["chain_changed", "accounts_changed"]
+                                                            expectedNamespaceKey: SessionNamespace(
+                                                                chains: expectedBlockchains,
+                                                                accounts: [Account("\(expectedChain):\(account.address)")!],
+                                                                methods: expectedMethods,
+                                                                events: expectedEvents
                                                             ),
                                                         ]
                                                     )
@@ -166,36 +189,12 @@ private extension WalletConnectCoordinator {
         }
     }
     
-    func reject(request: Request, err: WalletConnectError, shouldPresent: Bool) {
-        let (code, msg) = err.codeAndMsg
-        Task { [weak self] in
-            do {
-                try await Sign.instance.respond(
-                    topic: request.topic,
-                    requestId: request.id,
-                    response: .error(JSONRPCError(code: code, message: msg))
-                )
-            } catch let err {
-                self?.presentError(with: "errorAlert.title".localized, message: "Cannot respond status to the dApp: \(err.localizedDescription)")
-            }
-        }
-        if shouldPresent {
-            presentError(with: "errorAlert.title".localized, message: msg)
-        }
-    }
-    
-    func disconnectAndPresentError(_ err: WalletConnectError) {
-        let (_, msg) = err.codeAndMsg
-        navigationController.popToRootViewController(animated: true)
-        parentCoordinator?.dismissWalletConnectCoordinator() // disconnects all sessions
-        presentError(with: "errorAlert.title".localized, message: msg)
-    }
-
     private func setupWalletConnectSettleBinding() {
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 print("DEBUG: WalletConnect: Session \(session.pairingTopic) settled")
+                
                 guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
                     self?.disconnectAndPresentError(.sessionError(.unexpectedNamespaces(namespaces: Array(session.namespaces.keys))))
                     return
@@ -494,6 +493,51 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         ac.addAction(UIAlertAction(title: "errorAlert.okButton".localized, style: .default))
         navigationController.present(ac, animated: true)
     }
+
+    func reject(request: Request, err: WalletConnectError, shouldPresent: Bool) {
+        let (code, msg) = err.codeAndMsg
+        Task { [weak self] in
+            do {
+                try await Sign.instance.respond(
+                    topic: request.topic,
+                    requestId: request.id,
+                    response: .error(JSONRPCError(code: code, message: msg))
+                )
+            } catch let err {
+                self?.presentError(with: "errorAlert.title".localized, message: "Cannot respond status to the dApp: \(err.localizedDescription)")
+            }
+        }
+        if shouldPresent {
+            presentError(with: "errorAlert.title".localized, message: msg)
+        }
+    }
+    
+    func reject(proposal: Session.Proposal, reason: RejectionReason, msg: String, shouldPresent: Bool) {
+        Task { [weak self] in
+            do {
+                try await Sign.instance.reject(
+                    proposalId: proposal.id,
+                    reason: reason
+                )
+            } catch let err {
+                self?.presentError(
+                    with: "errorAlert.title".localized,
+                    message: "Cannot repsond status to the dApp: \(err.localizedDescription)"
+                )
+            }
+        }
+        if shouldPresent {
+            presentError(with: "errorAlert.title".localized, message: msg)
+        }
+    }
+    
+    func disconnectAndPresentError(_ err: WalletConnectError) {
+        let (_, msg) = err.codeAndMsg
+        navigationController.popToRootViewController(animated: true)
+        parentCoordinator?.dismissWalletConnectCoordinator() // disconnects all sessions
+        presentError(with: "errorAlert.title".localized, message: msg)
+    }
+
 }
 
 extension WalletConnectCoordinator: RequestPasswordDelegate {}
