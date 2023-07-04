@@ -121,7 +121,6 @@ private extension WalletConnectCoordinator {
                             UIHostingController(
                                 rootView: WalletConnectApprovalView(
                                     title: "walletconnect.connect.approve.title".localized,
-                                    subtitle: "walletconnect.connect.approve.subtitle".localizedNonempty,
                                     contentView: WalletConnectProposalApprovalView(
                                         accountName: account.displayName,
                                         proposal: proposalData
@@ -303,9 +302,23 @@ private extension WalletConnectCoordinator {
                     schema: params.schema,
                     schemaVersion: params.schema.version?.rawValue
                 )
-                var message = ContractUpdateParameterRepresentation.raw(params.payload.message)
-                if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
-                    message = .decoded(decoded as String)
+                
+                if params.sender != account.address {
+                    self?.reject(
+                        request: request,
+                        err: WalletConnectError.internalError("Sender address '\(params.sender)' differs from connected account '\(account.address)'"),
+                        shouldPresent: true
+                    )
+                    return
+                }
+                
+                var message: ContractUpdateParameterRepresentation? = nil
+                if !inputParams.parameter.isEmpty {
+                    if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
+                        message = .decoded(decoded as String)
+                    } else {
+                        message = ContractUpdateParameterRepresentation.raw(params.payload.message)
+                    }
                 }
                 
                 // Check that request transaction is a contract update as that's the only type we support.
@@ -347,12 +360,15 @@ private extension WalletConnectCoordinator {
                     UIHostingController(
                         rootView: WalletConnectApprovalView(
                             title: "Transaction Approval",
-                            subtitle: "\(session.peer.name) requires your approval to send the following transaction:",
                             contentView: WalletConnectActionRequestView(
-                                amount: GTU(intValue: amount),
+                                dappName: session.peer.name,
+                                accountName: account.displayName,
                                 balanceAtDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                                amount: GTU(intValue: amount),
                                 contractAddress: params.payload.address,
                                 transactionType: params.type.rawValue,
+                                receiveName: params.payload.receiveName,
+                                maxExecutionEnergy: params.payload.maxContractExecutionEnergy,
                                 params: message,
                                 request: request
                             ),
