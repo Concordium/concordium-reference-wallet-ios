@@ -357,6 +357,8 @@ private extension WalletConnectCoordinator {
                 transfer.payload = .contractUpdatePayload(params.payload)
                 transfer.energy = params.payload.maxContractExecutionEnergy
 
+                // TODO:
+                let transferCostData: TransferCostData = .init(transferCost: .init(energy: 0, cost: "0"))
                 if let self {
                     self.dependencyProvider.transactionsService().getTransferCost(
                         transferType: transfer.transferType.toEstimateCostTransferType(),
@@ -371,8 +373,8 @@ private extension WalletConnectCoordinator {
                     )
                     .sink(receiveError: { error in
                         print("DEBUG: \(error)")
-                    }, receiveValue: { cost in
-                        print("DEBUG: \(cost)")
+                    }, receiveValue: { transferCost in
+                        transferCostData.transferCost = transferCost
                     }).store(in: &self.cancellables)
                     
                 }
@@ -390,7 +392,8 @@ private extension WalletConnectCoordinator {
                                 receiveName: params.payload.receiveName,
                                 maxExecutionEnergy: params.payload.maxContractExecutionEnergy,
                                 params: message,
-                                request: request
+                                request: request,
+                                energyData: transferCostData
                             ),
                             viewModel: WalletConnectApprovalViewModel(
                                 didAccept: { [weak self] in

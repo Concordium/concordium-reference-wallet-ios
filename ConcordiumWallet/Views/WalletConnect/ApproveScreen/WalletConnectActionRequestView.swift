@@ -9,6 +9,15 @@
 import SwiftUI
 import Web3Wallet
 
+// TODO: Add percentage to cost.
+class TransferCostData: ObservableObject {
+
+    init(transferCost: TransferCost) {
+        self.transferCost = transferCost
+    }
+    @Published var transferCost: TransferCost
+}
+
 struct WalletConnectActionRequestView: View {
     let dappName: String
     let accountName: String
@@ -21,6 +30,7 @@ struct WalletConnectActionRequestView: View {
     let maxExecutionEnergy: Int
     let params: ContractUpdateParameterRepresentation?
     let request: Request
+    @ObservedObject var energyData: TransferCostData
     
     var boxText: AttributedString {
         var d = AttributedString(dappName)
@@ -57,7 +67,7 @@ struct WalletConnectActionRequestView: View {
                     buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
                     buildTransactionItem(title: "Contract index (subindex)", value: Text("\(contractAddress.index.string) (\(contractAddress.subindex.string))"))
                     buildTransactionItem(title: "Contract and function name", value: Text(receiveName))
-                    buildTransactionItem(title: "Max energy allowed", value: Text("\(maxExecutionEnergy) NRG"))
+                    buildTransactionItem(title: "Max energy allowed", value: Text("\(energyData.transferCost.energy) NRG"))
                     if let params {
                         buildTransactionItem(
                             title: "Parameter",
@@ -97,6 +107,7 @@ struct WalletConnectActionRequestView: View {
                     .stroke(.gray, lineWidth: 1)
             )
             .padding()
+            Text("Estimated transaction fee: \(GTU(intValue: Int(energyData.transferCost.cost) ?? 0).displayValue())")
         }
     }
 
