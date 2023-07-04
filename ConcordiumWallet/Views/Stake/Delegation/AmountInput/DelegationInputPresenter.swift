@@ -143,7 +143,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 
                 return self.transactionService
                     .getTransferCost(
-                        transferType: self.dataHandler.transferType,
+                        transferType: self.dataHandler.transferType.toEstimateCostTransferType(),
                         costParameters: costParameters
                     )
                     .showLoadingIndicator(in: self.view)
@@ -230,7 +230,7 @@ class DelegationAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 return
             }
             if self.dataHandler.isNewAmountZero() {
-                self.transactionService.getTransferCost(transferType: .removeDelegation, costParameters: [])
+                self.transactionService.getTransferCost(transferType: EstimateCostTransferType.removeDelegation, costParameters: [])
                     .showLoadingIndicator(in: self.view).sink { [weak self] error in
                         self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
                     } receiveValue: {[weak self] transferCost in

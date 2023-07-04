@@ -237,6 +237,7 @@ private extension WalletConnectCoordinator {
     }
 
     func setupWalletConnectRequestBinding() {
+                
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
@@ -356,6 +357,25 @@ private extension WalletConnectCoordinator {
                 transfer.payload = .contractUpdatePayload(params.payload)
                 transfer.energy = params.payload.maxContractExecutionEnergy
 
+                if let self {
+                    self.dependencyProvider.transactionsService().getTransferCost(
+                        transferType: transfer.transferType.toEstimateCostTransferType(),
+                        costParameters: [
+                            .amount(params.payload.amount),
+                            .sender(params.sender),
+                            .contractIndex(params.payload.address.index),
+                            .contractSubindex(params.payload.address.subindex),
+                            .receiveName(params.payload.receiveName),
+                            .parameter(params.payload.message)
+                        ]
+                    )
+                    .sink(receiveError: { error in
+                        print("DEBUG: \(error)")
+                    }, receiveValue: { cost in
+                        print("DEBUG: \(cost)")
+                    }).store(in: &self.cancellables)
+                    
+                }
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectApprovalView(

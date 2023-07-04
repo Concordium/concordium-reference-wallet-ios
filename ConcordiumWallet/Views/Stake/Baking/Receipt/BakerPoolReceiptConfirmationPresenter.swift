@@ -53,7 +53,7 @@ class BakerPoolReceiptConfirmationPresenter: StakeReceiptPresenterProtocol {
         
         transactionService
             .getTransferCost(
-                transferType: dataHandler.transferType,
+                transferType: dataHandler.transferType.toEstimateCostTransferType(),
                 costParameters: dataHandler.getCostParameters()
             )
             .showLoadingIndicator(in: view)

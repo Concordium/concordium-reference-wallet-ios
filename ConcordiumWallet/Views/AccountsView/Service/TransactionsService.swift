@@ -12,7 +12,7 @@ protocol TransactionsServiceProtocol {
                          bakerKeys: GeneratedBakerKeys?,
                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<TransferDataType, Error>
     func getTransactions(for account: AccountDataType, startingFrom: Transaction?) -> AnyPublisher<RemoteTransactions, Error>
-    func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
+    func getTransferCost(transferType: EstimateCostTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error>
     func decryptEncryptedTransferAmounts(transactions: [Transaction],
                                          from account: AccountDataType,
                                          requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<[(String, Int)], Error>
@@ -84,7 +84,7 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         return networkManager.load(request)
     }
   
-    func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
+    func getTransferCost(transferType: EstimateCostTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
         var params: [String: CustomStringConvertible?] = ["type": transferType.rawValue]
         
         costParameters.forEach { costParameter in
@@ -625,9 +625,9 @@ extension TransactionsService {
 
 extension TransactionsServiceProtocol {
     func getBakingTransferCostRange(parameters: [TransferCostParameter]) -> AnyPublisher<TransferCostRange, Error> {
-        let minPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(0)]).first()
-        let maxPublisher = getTransferCost(transferType: .registerBaker, costParameters: parameters + [.metadataSize(2048)]).first()
-        
+        let minPublisher = getTransferCost(transferType: EstimateCostTransferType.registerBaker, costParameters: parameters + [.metadataSize(0)]).first()
+        let maxPublisher = getTransferCost(transferType: EstimateCostTransferType.registerBaker, costParameters: parameters + [.metadataSize(2048)]).first()
+
         return minPublisher
             .zip(maxPublisher)
             .map { (min, max) in

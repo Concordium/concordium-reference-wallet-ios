@@ -476,7 +476,7 @@ struct DelegationAmountData: SimpleFieldValue {
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateDelegation {
-            return [.amount]
+            return [.amount(nil)]
         } else {
             return []
         }
@@ -494,11 +494,11 @@ struct BakerAmountData: SimpleFieldValue {
     var displayValue: String {
         amount.displayValueWithGStroke()
     }
-    var costParameters: [TransferCostParameter] { [.amount] }
+    var costParameters: [TransferCostParameter] { [.amount(nil)] }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateBakerStake || type == .configureBaker {
-            return [.amount]
+            return [.amount(nil)]
         } else {
             return []
         }
