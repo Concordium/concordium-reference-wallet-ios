@@ -16,7 +16,6 @@ struct WalletConnectConnectedView: View {
         self.didDisconnect = didDisconnect
     }
     
-    
     var boxText: AttributedString {
         var d = AttributedString(dappName)
         var a = AttributedString(accountName)
