@@ -11,7 +11,6 @@ import Foundation
 enum TransferCostParameter: Equatable {
     case memoSize(Int)
     
-//    case amount // only for updateDelegation updateBakerStake or configureBaker
     case restake // only for updateDelegation, updateBakerStake or configureBaker
     case passive // only for registerDelegation or updateDelegation
     case target // only for updateDelegation
@@ -21,7 +20,6 @@ enum TransferCostParameter: Equatable {
     case transactionCommission // only for updateBakerPool or configureBaker
     case bakerRewardCommission // only for updateBakerPool or configureBaker
     case finalizationRewardCommission // only for updateBakerPool or configureBaker
-    
     
     case amount(String?)
     case sender(String)
@@ -73,7 +71,7 @@ enum TransferCostParameter: Equatable {
         case .metadataSize(let size):
             return size
         case .amount(let value):
-            return value ?? nil
+            return value
         case .contractIndex(let index):
             return index
         case .contractSubindex(let subindex):

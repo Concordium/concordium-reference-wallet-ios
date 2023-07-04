@@ -77,6 +77,8 @@ let supportedChains = Set([Blockchain(expectedChain)!])
 let supportedEvents = Set(["accounts_changed", "chain_changed"])
 let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
 
+let estimatedCostBufferFactor = 1.15 // 15%
+
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
         // TODO: Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
@@ -355,13 +357,12 @@ private extension WalletConnectCoordinator {
                 transfer.fromAddress = params.sender
                 transfer.nonce = account.accountNonce
                 transfer.payload = .contractUpdatePayload(params.payload)
-                transfer.energy = params.payload.maxContractExecutionEnergy
+                transfer.energy = params.payload.maxContractExecutionEnergy // may get overwritten by result from WP's cost estimation.
 
-                // TODO:
-                let transferCostData: TransferCostData = .init(transferCost: .init(energy: 0, cost: "0"))
+                let info = TransferInfo() // initialize info with no cost estimation
                 if let self {
                     self.dependencyProvider.transactionsService().getTransferCost(
-                        transferType: transfer.transferType.toEstimateCostTransferType(),
+                        transferType: transfer.transferType.toWalletProxyTransferType(),
                         costParameters: [
                             .amount(params.payload.amount),
                             .sender(params.sender),
@@ -371,12 +372,24 @@ private extension WalletConnectCoordinator {
                             .parameter(params.payload.message)
                         ]
                     )
-                    .sink(receiveError: { error in
-                        print("DEBUG: \(error)")
-                    }, receiveValue: { transferCost in
-                        transferCostData.transferCost = transferCost
+                    .sink(receiveError: { _ in
+                        // Fall back to using the value provided by the dApp.
+                        // TODO: Print error to user along with explanation that the dApp value is being used.
+                        info.estimatedCost = .init(
+                            nrg: transfer.energy,
+                            ccd: nil
+                        )
+                    }, receiveValue: { cost in
+                        // Set max energy adjusted by configured buffer factor.
+                        // The CCD estimate is not adjusted.
+                        let energy = Int(Double(cost.energy) * estimatedCostBufferFactor)
+                        info.estimatedCost = .init(
+                            nrg: energy,
+                            ccd: GTU(intValue: Int(cost.cost))
+                        )
+                        transfer.energy = energy
                     }).store(in: &self.cancellables)
-                    
+
                 }
                 self?.navigationController.pushViewController(
                     UIHostingController(
@@ -393,7 +406,7 @@ private extension WalletConnectCoordinator {
                                 maxExecutionEnergy: params.payload.maxContractExecutionEnergy,
                                 params: message,
                                 request: request,
-                                energyData: transferCostData
+                                info: info
                             ),
                             viewModel: WalletConnectApprovalViewModel(
                                 didAccept: { [weak self] in

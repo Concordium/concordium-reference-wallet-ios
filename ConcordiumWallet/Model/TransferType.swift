@@ -26,6 +26,7 @@ enum TransferType: String, Codable {
     case configureBaker
 
     case contractUpdate = "Update"
+    
     var isDelegationTransfer: Bool {
         switch self {
         case .registerDelegation, .updateDelegation, .removeDelegation:
@@ -45,7 +46,7 @@ enum TransferType: String, Codable {
         }
     }
     
-    func toEstimateCostTransferType() -> EstimateCostTransferType {
+    func toWalletProxyTransferType() -> WalletProxyTransferType {
         switch self {
         case .simpleTransfer:
             return .simpleTransfer
@@ -74,12 +75,14 @@ enum TransferType: String, Codable {
         case .configureBaker:
             return .configureBaker
         case .contractUpdate:
-            return .contractUpdate
+            return .update
         }
     }
 }
 
-enum EstimateCostTransferType: String, Codable {
+/// Transaction types as expected by Wallet Proxy
+/// (see https://github.com/Concordium/concordium-wallet-proxy/blob/80ef058749d13f83e1f1afdecc6b1345f8def5fa/src/Proxy.hs#L687).
+enum WalletProxyTransferType: String, Codable {
     case simpleTransfer
     case encryptedTransfer
     case transferToSecret
@@ -96,5 +99,5 @@ enum EstimateCostTransferType: String, Codable {
     case removeBaker
     case configureBaker
 
-    case contractUpdate = "update"
+    case update
 }
