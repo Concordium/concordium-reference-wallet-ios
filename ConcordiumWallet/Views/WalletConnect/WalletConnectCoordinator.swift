@@ -303,9 +303,13 @@ private extension WalletConnectCoordinator {
                     schema: params.schema,
                     schemaVersion: params.schema.version?.rawValue
                 )
-                var message = ContractUpdateParameterRepresentation.raw(params.payload.message)
-                if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
-                    message = .decoded(decoded as String)
+                var message: ContractUpdateParameterRepresentation? = nil
+                if !inputParams.parameter.isEmpty {
+                    if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
+                        message = .decoded(decoded as String)
+                    } else {
+                        message = ContractUpdateParameterRepresentation.raw(params.payload.message)
+                    }
                 }
                 
                 // Check that request transaction is a contract update as that's the only type we support.

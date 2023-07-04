@@ -14,7 +14,7 @@ struct WalletConnectActionRequestView: View {
     let balanceAtDisposal: GTU
     let contractAddress: ContractAddress
     let transactionType: String
-    let params: ContractUpdateParameterRepresentation
+    let params: ContractUpdateParameterRepresentation?
     let request: Request
     var body: some View {
         VStack {
@@ -30,24 +30,38 @@ struct WalletConnectActionRequestView: View {
                     Divider()
                     buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
                     buildTransactionItem(title: "Contract", value: Text("\(contractAddress.index.string) (\(contractAddress.subindex.string))"))
-                    
-                    buildTransactionItem(
-                        title: "Parameter",
-                        value: VStack {
-                            switch params {
-                            case .decoded(let value):
-                                Text(value).font(.custom("Courier", size: 13)).padding()
-                            case .raw(let value):
-                                Text("Decoding message to JSON failed. Raw message:")
-                                Text(value).font(.custom("Courier", size: 13)).foregroundColor(.red).padding()
+                    if let params {
+                        buildTransactionItem(
+                            title: "Parameter",
+                            value: VStack {
+                                switch params {
+                                case .decoded(let value):
+                                    Text(value)
+                                        .font(.custom("Courier", size: 13))
+                                        .padding()
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .stroke(.gray, lineWidth: 1)
+                                        )
+                                        .background(.white)
+                                case .raw(let value):
+                                    Text("Decoding message to JSON failed. Raw message:")
+                                    Text(value)
+                                        .font(.custom("Courier", size: 13))
+                                        .foregroundColor(.red)
+                                        .padding()
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .stroke(.gray, lineWidth: 1)
+                                        )
+                                        .background(.white)
+                                }
                             }
-                        }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 2)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
-                            .background(.white)
-                    )
+                        )
+                    } else {
+                        buildTransactionItem(title: "No parameter", value: EmptyView())
+                    }
+                    
                 }
             }
             .overlay(
