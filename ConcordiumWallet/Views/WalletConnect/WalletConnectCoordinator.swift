@@ -431,7 +431,8 @@ private extension WalletConnectCoordinator {
                                     self?.reject(request: request, err: .userRejected, shouldPresent: false)
                                     self?.navigationController.popViewController(animated: true)
                                 }
-                            )
+                            ),
+                            isAcceptButtonEnabled: isAccountBalanceSufficient
                         )
                     ),
                     animated: true
