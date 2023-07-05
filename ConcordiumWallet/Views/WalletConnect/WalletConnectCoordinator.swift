@@ -379,7 +379,6 @@ private extension WalletConnectCoordinator {
                 }
                 let isAccountBalanceSufficient = account.forecastAtDisposalBalance > amount
 
-                let info = TransferInfo() // initialize info with no cost estimation
                 if let self {
                     self.dependencyProvider.transactionsService().getTransferCost(
                         transferType: transfer.transferType.toWalletProxyTransferType(),
