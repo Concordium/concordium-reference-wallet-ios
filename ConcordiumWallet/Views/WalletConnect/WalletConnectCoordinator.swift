@@ -222,7 +222,6 @@ private extension WalletConnectCoordinator {
     }
 
     func setupWalletConnectRequestBinding() {
-                
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
@@ -372,9 +371,7 @@ private extension WalletConnectCoordinator {
                         )
                         transfer.energy = energy
                     }).store(in: &self.cancellables)
-
                 }
-                let isAccountBalanceSufficient = account.forecastAtDisposalBalance > amount
 
                 self?.navigationController.pushViewController(
                     UIHostingController(
@@ -392,7 +389,7 @@ private extension WalletConnectCoordinator {
                                 params: message,
                                 request: request,
                                 info: info,
-                                isAccountBalanceSufficient: isAccountBalanceSufficient
+                                isAccountBalanceSufficient: account.forecastAtDisposalBalance > amount
                             ),
                             viewModel: WalletConnectApprovalViewModel(
                                 didAccept: { [weak self] in
