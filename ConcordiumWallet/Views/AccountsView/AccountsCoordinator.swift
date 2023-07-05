@@ -45,8 +45,6 @@ class AccountsCoordinator: Coordinator {
     }
 
     func start() {
-        Sign.instance.nuke()
-        Pair.instance.nuke()
         let accountsPresenter = AccountsPresenter(
             dependencyProvider: dependencyProvider,
             delegate: accountsPresenterDelegate!,

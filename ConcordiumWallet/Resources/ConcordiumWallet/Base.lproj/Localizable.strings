@@ -1052,6 +1052,5 @@ Remember to restart your node with the baker keys.";
 "walletconnect.select.account.at.disposal" = "At disposal";
 
 "walletconnect.connect.approve.title" = "Approve Connection";
-"walletconnect.connect.approve.subtitle" = "";
 "walletconnect.approval.title" = "Transaction approval";
 "walletconnect.approval.subtitle" = "requests your signature on the following transaction:";

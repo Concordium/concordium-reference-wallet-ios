@@ -20,7 +20,6 @@ struct WalletConnectApprovalViewModel {
 
 struct WalletConnectApprovalView<Content: View>: View {
     var title: String
-    var subtitle: String?
     var contentView: Content
     var viewModel: WalletConnectApprovalViewModel
     var isAcceptButtonEnabled = true
@@ -29,11 +28,6 @@ struct WalletConnectApprovalView<Content: View>: View {
             Text(title)
                 .bold()
                 .font(.system(size: 20))
-            if let subtitle {
-                Text(subtitle)
-                    .padding()
-                    .multilineTextAlignment(.center)
-            }
             contentView
             Spacer()
             HStack(spacing: 16) {
@@ -70,7 +64,6 @@ struct WalletConnectApprovalView_Previews: PreviewProvider {
     static var previews: some View {
         WalletConnectApprovalView(
             title: "walletconnect.connect.approve.title".localized,
-            subtitle: "walletconnect.connect.approve.subtitle".localizedNonempty,
             contentView: WalletConnectProposalApprovalView(
                 accountName: "My Account",
                 proposal: .init(

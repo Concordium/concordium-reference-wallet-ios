@@ -12,19 +12,18 @@ import WalletConnectSign
 class WalletConnectAccountSelectViewModel: ObservableObject {
     private var storageManager: StorageManagerProtocol
     @Published var accounts: [AccountDataType] = []
-    private var proposal: Session.Proposal
-    var didSelect: ((_ account: AccountDataType) -> ())?
+    var didSelect: ((_ account: AccountDataType) -> ())
     
-    init(storageManager: StorageManagerProtocol, proposal: Session.Proposal) {
-        self.proposal = proposal
+    init(storageManager: StorageManagerProtocol, didSelect: @escaping (_ account: AccountDataType) -> ()) {
         self.storageManager = storageManager
+        self.didSelect = didSelect
     }
     
-    func getAccounts() {
+    func loadAccounts() {
         accounts = storageManager.getAccounts()
     }
     
     func didSelect(account: AccountDataType) {
-        didSelect?(account)
+        didSelect(account)
     }
 }

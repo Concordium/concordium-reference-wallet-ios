@@ -109,7 +109,7 @@ class StakeDataHandlerTests: XCTestCase {
             account: account,
             dataHandler: dataHandler,
             transferType: .updateBakerStake,
-            costParameters: [.amount],
+            costParameters: [.amount(nil)],
             capital: "150"
         )
         
@@ -119,7 +119,7 @@ class StakeDataHandlerTests: XCTestCase {
             account: account,
             dataHandler: dataHandler,
             transferType: .updateBakerStake,
-            costParameters: [.amount, .restake],
+            costParameters: [.amount(nil), .restake],
             capital: "150",
             restakeEarnings: false
         )
