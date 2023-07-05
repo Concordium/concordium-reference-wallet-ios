@@ -77,8 +77,6 @@ let supportedChains = Set([Blockchain(expectedChain)!])
 let supportedEvents = Set(["accounts_changed", "chain_changed"])
 let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
 
-let estimatedCostBufferFactor = 1.15 // 15%
-
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
         // TODO: Define a service for WalletConnect that tracks the currently open sessions (similarly to what dapp-libraries do on the client side...).
@@ -382,7 +380,7 @@ private extension WalletConnectCoordinator {
                     }, receiveValue: { cost in
                         // Set max energy adjusted by configured buffer factor.
                         // The CCD estimate is not adjusted.
-                        let energy = Int(Double(cost.energy) * estimatedCostBufferFactor)
+                        let energy = Int(cost.energy)
                         info.estimatedCost = .init(
                             nrg: energy,
                             ccd: GTU(intValue: Int(cost.cost))
