@@ -11,13 +11,13 @@ protocol WalletConnectCoordiantorDelegate: AnyObject {
 
 class WalletConnectCoordinator: Coordinator {
     typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider
-
+    
     private var cancellables: Set<AnyCancellable> = []
     private var dependencyProvider: DependencyProvider
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: WalletConnectCoordiantorDelegate?
     var navigationController: UINavigationController
-
+    
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
@@ -26,7 +26,7 @@ class WalletConnectCoordinator: Coordinator {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
         parentCoordinator = parentCoordiantor
-
+        
         let metadata = AppMetadata(
             name: "Concordium",
             description: "Concordium - Blockchain Wallet",
@@ -41,31 +41,14 @@ class WalletConnectCoordinator: Coordinator {
         setupWalletConnectSettleBinding()
         setupDebugBindings()
     }
-
+    
     func start() {
         showWalletConnectScanner()
     }
-
-    deinit {
-        // TODO Extract the following into "nuke" function that may also be called from here (as a safeguard).
-        Sign.instance.getSessions().forEach { session in
-            Task {
-                do {
-                    try await Sign.instance.disconnect(topic: session.topic)
-                } catch let err {
-                    print("ERROR: WalletConnect: Deinitializing WalletConnectCoordinator: Cannot disconnect session with topic '\(session.topic)': \(err)")
-                }
-            }
-        }
-        Pair.instance.getPairings().forEach { pairing in
-            Task {
-                do {
-                    try await Pair.instance.disconnect(topic: pairing.topic)
-                } catch let err {
-                    print("ERROR: WalletConnect: Deinitializing WalletConnectCoordinator: Cannot disconnect pairing with topic '\(pairing.topic)': \(err)")
-                }
-            }
-        }
+    
+    func nukeWalletConnectSessionsAndPairings() {
+        Sign.instance.nuke()
+        Pair.instance.nuke()
     }
 }
 
@@ -198,6 +181,8 @@ private extension WalletConnectCoordinator {
                 print("DEBUG: WalletConnect: Session \(session.pairingTopic) settled")
                 
                 guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
+                    self?.parentCoordinator?.dismissWalletConnectCoordinator()
+
                     self?.disconnectAndPresentError(.sessionError(.unexpectedNamespaces(namespaces: Array(session.namespaces.keys))))
                     return
                 }
@@ -381,6 +366,40 @@ private extension WalletConnectCoordinator {
                             ccd: nil
                         )
                     }, receiveValue: { cost in
+                        // Set max energy adjusted by configured buffer factor.
+                        // The CCD estimate is not adjusted.
+                        let energy = Int(cost.energy)
+                        info.estimatedCost = .init(
+                            nrg: energy,
+                            ccd: GTU(intValue: Int(cost.cost))
+                        )
+                        transfer.energy = energy
+                    }).store(in: &self.cancellables)
+
+                }
+                let isAccountBalanceSufficient = account.forecastAtDisposalBalance > amount
+
+                let info = TransferInfo() // initialize info with no cost estimation
+                if let self {
+                    self.dependencyProvider.transactionsService().getTransferCost(
+                        transferType: transfer.transferType.toWalletProxyTransferType(),
+                        costParameters: [
+                            .amount(params.payload.amount),
+                            .sender(params.sender),
+                            .contractIndex(params.payload.address.index),
+                            .contractSubindex(params.payload.address.subindex),
+                            .receiveName(params.payload.receiveName),
+                            .parameter(params.payload.message)
+                        ]
+                    )
+                    .sink(receiveError: { _ in
+                        // Fall back to using the value provided by the dApp.
+                        // TODO: Print error to user along with explanation that the dApp value is being used.
+                        info.estimatedCost = .init(
+                            nrg: transfer.energy,
+                            ccd: nil
+                        )
+                    }, receiveValue: { cost in
                         Thread.sleep(forTimeInterval: 10)
                         // Set max energy adjusted by configured buffer factor.
                         // The CCD estimate is not adjusted.
@@ -408,7 +427,8 @@ private extension WalletConnectCoordinator {
                                 maxExecutionEnergy: params.payload.maxContractExecutionEnergy,
                                 params: message,
                                 request: request,
-                                info: info
+                                info: info,
+                                isAccountBalanceSufficient: isAccountBalanceSufficient
                             ),
                             viewModel: WalletConnectApprovalViewModel(
                                 didAccept: { [weak self] in
@@ -532,11 +552,14 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                         do {
                             try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
                         } catch let err {
+                            self?.navigationController.popViewController(animated: true)
                             self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                         }
                     }
-                    self?.navigationController.popViewController(animated: true)
                     return true
+                }, viewDidDisappear: { [weak self] in
+                        self?.nukeWalletConnectSessionsAndPairings()
+                        self?.parentCoordinator?.dismissWalletConnectCoordinator()
                 }
             )
         )

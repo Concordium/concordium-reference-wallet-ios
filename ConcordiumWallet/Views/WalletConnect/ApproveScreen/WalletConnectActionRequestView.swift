@@ -72,6 +72,8 @@ struct WalletConnectActionRequestView: View {
         p.font = .body.italic()
         return "Estimated transaction fee: " + p
     }
+
+    let isAccountBalanceSufficient: Bool
     
     var body: some View {
         VStack {
@@ -89,15 +91,18 @@ struct WalletConnectActionRequestView: View {
             
             HStack {
                 Text("Account Balance:")
+                    .foregroundColor(isAccountBalanceSufficient ? .black : .red)
                 Text("\(balanceAtDisposal.displayValueWithGStroke())")
+                    .foregroundColor(isAccountBalanceSufficient ? .black : .red)
             }
-            ScrollView{
+            ScrollView {
                 VStack {
                     Text("Transaction:  \(transactionType)")
                         .fontWeight(.bold)
                         .padding([.top], 8)
                     Divider()
                     buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
+                        .foregroundColor(isAccountBalanceSufficient ? .black : .red)
                     buildTransactionItem(title: "Contract index (subindex)", value: Text("\(contractAddress.index.string) (\(contractAddress.subindex.string))"))
                     buildTransactionItem(title: "Contract and function name", value: Text(receiveName))
                     buildTransactionItem(title: "Max energy allowed", value: Text(maxEnergyAllowedText))
@@ -131,6 +136,10 @@ struct WalletConnectActionRequestView: View {
                         )
                     } else {
                         buildTransactionItem(title: "No parameter", value: EmptyView())
+                    }
+                    if !isAccountBalanceSufficient {
+                        Text("Insufficient funds")
+                            .foregroundColor(.red)
                     }
                     
                 }

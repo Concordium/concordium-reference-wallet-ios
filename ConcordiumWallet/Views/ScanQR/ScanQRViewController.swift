@@ -19,7 +19,6 @@ class ScanQRViewController: BaseViewController, ShowToast {
     var presenter: ScanQRPresenterProtocol
     var captureSession: AVCaptureSession
     var previewLayer: AVCaptureVideoPreviewLayer
-
     var scanGuide: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "qr_overlay")
@@ -36,6 +35,13 @@ class ScanQRViewController: BaseViewController, ShowToast {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if parent == nil {
+            presenter.viewDidDisappear?()
+        }
     }
 
     override func viewDidLoad() {

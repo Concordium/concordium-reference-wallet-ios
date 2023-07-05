@@ -13,7 +13,7 @@ struct WalletConnectAccountItemView: View {
     var onSelect: (() -> Void)
     
     var body: some View {
-        VStack(spacing: 8) {
+        Button(action: onSelect) {
             HStack(spacing: 8) {
                 Text(account.name ?? " - ")
                     .fontWeight(.semibold)
@@ -37,7 +37,6 @@ struct WalletConnectAccountItemView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Pallette.fadedText, lineWidth: 1)
         )
-        .onTapGesture(perform: onSelect)
     }
 }
 
