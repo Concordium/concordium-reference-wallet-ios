@@ -14,8 +14,20 @@ struct EstimatedCost {
     let ccd: GTU?
 }
 
-class TransferInfo: ObservableObject {
+protocol Ready {
+    var isReady: Bool { get }
+}
+
+class AlwaysReady: Ready {
+    var isReady: Bool = true
+}
+
+class TransferInfo: Ready, ObservableObject {
     @Published var estimatedCost: EstimatedCost? = nil
+    
+    var isReady: Bool {
+        estimatedCost != nil
+    }
 }
 
 struct WalletConnectActionRequestView: View {
@@ -40,6 +52,15 @@ struct WalletConnectActionRequestView: View {
         return "Application " + d + " connected to account " + a
     }
     
+    var maxEnergyAllowedText: AttributedString {
+        if let cost = info.estimatedCost {
+            return AttributedString("\(cost.nrg) NRG")
+        }
+        var p = AttributedString("Pending...")
+        p.font = .body.italic()
+        return p
+    }
+    
     var estimatedTransactionFeeText: AttributedString {
         if let cost = info.estimatedCost {
             if let ccd = cost.ccd {
@@ -50,15 +71,6 @@ struct WalletConnectActionRequestView: View {
         var p = AttributedString("Pending...")
         p.font = .body.italic()
         return "Estimated transaction fee: " + p
-    }
-    
-    var maxEnergyAllowedText: AttributedString {
-        if let cost = info.estimatedCost {
-            return AttributedString("\(cost.nrg) NRG")
-        }
-        var p = AttributedString("Pending...")
-        p.font = .body.italic()
-        return p
     }
     
     var body: some View {

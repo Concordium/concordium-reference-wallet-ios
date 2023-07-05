@@ -8,20 +8,22 @@
 
 import SwiftUI
 
-struct WalletConnectApprovalViewModel {
+class WalletConnectApprovalViewModel: ObservableObject {
     var didAccept: () -> Void
     var didDecline: () -> Void
+    @Published var ready: Ready
 
-    init(didAccept: @escaping () -> Void, didDecline: @escaping () -> Void) {
+    init(didAccept: @escaping () -> Void, didDecline: @escaping () -> Void, ready: Ready) {
         self.didAccept = didAccept
         self.didDecline = didDecline
+        self.ready = ready
     }
 }
 
 struct WalletConnectApprovalView<Content: View>: View {
     var title: String
     var contentView: Content
-    var viewModel: WalletConnectApprovalViewModel
+    @ObservedObject var viewModel: WalletConnectApprovalViewModel
 
     var body: some View {
         VStack(spacing: 2) {
@@ -51,6 +53,7 @@ struct WalletConnectApprovalView<Content: View>: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                 }
+                .disabled(!viewModel.ready.isReady)
                 .background(Pallette.primary)
                 .cornerRadius(10)
             }.padding()
@@ -77,7 +80,8 @@ struct WalletConnectApprovalView_Previews: PreviewProvider {
             ),
             viewModel: .init(
                 didAccept: {},
-                didDecline: {}
+                didDecline: {},
+                ready: AlwaysReady()
             )
         )
         .previewLayout(PreviewLayout.sizeThatFits)

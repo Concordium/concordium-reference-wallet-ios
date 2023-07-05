@@ -159,7 +159,8 @@ private extension WalletConnectCoordinator {
 
                                             // Pop the VC without waiting for rejection to complete.
                                             self?.navigationController.popToRootViewController(animated: true)
-                                        }
+                                        },
+                                        ready: AlwaysReady()
                                     )
                                 )
                         ),
@@ -380,6 +381,7 @@ private extension WalletConnectCoordinator {
                             ccd: nil
                         )
                     }, receiveValue: { cost in
+                        Thread.sleep(forTimeInterval: 10)
                         // Set max energy adjusted by configured buffer factor.
                         // The CCD estimate is not adjusted.
                         let energy = Int(Double(cost.energy) * estimatedCostBufferFactor)
@@ -389,10 +391,10 @@ private extension WalletConnectCoordinator {
                         )
                         transfer.energy = energy
                     }).store(in: &self.cancellables)
-
                 }
                 self?.navigationController.pushViewController(
                     UIHostingController(
+                        // TODO: Only enable "Accept" button after cost estimation has been resolved.
                         rootView: WalletConnectApprovalView(
                             title: "Transaction Approval",
                             contentView: WalletConnectActionRequestView(
@@ -444,7 +446,8 @@ private extension WalletConnectCoordinator {
                                     print("DEBUG: WalletConnect: Rejecting request")
                                     self?.reject(request: request, err: .userRejected, shouldPresent: false)
                                     self?.navigationController.popViewController(animated: true)
-                                }
+                                },
+                                ready: info
                             )
                         )
                     ),
