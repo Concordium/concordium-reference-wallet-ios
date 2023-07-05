@@ -237,7 +237,6 @@ private extension WalletConnectCoordinator {
     }
 
     func setupWalletConnectRequestBinding() {
-                
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
@@ -387,8 +386,8 @@ private extension WalletConnectCoordinator {
                         )
                         transfer.energy = energy
                     }).store(in: &self.cancellables)
-
                 }
+                
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectApprovalView(

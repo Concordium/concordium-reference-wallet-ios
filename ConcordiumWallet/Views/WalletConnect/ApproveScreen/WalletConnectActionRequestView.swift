@@ -81,7 +81,7 @@ struct WalletConnectActionRequestView: View {
             }
             ScrollView{
                 VStack {
-                    Text("Transaction:  \(transactionType)")
+                    Text("Transaction: \(transactionType)")
                         .fontWeight(.bold)
                         .padding([.top], 8)
                     Divider()
