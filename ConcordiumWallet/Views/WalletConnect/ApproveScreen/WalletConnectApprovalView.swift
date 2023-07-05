@@ -22,7 +22,7 @@ struct WalletConnectApprovalView<Content: View>: View {
     var title: String
     var contentView: Content
     var viewModel: WalletConnectApprovalViewModel
-
+    var isAcceptButtonEnabled = true
     var body: some View {
         VStack(spacing: 2) {
             Text(title)
@@ -51,12 +51,12 @@ struct WalletConnectApprovalView<Content: View>: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                 }
-                .background(Pallette.primary)
+                .disabled(!isAcceptButtonEnabled)
+                .background(!isAcceptButtonEnabled ? Pallette.inactiveButton : Pallette.primary)
                 .cornerRadius(10)
-            }.padding()
+            }
+            .padding()
         }
-        .navigationBarBackButtonHidden()
-//        .navigationBarHidden(true) // <- doesn't unhide after the view is popped...
     }
 }
 

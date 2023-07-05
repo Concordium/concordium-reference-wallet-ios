@@ -111,7 +111,8 @@ class SendFundsCoordinator: Coordinator {
                     }
                     didScanQRCode(address)
                     return true
-                })
+                }
+            )
         )
         navigationController.pushViewController(vc, animated: true)
     }

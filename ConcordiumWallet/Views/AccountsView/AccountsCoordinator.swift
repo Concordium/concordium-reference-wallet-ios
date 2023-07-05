@@ -31,8 +31,7 @@ class AccountsCoordinator: Coordinator {
     weak var accountsPresenterDelegate: AccountsPresenterDelegate?
     private weak var appSettingsDelegate: AppSettingsDelegate?
     private var dependencyProvider: DependencyProvider
-    private var walletConnectCoordinator: WalletConnectCoordinator?
-    
+
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
@@ -252,19 +251,19 @@ protocol WalletConnectDelegate: AnyObject {
 
 extension AccountsCoordinator: WalletConnectDelegate {
     func showWalletConnectScanner() {
-        if walletConnectCoordinator == nil {
-            walletConnectCoordinator = WalletConnectCoordinator(
-                navigationController: navigationController,
-                dependencyProvider: dependencyProvider,
-                parentCoordiantor: self
-            )
-        }
-        walletConnectCoordinator?.start()
+        let walletConnectCoordinator = WalletConnectCoordinator(
+            navigationController: navigationController,
+            dependencyProvider: dependencyProvider,
+            parentCoordiantor: self
+        )
+
+        walletConnectCoordinator.start()
+        childCoordinators.append(walletConnectCoordinator)
     }
 }
 
 extension AccountsCoordinator: WalletConnectCoordiantorDelegate {
     func dismissWalletConnectCoordinator() {
-        walletConnectCoordinator = nil
+        childCoordinators.removeAll(where: { $0 is WalletConnectCoordinator })
     }
 }
