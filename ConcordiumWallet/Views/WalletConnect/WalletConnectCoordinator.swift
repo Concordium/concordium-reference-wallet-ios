@@ -237,6 +237,7 @@ private extension WalletConnectCoordinator {
     }
 
     func setupWalletConnectRequestBinding() {
+                
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
@@ -354,8 +355,40 @@ private extension WalletConnectCoordinator {
                 transfer.fromAddress = params.sender
                 transfer.nonce = account.accountNonce
                 transfer.payload = .contractUpdatePayload(params.payload)
-                transfer.energy = params.payload.maxContractExecutionEnergy
+                transfer.energy = params.payload.maxContractExecutionEnergy // may get overwritten by result from WP's cost estimation.
 
+                let info = TransferInfo() // initialize info with no cost estimation
+                if let self {
+                    self.dependencyProvider.transactionsService().getTransferCost(
+                        transferType: transfer.transferType.toWalletProxyTransferType(),
+                        costParameters: [
+                            .amount(params.payload.amount),
+                            .sender(params.sender),
+                            .contractIndex(params.payload.address.index),
+                            .contractSubindex(params.payload.address.subindex),
+                            .receiveName(params.payload.receiveName),
+                            .parameter(params.payload.message)
+                        ]
+                    )
+                    .sink(receiveError: { _ in
+                        // Fall back to using the value provided by the dApp.
+                        // TODO: Print error to user along with explanation that the dApp value is being used.
+                        info.estimatedCost = .init(
+                            nrg: transfer.energy,
+                            ccd: nil
+                        )
+                    }, receiveValue: { cost in
+                        // Set max energy adjusted by configured buffer factor.
+                        // The CCD estimate is not adjusted.
+                        let energy = Int(cost.energy)
+                        info.estimatedCost = .init(
+                            nrg: energy,
+                            ccd: GTU(intValue: Int(cost.cost))
+                        )
+                        transfer.energy = energy
+                    }).store(in: &self.cancellables)
+
+                }
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         rootView: WalletConnectApprovalView(
@@ -370,7 +403,8 @@ private extension WalletConnectCoordinator {
                                 receiveName: params.payload.receiveName,
                                 maxExecutionEnergy: params.payload.maxContractExecutionEnergy,
                                 params: message,
-                                request: request
+                                request: request,
+                                info: info
                             ),
                             viewModel: WalletConnectApprovalViewModel(
                                 didAccept: { [weak self] in

@@ -18,7 +18,7 @@ class TransactionsServiceMockHelper: TransactionsServiceProtocol {
         NYI()
     }
     
-    func getTransferCost(transferType: TransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
+    func getTransferCost(transferType: WalletProxyTransferType, costParameters: [TransferCostParameter]) -> AnyPublisher<TransferCost, Error> {
         NYI()
     }
     

@@ -119,7 +119,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                         .eraseToAnyPublisher()
                 } else {
                     return self.transactionService
-                        .getTransferCost(transferType: self.dataHandler.transferType, costParameters: costParameters)
+                        .getTransferCost(transferType: self.dataHandler.transferType.toWalletProxyTransferType(), costParameters: costParameters)
                         .map { TransferCostOption.cost($0) }
                         .showLoadingIndicator(in: self.view)
                         .asResult()

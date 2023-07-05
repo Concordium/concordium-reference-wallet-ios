@@ -9,6 +9,15 @@
 import SwiftUI
 import Web3Wallet
 
+struct EstimatedCost {
+    let nrg: Int
+    let ccd: GTU?
+}
+
+class TransferInfo: ObservableObject {
+    @Published var estimatedCost: EstimatedCost? = nil
+}
+
 struct WalletConnectActionRequestView: View {
     let dappName: String
     let accountName: String
@@ -21,6 +30,7 @@ struct WalletConnectActionRequestView: View {
     let maxExecutionEnergy: Int
     let params: ContractUpdateParameterRepresentation?
     let request: Request
+    @ObservedObject var info: TransferInfo
     
     var boxText: AttributedString {
         var d = AttributedString(dappName)
@@ -28,6 +38,27 @@ struct WalletConnectActionRequestView: View {
         d.font = .body.bold()
         a.font = .body.bold()
         return "Application " + d + " connected to account " + a
+    }
+    
+    var estimatedTransactionFeeText: AttributedString {
+        if let cost = info.estimatedCost {
+            if let ccd = cost.ccd {
+                return AttributedString("Estimated transaction fee: \(ccd.displayValueWithGStroke())")
+            }
+            return "Cannot estimate transaction fee in CCD"
+        }
+        var p = AttributedString("Pending...")
+        p.font = .body.italic()
+        return "Estimated transaction fee: " + p
+    }
+    
+    var maxEnergyAllowedText: AttributedString {
+        if let cost = info.estimatedCost {
+            return AttributedString("\(cost.nrg) NRG")
+        }
+        var p = AttributedString("Pending...")
+        p.font = .body.italic()
+        return p
     }
     
     var body: some View {
@@ -50,14 +81,14 @@ struct WalletConnectActionRequestView: View {
             }
             ScrollView{
                 VStack {
-                    Text("Transaction: \(transactionType)")
+                    Text("Transaction:  \(transactionType)")
                         .fontWeight(.bold)
                         .padding([.top], 8)
                     Divider()
                     buildTransactionItem(title: "Amount", value: Text(amount.displayValueWithGStroke()))
                     buildTransactionItem(title: "Contract index (subindex)", value: Text("\(contractAddress.index.string) (\(contractAddress.subindex.string))"))
                     buildTransactionItem(title: "Contract and function name", value: Text(receiveName))
-                    buildTransactionItem(title: "Max energy allowed", value: Text("\(maxExecutionEnergy) NRG"))
+                    buildTransactionItem(title: "Max energy allowed", value: Text(maxEnergyAllowedText))
                     if let params {
                         buildTransactionItem(
                             title: "Parameter",
@@ -97,6 +128,7 @@ struct WalletConnectActionRequestView: View {
                     .stroke(.gray, lineWidth: 1)
             )
             .padding()
+            Text(estimatedTransactionFeeText)
         }
     }
 
