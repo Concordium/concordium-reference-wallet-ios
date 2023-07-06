@@ -7,24 +7,29 @@
 //
 
 import SwiftUI
-
+import Combine
 class WalletConnectApprovalViewModel: ObservableObject {
     var didAccept: () -> Void
     var didDecline: () -> Void
-    @Published var ready: Ready
+    @Published var isReady: AnyPublisher<Bool, Never>
+    @Published var shouldAllowAccept = false
 
-    init(didAccept: @escaping () -> Void, didDecline: @escaping () -> Void, ready: Ready) {
+    init(
+        didAccept: @escaping () -> Void,
+        didDecline: @escaping () -> Void,
+        isReady: AnyPublisher<Bool, Never>
+    ) {
         self.didAccept = didAccept
         self.didDecline = didDecline
-        self.ready = ready
+        self.isReady = isReady
     }
 }
 
 struct WalletConnectApprovalView<Content: View>: View {
     var title: String
     var contentView: Content
-    var viewModel: WalletConnectApprovalViewModel
-    var isAcceptButtonEnabled = true
+    @State var isReady: Bool = false
+    @ObservedObject var viewModel: WalletConnectApprovalViewModel
     var body: some View {
         VStack(spacing: 2) {
             Text(title)
@@ -46,18 +51,20 @@ struct WalletConnectApprovalView<Content: View>: View {
                             .stroke(Pallette.error, lineWidth: 2)
                         )
                 }
-
                 Button(action: viewModel.didAccept) {
                     Text("Accept")
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                 }
-                .disabled(!isAcceptButtonEnabled)
-                .background(!isAcceptButtonEnabled ? Pallette.inactiveButton : Pallette.primary)
+                
+                .disabled(!isReady)
+                .background(!isReady ? Pallette.inactiveButton : Pallette.primary)
                 .cornerRadius(10)
             }
             .padding()
+        }.onReceive(viewModel.isReady) { isReady in
+            self.isReady = isReady
         }
     }
 }
@@ -80,7 +87,7 @@ struct WalletConnectApprovalView_Previews: PreviewProvider {
             viewModel: .init(
                 didAccept: {},
                 didDecline: {},
-                ready: AlwaysReady()
+                isReady: .just(true)
             )
         )
         .previewLayout(PreviewLayout.sizeThatFits)

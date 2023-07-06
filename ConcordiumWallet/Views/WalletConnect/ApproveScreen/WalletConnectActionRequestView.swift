@@ -10,24 +10,13 @@ import SwiftUI
 import Web3Wallet
 
 struct EstimatedCost {
-    let nrg: Int
-    let ccd: GTU?
+    var nrg: Int
+    var ccd: GTU?
 }
 
-protocol Ready {
-    var isReady: Bool { get }
-}
 
-class AlwaysReady: Ready {
-    var isReady: Bool = true
-}
-
-class TransferInfo: Ready, ObservableObject {
+class TransferInfo: ObservableObject {
     @Published var estimatedCost: EstimatedCost? = nil
-    
-    var isReady: Bool {
-        estimatedCost != nil
-    }
 }
 
 struct WalletConnectActionRequestView: View {
