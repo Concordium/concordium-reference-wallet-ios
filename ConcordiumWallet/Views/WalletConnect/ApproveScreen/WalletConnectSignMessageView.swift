@@ -39,6 +39,7 @@ struct WalletConnectSignMessageView: View {
             VStack {
                 switch message {
                 case .decoded(let value):
+                    Text("Message").fontWeight(.bold)
                     Text(value)
                         .font(.custom("Courier", size: 13))
                         .padding()
@@ -48,7 +49,9 @@ struct WalletConnectSignMessageView: View {
                         )
                         .background(.white)
                 case .raw(let value):
-                    Text("Decoding message to JSON failed. Raw message:")
+                    Text("Decoding message to JSON failed.")
+                        .foregroundColor(.red)
+                    Text("Raw Message").fontWeight(.bold)
                     Text(value)
                         .font(.custom("Courier", size: 13))
                         .foregroundColor(.red)

@@ -273,8 +273,10 @@ private extension WalletConnectCoordinator {
                 // TODO: Extract functions.
                 switch request.method {
                 case signAndSendTransactionMethod:
-                    break // continue below
+                    break // continue below (done like this to ensure that PR only adds implementation of "sign_message" without changing any existing code)
                 case signMessageMethod:
+                    // Handle method "sign_message".
+                    
                     var payload: SignMessagePayload
                     do {
                         // Converting from dict to ContractUpdateParams struct by serializing it to JSON
@@ -297,7 +299,7 @@ private extension WalletConnectCoordinator {
                                 contentView: WalletConnectSignMessageView(
                                     dappName: session.peer.name,
                                     accountName: account.displayName,
-                                    message: .raw(payload.message)
+                                    message: .decoded(payload.message)
                                 ),
                                 viewModel: WalletConnectApprovalViewModel(
                                     didAccept: { [weak self] in
