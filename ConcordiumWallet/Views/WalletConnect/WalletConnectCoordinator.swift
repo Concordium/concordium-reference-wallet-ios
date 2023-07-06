@@ -4,7 +4,20 @@ import UIKit
 import Web3Wallet
 
 let CONCORDIUM_WALLET_CONNECT_PROJECT_ID = "76324905a70fe5c388bab46d3e0564dc"
-
+extension WalletConnectCoordinator {
+    var currentNet: String {
+        switch Net.current {
+        case .main: return "mainnet"
+        case .test: return "testnet"
+        }
+    }
+    
+    private static var expectedNamespaceKey = "ccd"
+    private var expectedChain: String { "\(WalletConnectCoordinator.expectedNamespaceKey):\(currentNet)" }
+    private var supportedChains: Set<Blockchain> { Set([Blockchain(expectedChain)!]) }
+    private var supportedEvents: Set<String> { Set(["accounts_changed", "chain_changed"]) }
+    private var supportedMethods: Set<String> { Set(["sign_and_send_transaction", "sign_message"]) }
+}
 protocol WalletConnectCoordiantorDelegate: AnyObject {
     func dismissWalletConnectCoordinator()
 }
@@ -54,11 +67,7 @@ class WalletConnectCoordinator: Coordinator {
 
 // MARK: - WalletConnect
 
-let expectedNamespaceKey = "ccd"
-let expectedChain = "\(expectedNamespaceKey):testnet"
-let supportedChains = Set([Blockchain(expectedChain)!])
-let supportedEvents = Set(["accounts_changed", "chain_changed"])
-let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
+
 
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
@@ -80,7 +89,7 @@ private extension WalletConnectCoordinator {
                 
                 // Check chain, methods and events. Reject if they don't match (fixed) expectations.
                 // We only check required namespaces, not the optional ones.
-                guard proposal.requiredNamespaces.count == 1, let ccdNamespace = proposal.requiredNamespaces[expectedNamespaceKey] else {
+                guard proposal.requiredNamespaces.count == 1, let ccdNamespace = proposal.requiredNamespaces[WalletConnectCoordinator.expectedNamespaceKey] else {
                     self.reject(proposal: proposal, reason: .userRejected, msg: "Unexpected namespaces: \(proposal.requiredNamespaces.keys)", shouldPresent: true)
                     return
                 }
@@ -109,22 +118,23 @@ private extension WalletConnectCoordinator {
                                         proposal: proposalData
                                     ),
                                     viewModel: .init(
-                                        didAccept: {
+                                        didAccept: { [weak self] in
+                                            guard let self else { return }
                                             Task {
                                                 do {
                                                     try await Sign.instance.approve(
                                                         proposalId: proposal.id,
                                                         namespaces: [
-                                                            expectedNamespaceKey: SessionNamespace(
-                                                                chains: supportedChains,
-                                                                accounts: [Account("\(expectedChain):\(account.address)")!],
-                                                                methods: supportedMethods, // approve all methods, not just requested ones
-                                                                events: supportedEvents // approve all events, not just requested ones
+                                                            WalletConnectCoordinator.expectedNamespaceKey: SessionNamespace(
+                                                                chains: self.supportedChains,
+                                                                accounts: [Account("\(self.expectedChain):\(account.address)")!],
+                                                                methods: self.supportedMethods, // approve all methods, not just requested ones
+                                                                events: self.supportedEvents // approve all events, not just requested ones
                                                             ),
                                                         ]
                                                     )
                                                 } catch let err {
-                                                    self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                                                    self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                                 }
                                             }
                                         },
