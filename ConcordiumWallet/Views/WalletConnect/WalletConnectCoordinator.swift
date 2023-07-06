@@ -56,9 +56,13 @@ class WalletConnectCoordinator: Coordinator {
 
 let expectedNamespaceKey = "ccd"
 let expectedChain = "\(expectedNamespaceKey):testnet"
+
+let signAndSendTransactionMethod = "sign_and_send_transaction"
+let signMessageMethod = "sign_message"
+
 let supportedChains = Set([Blockchain(expectedChain)!])
 let supportedEvents = Set(["accounts_changed", "chain_changed"])
-let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
+let supportedMethods = Set([signAndSendTransactionMethod, signMessageMethod])
 
 private extension WalletConnectCoordinator {
     func setupWalletConnectProposalBinding() {
@@ -265,6 +269,81 @@ private extension WalletConnectCoordinator {
                     )
                     return
                 }
+                
+                // TODO: Extract functions.
+                switch request.method {
+                case signAndSendTransactionMethod:
+                    break // continue below
+                case signMessageMethod:
+                    var payload: SignMessagePayload
+                    do {
+                        // Converting from dict to ContractUpdateParams struct by serializing it to JSON
+                        // and immediately decode it again.
+                        let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
+                        payload = try JSONDecoder().decode(SignMessagePayload.self, from: jsonData)
+                    } catch let err {
+                        self?.reject(
+                            request: request,
+                            err: WalletConnectError.internalError("Converting message parameters failed: \(err)"),
+                            shouldPresent: true
+                        )
+                        return
+                    }
+                    
+                    self?.navigationController.pushViewController(
+                        UIHostingController(
+                            rootView: WalletConnectApprovalView(
+                                title: "Sign Message",
+                                contentView: WalletConnectSignMessageView(
+                                    dappName: session.peer.name,
+                                    accountName: account.displayName,
+                                    message: .raw(payload.message)
+                                ),
+                                viewModel: WalletConnectApprovalViewModel(
+                                    didAccept: { [weak self] in
+                                        // TODO Sign and return signature
+                                        guard let self else {
+                                            return
+                                        }
+                                        
+                                        dependencyProvider.mobileWallet()
+                                            .signMessage(for: account, message: payload.message, requestPasswordDelegate: self)
+                                            .sink(receiveError: { [weak self] err in
+                                                self?.reject(
+                                                    request: request,
+                                                    err: .transactionError(err.localizedDescription),
+                                                    shouldPresent: true
+                                                )
+                                            }, receiveValue: { [weak self] signature in
+                                                print("DEBUG: WalletConnect: Message signed: \(signature)")
+                                                self?.respondResult(request: request, msg: AnyCodable(["signature": signature])) // TODO Check what dapp libs expect...
+
+                                            })
+                                            .store(in: &cancellables)
+                                        self.navigationController.popViewController(animated: true)
+                                    }, didDecline: { [weak self] in
+                                        print("DEBUG: WalletConnect: Rejecting request")
+                                        self?.reject(request: request, err: .userRejected, shouldPresent: false)
+                                        self?.navigationController.popViewController(animated: true)
+                                    }
+                                )
+                            )
+                        ),
+                        animated: true
+                    )
+                    break
+                    
+                default:
+                    // This should never happen as WalletConnect checks that you only invoke approved methods.
+                    self?.reject(
+                        request: request,
+                        err: WalletConnectError.requestError(.unsupportedMethod(request.method)),
+                        shouldPresent: true
+                    )
+                    return
+                }
+                
+                // Handle method "sign_and_send_transaction".
 
                 var params: ContractUpdateParams
                 do {
@@ -297,12 +376,12 @@ private extension WalletConnectCoordinator {
                     return
                 }
                 
-                var message: ContractUpdateParameterRepresentation? = nil
+                var message: SignableValueRepresentation? = nil
                 if !inputParams.parameter.isEmpty {
                     if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
                         message = .decoded(decoded as String)
                     } else {
-                        message = ContractUpdateParameterRepresentation.raw(params.payload.message)
+                        message = SignableValueRepresentation.raw(params.payload.message)
                     }
                 }
                 
@@ -406,6 +485,8 @@ private extension WalletConnectCoordinator {
                                             )
                                         }, receiveValue: { [weak self] val in
                                             print("DEBUG: WalletConnect: Transaction submitted: \(val)")
+                                            
+                                            // TODO DO WE DOUBLE RESPOND???
                                             self?.respondResult(request: request, msg: AnyCodable(["hash": val.submissionId]))
                                             
                                             Task {

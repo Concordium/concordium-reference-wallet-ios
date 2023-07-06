@@ -14,8 +14,3 @@ struct ContractUpdateParameterToJsonInput: Codable {
     let schema: Schema
     let schemaVersion: Int?
 }
-
-enum ContractUpdateParameterRepresentation {
-    case decoded(String)
-    case raw(String)
-}

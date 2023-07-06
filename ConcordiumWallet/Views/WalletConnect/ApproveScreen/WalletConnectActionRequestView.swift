@@ -28,7 +28,7 @@ struct WalletConnectActionRequestView: View {
     let transactionType: String
     let receiveName: String
     let maxExecutionEnergy: Int
-    let params: ContractUpdateParameterRepresentation?
+    let params: SignableValueRepresentation?
     let request: Request
     @ObservedObject var info: TransferInfo
     

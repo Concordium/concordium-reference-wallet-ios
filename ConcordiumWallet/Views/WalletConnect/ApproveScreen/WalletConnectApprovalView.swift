@@ -23,6 +23,7 @@ struct WalletConnectApprovalView<Content: View>: View {
     var contentView: Content
     var viewModel: WalletConnectApprovalViewModel
     var isAcceptButtonEnabled = true
+    
     var body: some View {
         VStack(spacing: 2) {
             Text(title)

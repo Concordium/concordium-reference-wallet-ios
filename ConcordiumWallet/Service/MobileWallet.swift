@@ -54,6 +54,7 @@ protocol MobileWalletProtocol {
     func updatePasscode(for account: AccountDataType, oldPwHash: String, newPwHash: String) -> Result<Void, Error>
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
     func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType?, [AccountDataType])]
+    func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<String, Error>
 }
 
 enum MobileWalletError: Error {
@@ -328,6 +329,14 @@ class MobileWallet: MobileWalletProtocol {
         } catch {
             return .failure(error)
         }
+    }
+    
+    func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<String, Error> {
+        return requestPasswordDelegate.requestUserPassword(keychain: keychain).tryMap { (pwHash: String) in
+            let privateAccountKeys = try self.getPrivateAccountKeys(for: account, pwHash: pwHash).get()
+            return try self.walletFacade.signMessage(input: SignMessagePayloadToJsonInput(message: message, address: account.address, keys: privateAccountKeys))
+        }
+        .eraseToAnyPublisher()
     }
     
     func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {

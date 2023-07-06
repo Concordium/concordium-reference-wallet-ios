@@ -35,13 +35,16 @@ enum SessionError: Error {
 }
 
 enum RequestError: Error {
+    case unsupportedMethod(String)
     case unsupportedTransactionType(TransferType)
     case invalidPayload(String)
     
     var codeAndMsg: (Int, String) {
         switch self {
+        case let .unsupportedMethod(method):
+            return (8010, "Unsupported method '\(method)'")
         case let .unsupportedTransactionType(type):
-            return (8100, "Unsupported transaction type '\(type)' (only 'Update' is supported)")
+            return (8020, "Unsupported transaction type '\(type)' (only 'Update' is supported)")
         case let .invalidPayload(msg):
             return (8200, "Invalid payload: \(msg)")
         }
