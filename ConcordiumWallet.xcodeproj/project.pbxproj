@@ -2500,6 +2500,10 @@
 		CD3E4A9A2A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A982A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift */; };
 		CD3E4A9B2A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A982A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift */; };
 		CD3E4A9C2A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A982A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift */; };
+		CD3E4A9E2A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A9D2A5755ED00D7FBF3 /* SignMessageSignature.swift */; };
+		CD3E4A9F2A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A9D2A5755ED00D7FBF3 /* SignMessageSignature.swift */; };
+		CD3E4AA02A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A9D2A5755ED00D7FBF3 /* SignMessageSignature.swift */; };
+		CD3E4AA12A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E4A9D2A5755ED00D7FBF3 /* SignMessageSignature.swift */; };
 		CD7C17412A4B7A650016ECE9 /* WalletConnectProposalApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C17402A4B7A650016ECE9 /* WalletConnectProposalApprovalView.swift */; };
 		CD7C17422A4B7ADD0016ECE9 /* WalletConnectProposalApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C17402A4B7A650016ECE9 /* WalletConnectProposalApprovalView.swift */; };
 		CD7C17432A4B7ADD0016ECE9 /* WalletConnectProposalApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C17402A4B7A650016ECE9 /* WalletConnectProposalApprovalView.swift */; };
@@ -3419,6 +3423,7 @@
 		CD3E4A8E2A5588D700D7FBF3 /* SignMessagePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayload.swift; sourceTree = "<group>"; };
 		CD3E4A932A56D6ED00D7FBF3 /* WalletConnectSignMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectSignMessageView.swift; sourceTree = "<group>"; };
 		CD3E4A982A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessagePayloadToJsonInput.swift; sourceTree = "<group>"; };
+		CD3E4A9D2A5755ED00D7FBF3 /* SignMessageSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageSignature.swift; sourceTree = "<group>"; };
 		CD7C17402A4B7A650016ECE9 /* WalletConnectProposalApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectProposalApprovalView.swift; sourceTree = "<group>"; };
 		FA01C9BC291C5D2E00BD8738 /* UIScreen+Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Dimensions.swift"; sourceTree = "<group>"; };
 		FA01C9BD291C5D2E00BD8738 /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helper.swift"; sourceTree = "<group>"; };
@@ -5488,6 +5493,7 @@
 			children = (
 				CD3E4A8E2A5588D700D7FBF3 /* SignMessagePayload.swift */,
 				CD3E4A982A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift */,
+				CD3E4A9D2A5755ED00D7FBF3 /* SignMessageSignature.swift */,
 			);
 			path = SignMessage;
 			sourceTree = "<group>";
@@ -6395,6 +6401,7 @@
 				909EAF2827F721BF001930AE /* PoolPendingChangeType.swift in Sources */,
 				CD3D4C572A36515E0087B177 /* WalletConnectConnectedView.swift in Sources */,
 				529531A9256BA711004CECE4 /* AccountBaker.swift in Sources */,
+				CD3E4A9E2A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */,
 				FA0CAB2E294FFFB60009D5F8 /* ExportedAccountPrivateKeys.swift in Sources */,
 				7F48C1AB244DCD0B00997684 /* UITextField+Extensions.swift in Sources */,
 				89D46842289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
@@ -7081,6 +7088,7 @@
 				901F7F4527EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				7F85B7A4246A9A7C00ED09B8 /* SendFundViewController.swift in Sources */,
 				89D46808289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
+				CD3E4AA02A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */,
 				8DD48C822953138400CA9085 /* EarnPresenter.swift in Sources */,
 				89E1A75F27FF1C2D008C761B /* String+Lines.swift in Sources */,
 				7F85B7A5246A9A7C00ED09B8 /* SelectRecipientPresenter.swift in Sources */,
@@ -7651,6 +7659,7 @@
 				901F7F4627EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				7F85B8A1246A9AB600ED09B8 /* Logger.swift in Sources */,
 				89D46809289BC45E007D3FC8 /* SeedIdentitiesCoordinator.swift in Sources */,
+				CD3E4AA12A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */,
 				8DD48C832953138500CA9085 /* EarnPresenter.swift in Sources */,
 				89E1A76027FF1C2D008C761B /* String+Lines.swift in Sources */,
 				7F85B8A2246A9AB600ED09B8 /* SendFundPresenter.swift in Sources */,
@@ -7859,6 +7868,7 @@
 				018EEDF02A4DC053000EC02C /* (null) in Sources */,
 				7FF9191D2511505C00B1032B /* ImportViewController.swift in Sources */,
 				FA0CAAEC2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,
+				CD3E4A9F2A5755ED00D7FBF3 /* SignMessageSignature.swift in Sources */,
 				067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */,
 				89CF2D402816A03100742E1E /* BakerPoolReceiptPresenter.swift in Sources */,
 				891B19CF28A2563100F4B0D6 /* SubmitSeedAccountView.swift in Sources */,

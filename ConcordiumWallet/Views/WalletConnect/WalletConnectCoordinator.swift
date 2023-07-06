@@ -301,11 +301,11 @@ private extension WalletConnectCoordinator {
                                 ),
                                 viewModel: WalletConnectApprovalViewModel(
                                     didAccept: { [weak self] in
-                                        // TODO Sign and return signature
                                         guard let self else {
                                             return
                                         }
                                         
+                                        // Sign message and return signatures.
                                         dependencyProvider.mobileWallet()
                                             .signMessage(for: account, message: payload.message, requestPasswordDelegate: self)
                                             .sink(receiveError: { [weak self] err in
@@ -314,10 +314,9 @@ private extension WalletConnectCoordinator {
                                                     err: .transactionError(err.localizedDescription),
                                                     shouldPresent: true
                                                 )
-                                            }, receiveValue: { [weak self] signature in
-                                                print("DEBUG: WalletConnect: Message signed: \(signature)")
-                                                self?.respondResult(request: request, msg: AnyCodable(["signature": signature])) // TODO Check what dapp libs expect...
-
+                                            }, receiveValue: { [weak self] res in
+                                                print("DEBUG: WalletConnect: Message signed: \(res)")
+                                                self?.respondResult(request: request, msg: AnyCodable(res))
                                             })
                                             .store(in: &cancellables)
                                         self.navigationController.popViewController(animated: true)
@@ -331,8 +330,7 @@ private extension WalletConnectCoordinator {
                         ),
                         animated: true
                     )
-                    break
-                    
+                    return
                 default:
                     // This should never happen as WalletConnect checks that you only invoke approved methods.
                     self?.reject(
