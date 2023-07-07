@@ -14,7 +14,6 @@ struct EstimatedCost {
     let ccd: GTU?
 }
 
-
 class TransferInfo: ObservableObject {
     @Published var estimatedCost: EstimatedCost? = nil
 }
