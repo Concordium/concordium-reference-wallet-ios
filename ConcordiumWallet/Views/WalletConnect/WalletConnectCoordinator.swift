@@ -54,8 +54,17 @@ class WalletConnectCoordinator: Coordinator {
 
 // MARK: - WalletConnect
 
+let expectedNetwork = { network in
+    switch network {
+    case .main:
+        return "mainnet"
+    case .test:
+        return "testnet"
+    }
+}(Net.current)
+
 let expectedNamespaceKey = "ccd"
-let expectedChain = "\(expectedNamespaceKey):testnet"
+let expectedChain = "\(expectedNamespaceKey):\(expectedNetwork)"
 let supportedChains = Set([Blockchain(expectedChain)!])
 let supportedEvents = Set(["accounts_changed", "chain_changed"])
 let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
