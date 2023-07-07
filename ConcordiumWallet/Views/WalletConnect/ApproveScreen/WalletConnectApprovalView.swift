@@ -87,7 +87,7 @@ struct WalletConnectApprovalView_Previews: PreviewProvider {
             viewModel: .init(
                 didAccept: {},
                 didDecline: {},
-                isReady: .just(true)
+                shouldAllowAccept: .just(true)
             )
         )
         .previewLayout(PreviewLayout.sizeThatFits)

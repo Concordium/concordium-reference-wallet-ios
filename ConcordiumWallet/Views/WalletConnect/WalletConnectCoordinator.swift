@@ -145,7 +145,7 @@ private extension WalletConnectCoordinator {
                                             // Pop the VC without waiting for rejection to complete.
                                             self?.navigationController.popToRootViewController(animated: true)
                                         },
-                                        isReady: .just(true)
+                                        shouldAllowAccept: .just(true)
                                     )
                                 )
                             ),
