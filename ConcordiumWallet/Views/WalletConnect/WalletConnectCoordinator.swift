@@ -54,8 +54,17 @@ class WalletConnectCoordinator: Coordinator {
 
 // MARK: - WalletConnect
 
+let expectedNetwork = { network in
+    switch network {
+    case .main:
+        return "mainnet"
+    case .test:
+        return "testnet"
+    }
+}(Net.current)
+
 let expectedNamespaceKey = "ccd"
-let expectedChain = "\(expectedNamespaceKey):testnet"
+let expectedChain = "\(expectedNamespaceKey):\(expectedNetwork)"
 let supportedChains = Set([Blockchain(expectedChain)!])
 let supportedEvents = Set(["accounts_changed", "chain_changed"])
 let supportedMethods = Set(["sign_and_send_transaction", "sign_message"])
@@ -81,19 +90,19 @@ private extension WalletConnectCoordinator {
                 // Check chain, methods and events. Reject if they don't match (fixed) expectations.
                 // We only check required namespaces, not the optional ones.
                 guard proposal.requiredNamespaces.count == 1, let ccdNamespace = proposal.requiredNamespaces[expectedNamespaceKey] else {
-                    self.reject(proposal: proposal, reason: .userRejected, msg: "Unexpected namespaces: \(proposal.requiredNamespaces.keys)", shouldPresent: true)
+                    self.reject(proposal: proposal, reason: .userRejected, msg: "Unexpected namespaces: \(proposal.requiredNamespaces.keys)")
                     return
                 }
                 if let chains = ccdNamespace.chains, chains != supportedChains {
-                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(supportedChains)\" bot got \(chains)", shouldPresent: true)
+                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(supportedChains)\" bot got \(chains)")
                     return
                 }
                 if !ccdNamespace.events.isSubset(of: supportedEvents) {
-                    self.reject(proposal: proposal, reason: .userRejectedEvents, msg: "Expected subset of events \(supportedEvents) but got \(ccdNamespace.events)", shouldPresent: true)
+                    self.reject(proposal: proposal, reason: .userRejectedEvents, msg: "Expected subset of events \(supportedEvents) but got \(ccdNamespace.events)")
                     return
                 }
                 if !ccdNamespace.methods.isSubset(of: supportedMethods) {
-                    self.reject(proposal: proposal, reason: .userRejectedMethods, msg: "Expected subset of methods \(supportedMethods) but got \(ccdNamespace.methods)", shouldPresent: true)
+                    self.reject(proposal: proposal, reason: .userRejectedMethods, msg: "Expected subset of methods \(supportedMethods) but got \(ccdNamespace.methods)")
                     return
                 }
 
@@ -106,7 +115,7 @@ private extension WalletConnectCoordinator {
                                     title: "walletconnect.connect.approve.title".localized,
                                     contentView: WalletConnectProposalApprovalView(
                                         accountName: account.displayName,
-                                        proposal: proposalData
+                                        proposal: proposal.proposalData
                                     ),
                                     viewModel: .init(
                                         didAccept: {
@@ -180,7 +189,6 @@ private extension WalletConnectCoordinator {
 
                 guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
                     self?.parentCoordinator?.dismissWalletConnectCoordinator()
-
                     self?.disconnectAndPresentError(.sessionError(.unexpectedNamespaces(namespaces: Array(session.namespaces.keys))))
                     return
                 }
@@ -573,9 +581,10 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 )
             }
         }
-        if shouldPresent {
-            presentError(with: "errorAlert.title".localized, message: msg)
-        }
+        
+        navigationController.popToRootViewController(animated: true)
+        parentCoordinator?.dismissWalletConnectCoordinator() // disconnects any sessions
+        presentError(with: "errorAlert.title".localized, message: msg)
     }
 
     func disconnectAndPresentError(_ err: WalletConnectError) {

@@ -12,7 +12,19 @@ struct ContractUpdateParams: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decode(TransferType.self, forKey: .type)
+        
+        // Decode 'type' field into TransferType.
+        let typeStr = try container.decode(String.self, forKey: .type)
+        if typeStr == "Update" {
+            // For backwards compatibility with older versions of @concordium/wallet-connectors.
+            type = TransferType.contractUpdate
+        } else if let t = TransferType(rawValue: typeStr) {
+            type = t
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .type, in: container, debugDescription: "Invalid transaction type '\(typeStr)'")
+        }
+        
+        // Decode sender and payload.
         sender = try container.decode(String.self, forKey: .sender)
         let payloadData = try Data(container.decode(String.self, forKey: .payload).utf8)
         payload = try JSONDecoder().decode(ContractUpdatePayload.self, from: payloadData)
