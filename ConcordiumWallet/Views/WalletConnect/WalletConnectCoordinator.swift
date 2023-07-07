@@ -82,11 +82,6 @@ private extension WalletConnectCoordinator {
                 guard let self else { return }
                 print("DEBUG: WalletConnect: \(self) Session \(proposal) proposed")
 
-                // TODO: Auto-reject proposal if namespaces doesn't exactly match expected chain/method/event.
-                //      And show user appropriate error...
-
-                let proposalData = proposal.proposalData
-
                 // Check chain, methods and events. Reject if they don't match (fixed) expectations.
                 // We only check required namespaces, not the optional ones.
                 guard proposal.requiredNamespaces.count == 1, let ccdNamespace = proposal.requiredNamespaces[expectedNamespaceKey] else {
@@ -376,7 +371,7 @@ private extension WalletConnectCoordinator {
                     }, receiveValue: { cost in
                         // Set max energy adjusted by configured buffer factor.
                         // The CCD estimate is not adjusted.
-                        let energy = Int(Double(cost.energy))
+                        let energy = Int(cost.energy)
                         info.estimatedCost = .init(
                             nrg: energy,
                             ccd: GTU(intValue: Int(cost.cost))
@@ -401,19 +396,6 @@ private extension WalletConnectCoordinator {
                             }, receiveValue: { [weak self] val in
                                 print("DEBUG: WalletConnect: Transaction submitted: \(val)")
                                 self?.respondResult(request: request, msg: AnyCodable(["hash": val.submissionId]))
-
-                                Task {
-                                    do {
-                                        try await Sign.instance.respond(
-                                            topic: request.topic,
-                                            requestId: request.id,
-                                            response: .response(AnyCodable(["hash": val.submissionId]))
-                                        )
-                                    } catch let err {
-                                        self?.presentError(with: "errorAlert.title".localized, message: "Transaction submitted but cannot tell the dApp: \(err.localizedDescription)")
-                                    }
-                                }
-
                             })
                             .store(in: &cancellables)
                         self.navigationController.popViewController(animated: true)
@@ -566,7 +548,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         }
     }
 
-    func reject(proposal: Session.Proposal, reason: RejectionReason, msg: String, shouldPresent: Bool) {
+    func reject(proposal: Session.Proposal, reason: RejectionReason, msg: String) {
         Task { [weak self] in
             do {
                 try await Sign.instance.reject(
