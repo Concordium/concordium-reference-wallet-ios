@@ -10,8 +10,8 @@ import SwiftUI
 import Web3Wallet
 
 struct EstimatedCost {
-    var nrg: Int
-    var ccd: GTU?
+    let nrg: Int
+    let ccd: GTU?
 }
 
 

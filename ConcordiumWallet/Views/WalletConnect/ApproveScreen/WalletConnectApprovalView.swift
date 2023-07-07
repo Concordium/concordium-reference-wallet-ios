@@ -6,8 +6,9 @@
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
+
 class WalletConnectApprovalViewModel: ObservableObject {
     var didAccept: () -> Void
     var didDecline: () -> Void
@@ -57,7 +58,7 @@ struct WalletConnectApprovalView<Content: View>: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                 }
-                
+
                 .disabled(!isReady)
                 .background(!isReady ? Pallette.inactiveButton : Pallette.primary)
                 .cornerRadius(10)
