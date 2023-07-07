@@ -12,24 +12,23 @@ import SwiftUI
 class WalletConnectApprovalViewModel: ObservableObject {
     var didAccept: () -> Void
     var didDecline: () -> Void
-    @Published var isReady: AnyPublisher<Bool, Never>
-    @Published var shouldAllowAccept = false
+    @Published var shouldAllowAccept: AnyPublisher<Bool, Never>
 
     init(
         didAccept: @escaping () -> Void,
         didDecline: @escaping () -> Void,
-        isReady: AnyPublisher<Bool, Never>
+        shouldAllowAccept: AnyPublisher<Bool, Never>
     ) {
         self.didAccept = didAccept
         self.didDecline = didDecline
-        self.isReady = isReady
+        self.shouldAllowAccept = shouldAllowAccept
     }
 }
 
 struct WalletConnectApprovalView<Content: View>: View {
     var title: String
     var contentView: Content
-    @State var isReady: Bool = false
+    @State var shouldAllowAccept: Bool = false
     @ObservedObject var viewModel: WalletConnectApprovalViewModel
     var body: some View {
         VStack(spacing: 2) {
@@ -59,13 +58,13 @@ struct WalletConnectApprovalView<Content: View>: View {
                         .frame(maxWidth: .infinity)
                 }
 
-                .disabled(!isReady)
-                .background(!isReady ? Pallette.inactiveButton : Pallette.primary)
+                .disabled(!shouldAllowAccept)
+                .background(!shouldAllowAccept ? Pallette.inactiveButton : Pallette.primary)
                 .cornerRadius(10)
             }
             .padding()
-        }.onReceive(viewModel.isReady) { isReady in
-            self.isReady = isReady
+        }.onReceive(viewModel.shouldAllowAccept) { shouldAllowAccept in
+            self.shouldAllowAccept = shouldAllowAccept
         }
     }
 }

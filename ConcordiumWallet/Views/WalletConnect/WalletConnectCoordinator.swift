@@ -404,7 +404,7 @@ private extension WalletConnectCoordinator {
                         self?.reject(request: request, err: .userRejected, shouldPresent: false)
                         self?.navigationController.popViewController(animated: true)
                     },
-                    isReady: info.$estimatedCost.map { $0 != nil }.eraseToAnyPublisher()
+                    shouldAllowAccept: info.$estimatedCost.map { $0 != nil && isAccountBalanceSufficient }.eraseToAnyPublisher()
                 )
                 
                 self?.navigationController.pushViewController(
