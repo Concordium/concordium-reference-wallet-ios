@@ -6,24 +6,31 @@
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
-struct WalletConnectApprovalViewModel {
+class WalletConnectApprovalViewModel: ObservableObject {
     var didAccept: () -> Void
     var didDecline: () -> Void
+    @Published var shouldAllowAccept: AnyPublisher<Bool, Never>
 
-    init(didAccept: @escaping () -> Void, didDecline: @escaping () -> Void) {
+    init(
+        didAccept: @escaping () -> Void,
+        didDecline: @escaping () -> Void,
+        shouldAllowAccept: AnyPublisher<Bool, Never>
+    ) {
         self.didAccept = didAccept
         self.didDecline = didDecline
+        self.shouldAllowAccept = shouldAllowAccept
     }
 }
 
 struct WalletConnectApprovalView<Content: View>: View {
     var title: String
     var contentView: Content
-    var viewModel: WalletConnectApprovalViewModel
-    var isAcceptButtonEnabled = true
-    
+    @State private var shouldAllowAccept: Bool = false
+    @ObservedObject var viewModel: WalletConnectApprovalViewModel
+
     var body: some View {
         VStack(spacing: 2) {
             Text(title)
@@ -45,18 +52,20 @@ struct WalletConnectApprovalView<Content: View>: View {
                             .stroke(Pallette.error, lineWidth: 2)
                         )
                 }
-
                 Button(action: viewModel.didAccept) {
                     Text("Accept")
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                 }
-                .disabled(!isAcceptButtonEnabled)
-                .background(!isAcceptButtonEnabled ? Pallette.inactiveButton : Pallette.primary)
+
+                .disabled(!shouldAllowAccept)
+                .background(!shouldAllowAccept ? Pallette.inactiveButton : Pallette.primary)
                 .cornerRadius(10)
             }
             .padding()
+        }.onReceive(viewModel.shouldAllowAccept) { shouldAllowAccept in
+            self.shouldAllowAccept = shouldAllowAccept
         }
     }
 }
@@ -78,7 +87,8 @@ struct WalletConnectApprovalView_Previews: PreviewProvider {
             ),
             viewModel: .init(
                 didAccept: {},
-                didDecline: {}
+                didDecline: {},
+                shouldAllowAccept: .just(true)
             )
         )
         .previewLayout(PreviewLayout.sizeThatFits)

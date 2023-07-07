@@ -40,6 +40,15 @@ struct WalletConnectActionRequestView: View {
         return "Application " + d + " connected to account " + a
     }
     
+    var maxEnergyAllowedText: AttributedString {
+        if let cost = info.estimatedCost {
+            return AttributedString("\(cost.nrg) NRG")
+        }
+        var p = AttributedString("Pending...")
+        p.font = .body.italic()
+        return p
+    }
+    
     var estimatedTransactionFeeText: AttributedString {
         if let cost = info.estimatedCost {
             if let ccd = cost.ccd {
@@ -51,17 +60,9 @@ struct WalletConnectActionRequestView: View {
         p.font = .body.italic()
         return "Estimated transaction fee: " + p
     }
-    
-    var maxEnergyAllowedText: AttributedString {
-        if let cost = info.estimatedCost {
-            return AttributedString("\(cost.nrg) NRG")
-        }
-        var p = AttributedString("Pending...")
-        p.font = .body.italic()
-        return p
-    }
-    
+
     let isAccountBalanceSufficient: Bool
+    
     var body: some View {
         VStack {
             HStack {

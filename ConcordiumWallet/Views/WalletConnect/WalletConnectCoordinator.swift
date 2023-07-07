@@ -11,13 +11,13 @@ protocol WalletConnectCoordiantorDelegate: AnyObject {
 
 class WalletConnectCoordinator: Coordinator {
     typealias DependencyProvider = AccountsFlowCoordinatorDependencyProvider
-    
+
     private var cancellables: Set<AnyCancellable> = []
     private var dependencyProvider: DependencyProvider
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: WalletConnectCoordiantorDelegate?
     var navigationController: UINavigationController
-    
+
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
@@ -26,7 +26,7 @@ class WalletConnectCoordinator: Coordinator {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
         parentCoordinator = parentCoordiantor
-        
+
         let metadata = AppMetadata(
             name: "Concordium",
             description: "Concordium - Blockchain Wallet",
@@ -41,11 +41,11 @@ class WalletConnectCoordinator: Coordinator {
         setupWalletConnectSettleBinding()
         setupDebugBindings()
     }
-    
+
     func start() {
         showWalletConnectScanner()
     }
-    
+
     func nukeWalletConnectSessionsAndPairings() {
         Sign.instance.nuke()
         Pair.instance.nuke()
@@ -146,7 +146,8 @@ private extension WalletConnectCoordinator {
 
                                             // Pop the VC without waiting for rejection to complete.
                                             self?.navigationController.popToRootViewController(animated: true)
-                                        }
+                                        },
+                                        shouldAllowAccept: .just(true)
                                     )
                                 )
                             ),
@@ -154,7 +155,7 @@ private extension WalletConnectCoordinator {
                         )
                     }
                 )
-                
+
                 self.navigationController.pushViewController(
                     UIHostingController(rootView: WalletConnectAccountSelectView(viewModel: viewModel)),
                     animated: true
@@ -162,7 +163,7 @@ private extension WalletConnectCoordinator {
             }
             .store(in: &cancellables)
     }
-    
+
     func respondResult(request: Request, msg: AnyCodable) {
         Task { [weak self] in
             do {
@@ -176,13 +177,13 @@ private extension WalletConnectCoordinator {
             }
         }
     }
-    
+
     private func setupWalletConnectSettleBinding() {
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
                 print("DEBUG: WalletConnect: Session \(session.pairingTopic) settled")
-                
+
                 guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
                     self?.parentCoordinator?.dismissWalletConnectCoordinator()
                     self?.disconnectAndPresentError(.sessionError(.unexpectedNamespaces(namespaces: Array(session.namespaces.keys))))
@@ -193,7 +194,7 @@ private extension WalletConnectCoordinator {
                     self?.disconnectAndPresentError(.sessionError(.unexpectedAccountCount(addresses: Array(ccdNamespace.accounts.map { $0.address }))))
                     return
                 }
-                
+
                 guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
                     self?.disconnectAndPresentError(.sessionError(.accountNotFound(address: accountAddress)))
                     return
@@ -327,7 +328,8 @@ private extension WalletConnectCoordinator {
                                         print("DEBUG: WalletConnect: Rejecting request")
                                         self?.reject(request: request, err: .userRejected, shouldPresent: false)
                                         self?.navigationController.popViewController(animated: true)
-                                    }
+                                    },
+                                    shouldAllowAccept: .just(true)
                                 )
                             )
                         ),
@@ -360,14 +362,14 @@ private extension WalletConnectCoordinator {
                     )
                     return
                 }
-                
+
                 let inputParams = ContractUpdateParameterToJsonInput(
                     parameter: params.payload.message,
                     receiveName: params.payload.receiveName,
                     schema: params.schema,
                     schemaVersion: params.schema.version?.rawValue
                 )
-                
+
                 if params.sender != account.address {
                     self?.reject(
                         request: request,
@@ -377,7 +379,7 @@ private extension WalletConnectCoordinator {
                     return
                 }
                 
-                var message: SignableValueRepresentation? = nil
+                var message: SignableValueRepresentation?
                 if !inputParams.parameter.isEmpty {
                     if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
                         message = .decoded(decoded as String)
@@ -385,7 +387,7 @@ private extension WalletConnectCoordinator {
                         message = SignableValueRepresentation.raw(params.payload.message)
                     }
                 }
-                
+
                 // Check that request transaction is a contract update as that's the only type we support.
                 guard case TransferType.contractUpdate = params.type else {
                     self?.reject(
@@ -422,6 +424,9 @@ private extension WalletConnectCoordinator {
                 transfer.energy = params.payload.maxContractExecutionEnergy // may get overwritten by result from WP's cost estimation.
 
                 let info = TransferInfo() // initialize info with no cost estimation
+                
+                let isAccountBalanceSufficient = account.forecastAtDisposalBalance > amount
+
                 if let self {
                     self.dependencyProvider.transactionsService().getTransferCost(
                         transferType: transfer.transferType.toWalletProxyTransferType(),
@@ -431,7 +436,7 @@ private extension WalletConnectCoordinator {
                             .contractIndex(params.payload.address.index),
                             .contractSubindex(params.payload.address.subindex),
                             .receiveName(params.payload.receiveName),
-                            .parameter(params.payload.message)
+                            .parameter(params.payload.message),
                         ]
                     )
                     .sink(receiveError: { _ in
@@ -453,8 +458,36 @@ private extension WalletConnectCoordinator {
                     }).store(in: &self.cancellables)
                 }
 
+                let viewModel = WalletConnectApprovalViewModel(
+                    didAccept: { [weak self] in
+                        guard let self else {
+                            return
+                        }
+                        dependencyProvider.transactionsService()
+                            .performTransfer(transfer, from: account, requestPasswordDelegate: self)
+                            .sink(receiveError: { [weak self] err in
+                                self?.reject(
+                                    request: request,
+                                    err: .transactionError(err.localizedDescription),
+                                    shouldPresent: true
+                                )
+                            }, receiveValue: { [weak self] val in
+                                print("DEBUG: WalletConnect: Transaction submitted: \(val)")
+                                self?.respondResult(request: request, msg: AnyCodable(["hash": val.submissionId]))
+                            })
+                            .store(in: &cancellables)
+                        self.navigationController.popViewController(animated: true)
+                    }, didDecline: { [weak self] in
+                        print("DEBUG: WalletConnect: Rejecting request")
+                        self?.reject(request: request, err: .userRejected, shouldPresent: false)
+                        self?.navigationController.popViewController(animated: true)
+                    },
+                    shouldAllowAccept: info.$estimatedCost.map { $0 != nil && isAccountBalanceSufficient }.eraseToAnyPublisher()
+                )
+                
                 self?.navigationController.pushViewController(
                     UIHostingController(
+                        // TODO: Only enable "Accept" button after cost estimation has been resolved.
                         rootView: WalletConnectApprovalView(
                             title: "Transaction Approval",
                             contentView: WalletConnectActionRequestView(
@@ -471,46 +504,7 @@ private extension WalletConnectCoordinator {
                                 info: info,
                                 isAccountBalanceSufficient: account.forecastAtDisposalBalance > amount
                             ),
-                            viewModel: WalletConnectApprovalViewModel(
-                                didAccept: { [weak self] in
-                                    guard let self else {
-                                        return
-                                    }
-                                    dependencyProvider.transactionsService()
-                                        .performTransfer(transfer, from: account, requestPasswordDelegate: self)
-                                        .sink(receiveError: { [weak self] err in
-                                            self?.reject(
-                                                request: request,
-                                                err: .transactionError(err.localizedDescription),
-                                                shouldPresent: true
-                                            )
-                                        }, receiveValue: { [weak self] val in
-                                            print("DEBUG: WalletConnect: Transaction submitted: \(val)")
-                                            
-                                            // TODO DO WE DOUBLE RESPOND???
-                                            self?.respondResult(request: request, msg: AnyCodable(["hash": val.submissionId]))
-                                            
-                                            Task {
-                                                do {
-                                                    try await Sign.instance.respond(
-                                                        topic: request.topic,
-                                                        requestId: request.id,
-                                                        response: .response(AnyCodable(["hash": val.submissionId]))
-                                                    )
-                                                } catch let err {
-                                                    self?.presentError(with: "errorAlert.title".localized, message: "Transaction submitted but cannot tell the dApp: \(err.localizedDescription)")
-                                                }
-                                            }
-                                            
-                                        })
-                                        .store(in: &cancellables)
-                                    self.navigationController.popViewController(animated: true)
-                                }, didDecline: { [weak self] in
-                                    print("DEBUG: WalletConnect: Rejecting request")
-                                    self?.reject(request: request, err: .userRejected, shouldPresent: false)
-                                    self?.navigationController.popViewController(animated: true)
-                                }
-                            )
+                            viewModel: viewModel
                         )
                     ),
                     animated: true
@@ -600,8 +594,8 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     }
                     return true
                 }, viewDidDisappear: { [weak self] in
-                        self?.nukeWalletConnectSessionsAndPairings()
-                        self?.parentCoordinator?.dismissWalletConnectCoordinator()
+                    self?.nukeWalletConnectSessionsAndPairings()
+                    self?.parentCoordinator?.dismissWalletConnectCoordinator()
                 }
             )
         )
@@ -631,7 +625,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             presentError(with: "errorAlert.title".localized, message: msg)
         }
     }
-    
+
     func reject(proposal: Session.Proposal, reason: RejectionReason, msg: String) {
         Task { [weak self] in
             do {
@@ -651,14 +645,13 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         parentCoordinator?.dismissWalletConnectCoordinator() // disconnects any sessions
         presentError(with: "errorAlert.title".localized, message: msg)
     }
-    
+
     func disconnectAndPresentError(_ err: WalletConnectError) {
         let (_, msg) = err.codeAndMsg
         navigationController.popToRootViewController(animated: true)
         parentCoordinator?.dismissWalletConnectCoordinator() // disconnects all sessions
         presentError(with: "errorAlert.title".localized, message: msg)
     }
-
 }
 
 extension WalletConnectCoordinator: RequestPasswordDelegate {}
