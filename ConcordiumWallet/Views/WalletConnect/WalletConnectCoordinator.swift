@@ -36,6 +36,9 @@ class WalletConnectCoordinator: Coordinator {
         )
         Pair.configure(metadata: metadata)
         Networking.configure(projectId: CONCORDIUM_WALLET_CONNECT_PROJECT_ID, socketFactory: SocketFactory())
+        
+        nukeWalletConnectSessionsAndPairings()
+        
         setupWalletConnectRequestBinding()
         setupWalletConnectProposalBinding()
         setupWalletConnectSettleBinding()
