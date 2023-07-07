@@ -374,7 +374,6 @@ private extension WalletConnectCoordinator {
                             ccd: nil
                         )
                     }, receiveValue: { cost in
-                        Thread.sleep(forTimeInterval: 3)
                         // Set max energy adjusted by configured buffer factor.
                         // The CCD estimate is not adjusted.
                         let energy = Int(Double(cost.energy))
