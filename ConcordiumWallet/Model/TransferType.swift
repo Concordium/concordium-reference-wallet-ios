@@ -25,7 +25,7 @@ enum TransferType: String, Codable {
     case removeBaker
     case configureBaker
 
-    case contractUpdate = "Update"
+    case contractUpdate = "update"
     
     var isDelegationTransfer: Bool {
         switch self {
