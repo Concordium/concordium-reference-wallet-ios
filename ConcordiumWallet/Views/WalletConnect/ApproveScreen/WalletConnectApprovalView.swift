@@ -28,8 +28,9 @@ class WalletConnectApprovalViewModel: ObservableObject {
 struct WalletConnectApprovalView<Content: View>: View {
     var title: String
     var contentView: Content
-    @State var shouldAllowAccept: Bool = false
+    @State private var shouldAllowAccept: Bool = false
     @ObservedObject var viewModel: WalletConnectApprovalViewModel
+
     var body: some View {
         VStack(spacing: 2) {
             Text(title)

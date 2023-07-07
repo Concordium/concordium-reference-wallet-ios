@@ -110,6 +110,10 @@ class MobileWalletFacade {
         try call(cFunction: generate_accounts, with: input, debugTitle: "generateAccounts")
     }
     
+    func signMessage(input: SignMessagePayloadToJsonInput) throws -> String {
+        try call(cFunction: sign_message, with: try encodeInput(input), debugTitle: "signMessage")
+    }
+    
     private func call(cFunction: (UnsafePointer<Int8>?, UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<Int8>?,
                       with input: String,
                       debugTitle: String) throws -> String {

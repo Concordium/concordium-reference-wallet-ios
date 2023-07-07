@@ -559,6 +559,10 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
     func createAccountTransfer(input: String) throws -> String {
         NYI()
     }
+    
+    func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error> {
+        NYI()
+    }
 }
 
 class ScanQRViewProtocolMock: ScanQRViewProtocol {

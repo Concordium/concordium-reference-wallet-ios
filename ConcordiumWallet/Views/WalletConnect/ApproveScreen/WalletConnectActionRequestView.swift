@@ -28,7 +28,7 @@ struct WalletConnectActionRequestView: View {
     let transactionType: String
     let receiveName: String
     let maxExecutionEnergy: Int
-    let params: ContractUpdateParameterRepresentation?
+    let params: SignableValueRepresentation?
     let request: Request
     @ObservedObject var info: TransferInfo
     
@@ -85,7 +85,7 @@ struct WalletConnectActionRequestView: View {
             }
             ScrollView {
                 VStack {
-                    Text("Transaction:  \(transactionType)")
+                    Text("Transaction: \(transactionType)")
                         .fontWeight(.bold)
                         .padding([.top], 8)
                     Divider()
@@ -139,6 +139,7 @@ struct WalletConnectActionRequestView: View {
             .padding()
             Text(estimatedTransactionFeeText)
         }
+        .navigationBarBackButtonHidden()
     }
 
     func buildTransactionItem(title: String, value: some View) -> some View {
