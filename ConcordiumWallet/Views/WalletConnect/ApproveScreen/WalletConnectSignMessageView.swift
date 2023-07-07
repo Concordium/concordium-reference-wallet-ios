@@ -64,6 +64,7 @@ struct WalletConnectSignMessageView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

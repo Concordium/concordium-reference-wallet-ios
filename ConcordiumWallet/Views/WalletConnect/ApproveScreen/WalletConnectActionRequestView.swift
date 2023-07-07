@@ -138,6 +138,7 @@ struct WalletConnectActionRequestView: View {
             .padding()
             Text(estimatedTransactionFeeText)
         }
+        .navigationBarBackButtonHidden()
     }
 
     func buildTransactionItem(title: String, value: some View) -> some View {
