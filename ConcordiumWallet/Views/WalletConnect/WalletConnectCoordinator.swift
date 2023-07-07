@@ -502,7 +502,7 @@ private extension WalletConnectCoordinator {
                                 params: message,
                                 request: request,
                                 info: info,
-                                isAccountBalanceSufficient: account.forecastAtDisposalBalance > amount
+                                isAccountBalanceSufficient: isAccountBalanceSufficient
                             ),
                             viewModel: viewModel
                         )
