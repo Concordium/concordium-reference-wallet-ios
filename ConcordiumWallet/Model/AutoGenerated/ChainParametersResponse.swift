@@ -22,7 +22,6 @@ struct ChainParametersResponse: Codable {
     let passiveBakingCommission: Double
     let accountCreationLimit: Int
     let finalizationCommissionRange: CommissionRange
-    let electionDifficulty: Double
     let euroPerEnergy: EuroPerEnergy
     let transactionCommissionRange: CommissionRange
     let minimumEquityCapital: String
@@ -43,7 +42,6 @@ struct ChainParametersResponse: Codable {
         case passiveBakingCommission = "passiveBakingCommission"
         case accountCreationLimit = "accountCreationLimit"
         case finalizationCommissionRange = "finalizationCommissionRange"
-        case electionDifficulty = "electionDifficulty"
         case euroPerEnergy = "euroPerEnergy"
         case transactionCommissionRange = "transactionCommissionRange"
         case minimumEquityCapital = "minimumEquityCapital"
@@ -84,7 +82,6 @@ extension ChainParametersResponse {
         passiveBakingCommission: Double? = nil,
         accountCreationLimit: Int? = nil,
         finalizationCommissionRange: CommissionRange? = nil,
-        electionDifficulty: Double? = nil,
         euroPerEnergy: EuroPerEnergy? = nil,
         transactionCommissionRange: CommissionRange? = nil,
         minimumEquityCapital: String? = nil
@@ -105,7 +102,6 @@ extension ChainParametersResponse {
             passiveBakingCommission: passiveBakingCommission ?? self.passiveBakingCommission,
             accountCreationLimit: accountCreationLimit ?? self.accountCreationLimit,
             finalizationCommissionRange: finalizationCommissionRange ?? self.finalizationCommissionRange,
-            electionDifficulty: electionDifficulty ?? self.electionDifficulty,
             euroPerEnergy: euroPerEnergy ?? self.euroPerEnergy,
             transactionCommissionRange: transactionCommissionRange ?? self.transactionCommissionRange,
             minimumEquityCapital: minimumEquityCapital ?? self.minimumEquityCapital
