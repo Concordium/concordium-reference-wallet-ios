@@ -9014,8 +9014,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				kind = exactVersion;
+				version = 1.6.11;
 			};
 		};
 		8927A66D286AC6820007CAF1 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
