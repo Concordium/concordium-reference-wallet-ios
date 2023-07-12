@@ -73,10 +73,6 @@
 		018EEDF12A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF22A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
-		01C2B0BC2A5E9783007E20EA /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2B0BB2A5E9783007E20EA /* String+Base64.swift */; };
-		01C2B0BD2A5E9783007E20EA /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2B0BB2A5E9783007E20EA /* String+Base64.swift */; };
-		01C2B0BE2A5E9783007E20EA /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2B0BB2A5E9783007E20EA /* String+Base64.swift */; };
-		01C2B0BF2A5E9783007E20EA /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2B0BB2A5E9783007E20EA /* String+Base64.swift */; };
 		01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AD2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
@@ -2753,7 +2749,6 @@
 		017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
 		017A5F382A49BA1900E80B56 /* WalletConnectError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectError.swift; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
-		01C2B0BB2A5E9783007E20EA /* String+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
 		01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayloadEntity.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
 		01EBC3F62A556DF600D15E91 /* PairingInteracting+Nuke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PairingInteracting+Nuke.swift"; sourceTree = "<group>"; };
@@ -5530,7 +5525,6 @@
 				FA01C9C9291C5D3000BD8738 /* UIViewController+Helper.swift */,
 				FA01C9BE291C5D2E00BD8738 /* UserDefaults+Helper.swift */,
 				FA0CAAF42937DD750009D5F8 /* UITapGestureRecognizer.swift */,
-				01C2B0BB2A5E9783007E20EA /* String+Base64.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6390,7 +6384,6 @@
 				0111D72B2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
 				891B1A1428ADF95C00F4B0D6 /* GenerateRecoveryRequestInput.swift in Sources */,
-				01C2B0BC2A5E9783007E20EA /* String+Base64.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				901F7F4327EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				89D4685C289CF72C007D3FC8 /* CreateSeedIdentityPresenter.swift in Sources */,
@@ -6876,7 +6869,6 @@
 				0111D72D2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A092892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				7F85B743246A9A7C00ED09B8 /* CreateAccountCoordinator.swift in Sources */,
-				01C2B0BE2A5E9783007E20EA /* String+Base64.swift in Sources */,
 				0111D7292A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */,
 				642A28A725FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
 				7F85B744246A9A7C00ED09B8 /* GeneralFormatter.swift in Sources */,
@@ -7448,7 +7440,6 @@
 				0111D72E2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A0A2892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
 				7F85B841246A9AB600ED09B8 /* PreIdentityObject.swift in Sources */,
-				01C2B0BF2A5E9783007E20EA /* String+Base64.swift in Sources */,
 				0111D72A2A2DFE7000E05D35 /* AccountSelectViewController.swift in Sources */,
 				642A28A825FA10E30073BF8C /* ChangePasswordPresenter.swift in Sources */,
 				7F85B842246A9AB600ED09B8 /* CreateAccountCoordinator.swift in Sources */,
@@ -7899,7 +7890,6 @@
 				067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */,
 				64FD334F25FF8F6D00563703 /* SchemeVerifyKey.swift in Sources */,
 				C938F5372423432000ECAD47 /* IdentityChoosePresenter.swift in Sources */,
-				01C2B0BD2A5E9783007E20EA /* String+Base64.swift in Sources */,
 				897D0F1F288EA47E001CEC3B /* RecoveryPhraseConfirmPhraseViewModel.swift in Sources */,
 				7FA0AE9524598D6500B7673F /* Origin.swift in Sources */,
 				17A41E562667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
