@@ -3,7 +3,7 @@ import Foundation
 enum Schema: Codable {
     case moduleSchema(value: Data, version: SchemaVersion?)
     case typeSchema(value: Data)
-    
+    case empty
     enum CodingKeys: String, CodingKey {
         case type, value, version
     }
@@ -18,6 +18,7 @@ enum Schema: Codable {
         case let .typeSchema(value: value):
             try container.encode("parameter", forKey: .type)
             try container.encode(value, forKey: .value)
+        case .empty: return 
         }
     }
     
