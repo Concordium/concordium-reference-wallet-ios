@@ -64,7 +64,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
         #if DEBUG
             let buttonItem = UIBarButtonItem(title: "DEBUG", style: .plain, target: self, action: #selector(displayDebugScreen))
             buttonItem.tintColor = .red
-            navigationItem.rightBarButtonItems = buttonItem
+            navigationItem.rightBarButtonItem = buttonItem
         #endif
     }
 
