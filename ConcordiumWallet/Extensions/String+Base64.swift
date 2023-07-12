@@ -5,8 +5,10 @@
 
 import Foundation
 
-/// The fixedBase64Format property and provides a fixed-length Base64 format for the string.
-/// The method calculates the current offset of the string's length modulo 4. If the offset is zero, indicating that the length is already a multiple of 4, the method returns the original string. Otherwise
+///      Returns the fixed base64 format of the string.
+/// This method is used to ensure that a string representing base64-encoded data has a proper format. In some cases,
+/// when working with certain schemas or data sources, the base64 string returned may not adhere to the standard format.
+/// This method addresses that issue by adding padding characters ('=') to the end of the string if its length is not a multiple of 4, thus making it a valid base64 format.
 
 extension String {
     var fixedBase64Format: Self {
