@@ -3,7 +3,7 @@ import Foundation
 enum Schema: Codable {
     case moduleSchema(value: Data, version: SchemaVersion?)
     case typeSchema(value: Data)
-
+    
     enum CodingKeys: String, CodingKey {
         case type, value, version
     }
@@ -45,12 +45,12 @@ enum Schema: Codable {
     
     static func decodeValue(_ container: KeyedDecodingContainer<Schema.CodingKeys>) throws -> Data {
         // First attempt to decode schema as base64-encoded string.
-        if let valueBase64 = try? container.decode(String.self, forKey: .value) {
-            if let data = Data(base64Encoded: valueBase64) {
+        if let rawValueBase64 = try? container.decode(String.self, forKey: .value) {
+            if let data = Data(base64Encoded: fixedBase64Format(for: rawValueBase64)) {
                 return data
             }
             // Invalid Base64 encoding.
-            throw WalletConnectError.schemaError(.invalidBase64(valueBase64))
+            throw WalletConnectError.schemaError(.invalidBase64(rawValueBase64))
         }
         // If it fails, attempt to decode as JavaScript's Buffer.
         if let buffer = try? container.decode(SchemaValueBufferBroken.self, forKey: .value) {
@@ -66,6 +66,16 @@ enum Schema: Codable {
             return version
         default: return nil
         }
+    }
+
+    /// Returns the fixed base64 format of the string.
+    /// This method is used to ensure that a string representing base64-encoded data has a proper format. In some cases,
+    /// when working with certain schemas or data sources, the base64 string returned may not adhere to the standard format.
+    /// This method addresses that issue by adding padding characters ('=') to the end of the string if its length is not a multiple of 4, thus making it a valid base64 format.
+    private static func fixedBase64Format(for string: String) -> String {
+        let offset = string.count % 4
+        guard offset != 0 else { return string }
+        return string.padding(toLength: string.count + 4 - offset, withPad: "=", startingAt: 0)
     }
 }
 
