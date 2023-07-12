@@ -46,7 +46,7 @@ enum Schema: Codable {
     static func decodeValue(_ container: KeyedDecodingContainer<Schema.CodingKeys>) throws -> Data {
         // First attempt to decode schema as base64-encoded string.
         if let valueBase64 = try? container.decode(String.self, forKey: .value) {
-            if let data = Data(base64Encoded: valueBase64) {
+            if let data = Data(base64Encoded: valueBase64.fixedBase64Format) {
                 return data
             }
             // Invalid Base64 encoding.
