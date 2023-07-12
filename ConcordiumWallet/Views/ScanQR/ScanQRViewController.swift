@@ -25,7 +25,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
         image.tintColor = .white
         return image
     }()
-    
+
     init(presenter: ScanQRPresenter) {
         captureSession = AVCaptureSession()
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -62,10 +62,30 @@ class ScanQRViewController: BaseViewController, ShowToast {
             }
         }
         #if DEBUG
+            let manual = UIBarButtonItem(title: "URI", style: .done, target: self, action: #selector(connectWCManually))
             let buttonItem = UIBarButtonItem(title: "DEBUG", style: .plain, target: self, action: #selector(displayDebugScreen))
             buttonItem.tintColor = .red
-            navigationItem.rightBarButtonItem = buttonItem
+            navigationItem.rightBarButtonItems = [manual, buttonItem]
         #endif
+    }
+
+    @objc private func connectWCManually() {
+        let ac = UIAlertController(title: "Please enter WalletConnect code",
+                                   message: nil,
+                                   preferredStyle: .alert)
+        ac.addTextField()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak ac] _ in
+            guard let code = ac?.textFields?[0].text else { return }
+            self.presenter.scannedQrCode(code)
+         }
+        let paste = UIAlertAction(title: "paste from clipboard", style: .default) { _ in
+            if let code = UIPasteboard.general.string {
+                self.presenter.scannedQrCode(code)
+            }
+        }
+        ac.addAction(paste)
+        ac.addAction(submitAction)
+        present(ac, animated: true)
     }
 
     @objc private func displayDebugScreen() {
