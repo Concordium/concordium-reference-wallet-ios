@@ -1,7 +1,7 @@
 import Foundation
 
 struct ContractUpdateParams: Decodable {
-    let schema: Schema
+    var schema: Schema
     let type: TransferType
     let sender: String
     let payload: ContractUpdatePayload
@@ -33,7 +33,10 @@ struct ContractUpdateParams: Decodable {
         if let s = try? container.decode(Schema.self, forKey: .schema) {
             schema = s
         } else {
-            let schemaValueBase64 = try container.decode(String.self, forKey: .schema)
+            guard let schemaValueBase64 = try container.decodeIfPresent(String.self, forKey: .schema) else {
+                schema = .empty
+                return
+            }
             if let data = Data(base64Encoded: schemaValueBase64) {
                 schema = .moduleSchema(value: data, version: nil)
             } else {
