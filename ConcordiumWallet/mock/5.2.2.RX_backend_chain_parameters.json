@@ -41,7 +41,6 @@
         "max": 5.0e-2,
         "min": 5.0e-2
     },
-    "electionDifficulty": 2.5e-2,
     "euroPerEnergy": {
         "denominator": 1000000,
         "numerator": 1
