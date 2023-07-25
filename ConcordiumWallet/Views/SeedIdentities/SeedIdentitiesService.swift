@@ -188,10 +188,6 @@ struct SeedIdentitiesService {
             
             let recoverRequest = try request.encodeToString().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?.removingPercentEncoding
             
-//            if recoveryURL.absoluteString == "https://id-service.testnet.concordium.com/api/v1/recover" {
-//                recoveryURL = URL(string: "https://jashdjdshfjdhfdhjakfjhak.co")!
-//            }
-            
             let recoverResponse = try await networkManager.loadRecovery(ResourceRequest(url: recoveryURL, parameters: ["state" : recoverRequest]), decoding: SeedIdentityObjectWrapper.self)
             
             return try (createIdentityFromSeedIdentityObjectWrapper(
