@@ -158,7 +158,10 @@ final class NetworkManager: NetworkManagerProtocol {
             CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
         }
         
-        let json = try decoder.decode(String.self, from: data)
-        return try decoder.decode(T.self, from: Data(json.utf8))
+        if let json = try? decoder.decode(String.self, from: data) {
+            return try decoder.decode(T.self, from: Data(json.utf8))
+        } else {
+            return try decoder.decode(T.self, from: data)
+        }
     }
 }
