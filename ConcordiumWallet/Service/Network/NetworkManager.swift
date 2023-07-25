@@ -117,20 +117,11 @@ final class NetworkManager: NetworkManagerProtocol {
                 throw NetworkError.dataLoadingError(statusCode: response.statusCode, data: data)
             }
             
-            var dataString = String(data: data, encoding: .utf8)!
-            dataString = dataString.replacingOccurrences(of: "\\", with: "")
-            if dataString.hasPrefix("\"") == true {
-                dataString = String(dataString.dropFirst())
-            }
-            if dataString.hasSuffix("\"") == true {
-                dataString = String(dataString.dropLast())
-            }
-            
             if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
                 CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
             }
             
-            return try decoder.decode(T.self, from: Data(dataString.utf8))
+            return try decoder.decode(T.self, from: data)
         } catch {
             if error is DecodingError {
                 print("Decoding error: \(error)")
@@ -163,19 +154,11 @@ final class NetworkManager: NetworkManagerProtocol {
             throw NetworkError.dataLoadingError(statusCode: response.statusCode, data: data)
         }
         
-        var dataString = String(data: data, encoding: .utf8)!
-        dataString = dataString.replacingOccurrences(of: "\\", with: "")
-        if dataString.hasPrefix("\"") == true {
-            dataString = String(dataString.dropFirst())
-        }
-        if dataString.hasSuffix("\"") == true {
-            dataString = String(dataString.dropLast())
-        }
-        
         if let url = response.url, let fields = response.allHeaderFields as? [String: String] {
             CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
         }
         
-        return try decoder.decode(T.self, from: Data(dataString.utf8))
+        let json = try decoder.decode(String.self, from: data)
+        return try decoder.decode(T.self, from: Data(json.utf8))
     }
 }
