@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-07-13
+
 ### Added
 
 - WalletConnect integration (preliminary implementation): Supports signing string messages (not binary) and signing/submitting transactions (currently only smart contract updates).
@@ -15,6 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.1]
 
-### Added
-
-- Last release without changelog.
+Last release without changelog.
