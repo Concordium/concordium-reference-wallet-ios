@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Removed election difficulty from expected chain parameters.
+
 ## [1.1.0] - 2023-07-13
 
 ### Added
