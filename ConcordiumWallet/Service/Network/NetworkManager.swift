@@ -158,14 +158,14 @@ final class NetworkManager: NetworkManagerProtocol {
             CookieJar.cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
         }
         
-        if let result = try? decoder.decode(T.self, from: data) {
-            return result
+        do {
+            return decoder.decode(T.self, from: data)
+        } catch let err {
+            // In case of wallet recovery DTS double encodes the response and that's a workaround for this.
+            if let json = try? decoder.decode(String.self, from: data) {
+                return try decoder.decode(T.self, from: Data(json.utf8))
+            }
+            throw err
         }
-        // In case of wallet recovery DTS double encodes the response and that's a workaround for this.
-        if let json = try? decoder.decode(String.self, from: data) {
-            return try decoder.decode(T.self, from: Data(json.utf8))
-        }
-        // We know it will fail, called it to get expected error message.
-        return try decoder.decode(T.self, from: data)
     }
 }
