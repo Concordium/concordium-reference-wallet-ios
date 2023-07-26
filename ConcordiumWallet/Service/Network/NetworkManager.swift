@@ -159,7 +159,7 @@ final class NetworkManager: NetworkManagerProtocol {
         }
         
         do {
-            return decoder.decode(T.self, from: data)
+            return try decoder.decode(T.self, from: data)
         } catch let err {
             // In case of wallet recovery DTS double encodes the response and that's a workaround for this.
             if let json = try? decoder.decode(String.self, from: data) {
