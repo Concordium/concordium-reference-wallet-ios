@@ -94,7 +94,7 @@ private extension WalletConnectCoordinator {
                     return
                 }
                 if let chains = ccdNamespace.chains, chains != supportedChains {
-                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(supportedChains)\" bot got \(chains)")
+                    self.reject(proposal: proposal, reason: .userRejectedChains, msg: "Expected chain \"\(supportedChains)\" but got \(chains)")
                     return
                 }
                 if !ccdNamespace.events.isSubset(of: supportedEvents) {

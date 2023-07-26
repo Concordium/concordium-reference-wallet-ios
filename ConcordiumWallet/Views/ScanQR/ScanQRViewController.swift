@@ -25,7 +25,7 @@ class ScanQRViewController: BaseViewController, ShowToast {
         image.tintColor = .white
         return image
     }()
-    
+
     init(presenter: ScanQRPresenter) {
         captureSession = AVCaptureSession()
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
