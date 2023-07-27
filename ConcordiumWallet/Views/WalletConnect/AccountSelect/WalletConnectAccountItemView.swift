@@ -24,12 +24,12 @@ struct WalletConnectAccountItemView: View {
             HStack(spacing: 8) {
                 Text("walletconnect.select.account.total".localized)
                 Spacer()
-                Text("\(account.totalForecastBalance)")
+                Text(GTU(intValue: account.totalForecastBalance).displayValueWithGStroke())
             }
             HStack(spacing: 8) {
                 Text("walletconnect.select.account.at.disposal")
                 Spacer()
-                Text("\(account.forecastAtDisposalBalance)")
+                Text(GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke())
             }
         }
         .padding()
