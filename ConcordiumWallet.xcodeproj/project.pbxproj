@@ -1989,20 +1989,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7F85B8DE246D3A8600ED09B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7FF07A6123EADB1200F1FC04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7F85B7CF246A9AB600ED09B8;
-			remoteInfo = ConcordiumWallet;
-		};
-		7FF07A8023EADB1500F1FC04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7FF07A6123EADB1200F1FC04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7FF07A6823EADB1200F1FC04;
-			remoteInfo = ConcordiumWallet;
-		};
 		89E1A76427FF20AC008C761B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7FF07A6123EADB1200F1FC04 /* Project object */;
@@ -4230,8 +4216,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7FF07A8123EADB1500F1FC04 /* PBXTargetDependency */,
-				7F85B8DF246D3A8600ED09B8 /* PBXTargetDependency */,
 				89E1A76527FF20AC008C761B /* PBXTargetDependency */,
 			);
 			name = ConcordiumWalletTests;
@@ -6573,16 +6557,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7F85B8DF246D3A8600ED09B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7F85B7CF246A9AB600ED09B8 /* ProdMainNet */;
-			targetProxy = 7F85B8DE246D3A8600ED09B8 /* PBXContainerItemProxy */;
-		};
-		7FF07A8123EADB1500F1FC04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7FF07A6823EADB1200F1FC04 /* StagingNet */;
-			targetProxy = 7FF07A8023EADB1500F1FC04 /* PBXContainerItemProxy */;
-		};
 		89E1A76527FF20AC008C761B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F48C138244DCD0B00997684 /* Mock */;
@@ -6632,9 +6606,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -6654,8 +6629,9 @@
 				MARKETING_VERSION = 2.0.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6668,9 +6644,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -6686,8 +6663,9 @@
 				MARKETING_VERSION = 2.0.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -7025,7 +7003,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				INFOPLIST_FILE = ConcordiumWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -7048,7 +7026,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				INFOPLIST_FILE = ConcordiumWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
