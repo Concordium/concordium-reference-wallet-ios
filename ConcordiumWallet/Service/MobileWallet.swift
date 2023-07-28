@@ -274,7 +274,7 @@ class MobileWallet: MobileWalletProtocol {
             metadataURL: metadataURL,
             transactionFeeCommission: transactionFeeCommission?.string,
             bakingRewardCommission: bakingRewardCommission?.string,
-            finalizationRewardCommission: finalizationRewardCommission,
+            finalizationRewardCommission: finalizationRewardCommission?.string,
             bakerKeys: bakerKeys,
             keys: privateAccountKeys,
             energy: energy,

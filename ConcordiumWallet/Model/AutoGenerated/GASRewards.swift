@@ -10,13 +10,11 @@ struct GASRewards: Codable {
     let chainUpdate: Double
     let accountCreation: Double
     let baker: Double
-    let finalizationProof: Double
 
     enum CodingKeys: String, CodingKey {
         case chainUpdate = "chainUpdate"
         case accountCreation = "accountCreation"
         case baker = "baker"
-        case finalizationProof = "finalizationProof"
     }
 }
 
@@ -41,14 +39,12 @@ extension GASRewards {
     func with(
         chainUpdate: Double? = nil,
         accountCreation: Double? = nil,
-        baker: Double? = nil,
-        finalizationProof: Double? = nil
+        baker: Double? = nil
     ) -> GASRewards {
         return GASRewards(
             chainUpdate: chainUpdate ?? self.chainUpdate,
             accountCreation: accountCreation ?? self.accountCreation,
-            baker: baker ?? self.baker,
-            finalizationProof: finalizationProof ?? self.finalizationProof
+            baker: baker ?? self.baker
         )
     }
 
