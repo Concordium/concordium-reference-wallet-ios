@@ -928,7 +928,6 @@
 		7F48C1FC244DCD0B00997684 /* AddRecipientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2EDAA54AD0F27C8409576 /* AddRecipientViewController.swift */; };
 		7F48C1FD244DCD0B00997684 /* SendFundsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E2A0EBFE1B1E9F98D7CC /* SendFundsCoordinator.swift */; };
 		7F48C203244DCD0B00997684 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
-		7F48C205244DCD0B00997684 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
 		7F48C206244DCD0B00997684 /* Widget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A5129723F545DA008050B4 /* Widget.storyboard */; };
 		7F48C207244DCD0B00997684 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7223EADB1200F1FC04 /* Account.storyboard */; };
 		7F48C208244DCD0B00997684 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06AA2A9823F58C2C0001F964 /* Localizable.strings */; };
@@ -1198,7 +1197,6 @@
 		7F85B7BB246A9A7C00ED09B8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
 		7F85B7BE246A9A7C00ED09B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
 		7F85B7BF246A9A7C00ED09B8 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FEEF6FA24532475007C25F2 /* More.storyboard */; };
-		7F85B7C1246A9A7C00ED09B8 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
 		7F85B7C2246A9A7C00ED09B8 /* Widget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A5129723F545DA008050B4 /* Widget.storyboard */; };
 		7F85B7C3246A9A7C00ED09B8 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7223EADB1200F1FC04 /* Account.storyboard */; };
 		7F85B7C4246A9A7C00ED09B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06AA2A9823F58C2C0001F964 /* Localizable.strings */; };
@@ -1385,7 +1383,6 @@
 		7F85B8BA246A9AB600ED09B8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CFF6D243EFD7E0045B8E6 /* WebKit.framework */; };
 		7F85B8BD246A9AB600ED09B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7723EADB1400F1FC04 /* LaunchScreen.storyboard */; };
 		7F85B8BE246A9AB600ED09B8 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FEEF6FA24532475007C25F2 /* More.storyboard */; };
-		7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
 		7F85B8C1246A9AB600ED09B8 /* Widget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A5129723F545DA008050B4 /* Widget.storyboard */; };
 		7F85B8C2246A9AB600ED09B8 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A7223EADB1200F1FC04 /* Account.storyboard */; };
 		7F85B8C3246A9AB600ED09B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06AA2A9823F58C2C0001F964 /* Localizable.strings */; };
@@ -1481,7 +1478,6 @@
 		7FF07AC323EADBB100F1FC04 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9923EADBB100F1FC04 /* UIStackView+extension.swift */; };
 		7FF07AC423EADBB100F1FC04 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9A23EADBB100F1FC04 /* UITableView+Extensions.swift */; };
 		7FF07AC623EADBB100F1FC04 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07A9C23EADBB100F1FC04 /* String+Additions.swift */; };
-		7FF07AC923EADBB100F1FC04 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7FF07A9F23EADBB100F1FC04 /* readme.md */; };
 		7FF07AD423EADBB100F1FC04 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AAC23EADBB100F1FC04 /* BaseNavigationController.swift */; };
 		7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7FF07AE823EAFF5000F1FC04 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE723EAFF5000F1FC04 /* MainTabBarController.swift */; };
@@ -1993,20 +1989,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7F85B8DE246D3A8600ED09B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7FF07A6123EADB1200F1FC04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7F85B7CF246A9AB600ED09B8;
-			remoteInfo = ConcordiumWallet;
-		};
-		7FF07A8023EADB1500F1FC04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7FF07A6123EADB1200F1FC04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7FF07A6823EADB1200F1FC04;
-			remoteInfo = ConcordiumWallet;
-		};
 		89E1A76427FF20AC008C761B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7FF07A6123EADB1200F1FC04 /* Project object */;
@@ -2579,6 +2561,7 @@
 		C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C9E3727624277B4C002BC69C /* CreateAccountButtonWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetPresenter.swift; sourceTree = "<group>"; };
 		C9E3727724277B4C002BC69C /* CreateAccountButtonWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountButtonWidgetViewController.swift; sourceTree = "<group>"; };
+		CDADE1FF2A73F659003C38A0 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		D126670BAC7424013B5B2F2F /* Pods-ProdMainNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProdMainNet.release.xcconfig"; path = "Target Support Files/Pods-ProdMainNet/Pods-ProdMainNet.release.xcconfig"; sourceTree = "<group>"; };
 		D9A6AE815F6461B135B58DAC /* Pods-StagingNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StagingNet.debug.xcconfig"; path = "Target Support Files/Pods-StagingNet/Pods-StagingNet.debug.xcconfig"; sourceTree = "<group>"; };
 		DF624C8C68EF023A9D99557D /* Pods-Mock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock.debug.xcconfig"; path = "Target Support Files/Pods-Mock/Pods-Mock.debug.xcconfig"; sourceTree = "<group>"; };
@@ -3559,6 +3542,7 @@
 				694FFA56AD7374232B100AAC /* Pods */,
 				7FF07A6A23EADB1200F1FC04 /* Products */,
 				7FF07A9F23EADBB100F1FC04 /* readme.md */,
+				CDADE1FF2A73F659003C38A0 /* CHANGELOG.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4232,8 +4216,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7FF07A8123EADB1500F1FC04 /* PBXTargetDependency */,
-				7F85B8DF246D3A8600ED09B8 /* PBXTargetDependency */,
 				89E1A76527FF20AC008C761B /* PBXTargetDependency */,
 			);
 			name = ConcordiumWalletTests;
@@ -4303,7 +4285,6 @@
 				7F48C24F244DCD7100997684 /* 2.4.2.RX_backend_submissionStatus.json in Resources */,
 				9024FB5927E09B830057EA91 /* RobotoMono.ttf in Resources */,
 				7FA0AED3246061AD00B7673F /* 3.4.2.RX_backend_submissionStatus_fin_reject.json in Resources */,
-				7F48C205244DCD0B00997684 /* readme.md in Resources */,
 				9078543128101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				070D624827B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				7F48C206244DCD0B00997684 /* Widget.storyboard in Resources */,
@@ -4418,7 +4399,6 @@
 				52A0A0C727D0B4E8001C162D /* Stake.storyboard in Resources */,
 				7F5F779024891EFB0016F8D1 /* AppIconTestNet.xcassets in Resources */,
 				9078544B28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */,
-				7F85B7C1246A9A7C00ED09B8 /* readme.md in Resources */,
 				7FF9190F250E4EAD00B1032B /* ImportStatusCell.xib in Resources */,
 				90434C6C27FB108D00E4DBAA /* delegation_remove_flow_en_1.html in Resources */,
 				901F7F7A27F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */,
@@ -4482,7 +4462,6 @@
 				9078543028101BFC00B655EB /* baker_update_flow_en_1.html in Resources */,
 				7F85B8BE246A9AB600ED09B8 /* More.storyboard in Resources */,
 				5237187225751F2100B2BC31 /* 4.5.1.TX_lib_generate_accounts.json in Resources */,
-				7F85B8C0246A9AB600ED09B8 /* readme.md in Resources */,
 				7F85B8C1246A9AB600ED09B8 /* Widget.storyboard in Resources */,
 				9078544428101BFC00B655EB /* bakerupdate_flow_style.css in Resources */,
 				07E6E28527B558A30083A852 /* intro_flow_onboarding_en_2.html in Resources */,
@@ -4566,7 +4545,6 @@
 				9078543228101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				7FEEF6FB24532475007C25F2 /* More.storyboard in Resources */,
 				070D626827B40C2D00B6903C /* Onboarding.storyboard in Resources */,
-				7FF07AC923EADBB100F1FC04 /* readme.md in Resources */,
 				06A5129823F545DA008050B4 /* Widget.storyboard in Resources */,
 				070D624927B3D67100B6903C /* shielded_balance_style.css in Resources */,
 				901F7F7927F1D5DE00C46741 /* delegation_intro_flow_en_6.html in Resources */,
@@ -6579,16 +6557,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7F85B8DF246D3A8600ED09B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7F85B7CF246A9AB600ED09B8 /* ProdMainNet */;
-			targetProxy = 7F85B8DE246D3A8600ED09B8 /* PBXContainerItemProxy */;
-		};
-		7FF07A8123EADB1500F1FC04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7FF07A6823EADB1200F1FC04 /* StagingNet */;
-			targetProxy = 7FF07A8023EADB1500F1FC04 /* PBXContainerItemProxy */;
-		};
 		89E1A76527FF20AC008C761B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F48C138244DCD0B00997684 /* Mock */;
@@ -6638,9 +6606,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -6660,8 +6629,9 @@
 				MARKETING_VERSION = 2.0.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6674,9 +6644,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -6692,8 +6663,9 @@
 				MARKETING_VERSION = 2.0.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
-				PRODUCT_BUNDLE_IDENTIFIER = com.concordium.id.mock;
+				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6708,7 +6680,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
@@ -6722,7 +6694,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -6743,7 +6715,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
@@ -6757,7 +6729,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.testnet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -6777,7 +6749,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -6791,7 +6763,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mainnet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -6810,7 +6782,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletMainNet-Info.plist";
@@ -6824,7 +6796,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.mainnet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -6962,7 +6934,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -6976,7 +6948,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -6997,7 +6969,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -7011,7 +6983,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -7031,7 +7003,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				INFOPLIST_FILE = ConcordiumWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -7054,7 +7026,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WP87SA38DK;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				INFOPLIST_FILE = ConcordiumWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
