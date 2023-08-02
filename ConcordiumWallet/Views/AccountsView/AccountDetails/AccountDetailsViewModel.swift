@@ -39,7 +39,6 @@ class AccountDetailsViewModel {
     var name: String?
     var address: String?
     
-    @Published var selectedTab: AccountDetailTab = .transfers
     @Published var selectedBalance: AccountBalanceTypeEnum = .balance
     @Published var selectedSection: SelectedSection = .transfers
     @Published var accountState: SubmissionStatusEnum = .committed

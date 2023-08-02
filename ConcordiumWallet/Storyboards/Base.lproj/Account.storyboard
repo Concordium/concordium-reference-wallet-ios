@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="398.66666666666674" width="396" height="444.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="T3z-MG-hHx" customClass="AccountCell" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="396" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T3z-MG-hHx" id="JBE-wn-cGI">
@@ -806,20 +806,14 @@ process on-chain]</string>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="NHy-rQ-sY3" customClass="WidgetView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="396" height="191.33333333333334"/>
                                         <subviews>
-                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skE-GC-Z7L">
-                                                <rect key="frame" x="0.0" y="5" width="396" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" placeholder="YES" id="ctm-0z-que"/>
-                                                </constraints>
-                                            </containerView>
                                             <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="z1b-i1-zd6" userLabel="Container View">
-                                                <rect key="frame" x="0.0" y="45" width="396" height="141.33333333333334"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="396" height="186.33333333333334"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="s8P-h6-OXR" userLabel="Error view">
-                                                        <rect key="frame" x="0.0" y="0.0" width="396" height="141.33333333333334"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="396" height="186.33333333333334"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-rg-Qs5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="141.33333333333334"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="396" height="186.33333333333334"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="problem_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-Of-O1G">
                                                                         <rect key="frame" x="174" y="0.0" width="48" height="25.666666666666668"/>
@@ -829,10 +823,10 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="LZ2-ol-U99" userLabel="ErrorMessageContainerView">
-                                                                        <rect key="frame" x="26.666666666666657" y="45.66666666666675" width="342.66666666666674" height="95.666666666666686"/>
+                                                                        <rect key="frame" x="26.666666666666657" y="45.666666666666742" width="342.66666666666674" height="140.66666666666666"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="[Account creation failed in the process of creation]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oq-fm-ahS">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="95.666666666666671"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="140.66666666666666"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" name="fadedText"/>
                                                                                 <nil key="highlightedColor"/>
@@ -850,7 +844,7 @@ process on-chain]</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="O19-9h-KQp" userLabel="GTU Drop view">
-                                                                        <rect key="frame" x="-178.33333333333334" y="141.33333333333337" width="752.66666666666663" height="100"/>
+                                                                        <rect key="frame" x="-178.33333333333334" y="186.33333333333337" width="752.66666666666663" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TESTNET GTU DROP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-Yh-1nS">
                                                                                 <rect key="frame" x="295.33333333333337" y="10" width="162" height="0.0"/>
@@ -927,13 +921,9 @@ process on-chain]</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="z1b-i1-zd6" secondAttribute="trailing" id="3yW-Wm-6OV"/>
-                                            <constraint firstAttribute="trailing" secondItem="skE-GC-Z7L" secondAttribute="trailing" id="86A-KE-bFP"/>
                                             <constraint firstAttribute="bottom" secondItem="z1b-i1-zd6" secondAttribute="bottom" constant="5" id="HmG-fq-zLo"/>
-                                            <constraint firstItem="z1b-i1-zd6" firstAttribute="top" secondItem="skE-GC-Z7L" secondAttribute="bottom" id="QLY-pe-4f7"/>
-                                            <constraint firstItem="skE-GC-Z7L" firstAttribute="centerX" secondItem="NHy-rQ-sY3" secondAttribute="centerX" id="c0h-z7-owx"/>
-                                            <constraint firstItem="skE-GC-Z7L" firstAttribute="leading" secondItem="NHy-rQ-sY3" secondAttribute="leading" id="imE-fP-qy9"/>
+                                            <constraint firstItem="z1b-i1-zd6" firstAttribute="top" secondItem="NHy-rQ-sY3" secondAttribute="top" id="L97-Yd-GAi"/>
                                             <constraint firstItem="z1b-i1-zd6" firstAttribute="leading" secondItem="NHy-rQ-sY3" secondAttribute="leading" id="tYf-6h-Eu3"/>
-                                            <constraint firstItem="skE-GC-Z7L" firstAttribute="top" secondItem="NHy-rQ-sY3" secondAttribute="top" constant="5" id="xqd-iJ-1gb"/>
                                         </constraints>
                                     </view>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-KP-8h3" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
@@ -1011,7 +1001,6 @@ process on-chain]</string>
                         <outlet property="stakedValueLabel" destination="d4e-hB-BZ5" id="c0p-gx-hzS"/>
                         <outlet property="stakedView" destination="4Xu-WP-N8o" id="h7P-q8-hLa"/>
                         <outlet property="statusImageView" destination="2Nh-Of-O1G" id="IBg-wX-dFJ"/>
-                        <outlet property="tabBar" destination="skE-GC-Z7L" id="Wly-sW-IyN"/>
                         <outlet property="topSpacingStackViewConstraint" destination="WHI-Ig-f4y" id="UZk-jA-kYS"/>
                         <outlet property="totalsStackView" destination="Aib-xT-JCv" id="DoZ-dv-9Q0"/>
                     </connections>
@@ -1232,7 +1221,7 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="130" width="388" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
@@ -2012,7 +2001,37 @@ process on-chain]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a8P-Hb-ZJy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5313.0841121495323" y="71.274298056155516"/>
+            <point key="canvasLocation" x="5313" y="0.0"/>
+        </scene>
+        <!--Account Tokens View Controller-->
+        <scene sceneID="Tfu-6K-qdV">
+            <objects>
+                <viewController storyboardIdentifier="AccountTokensViewController" id="F1q-3M-hwf" customClass="AccountTokensViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vRd-4X-rZ4">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-4Z-5IU">
+                                <rect key="frame" x="193.33333333333334" y="459.33333333333331" width="41.333333333333343" height="20.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8WO-Ed-4jh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Apn-4Z-5IU" firstAttribute="centerX" secondItem="8WO-Ed-4jh" secondAttribute="centerX" id="KoO-NP-NQo"/>
+                            <constraint firstItem="Apn-4Z-5IU" firstAttribute="centerY" secondItem="8WO-Ed-4jh" secondAttribute="centerY" id="dIV-L2-pw9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ourLabel" destination="Apn-4Z-5IU" id="l4n-bW-ORd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hij-Nc-jDp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5057.9439252336442" y="459.3952483801296"/>
         </scene>
         <!--Reveal Attributes View Controller-->
         <scene sceneID="1cs-Na-3lM">

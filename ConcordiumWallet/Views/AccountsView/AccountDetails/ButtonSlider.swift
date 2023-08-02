@@ -17,15 +17,13 @@ struct ButtonSlider: View {
     var actionEarn: () -> Void
     var actionShield: () -> Void
     var actionSettings: () -> Void
-    @State var selectedSection: AccountDetailsViewModel.SelectedSection
     var isDisabled: Bool
     
     var buttons: [ActionButton] {
         [
             ActionButton(
                 imageName: "ccd_coins",
-                action: didTapTokensButton,
-                isSelected: selectedSection == .tokens
+                action: didTapTokensButton
             ),
             ActionButton(
                 imageName: "button_slider_send",
@@ -33,8 +31,7 @@ struct ButtonSlider: View {
             ),
             ActionButton(
                 imageName: "transaction_list",
-                action: didTapTransactionList,
-                isSelected: selectedSection == .transfers
+                action: didTapTransactionList
             ),
             ActionButton(
                 imageName: "button_slider_earn",
@@ -138,7 +135,6 @@ struct ButtonSlider_Previews: PreviewProvider {
             actionEarn: {},
             actionShield: {},
             actionSettings: {},
-            selectedSection: .tokens,
             isDisabled: false
         )
         .frame(width: 500,height: 80)

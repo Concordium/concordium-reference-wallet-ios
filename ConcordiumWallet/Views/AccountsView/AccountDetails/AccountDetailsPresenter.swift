@@ -60,7 +60,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func pressedUnlock()
     func showEarn()
 
-    func userSelectedIdentityData()
     func userSelectedGeneral()
     func userSelectedShieled() 
     func userSelectedTransfers()
@@ -154,7 +153,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     func updateTransfersOnChanges() {
         if lastRefreshTime.timeIntervalSinceNow * -1 < 60 { return }
         guard let delegate = delegate else { return }
-        if viewModel.selectedTab == .transfers {
             accountsService.updateAccountBalancesAndDecryptIfNeeded(account: account, balanceType: balanceType, requestPasswordDelegate: delegate)
                 .mapError(ErrorMapper.toViewError)
                 .sink(receiveError: { [weak self] error in
@@ -166,7 +164,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                         }
                         self?.lastRefreshTime = Date()
                 }).store(in: &cancellables)
-        }
     }
     
     fileprivate func updateTransfers() {
@@ -275,13 +272,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         }
     }
     
-    func userSelectedIdentityData() {
-        viewModel.selectedTab = .identityData
-    }
 
     func userSelectedTransfers() {
         updateTransfers()
-        viewModel.selectedTab = .transfers
     }
 
     func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter {

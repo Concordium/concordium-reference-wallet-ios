@@ -10,20 +10,6 @@ import Combine
 import SwiftUI
 import UIKit
 
-struct AccountTokensView: View {
-    var tabBarViewModel: MaterialTabBar.ViewModel = .init()
-
-    init() {
-        tabBarViewModel.tabs = ["Fungible", "Collectibles", "Manage"]
-    }
-
-    var body: some View {
-        VStack {
-            MaterialTabBar(viewModel: tabBarViewModel)
-        }
-    }
-}
-
 class AccountDetailsFactory {
     class func create(with presenter: AccountDetailsPresenter) -> AccountDetailsViewController {
         AccountDetailsViewController.instantiate(fromStoryboard: "Account") { coder in
@@ -36,13 +22,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     var presenter: AccountDetailsPresenterProtocol
     var isShielded: Bool = false
     private weak var updateTimer: Timer?
-    private let tabViewModel = MaterialTabBar.ViewModel()
     private var sendEnabled: Bool = false
     private var receiveEnabled: Bool = false
     private var shieldEnabled: Bool = false
     private var viewModel: AccountDetailsViewModel!
-
-    @IBOutlet var tabBar: UIView!
     @IBOutlet var totalsStackView: UIStackView!
     @IBOutlet var retryCreateButton: StandardButton!
     @IBOutlet var removeLocalAccountButton: StandardButton!
@@ -69,15 +52,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet var spacerView: UIView!
     @IBOutlet var topSpacingStackViewConstraint: NSLayoutConstraint!
     @IBOutlet var buttonSliderContainer: RoundedCornerView!
-    private var accountTokensViewController = UIHostingController(rootView: AccountTokensView())
     @IBOutlet var gtuDropView: UIView! {
         didSet {
             gtuDropView.isHidden = true
         }
     }
-
-    var identityDataVC: AccountDetailsIdentityDataViewController!
     var transactionsVC: AccountTransactionsDataViewController!
+    var accountTokensViewController: AccountTokensViewController!
 
     private var cancellables: [AnyCancellable] = []
 
@@ -93,14 +74,27 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
         gtuDropView.isHidden = true
-
-        setupTabBar()
-        setupIdentityDataUI()
         setupTransactionsUI()
-
+        setupAccountTokensUI()
         title = presenter.getTitle()
         presenter.view = self
         presenter.viewDidLoad()
+        
+        viewModel.$selectedSection.map { $0 != .tokens }
+            .assign(to: \.isHidden, on: accountTokensViewController.view)
+            .store(in: &cancellables)
+        
+        
+        viewModel.$selectedSection.map { $0 != .transfers }
+            .assign(to: \.isHidden, on: accountTokensViewController.view)
+            .store(in: &cancellables)
+    }
+    
+    func setupAccountTokensUI() {
+        accountTokensViewController = AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
+            return AccountTokensViewController(coder: coder)
+        }
+        add(child: accountTokensViewController, inside: containerView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +126,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         super.viewDidDisappear(animated)
         if isMovingFromParent {
             cancellables = []
-            identityDataVC = nil
             transactionsVC = nil
         }
     }
@@ -172,9 +165,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             isShielded: isShielded,
             didTapTokensButton: { [weak self] in
                 self?.viewModel.selectedSection = .tokens
-                self?.transactionsVC.view.isHidden = true
-                self?.tabBar.isHidden = true
-                self?.accountTokensViewController.view.isHidden = false
             },
             actionSend: {
                 if self.sendEnabled {
@@ -183,10 +173,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             },
             didTapTransactionList: { [weak self] in
                 self?.viewModel.selectedSection = .transfers
-                self?.transactionsVC.view.isHidden = false
-//                self?.tabBar.isHidden = false
-                self?.accountTokensViewController.view.isHidden = true
-
             },
             actionReceive: {
                 if self.receiveEnabled {
@@ -204,7 +190,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             actionSettings: {
                 self.presenter.burgerButtonTapped()
             },
-            selectedSection: viewModel.selectedSection,
             isDisabled: !areActionsEnabled
         )
         show(buttonSlider, in: buttonSliderContainer)
@@ -235,28 +220,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         self.viewModel = viewModel
 
         showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
-
-        tabViewModel.$selectedIndex
-            .sink { [weak self] index in
-                if index == 0 {
-                    self?.presenter.userSelectedTransfers()
-                    self?.showTransferData(
-                        accountState: viewModel.accountState,
-                        isReadOnly: viewModel.isReadOnly,
-                        hasTransfers: viewModel.hasTransfers
-                    )
-                } else {
-                    self?.presenter.userSelectedIdentityData()
-                    self?.showIdentityData()
-                }
-            }
-            .store(in: &cancellables)
-
-        viewModel.$selectedBalance
-            .sink { [weak self] _ in
-                self?.tabViewModel.selectedIndex = 0
-            }
-            .store(in: &cancellables)
 
         Publishers.CombineLatest(viewModel.$hasTransfers, viewModel.$accountState)
             .sink { [weak self] (hasTransfers: Bool, accountState: SubmissionStatusEnum) in
@@ -366,36 +329,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 }
 
 extension AccountDetailsViewController {
-    func setupTabBar() {
-        tabViewModel.tabs = [
-            "accountDetails.transfers".localized,
-        ]
 
-        show(MaterialTabBar(viewModel: tabViewModel), in: tabBar)
-    }
-
-    fileprivate func setupIdentityDataUI() {
-        identityDataVC = AccountDetailsIdentityDataFactory.create(with: presenter.getIdentityDataPresenter())
-        add(child: identityDataVC, inside: containerView)
-    }
-
-    fileprivate func setupTransactionsUI() {
+    private func setupTransactionsUI() {
         transactionsVC = AccountTransactionsDataFactory.create(with: presenter.getTransactionsDataPresenter())
         add(child: transactionsVC, inside: containerView)
     }
 
-    fileprivate func showIdentityData() {
-        transactionsVC.view.isHidden = true
-        if identityDataVC.hasIdentities() {
-            identityDataVC.view.isHidden = false
-        } else {
-            errorMessageLabel.isHidden = false
-            errorMessageLabel.text = "accountDetails.noIdentities".localized
-        }
-    }
-
     private func showTransferData(accountState: SubmissionStatusEnum, isReadOnly: Bool, hasTransfers: Bool) {
-        identityDataVC.view.isHidden = true
         setupUIBasedOn(accountState, isReadOnly: isReadOnly)
         if accountState == .finalized {
             updateTransfersUI(hasTransfers: hasTransfers)
