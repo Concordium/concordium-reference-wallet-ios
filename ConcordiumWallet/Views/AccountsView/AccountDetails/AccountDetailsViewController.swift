@@ -6,9 +6,9 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
+import UIKit
 import Combine
 import SwiftUI
-import UIKit
 
 class AccountDetailsFactory {
     class func create(with presenter: AccountDetailsPresenter) -> AccountDetailsViewController {
@@ -115,7 +115,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopRefreshTimer()
-        if isMovingFromParent {
+        if self.isMovingFromParent {
             presenter.viewWillDisappear()
         }
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -124,7 +124,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if isMovingFromParent {
+        if self.isMovingFromParent {
             cancellables = []
             transactionsVC = nil
         }
@@ -192,7 +192,12 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             },
             isDisabled: !areActionsEnabled
         )
-        show(buttonSlider, in: buttonSliderContainer)
+        let childView = UIHostingController(rootView: buttonSlider)
+        addChild(childView)
+        childView.view.frame = buttonSliderContainer.bounds
+        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
+        buttonSliderContainer.addSubview(childView.view)
+        childView.didMove(toParent: self)
     }
 
     private func setupButtonsShielded() {
@@ -212,7 +217,12 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                     self.presenter.userTappedAddress()
                 }
             })
-        show(buttonsShielded, in: buttonSliderContainer)
+        let childView = UIHostingController(rootView: buttonsShielded)
+        addChild(childView)
+        childView.view.frame = buttonSliderContainer.bounds
+        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
+        buttonSliderContainer.addSubview(childView.view)
+        childView.didMove(toParent: self)
     }
 
     // swiftlint:disable function_body_length
@@ -288,7 +298,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .store(in: &cancellables)
 
         viewModel.$stakedLabel
-            .sink { [weak self] text in
+            .sink { [weak self](text) in
                 self?.stakedLabel.text = text
             }
             .store(in: &cancellables)
@@ -339,6 +349,7 @@ extension AccountDetailsViewController {
         setupUIBasedOn(accountState, isReadOnly: isReadOnly)
         if accountState == .finalized {
             updateTransfersUI(hasTransfers: hasTransfers)
+            self.updateTransfersUI(hasTransfers: hasTransfers)
         } else {
             transactionsVC.view.isHidden = true
         }
@@ -356,14 +367,14 @@ extension AccountDetailsViewController {
 
         #if ENABLE_GTU_DROP
             if hasTransfers {
-                gtuDropView.isHidden = true
+            self.gtuDropView.isHidden = true
                 errorMessageLabel.superview?.isHidden = false
             } else {
                 if presenter.showGTUDrop() {
-                    gtuDropView.isHidden = false
+                self.gtuDropView.isHidden = false
                     errorMessageLabel.superview?.isHidden = true
                 } else {
-                    gtuDropView.isHidden = true
+                self.gtuDropView.isHidden = true
                     errorMessageLabel.superview?.isHidden = false
                 }
             }
@@ -394,12 +405,12 @@ extension AccountDetailsViewController {
                 canSend = true
             }
         }
-        retryCreateButton.isHidden = !showErrorButtons
-        removeLocalAccountButton.isHidden = !showErrorButtons
-        errorMessageLabel.text = message
-        statusImageView.isHidden = !showMessage
+        self.retryCreateButton.isHidden = !showErrorButtons
+        self.removeLocalAccountButton.isHidden = !showErrorButtons
+        self.errorMessageLabel.text = message
+        self.statusImageView.isHidden = !showMessage
         if !statusIconImageName.isEmpty {
-            statusImageView.image = UIImage(named: statusIconImageName)
+            self.statusImageView.image = UIImage(named: statusIconImageName)
         }
         // Disable send and address if not finalized
         if canSend {
