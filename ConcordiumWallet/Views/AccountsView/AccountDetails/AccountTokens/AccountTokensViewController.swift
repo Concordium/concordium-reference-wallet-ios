@@ -37,7 +37,7 @@ struct Token {
 
 class AccountTokensViewController: BaseViewController, Storyboarded {
 
-    enum Tabs: Int {
+    enum Tabs: Int, CaseIterable {
         case fungible
         case collectibles
         case manage
@@ -58,33 +58,37 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     var data: [Token] = Token.mocked
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     var cancellables: [AnyCancellable] = []
+    var showTokenDetails: ((Token) -> Void)?
+    var showManageView: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         tokensTableView.delegate = self
         tokensTableView.dataSource = self
-        tabBarViewModel.tabs = []
+        tabBarViewModel.tabs = Tabs.allCases.map { $0.titleLabel }
         show(MaterialTabBar(viewModel: tabBarViewModel), in: tabBarView)
         
         tabBarViewModel
             .$selectedIndex
             .receive(on: DispatchQueue.main)
             .compactMap { Tabs(rawValue: $0) }
-            .sink { tab in
-                
+            .sink { [weak self] tab in
+                switch tab {
+                case .collectibles:
+                    break // TODO: add filtering
+                case .fungible:
+                    break // TODO: add filtering
+                case .manage:
+                    self?.showManageView?()
+                }
             }
             .store(in: &cancellables)
-            
     }
 }
 
-extension AccountTokensViewController: UITableViewDelegate {
-    
-}
+extension AccountTokensViewController: UITableViewDelegate {}
 
 extension AccountTokensViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { data.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountTokensTableViewCell.self), for: indexPath) as? AccountTokensTableViewCell else {
@@ -94,5 +98,9 @@ extension AccountTokensViewController: UITableViewDataSource {
         cell.tokenImageView.image = UIImage(named: "ccd_coins") // TODO: Change it to icon fetched from the internet
         cell.amountLabel.text = "\(data.atDisposal) \(data.symbol)"
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.showTokenDetails?(data[indexPath.row])
     }
 }

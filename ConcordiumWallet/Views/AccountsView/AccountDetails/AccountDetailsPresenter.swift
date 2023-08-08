@@ -36,7 +36,8 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
     func showEarn()
-
+    func showManageView()
+    func tokenSelected(_ token: Token)
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
 }
@@ -64,6 +65,8 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func userSelectedShieled() 
     func userSelectedTransfers()
 
+    func showManageView()
+    func userSelected(_ token: Token)
     func showGTUDrop() -> Bool
     func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter
     func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter
@@ -105,6 +108,9 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
+    func showManageView() {
+        self.delegate?.showManageView()
+    }
     
     func showGTUDrop() -> Bool {
         if balanceType == .shielded {
@@ -272,6 +278,9 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         }
     }
     
+    func userSelected(_ token: Token) {
+        delegate?.tokenSelected(token)
+    }
 
     func userSelectedTransfers() {
         updateTransfers()

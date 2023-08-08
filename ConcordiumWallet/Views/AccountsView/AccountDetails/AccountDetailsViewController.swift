@@ -91,7 +91,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     
     func setupAccountTokensUI() {
         accountTokensViewController = AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
-            return AccountTokensViewController(coder: coder)
+            let vc = AccountTokensViewController(coder: coder)
+            vc?.showTokenDetails = self.presenter.userSelected(_:)
+            vc?.showManageView = self.presenter.showManageView
+            return vc
         }
         add(child: accountTokensViewController, inside: containerView)
     }

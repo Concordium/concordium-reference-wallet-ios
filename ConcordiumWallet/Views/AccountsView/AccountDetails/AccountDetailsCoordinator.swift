@@ -327,6 +327,14 @@ class AccountDetailsCoordinator: Coordinator,
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
+    func showManageView() {
+        
+    }
+    
+    func tokenSelected(_ token: Token) {
+        //TODO: Show token details vc
+    }
+    
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
         showSendFund(balanceType: balanceType)
     }
