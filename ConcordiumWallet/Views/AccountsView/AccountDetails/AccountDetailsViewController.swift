@@ -61,12 +61,11 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             gtuDropView.isHidden = true
         }
     }
-    
-    var identityDataVC: AccountDetailsIdentityDataViewController!
     var transactionsVC: AccountTransactionsDataViewController!
-    
+    var accountTokensViewController: AccountTokensViewController!
+
     private var cancellables: [AnyCancellable] = []
-    
+
     init?(coder: NSCoder, presenter: AccountDetailsPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -75,19 +74,33 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.gtuDropView.isHidden = true
-        
-        setupTabBar()
-        setupIdentityDataUI()
+        gtuDropView.isHidden = true
         setupTransactionsUI()
+        setupAccountTokensUI()
         title = presenter.getTitle()
         presenter.view = self
         presenter.viewDidLoad()
+        
+        viewModel.$selectedSection.map { $0 != .tokens }
+            .assign(to: \.isHidden, on: accountTokensViewController.view)
+            .store(in: &cancellables)
+        
+        
+        viewModel.$selectedSection.map { $0 != .transfers }
+            .assign(to: \.isHidden, on: accountTokensViewController.view)
+            .store(in: &cancellables)
     }
     
+    func setupAccountTokensUI() {
+        accountTokensViewController = AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
+            return AccountTokensViewController(coder: coder)
+        }
+        add(child: accountTokensViewController, inside: containerView)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.viewWillAppear()
@@ -117,7 +130,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         super.viewDidDisappear(animated)
         if self.isMovingFromParent {
             cancellables = []
-            identityDataVC = nil
             transactionsVC = nil
         }
     }
@@ -149,19 +161,22 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @objc func refreshOnTimerCallback() {
         presenter.updateTransfersOnChanges()
     }
-    
+
     private func setupButtonSlider(isShielded: Bool) {
         let areActionsEnabled = viewModel.accountState == .finalized && !viewModel.isReadOnly
-        
+
         let buttonSlider = ButtonSlider(
             isShielded: isShielded,
-            actionTokens: {
-                // TODO
+            didTapTokensButton: { [weak self] in
+                self?.viewModel.selectedSection = .tokens
             },
             actionSend: {
                 if self.sendEnabled {
                     self.presenter.userTappedSend()
                 }
+            },
+            didTapTransactionList: { [weak self] in
+                self?.viewModel.selectedSection = .transfers
             },
             actionReceive: {
                 if self.receiveEnabled {
@@ -217,53 +232,31 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     // swiftlint:disable function_body_length
     func bind(to viewModel: AccountDetailsViewModel) {
         self.viewModel = viewModel
-        
-        self.showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
-        
-        tabViewModel.$selectedIndex
-            .sink { [weak self] index in
-                if index == 0 {
-                    self?.presenter.userSelectedTransfers()
-                    self?.showTransferData(
-                        accountState: viewModel.accountState,
-                        isReadOnly: viewModel.isReadOnly,
-                        hasTransfers: viewModel.hasTransfers
-                    )
-                } else {
-                    self?.presenter.userSelectedIdentityData()
-                    self?.showIdentityData()
-                }
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$selectedBalance
-            .sink { [weak self] _ in
-                self?.tabViewModel.selectedIndex = 0
-            }
-            .store(in: &cancellables)
-        
+
+        showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
+
         Publishers.CombineLatest(viewModel.$hasTransfers, viewModel.$accountState)
-            .sink { [weak self](hasTransfers: Bool, accountState: SubmissionStatusEnum) in
+            .sink { [weak self] (hasTransfers: Bool, accountState: SubmissionStatusEnum) in
                 self?.showTransferData(accountState: accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: hasTransfers)
             }.store(in: &cancellables)
-        
+
         viewModel.$balance
             .compactMap { $0 }
             .assign(to: \.text, on: balanceLabel)
             .store(in: &cancellables)
-        
-        viewModel.$isShielded.sink { [weak self](isShielded) in
+
+        viewModel.$isShielded.sink { [weak self] isShielded in
             guard let self = self else { return }
 
             self.isShielded = isShielded
             self.title = self.presenter.getTitle()
             self.atDisposalView.setHiddenIfChanged(isShielded)
-            
+
             self.generalButton.backgroundColor = isShielded ? UIColor.primary : UIColor.primarySelected
             self.shieldedButton.backgroundColor = isShielded ? UIColor.primarySelected : UIColor.primary
-            
+
             if isShielded {
-                self.balanceNameLabel.text =  String(format: ("accounts.overview.shieldedtotal".localized), viewModel.name ?? "")
+                self.balanceNameLabel.text = String(format: "accounts.overview.shieldedtotal".localized, viewModel.name ?? "")
                 self.stakedView.setHiddenIfChanged(true)
             } else {
                 self.balanceNameLabel.text = "accounts.overview.generaltotal".localized
@@ -350,39 +343,16 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 }
 
 extension AccountDetailsViewController {
-    func setupTabBar() {
-        tabViewModel.tabs = [
-            "accountDetails.transfers".localized
-        ]
-        
-        show(MaterialTabBar(viewModel: tabViewModel), in: tabBar)
-    }
-    
-    fileprivate func setupIdentityDataUI() {
-        identityDataVC = AccountDetailsIdentityDataFactory.create(with: presenter.getIdentityDataPresenter())
-        add(child: identityDataVC, inside: containerView)
-    }
-    
-    fileprivate func setupTransactionsUI() {
+
+    private func setupTransactionsUI() {
         transactionsVC = AccountTransactionsDataFactory.create(with: presenter.getTransactionsDataPresenter())
         add(child: transactionsVC, inside: containerView)
     }
-    
-    fileprivate func showIdentityData() {
-        transactionsVC.view.isHidden = true
-        if identityDataVC.hasIdentities() {
-            identityDataVC.view.isHidden = false
-        } else {
-            errorMessageLabel.isHidden = false
-            errorMessageLabel.text = "accountDetails.noIdentities".localized
-        }
-    }
-    
+
     private func showTransferData(accountState: SubmissionStatusEnum, isReadOnly: Bool, hasTransfers: Bool) {
-        identityDataVC.view.isHidden = true
-        self.setupUIBasedOn(accountState, isReadOnly: isReadOnly)
+        setupUIBasedOn(accountState, isReadOnly: isReadOnly)
         if accountState == .finalized {
-            self.updateTransfersUI(hasTransfers: hasTransfers)
+            updateTransfersUI(hasTransfers: hasTransfers)
         } else {
             transactionsVC.view.isHidden = true
         }
