@@ -353,7 +353,6 @@ extension AccountDetailsViewController {
         setupUIBasedOn(accountState, isReadOnly: isReadOnly)
         if accountState == .finalized {
             updateTransfersUI(hasTransfers: hasTransfers)
-            self.updateTransfersUI(hasTransfers: hasTransfers)
         } else {
             transactionsVC.view.isHidden = true
         }
