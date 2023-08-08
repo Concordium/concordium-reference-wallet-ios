@@ -70,7 +70,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         self.presenter = presenter
         super.init(coder: coder)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -115,7 +115,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopRefreshTimer()
@@ -125,7 +125,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if self.isMovingFromParent {
@@ -133,16 +133,16 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             transactionsVC = nil
         }
     }
-
+    
     @objc func appDidBecomeActive() {
         presenter.updateTransfersOnChanges()
         startRefreshTimer()
     }
-
+    
     @objc func appWillResignActive() {
         stopRefreshTimer()
     }
-
+    
     func startRefreshTimer() {
         updateTimer = Timer.scheduledTimer(timeInterval: 5.0,
                                            target: self,
@@ -150,14 +150,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                                            userInfo: nil,
                                            repeats: true)
     }
-
+    
     func stopRefreshTimer() {
         if updateTimer != nil {
             updateTimer?.invalidate()
             updateTimer = nil
         }
     }
-
+    
     @objc func refreshOnTimerCallback() {
         presenter.updateTransfersOnChanges()
     }
@@ -280,7 +280,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self.view.layoutIfNeeded()
             }
         }.store(in: &cancellables)
-
+        
         viewModel.$isShieldedEnabled.sink { [weak self] enabled in
             if enabled {
                 self?.buttonsView.setHiddenIfChanged(false)
@@ -290,23 +290,23 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self?.spacerView.setHiddenIfChanged(false)
             }
         }.store(in: &cancellables)
-
+        
         viewModel.$atDisposal
             .compactMap { $0 }
             .assign(to: \.text, on: atDisposalLabel)
             .store(in: &cancellables)
-
+        
         viewModel.$stakedValue
             .compactMap { $0 }
             .assign(to: \.text, on: stakedValueLabel)
             .store(in: &cancellables)
-
+        
         viewModel.$stakedLabel
             .sink { [weak self](text) in
                 self?.stakedLabel.text = text
             }
             .store(in: &cancellables)
-
+        
         viewModel.$isReadOnly
             .map { !$0 }
             .sink(receiveValue: { [weak self] isReadOnly in
@@ -314,29 +314,29 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             })
             .store(in: &cancellables)
     }
-
+    
     @IBAction func retryAccountCreationTapped(_ sender: Any) {
         presenter.userTappedRetryAccountCreation()
     }
-
+    
     @IBAction func removeFailedLocalAccountTapped(_ sender: Any) {
         presenter.userTappedRemoveFailedAccount()
     }
-
+    
     @IBAction func gtuDropTapped(_ sender: UIButton) {
         sender.isEnabled = false
         presenter.gtuDropTapped()
     }
-
+    
     @IBAction func pressedUnlock(_ sender: UIBarButtonItem) {
         sender.isEnabled = false
         presenter.pressedUnlock()
     }
-
+    
     @IBAction func pressedGeneral(_ sender: UIButton) {
         presenter.userSelectedGeneral()
     }
-
+    
     @IBAction func pressedShielded(_ sender: UIButton) {
         presenter.userSelectedShieled()
     }
@@ -357,7 +357,7 @@ extension AccountDetailsViewController {
             transactionsVC.view.isHidden = true
         }
     }
-
+    
     fileprivate func updateTransfersUI(hasTransfers: Bool) {
         // If no transfers show message
         if hasTransfers {
@@ -367,23 +367,23 @@ extension AccountDetailsViewController {
             transactionsVC.view.isHidden = true
             errorMessageLabel.text = "accountDetails.noTransfers".localized
         }
-
-        #if ENABLE_GTU_DROP
-            if hasTransfers {
+        
+#if ENABLE_GTU_DROP
+        if hasTransfers {
             self.gtuDropView.isHidden = true
-                errorMessageLabel.superview?.isHidden = false
-            } else {
-                if presenter.showGTUDrop() {
+            errorMessageLabel.superview?.isHidden = false
+        } else {
+            if presenter.showGTUDrop() {
                 self.gtuDropView.isHidden = false
-                    errorMessageLabel.superview?.isHidden = true
-                } else {
+                errorMessageLabel.superview?.isHidden = true
+            } else {
                 self.gtuDropView.isHidden = true
-                    errorMessageLabel.superview?.isHidden = false
-                }
+                errorMessageLabel.superview?.isHidden = false
             }
-        #endif
+        }
+#endif
     }
-
+    
     fileprivate func setupUIBasedOn(_ state: SubmissionStatusEnum, isReadOnly: Bool) {
         var showMessage = false
         var message = ""
@@ -391,9 +391,9 @@ extension AccountDetailsViewController {
         var statusIconImageName = ""
         var canSend = false
         switch state {
-        // received and committed should be handled the same way
-        // Difference is that the committed state will have a block has because it is on a block (but no yet finalized).
-        // received state is not yet in a block. Both can be interpreted as "pending" state
+            // received and committed should be handled the same way
+            // Difference is that the committed state will have a block has because it is on a block (but no yet finalized).
+            // received state is not yet in a block. Both can be interpreted as "pending" state
         case .committed, .received:
             showMessage = true
             message = "accountDetails.committedMessage".localized
