@@ -27,7 +27,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     private var shieldEnabled: Bool = false
     private var viewModel: AccountDetailsViewModel!
 
-    @IBOutlet weak var tabBar: UIView!
     @IBOutlet weak var totalsStackView: UIStackView!
     @IBOutlet weak var retryCreateButton: StandardButton!
     @IBOutlet weak var removeLocalAccountButton: StandardButton!
