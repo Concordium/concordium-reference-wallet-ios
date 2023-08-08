@@ -328,7 +328,7 @@ class AccountDetailsCoordinator: Coordinator,
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func showManageView() {
-        
+        // 
     }
     
     func tokenSelected(_ token: Token) {
