@@ -22,11 +22,13 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     var presenter: AccountDetailsPresenterProtocol
     var isShielded: Bool = false
     private weak var updateTimer: Timer?
+    private let tabViewModel = MaterialTabBar.ViewModel()
     private var sendEnabled: Bool = false
     private var receiveEnabled: Bool = false
     private var shieldEnabled: Bool = false
     private var viewModel: AccountDetailsViewModel!
 
+    @IBOutlet weak var tabBar: UIView!
     @IBOutlet weak var totalsStackView: UIStackView!
     @IBOutlet weak var retryCreateButton: StandardButton!
     @IBOutlet weak var removeLocalAccountButton: StandardButton!
