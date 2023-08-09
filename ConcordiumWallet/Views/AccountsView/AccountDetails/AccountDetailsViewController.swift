@@ -69,7 +69,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         self.presenter = presenter
         super.init(coder: coder)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -116,7 +116,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopRefreshTimer()
@@ -126,7 +126,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if self.isMovingFromParent {
@@ -134,16 +134,16 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             transactionsVC = nil
         }
     }
-
+    
     @objc func appDidBecomeActive() {
         presenter.updateTransfersOnChanges()
         startRefreshTimer()
     }
-
+    
     @objc func appWillResignActive() {
         stopRefreshTimer()
     }
-
+    
     func startRefreshTimer() {
         updateTimer = Timer.scheduledTimer(timeInterval: 5.0,
                                            target: self,
@@ -151,14 +151,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                                            userInfo: nil,
                                            repeats: true)
     }
-
+    
     func stopRefreshTimer() {
         if updateTimer != nil {
             updateTimer?.invalidate()
             updateTimer = nil
         }
     }
-
+    
     @objc func refreshOnTimerCallback() {
         presenter.updateTransfersOnChanges()
     }
