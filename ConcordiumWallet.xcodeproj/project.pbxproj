@@ -89,6 +89,10 @@
 		01E61BA62A81B13800F3EEF6 /* AccountTokensTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BA42A81B13800F3EEF6 /* AccountTokensTableViewCell.swift */; };
 		01E61BA72A81B13800F3EEF6 /* AccountTokensTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BA42A81B13800F3EEF6 /* AccountTokensTableViewCell.swift */; };
 		01E61BA82A81B13800F3EEF6 /* AccountTokensTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BA42A81B13800F3EEF6 /* AccountTokensTableViewCell.swift */; };
+		01E61BAB2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */; };
+		01E61BAC2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */; };
+		01E61BAD2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */; };
+		01E61BAE2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */; };
 		01EBC3F82A556DF600D15E91 /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC3F62A556DF600D15E91 /* PairingInteracting+Nuke.swift */; };
 		01EBC3F92A556DF600D15E91 /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC3F62A556DF600D15E91 /* PairingInteracting+Nuke.swift */; };
 		01EBC3FA2A556DF600D15E91 /* PairingInteracting+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC3F62A556DF600D15E91 /* PairingInteracting+Nuke.swift */; };
@@ -2761,6 +2765,7 @@
 		01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayloadEntity.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
 		01E61BA42A81B13800F3EEF6 /* AccountTokensTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensTableViewCell.swift; sourceTree = "<group>"; };
+		01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLookupView.swift; sourceTree = "<group>"; };
 		01EBC3F62A556DF600D15E91 /* PairingInteracting+Nuke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PairingInteracting+Nuke.swift"; sourceTree = "<group>"; };
 		01EBC3F72A556DF600D15E91 /* SignClientProtocol+Nuke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignClientProtocol+Nuke.swift"; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
@@ -3611,6 +3616,14 @@
 				CD3E4A932A56D6ED00D7FBF3 /* WalletConnectSignMessageView.swift */,
 			);
 			path = ApproveScreen;
+			sourceTree = "<group>";
+		};
+		01E61BA92A83C0C700F3EEF6 /* TokenLookup */ = {
+			isa = PBXGroup;
+			children = (
+				01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */,
+			);
+			path = TokenLookup;
 			sourceTree = "<group>";
 		};
 		0604236C23FD61560085D14C /* NavigationController */ = {
@@ -5376,6 +5389,7 @@
 		C924B2252431D38400081E23 /* AccountDetails */ = {
 			isa = PBXGroup;
 			children = (
+				01E61BA92A83C0C700F3EEF6 /* TokenLookup */,
 				012888A12A7A7540007D5325 /* AccountTokens */,
 				8DB887A4295D741B00BBEB76 /* Settings */,
 				8D9E398329504640007ED183 /* ExportTransactionLog */,
@@ -6341,6 +6355,7 @@
 				7F48C188244DCD0B00997684 /* AccountsPresenter.swift in Sources */,
 				CD3E4A942A56D6ED00D7FBF3 /* WalletConnectSignMessageView.swift in Sources */,
 				89B34A482897B3C00059891C /* RecoveryPhraseRecoverCompleteViewModel.swift in Sources */,
+				01E61BAB2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */,
 				89CF2D4E281945F200742E1E /* ChainParametersResponse.swift in Sources */,
 				7F48C25A244E17D100997684 /* IdentityObject.swift in Sources */,
 				7F48C18B244DCD0B00997684 /* CreateIdentityCoordinator.swift in Sources */,
@@ -7173,6 +7188,7 @@
 				0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				0131338F2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */,
 				891B19D528A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
+				01E61BAD2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */,
 				FA0CAB26294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
 				896B424028B49A6700D1F271 /* SelectIdentityPresenter.swift in Sources */,
@@ -7746,6 +7762,7 @@
 				0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				013133902A386C9E0050AE93 /* WCDebugViewController.swift in Sources */,
 				891B19D628A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
+				01E61BAE2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */,
 				FA0CAB27294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
 				896B424128B49A6700D1F271 /* SelectIdentityPresenter.swift in Sources */,
@@ -7925,6 +7942,7 @@
 				C9C097A52433163A00ACA35A /* UIButton+StoryboardLocalization.swift in Sources */,
 				C9BFC836242A2FA00063AEE9 /* LoadProtocol.swift in Sources */,
 				068DC81023F2E46E001B2975 /* BaseButton.swift in Sources */,
+				01E61BAC2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */,
 				068DC80E23F2E464001B2975 /* BaseLabel.swift in Sources */,
 				89B34A582897BFBC0059891C /* RecoveryPhraseRecoverCompletePresenter.swift in Sources */,
 				077AC5F026E789E30016BF26 /* ContactSupportButtonWidgetViewController.swift in Sources */,

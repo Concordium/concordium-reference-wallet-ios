@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol AccountDetailsDelegate: AnyObject {
     func accountDetailsClosed()
@@ -328,7 +329,8 @@ class AccountDetailsCoordinator: Coordinator,
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func showManageView() {
-        // 
+        
+        self.navigationController.present(UIHostingController(rootView: TokenLookupView()), animated: true)
     }
     
     func tokenSelected(_ token: Token) {
