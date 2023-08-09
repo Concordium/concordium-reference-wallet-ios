@@ -288,23 +288,23 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self?.spacerView.setHiddenIfChanged(false)
             }
         }.store(in: &cancellables)
-
+        
         viewModel.$atDisposal
             .compactMap { $0 }
             .assign(to: \.text, on: atDisposalLabel)
             .store(in: &cancellables)
-
+        
         viewModel.$stakedValue
             .compactMap { $0 }
             .assign(to: \.text, on: stakedValueLabel)
             .store(in: &cancellables)
-
+        
         viewModel.$stakedLabel
             .sink { [weak self](text) in
                 self?.stakedLabel.text = text
             }
             .store(in: &cancellables)
-
+        
         viewModel.$isReadOnly
             .map { !$0 }
             .sink(receiveValue: { [weak self] isReadOnly in
@@ -312,29 +312,29 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             })
             .store(in: &cancellables)
     }
-
+    
     @IBAction func retryAccountCreationTapped(_ sender: Any) {
         presenter.userTappedRetryAccountCreation()
     }
-
+    
     @IBAction func removeFailedLocalAccountTapped(_ sender: Any) {
         presenter.userTappedRemoveFailedAccount()
     }
-
+    
     @IBAction func gtuDropTapped(_ sender: UIButton) {
         sender.isEnabled = false
         presenter.gtuDropTapped()
     }
-
+    
     @IBAction func pressedUnlock(_ sender: UIBarButtonItem) {
         sender.isEnabled = false
         presenter.pressedUnlock()
     }
-
+    
     @IBAction func pressedGeneral(_ sender: UIButton) {
         presenter.userSelectedGeneral()
     }
-
+    
     @IBAction func pressedShielded(_ sender: UIButton) {
         presenter.userSelectedShieled()
     }
@@ -355,7 +355,7 @@ extension AccountDetailsViewController {
             transactionsVC.view.isHidden = true
         }
     }
-
+    
     fileprivate func updateTransfersUI(hasTransfers: Bool) {
         // If no transfers show message
         if hasTransfers {
@@ -365,23 +365,23 @@ extension AccountDetailsViewController {
             transactionsVC.view.isHidden = true
             errorMessageLabel.text = "accountDetails.noTransfers".localized
         }
-
-        #if ENABLE_GTU_DROP
-            if hasTransfers {
+        
+#if ENABLE_GTU_DROP
+        if hasTransfers {
             self.gtuDropView.isHidden = true
-                errorMessageLabel.superview?.isHidden = false
-            } else {
-                if presenter.showGTUDrop() {
+            errorMessageLabel.superview?.isHidden = false
+        } else {
+            if presenter.showGTUDrop() {
                 self.gtuDropView.isHidden = false
-                    errorMessageLabel.superview?.isHidden = true
-                } else {
+                errorMessageLabel.superview?.isHidden = true
+            } else {
                 self.gtuDropView.isHidden = true
-                    errorMessageLabel.superview?.isHidden = false
-                }
+                errorMessageLabel.superview?.isHidden = false
             }
-        #endif
+        }
+#endif
     }
-
+    
     fileprivate func setupUIBasedOn(_ state: SubmissionStatusEnum, isReadOnly: Bool) {
         var showMessage = false
         var message = ""
