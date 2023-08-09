@@ -13,7 +13,7 @@ import SwiftUI
 class AccountDetailsFactory {
     class func create(with presenter: AccountDetailsPresenter) -> AccountDetailsViewController {
         AccountDetailsViewController.instantiate(fromStoryboard: "Account") { coder in
-            AccountDetailsViewController(coder: coder, presenter: presenter)
+            return AccountDetailsViewController(coder: coder, presenter: presenter)
         }
     }
 }
@@ -26,33 +26,36 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     private var receiveEnabled: Bool = false
     private var shieldEnabled: Bool = false
     private var viewModel: AccountDetailsViewModel!
-    @IBOutlet var totalsStackView: UIStackView!
-    @IBOutlet var retryCreateButton: StandardButton!
-    @IBOutlet var removeLocalAccountButton: StandardButton!
 
-    @IBOutlet var errorMessageLabel: UILabel!
-    @IBOutlet var statusImageView: UIImageView!
-    @IBOutlet var containerView: UIView!
-
-    @IBOutlet var backgroundShield: UIImageView!
-
-    @IBOutlet var readOnlyView: UIView!
-    @IBOutlet var balanceNameLabel: UILabel!
-    @IBOutlet var balanceLabel: UILabel!
-    @IBOutlet var atDisposalView: UIView!
-    @IBOutlet var stakedView: UIView!
-
-    @IBOutlet var atDisposalLabel: UILabel!
-    @IBOutlet var stakedValueLabel: UILabel!
-    @IBOutlet var stakedLabel: UILabel!
-
-    @IBOutlet var buttonsView: UIView!
-    @IBOutlet var generalButton: UIButton!
-    @IBOutlet var shieldedButton: UIButton!
-    @IBOutlet var spacerView: UIView!
-    @IBOutlet var topSpacingStackViewConstraint: NSLayoutConstraint!
-    @IBOutlet var buttonSliderContainer: RoundedCornerView!
-    @IBOutlet var gtuDropView: UIView! {
+    @IBOutlet weak var tabBar: UIView!
+    @IBOutlet weak var totalsStackView: UIStackView!
+    @IBOutlet weak var retryCreateButton: StandardButton!
+    @IBOutlet weak var removeLocalAccountButton: StandardButton!
+    
+    @IBOutlet weak var errorMessageLabel: UILabel!
+    @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var backgroundShield: UIImageView!
+    
+    @IBOutlet weak var readOnlyView: UIView!
+    @IBOutlet weak var balanceNameLabel: UILabel!
+    @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var atDisposalView: UIView!
+    @IBOutlet weak var stakedView: UIView!
+    
+    @IBOutlet weak var atDisposalLabel: UILabel!
+    @IBOutlet weak var stakedValueLabel: UILabel!
+    @IBOutlet weak var stakedLabel: UILabel!
+    
+    @IBOutlet weak var buttonsView: UIView!
+    @IBOutlet weak var generalButton: UIButton!
+    @IBOutlet weak var shieldedButton: UIButton!
+    @IBOutlet weak var spacerView: UIView!
+    @IBOutlet weak var topSpacingStackViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonSliderContainer: RoundedCornerView!
+    
+    @IBOutlet weak var gtuDropView: UIView! {
         didSet {
             gtuDropView.isHidden = true
         }
@@ -278,7 +281,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
                 self.view.layoutIfNeeded()
             }
         }.store(in: &cancellables)
-
+        
         viewModel.$isShieldedEnabled.sink { [weak self] enabled in
             if enabled {
                 self?.buttonsView.setHiddenIfChanged(false)
