@@ -389,9 +389,9 @@ extension AccountDetailsViewController {
         var statusIconImageName = ""
         var canSend = false
         switch state {
-        // received and committed should be handled the same way
-        // Difference is that the committed state will have a block has because it is on a block (but no yet finalized).
-        // received state is not yet in a block. Both can be interpreted as "pending" state
+            // received and committed should be handled the same way
+            // Difference is that the committed state will have a block has because it is on a block (but no yet finalized).
+            // received state is not yet in a block. Both can be interpreted as "pending" state
         case .committed, .received:
             showMessage = true
             message = "accountDetails.committedMessage".localized
