@@ -921,7 +921,6 @@
 		7F48C165244DCD0B00997684 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80F23F2E46E001B2975 /* BaseButton.swift */; };
 		7F48C166244DCD0B00997684 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80D23F2E464001B2975 /* BaseLabel.swift */; };
 		7F48C169244DCD0B00997684 /* IdentityRevokersWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB12A9223F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift */; };
-		7F48C16A244DCD0B00997684 /* AccountDetailsIdentityDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C22439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift */; };
 		7F48C16B244DCD0B00997684 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7F48C16C244DCD0B00997684 /* CreationFailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092A242762440022250B /* CreationFailedViewController.swift */; };
 		7F48C170244DCD0B00997684 /* EnterPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD878582406AF7C00509BDB /* EnterPasswordViewController.swift */; };
@@ -973,8 +972,6 @@
 		7F48C1BF244DCD0B00997684 /* IdentityDataSelectionWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DB8A1C2423C328008551B8 /* IdentityDataSelectionWidgetViewController.swift */; };
 		7F48C1C0244DCD0B00997684 /* IdentityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93EFF3124107F26002D6DB7 /* IdentityCell.swift */; };
 		7F48C1C2244DCD0B00997684 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
-		7F48C1C3244DCD0B00997684 /* AccountDetailsIdentityDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C32439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift */; };
-		7F48C1C7244DCD0B00997684 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		7F48C1C9244DCD0B00997684 /* AccountConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092624275C5A0022250B /* AccountConfirmedViewController.swift */; };
 		7F48C1CA244DCD0B00997684 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */; };
 		7F48C1D3244DCD0B00997684 /* IdentityDataWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9874EC72417931E006EF386 /* IdentityDataWidgetViewController.swift */; };
@@ -1131,7 +1128,6 @@
 		7F85B701246A9A7C00ED09B8 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80D23F2E464001B2975 /* BaseLabel.swift */; };
 		7F85B702246A9A7C00ED09B8 /* ArDatum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21397F24236C0A00D2A5C4 /* ArDatum.swift */; };
 		7F85B704246A9A7C00ED09B8 /* IdentityRevokersWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB12A9223F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift */; };
-		7F85B705246A9A7C00ED09B8 /* AccountDetailsIdentityDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C22439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift */; };
 		7F85B706246A9A7C00ED09B8 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7F85B707246A9A7C00ED09B8 /* TransactionSubmittedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968B9EE2448C37C00E31BD8 /* TransactionSubmittedViewController.swift */; };
 		7F85B708246A9A7C00ED09B8 /* CreationFailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092A242762440022250B /* CreationFailedViewController.swift */; };
@@ -1204,14 +1200,12 @@
 		7F85B766246A9A7C00ED09B8 /* IdentityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93EFF3124107F26002D6DB7 /* IdentityCell.swift */; };
 		7F85B767246A9A7C00ED09B8 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
 		7F85B768246A9A7C00ED09B8 /* OriginTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE9124598D6500B7673F /* OriginTypeEnum.swift */; };
-		7F85B769246A9A7C00ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C32439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift */; };
 		7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8E24598D6500B7673F /* Details.swift */; };
 		7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E6389607D36FEE307DE7 /* Description.swift */; };
 		7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8F24598D6500B7673F /* RemoteTransactions.swift */; };
 		7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED71C2461B2030071A4FB /* TransactionDetailViewController.swift */; };
 		7F85B76F246A9A7C00ED09B8 /* ServerErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21399024236ECB00D2A5C4 /* ServerErrorMessage.swift */; };
 		7F85B770246A9A7C00ED09B8 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */; };
-		7F85B771246A9A7C00ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		7F85B772246A9A7C00ED09B8 /* IDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED7945E8885037199CAF /* IDRequest.swift */; };
 		7F85B773246A9A7C00ED09B8 /* AccountConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092624275C5A0022250B /* AccountConfirmedViewController.swift */; };
 		7F85B774246A9A7C00ED09B8 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */; };
@@ -1315,7 +1309,6 @@
 		7F85B800246A9AB600ED09B8 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068DC80D23F2E464001B2975 /* BaseLabel.swift */; };
 		7F85B801246A9AB600ED09B8 /* ArDatum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21397F24236C0A00D2A5C4 /* ArDatum.swift */; };
 		7F85B803246A9AB600ED09B8 /* IdentityRevokersWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB12A9223F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift */; };
-		7F85B804246A9AB600ED09B8 /* AccountDetailsIdentityDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C22439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift */; };
 		7F85B805246A9AB600ED09B8 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF07AE123EADEFD00F1FC04 /* String+Localizable.swift */; };
 		7F85B806246A9AB600ED09B8 /* TransactionSubmittedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968B9EE2448C37C00E31BD8 /* TransactionSubmittedViewController.swift */; };
 		7F85B807246A9AB600ED09B8 /* CreationFailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092A242762440022250B /* CreationFailedViewController.swift */; };
@@ -1388,14 +1381,12 @@
 		7F85B865246A9AB600ED09B8 /* IdentityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93EFF3124107F26002D6DB7 /* IdentityCell.swift */; };
 		7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2232430799400081E23 /* UILabel+localized.swift */; };
 		7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE9124598D6500B7673F /* OriginTypeEnum.swift */; };
-		7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C32439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift */; };
 		7F85B869246A9AB600ED09B8 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8E24598D6500B7673F /* Details.swift */; };
 		7F85B86A246A9AB600ED09B8 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2E6389607D36FEE307DE7 /* Description.swift */; };
 		7F85B86B246A9AB600ED09B8 /* RemoteTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA0AE8F24598D6500B7673F /* RemoteTransactions.swift */; };
 		7F85B86C246A9AB600ED09B8 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED71C2461B2030071A4FB /* TransactionDetailViewController.swift */; };
 		7F85B86E246A9AB600ED09B8 /* ServerErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F21399024236ECB00D2A5C4 /* ServerErrorMessage.swift */; };
 		7F85B86F246A9AB600ED09B8 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D342B8245884AA007ED45E /* ShowAlertProtocol.swift */; };
-		7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
 		7F85B871246A9AB600ED09B8 /* IDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED7945E8885037199CAF /* IDRequest.swift */; };
 		7F85B872246A9AB600ED09B8 /* AccountConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D092624275C5A0022250B /* AccountConfirmedViewController.swift */; };
 		7F85B873246A9AB600ED09B8 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924B2272431D3A200081E23 /* AccountDetailsViewController.swift */; };
@@ -2451,9 +2442,6 @@
 		C94ED725246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED723246301740071A4FB /* TransactionDetailErrorCellView.swift */; };
 		C94ED727246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED726246302160071A4FB /* TransactionDetailInfoCellView.swift */; };
 		C94ED728246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94ED726246302160071A4FB /* TransactionDetailInfoCellView.swift */; };
-		C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */; };
-		C95CE0C42439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C22439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift */; };
-		C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CE0C32439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift */; };
 		C96632502459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C966324E2459B85A0087A1F2 /* AccountTransactionsDataViewController.swift */; };
 		C96632512459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C966324E2459B85A0087A1F2 /* AccountTransactionsDataViewController.swift */; };
 		C96632522459B85A0087A1F2 /* AccountTransactionsDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C966324F2459B85A0087A1F2 /* AccountTransactionsDataPresenter.swift */; };
@@ -3398,9 +3386,6 @@
 		C94ED71C2461B2030071A4FB /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
 		C94ED723246301740071A4FB /* TransactionDetailErrorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailErrorCellView.swift; sourceTree = "<group>"; };
 		C94ED726246302160071A4FB /* TransactionDetailInfoCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailInfoCellView.swift; sourceTree = "<group>"; };
-		C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsIdentityDataCellView.swift; sourceTree = "<group>"; };
-		C95CE0C22439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsIdentityDataPresenter.swift; sourceTree = "<group>"; };
-		C95CE0C32439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsIdentityDataViewController.swift; sourceTree = "<group>"; };
 		C966324E2459B85A0087A1F2 /* AccountTransactionsDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTransactionsDataViewController.swift; sourceTree = "<group>"; };
 		C966324F2459B85A0087A1F2 /* AccountTransactionsDataPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTransactionsDataPresenter.swift; sourceTree = "<group>"; };
 		C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTransactionsDataCellView.swift; sourceTree = "<group>"; };
@@ -5375,7 +5360,6 @@
 				8D9E398329504640007ED183 /* ExportTransactionLog */,
 				FA0CAB18294B8E480009D5F8 /* ExportPrivateKey */,
 				19C2E456CE69EAD7FE3A4901 /* AccountAddressQR */,
-				C95CE0C12439F04D00B1A88D /* AccountDetailsIdentityData */,
 				C966324D2459B85A0087A1F2 /* AccountTransactionsData */,
 				5248E7D5257A60DC00E4F6EC /* BurgerMenu */,
 				527DE3442571254800333E65 /* ReleaseSchedule */,
@@ -5430,7 +5414,6 @@
 			isa = PBXGroup;
 			children = (
 				C9DE5076242CF7CC00DE0EF5 /* AccountCell.swift */,
-				C95CE0BF2439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift */,
 				52589B2525128F8700ADD35B /* AccountMultiBalanceCell.swift */,
 				C96632542459B9260087A1F2 /* AccountTransactionsDataCellView.swift */,
 				19C2ED0E82FC1B8F4D86D8B8 /* AccountTransactionsLoadingCellView.swift */,
@@ -5453,15 +5436,6 @@
 				C94ED71C2461B2030071A4FB /* TransactionDetailViewController.swift */,
 			);
 			path = TransactionDetail;
-			sourceTree = "<group>";
-		};
-		C95CE0C12439F04D00B1A88D /* AccountDetailsIdentityData */ = {
-			isa = PBXGroup;
-			children = (
-				C95CE0C22439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift */,
-				C95CE0C32439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift */,
-			);
-			path = AccountDetailsIdentityData;
 			sourceTree = "<group>";
 		};
 		C966324D2459B85A0087A1F2 /* AccountTransactionsData */ = {
@@ -6260,7 +6234,6 @@
 				7F48C166244DCD0B00997684 /* BaseLabel.swift in Sources */,
 				7F48C169244DCD0B00997684 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				7F7F6D2F24A09AE90017B18F /* DeleteIdentityButtonWidgetPresenter.swift in Sources */,
-				7F48C16A244DCD0B00997684 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
 				89D46852289CF390007D3FC8 /* CreateSeedIdentityView.swift in Sources */,
 				7F48C27B244E17D100997684 /* SubmissionResponse.swift in Sources */,
 				7F48C16B244DCD0B00997684 /* String+Localizable.swift in Sources */,
@@ -6476,10 +6449,8 @@
 				7F48C1C2244DCD0B00997684 /* UILabel+localized.swift in Sources */,
 				642ED92C25E8DFE300A09BB3 /* TransferFiltersPresenter.swift in Sources */,
 				89B34A3D289403930059891C /* AutoFocusTextField.swift in Sources */,
-				7F48C1C3244DCD0B00997684 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				52D35112250AA46400858AC6 /* PublicEncriptionKey.swift in Sources */,
 				891B19CE28A2563100F4B0D6 /* SubmitSeedAccountView.swift in Sources */,
-				7F48C1C7244DCD0B00997684 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				7F48C1C9244DCD0B00997684 /* AccountConfirmedViewController.swift in Sources */,
 				642A293D25FB967A0073BF8C /* CredentialPublicKeys.swift in Sources */,
 				8992BAB3283630F4005279C9 /* String+Links.swift in Sources */,
@@ -6782,7 +6753,6 @@
 				7F85B701246A9A7C00ED09B8 /* BaseLabel.swift in Sources */,
 				7F85B702246A9A7C00ED09B8 /* ArDatum.swift in Sources */,
 				7F85B704246A9A7C00ED09B8 /* IdentityRevokersWidgetPresenter.swift in Sources */,
-				7F85B705246A9A7C00ED09B8 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
 				52055F882552C1D90071F7CA /* NibLoadable.swift in Sources */,
 				7F85B706246A9A7C00ED09B8 /* String+Localizable.swift in Sources */,
 				7F85B707246A9A7C00ED09B8 /* TransactionSubmittedViewController.swift in Sources */,
@@ -6977,7 +6947,6 @@
 				07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */,
 				89B34A6C2897D1110059891C /* IdentityReccoveryStatusView.swift in Sources */,
 				891B19FF28A62FC000F4B0D6 /* Publisher+Async.swift in Sources */,
-				7F85B769246A9A7C00ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				5251EFA627C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
@@ -6993,7 +6962,6 @@
 				64FD333C25FF8A7C00563703 /* KeyList.swift in Sources */,
 				7F85B770246A9A7C00ED09B8 /* ShowAlertProtocol.swift in Sources */,
 				901F7F1327EA0D5C00C46741 /* PoolInfo.swift in Sources */,
-				7F85B771246A9A7C00ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				077AC5F626E8DD3E0016BF26 /* CopyReferenceWidgetPresenter.swift in Sources */,
 				012888A52A7A7572007D5325 /* AccountTokensViewController.swift in Sources */,
 				89A056F0286C57AF0055C049 /* SwiftUI+Presenters.swift in Sources */,
@@ -7356,7 +7324,6 @@
 				7F85B801246A9AB600ED09B8 /* ArDatum.swift in Sources */,
 				7F85B803246A9AB600ED09B8 /* IdentityRevokersWidgetPresenter.swift in Sources */,
 				52055F892552C1D90071F7CA /* NibLoadable.swift in Sources */,
-				7F85B804246A9AB600ED09B8 /* AccountDetailsIdentityDataPresenter.swift in Sources */,
 				7F85B805246A9AB600ED09B8 /* String+Localizable.swift in Sources */,
 				528EB73E255C1EB600010554 /* GettingStartedPresenter.swift in Sources */,
 				7F85B806246A9AB600ED09B8 /* TransactionSubmittedViewController.swift in Sources */,
@@ -7554,7 +7521,6 @@
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				901F7F4127EB07B800C46741 /* DelegationEntity.swift in Sources */,
-				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				010BCB032A2F563000B50D67 /* SocketFactory.swift in Sources */,
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				89D467E0289B8CAA007D3FC8 /* InitialAccountData.swift in Sources */,
@@ -7574,7 +7540,6 @@
 				FA01C9D5291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
 				FA01C9E1291C5D3100BD8738 /* UITextField+Helper.swift in Sources */,
 				89D46874289D21D2007D3FC8 /* SeedIdentityStatusView.swift in Sources */,
-				7F85B870246A9AB600ED09B8 /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				7F168A0F24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
 				7F85B871246A9AB600ED09B8 /* IDRequest.swift in Sources */,
 				5236EA4425134C4900214174 /* IdentityWrapperShell.swift in Sources */,
@@ -7925,7 +7890,6 @@
 				07619A92269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				FA01C9FB291C5D3100BD8738 /* UINavigationItem+Helper.swift in Sources */,
 				7FB12A9423F2D2E700B49DFA /* IdentityRevokersWidgetPresenter.swift in Sources */,
-				C95CE0C42439F08800B1A88D /* AccountDetailsIdentityDataPresenter.swift in Sources */,
 				7FF07AE223EADEFD00F1FC04 /* String+Localizable.swift in Sources */,
 				90C371C027DB87FC0046F05E /* StakeReceiptPresenter.swift in Sources */,
 				01024FB62A2F4B5300057B74 /* WalletConnectAccountSelectViewModel.swift in Sources */,
@@ -8134,7 +8098,6 @@
 				5251EFA527C6301D006991DD /* AlertDisplayer.swift in Sources */,
 				FA0CAAF62937DD750009D5F8 /* UITapGestureRecognizer.swift in Sources */,
 				901F7FA727F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
-				C95CE0C52439F08800B1A88D /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				FA01C9D3291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
 				7FA0AE9324598D6500B7673F /* Details.swift in Sources */,
 				89D467DA289B8CAA007D3FC8 /* PrivateIDObjectDataWrapper.swift in Sources */,
@@ -8164,7 +8127,6 @@
 				89B34A342892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
 				901F7EF427E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
 				89EB9F5327FEDCF5005F8633 /* BakerPoolGenerateKeyViewController.swift in Sources */,
-				C95CE0C02439EDC500B1A88D /* AccountDetailsIdentityDataCellView.swift in Sources */,
 				19C2E636FADEA7EA4563E778 /* IDRequest.swift in Sources */,
 				079F30FE26EA0F9600ED96D3 /* MailHelper.swift in Sources */,
 				5248E7D8257A60F700E4F6EC /* BurgerMenuViewController.swift in Sources */,
