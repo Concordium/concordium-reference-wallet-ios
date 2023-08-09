@@ -108,6 +108,10 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
+    func userSelected(_ token: Token) {
+        delegate?.tokenSelected(token)
+    }
+    
     func showManageView() {
         self.delegate?.showManageView()
     }
@@ -278,9 +282,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         }
     }
     
-    func userSelected(_ token: Token) {
-        delegate?.tokenSelected(token)
-    }
 
     func userSelectedTransfers() {
         updateTransfers()
