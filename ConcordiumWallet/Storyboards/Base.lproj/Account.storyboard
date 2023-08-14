@@ -1009,86 +1009,6 @@ process on-chain]</string>
             </objects>
             <point key="canvasLocation" x="4316" y="-69.458128078817737"/>
         </scene>
-        <!--Account Details Identity Data View Controller-->
-        <scene sceneID="wu9-Y2-3rh">
-            <objects>
-                <viewController storyboardIdentifier="AccountDetailsIdentityDataViewController" id="BqV-QS-qei" customClass="AccountDetailsIdentityDataViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="27N-oa-Jy9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1EU-Y0-UbC">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountDetailsIdentityDataCellView" rowHeight="80" id="DID-Eo-wIz" customClass="AccountDetailsIdentityDataCellView" customModule="Mock" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="80"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DID-Eo-wIz" id="7UI-eK-aRK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHN-md-ydg">
-                                                    <rect key="frame" x="25" y="21" width="25.666666666666671" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" name="text"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identity Provider" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljK-FR-UVe">
-                                                    <rect key="frame" x="25.000000000000007" y="45.333333333333336" width="93.666666666666686" height="14.666666666666664"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" name="fadedText"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNw-W4-4W5">
-                                                    <rect key="frame" x="356" y="31" width="38" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" name="text"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="zNw-W4-4W5" secondAttribute="trailing" constant="20" id="02Z-qv-Jyn"/>
-                                                <constraint firstItem="ljK-FR-UVe" firstAttribute="top" secondItem="hHN-md-ydg" secondAttribute="baseline" constant="10" id="88c-Vf-9SD"/>
-                                                <constraint firstItem="ljK-FR-UVe" firstAttribute="leading" secondItem="hHN-md-ydg" secondAttribute="leading" id="Hnd-eq-uAH"/>
-                                                <constraint firstItem="zNw-W4-4W5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hHN-md-ydg" secondAttribute="trailing" constant="8" symbolic="YES" id="Jh4-ef-EPd"/>
-                                                <constraint firstItem="zNw-W4-4W5" firstAttribute="centerY" secondItem="7UI-eK-aRK" secondAttribute="centerY" id="Pme-sX-9W0"/>
-                                                <constraint firstItem="zNw-W4-4W5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ljK-FR-UVe" secondAttribute="trailing" constant="8" symbolic="YES" id="Vt8-c6-PoH"/>
-                                                <constraint firstItem="hHN-md-ydg" firstAttribute="leading" secondItem="7UI-eK-aRK" secondAttribute="leading" constant="25" id="bJf-n5-reO"/>
-                                                <constraint firstItem="hHN-md-ydg" firstAttribute="centerY" secondItem="7UI-eK-aRK" secondAttribute="centerY" constant="-10" id="h9Z-cC-QaH"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="identityProviderLabel" destination="ljK-FR-UVe" id="Bov-u7-ETy"/>
-                                            <outlet property="keyLabel" destination="hHN-md-ydg" id="7Ln-W2-3lP"/>
-                                            <outlet property="valueLabel" destination="zNw-W4-4W5" id="NSe-11-HNz"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="4W2-a5-9Nw"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="1EU-Y0-UbC" firstAttribute="top" secondItem="27N-oa-Jy9" secondAttribute="top" id="4om-dk-Qse"/>
-                            <constraint firstItem="1EU-Y0-UbC" firstAttribute="leading" secondItem="27N-oa-Jy9" secondAttribute="leading" id="bYk-Da-whS"/>
-                            <constraint firstAttribute="bottom" secondItem="1EU-Y0-UbC" secondAttribute="bottom" id="ch4-Uz-JXS"/>
-                            <constraint firstAttribute="trailing" secondItem="1EU-Y0-UbC" secondAttribute="trailing" id="gfI-Fk-aZ0"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="300"/>
-                    <connections>
-                        <outlet property="tableView" destination="1EU-Y0-UbC" id="go9-fS-Zop"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wTy-cs-fnn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5313.0841121495323" y="-259.17926565874734"/>
-        </scene>
         <!--Transaction Detail View Controller-->
         <scene sceneID="8He-Cf-WMt">
             <objects>
@@ -1221,7 +1141,7 @@ process on-chain]</string>
                                             <outlet property="transactionIconStatusView" destination="on3-pT-G6S" id="TPL-p1-Te7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailInfoCellView" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-Kf-XGe" customClass="TransactionDetailInfoCellView" customModule="Mock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="130" width="388" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8aO-Kf-XGe" id="UAW-ow-KIf">
@@ -2082,7 +2002,7 @@ process on-chain]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hij-Nc-jDp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5056.5420560747662" y="459.3952483801296"/>
+            <point key="canvasLocation" x="5500" y="461"/>
         </scene>
         <!--Reveal Attributes View Controller-->
         <scene sceneID="1cs-Na-3lM">

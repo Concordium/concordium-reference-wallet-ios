@@ -9,11 +9,6 @@
 import Foundation
 import Combine
 
-enum AccountDetailTab {
-    case transfers
-    case identityData
-}
-
 protocol TransactionsFetcher {
     func getNextTransactions()
 }
@@ -62,14 +57,12 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func showEarn()
 
     func userSelectedGeneral()
-    func userSelectedShieled() 
-    func userSelectedTransfers()
+    func userSelectedShieled()
 
     func showManageView()
     func userSelected(_ token: Token)
     func showGTUDrop() -> Bool
-    func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter
-    func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter
+    func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
 }
 
@@ -117,18 +110,11 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     }
     
     func showGTUDrop() -> Bool {
-        if balanceType == .shielded {
-            return false
-        }
-        return true
+        balanceType != .shielded
     }
     
     func getTitle() -> String {
-        if balanceType == .shielded {
-            return self.account.displayName
-        } else {
-            return self.account.displayName
-        }
+        account.displayName
     }
     
     func viewDidLoad() {
@@ -146,7 +132,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
         } else {
             switchToBalanceType(.balance)
         }
-        userSelectedTransfers()
+        updateTransfers()
     }
     
     func switchToBalanceType(_ balanceType: AccountBalanceTypeEnum) {
@@ -271,27 +257,18 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     func userSelectedShieled() {
         if balanceType != .shielded {
             switchToBalanceType(.shielded)
-            userSelectedTransfers()
+            updateTransfers()
         }
     }
     
     func userSelectedGeneral() {
         if balanceType != .balance {
             switchToBalanceType(.balance)
-            userSelectedTransfers()
+            updateTransfers()
         }
     }
     
-
-    func userSelectedTransfers() {
-        updateTransfers()
-    }
-
-    func getIdentityDataPresenter() -> AccountDetailsIdentityDataPresenter {
-        AccountDetailsIdentityDataPresenter(account: account)
-    }
-
-    func getTransactionsDataPresenter() -> AccountTransactionsDataPresenter {
+    func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter {
         transactionsPresenter = AccountTransactionsDataPresenter(
                 delegate: self, account: account,
                 viewModel: viewModel.transactionsList,
