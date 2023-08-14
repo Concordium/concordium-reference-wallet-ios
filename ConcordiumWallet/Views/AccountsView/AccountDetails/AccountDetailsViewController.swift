@@ -345,7 +345,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 extension AccountDetailsViewController {
 
     private func setupTransactionsUI() {
-        transactionsVC = AccountTransactionsDataFactory.create(with: presenter.getTransactionsDataPresenter())
+        transactionsVC = AccountTransactionsDataFactory.create(with: presenter.createTransactionsDataPresenter())
         add(child: transactionsVC, inside: containerView)
     }
 
