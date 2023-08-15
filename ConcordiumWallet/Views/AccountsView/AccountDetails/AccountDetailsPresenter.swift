@@ -60,7 +60,7 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
     func userSelectedShieled()
 
     func showManageView()
-    func userSelected(_ token: Token)
+    func userSelected(token: Token)
     func showGTUDrop() -> Bool
     func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
@@ -101,7 +101,7 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    func userSelected(_ token: Token) {
+    func userSelected(token: Token) {
         delegate?.tokenSelected(token)
     }
     

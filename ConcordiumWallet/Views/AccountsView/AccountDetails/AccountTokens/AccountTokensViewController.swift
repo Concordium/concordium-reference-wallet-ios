@@ -36,6 +36,17 @@ struct Token {
     ]
 }
 
+class AccountTokensViewFactory {
+    class func create(with presenter: AccountDetailsPresenterProtocol) -> AccountTokensViewController {
+        AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
+            let vc = AccountTokensViewController(coder: coder)
+            vc?.showTokenDetails = presenter.userSelected(token:)
+            vc?.showManageView = presenter.showManageView
+            return vc
+        }
+    }
+}
+
 class AccountTokensViewController: BaseViewController, Storyboarded {
 
     enum Tabs: Int, CaseIterable {

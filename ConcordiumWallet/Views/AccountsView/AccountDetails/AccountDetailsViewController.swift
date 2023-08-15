@@ -91,16 +91,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             .assign(to: \.isHidden, on: transactionsVC.view)
             .store(in: &cancellables)
     }
-    
-    func setupAccountTokensUI() {
-        accountTokensViewController = AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
-            let vc = AccountTokensViewController(coder: coder)
-            vc?.showTokenDetails = self.presenter.userSelected(_:)
-            vc?.showManageView = self.presenter.showManageView
-            return vc
-        }
-        add(child: accountTokensViewController, inside: containerView)
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -343,14 +333,19 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     }
 }
 
-extension AccountDetailsViewController {
+private extension AccountDetailsViewController {
 
-    private func setupTransactionsUI() {
+    func setupAccountTokensUI() {
+        accountTokensViewController = AccountTokensViewFactory.create(with: presenter)
+        add(child: accountTokensViewController, inside: containerView)
+    }
+
+    func setupTransactionsUI() {
         transactionsVC = AccountTransactionsDataFactory.create(with: presenter.createTransactionsDataPresenter())
         add(child: transactionsVC, inside: containerView)
     }
 
-    private func showTransferData(accountState: SubmissionStatusEnum, isReadOnly: Bool, hasTransfers: Bool) {
+    func showTransferData(accountState: SubmissionStatusEnum, isReadOnly: Bool, hasTransfers: Bool) {
         setupUIBasedOn(accountState, isReadOnly: isReadOnly)
         if accountState == .finalized {
             updateTransfersUI(hasTransfers: hasTransfers)
@@ -359,7 +354,7 @@ extension AccountDetailsViewController {
         }
     }
     
-    fileprivate func updateTransfersUI(hasTransfers: Bool) {
+    func updateTransfersUI(hasTransfers: Bool) {
         // If no transfers show message
         if hasTransfers {
             transactionsVC.view.isHidden = false
@@ -385,7 +380,7 @@ extension AccountDetailsViewController {
 #endif
     }
     
-    fileprivate func setupUIBasedOn(_ state: SubmissionStatusEnum, isReadOnly: Bool) {
+    func setupUIBasedOn(_ state: SubmissionStatusEnum, isReadOnly: Bool) {
         var showMessage = false
         var message = ""
         var showErrorButtons = false
