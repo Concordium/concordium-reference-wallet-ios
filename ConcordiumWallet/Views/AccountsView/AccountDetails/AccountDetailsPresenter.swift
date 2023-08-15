@@ -31,14 +31,21 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
     func showEarn()
-
+    func showManageView()
+    func tokenSelected(_ token: Token)
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
 }
 
+/// Defines methods that can be called from AccountTokensViewController.
+protocol AccountTokensPresenterProtocol {
+    func userSelected(token: Token)
+    func showManageTokensView()
+}
+
 // MARK: -
 // MARK: Presenter
-protocol AccountDetailsPresenterProtocol: AnyObject {
+protocol AccountDetailsPresenterProtocol: AnyObject, AccountTokensPresenterProtocol {
     var view: AccountDetailsViewProtocol? { get set }
     func viewDidLoad()
     func viewWillAppear()
@@ -57,7 +64,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
 
     func userSelectedGeneral()
     func userSelectedShieled()
-
     func showGTUDrop() -> Bool
     func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
@@ -98,7 +104,6 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    
     func showGTUDrop() -> Bool {
         balanceType != .shielded
     }
@@ -114,6 +119,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     func setShouldRefresh(_ refresh: Bool) {
         shouldRefresh = refresh
     }
+
     
     func showShieldedBalance(shouldShow: Bool) {
         account = account.withShowShielded(shouldShow)
@@ -265,7 +271,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 transactionsFetcher: self)
         return transactionsPresenter!
     }
-    
+
     func gtuDropTapped() {
         accountsService.gtuDrop(for: account.address)
                 .mapError(ErrorMapper.toViewError)
@@ -414,5 +420,16 @@ extension AccountDetailsPresenter: ShowShieldedDelegate {
     func onboardingCarouselFinished() {
         showShieldedBalance(shouldShow: true)
         self.delegate?.onboardingCarouselFinished()
+    }
+}
+
+// MARK: AccountTokensPresenterProtocol
+extension AccountDetailsPresenter {
+    func userSelected(token: Token) {
+        delegate?.tokenSelected(token)
+    }
+
+    func showManageTokensView() {
+        self.delegate?.showManageView()
     }
 }
