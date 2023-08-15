@@ -10,16 +10,16 @@ import UIKit
 import Combine
 
 struct Token {
-    var id: String = ""
-    var token: String = ""
+    var id: String
+    var token: String
     var isSelected = false
-    var contractIndex: String = ""
-    var subIndex: String = ""
+    var contractIndex: String
+    var subIndex: String
     var isCCDToken = false
-    var symbol = ""
+    var symbol: String
     var atDisposal: Float = 0.0
 
-    init(id: String, token: String, isSelected: Bool = false, contractIndex: String, subIndex: String, isCCDToken: Bool = false, symbol: String = "") {
+    init(id: String, token: String, isSelected: Bool, contractIndex: String, subIndex: String, isCCDToken: Bool = false, symbol: String = "") {
         self.id = id
         self.token = token
         self.isSelected = isSelected
@@ -30,9 +30,9 @@ struct Token {
     }
     
     static var mocked: [Token] = [
-        .init(id: "", token: "CCD", contractIndex: "0", subIndex: "0", symbol: "CCD"),
-        .init(id: "", token: "USDT", contractIndex: "0", subIndex: "0", symbol: "USDT"),
-        .init(id: "", token: "wCCD", contractIndex: "0", subIndex: "0", symbol: "wCCD")
+        .init(id: "", token: "CCD", isSelected: false, contractIndex: "0", subIndex: "0", symbol: "CCD"),
+        .init(id: "", token: "USDT", isSelected: false, contractIndex: "0", subIndex: "0", symbol: "USDT"),
+        .init(id: "", token: "wCCD", isSelected: false, contractIndex: "0", subIndex: "0", symbol: "wCCD")
     ]
 }
 
