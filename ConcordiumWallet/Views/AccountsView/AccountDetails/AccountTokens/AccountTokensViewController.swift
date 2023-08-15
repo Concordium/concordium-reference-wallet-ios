@@ -2,9 +2,6 @@
 //  AccountTokensViewController.swift
 //  ConcordiumWallet
 //
-//  Created by Milan Sawicki on 02/08/2023.
-//  Copyright © 2023 concordium. All rights reserved.
-//
 
 import UIKit
 import Combine
@@ -37,11 +34,9 @@ struct Token {
 }
 
 class AccountTokensViewFactory {
-    class func create(with presenter: AccountDetailsPresenterProtocol) -> AccountTokensViewController {
+    class func create(with presenter: AccountTokensPresenterProtocol) -> AccountTokensViewController {
         AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
-            let vc = AccountTokensViewController(coder: coder)
-            vc?.showTokenDetails = presenter.userSelected(token:)
-            vc?.showManageView = presenter.showManageView
+            let vc = AccountTokensViewController(coder: coder, presenter: presenter)
             return vc
         }
     }
@@ -71,8 +66,17 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     var data: [Token] = Token.mocked
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     var cancellables: [AnyCancellable] = []
-    var showTokenDetails: ((Token) -> Void)?
-    var showManageView: (() -> Void)?
+    private var presenter: AccountTokensPresenterProtocol
+    
+    init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
+        self.presenter = presenter
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tokensTableView.delegate = self
@@ -91,10 +95,14 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                 case .fungible:
                     break // TODO: add filtering
                 case .manage:
-                    self?.showManageView?()
+                    self?.presenter.showManageTokensView()
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func update(data: [Token]) {
+        self.data = data
     }
 }
 
@@ -114,6 +122,6 @@ extension AccountTokensViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.showTokenDetails?(data[indexPath.row])
+        self.presenter.userSelected(token: data[indexPath.row])
     }
 }

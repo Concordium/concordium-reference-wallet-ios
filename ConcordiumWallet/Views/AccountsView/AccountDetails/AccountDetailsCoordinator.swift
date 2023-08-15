@@ -327,6 +327,7 @@ class AccountDetailsCoordinator: Coordinator,
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
+
     func showManageView() {
         //TODO: Show contract lookup view
     }

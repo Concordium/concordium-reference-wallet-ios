@@ -37,9 +37,15 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsClosed()
 }
 
+/// Defines methods that can be called from AccountTokensViewController.
+protocol AccountTokensPresenterProtocol {
+    func userSelected(token: Token)
+    func showManageTokensView()
+}
+
 // MARK: -
 // MARK: Presenter
-protocol AccountDetailsPresenterProtocol: AnyObject {
+protocol AccountDetailsPresenterProtocol: AnyObject, AccountTokensPresenterProtocol {
     var view: AccountDetailsViewProtocol? { get set }
     func viewDidLoad()
     func viewWillAppear()
@@ -58,9 +64,6 @@ protocol AccountDetailsPresenterProtocol: AnyObject {
 
     func userSelectedGeneral()
     func userSelectedShieled()
-
-    func showManageView()
-    func userSelected(token: Token)
     func showGTUDrop() -> Bool
     func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
@@ -101,14 +104,6 @@ class AccountDetailsPresenter {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    func userSelected(token: Token) {
-        delegate?.tokenSelected(token)
-    }
-    
-    func showManageView() {
-        self.delegate?.showManageView()
-    }
-    
     func showGTUDrop() -> Bool {
         balanceType != .shielded
     }
@@ -124,6 +119,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     func setShouldRefresh(_ refresh: Bool) {
         shouldRefresh = refresh
     }
+
     
     func showShieldedBalance(shouldShow: Bool) {
         account = account.withShowShielded(shouldShow)
@@ -424,5 +420,16 @@ extension AccountDetailsPresenter: ShowShieldedDelegate {
     func onboardingCarouselFinished() {
         showShieldedBalance(shouldShow: true)
         self.delegate?.onboardingCarouselFinished()
+    }
+}
+
+// MARK: AccountTokensPresenterProtocol
+extension AccountDetailsPresenter {
+    func userSelected(token: Token) {
+        delegate?.tokenSelected(token)
+    }
+
+    func showManageTokensView() {
+        self.delegate?.showManageView()
     }
 }
