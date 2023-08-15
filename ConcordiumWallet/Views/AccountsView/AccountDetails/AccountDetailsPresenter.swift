@@ -430,6 +430,6 @@ extension AccountDetailsPresenter {
     }
 
     func showManageTokensView() {
-        self.delegate?.showManageView()
+        self.delegate?.showManageCIS2TokensView()
     }
 }

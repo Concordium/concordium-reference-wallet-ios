@@ -48,48 +48,6 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         case fungible
         case collectibles
         case manage
-        
-        var titleLabel: String {
-            switch self {
-            case .fungible:
-                return "Fungible"
-            case .collectibles:
-                return "Collectibles"
-            case .manage:
-                return "Manage"
-            }
-        }
-    }
-
-    @IBOutlet weak var tabBarView: UIView!
-    @IBOutlet weak var tokensTableView: UITableView!
-    var data: [Token] = Token.mocked
-    var tabBarViewModel: MaterialTabBar.ViewModel = .init()
-    var cancellables: [AnyCancellable] = []
-    private var presenter: AccountTokensPresenterProtocol
-    
-    init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
-        self.presenter = presenter
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    static var mocked: [Token] = [
-        .init(id: "", token: "CCD", contractIndex: "0", subIndex: "0", symbol: "CCD"),
-        .init(id: "", token: "USDT", contractIndex: "0", subIndex: "0", symbol: "USDT"),
-        .init(id: "", token: "wCCD", contractIndex: "0", subIndex: "0", symbol: "wCCD")
-    ]
-}
-
-class AccountTokensViewController: BaseViewController, Storyboarded {
-
-    enum Tabs: Int, CaseIterable {
-        case fungible
-        case collectibles
-        case manage
         var titleLabel: String {
             switch self {
             case .fungible:
@@ -109,6 +67,17 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     var cancellables: [AnyCancellable] = []
     var showTokenDetails: ((Token) -> Void)?
     var showManageView: (() -> Void)?
+    private var presenter: AccountTokensPresenterProtocol
+    
+    init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
+        self.presenter = presenter
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tokensTableView.delegate = self
