@@ -28,8 +28,6 @@ private enum TransactionRequest: Hashable {
     }
 }
 
-
-
 class AccountDetailsViewModel {
     enum SelectedSection {
         case transfers

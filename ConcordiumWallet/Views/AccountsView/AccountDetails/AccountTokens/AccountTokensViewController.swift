@@ -2,23 +2,21 @@
 //  AccountTokensViewController.swift
 //  ConcordiumWallet
 //
-//  Created by Milan Sawicki on 02/08/2023.
-//  Copyright © 2023 concordium. All rights reserved.
-//
 
 import UIKit
 import Combine
+
 struct Token {
-    var id: String = ""
-    var token: String = ""
+    var id: String
+    var token: String
     var isSelected = false
-    var contractIndex: String = ""
-    var subIndex: String = ""
+    var contractIndex: String
+    var subIndex: String
     var isCCDToken = false
-    var symbol = ""
+    var symbol: String
     var atDisposal: Float = 0.0
 
-    init(id: String, token: String, isSelected: Bool = false, contractIndex: String, subIndex: String, isCCDToken: Bool = false, symbol: String = "") {
+    init(id: String, token: String, isSelected: Bool, contractIndex: String, subIndex: String, isCCDToken: Bool = false, symbol: String = "") {
         self.id = id
         self.token = token
         self.isSelected = isSelected
@@ -26,6 +24,57 @@ struct Token {
         self.subIndex = subIndex
         self.isCCDToken = isCCDToken
         self.symbol = symbol
+    }
+    
+    static var mocked: [Token] = [
+        .init(id: "", token: "CCD", isSelected: false, contractIndex: "0", subIndex: "0", symbol: "CCD"),
+        .init(id: "", token: "USDT", isSelected: false, contractIndex: "0", subIndex: "0", symbol: "USDT"),
+        .init(id: "", token: "wCCD", isSelected: false, contractIndex: "0", subIndex: "0", symbol: "wCCD")
+    ]
+}
+
+class AccountTokensViewFactory {
+    class func create(with presenter: AccountTokensPresenterProtocol) -> AccountTokensViewController {
+        AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
+            let vc = AccountTokensViewController(coder: coder, presenter: presenter)
+            return vc
+        }
+    }
+}
+
+class AccountTokensViewController: BaseViewController, Storyboarded {
+
+    enum Tabs: Int, CaseIterable {
+        case fungible
+        case collectibles
+        case manage
+        
+        var titleLabel: String {
+            switch self {
+            case .fungible:
+                return "Fungible"
+            case .collectibles:
+                return "Collectibles"
+            case .manage:
+                return "Manage"
+            }
+        }
+    }
+
+    @IBOutlet weak var tabBarView: UIView!
+    @IBOutlet weak var tokensTableView: UITableView!
+    var data: [Token] = Token.mocked
+    var tabBarViewModel: MaterialTabBar.ViewModel = .init()
+    var cancellables: [AnyCancellable] = []
+    private var presenter: AccountTokensPresenterProtocol
+    
+    init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
+        self.presenter = presenter
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     static var mocked: [Token] = [
@@ -78,7 +127,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                 case .fungible:
                     break // TODO: add filtering
                 case .manage:
-                    self?.showManageView?()
+                    self?.presenter.showManageTokensView()
                 }
             }
             .store(in: &cancellables)
@@ -101,6 +150,6 @@ extension AccountTokensViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.showTokenDetails?(data[indexPath.row])
+        self.presenter.userSelected(token: data[indexPath.row])
     }
 }
