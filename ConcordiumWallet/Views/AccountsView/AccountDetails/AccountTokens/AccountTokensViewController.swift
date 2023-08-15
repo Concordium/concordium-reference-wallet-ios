@@ -53,6 +53,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         case fungible
         case collectibles
         case manage
+        
         var titleLabel: String {
             switch self {
             case .fungible:
