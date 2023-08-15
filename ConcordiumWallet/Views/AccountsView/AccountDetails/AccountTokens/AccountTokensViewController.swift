@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+
 struct Token {
     var id: String = ""
     var token: String = ""
