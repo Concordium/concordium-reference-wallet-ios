@@ -65,8 +65,6 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     var data: [Token] = Token.mocked
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     var cancellables: [AnyCancellable] = []
-    var showTokenDetails: ((Token) -> Void)?
-    var showManageView: (() -> Void)?
     private var presenter: AccountTokensPresenterProtocol
     
     init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
