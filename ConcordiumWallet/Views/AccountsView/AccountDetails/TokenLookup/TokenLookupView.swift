@@ -22,24 +22,34 @@ struct CIS2Token: Codable {
 }
 
 struct TokenLookupView: View {
+    enum TokenError: Error {
+        case inputError(msg: String)
+        case networkError(err: Error)
+    }
+    
     var service: CIS2ServiceProtocol
     var didTapSearch: ((_ tokens: [CIS2Token]) -> Void)?
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
     private var cancellables: [AnyCancellable] = []
     @State private var tokenIndex: String = ""
     @State private var tokens: [CIS2Token] = []
+    @State private var error: Error?
 
     init(service: CIS2ServiceProtocol) {
         self.service = service
     }
 
-    var tokensPublisher: AnyPublisher<[CIS2Token], Never> {
+    var tokensPublisher: AnyPublisher<[CIS2Token], TokenError> {
         tokenIndexPublisher
             .filter { !$0.isEmpty }
             .debounce(for: 0.8, scheduler: RunLoop.main)
-            .map {
-                service.fetchTokens(contractIndex: $0, contractSubindex: "0").map { $0.tokens }
-                    .replaceError(with: [])
+            .map { token in
+//                if token.isEmpty {
+//                    return AnyPublisher<[CIS2Token], TokenError>.fail(TokenError.inputError(msg: "input is empty"))
+//                }
+                return service.fetchTokens(contractIndex: token, contractSubindex: "0")
+                    .map { $0.tokens }
+                    .mapError { TokenError.networkError(err: $0) }
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
@@ -71,8 +81,12 @@ struct TokenLookupView: View {
             .cornerRadius(10)
         }
         .padding()
-        .onReceive(tokensPublisher, perform: { tokens in
-            self.tokens = tokens
-        })
+        .onReceive(
+            tokensPublisher.catch({ err -> Empty in
+                self.error = err
+                return Empty()
+            }),
+            perform: { self.tokens = $0 }
+        )
     }
 }
