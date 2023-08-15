@@ -36,7 +36,7 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, retryFailedAccount: AccountDataType)
     func accountDetailsPresenter(_ accountDetailsPresenter: AccountDetailsPresenter, removeFailedAccount: AccountDataType)
     func showEarn()
-    func showManageView()
+    func showManageCIS2TokensView()
     func tokenSelected(_ token: Token)
     func transactionSelected(viewModel: TransactionViewModel)
     func accountDetailsClosed()
@@ -113,7 +113,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     }
     
     func showManageView() {
-        self.delegate?.showManageView()
+        self.delegate?.showManageCIS2TokensView()
     }
     
     func showGTUDrop() -> Bool {
@@ -130,7 +130,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             return self.account.displayName
         }
     }
-    
+
     func viewDidLoad() {
         view?.bind(to: viewModel)
     }

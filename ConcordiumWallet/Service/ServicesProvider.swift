@@ -30,6 +30,10 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
 }
 
 // sourcery: AutoMockable
+protocol CIS2TokensCoordinatorDependencyProvider {
+    func cis2Service() -> CIS2ServiceProtocol
+}
+// sourcery: AutoMockable
 protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
     func appSettingsService() -> AppSettingsServiceProtocol
@@ -79,6 +83,12 @@ extension ServicesProvider: WalletAndStorageDependencyProvider {
 
     func storageManager() -> StorageManagerProtocol {
         _storageManager
+    }
+}
+
+extension ServicesProvider: CIS2TokensCoordinatorDependencyProvider {
+    func cis2Service() -> CIS2ServiceProtocol {
+        CIS2Service(networkManager: _networkManager)
     }
 }
 

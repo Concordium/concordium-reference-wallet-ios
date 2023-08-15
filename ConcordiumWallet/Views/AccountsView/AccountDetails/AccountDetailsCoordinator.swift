@@ -328,9 +328,14 @@ class AccountDetailsCoordinator: Coordinator,
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
-    func showManageView() {
-        
-        self.navigationController.present(UIHostingController(rootView: TokenLookupView()), animated: true)
+    func showManageCIS2TokensView() {
+        let coordinator = CIS2TokensCoordinator(
+            navigationController: BaseNavigationController(),
+            dependencyProvider: ServicesProvider.defaultProvider()
+        )
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true)
     }
     
     func tokenSelected(_ token: Token) {
@@ -495,3 +500,4 @@ extension AccountDetailsCoordinator: ExportTransactionLogPresenterDelegate {
         navigationController.popViewController(animated: true)
     }
 }
+
