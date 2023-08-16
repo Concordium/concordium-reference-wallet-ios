@@ -53,7 +53,7 @@ struct TokenLookupView: View {
         tokenIndexPublisher
             .map { $0.replacingOccurrences(of: " ", with: "") }
             .filter { !$0.isEmpty }
-            .debounce(for: 0.8, scheduler: RunLoop.main)
+            .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { token in
                 if !token.isNumeric {
                     return AnyPublisher<[CIS2Token], TokenError>.fail(TokenError.inputError(msg: "Input cannot contain characters other than digits."))
@@ -86,7 +86,6 @@ struct TokenLookupView: View {
                     tokenIndexPublisher.send(newValue)
                 }
                 .padding()
-
             Spacer()
             Button(action: { didTapSearch?(tokens) }) {
                 Text("Look for tokens")
