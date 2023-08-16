@@ -60,6 +60,10 @@
 		0154A6732A8548BF00C33954 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6712A8548BF00C33954 /* CIS2Service.swift */; };
 		0154A6742A8548BF00C33954 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6712A8548BF00C33954 /* CIS2Service.swift */; };
 		0154A6752A8548BF00C33954 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6712A8548BF00C33954 /* CIS2Service.swift */; };
+		0154A6782A8CEA0500C33954 /* TokenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* TokenSelectionView.swift */; };
+		0154A6792A8CEA0500C33954 /* TokenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* TokenSelectionView.swift */; };
+		0154A67A2A8CEA0500C33954 /* TokenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* TokenSelectionView.swift */; };
+		0154A67B2A8CEA0500C33954 /* TokenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* TokenSelectionView.swift */; };
 		017A5F242A49B97500E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
 		017A5F252A49B98700E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
 		017A5F262A49B98800E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
@@ -2759,6 +2763,7 @@
 		0154A6672A85483500C33954 /* CIS2TokensCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensCoordinator.swift; sourceTree = "<group>"; };
 		0154A66C2A8548A000C33954 /* CIS2TokenSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenSelectView.swift; sourceTree = "<group>"; };
 		0154A6712A8548BF00C33954 /* CIS2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2Service.swift; sourceTree = "<group>"; };
+		0154A6772A8CEA0500C33954 /* TokenSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSelectionView.swift; sourceTree = "<group>"; };
 		017A5F232A49B97500E80B56 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersion.swift; sourceTree = "<group>"; };
 		017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayload.swift; sourceTree = "<group>"; };
@@ -3578,6 +3583,14 @@
 				01E61BA42A81B13800F3EEF6 /* AccountTokensTableViewCell.swift */,
 			);
 			path = AccountTokens;
+			sourceTree = "<group>";
+		};
+		0154A6762A8CE9CF00C33954 /* TokenSelectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0154A6772A8CEA0500C33954 /* TokenSelectionView.swift */,
+			);
+			path = TokenSelectionView;
 			sourceTree = "<group>";
 		};
 		017A5F282A49B99000E80B56 /* ContractUpdate */ = {
@@ -5392,6 +5405,7 @@
 		C924B2252431D38400081E23 /* AccountDetails */ = {
 			isa = PBXGroup;
 			children = (
+				0154A6762A8CE9CF00C33954 /* TokenSelectionView */,
 				01E61BA92A83C0C700F3EEF6 /* TokenLookup */,
 				012888A12A7A7540007D5325 /* AccountTokens */,
 				8DB887A4295D741B00BBEB76 /* Settings */,
@@ -6252,6 +6266,7 @@
 				7F48C15E244DCD0B00997684 /* LoginWarningLabel.swift in Sources */,
 				528EB75E25647A7F00010554 /* CredentialValue.swift in Sources */,
 				CD10E6DF2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */,
+				0154A6782A8CEA0500C33954 /* TokenSelectionView.swift in Sources */,
 				C94ED725246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				901F7F5827EB4F7800C46741 /* StakeRowViewModel.swift in Sources */,
 				0111D72F2A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
@@ -7129,6 +7144,7 @@
 				528EB751255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D46819289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAA924FD1D5100EE1658 /* Balance.swift in Sources */,
+				0154A67A2A8CEA0500C33954 /* TokenSelectionView.swift in Sources */,
 				7F85B7A7246A9A7C00ED09B8 /* AddRecipientPresenter.swift in Sources */,
 				901F7F5527EB4EA900C46741 /* StakeStatusViewController.swift in Sources */,
 				901F7EF527E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
@@ -7703,6 +7719,7 @@
 				528EB752255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D4681A289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAAA24FD1D5100EE1658 /* Balance.swift in Sources */,
+				0154A67B2A8CEA0500C33954 /* TokenSelectionView.swift in Sources */,
 				7F85B8A4246A9AB600ED09B8 /* SelectRecipientPresenter.swift in Sources */,
 				901F7F5627EB4EA900C46741 /* StakeStatusViewController.swift in Sources */,
 				901F7EF627E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
@@ -7883,6 +7900,7 @@
 				7F1E8408241E809400DE8F3A /* PasscodeFieldViewController.swift in Sources */,
 				89CF2D2B281000B100742E1E /* TransferCostRange.swift in Sources */,
 				C93A752F24464813003FDBE2 /* URL+queryParameters.swift in Sources */,
+				0154A6792A8CEA0500C33954 /* TokenSelectionView.swift in Sources */,
 				7FA0AE9224598D6500B7673F /* Transaction.swift in Sources */,
 				7FD8DEA92448623300CA06D8 /* ScanQRPresenter.swift in Sources */,
 				C938F535241FBEA600ECAD47 /* ServicesProvider.swift in Sources */,

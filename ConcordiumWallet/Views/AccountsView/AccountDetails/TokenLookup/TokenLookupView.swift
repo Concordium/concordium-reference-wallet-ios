@@ -8,6 +8,7 @@ import SwiftUI
 
 // MARK: - CIS2Tokens
 
+// TODO: move to separate files!
 struct CIS2Tokens: Codable {
     let count: Int
     let limit: Int
@@ -16,9 +17,23 @@ struct CIS2Tokens: Codable {
 
 // MARK: - Token
 
+// TODO: move to separate files!
 struct CIS2Token: Codable {
     let id: Int
     let token, totalSupply: String
+}
+
+// TODO: move to separate files!
+struct CIS2TokensMetadata: Codable {
+    var contractName: String
+    var metadata: [CIS2TokensMetadataItem]
+}
+
+// TODO: move to separate files!
+struct CIS2TokensMetadataItem: Codable {
+    var metadataChecksum: String?
+    var metadataURL: String
+    var tokenId: String
 }
 
 struct TokenLookupView: View {
@@ -32,15 +47,19 @@ struct TokenLookupView: View {
             case let .inputError(msg: msg):
                 return msg
             case let .networkError(err: error):
-                return error.localizedDescription
+                if let e = error as? NetworkError {
+                    return ErrorMapper.toViewError(error: e).errorDescription ?? e.localizedDescription
+                } else {
+                    return error.localizedDescription
+                }
             }
         }
     }
 
     var service: CIS2ServiceProtocol
-    var didTapSearch: ((_ tokens: [CIS2Token]) -> Void)?
+    var didTapSearch: ((_ tokens: CIS2TokensMetadata) -> Void)?
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
-    private var cancellables: [AnyCancellable] = []
+    private let searchButtonPublisher = PassthroughSubject<Void, Never>()
     @State private var tokenIndex: String = ""
     @State private var tokens: [CIS2Token] = []
     @State private var error: TokenError? = nil
@@ -56,7 +75,9 @@ struct TokenLookupView: View {
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { token in
                 if !token.isNumeric {
-                    return AnyPublisher<[CIS2Token], TokenError>.fail(TokenError.inputError(msg: "Input cannot contain characters other than digits."))
+                    return AnyPublisher<[CIS2Token], TokenError>.fail(
+                        TokenError.inputError(msg: "Input cannot contain characters other than digits.")
+                    )
                 }
                 return service.fetchTokens(contractIndex: token, contractSubindex: "0")
                     .map { $0.tokens }
@@ -69,6 +90,16 @@ struct TokenLookupView: View {
                 return Empty()
             })
             .eraseToAnyPublisher()
+    }
+
+    var tokensMetadataPublisher: AnyPublisher<CIS2TokensMetadata, TokenError> {
+        searchButtonPublisher.map {
+            service.fetchTokensMetadata(contractIndex: tokenIndex, contractSubindex: "0", tokenId: "")
+                .mapError { TokenError.networkError(err: $0) }
+                .eraseToAnyPublisher()
+        }
+        .switchToLatest()
+        .eraseToAnyPublisher()
     }
 
     var body: some View {
@@ -87,7 +118,9 @@ struct TokenLookupView: View {
                 }
                 .padding()
             Spacer()
-            Button(action: { didTapSearch?(tokens) }) {
+            Button(action: {
+                searchButtonPublisher.send(())
+            }) {
                 Text("Look for tokens")
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -109,8 +142,16 @@ struct TokenLookupView: View {
                 }
             }
         )
+        .onReceive(tokensMetadataPublisher.asResult(), perform: { result in
+            switch result {
+            case let .success(metadata):
+                didTapSearch?(metadata)
+            case let .failure(error):
+                self.error = error
+            }
+        })
         .alert(item: $error) { error in
-            Alert(title: Text(""), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
         }
     }
 }
