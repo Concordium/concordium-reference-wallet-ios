@@ -13,6 +13,7 @@ protocol CIS2ServiceProtocol {
     func fetchTokens(contractIndex: String, contractSubindex: String) -> AnyPublisher<CIS2Tokens, Error>
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error>
     func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenDetails, Error>
+    func fetchTokenDetailsArray(metadataArray: [CIS2TokensMetadataItem]) -> AnyPublisher<[CIS2TokenDetails], Error>
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -31,15 +32,25 @@ class CIS2Service: CIS2ServiceProtocol {
 
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String = "0", tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error> {
         let url = ApiConstants.cis2TokensMetadata.appendingPathComponent(contractIndex).appendingPathComponent(contractSubindex)
-        let request = ResourceRequest(url: url, parameters: ["tokenId" : tokenId])
+        let request = ResourceRequest(url: url, parameters: ["tokenId": tokenId])
         return networkManager.load(request)
     }
-    
+
     func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenDetails, Error> {
         if let url = URL(string: url) {
             return networkManager.load(ResourceRequest(url: url))
         } else {
             return AnyPublisher<CIS2TokenDetails, Error>.fail(NetworkError.invalidRequest)
         }
+    }
+
+    func fetchTokenDetailsArray(metadataArray: [CIS2TokensMetadataItem]) -> AnyPublisher<[CIS2TokenDetails], Error> {
+        Publishers.MergeMany(
+            metadataArray.map {
+                fetchTokensMetadataURL(url: $0.metadataURL)
+            }
+        )
+        .collect()
+        .eraseToAnyPublisher()
     }
 }

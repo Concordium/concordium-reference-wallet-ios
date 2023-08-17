@@ -105,28 +105,39 @@ struct TokenLookupView: View {
             .eraseToAnyPublisher()
     }
 
+//    var metadataPub: AnyPublisher<[CIS2TokenDetails], TokenError> {
+//        let x = ["a", "b"]
+//            .publisher.compactMap {
+//                service.fetchTokensMetadataURL(url: $0).collect().eraseToAnyPublisher()
+//            }
+//            .switchToLatest()
+//            .eraseToAnyPublisher()
+//    }
+
     var tokensMetadataPublisher: AnyPublisher<[CIS2TokenDetails], TokenError> {
         searchButtonPublisher
+            .setFailureType(to: Error.self)
             .map {
-                service.fetchTokensMetadata(contractIndex: tokenIndex, contractSubindex: "0", tokenId: tokens.first?.token ?? "")
-                .mapError { TokenError.networkError(err: $0) }
-                .map {
-                    $0.metadata.publisher
-                        .map {
-                            service.fetchTokensMetadataURL(url: $0.metadataURL)
-                                .mapError { TokenError.networkError(err: $0) }
-                                .eraseToAnyPublisher()
-                        }
-                        .switchToLatest()
-                        .collect()
-                        .eraseToAnyPublisher()
-                }
-                .switchToLatest()
+                service.fetchTokensMetadata(
+                    contractIndex: tokenIndex,
+                    contractSubindex: "0",
+                    tokenId: tokens.map { $0.token }.joined(separator: ","))
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .flatMapLatest {
+                Publishers.MergeMany(
+                    $0.metadata.map {
+                        service.fetchTokensMetadataURL(url: $0.metadataURL)
+                    }
+                )
+                .collect()
                 .eraseToAnyPublisher()
-        }
-        .switchToLatest()
-        .eraseToAnyPublisher()
+            }
+            .mapError { TokenError.networkError(err: $0) }
+            .eraseToAnyPublisher()
     }
+
     var body: some View {
         VStack {
             Capsule()

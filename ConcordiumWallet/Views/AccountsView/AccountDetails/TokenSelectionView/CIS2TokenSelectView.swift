@@ -32,7 +32,7 @@ struct CIS2TokenSelectView: View {
                             .scaledToFit()
                             .frame(width: 45, height: 45, alignment: .center)
 
-                        Text(metadata.symbol ?? " - ")
+                        Text(metadata.name)
                         Spacer()
                         Toggle(isOn: .constant(false)) {}
                         .toggleStyle(CheckboxToggleStyle(style: .square))
