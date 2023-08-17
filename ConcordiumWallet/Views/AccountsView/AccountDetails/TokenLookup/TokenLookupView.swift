@@ -86,7 +86,7 @@ struct TokenLookupView: View {
 
     var tokensPublisher: AnyPublisher<[CIS2Token], TokenError> {
         tokenIndexPublisher
-            .map { $0.replacingOccurrences(of: " ", with: "") }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { token in
@@ -101,10 +101,6 @@ struct TokenLookupView: View {
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
-            .catch({ err -> Empty in
-                self.error = err
-                return Empty()
-            })
             .eraseToAnyPublisher()
     }
 
@@ -130,7 +126,6 @@ struct TokenLookupView: View {
         .switchToLatest()
         .eraseToAnyPublisher()
     }
-
     var body: some View {
         VStack {
             Capsule()
@@ -167,6 +162,7 @@ struct TokenLookupView: View {
                 case let .success(tokens):
                     self.tokens = tokens
                 case let .failure(error):
+                    self.tokens.removeAll()
                     self.error = error
                 }
             }
