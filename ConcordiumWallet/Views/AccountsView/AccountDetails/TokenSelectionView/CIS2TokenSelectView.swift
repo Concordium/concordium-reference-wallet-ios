@@ -9,6 +9,7 @@ import SwiftUI
 struct CIS2TokenSelectView: View {
     @State var metadata: [CIS2TokenDetails]
     @State private var tokenIndex: String = ""
+    @State var selectedItems: Set<Int> = []
     var popView: (() -> Void)?
     var body: some View {
         VStack {
@@ -28,16 +29,19 @@ struct CIS2TokenSelectView: View {
                         .transition(.fade(duration: 0.2))
                         .scaledToFit()
                         .frame(width: 45, height: 45, alignment: .center)
-
                     Text(metadata.name)
                     Spacer()
-                    Toggle(isOn: .constant(false)) {}
-                        .toggleStyle(CheckboxToggleStyle(style: .square))
-                }.padding()
+                    Button {
+                    } label: {
+                        Image(systemName: "checkmark.square.fill")
+                            .foregroundColor(Pallette.primary)
+                    }
+                }
+                .padding()
             }
             Spacer()
             HStack(spacing: 16) {
-                Button(action: {}) {
+                Button(action: { popView?() }) {
                     Text("Back")
                         .foregroundColor(.white)
                         .padding()
@@ -45,8 +49,7 @@ struct CIS2TokenSelectView: View {
                 }
                 .background(Pallette.primary)
                 .cornerRadius(10)
-
-                Button(action: { popView?() }) {
+                Button(action: { }) {
                     Text("Accept")
                         .foregroundColor(.white)
                         .padding()
@@ -56,44 +59,6 @@ struct CIS2TokenSelectView: View {
                 .cornerRadius(10)
             }
             .padding()
-        }
-    }
-}
-
-struct TokenSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        CIS2TokenSelectView(metadata: [])
-    }
-}
-
-struct CheckboxToggleStyle: ToggleStyle {
-    @SwiftUI.Environment(\.isEnabled) var isEnabled
-    let style: Style // custom param
-
-    func makeBody(configuration: Configuration) -> some View {
-        Button(action: {
-            configuration.isOn.toggle() // toggle the state binding
-        }, label: {
-            HStack {
-                Image(systemName: configuration.isOn ? "checkmark.\(style.sfSymbolName).fill" : style.sfSymbolName)
-                    .imageScale(.large)
-                configuration.label
-            }
-        })
-        .buttonStyle(PlainButtonStyle()) // remove any implicit styling from the button
-        .disabled(!isEnabled)
-    }
-
-    enum Style {
-        case square, circle
-
-        var sfSymbolName: String {
-            switch self {
-            case .square:
-                return "square"
-            case .circle:
-                return "circle"
-            }
         }
     }
 }
