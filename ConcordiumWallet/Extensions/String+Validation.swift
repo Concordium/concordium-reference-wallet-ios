@@ -39,6 +39,6 @@ extension String {
     }
     
     var isNumeric: Bool {
-       return allSatisfy { $0.isNumber }
+        allSatisfy { "0" <= $0 && $0 <= "9" }
      }
 }
