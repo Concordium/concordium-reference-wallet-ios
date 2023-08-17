@@ -6,53 +6,6 @@
 import Combine
 import SwiftUI
 
-// MARK: - CIS2TokenMetadata
-
-struct CIS2TokenDetails: Codable, Hashable {
-    let name: String
-    let symbol: String?
-    let decimals: Int
-    let description: String
-    let thumbnail, display: Display?
-    let unique: Bool
-}
-
-// MARK: - Display
-
-struct Display: Codable, Hashable {
-    let url: String
-}
-
-// MARK: - CIS2Tokens
-
-// TODO: move to separate files!
-struct CIS2Tokens: Codable {
-    let count: Int
-    let limit: Int
-    let tokens: [CIS2Token]
-}
-
-// MARK: - Token
-
-// TODO: move to separate files!
-struct CIS2Token: Codable {
-    let id: Int
-    let token, totalSupply: String
-}
-
-// TODO: move to separate files!
-struct CIS2TokensMetadata: Codable {
-    var contractName: String
-    var metadata: [CIS2TokensMetadataItem]
-}
-
-// TODO: move to separate files!
-struct CIS2TokensMetadataItem: Codable {
-    var metadataChecksum: String?
-    var metadataURL: String
-    var tokenId: String
-}
-
 struct TokenLookupView: View {
     enum TokenError: Error, Identifiable {
         var id: String { errorMessage }
@@ -104,15 +57,6 @@ struct TokenLookupView: View {
             .switchToLatest()
             .eraseToAnyPublisher()
     }
-
-//    var metadataPub: AnyPublisher<[CIS2TokenDetails], TokenError> {
-//        let x = ["a", "b"]
-//            .publisher.compactMap {
-//                service.fetchTokensMetadataURL(url: $0).collect().eraseToAnyPublisher()
-//            }
-//            .switchToLatest()
-//            .eraseToAnyPublisher()
-//    }
 
     var tokensMetadataPublisher: AnyPublisher<[CIS2TokenDetails], TokenError> {
         searchButtonPublisher

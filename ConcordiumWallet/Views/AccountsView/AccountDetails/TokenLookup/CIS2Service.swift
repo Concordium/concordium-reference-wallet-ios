@@ -13,7 +13,6 @@ protocol CIS2ServiceProtocol {
     func fetchTokens(contractIndex: String, contractSubindex: String) -> AnyPublisher<CIS2Tokens, Error>
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error>
     func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenDetails, Error>
-    func fetchTokenDetailsArray(metadataArray: [CIS2TokensMetadataItem]) -> AnyPublisher<[CIS2TokenDetails], Error>
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -42,15 +41,5 @@ class CIS2Service: CIS2ServiceProtocol {
         } else {
             return AnyPublisher<CIS2TokenDetails, Error>.fail(NetworkError.invalidRequest)
         }
-    }
-
-    func fetchTokenDetailsArray(metadataArray: [CIS2TokensMetadataItem]) -> AnyPublisher<[CIS2TokenDetails], Error> {
-        Publishers.MergeMany(
-            metadataArray.map {
-                fetchTokensMetadataURL(url: $0.metadataURL)
-            }
-        )
-        .collect()
-        .eraseToAnyPublisher()
     }
 }

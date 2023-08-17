@@ -23,7 +23,7 @@ struct CIS2TokenSelectView: View {
 
                 ForEach(metadata, id: \.self) { metadata in
                     HStack {
-                        WebImage(url: URL(string: metadata.display?.url ?? ""))
+                        WebImage(url: metadata.thumbnail)
                             .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
                             .placeholder(Image(systemName: "photo")) // Placeholder Image
               
