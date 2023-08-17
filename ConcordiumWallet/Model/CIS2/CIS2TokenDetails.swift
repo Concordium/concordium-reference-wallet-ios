@@ -1,6 +1,5 @@
 import Foundation
 
-
 struct CIS2TokenDetails: Codable, Hashable {
  
     let name: String

@@ -3,9 +3,9 @@
 //  ConcordiumWallet
 //
 
-import SwiftUI
 import SDWebImageSwiftUI
- 
+import SwiftUI
+
 struct CIS2TokenSelectView: View {
     @State var metadata: [CIS2TokenDetails]
     @State private var tokenIndex: String = ""
@@ -18,28 +18,23 @@ struct CIS2TokenSelectView: View {
                 .textInputAutocapitalization(.never)
                 .textFieldStyle(.roundedBorder)
                 .keyboardType(.numberPad)
-
                 .padding()
+            ForEach(metadata, id: \.self) { metadata in
+                HStack {
+                    WebImage(url: metadata.thumbnail?.url)
+                        .resizable()
+                        .placeholder(Image(systemName: "photo"))
+                        .indicator(.activity)
+                        .transition(.fade(duration: 0.2))
+                        .scaledToFit()
+                        .frame(width: 45, height: 45, alignment: .center)
 
-                ForEach(metadata, id: \.self) { metadata in
-                    HStack {
-                        WebImage(url: metadata.thumbnail?.url)
-                            .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
-                            .placeholder(Image(systemName: "photo")) // Placeholder Image
-              
-                            .indicator(.activity) // Activity Indicator
-                            .transition(.fade(duration: 0.5)) // Fade Transition with duration
-                            .scaledToFit()
-                            .frame(width: 45, height: 45, alignment: .center)
-
-                        Text(metadata.name)
-                        Spacer()
-                        Toggle(isOn: .constant(false)) {}
+                    Text(metadata.name)
+                    Spacer()
+                    Toggle(isOn: .constant(false)) {}
                         .toggleStyle(CheckboxToggleStyle(style: .square))
-                    }.padding()
-                }
-            
-            
+                }.padding()
+            }
             Spacer()
             HStack(spacing: 16) {
                 Button(action: {}) {
