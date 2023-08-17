@@ -4,7 +4,8 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
+ 
 struct CIS2TokenSelectView: View {
     @State var metadata: [CIS2TokenDetails]
     @State private var tokenIndex: String = ""
@@ -19,9 +20,26 @@ struct CIS2TokenSelectView: View {
                 .keyboardType(.numberPad)
 
                 .padding()
-            ForEach(metadata, id: \.self) { metadata in
-                Text(metadata.symbol)
-            }
+
+                ForEach(metadata, id: \.self) { metadata in
+                    HStack {
+                        WebImage(url: URL(string: metadata.display?.url ?? ""))
+                            .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                            .placeholder(Image(systemName: "photo")) // Placeholder Image
+              
+                            .indicator(.activity) // Activity Indicator
+                            .transition(.fade(duration: 0.5)) // Fade Transition with duration
+                            .scaledToFit()
+                            .frame(width: 45, height: 45, alignment: .center)
+
+                        Text(metadata.symbol ?? " - ")
+                        Spacer()
+                        Toggle(isOn: .constant(false)) {}
+                        .toggleStyle(CheckboxToggleStyle(style: .square))
+                    }.padding()
+                }
+            
+            
             Spacer()
             HStack(spacing: 16) {
                 Button(action: {}) {
@@ -50,5 +68,37 @@ struct CIS2TokenSelectView: View {
 struct TokenSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         CIS2TokenSelectView(metadata: [])
+    }
+}
+
+struct CheckboxToggleStyle: ToggleStyle {
+    @SwiftUI.Environment(\.isEnabled) var isEnabled
+    let style: Style // custom param
+
+    func makeBody(configuration: Configuration) -> some View {
+        Button(action: {
+            configuration.isOn.toggle() // toggle the state binding
+        }, label: {
+            HStack {
+                Image(systemName: configuration.isOn ? "checkmark.\(style.sfSymbolName).fill" : style.sfSymbolName)
+                    .imageScale(.large)
+                configuration.label
+            }
+        })
+        .buttonStyle(PlainButtonStyle()) // remove any implicit styling from the button
+        .disabled(!isEnabled)
+    }
+
+    enum Style {
+        case square, circle
+
+        var sfSymbolName: String {
+            switch self {
+            case .square:
+                return "square"
+            case .circle:
+                return "circle"
+            }
+        }
     }
 }

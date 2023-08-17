@@ -9,10 +9,11 @@ import SwiftUI
 // MARK: - CIS2TokenMetadata
 
 struct CIS2TokenDetails: Codable, Hashable {
-    let name, symbol: String
+    let name: String
+    let symbol: String?
     let decimals: Int
     let description: String
-    let thumbnail, display: Display
+    let thumbnail, display: Display?
     let unique: Bool
 }
 
@@ -107,7 +108,7 @@ struct TokenLookupView: View {
     var tokensMetadataPublisher: AnyPublisher<[CIS2TokenDetails], TokenError> {
         searchButtonPublisher
             .map {
-                service.fetchTokensMetadata(contractIndex: tokenIndex, contractSubindex: "0", tokenId: "")
+                service.fetchTokensMetadata(contractIndex: tokenIndex, contractSubindex: "0", tokenId: tokens.first?.token ?? "")
                 .mapError { TokenError.networkError(err: $0) }
                 .map {
                     $0.metadata.publisher
