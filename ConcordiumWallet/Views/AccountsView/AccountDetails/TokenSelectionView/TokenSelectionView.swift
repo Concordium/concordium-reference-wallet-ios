@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct TokenSelectionView: View {
-    @State var metadata: CIS2TokensMetadata
+    @State var metadata: [CIS2TokenDetails]
     @State private var tokenIndex: String = ""
     var popView: (() -> Void)?
     var body: some View {
@@ -19,7 +19,9 @@ struct TokenSelectionView: View {
                 .keyboardType(.numberPad)
 
                 .padding()
-            Text(metadata.contractName)
+            ForEach(metadata, id: \.self) { metadata in
+                Text(metadata.symbol)
+            }
             Spacer()
             HStack(spacing: 16) {
                 Button(action: {}) {
@@ -47,6 +49,6 @@ struct TokenSelectionView: View {
 
 struct TokenSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TokenSelectionView(metadata: .init(contractName: "", metadata: []))
+        TokenSelectionView(metadata: [])
     }
 }

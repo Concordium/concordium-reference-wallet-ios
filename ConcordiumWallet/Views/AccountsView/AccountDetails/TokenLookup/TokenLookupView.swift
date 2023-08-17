@@ -6,6 +6,22 @@
 import Combine
 import SwiftUI
 
+// MARK: - CIS2TokenMetadata
+
+struct CIS2TokenDetails: Codable, Hashable {
+    let name, symbol: String
+    let decimals: Int
+    let description: String
+    let thumbnail, display: Display
+    let unique: Bool
+}
+
+// MARK: - Display
+
+struct Display: Codable, Hashable {
+    let url: String
+}
+
 // MARK: - CIS2Tokens
 
 // TODO: move to separate files!
@@ -57,7 +73,7 @@ struct TokenLookupView: View {
     }
 
     var service: CIS2ServiceProtocol
-    var didTapSearch: ((_ tokens: CIS2TokensMetadata) -> Void)?
+    var displayContractTokens: ((_ metadata: [CIS2TokenDetails]) -> Void)?
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
     private let searchButtonPublisher = PassthroughSubject<Void, Never>()
     @State private var tokenIndex: String = ""
@@ -92,10 +108,23 @@ struct TokenLookupView: View {
             .eraseToAnyPublisher()
     }
 
-    var tokensMetadataPublisher: AnyPublisher<CIS2TokensMetadata, TokenError> {
-        searchButtonPublisher.map {
-            service.fetchTokensMetadata(contractIndex: tokenIndex, contractSubindex: "0", tokenId: "")
+    var tokensMetadataPublisher: AnyPublisher<[CIS2TokenDetails], TokenError> {
+        searchButtonPublisher
+            .map {
+                service.fetchTokensMetadata(contractIndex: tokenIndex, contractSubindex: "0", tokenId: "")
                 .mapError { TokenError.networkError(err: $0) }
+                .map {
+                    $0.metadata.publisher
+                        .map {
+                            service.fetchTokensMetadataURL(url: $0.metadataURL)
+                                .mapError { TokenError.networkError(err: $0) }
+                                .eraseToAnyPublisher()
+                        }
+                        .switchToLatest()
+                        .collect()
+                        .eraseToAnyPublisher()
+                }
+                .switchToLatest()
                 .eraseToAnyPublisher()
         }
         .switchToLatest()
@@ -145,8 +174,10 @@ struct TokenLookupView: View {
         .onReceive(tokensMetadataPublisher.asResult(), perform: { result in
             switch result {
             case let .success(metadata):
-                didTapSearch?(metadata)
+                print("CIS2 -> \(metadata)")
+                displayContractTokens?(metadata)
             case let .failure(error):
+                print("CIS2 -> \(error)")
                 self.error = error
             }
         })
