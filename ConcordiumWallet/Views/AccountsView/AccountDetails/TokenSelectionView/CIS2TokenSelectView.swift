@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct TokenSelectionView: View {
+struct CIS2TokenSelectView: View {
     @State var metadata: [CIS2TokenDetails]
     @State private var tokenIndex: String = ""
     var popView: (() -> Void)?
@@ -49,6 +49,6 @@ struct TokenSelectionView: View {
 
 struct TokenSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TokenSelectionView(metadata: [])
+        CIS2TokenSelectView(metadata: [])
     }
 }

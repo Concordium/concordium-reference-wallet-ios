@@ -30,7 +30,7 @@ class CIS2TokensCoordinator: Coordinator {
     }
     
     private func showTokenSelectionView(with metadata: [CIS2TokenDetails]) {
-        var view = TokenSelectionView(metadata: metadata)
+        var view = CIS2TokenSelectView(metadata: metadata)
         view.popView = { [weak self] in
             self?.navigationController.popViewController(animated: true)
         }
