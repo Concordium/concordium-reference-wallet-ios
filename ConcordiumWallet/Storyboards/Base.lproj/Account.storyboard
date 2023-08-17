@@ -2002,7 +2002,7 @@ process on-chain]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hij-Nc-jDp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5056.5420560747662" y="459.3952483801296"/>
+            <point key="canvasLocation" x="5500" y="461"/>
         </scene>
         <!--Reveal Attributes View Controller-->
         <scene sceneID="1cs-Na-3lM">
