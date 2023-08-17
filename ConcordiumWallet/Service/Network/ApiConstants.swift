@@ -52,6 +52,7 @@ struct ApiConstants {
     static let passiveDelegation = proxyUrl.appendingPathComponent("/v0/passiveDelegation")
     static let appSettings = proxyUrl.appendingPathComponent("/v1/appSettings")
     static let latestTermsAndCondition = proxyUrl.appendingPathComponent("/v0/termsAndConditionsVersion")
+    static let cis2Tokens = proxyUrl.appendingPathComponent("/v0/CIS2Tokens")
 
     /// Generate a callback URI associated with an identifier
     static func callbackUri(with identityCreationID: String) -> String {

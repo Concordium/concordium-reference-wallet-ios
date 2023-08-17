@@ -48,7 +48,6 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         case fungible
         case collectibles
         case manage
-        
         var titleLabel: String {
             switch self {
             case .fungible:
@@ -99,10 +98,6 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    func update(data: [Token]) {
-        self.data = data
     }
 }
 
