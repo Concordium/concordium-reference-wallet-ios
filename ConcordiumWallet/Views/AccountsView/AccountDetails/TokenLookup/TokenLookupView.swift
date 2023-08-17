@@ -32,7 +32,7 @@ struct TokenLookupView: View {
             case let .inputError(msg: msg):
                 return msg
             case let .networkError(err: error):
-                return error.localizedDescription
+                return ErrorMapper.toViewError(error: error).errorDescription ?? error.localizedDescription
             }
         }
     }
@@ -51,7 +51,7 @@ struct TokenLookupView: View {
 
     var tokensPublisher: AnyPublisher<[CIS2Token], TokenError> {
         tokenIndexPublisher
-            .map { $0.replacingOccurrences(of: " ", with: "") }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { token in
@@ -64,10 +64,6 @@ struct TokenLookupView: View {
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
-            .catch({ err -> Empty in
-                self.error = err
-                return Empty()
-            })
             .eraseToAnyPublisher()
     }
 
@@ -105,12 +101,13 @@ struct TokenLookupView: View {
                 case let .success(tokens):
                     self.tokens = tokens
                 case let .failure(error):
+                    self.tokens.removeAll()
                     self.error = error
                 }
             }
         )
         .alert(item: $error) { error in
-            Alert(title: Text(""), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
         }
     }
 }
