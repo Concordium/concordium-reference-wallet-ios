@@ -15,30 +15,59 @@ struct CIS2TokenSelectView: View {
         VStack {
             Text("Please select the tokens you want to add from the contract.")
                 .multilineTextAlignment(.center)
-            TextField("Search for token ID", text: $tokenIndex)
-                .textInputAutocapitalization(.never)
-                .textFieldStyle(.roundedBorder)
-                .keyboardType(.numberPad)
-                .padding()
-            ForEach(metadata, id: \.self) { metadata in
-                HStack {
-                    WebImage(url: metadata.thumbnail?.url)
-                        .resizable()
-                        .placeholder(Image(systemName: "photo"))
-                        .indicator(.activity)
-                        .transition(.fade(duration: 0.2))
-                        .scaledToFit()
-                        .frame(width: 45, height: 45, alignment: .center)
-                    Text(metadata.name)
-                    Spacer()
-                    Button {
-                    } label: {
-                        Image(systemName: "checkmark.square.fill")
-                            .foregroundColor(Pallette.primary)
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                    .padding(.leading, 8)
+                TextField("Search for token ID", text: $tokenIndex)
+                    .textInputAutocapitalization(.never)
+                    .keyboardType(.numberPad)
+                    .padding(8)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Pallette.primary, lineWidth: 1)
+            )
+            .padding([.top, .bottom], 4)
+            VStack {
+                ScrollView {
+                    ForEach(metadata, id: \.self) { metadata in
+                        HStack {
+                            WebImage(url: metadata.thumbnail?.url)
+                                .resizable()
+                                .placeholder {
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.gray)
+                                        
+                                }
+                                .indicator(.activity)
+                                .transition(.fade(duration: 0.2))
+                                .scaledToFit()
+                                .frame(width: 45, height: 45, alignment: .center)
+                            Text(metadata.name)
+                            Spacer()
+                            Button {
+                            } label: {
+                                Image(systemName: "checkmark.square.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Pallette.primary)
+                            }
+                        }
+                        .padding([.top, .bottom], 8)
+                        .padding([.leading, .trailing], 16)
                     }
                 }
-                .padding()
+                Spacer()
             }
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Pallette.primary, lineWidth: 1)
+            )
             Spacer()
             HStack(spacing: 16) {
                 Button(action: { popView?() }) {
@@ -58,7 +87,18 @@ struct CIS2TokenSelectView: View {
                 .background(Pallette.primary)
                 .cornerRadius(10)
             }
-            .padding()
         }
+        .padding()
+    }
+}
+
+struct CIS2tokenSelectView_Previews: PreviewProvider {
+    static var previews: some View {
+        CIS2TokenSelectView(
+            metadata: [
+                .init(name: "CCD", symbol: "wCCD", decimals: 2, description: "Test token", thumbnail: nil, unique: true),
+                .init(name: "CCD", symbol: "wCCD", decimals: 2, description: "Test token", thumbnail: nil, unique: true),
+            ]
+        )
     }
 }

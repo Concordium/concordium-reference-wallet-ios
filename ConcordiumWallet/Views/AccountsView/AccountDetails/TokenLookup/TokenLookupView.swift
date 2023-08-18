@@ -123,16 +123,19 @@ struct TokenLookupView: View {
                 }
             }
         )
-        .onReceive(tokensMetadataPublisher.asResult(), perform: { result in
-            switch result {
-            case let .success(metadata):
-                print("CIS2 -> \(metadata)")
-                displayContractTokens?(metadata)
-            case let .failure(error):
-                print("CIS2 -> \(error)")
-                self.error = error
+        .onReceive(
+            tokensMetadataPublisher.asResult(),
+            perform: { result in
+                switch result {
+                case let .success(metadata):
+                    print("CIS2 -> \(metadata)")
+                    displayContractTokens?(metadata)
+                case let .failure(error):
+                    print("CIS2 -> \(error)")
+                    self.error = error
+                }
             }
-        })
+        )
         .alert(item: $error) { error in
             Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
         }
