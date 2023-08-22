@@ -6,21 +6,6 @@
 import Combine
 import SwiftUI
 
-// MARK: - CIS2Tokens
-
-struct CIS2Tokens: Codable {
-    let count: Int
-    let limit: Int
-    let tokens: [CIS2Token]
-}
-
-// MARK: - Token
-
-struct CIS2Token: Codable {
-    let id: Int
-    let token, totalSupply: String
-}
-
 struct TokenLookupView: View {
     enum TokenError: Error, Identifiable {
         var id: String { errorMessage }
@@ -32,15 +17,19 @@ struct TokenLookupView: View {
             case let .inputError(msg: msg):
                 return msg
             case let .networkError(err: error):
-                return ErrorMapper.toViewError(error: error).errorDescription ?? error.localizedDescription
+                if let e = error as? NetworkError {
+                    return ErrorMapper.toViewError(error: e).errorDescription ?? e.localizedDescription
+                } else {
+                    return error.localizedDescription
+                }
             }
         }
     }
 
     var service: CIS2ServiceProtocol
-    var didTapSearch: ((_ tokens: [CIS2Token]) -> Void)?
+    var displayContractTokens: ((_ metadata: [CIS2TokenDetails]) -> Void)?
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
-    private var cancellables: [AnyCancellable] = []
+    private let searchButtonPublisher = PassthroughSubject<Void, Never>()
     @State private var tokenIndex: String = ""
     @State private var tokens: [CIS2Token] = []
     @State private var error: TokenError? = nil
@@ -56,7 +45,9 @@ struct TokenLookupView: View {
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { token in
                 if !token.isNumeric {
-                    return AnyPublisher<[CIS2Token], TokenError>.fail(TokenError.inputError(msg: "Input cannot contain characters other than digits."))
+                    return AnyPublisher<[CIS2Token], TokenError>.fail(
+                        TokenError.inputError(msg: "Input cannot contain characters other than digits.")
+                    )
                 }
                 return service.fetchTokens(contractIndex: token, contractSubindex: "0")
                     .map { $0.tokens }
@@ -64,6 +55,30 @@ struct TokenLookupView: View {
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
+            .eraseToAnyPublisher()
+    }
+
+    var tokensMetadataPublisher: AnyPublisher<[CIS2TokenDetails], TokenError> {
+        searchButtonPublisher
+            .setFailureType(to: Error.self)
+            .map {
+                service.fetchTokensMetadata(
+                    contractIndex: tokenIndex,
+                    contractSubindex: "0",
+                    tokenId: tokens.map { $0.token }.joined(separator: ","))
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .flatMapLatest {
+                Publishers.MergeMany(
+                    $0.metadata.map {
+                        service.fetchTokensMetadataURL(url: $0.metadataURL)
+                    }
+                )
+                .collect()
+                .eraseToAnyPublisher()
+            }
+            .mapError { TokenError.networkError(err: $0) }
             .eraseToAnyPublisher()
     }
 
@@ -83,7 +98,9 @@ struct TokenLookupView: View {
                 }
                 .padding()
             Spacer()
-            Button(action: { didTapSearch?(tokens) }) {
+            Button(action: {
+                searchButtonPublisher.send(())
+            }) {
                 Text("Look for tokens")
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -102,6 +119,19 @@ struct TokenLookupView: View {
                     self.tokens = tokens
                 case let .failure(error):
                     self.tokens.removeAll()
+                    self.error = error
+                }
+            }
+        )
+        .onReceive(
+            tokensMetadataPublisher.asResult(),
+            perform: { result in
+                switch result {
+                case let .success(metadata):
+                    print("CIS2 -> \(metadata)")
+                    displayContractTokens?(metadata)
+                case let .failure(error):
+                    print("CIS2 -> \(error)")
                     self.error = error
                 }
             }

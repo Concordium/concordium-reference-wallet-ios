@@ -23,9 +23,17 @@ class CIS2TokensCoordinator: Coordinator {
 
     func start() {
         var view = TokenLookupView(service: dependencyProvider.cis2Service())
-        view.didTapSearch = { [weak self] tokens in
-            self?.navigationController.pushViewController(UIViewController(), animated: true)
+        view.displayContractTokens = { [weak self] metadata in
+            self?.showTokenSelectionView(with: metadata)
         }
         self.navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
+    }
+    
+    private func showTokenSelectionView(with metadata: [CIS2TokenDetails]) {
+        var view = CIS2TokenSelectView(metadata: metadata)
+        view.popView = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+        navigationController.pushViewController(UIHostingController(rootView: view), animated: true)
     }
 }

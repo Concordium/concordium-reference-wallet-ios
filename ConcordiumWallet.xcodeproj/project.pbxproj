@@ -56,6 +56,10 @@
 		0154A6732A8548BF00C33954 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6712A8548BF00C33954 /* CIS2Service.swift */; };
 		0154A6742A8548BF00C33954 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6712A8548BF00C33954 /* CIS2Service.swift */; };
 		0154A6752A8548BF00C33954 /* CIS2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6712A8548BF00C33954 /* CIS2Service.swift */; };
+		0154A6782A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */; };
+		0154A6792A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */; };
+		0154A67A2A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */; };
+		0154A67B2A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */; };
 		017A5F242A49B97500E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
 		017A5F252A49B98700E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
 		017A5F262A49B98800E80B56 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A5F232A49B97500E80B56 /* Schema.swift */; };
@@ -84,6 +88,30 @@
 		018EEDF02A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF12A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF22A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
+		01A91A9E2A8E3F8600735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */; };
+		01A91AA02A8E429600735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91A9F2A8E429600735D23 /* SDWebImageSwiftUI */; };
+		01A91AA22A8E429C00735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91AA12A8E429C00735D23 /* SDWebImageSwiftUI */; };
+		01A91AA42A8E42A500735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91AA32A8E42A500735D23 /* SDWebImageSwiftUI */; };
+		01A91AA72A8E7D3F00735D23 /* CIS2Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA62A8E7D3F00735D23 /* CIS2Tokens.swift */; };
+		01A91AA92A8E7D7F00735D23 /* CIS2TokensMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */; };
+		01A91AAB2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */; };
+		01A91AAD2A8E7DB900735D23 /* CIS2TokenDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAC2A8E7DB900735D23 /* CIS2TokenDetails.swift */; };
+		01A91AAE2A8E7E1700735D23 /* CIS2Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA62A8E7D3F00735D23 /* CIS2Tokens.swift */; };
+		01A91AAF2A8E7E1800735D23 /* CIS2Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA62A8E7D3F00735D23 /* CIS2Tokens.swift */; };
+		01A91AB02A8E7E1800735D23 /* CIS2Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA62A8E7D3F00735D23 /* CIS2Tokens.swift */; };
+		01A91AB12A8E7E1B00735D23 /* CIS2TokensMetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */; };
+		01A91AB22A8E7E1B00735D23 /* CIS2TokensMetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */; };
+		01A91AB32A8E7E1C00735D23 /* CIS2TokensMetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */; };
+		01A91AB42A8E7E1E00735D23 /* CIS2TokenDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAC2A8E7DB900735D23 /* CIS2TokenDetails.swift */; };
+		01A91AB52A8E7E1F00735D23 /* CIS2TokenDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAC2A8E7DB900735D23 /* CIS2TokenDetails.swift */; };
+		01A91AB62A8E7E1F00735D23 /* CIS2TokenDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AAC2A8E7DB900735D23 /* CIS2TokenDetails.swift */; };
+		01A91AB72A8E7E2200735D23 /* CIS2TokensMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */; };
+		01A91AB82A8E7E2300735D23 /* CIS2TokensMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */; };
+		01A91AB92A8E7E2300735D23 /* CIS2TokensMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */; };
+		01A91ABB2A8E7E2E00735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
+		01A91ABC2A8E7E3100735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
+		01A91ABD2A8E7E3100735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
+		01A91ABE2A8E7E3200735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
 		01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
@@ -2754,11 +2782,17 @@
 		0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectCoordinator.swift; sourceTree = "<group>"; };
 		0154A6672A85483500C33954 /* CIS2TokensCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensCoordinator.swift; sourceTree = "<group>"; };
 		0154A6712A8548BF00C33954 /* CIS2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2Service.swift; sourceTree = "<group>"; };
+		0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenSelectView.swift; sourceTree = "<group>"; };
 		017A5F232A49B97500E80B56 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersion.swift; sourceTree = "<group>"; };
 		017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayload.swift; sourceTree = "<group>"; };
 		017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
 		017A5F382A49BA1900E80B56 /* WalletConnectError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectError.swift; sourceTree = "<group>"; };
+		01A91AA62A8E7D3F00735D23 /* CIS2Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2Tokens.swift; sourceTree = "<group>"; };
+		01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensMetadata.swift; sourceTree = "<group>"; };
+		01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensMetadataItem.swift; sourceTree = "<group>"; };
+		01A91AAC2A8E7DB900735D23 /* CIS2TokenDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenDetails.swift; sourceTree = "<group>"; };
+		01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2Token.swift; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
 		01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayloadEntity.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
@@ -3483,6 +3517,7 @@
 				FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */,
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
+				01A91A9E2A8E3F8600735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
 				CDAB513F2A3863A30010D12B /* Web3Wallet in Frameworks */,
 				CD1152072A03E4F000A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
@@ -3496,6 +3531,7 @@
 				FA0CAAE7292EADA00009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67C286AC73B0007CAF1 /* SwiftCBOR in Frameworks */,
 				010BCB062A2F574E00B50D67 /* Starscream in Frameworks */,
+				01A91AA02A8E429600735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A673286AC69B0007CAF1 /* RealmSwift in Frameworks */,
 				CDAB51472A3863EC0010D12B /* Web3Wallet in Frameworks */,
 				CD11520B2A03E53F00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
@@ -3511,6 +3547,7 @@
 				CDAB51492A3863F40010D12B /* Starscream in Frameworks */,
 				FA0CAAE9292EADA70009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67E286AC7410007CAF1 /* SwiftCBOR in Frameworks */,
+				01A91AA22A8E429C00735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A675286AC6A20007CAF1 /* RealmSwift in Frameworks */,
 				CDAB514B2A3863F80010D12B /* Web3Wallet in Frameworks */,
 				CD11520D2A03E54300A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
@@ -3526,6 +3563,7 @@
 				FA0CAAE5292E92480009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67A286AC7350007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */,
+				01A91AA42A8E42A500735D23 /* SDWebImageSwiftUI in Frameworks */,
 				CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC53286DBA1D00BDF84C /* MnemonicSwift in Frameworks */,
 				CDAB51412A3863BC0010D12B /* Web3Wallet in Frameworks */,
@@ -3575,6 +3613,14 @@
 			path = AccountTokens;
 			sourceTree = "<group>";
 		};
+		0154A6762A8CE9CF00C33954 /* TokenSelectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */,
+			);
+			path = TokenSelectionView;
+			sourceTree = "<group>";
+		};
 		017A5F282A49B99000E80B56 /* ContractUpdate */ = {
 			isa = PBXGroup;
 			children = (
@@ -3592,6 +3638,18 @@
 				017A5F2B2A49B9B000E80B56 /* SchemaVersion.swift */,
 			);
 			path = Schema;
+			sourceTree = "<group>";
+		};
+		01A91AA52A8E7D1E00735D23 /* CIS2 */ = {
+			isa = PBXGroup;
+			children = (
+				01A91AA62A8E7D3F00735D23 /* CIS2Tokens.swift */,
+				01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */,
+				01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */,
+				01A91AAC2A8E7DB900735D23 /* CIS2TokenDetails.swift */,
+				01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */,
+			);
+			path = CIS2;
 			sourceTree = "<group>";
 		};
 		01AD79A32A250C2A0023E063 /* QRScanner */ = {
@@ -4468,6 +4526,7 @@
 		7FA3FE4923F44B9700A3D8B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				01A91AA52A8E7D1E00735D23 /* CIS2 */,
 				CD3E4A8D2A5588B900D7FBF3 /* SignMessage */,
 				017A5F282A49B99000E80B56 /* ContractUpdate */,
 				017A5F352A49B9EA00E80B56 /* Schema */,
@@ -5386,6 +5445,7 @@
 		C924B2252431D38400081E23 /* AccountDetails */ = {
 			isa = PBXGroup;
 			children = (
+				0154A6762A8CE9CF00C33954 /* TokenSelectionView */,
 				01E61BA92A83C0C700F3EEF6 /* TokenLookup */,
 				012888A12A7A7540007D5325 /* AccountTokens */,
 				8DB887A4295D741B00BBEB76 /* Settings */,
@@ -5594,6 +5654,7 @@
 				CD1152062A03E4F000A68AD7 /* ConcordiumWalletCrypto */,
 				CDAB513E2A3863A30010D12B /* Web3Wallet */,
 				CDAB51422A3863D50010D12B /* Starscream */,
+				01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5621,6 +5682,7 @@
 				CD11520A2A03E53F00A68AD7 /* ConcordiumWalletCrypto */,
 				010BCB052A2F574E00B50D67 /* Starscream */,
 				CDAB51462A3863EC0010D12B /* Web3Wallet */,
+				01A91A9F2A8E429600735D23 /* SDWebImageSwiftUI */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
@@ -5648,6 +5710,7 @@
 				CD11520C2A03E54300A68AD7 /* ConcordiumWalletCrypto */,
 				CDAB51482A3863F40010D12B /* Starscream */,
 				CDAB514A2A3863F80010D12B /* Web3Wallet */,
+				01A91AA12A8E429C00735D23 /* SDWebImageSwiftUI */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -5675,6 +5738,7 @@
 				CD1152082A03E53A00A68AD7 /* ConcordiumWalletCrypto */,
 				CDAB51402A3863BC0010D12B /* Web3Wallet */,
 				CDAB51442A3863DA0010D12B /* Starscream */,
+				01A91AA32A8E42A500735D23 /* SDWebImageSwiftUI */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -5736,6 +5800,7 @@
 				CD1152052A03E4F000A68AD7 /* XCRemoteSwiftPackageReference "concordium-wallet-crypto-swift" */,
 				01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */,
+				01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -6154,6 +6219,7 @@
 				074917CF273C02900087225F /* AccountSubmissionStatus.swift in Sources */,
 				901F7EF827E9F47200C46741 /* StakeService.swift in Sources */,
 				7F48C142244DCD0B00997684 /* IdentityRevokersWidgetViewController.swift in Sources */,
+				01A91ABB2A8E7E2E00735D23 /* CIS2Token.swift in Sources */,
 				528EB74F255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
 				89B34A42289407530059891C /* String+Mnemonics.swift in Sources */,
@@ -6246,6 +6312,7 @@
 				7F48C15E244DCD0B00997684 /* LoginWarningLabel.swift in Sources */,
 				528EB75E25647A7F00010554 /* CredentialValue.swift in Sources */,
 				CD10E6DF2A4B16AC004B0CB2 /* ContractUpdateParameterToJsonInput.swift in Sources */,
+				0154A6782A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */,
 				C94ED725246301740071A4FB /* TransactionDetailErrorCellView.swift in Sources */,
 				901F7F5827EB4F7800C46741 /* StakeRowViewModel.swift in Sources */,
 				0111D72F2A2DFE7000E05D35 /* WalletConnectAccountItemView.swift in Sources */,
@@ -6349,6 +6416,7 @@
 				8992BA26281FFDDB005279C9 /* BakerPoolStatusPresenter.swift in Sources */,
 				7F48C18C244DCD0B00997684 /* TransparentNavigationController.swift in Sources */,
 				89D4683D289BE895007D3FC8 /* SelectIdentityProviderPresenter.swift in Sources */,
+				01A91AA72A8E7D3F00735D23 /* CIS2Tokens.swift in Sources */,
 				7F48C18E244DCD0B00997684 /* IdentitiesPresenterProtocol.swift in Sources */,
 				89B34A382893D0A50059891C /* PageList.swift in Sources */,
 				90C371E527DF6DBB0046F05E /* ContentSizedTableView.swift in Sources */,
@@ -6364,6 +6432,7 @@
 				90434C8727FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				7F48C283244EEE6500997684 /* TransactionSubmittedPresenter.swift in Sources */,
 				893CAC4B286DAC0600BDF84C /* Shape+Extensions.swift in Sources */,
+				01A91AA92A8E7D7F00735D23 /* CIS2TokensMetadata.swift in Sources */,
 				7F48C195244DCD0B00997684 /* AccountDetailsCoordinator.swift in Sources */,
 				7F48C197244DCD0B00997684 /* ScanQRViewController.swift in Sources */,
 				7FF91912250E571900B1032B /* ImportStatusCell.swift in Sources */,
@@ -6492,6 +6561,7 @@
 				89B34A292892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
 				7F48C27D244E17D100997684 /* SubmissionStatus.swift in Sources */,
 				C94ED728246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
+				01A91AAB2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift in Sources */,
 				078967082742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F48C27F244E17EF00997684 /* GeneralFormatter.swift in Sources */,
 				5248E7DC257A611B00E4F6EC /* BurgerMenuPresenter.swift in Sources */,
@@ -6696,6 +6766,7 @@
 				19C2E32D43EC41DA5D3C80B6 /* RequestExportPasswordPresenter.swift in Sources */,
 				19C2E36B98F54908910BDA78 /* ImportCoordinator.swift in Sources */,
 				901F7EF327E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
+				01A91AAD2A8E7DB900735D23 /* CIS2TokenDetails.swift in Sources */,
 				901F7F1127EA0D5C00C46741 /* PoolInfo.swift in Sources */,
 				19C2EC8929F409BF6C6AEFFD /* IdentityImporter.swift in Sources */,
 				8DD48C762953133F00CA9085 /* EarnPresenter.swift in Sources */,
@@ -6729,6 +6800,7 @@
 				FA01C9EC291C5D3100BD8738 /* UIApplication+Helper.swift in Sources */,
 				52A6A77624F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				017A5F3B2A49C2DA00E80B56 /* ContractUpdateParams.swift in Sources */,
+				01A91AB32A8E7E1C00735D23 /* CIS2TokensMetadataItem.swift in Sources */,
 				8928970D289A6464009688F1 /* Net.swift in Sources */,
 				527DE3482571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				7F85B6DB246A9A7C00ED09B8 /* IdentityRevokersWidgetViewController.swift in Sources */,
@@ -6903,6 +6975,7 @@
 				7F85B745246A9A7C00ED09B8 /* BaseNavigationController.swift in Sources */,
 				7F85B746246A9A7C00ED09B8 /* TitleLabel.swift in Sources */,
 				7F85B748246A9A7C00ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
+				01A91AB52A8E7E1F00735D23 /* CIS2TokenDetails.swift in Sources */,
 				90C371C527DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
 				7F85B749246A9A7C00ED09B8 /* MakeCreateCredentialRequest.swift in Sources */,
 				9078546D28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
@@ -7121,7 +7194,9 @@
 				528EB751255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D46819289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAA924FD1D5100EE1658 /* Balance.swift in Sources */,
+				0154A67A2A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */,
 				7F85B7A7246A9A7C00ED09B8 /* AddRecipientPresenter.swift in Sources */,
+				01A91ABD2A8E7E3100735D23 /* CIS2Token.swift in Sources */,
 				901F7F5527EB4EA900C46741 /* StakeStatusViewController.swift in Sources */,
 				901F7EF527E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
 				5211BAA524FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
@@ -7172,6 +7247,7 @@
 				0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				0131338F2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */,
 				891B19D528A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
+				01A91AAF2A8E7E1800735D23 /* CIS2Tokens.swift in Sources */,
 				01E61BAD2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */,
 				FA0CAB26294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				07519F6E26FB23DF00F4E6E3 /* AddMemoViewController.swift in Sources */,
@@ -7266,6 +7342,7 @@
 				19C2EEC653BDB392DE9D4358 /* ImportCoordinator.swift in Sources */,
 				FA01CA24291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
 				FA01C9E4291C5D3100BD8738 /* Collection+Helper.swift in Sources */,
+				01A91AB82A8E7E2300735D23 /* CIS2TokensMetadata.swift in Sources */,
 				89B34A042892AACE0059891C /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				FA01C9F4291C5D3100BD8738 /* String+Helper.swift in Sources */,
 				89B34A3F289403930059891C /* AutoFocusTextField.swift in Sources */,
@@ -7302,6 +7379,7 @@
 				FA01C9ED291C5D3100BD8738 /* UIApplication+Helper.swift in Sources */,
 				52A6A77724F9063E00138D83 /* IDRequestAndPrivateData.swift in Sources */,
 				017A5F3C2A49C2DA00E80B56 /* ContractUpdateParams.swift in Sources */,
+				01A91AB22A8E7E1B00735D23 /* CIS2TokensMetadataItem.swift in Sources */,
 				8928970E289A6464009688F1 /* Net.swift in Sources */,
 				527DE3492571256600333E65 /* ReleaseScheduleViewController.swift in Sources */,
 				7F85B8E72472D37600ED09B8 /* MoreCoordinator.swift in Sources */,
@@ -7476,6 +7554,7 @@
 				7F85B843246A9AB600ED09B8 /* GeneralFormatter.swift in Sources */,
 				7F85B844246A9AB600ED09B8 /* BaseNavigationController.swift in Sources */,
 				7F85B845246A9AB600ED09B8 /* TitleLabel.swift in Sources */,
+				01A91AB62A8E7E1F00735D23 /* CIS2TokenDetails.swift in Sources */,
 				90C371C627DB87FC0046F05E /* StakeReceiptViewController.swift in Sources */,
 				7F85B847246A9AB600ED09B8 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				9078546E28116A7600B655EB /* BakerMetadataViewController.swift in Sources */,
@@ -7694,7 +7773,9 @@
 				528EB752255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D4681A289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAAA24FD1D5100EE1658 /* Balance.swift in Sources */,
+				0154A67B2A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */,
 				7F85B8A4246A9AB600ED09B8 /* SelectRecipientPresenter.swift in Sources */,
+				01A91ABE2A8E7E3200735D23 /* CIS2Token.swift in Sources */,
 				901F7F5627EB4EA900C46741 /* StakeStatusViewController.swift in Sources */,
 				901F7EF627E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
 				5211BAA624FD1D5100EE1658 /* AccountEncryptedAmount.swift in Sources */,
@@ -7745,6 +7826,7 @@
 				0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */,
 				013133902A386C9E0050AE93 /* WCDebugViewController.swift in Sources */,
 				891B19D628A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
+				01A91AB02A8E7E1800735D23 /* CIS2Tokens.swift in Sources */,
 				01E61BAE2A83C0E900F3EEF6 /* TokenLookupView.swift in Sources */,
 				FA0CAB27294B908F0009D5F8 /* ExportPrivateKeyPresenter.swift in Sources */,
 				07519F6F26FB23E000F4E6E3 /* AddMemoViewController.swift in Sources */,
@@ -7839,6 +7921,7 @@
 				19C2E9B036EA12997B62CBD3 /* ImportCoordinator.swift in Sources */,
 				FA01CA25291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
 				FA01C9E5291C5D3100BD8738 /* Collection+Helper.swift in Sources */,
+				01A91AB92A8E7E2300735D23 /* CIS2TokensMetadata.swift in Sources */,
 				89B34A052892AACE0059891C /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				FA01C9F5291C5D3100BD8738 /* String+Helper.swift in Sources */,
 				89B34A40289403930059891C /* AutoFocusTextField.swift in Sources */,
@@ -7874,14 +7957,17 @@
 				7F1E8408241E809400DE8F3A /* PasscodeFieldViewController.swift in Sources */,
 				89CF2D2B281000B100742E1E /* TransferCostRange.swift in Sources */,
 				C93A752F24464813003FDBE2 /* URL+queryParameters.swift in Sources */,
+				0154A6792A8CEA0500C33954 /* CIS2TokenSelectView.swift in Sources */,
 				7FA0AE9224598D6500B7673F /* Transaction.swift in Sources */,
 				7FD8DEA92448623300CA06D8 /* ScanQRPresenter.swift in Sources */,
 				C938F535241FBEA600ECAD47 /* ServicesProvider.swift in Sources */,
 				893CAC3D286D97A700BDF84C /* Page.swift in Sources */,
 				64DB66D225DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				C93D092D242762440022250B /* CreationFailedPresenter.swift in Sources */,
+				01A91ABC2A8E7E3100735D23 /* CIS2Token.swift in Sources */,
 				CD3E4A9A2A56EDA500D7FBF3 /* SignMessagePayloadToJsonInput.swift in Sources */,
 				07519F7226FB23E300F4E6E3 /* AddMemoPresenter.swift in Sources */,
+				01A91AB12A8E7E1B00735D23 /* CIS2TokensMetadataItem.swift in Sources */,
 				CD7C17422A4B7ADD0016ECE9 /* WalletConnectProposalApprovalView.swift in Sources */,
 				075A4BC4271D597E00066AF1 /* ShowIdentityFailureProtocol.swift in Sources */,
 				7F21399824236ECB00D2A5C4 /* SubmissionStatus.swift in Sources */,
@@ -7921,6 +8007,7 @@
 				7FA0AE9524598D6500B7673F /* Origin.swift in Sources */,
 				17A41E562667AE1D0079BD3A /* BlockingViewController.swift in Sources */,
 				069B9DDB23FBEA8700A02A1F /* KeychainWrapper.swift in Sources */,
+				01A91AB42A8E7E1E00735D23 /* CIS2TokenDetails.swift in Sources */,
 				C916DAE92467F481008EA16A /* MenuItemCellView.swift in Sources */,
 				C9C097A52433163A00ACA35A /* UIButton+StoryboardLocalization.swift in Sources */,
 				C9BFC836242A2FA00063AEE9 /* LoadProtocol.swift in Sources */,
@@ -8083,6 +8170,7 @@
 				89A056F9286C65DD0055C049 /* RecoveryPhraseGettingStartedPresenter.swift in Sources */,
 				07DEC16C26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				89D46858289CF39C007D3FC8 /* CreateSeedIdentityViewModel.swift in Sources */,
+				01A91AB72A8E7E2200735D23 /* CIS2TokensMetadata.swift in Sources */,
 				7FF07AC423EADBB100F1FC04 /* UITableView+Extensions.swift in Sources */,
 				7FF07AC123EADBB100F1FC04 /* UIColor+Additions.swift in Sources */,
 				5237188025753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
@@ -8220,6 +8308,7 @@
 				19C2ECCEF3CDA2AEA44CCC76 /* IdentityConfirmedPresenter.swift in Sources */,
 				19C2EF0C9DB4F4117BCD1A0B /* IdentityConfirmedViewController.swift in Sources */,
 				FA01CA17291C5D3100BD8738 /* String+Validation.swift in Sources */,
+				01A91AAE2A8E7E1700735D23 /* CIS2Tokens.swift in Sources */,
 				89B349F2289261A00059891C /* SuggestionBox.swift in Sources */,
 				19C2EE0C233940BF5B80070B /* IdentitiesPresenter.swift in Sources */,
 				897D0F1A288EA466001CEC3B /* RecoveryPhraseConfirmPhraseView.swift in Sources */,
@@ -9032,6 +9121,14 @@
 				version = 3.1.2;
 			};
 		};
+		01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
@@ -9087,6 +9184,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
+		};
+		01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		01A91A9F2A8E429600735D23 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		01A91AA12A8E429C00735D23 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		01A91AA32A8E42A500735D23 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		8927A66E286AC6820007CAF1 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
