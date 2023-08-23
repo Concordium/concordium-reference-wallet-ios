@@ -7,10 +7,11 @@ import SDWebImageSwiftUI
 import SwiftUI
 
 struct CIS2TokenSelectView: View {
-    @State var metadata: [CIS2TokenDetails]
+    @State var viewModel: [CIS2TokenSelectionRepresentable]
     @State private var tokenIndex: String = ""
-    @State var selectedItems: Set<Int> = []
+    @State var selectedItems: Set<String> = []
     var popView: (() -> Void)?
+
     var body: some View {
         VStack {
             Text("Please select the tokens you want to add from the contract.")
@@ -31,9 +32,9 @@ struct CIS2TokenSelectView: View {
             .padding([.top, .bottom], 4)
             VStack {
                 ScrollView {
-                    ForEach(metadata, id: \.self) { metadata in
+                    ForEach(viewModel, id: \.self) { model in
                         HStack {
-                            WebImage(url: metadata.thumbnail?.url)
+                            WebImage(url: model.details.thumbnail?.url)
                                 .resizable()
                                 .placeholder {
                                     Image(systemName: "photo")
@@ -41,17 +42,17 @@ struct CIS2TokenSelectView: View {
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 24, height: 24)
                                         .foregroundColor(.gray)
-                                        
                                 }
                                 .indicator(.activity)
                                 .transition(.fade(duration: 0.2))
                                 .scaledToFit()
                                 .frame(width: 45, height: 45, alignment: .center)
-                            Text(metadata.name)
+                            Text(model.details.name)
                             Spacer()
                             Button {
+                                didSelect(token: model.tokenId)
                             } label: {
-                                Image(systemName: "checkmark.square.fill")
+                                Image(systemName: selectedItems.contains { $0 == model.tokenId } ? "checkmark.square.fill" : "square")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 20, height: 20)
@@ -90,15 +91,16 @@ struct CIS2TokenSelectView: View {
         }
         .padding()
     }
-}
+    
+    func didSelect(token id: String) {
+        if selectedItems.contains { $0 == id.tokenId } {
+            selectedItems.remove(model.tokenId)
+        } else {
+            selectedItems.insert(model.tokenId)
+        }
+    }
 
-struct CIS2tokenSelectView_Previews: PreviewProvider {
-    static var previews: some View {
-        CIS2TokenSelectView(
-            metadata: [
-                .init(name: "CCD", symbol: "wCCD", decimals: 2, description: "Test token", thumbnail: nil, unique: true),
-                .init(name: "CCD", symbol: "wCCD", decimals: 2, description: "Test token", thumbnail: nil, unique: true),
-            ]
-        )
+    func addToStorage() {
+        
     }
 }
