@@ -41,7 +41,8 @@ struct CIS2TokenSelectView: View {
                     HStack {
                         Text("No tokens matching given predicate.")
                             .padding()
-                    }.frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
                 } else {
                     ScrollView {
                         ForEach(filteredTokens, id: \.self) { model in
@@ -96,7 +97,7 @@ struct CIS2TokenSelectView: View {
                 }
                 .background(Pallette.primary)
                 .cornerRadius(10)
-                Button(action: { }) {
+                Button(action: addToStorage) {
                     Text("Accept")
                         .foregroundColor(.white)
                         .padding()
