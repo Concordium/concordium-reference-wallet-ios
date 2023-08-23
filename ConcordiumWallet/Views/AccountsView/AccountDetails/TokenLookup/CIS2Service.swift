@@ -12,7 +12,7 @@ import Foundation
 protocol CIS2ServiceProtocol {
     func fetchTokens(contractIndex: String, contractSubindex: String) -> AnyPublisher<CIS2TokensInfo, Error>
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error>
-    func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenDetails, Error>
+    func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error>
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) -> AnyPublisher<[CIS2TokenBalance], Error>
 }
 
@@ -36,11 +36,11 @@ class CIS2Service: CIS2ServiceProtocol {
         return networkManager.load(request)
     }
 
-    func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenDetails, Error> {
+    func fetchTokensMetadataURL(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error> {
         if let url = URL(string: url) {
             return networkManager.load(ResourceRequest(url: url))
         } else {
-            return AnyPublisher<CIS2TokenDetails, Error>.fail(NetworkError.invalidRequest)
+            return AnyPublisher<CIS2TokenMetadataDetails, Error>.fail(NetworkError.invalidRequest)
         }
     }
     

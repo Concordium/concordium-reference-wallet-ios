@@ -164,10 +164,8 @@ struct TokenLookupView: View {
                 isLoading = false
                 switch result {
                 case let .success(metadata):
-                    print("CIS2 -> \(metadata)")
                     displayContractTokens?(metadata)
                 case let .failure(error):
-                    print("CIS2 -> \(error)")
                     self.error = error
                 }
             }

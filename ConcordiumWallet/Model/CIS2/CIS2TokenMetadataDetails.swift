@@ -1,6 +1,8 @@
 import Foundation
 
-struct CIS2TokenDetails: Codable, Hashable {
+/// Response object containg detaile information about token metadata.
+/// - Remark: Decoded as result for request to ``CIS2TokensMetadataItem.metadataURL``
+struct CIS2TokenMetadataDetails: Codable, Hashable {
     let name: String
     let symbol: String?
     let decimals: Int
