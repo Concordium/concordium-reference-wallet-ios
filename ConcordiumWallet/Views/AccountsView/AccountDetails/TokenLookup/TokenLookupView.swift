@@ -32,14 +32,10 @@ struct TokenLookupView: View {
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
     private let searchButtonPublisher = PassthroughSubject<Void, Never>()
 
-    @State private var tokenIndex: String = ""
+    @State private var contractIndex: String = ""
     @State private var tokens: [CIS2Token] = []
     @State private var error: TokenError? = nil
     @State private var isLoading = false
-    init(service: CIS2ServiceProtocol, account: AccountDataType) {
-        self.service = service
-        self.account = account
-    }
 
     var tokensPublisher: AnyPublisher<[CIS2Token], TokenError> {
         tokenIndexPublisher
@@ -71,7 +67,7 @@ struct TokenLookupView: View {
             .flatMapLatest { () -> AnyPublisher<([CIS2TokensMetadataItem], [CIS2TokenBalance]), TokenError> in
                 Publishers.Zip(
                     service.fetchTokensMetadata(
-                        contractIndex: tokenIndex,
+                        contractIndex: contractIndex,
                         contractSubindex: "0",
                         tokenId: tokens.map { $0.token }.joined(separator: ",")
                     )
@@ -79,7 +75,7 @@ struct TokenLookupView: View {
                     .map { $0.metadata }
                     .eraseToAnyPublisher(),
                     service.fetchTokensBalance(
-                        contractIndex: tokenIndex,
+                        contractIndex: contractIndex,
                         contractSubindex: "0",
                         accountAddress: account.address,
                         tokenId: tokens.map { $0.token }.joined(separator: ",")
@@ -92,13 +88,20 @@ struct TokenLookupView: View {
             .flatMapLatest { (items: [CIS2TokensMetadataItem], balance: [CIS2TokenBalance]) -> AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> in
                 Publishers.MergeMany(
                     items.map { metadata in
-                        service.fetchTokensMetadataURL(url: metadata.metadataURL)
+                        service.fetchTokensMetadataDetails(url: metadata.metadataURL)
                             .mapError { TokenError.networkError(err: $0) }
-                            .map {
+                            .map { details in
                                 CIS2TokenSelectionRepresentable(
                                     tokenId: metadata.tokenId,
                                     balance: Int(balance.first(where: { $0.tokenId == metadata.tokenId })?.balance ?? "") ?? 0,
-                                    details: $0
+                                    contractIndex: contractIndex,
+                                    name: details.name,
+                                    symbol: details.symbol,
+                                    decimals: details.decimals,
+                                    description: details.description,
+                                    thumbnail: details.thumbnail?.url,
+                                    unique: details.unique,
+                                    accountAddress: account.address
                                 )
                             }
                     }
@@ -109,6 +112,11 @@ struct TokenLookupView: View {
             .eraseToAnyPublisher()
     }
 
+    init(service: CIS2ServiceProtocol, account: AccountDataType) {
+        self.service = service
+        self.account = account
+    }
+
     var body: some View {
         ZStack {
             VStack {
@@ -117,11 +125,11 @@ struct TokenLookupView: View {
                     .frame(width: 62, height: 3)
                     .padding(4)
                 Text("Enter a contract index to look for tokens.")
-                TextField("Contract index", text: $tokenIndex)
+                TextField("Contract index", text: $contractIndex)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.numberPad)
-                    .onChange(of: tokenIndex) { newValue in
+                    .onChange(of: contractIndex) { newValue in
                         isLoading = true
                         self.tokens.removeAll()
                         tokenIndexPublisher.send(newValue)

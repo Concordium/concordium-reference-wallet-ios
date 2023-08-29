@@ -338,7 +338,7 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
         navigationController.present(coordinator.navigationController, animated: true)
     }
     
-    func tokenSelected(_ token: Token) {
+    func tokenSelected(_ token: CIS2TokenSelectionRepresentable) {
         //TODO: Show token details vc
     }
     

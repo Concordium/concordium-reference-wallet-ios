@@ -3,16 +3,15 @@
 //  ConcordiumWallet
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 class CIS2TokensCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController
     private var account: AccountDataType
     private var dependencyProvider: CIS2TokensCoordinatorDependencyProvider
-
     init(
         navigationController: UINavigationController,
         dependencyProvider: CIS2TokensCoordinatorDependencyProvider,
@@ -28,14 +27,17 @@ class CIS2TokensCoordinator: Coordinator {
         view.displayContractTokens = { [weak self] data in
             self?.showTokenSelectionView(with: data)
         }
-        self.navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
+        navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
     }
-    
+
     private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable]) {
-        var view = CIS2TokenSelectView(viewModel: model)
-        view.popView = { [weak self] in
-            self?.navigationController.popViewController(animated: true)
-        }
+        let view = CIS2TokenSelectView(
+            viewModel: model,
+            accountAdress: account.address,
+            popView: { [weak self] () in self?.navigationController.popViewController(animated: true) },
+            service: dependencyProvider.cis2Service()
+        )
+
         navigationController.pushViewController(UIHostingController(rootView: view), animated: true)
     }
 }

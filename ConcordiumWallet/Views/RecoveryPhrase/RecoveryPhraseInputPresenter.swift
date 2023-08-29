@@ -55,13 +55,12 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
             viewModel.selectedWords = viewModel.selectedWords[0...index] + Array(repeating: "", count: 23 - index)
         case .wordSelected(let index, let word):
             // TODO: Test phrase
-            viewModel.selectedWords = ["educate", "ceiling", "master", "cry", "manual", "property", "snack", "dad", "guitar", "crash", "bean", "idea", "shell", "mushroom", "aspect", "auto", "wise", "drive", "better", "sugar", "hammer", "ecology", "puppy", "decide"]
+//            viewModel.selectedWords = ["interest", "spy", "champion", "install", "appear", "solution", "digital", "intact", "expose", "order", "minute", "match", "train", "possible", "practice", "leave", "first", "matter", "zero", "brief", "tag", "mushroom", "anger", "tide"]
 //            viewModel.selectedWords = ["there", "excuse", "hat", "credit", "position", "various", "laptop", "arch", "fish", "tank", "mass", "margin", "sea", "purity", "position", "royal", "law", "tribe", "harvest", "match", "field", "hundred", "unfair", "increase"]
 //            viewModel.selectedWords = ["myth", "hamster", "wire", "envelope", "shine", "client", "host", "flat", "burden", "photo", "west", "say", "bench", "hawk", "faith", "tower", "track", "wealth", "ceiling", "lemon", "net", "bring", "noble", "script"]
 //            viewModel.selectedWords = ["congress", "test", "genre", "day", "monitor", "divorce", "heart", "balance", "destroy", "save", "upgrade", "cash", "weird", "process", "wreck", "donor", "copy", "potato", "try", "essay", "impulse", "myself", "chimney", "pipe"]
             
-//            viewModel.selectedWords = ["eternal", "exclude", "gadget", "floor", "boil", "yard", "region", "burden", "mobile", "dream", "club", "item", "video", "copy", "sugar", "divide", "fence", "matrix", "devote", "twelve", "cargo", "toy", "mixture", "portion"]
-            
+            viewModel.selectedWords = ["front", "ethics", "seat", "garlic", "alone", "diesel", "discover", "same", "shadow", "grace", "dentist", "attitude", "skill", "blanket", "flat", "skill", "avocado", "manage", "vicious", "dynamic", "hire", "elevator", "fee", "price"]
 //            viewModel.selectedWords[index] = word
             if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {
                 switch recoveryService.validate(recoveryPhrase: viewModel.selectedWords) {

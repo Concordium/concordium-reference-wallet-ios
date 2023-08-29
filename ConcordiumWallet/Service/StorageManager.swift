@@ -5,6 +5,7 @@
 
 import Foundation
 import RealmSwift
+import Combine
 
 protocol StorageManagerProtocol {
     func storeIdentity(_: IdentityDataType) throws
@@ -75,6 +76,12 @@ protocol StorageManagerProtocol {
 
     func getLastAcceptedTermsAndConditionsVersion() -> String
     func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
+
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String) throws
+    func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenOwnershipEntity]
+    func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity]
+    func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
+    func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
 }
 
 enum StorageError: Error {
@@ -83,7 +90,8 @@ enum StorageError: Error {
     case nullDataError
 }
 
-class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_body_length
+class StorageManager: StorageManagerProtocol {
+    // swiftlint:disable:this type_body_length
     private var realm: Realm
     private var keychain: KeychainWrapperProtocol
 
@@ -92,7 +100,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         configuration: Realm.Configuration = RealmHelper.realmConfiguration
     ) {
         self.keychain = keychain
-        self.realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+        realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }
@@ -103,10 +111,52 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         guard let identityEntity = identity as? IdentityEntity else {
             return
         }
-        
+
         try realm.write {
             realm.add(identityEntity)
         }
+    }
+
+    @MainActor
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String) throws {
+        try realm.write {
+            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter { stored in tokens.contains { $0.contractIndex == stored.contractIndex } }
+            let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
+            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId } }
+            realm.delete(tokensToDelete)
+            realm.add(uniqueTokens.map { CIS2TokenOwnershipEntity(with: $0) })
+        }
+    }
+
+    @MainActor
+    func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws {
+        try realm.write {
+            realm.create(
+                CIS2TokenMetadataDetailsEntity.self,
+                value: CIS2TokenMetadataDetailsEntity(with: metadata),
+                update: .modified
+            )
+        }
+    }
+
+    @MainActor
+    func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenOwnershipEntity] {
+        Array(realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+            .filter("contractIndex == %@", contractIndex)
+        )
+    }
+
+    @MainActor
+    func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity] {
+        Array(realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+        )
+    }
+
+    @MainActor
+    func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity? {
+        realm.object(ofType: CIS2TokenMetadataDetailsEntity.self, forPrimaryKey: url)
     }
 
     func getIdentities() -> [IdentityDataType] {
@@ -117,7 +167,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType? {
         getIdentities().first { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub == identityObject.preIdentityObject.pubInfoForIP.idCredPub }
     }
-    
+
     func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType? {
         getIdentities().first {
             $0.seedIdentityObject?.preIdentityObject.idCredPub == seedIdentityObject.preIdentityObject.idCredPub

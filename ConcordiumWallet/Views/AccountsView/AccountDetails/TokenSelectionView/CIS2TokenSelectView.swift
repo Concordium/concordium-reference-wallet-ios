@@ -8,14 +8,28 @@ import SDWebImageSwiftUI
 import SwiftUI
 
 struct CIS2TokenSelectView: View {
-    @State var viewModel: [CIS2TokenSelectionRepresentable]
     @State private var tokenIndex: String = ""
-    @State var selectedItems: Set<String> = []
-    var popView: (() -> Void)?
-    var filterTextfieldPublisher = PassthroughSubject<String, Never>()
+    @State var selectedItems: Set<CIS2TokenSelectionRepresentable> = []
+    var popView: () -> Void
+    let service: CIS2ServiceProtocol
+    var viewModel: [CIS2TokenSelectionRepresentable]
+    private let accountAddress: String
 
-    var filteredTokens: [CIS2TokenSelectionRepresentable] {
+    private var filteredTokens: [CIS2TokenSelectionRepresentable] {
         viewModel.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }
+    }
+
+    init(
+        viewModel: [CIS2TokenSelectionRepresentable],
+        accountAdress: String,
+        popView: @escaping () -> Void,
+        service: CIS2ServiceProtocol
+    ) {
+        self.viewModel = viewModel
+        self.popView = popView
+        self.accountAddress = accountAdress
+        self.service = service
+        _selectedItems = State(initialValue: Set(service.getUserStoredCIS2Tokens(accountAddress: accountAdress, contractIndex: viewModel.first?.contractIndex ?? "")))
     }
 
     var body: some View {
@@ -47,7 +61,7 @@ struct CIS2TokenSelectView: View {
                     ScrollView {
                         ForEach(filteredTokens, id: \.self) { model in
                             HStack {
-                                WebImage(url: model.details.thumbnail?.url)
+                                WebImage(url: model.thumbnail)
                                     .resizable()
                                     .placeholder {
                                         Image(systemName: "photo")
@@ -61,15 +75,15 @@ struct CIS2TokenSelectView: View {
                                     .scaledToFit()
                                     .frame(width: 45, height: 45, alignment: .center)
                                 VStack(alignment: .leading) {
-                                    Text(model.details.name)
+                                    Text(model.name)
                                     Text("Your balance: \(GTU(intValue: model.balance).displayValue())")
                                         .foregroundColor(Pallette.fadedText)
                                 }
                                 Spacer()
                                 Button {
-                                    didSelect(token: model.tokenId)
+                                    didSelect(item: model)
                                 } label: {
-                                    Image(systemName: selectedItems.contains { $0 == model.tokenId } ? "checkmark.square.fill" : "square")
+                                    Image(systemName: selectedItems.contains { $0 == model } ? "checkmark.square.fill" : "square")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 20, height: 20)
@@ -89,7 +103,7 @@ struct CIS2TokenSelectView: View {
             )
             Spacer()
             HStack(spacing: 16) {
-                Button(action: { popView?() }) {
+                Button(action: popView) {
                     Text("Back")
                         .foregroundColor(.white)
                         .padding()
@@ -98,7 +112,7 @@ struct CIS2TokenSelectView: View {
                 .background(Pallette.primary)
                 .cornerRadius(10)
                 Button(action: addToStorage) {
-                    Text("Accept")
+                    Text("Add tokens")
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -107,17 +121,22 @@ struct CIS2TokenSelectView: View {
                 .cornerRadius(10)
             }
         }
+        .onAppear()
         .padding()
     }
 
-    func didSelect(token id: String) {
-        if selectedItems.contains(where: { $0 == id }) {
-            selectedItems.remove(id)
+    func didSelect(item: CIS2TokenSelectionRepresentable) {
+        if selectedItems.contains(where: { $0 == item }) {
+            selectedItems.remove(item)
         } else {
-            selectedItems.insert(id)
+            selectedItems.insert(item)
         }
     }
 
     func addToStorage() {
+        let updated = viewModel.filter { selectedItems.contains($0) }
+        if let _ = try? service.storeCIS2Tokens(updated, accountAddress: accountAddress) {
+            popView()
+        }
     }
 }

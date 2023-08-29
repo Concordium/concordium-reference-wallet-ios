@@ -9,6 +9,7 @@
 import UIKit
 import Combine
 import MatomoTracker
+import SDWebImage
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
