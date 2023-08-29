@@ -15,7 +15,7 @@ protocol CIS2ServiceProtocol {
     func fetchTokensMetadataDetails(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error>
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) -> AnyPublisher<[CIS2TokenBalance], Error>
     func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenSelectionRepresentable]
-    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String) throws
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -41,9 +41,9 @@ class CIS2Service: CIS2ServiceProtocol {
                 accountAddress: $0.accountAddress)
         }
     }
-    
-    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String) throws {
-       try storageManager.storeCIS2Tokens(tokens, accountAddress: accountAddress)
+
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
+        try storageManager.storeCIS2Tokens(tokens, accountAddress: accountAddress, contractIndex: contractIndex)
     }
 
     func fetchTokens(contractIndex: String, contractSubindex: String = "0") -> AnyPublisher<CIS2TokensInfo, Error> {
@@ -61,13 +61,12 @@ class CIS2Service: CIS2ServiceProtocol {
 
     func fetchTokensMetadataDetails(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error> {
         if let url = URL(string: url) {
-
-                return networkManager.load(ResourceRequest(url: url))
-                    .tryMap { (metadata: CIS2TokenMetadataDetails) in
-                        try self.storageManager.storeCIS2TokenMetadataDetails(metadata, for: url.absoluteString)
-                        return metadata
-                    }
-                    .eraseToAnyPublisher()
+            return networkManager.load(ResourceRequest(url: url))
+                .tryMap { (metadata: CIS2TokenMetadataDetails) in
+                    try self.storageManager.storeCIS2TokenMetadataDetails(metadata, for: url.absoluteString)
+                    return metadata
+                }
+                .eraseToAnyPublisher()
         } else {
             return AnyPublisher<CIS2TokenMetadataDetails, Error>.fail(NetworkError.invalidRequest)
         }

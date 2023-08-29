@@ -13,4 +13,11 @@ class AccountTokensTableViewCell: UITableViewCell {
     @IBOutlet weak var tokenImageView: SDAnimatedImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nameLabel.text = ""
+        balanceLabel.text = ""
+        tokenImageView.image = nil
+    }
 }

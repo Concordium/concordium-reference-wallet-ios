@@ -77,7 +77,7 @@ protocol StorageManagerProtocol {
     func getLastAcceptedTermsAndConditionsVersion() -> String
     func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
 
-    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String) throws
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
     func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
@@ -118,12 +118,13 @@ class StorageManager: StorageManagerProtocol {
     }
 
     @MainActor
-    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String) throws {
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         try realm.write {
-            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter { stored in tokens.contains { $0.contractIndex == stored.contractIndex } }
+            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter("contractIndex == %@", contractIndex)
+            // Remove tokens for a given contract index that are no longer selected.
             let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
-            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId } }
             realm.delete(tokensToDelete)
+            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId } }
             realm.add(uniqueTokens.map { CIS2TokenOwnershipEntity(with: $0) })
         }
     }

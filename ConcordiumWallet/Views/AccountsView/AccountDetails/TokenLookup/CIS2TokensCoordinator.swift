@@ -24,16 +24,17 @@ class CIS2TokensCoordinator: Coordinator {
 
     func start() {
         var view = TokenLookupView(service: dependencyProvider.cis2Service(), account: account)
-        view.displayContractTokens = { [weak self] data in
-            self?.showTokenSelectionView(with: data)
+        view.displayContractTokens = { [weak self] data, contractIndex in
+            self?.showTokenSelectionView(with: data, contractIndex: contractIndex)
         }
         navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
     }
 
-    private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable]) {
+    private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable], contractIndex: String) {
         let view = CIS2TokenSelectView(
             viewModel: model,
             accountAdress: account.address,
+            contractIndex: contractIndex,
             popView: { [weak self] () in self?.navigationController.popViewController(animated: true) },
             service: dependencyProvider.cis2Service()
         )

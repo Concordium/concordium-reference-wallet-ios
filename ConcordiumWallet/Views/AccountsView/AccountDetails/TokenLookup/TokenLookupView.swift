@@ -27,7 +27,7 @@ struct TokenLookupView: View {
     }
 
     var service: CIS2ServiceProtocol
-    var displayContractTokens: ((_ metadata: [CIS2TokenSelectionRepresentable]) -> Void)?
+    var displayContractTokens: ((_ metadata: [CIS2TokenSelectionRepresentable], _ contractIndex: String) -> Void)?
     private var account: AccountDataType
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
     private let searchButtonPublisher = PassthroughSubject<Void, Never>()
@@ -172,7 +172,7 @@ struct TokenLookupView: View {
                 isLoading = false
                 switch result {
                 case let .success(metadata):
-                    displayContractTokens?(metadata)
+                    displayContractTokens?(metadata, contractIndex)
                 case let .failure(error):
                     self.error = error
                 }
