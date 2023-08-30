@@ -114,7 +114,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
         storageManager.cachedTokensPublisher
             .flatMapLatest { (tokens: Results<CIS2TokenOwnershipEntity>) -> AnyPublisher<([CIS2TokenSelectionRepresentable], [CIS2TokenBalance]), Error> in
-                Publishers.Zip(
+                guard !tokens.isEmpty else {
+                    return .just(([],[])).eraseToAnyPublisher()
+                }
+                return Publishers.Zip(
                     AnyPublisher<[CIS2TokenSelectionRepresentable], Error>.just(tokens.map { $0.asRepresentable() })
                         .eraseToAnyPublisher(),
                     Publishers.MergeMany(

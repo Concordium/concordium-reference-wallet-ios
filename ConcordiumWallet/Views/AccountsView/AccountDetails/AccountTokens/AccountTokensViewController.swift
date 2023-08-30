@@ -79,23 +79,23 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 extension AccountTokensViewController: UITableViewDelegate {}
 
 extension AccountTokensViewController: UITableViewDataSource {
-    var itemsCount: Int {
+    private var currentTabItems: [CIS2TokenSelectionRepresentable] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
-            return data.filter { $0.unique }.count
+            return data.filter { $0.unique }
         case .fungible:
-            return data.filter { !$0.unique }.count
-        default: return 0
+            return data.filter { !$0.unique }
+        default: return []
         }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard itemsCount > 0 else {
+        guard currentTabItems.count > 0 else {
             tableView.setEmptyMessage("No collectibles have been added to this account yet. \n To add more tokens, tap Manage.")
             return 0
         }
         tableView.restoreDefaultState()
-        return itemsCount
+        return currentTabItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,13 +104,13 @@ extension AccountTokensViewController: UITableViewDataSource {
         }
         let placeholder = UIImage(systemName: "photo")
         cell.tokenImageView.tintColor = .gray
-        let data = data[indexPath.row]
+        let data = currentTabItems[indexPath.row]
         cell.nameLabel.text = data.name
         cell.tokenImageView.sd_setImage(with: data.thumbnail, placeholderImage: placeholder)
-        cell.balanceLabel.text = "\(data.balance) "
+        cell.balanceLabel.text = GTU(intValue: data.balance).displayValue()
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.userSelected(token: data[indexPath.row])
     }
