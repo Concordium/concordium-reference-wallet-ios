@@ -4,9 +4,33 @@
 //
 
 import Foundation
+import Combine
+import RealmSwift
 @testable import Mock
 
 class StorageManagerMockHelper: StorageManagerProtocol {
+    func storeCIS2Tokens(_ tokens: [Mock.CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
+        NYI()
+    }
+    
+    func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [Mock.CIS2TokenOwnershipEntity] {
+        NYI()
+    }
+    
+    func getCIS2Tokens(accountAddress: String) -> [Mock.CIS2TokenOwnershipEntity] {
+        NYI()
+    }
+    
+    func getCIS2TokenMetadataDetails(url: String) -> Mock.CIS2TokenMetadataDetailsEntity? {
+        NYI()
+    }
+    
+    func storeCIS2TokenMetadataDetails(_ metadata: Mock.CIS2TokenMetadataDetails, for url: String) throws {
+        NYI()
+    }
+    
+    var cachedTokensPublisher: AnyPublisher<RealmSwift.Results<Mock.CIS2TokenOwnershipEntity>, Error> = AnyPublisher<RealmSwift.Results<Mock.CIS2TokenOwnershipEntity>, Error>.fail(NetworkError.invalidRequest)
+
     func getLastAcceptedTermsAndConditionsVersion() -> String {
         NYI()
     }
