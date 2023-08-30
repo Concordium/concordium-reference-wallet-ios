@@ -82,8 +82,8 @@ protocol StorageManagerProtocol {
     func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
     func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
+    var cachedTokensPublisher: AnyPublisher<Results<CIS2TokenOwnershipEntity>, Error> { get }
 }
-
 enum StorageError: Error {
     case writeError(error: Error)
     case itemNotFound
@@ -153,6 +153,10 @@ class StorageManager: StorageManagerProtocol {
         Array(realm.objects(CIS2TokenOwnershipEntity.self)
             .filter("accountAddress == %@", accountAddress)
         )
+    }
+
+    var cachedTokensPublisher: AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error> {
+        realm.objects(CIS2TokenOwnershipEntity.self).collectionPublisher.eraseToAnyPublisher()
     }
 
     @MainActor

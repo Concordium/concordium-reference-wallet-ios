@@ -35,14 +35,12 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var tokensTableView: UITableView!
-    var data: [CIS2TokenSelectionRepresentable]
+    var data: [CIS2TokenSelectionRepresentable] = []
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
-    var cancellables: [AnyCancellable] = []
     private var presenter: AccountTokensPresenterProtocol
-
+    private var cancellables: Set<AnyCancellable> = []
     init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
         self.presenter = presenter
-        data = self.presenter.fetchCachedTokens()
         super.init(coder: coder)
     }
 
@@ -54,6 +52,16 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         super.viewDidLoad()
         tokensTableView.delegate = self
         tokensTableView.dataSource = self
+        presenter.cachedTokensPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                self?.showErrorMessage(error.localizedDescription)
+            } receiveValue: { [weak self] data in
+                self?.data = data
+                self?.tokensTableView.reloadData()
+            }
+            .store(in: &cancellables)
+
         tabBarViewModel.tabs = Tabs.allCases.map { $0.titleLabel }
         show(MaterialTabBar(viewModel: tabBarViewModel), in: tabBarView)
 
@@ -62,8 +70,6 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
             .receive(on: DispatchQueue.main)
             .compactMap { Tabs(rawValue: $0) }
             .sink { [weak self] _ in
-
-                self?.data = self?.presenter.fetchCachedTokens() ?? []
                 self?.tokensTableView.reloadData()
             }
             .store(in: &cancellables)
@@ -79,8 +85,7 @@ extension AccountTokensViewController: UITableViewDataSource {
             return data.filter { $0.unique }.count
         case .fungible:
             return data.filter { !$0.unique }.count
-        case .none:
-            return 0
+        default: return 0
         }
     }
 

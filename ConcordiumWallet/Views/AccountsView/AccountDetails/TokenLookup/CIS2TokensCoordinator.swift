@@ -35,7 +35,8 @@ class CIS2TokensCoordinator: Coordinator {
             viewModel: model,
             accountAdress: account.address,
             contractIndex: contractIndex,
-            popView: { [weak self] () in self?.navigationController.popViewController(animated: true) },
+            popView: { [weak self] in self?.navigationController.popViewController(animated: true) },
+            didUpdateTokens: { [weak self] in self?.navigationController.dismiss(animated: true) },
             service: dependencyProvider.cis2Service()
         )
 

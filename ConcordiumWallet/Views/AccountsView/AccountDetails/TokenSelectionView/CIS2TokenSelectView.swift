@@ -11,6 +11,7 @@ struct CIS2TokenSelectView: View {
     @State private var tokenIndex: String = ""
     @State var selectedItems: Set<CIS2TokenSelectionRepresentable> = []
     var popView: () -> Void
+    var didUpdateTokens: () -> Void
     let service: CIS2ServiceProtocol
     var viewModel: [CIS2TokenSelectionRepresentable]
     private let accountAddress: String
@@ -24,10 +25,12 @@ struct CIS2TokenSelectView: View {
         accountAdress: String,
         contractIndex: String,
         popView: @escaping () -> Void,
+        didUpdateTokens: @escaping () -> Void,
         service: CIS2ServiceProtocol
     ) {
         self.viewModel = viewModel
         self.popView = popView
+        self.didUpdateTokens = didUpdateTokens
         self.accountAddress = accountAdress
         self.contractIndex = contractIndex
         self.service = service
@@ -138,7 +141,7 @@ struct CIS2TokenSelectView: View {
     func addToStorage() {
         let updated = viewModel.filter { selectedItems.contains($0) }
         if let _ = try? service.storeCIS2Tokens(updated, accountAddress: accountAddress, contractIndex: contractIndex) {
-            popView()
+            didUpdateTokens()
         }
     }
 }

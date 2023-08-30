@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import RealmSwift
 
 protocol TransactionsFetcher {
     func getNextTransactions()
@@ -45,6 +46,7 @@ protocol AccountTokensPresenterProtocol {
     func userSelected(token: CIS2TokenSelectionRepresentable)
     func showManageTokensView()
     func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable]
+    var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> { get }
 }
 
 // MARK: -
@@ -89,7 +91,7 @@ class AccountDetailsPresenter {
 
     private var accountsService: AccountsServiceProtocol
     private let transactionsLoadingHandler: TransactionsLoadingHandler
-
+    private let cis2Service: CIS2ServiceProtocol
     private var shouldRefresh: Bool = true
     private var lastRefreshTime: Date = Date()
 
@@ -100,15 +102,54 @@ class AccountDetailsPresenter {
          delegate: (AccountDetailsPresenterDelegate & RequestPasswordDelegate)? = nil) {
         accountsService = dependencyProvider.accountsService()
         storageManager = dependencyProvider.storageManager()
+        cis2Service = dependencyProvider.cis2Service()
         self.account = account
         self.delegate = delegate
-
         viewModel = AccountDetailsViewModel(account: account, balanceType: balanceType)
         transactionsLoadingHandler = TransactionsLoadingHandler(account: account, balanceType: balanceType, dependencyProvider: dependencyProvider)
     }
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
+    var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
+        storageManager.cachedTokensPublisher
+            .flatMapLatest { (tokens: Results<CIS2TokenOwnershipEntity>) -> AnyPublisher<([CIS2TokenSelectionRepresentable], [CIS2TokenBalance]), Error> in
+                Publishers.Zip(
+                    AnyPublisher<[CIS2TokenSelectionRepresentable], Error>.just(tokens.map { $0.asRepresentable() })
+                        .eraseToAnyPublisher(),
+                    Publishers.MergeMany(
+                        tokens.map { [weak self] in
+                            self?.cis2Service.fetchTokensBalance(
+                                contractIndex: $0.contractIndex,
+                                contractSubindex: "0",
+                                accountAddress: self?.account.address ?? "",
+                                tokenId: $0.tokenId
+                            ) ?? .empty()
+                        }
+                    )
+                    .eraseToAnyPublisher()
+                )
+                .eraseToAnyPublisher()
+            }
+            .map { tokens, balances in
+                tokens.map { t in
+                    CIS2TokenSelectionRepresentable(
+                        tokenId: t.tokenId,
+                        balance: Int(balances.first(where: { t.tokenId == $0.tokenId })?.balance ?? "") ?? 0,
+                        contractIndex: t.contractIndex,
+                        name: t.name,
+                        symbol: t.symbol,
+                        decimals: t.decimals,
+                        description: t.description,
+                        thumbnail: t.thumbnail,
+                        unique: t.unique,
+                        accountAddress: t.accountAddress
+                    )
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+
     func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable] {
         storageManager.getCIS2Tokens(accountAddress: account.address).map { $0.asRepresentable() }
     }

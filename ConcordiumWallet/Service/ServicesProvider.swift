@@ -15,6 +15,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
+    func cis2Service() -> CIS2ServiceProtocol
     func appSettingsService() -> AppSettingsServiceProtocol
 }
 
