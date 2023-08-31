@@ -115,9 +115,7 @@ struct TokenDetailsView: View {
 
     var hideTokenButton: some View {
         Button {
-            if let _ = try? service.deleteTokenFromCache(token) {
-                popView()
-            }
+            isAlertShown = true
         } label: {
             Text("Don't show token in wallet")
                 .font(.body)
@@ -126,8 +124,19 @@ struct TokenDetailsView: View {
                 .foregroundColor(Pallette.whiteText)
                 .background(Pallette.error)
                 .cornerRadius(10)
-        }.alert(isPresented: $isAlertShown) {
-            Alert(title: Text("Are you sure you want to delete the token?"), message: Text("Great choice!"), dismissButton: .cancel())
+        }.actionSheet(isPresented: $isAlertShown) {
+            ActionSheet(
+                title: Text("Remove Token"),
+                message: Text("Do you want to remove the token from local storage?"),
+                buttons: [
+                    .destructive(Text("Yes"), action: {
+                        if let _ = try? service.deleteTokenFromCache(token) {
+                            popView()
+                        }
+                    }),
+                    .cancel(Text("No")),
+                ]
+            )
         }
     }
 }
