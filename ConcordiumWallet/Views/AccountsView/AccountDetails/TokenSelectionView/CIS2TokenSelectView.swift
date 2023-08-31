@@ -3,14 +3,40 @@
 //  ConcordiumWallet
 //
 
+import Combine
 import SDWebImageSwiftUI
 import SwiftUI
 
 struct CIS2TokenSelectView: View {
-    @State var metadata: [CIS2TokenDetails]
     @State private var tokenIndex: String = ""
-    @State var selectedItems: Set<Int> = []
-    var popView: (() -> Void)?
+    @State var selectedItems: Set<CIS2TokenSelectionRepresentable> = []
+    var popView: () -> Void
+    var didUpdateTokens: () -> Void
+    let service: CIS2ServiceProtocol
+    var viewModel: [CIS2TokenSelectionRepresentable]
+    private let accountAddress: String
+    private let contractIndex: String
+    private var filteredTokens: [CIS2TokenSelectionRepresentable] {
+        viewModel.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }
+    }
+
+    init(
+        viewModel: [CIS2TokenSelectionRepresentable],
+        accountAdress: String,
+        contractIndex: String,
+        popView: @escaping () -> Void,
+        didUpdateTokens: @escaping () -> Void,
+        service: CIS2ServiceProtocol
+    ) {
+        self.viewModel = viewModel
+        self.popView = popView
+        self.didUpdateTokens = didUpdateTokens
+        self.accountAddress = accountAdress
+        self.contractIndex = contractIndex
+        self.service = service
+        _selectedItems = State(initialValue: Set(service.getUserStoredCIS2Tokens(accountAddress: accountAdress, contractIndex: viewModel.first?.contractIndex ?? "")))
+    }
+
     var body: some View {
         VStack {
             Text("Please select the tokens you want to add from the contract.")
@@ -30,36 +56,48 @@ struct CIS2TokenSelectView: View {
             )
             .padding([.top, .bottom], 4)
             VStack {
-                ScrollView {
-                    ForEach(metadata, id: \.self) { metadata in
-                        HStack {
-                            WebImage(url: metadata.thumbnail?.url)
-                                .resizable()
-                                .placeholder {
-                                    Image(systemName: "photo")
+                if filteredTokens.isEmpty {
+                    HStack {
+                        Text("No tokens matching given predicate.")
+                            .padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                } else {
+                    ScrollView {
+                        ForEach(filteredTokens, id: \.self) { model in
+                            HStack {
+                                WebImage(url: model.thumbnail)
+                                    .resizable()
+                                    .placeholder {
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 24, height: 24)
+                                            .foregroundColor(.gray)
+                                    }
+                                    .indicator(.activity)
+                                    .transition(.fade(duration: 0.2))
+                                    .scaledToFit()
+                                    .frame(width: 45, height: 45, alignment: .center)
+                                VStack(alignment: .leading) {
+                                    Text(model.name)
+                                    Text("Your balance: \(GTU(intValue: model.balance).displayValue())")
+                                        .foregroundColor(Pallette.fadedText)
+                                }
+                                Spacer()
+                                Button {
+                                    didSelect(item: model)
+                                } label: {
+                                    Image(systemName: selectedItems.contains { $0 == model } ? "checkmark.square.fill" : "square")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(.gray)
-                                        
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(Pallette.primary)
                                 }
-                                .indicator(.activity)
-                                .transition(.fade(duration: 0.2))
-                                .scaledToFit()
-                                .frame(width: 45, height: 45, alignment: .center)
-                            Text(metadata.name)
-                            Spacer()
-                            Button {
-                            } label: {
-                                Image(systemName: "checkmark.square.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(Pallette.primary)
                             }
+                            .padding([.top, .bottom], 8)
+                            .padding([.leading, .trailing], 16)
                         }
-                        .padding([.top, .bottom], 8)
-                        .padding([.leading, .trailing], 16)
                     }
                 }
                 Spacer()
@@ -70,7 +108,7 @@ struct CIS2TokenSelectView: View {
             )
             Spacer()
             HStack(spacing: 16) {
-                Button(action: { popView?() }) {
+                Button(action: popView) {
                     Text("Back")
                         .foregroundColor(.white)
                         .padding()
@@ -78,8 +116,8 @@ struct CIS2TokenSelectView: View {
                 }
                 .background(Pallette.primary)
                 .cornerRadius(10)
-                Button(action: { }) {
-                    Text("Accept")
+                Button(action: addToStorage) {
+                    Text("Add tokens")
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -88,17 +126,22 @@ struct CIS2TokenSelectView: View {
                 .cornerRadius(10)
             }
         }
+        .onAppear()
         .padding()
     }
-}
 
-struct CIS2tokenSelectView_Previews: PreviewProvider {
-    static var previews: some View {
-        CIS2TokenSelectView(
-            metadata: [
-                .init(name: "CCD", symbol: "wCCD", decimals: 2, description: "Test token", thumbnail: nil, unique: true),
-                .init(name: "CCD", symbol: "wCCD", decimals: 2, description: "Test token", thumbnail: nil, unique: true),
-            ]
-        )
+    func didSelect(item: CIS2TokenSelectionRepresentable) {
+        if selectedItems.contains(where: { $0 == item }) {
+            selectedItems.remove(item)
+        } else {
+            selectedItems.insert(item)
+        }
+    }
+
+    func addToStorage() {
+        let updated = viewModel.filter { selectedItems.contains($0) }
+        if let _ = try? service.storeCIS2Tokens(updated, accountAddress: accountAddress, contractIndex: contractIndex) {
+            didUpdateTokens()
+        }
     }
 }

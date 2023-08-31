@@ -48,7 +48,6 @@ class AccountDetailsCoordinator: Coordinator,
         self.dependencyProvider = dependencyProvider
         self.account = account
         self.navigationController.modalPresentationStyle = .fullScreen
-
     }
     
     func start() {
@@ -331,14 +330,15 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func showManageCIS2TokensView() {
         let coordinator = CIS2TokensCoordinator(
             navigationController: BaseNavigationController(),
-            dependencyProvider: ServicesProvider.defaultProvider()
+            dependencyProvider: ServicesProvider.defaultProvider(),
+            account: account
         )
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true)
     }
     
-    func tokenSelected(_ token: Token) {
+    func tokenSelected(_ token: CIS2TokenSelectionRepresentable) {
         //TODO: Show token details vc
     }
     
