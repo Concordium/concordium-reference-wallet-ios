@@ -342,7 +342,8 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
                     service: dependencyProvider.cis2Service(),
                     popView: { [weak self] in
                         self?.navigationController.popViewController(animated: true)
-                    }
+                    },
+                    context: .database
                 )
             ),
             animated: true

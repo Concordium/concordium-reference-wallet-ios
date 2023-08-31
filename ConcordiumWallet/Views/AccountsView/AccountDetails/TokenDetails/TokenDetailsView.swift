@@ -9,20 +9,35 @@
 import SwiftUI
 
 struct TokenDetailsView: View {
+    /// Provides context determining mode for the view.
+    enum Context {
+        /// Used when token for which details are shown is cached in database.
+        case database
+        /// Used when to display token details before adding to database.
+        case preview
+    }
+    
     var token: CIS2TokenSelectionRepresentable
     var service: CIS2ServiceProtocol
     var popView: () -> Void
+    var context: Context
     @State private var isAlertShown = false
 
     var body: some View {
         VStack {
-            balanceSection
-            buttonsSection
+            if context == .database {
+                balanceSection
+                buttonsSection
+            }
             tokenInfoSection
             Spacer()
-            hideTokenButton
+            switch context {
+            case .database:
+                hideTokenButton
+            case .preview:
+                backToListButton
+            }
         }
-
         .navigationTitle(token.name)
         .padding()
     }
@@ -137,6 +152,20 @@ struct TokenDetailsView: View {
                     .cancel(Text("No")),
                 ]
             )
+        }
+    }
+    
+    var backToListButton: some View {
+        Button {
+            popView()
+        } label: {
+            Text("Back to list")
+                .font(.body)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+                .background(Pallette.primary)
+                .cornerRadius(10)
         }
     }
 }

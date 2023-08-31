@@ -11,6 +11,7 @@ struct CIS2TokenSelectView: View {
     @State private var tokenIndex: String = ""
     @State var selectedItems: Set<CIS2TokenSelectionRepresentable> = []
     var popView: () -> Void
+    var showDetails: (_ token: CIS2TokenSelectionRepresentable) -> Void
     var didUpdateTokens: () -> Void
     let service: CIS2ServiceProtocol
     var viewModel: [CIS2TokenSelectionRepresentable]
@@ -26,6 +27,7 @@ struct CIS2TokenSelectView: View {
         contractIndex: String,
         popView: @escaping () -> Void,
         didUpdateTokens: @escaping () -> Void,
+        showDetails: @escaping (_ token: CIS2TokenSelectionRepresentable) -> Void,
         service: CIS2ServiceProtocol
     ) {
         self.viewModel = viewModel
@@ -33,6 +35,7 @@ struct CIS2TokenSelectView: View {
         self.didUpdateTokens = didUpdateTokens
         self.accountAddress = accountAdress
         self.contractIndex = contractIndex
+        self.showDetails = showDetails
         self.service = service
         _selectedItems = State(initialValue: Set(service.getUserStoredCIS2Tokens(accountAddress: accountAdress, contractIndex: viewModel.first?.contractIndex ?? "")))
     }
@@ -94,7 +97,7 @@ struct CIS2TokenSelectView: View {
                                         .frame(width: 20, height: 20)
                                         .foregroundColor(Pallette.primary)
                                 }
-                            }
+                            }.onTapGesture { showDetails(model) }
                             .padding([.top, .bottom], 8)
                             .padding([.leading, .trailing], 16)
                         }
