@@ -82,6 +82,7 @@ protocol StorageManagerProtocol {
     func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
     func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
+    func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws
     var cachedTokensPublisher: AnyPublisher<Results<CIS2TokenOwnershipEntity>, Error> { get }
 }
 enum StorageError: Error {
@@ -129,6 +130,15 @@ class StorageManager: StorageManagerProtocol {
         }
     }
 
+    @MainActor
+    func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws {
+        try realm.write {
+            if let tokenToDelete = realm.objects(CIS2TokenOwnershipEntity.self).first { $0.tokenId == token.tokenId && $0.contractIndex == token.contractIndex } {
+                realm.delete(tokenToDelete)
+            }
+        }
+    }
+    
     @MainActor
     func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws {
         try realm.write {

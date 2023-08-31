@@ -16,6 +16,7 @@ protocol CIS2ServiceProtocol {
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) -> AnyPublisher<[CIS2TokenBalance], Error>
     func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenSelectionRepresentable]
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
+    func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -44,6 +45,9 @@ class CIS2Service: CIS2ServiceProtocol {
 
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         try storageManager.storeCIS2Tokens(tokens, accountAddress: accountAddress, contractIndex: contractIndex)
+    }
+    func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws {
+        try storageManager.deleteCIS2Token(token)
     }
 
     func fetchTokens(contractIndex: String, contractSubindex: String = "0") -> AnyPublisher<CIS2TokensInfo, Error> {
