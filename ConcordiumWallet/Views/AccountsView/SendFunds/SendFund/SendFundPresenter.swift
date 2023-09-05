@@ -120,6 +120,7 @@ protocol SendFundPresenterDelegate: AnyObject {
                            cost: GTU,
                            transferType: SendFundTransferType)
     func dismissQR()
+    func sendFundPresenterShowTokenTypeSelector(didSelectToken: @escaping ((CIS2TokenSelectionRepresentable) -> Void))
 }
 
 // MARK: -
@@ -138,6 +139,7 @@ protocol SendFundPresenterProtocol: AnyObject {
     func userTappedSendAll()
     func userChangedAmount()
     func finishedEditingRecipientAddress()
+    func selectTokenType()
     
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
@@ -145,6 +147,7 @@ protocol SendFundPresenterProtocol: AnyObject {
 }
 
 class SendFundPresenter: SendFundPresenterProtocol {
+    
     weak var view: SendFundViewProtocol?
     weak var delegate: SendFundPresenterDelegate?
     
@@ -248,7 +251,13 @@ class SendFundPresenter: SendFundPresenterProtocol {
     func userTappedAddMemo() {
         delegate?.sendFundPresenterAddMemo(self, memo: addedMemo)
     }
-    
+
+    func selectTokenType() {
+        delegate?.sendFundPresenterShowTokenTypeSelector(didSelectToken: { token in
+            
+        })
+    }
+
     func userTappedRemoveMemo() {
         addedMemo = nil
         

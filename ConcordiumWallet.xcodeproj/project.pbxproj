@@ -124,6 +124,10 @@
 		01A91ABC2A8E7E3100735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
 		01A91ABD2A8E7E3100735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
 		01A91ABE2A8E7E3200735D23 /* CIS2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */; };
+		01AB17DE2AA1F5F50078237F /* SendFundTokenSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB17DD2AA1F5F50078237F /* SendFundTokenSelection.swift */; };
+		01AB17DF2AA1F5FD0078237F /* SendFundTokenSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB17DD2AA1F5F50078237F /* SendFundTokenSelection.swift */; };
+		01AB17E02AA1F5FD0078237F /* SendFundTokenSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB17DD2AA1F5F50078237F /* SendFundTokenSelection.swift */; };
+		01AB17E12AA1F5FD0078237F /* SendFundTokenSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB17DD2AA1F5F50078237F /* SendFundTokenSelection.swift */; };
 		01AD79A72A250C710023E063 /* QRScannerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD79A62A250C710023E063 /* QRScannerViewTests.swift */; };
 		01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
@@ -2808,6 +2812,7 @@
 		01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensMetadataItem.swift; sourceTree = "<group>"; };
 		01A91AAC2A8E7DB900735D23 /* CIS2TokenMetadataDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenMetadataDetails.swift; sourceTree = "<group>"; };
 		01A91ABA2A8E7E2E00735D23 /* CIS2Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2Token.swift; sourceTree = "<group>"; };
+		01AB17DD2AA1F5F50078237F /* SendFundTokenSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFundTokenSelection.swift; sourceTree = "<group>"; };
 		01AD79A62A250C710023E063 /* QRScannerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewTests.swift; sourceTree = "<group>"; };
 		01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayloadEntity.swift; sourceTree = "<group>"; };
 		01E0705B2A30770300B44B2B /* WalletConnectApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectApprovalView.swift; sourceTree = "<group>"; };
@@ -4138,6 +4143,7 @@
 		19C2E8A9A4875A30D37DA869 /* SendFunds */ = {
 			isa = PBXGroup;
 			children = (
+				01AB17DD2AA1F5F50078237F /* SendFundTokenSelection.swift */,
 				7F168A0524812B5B00DE429E /* Confirmation */,
 				19C2E9F9A20886FF73C0DA62 /* SendFund */,
 				19C2E2A0EBFE1B1E9F98D7CC /* SendFundsCoordinator.swift */,
@@ -6588,6 +6594,7 @@
 				8992BAB3283630F4005279C9 /* String+Links.swift in Sources */,
 				89B34A292892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
 				7F48C27D244E17D100997684 /* SubmissionStatus.swift in Sources */,
+				01AB17DE2AA1F5F50078237F /* SendFundTokenSelection.swift in Sources */,
 				C94ED728246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
 				01A91AAB2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift in Sources */,
 				078967082742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
@@ -6990,6 +6997,7 @@
 				7F85B740246A9A7C00ED09B8 /* Policy.swift in Sources */,
 				8D61F4772955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B741246A9A7C00ED09B8 /* IdentitiesCoordinator.swift in Sources */,
+				01AB17E02AA1F5FD0078237F /* SendFundTokenSelection.swift in Sources */,
 				7F85B742246A9A7C00ED09B8 /* PreIdentityObject.swift in Sources */,
 				0111D72D2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A092892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
@@ -7572,6 +7580,7 @@
 				7F85B83D246A9AB600ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
 				8D61F4782955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B83F246A9AB600ED09B8 /* Policy.swift in Sources */,
+				01AB17E12AA1F5FD0078237F /* SendFundTokenSelection.swift in Sources */,
 				7F85B840246A9AB600ED09B8 /* IdentitiesCoordinator.swift in Sources */,
 				0111D72E2A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift in Sources */,
 				89B34A0A2892AAE70059891C /* RecoveryPhraseRecoverIntroViewModel.swift in Sources */,
@@ -8221,6 +8230,7 @@
 				C938F5392423835000ECAD47 /* IdentityInfoViewModel.swift in Sources */,
 				FA0CAB1B294B90540009D5F8 /* ExportPrivateKeyViewModel.swift in Sources */,
 				19C2EFC9AF9159B6494E2784 /* ResourceRequest.swift in Sources */,
+				01AB17DF2AA1F5FD0078237F /* SendFundTokenSelection.swift in Sources */,
 				7FCC0E8224200A2E007030EC /* LoginErrorLabel.swift in Sources */,
 				19C2E66625B60EA8C948B385 /* NetworkManagerProtocol.swift in Sources */,
 				19C2E0C7F19B6044963A14A2 /* Publisher+Utils.swift in Sources */,
@@ -8648,7 +8658,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8685,7 +8695,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
@@ -8719,7 +8729,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8757,7 +8767,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;

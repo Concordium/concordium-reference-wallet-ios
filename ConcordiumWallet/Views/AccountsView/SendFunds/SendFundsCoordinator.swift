@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol SendFundsCoordinatorDelegate: AnyObject {
     func sendFundsCoordinatorFinished()
@@ -157,6 +158,10 @@ class SendFundsCoordinator: Coordinator {
 extension SendFundsCoordinator: SendFundPresenterDelegate {
     func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void)) {
         showScanAddressQR(didScanQRCode: didScanQRCode)
+    }
+    
+    func sendFundPresenterShowTokenTypeSelector(didSelectToken: @escaping ((CIS2TokenSelectionRepresentable) -> Void)) {
+        navigationController.present(UIHostingController(rootView: SendFundTokenSelection(service: dependencyProvider.cis2Service(), address: account.address)), animated: true)
     }
 
     func sendFundPresenter(
