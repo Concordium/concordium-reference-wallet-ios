@@ -96,6 +96,10 @@
 		018EEDF02A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF12A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF22A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
+		01A6EE452AAB0F8500F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE442AAB0F8500F2C19B /* SDWebImageSVGCoder */; };
+		01A6EE472AAB0FF300F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE462AAB0FF300F2C19B /* SDWebImageSVGCoder */; };
+		01A6EE492AAB0FF800F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE482AAB0FF800F2C19B /* SDWebImageSVGCoder */; };
+		01A6EE4B2AAB0FFC00F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE4A2AAB0FFC00F2C19B /* SDWebImageSVGCoder */; };
 		01A91A9E2A8E3F8600735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */; };
 		01A91AA02A8E429600735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91A9F2A8E429600735D23 /* SDWebImageSwiftUI */; };
 		01A91AA22A8E429C00735D23 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 01A91AA12A8E429C00735D23 /* SDWebImageSwiftUI */; };
@@ -3526,6 +3530,7 @@
 				CDAB51432A3863D50010D12B /* Starscream in Frameworks */,
 				FA0DBD8A292BF4360051C0D7 /* MatomoTracker in Frameworks */,
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
+				01A6EE452AAB0F8500F2C19B /* SDWebImageSVGCoder in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
 				01A91A9E2A8E3F8600735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
@@ -3541,6 +3546,7 @@
 				FA0CAAE7292EADA00009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67C286AC73B0007CAF1 /* SwiftCBOR in Frameworks */,
 				010BCB062A2F574E00B50D67 /* Starscream in Frameworks */,
+				01A6EE472AAB0FF300F2C19B /* SDWebImageSVGCoder in Frameworks */,
 				01A91AA02A8E429600735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A673286AC69B0007CAF1 /* RealmSwift in Frameworks */,
 				CDAB51472A3863EC0010D12B /* Web3Wallet in Frameworks */,
@@ -3557,6 +3563,7 @@
 				CDAB51492A3863F40010D12B /* Starscream in Frameworks */,
 				FA0CAAE9292EADA70009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67E286AC7410007CAF1 /* SwiftCBOR in Frameworks */,
+				01A6EE492AAB0FF800F2C19B /* SDWebImageSVGCoder in Frameworks */,
 				01A91AA22A8E429C00735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A675286AC6A20007CAF1 /* RealmSwift in Frameworks */,
 				CDAB514B2A3863F80010D12B /* Web3Wallet in Frameworks */,
@@ -3573,6 +3580,7 @@
 				FA0CAAE5292E92480009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67A286AC7350007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */,
+				01A6EE4B2AAB0FFC00F2C19B /* SDWebImageSVGCoder in Frameworks */,
 				01A91AA42A8E42A500735D23 /* SDWebImageSwiftUI in Frameworks */,
 				CD1152092A03E53A00A68AD7 /* ConcordiumWalletCrypto in Frameworks */,
 				893CAC53286DBA1D00BDF84C /* MnemonicSwift in Frameworks */,
@@ -5667,6 +5675,7 @@
 				CDAB513E2A3863A30010D12B /* Web3Wallet */,
 				CDAB51422A3863D50010D12B /* Starscream */,
 				01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */,
+				01A6EE442AAB0F8500F2C19B /* SDWebImageSVGCoder */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5695,6 +5704,7 @@
 				010BCB052A2F574E00B50D67 /* Starscream */,
 				CDAB51462A3863EC0010D12B /* Web3Wallet */,
 				01A91A9F2A8E429600735D23 /* SDWebImageSwiftUI */,
+				01A6EE462AAB0FF300F2C19B /* SDWebImageSVGCoder */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
@@ -5723,6 +5733,7 @@
 				CDAB51482A3863F40010D12B /* Starscream */,
 				CDAB514A2A3863F80010D12B /* Web3Wallet */,
 				01A91AA12A8E429C00735D23 /* SDWebImageSwiftUI */,
+				01A6EE482AAB0FF800F2C19B /* SDWebImageSVGCoder */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -5751,6 +5762,7 @@
 				CDAB51402A3863BC0010D12B /* Web3Wallet */,
 				CDAB51442A3863DA0010D12B /* Starscream */,
 				01A91AA32A8E42A500735D23 /* SDWebImageSwiftUI */,
+				01A6EE4A2AAB0FFC00F2C19B /* SDWebImageSVGCoder */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -5813,6 +5825,7 @@
 				01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */,
 				01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -9141,6 +9154,14 @@
 				version = 3.1.2;
 			};
 		};
+		01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -9204,6 +9225,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
+		};
+		01A6EE442AAB0F8500F2C19B /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		01A6EE462AAB0FF300F2C19B /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		01A6EE482AAB0FF800F2C19B /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		01A6EE4A2AAB0FFC00F2C19B /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
 		};
 		01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

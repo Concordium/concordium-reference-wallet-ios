@@ -43,6 +43,7 @@ protocol AccountDetailsPresenterDelegate: ShowShieldedDelegate {
 
 /// Defines methods that can be called from AccountTokensViewController.
 protocol AccountTokensPresenterProtocol {
+    var account: AccountDataType { get }
     func userSelected(token: CIS2TokenSelectionRepresentable)
     func showManageTokensView()
     func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable]
@@ -112,13 +113,14 @@ class AccountDetailsPresenter {
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
-        storageManager.cachedTokensPublisher
+        storageManager.getCIS2TokensPublisher(for: account.address)
             .flatMapLatest { (tokens: Results<CIS2TokenOwnershipEntity>) -> AnyPublisher<([CIS2TokenSelectionRepresentable], [CIS2TokenBalance]), Error> in
                 guard !tokens.isEmpty else {
                     return .just(([],[])).eraseToAnyPublisher()
                 }
                 return Publishers.Zip(
-                    AnyPublisher<[CIS2TokenSelectionRepresentable], Error>.just(tokens.map { $0.asRepresentable() })
+                    AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
+                        .just(tokens.map { $0.asRepresentable() })
                         .eraseToAnyPublisher(),
                     Publishers.MergeMany(
                         tokens.map { [weak self] in

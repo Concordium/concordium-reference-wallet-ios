@@ -16,6 +16,16 @@ class AccountTokensViewFactory {
 }
 
 class AccountTokensViewController: BaseViewController, Storyboarded {
+    
+    struct AccountTokensViewModel {
+        let name: String
+        let symbol: String?
+        let thumbnailURL: URL?
+        let thumbnailImage: UIImage?
+        let unique: Bool?
+        let balance: String
+    }
+    
     enum Tabs: Int, CaseIterable {
         case fungible
         case collectibles
@@ -36,6 +46,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var tokensTableView: UITableView!
     var data: [CIS2TokenSelectionRepresentable] = []
+    var items: [AccountTokensViewModel] = []
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     private var presenter: AccountTokensPresenterProtocol
     private var cancellables: Set<AnyCancellable> = []
@@ -52,13 +63,17 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         super.viewDidLoad()
         tokensTableView.delegate = self
         tokensTableView.dataSource = self
-        presenter.cachedTokensPublisher
+        presenter
+            .cachedTokensPublisher
             .receive(on: DispatchQueue.main)
+            .map { $0.map { AccountTokensViewModel(name: $0.name, symbol: $0.symbol, thumbnailURL: $0.thumbnail, thumbnailImage: nil, unique: $0.unique, balance: $0.balanceDisplayValue) }}
+            .append([AccountTokensViewModel(name: "Concordium", symbol: "CCD", thumbnailURL: nil, thumbnailImage: UIImage(named: "concordium-logo"), unique: false, balance: self.presenter.account.forecastBalance.string)])
             .sink { [weak self] error in
                 self?.showErrorMessage(error.localizedDescription)
             } receiveValue: { [weak self] data in
-                self?.data = data
-                self?.tokensTableView.reloadData()
+                guard let self = self else { return }
+                self.items = data
+                self.tokensTableView.reloadData()
             }
             .store(in: &cancellables)
 
@@ -79,40 +94,55 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 extension AccountTokensViewController: UITableViewDelegate {}
 
 extension AccountTokensViewController: UITableViewDataSource {
-    private var currentTabItems: [CIS2TokenSelectionRepresentable] {
+    private var currentTabItems: [AccountTokensViewModel] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
-            return data.filter { $0.unique }
+            return items.filter { $0.unique ?? false }
         case .fungible:
-            return data.filter { !$0.unique }
+            return items.filter { !($0.unique ?? false) }
         default: return []
         }
     }
-    
+
+    private var itemsCount: Int {
+        switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
+        case .collectibles:
+            return currentTabItems.count
+        case .fungible:
+            return currentTabItems.count
+        default: return 0
+        }
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard currentTabItems.count > 0 else {
             tableView.setEmptyMessage("No collectibles have been added to this account yet. \n To add more tokens, tap Manage.")
             return 0
         }
         tableView.restoreDefaultState()
-        return currentTabItems.count
+        return itemsCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountTokensTableViewCell.self), for: indexPath) as? AccountTokensTableViewCell else {
             return UITableViewCell()
         }
+
         let placeholder = UIImage(systemName: "photo")
         cell.tokenImageView.tintColor = .gray
         let data = currentTabItems[indexPath.row]
         cell.nameLabel.text = data.name
-        cell.tokenImageView.sd_setImage(with: data.thumbnail, placeholderImage: placeholder)
-        cell.balanceLabel.text = GTU(intValue: data.balance).displayValue()
+        if let url = data.thumbnailURL {
+            cell.tokenImageView.sd_setImage(with: url, placeholderImage: placeholder)
+        } else if let localImage = data.thumbnailImage {
+            cell.tokenImageView.image = localImage
+        }
+        cell.balanceLabel.text = data.balance
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.userSelected(token: data[indexPath.row])
+//        presenter.userSelected(token: data[indexPath.row])
     }
 }
 

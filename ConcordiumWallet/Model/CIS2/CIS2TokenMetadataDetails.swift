@@ -6,10 +6,10 @@ import RealmSwift
 struct CIS2TokenMetadataDetails: Codable, Hashable {
     let name: String
     let symbol: String?
-    let decimals: Int
+    let decimals: Int?
     let description: String
     let thumbnail: ImageData?
-    let unique: Bool
+    let unique: Bool?
     struct ImageData: Codable, Hashable, Equatable {
         let url: URL?
     }
@@ -32,10 +32,10 @@ final class CIS2TokenMetadataDetailsEntity: Object {
     @Persisted(primaryKey: true) var url: String
     @Persisted var name: String = ""
     @Persisted var symbol: String? = nil
-    @Persisted var decimals: Int = 0
+    @Persisted var decimals: Int? = nil
     @Persisted var metadataDescription: String = ""
     @Persisted var thumbnail: String? = nil
-    @Persisted var unique: Bool
+    @Persisted var unique: Bool? = nil
 
     convenience init(
         with metadata: CIS2TokenMetadataDetails
