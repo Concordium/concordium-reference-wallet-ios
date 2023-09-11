@@ -15,68 +15,68 @@ protocol StorageManagerProtocol {
     func getConfirmedIdentities() -> [IdentityDataType]
     func getPendingIdentities() -> [IdentityDataType]
     func removeIdentity(_ identity: IdentityDataType?)
-    
+
     func storePrivateIdObjectData(_: PrivateIDObjectData, pwHash: String) -> Result<String, Error>
     func getPrivateIdObjectData(key: String, pwHash: String) -> Result<PrivateIDObjectData, KeychainError>
     /// Remove the private ID object data stored in the keychain with the associated key
     func removePrivateIdObjectData(key: String)
-    
+
     func storePrivateAccountKeys(_ privateAccountKeys: AccountKeys, pwHash: String) -> Result<String, Error>
     func getPrivateAccountKeys(key: String, pwHash: String) -> Result<AccountKeys, Error>
     /// Remove the private account keys stored in the keychain with the associated key
     func removePrivateAccountKeys(key: String)
     func updatePrivateAccountDataPasscode(for account: AccountDataType, accountData: AccountKeys, pwHash: String) -> Result<Void, Error>
-    
+
     func storePrivateEncryptionKey(_ privateKey: String, pwHash: String) -> Result<String, Error>
     func getPrivateEncryptionKey(key: String, pwHash: String) -> Result<String, Error>
     /// Remove the private encryptioni key stored in the keychain with the associated key
     func removePrivateEncryptionKey(key: String)
     func updatePrivateEncryptionKeyPasscode(for account: AccountDataType, privateKey: String, pwHash: String) -> Result<Void, Error>
-    
+
     func storeCommitmentsRandomness(_ commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<String, Error>
     func getCommitmentsRandomness(key: String, pwHash: String) -> Result<CommitmentsRandomness, Error>
     // swiftlint:disable line_length
     func updateCommitmentsRandomnessPasscode(for account: AccountDataType, commitmentsRandomness: CommitmentsRandomness, pwHash: String) -> Result<Void, Error>
-    
+
     func getNextAccountNumber(for identity: IdentityDataType) -> Result<Int, StorageError>
     func storeAccount(_ account: AccountDataType) throws -> AccountDataType
     func getAccounts() -> [AccountDataType]
     func getAccounts(for identity: IdentityDataType) -> [AccountDataType]
     func getAccount(withAddress: String) -> AccountDataType?
     func removeAccount(account: AccountDataType?)
-    
+
     func storeShieldedAmount(amount: ShieldedAmountType) throws -> ShieldedAmountType
     func getShieldedAmountsForAccount(_ account: AccountDataType) -> [ShieldedAmountType]
     func getShieldedAmount(encryptedValue: String, account: AccountDataType) -> ShieldedAmountType?
-    
+
     @discardableResult func storeRecipient(_ recipient: RecipientDataType) throws -> RecipientDataType
     func editRecipient(oldRecipient: RecipientDataType, newRecipient: RecipientDataType) throws
     func getRecipients() -> [RecipientDataType]
     func getRecipient(withAddress address: String) -> RecipientDataType?
     func getRecipient(withName: String, address: String) -> RecipientDataType?
     func removeRecipient(_ recipient: RecipientDataType?)
-    
+
     func storeTransfer(_ transfer: TransferDataType) throws -> TransferDataType
     func getTransfers(for accountAddress: String) -> [TransferDataType]
     func getLastEncryptedBalanceTransfer(for accountAddress: String) -> TransferDataType?
     func getAllTransfers() -> [TransferDataType]
     func removeTransfer(_ transfer: TransferDataType?)
-    
+
     func removeUnfinishedIdentities()
     func removeUnfinishedAccounts()
     func removeAccountsWithoutAddress()
     func removeUnfinishedAccountsAndRelatedIdentities()
-    
+
     func getPendingAccountsAddresses() -> [String]
     func storePendingAccount(with address: String)
     func removePendingAccount(with address: String)
-    
+
     func updateChainParms(_ chainParams: ChainParametersDataType) throws -> ChainParametersDataType
     func getChainParams() -> ChainParametersEntity?
-    
+
     func getLastAcceptedTermsAndConditionsVersion() -> String
     func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
-    
+
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
     func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity]
