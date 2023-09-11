@@ -9,6 +9,12 @@ import RealmSwift
 @testable import Mock
 
 class StorageManagerMockHelper: StorageManagerProtocol {
+    func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenOwnershipEntity] {
+        NYI()
+    }
+    func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws {
+        NYI()
+    }
     func storeCIS2Tokens(_ tokens: [Mock.CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         NYI()
     }
