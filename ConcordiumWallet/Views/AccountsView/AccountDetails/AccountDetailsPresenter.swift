@@ -114,44 +114,36 @@ class AccountDetailsPresenter {
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
         storageManager.getCIS2TokensPublisher(for: account.address)
-            .flatMapLatest { (tokens: Results<CIS2TokenOwnershipEntity>) -> AnyPublisher<([CIS2TokenSelectionRepresentable], [CIS2TokenBalance]), Error> in
-                guard !tokens.isEmpty else {
-                    return .just(([],[])).eraseToAnyPublisher()
-                }
-                return Publishers.Zip(
-                    AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
-                        .just(tokens.map { $0.asRepresentable() })
-                        .eraseToAnyPublisher(),
-                    Publishers.MergeMany(
-                        tokens.map { [weak self] in
-                            self?.cis2Service.fetchTokensBalance(
-                                contractIndex: $0.contractIndex,
-                                contractSubindex: "0",
-                                accountAddress: self?.account.address ?? "",
-                                tokenId: $0.tokenId
-                            ) ?? .empty()
+            .map {
+                Publishers.MergeMany(
+                    $0.map { token in
+                        self.cis2Service.fetchTokensBalance(
+                            contractIndex: token.contractIndex,
+                            contractSubindex: "0",
+                            accountAddress: token.accountAddress,
+                            tokenId: token.tokenId
+                        )
+                        .compactMap { $0.first }
+                        .map {
+                            CIS2TokenSelectionRepresentable(
+                                tokenId: token.tokenId,
+                                balance: Int($0.balance) ?? 0,
+                                contractIndex: token.contractIndex,
+                                name: token.name,
+                                symbol: token.symbol,
+                                decimals: token.decimals,
+                                description: token.tokenDescription,
+                                thumbnail: URL(string: token.thumbnail ?? ""),
+                                unique: token.unique,
+                                accountAddress: token.accountAddress
+                            )
                         }
-                    )
-                    .eraseToAnyPublisher()
+                    }
                 )
-                .eraseToAnyPublisher()
+                .collect()
             }
-            .map { tokens, balances in
-                tokens.map { t in
-                    CIS2TokenSelectionRepresentable(
-                        tokenId: t.tokenId,
-                        balance: Int(balances.first(where: { t.tokenId == $0.tokenId })?.balance ?? "") ?? 0,
-                        contractIndex: t.contractIndex,
-                        name: t.name,
-                        symbol: t.symbol,
-                        decimals: t.decimals,
-                        description: t.description,
-                        thumbnail: t.thumbnail,
-                        unique: t.unique,
-                        accountAddress: t.accountAddress
-                    )
-                }
-            }
+            .switchToLatest()
+            
             .eraseToAnyPublisher()
     }
 

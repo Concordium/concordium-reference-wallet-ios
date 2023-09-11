@@ -158,6 +158,7 @@ class StorageManager: StorageManagerProtocol {
 
     func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error> {
         realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
             .collectionPublisher
             .eraseToAnyPublisher()
     }
