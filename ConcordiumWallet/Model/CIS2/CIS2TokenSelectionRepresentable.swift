@@ -12,6 +12,14 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let thumbnail: URL?
     let unique: Bool
     let accountAddress: String
+    
+    var displayValueBalance: String {
+        GTU(intValue: balance).displayValue()
+    }
+    
+    func toEntity() -> CIS2TokenOwnershipEntity {
+        .init(with: self)
+    }
 }
 
 /// The TokenOwnership object represents the ownership relationship between an Account, a Token, and a specific contract index within that account's holdings.

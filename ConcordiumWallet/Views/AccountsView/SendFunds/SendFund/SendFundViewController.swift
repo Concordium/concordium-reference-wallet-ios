@@ -38,6 +38,9 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBOutlet weak var firstBalanceNameLabel: UILabel!
     @IBOutlet weak var secondBalanceNameLabel: UILabel!
     
+    @IBOutlet weak var tokenSelectionStackView: UIStackView!
+    @IBOutlet weak var selectedTokenName: UILabel!
+    @IBOutlet weak var selectedTokenImageView: UIImageView!
     @IBOutlet weak var firstBalanceLabel: UILabel!
     @IBOutlet weak var secondBalanceLabel: UILabel!
     @IBOutlet weak var shieldedBalanceLockImageView: UIImageView! {
@@ -51,6 +54,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     @IBOutlet weak var recipientTextFieldHeight: NSLayoutConstraint!
     @IBOutlet weak var errorMessageLabel: UILabel!
 
+    @IBOutlet weak var tokenSelectionViewWrapper: UIView!
     private var defaultMainStackViewTopConstraintConstant: CGFloat = 0
     private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
     
@@ -96,6 +100,17 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
                 self?.amountSubject.send(text)
             })
             .store(in: &cancellables)
+    
+        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
+        tokenSelectionStackView.addGestureRecognizer(guesture)
+        tokenSelectionViewWrapper.layer.cornerRadius = 10
+        tokenSelectionViewWrapper.layer.borderWidth = 1.0
+        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
+        tokenSelectionStackView.isUserInteractionEnabled = true
+    }
+
+    @objc private func selectToken(_ sender: AnyObject) {
+        presenter.selectTokenType()
     }
 
     override func keyboardWillShow(_ keyboardHeight: CGFloat) {

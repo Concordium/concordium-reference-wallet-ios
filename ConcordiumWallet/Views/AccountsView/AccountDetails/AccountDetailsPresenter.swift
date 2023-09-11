@@ -154,7 +154,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     }
 
     func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable] {
-        storageManager.getCIS2Tokens(accountAddress: account.address).map { $0.asRepresentable() }
+        storageManager.getUserStoredCIS2Tokens(for: account.address).map { $0.asRepresentable() }
     }
 
     func showGTUDrop() -> Bool {
