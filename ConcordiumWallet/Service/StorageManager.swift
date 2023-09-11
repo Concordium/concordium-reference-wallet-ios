@@ -121,12 +121,12 @@ class StorageManager: StorageManagerProtocol {
     @MainActor
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         try realm.write {
-            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter("contractIndex == %@", contractIndex)
+            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter("contractIndex == %@", contractIndex).filter("accountAddress == %@", accountAddress)
             // Remove tokens for a given contract index that are no longer selected.
             let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
             realm.delete(tokensToDelete)
-            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId } }
-            realm.add(uniqueTokens.map { CIS2TokenOwnershipEntity(with: $0) })
+            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId != token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
+            realm.add(uniqueTokens)
         }
     }
 
