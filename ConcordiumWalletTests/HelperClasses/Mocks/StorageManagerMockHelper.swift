@@ -3,36 +3,44 @@
 // Copyright (c) 2020 concordium. All rights reserved.
 //
 
-import Foundation
 import Combine
-import RealmSwift
+import Foundation
 @testable import Mock
+import RealmSwift
 
 class StorageManagerMockHelper: StorageManagerProtocol {
-    func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<Results<CIS2TokenOwnershipEntity>, Error> {
+    func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<RealmSwift.Results<Mock.CIS2TokenOwnershipEntity>, Error> {
+        NYI()
+    }
+    
+    func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenOwnershipEntity] {
+        NYI()
+    }
+
+    func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws {
         NYI()
     }
 
     func storeCIS2Tokens(_ tokens: [Mock.CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         NYI()
     }
-    
-    func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [Mock.CIS2TokenOwnershipEntity] {
+
+    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [Mock.CIS2TokenOwnershipEntity] {
         NYI()
     }
-    
+
     func getCIS2Tokens(accountAddress: String) -> [Mock.CIS2TokenOwnershipEntity] {
         NYI()
     }
-    
+
     func getCIS2TokenMetadataDetails(url: String) -> Mock.CIS2TokenMetadataDetailsEntity? {
         NYI()
     }
-    
+
     func storeCIS2TokenMetadataDetails(_ metadata: Mock.CIS2TokenMetadataDetails, for url: String) throws {
         NYI()
     }
-    
+
     var cachedTokensPublisher: AnyPublisher<RealmSwift.Results<Mock.CIS2TokenOwnershipEntity>, Error> = AnyPublisher<RealmSwift.Results<Mock.CIS2TokenOwnershipEntity>, Error>.fail(NetworkError.invalidRequest)
 
     func getLastAcceptedTermsAndConditionsVersion() -> String {

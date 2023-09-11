@@ -12,6 +12,10 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let thumbnail: URL?
     let unique: Bool?
     let accountAddress: String
+    
+    func toEntity() -> CIS2TokenOwnershipEntity {
+        .init(with: self)
+    }
 
     var balanceDisplayValue: String {
         (unique ?? false) ? balance > 0 ? "Owned" : " Not owned" : GTU(intValue: balance).displayValue()

@@ -14,8 +14,10 @@ protocol CIS2ServiceProtocol {
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error>
     func fetchTokensMetadataDetails(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error>
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) -> AnyPublisher<[CIS2TokenBalance], Error>
-    func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenSelectionRepresentable]
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
+    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [CIS2TokenSelectionRepresentable]
+    func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenSelectionRepresentable] 
+    func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -26,8 +28,24 @@ class CIS2Service: CIS2ServiceProtocol {
         self.storageManager = storageManager
     }
 
-    func getUserStoredCIS2Tokens(accountAddress: String, contractIndex: String) -> [CIS2TokenSelectionRepresentable] {
-        storageManager.getUserStoredCIS2Tokens(accountAddress: accountAddress, contractIndex: contractIndex).map {
+    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [CIS2TokenSelectionRepresentable] {
+        storageManager.getUserStoredCIS2Tokens(for: accountAddress, in: contractIndex).map {
+            CIS2TokenSelectionRepresentable(
+                tokenId: $0.tokenId,
+                balance: $0.balance,
+                contractIndex: $0.contractIndex,
+                name: $0.name,
+                symbol: $0.symbol,
+                decimals: $0.decimals,
+                description: $0.tokenDescription,
+                thumbnail: URL(string: $0.thumbnail ?? "") ?? nil,
+                unique: $0.unique,
+                accountAddress: $0.accountAddress)
+        }
+    }
+    
+    func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenSelectionRepresentable] {
+        storageManager.getUserStoredCIS2Tokens(for: accountAddress).map {
             CIS2TokenSelectionRepresentable(
                 tokenId: $0.tokenId,
                 balance: $0.balance,
@@ -44,6 +62,9 @@ class CIS2Service: CIS2ServiceProtocol {
 
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         try storageManager.storeCIS2Tokens(tokens, accountAddress: accountAddress, contractIndex: contractIndex)
+    }
+    func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws {
+        try storageManager.deleteCIS2Token(token)
     }
 
     func fetchTokens(contractIndex: String, contractSubindex: String = "0") -> AnyPublisher<CIS2TokensInfo, Error> {

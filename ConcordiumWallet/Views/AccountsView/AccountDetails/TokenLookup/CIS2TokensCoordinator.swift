@@ -30,6 +30,20 @@ class CIS2TokensCoordinator: Coordinator {
         navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
     }
 
+    private func showTokenDetails(_ token: CIS2TokenSelectionRepresentable) {
+        navigationController.pushViewController(
+            UIHostingController(
+                rootView: TokenDetailsView(
+                    token: token,
+                    service: dependencyProvider.cis2Service(),
+                    popView: { [weak self] in self?.navigationController.popViewController(animated: true) },
+                    context: .preview
+                )
+            ),
+            animated: true
+        )
+    }
+
     private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable], contractIndex: String) {
         let view = CIS2TokenSelectView(
             viewModel: model,
@@ -37,6 +51,7 @@ class CIS2TokensCoordinator: Coordinator {
             contractIndex: contractIndex,
             popView: { [weak self] in self?.navigationController.popViewController(animated: true) },
             didUpdateTokens: { [weak self] in self?.navigationController.dismiss(animated: true) },
+            showDetails: showTokenDetails,
             service: dependencyProvider.cis2Service()
         )
 
