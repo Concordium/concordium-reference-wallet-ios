@@ -21,7 +21,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
     var amountSubject = PassthroughSubject<String, Never>()
-    var selectedTokenType = PassthroughSubject<SendFundsType, Never>()
+    var selectedTokenType = PassthroughSubject<SendFundsTokenType, Never>()
 
     @IBOutlet var mainStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var mainStackViewTopConstraint: NSLayoutConstraint!
@@ -187,7 +187,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         viewModel.$selectedTokenType
             .map { type in
-                if case let SendFundsType.cis2(token: token) = type {
+                if case let SendFundsTokenType.cis2(token: token) = type {
                     return token.symbol ?? token.name
                 } else {
                     return "CCD"
@@ -198,7 +198,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         viewModel.$selectedTokenType
             .sink { type in
-                if case let SendFundsType.cis2(token: token) = type {
+                if case let SendFundsTokenType.cis2(token: token) = type {
                     self.selectedTokenImageView.sd_setImage(with: token.thumbnail, placeholderImage: UIImage(systemName: "photo"))
                 } else {
                     self.selectedTokenImageView.image = UIImage(named: "concordium_logo")

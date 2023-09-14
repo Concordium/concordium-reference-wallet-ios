@@ -8,7 +8,6 @@ import UIKit
 
 class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
 
-
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController
