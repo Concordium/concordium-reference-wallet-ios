@@ -6,7 +6,9 @@
 import SwiftUI
 import UIKit
 
-class CIS2TokensCoordinator: Coordinator {
+class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
+
+
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController
@@ -37,6 +39,8 @@ class CIS2TokensCoordinator: Coordinator {
                     token: token,
                     service: dependencyProvider.cis2Service(),
                     popView: { [weak self] in self?.navigationController.popViewController(animated: true) },
+                    showAddress: showAccountAddressQR,
+                    sendFunds: { [weak self] in self?.showSendFund(for: token) },
                     context: .preview
                 )
             ),
@@ -44,6 +48,14 @@ class CIS2TokensCoordinator: Coordinator {
         )
     }
 
+    func showAccountAddressQR() {
+        let accountAddressQRCoordinator = AccountAddressQRCoordinator(navigationController: BaseNavigationController(),
+                                                                      delegate: self,
+                                                                      account: account)
+        accountAddressQRCoordinator.start()
+        navigationController.present(accountAddressQRCoordinator.navigationController, animated: true)
+        childCoordinators.append(accountAddressQRCoordinator)
+    }
     private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable], contractIndex: String) {
         let view = CIS2TokenSelectView(
             viewModel: model,
@@ -56,5 +68,28 @@ class CIS2TokensCoordinator: Coordinator {
         )
 
         navigationController.pushViewController(UIHostingController(rootView: view), animated: true)
+    }
+
+    func accountAddressQRCoordinatorFinished() {
+        
+    }
+    
+    func showSendFund(balanceType: AccountBalanceTypeEnum = .balance, for token: CIS2TokenSelectionRepresentable) {
+        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
+        let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
+                                               delegate: self,
+                                               dependencyProvider: dependencyProvider,
+                                               account: account,
+                                               balanceType: balanceType,
+                                               transferType: transferType, tokenType: .ccd)
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+    }
+}
+
+extension CIS2TokensCoordinator: SendFundsCoordinatorDelegate {
+    func sendFundsCoordinatorFinished() {
+        
     }
 }

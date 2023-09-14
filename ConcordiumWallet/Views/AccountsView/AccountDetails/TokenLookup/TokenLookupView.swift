@@ -64,7 +64,7 @@ struct TokenLookupView: View {
     var tokensMetadataPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> {
         searchButtonPublisher
             .setFailureType(to: TokenError.self)
-            .flatMapLatest { () -> AnyPublisher<([CIS2TokensMetadataItem], [CIS2TokenBalance]), TokenError> in
+            .flatMapLatest { () -> AnyPublisher<(CIS2TokensMetadata, [CIS2TokenBalance]), TokenError> in
                 Publishers.Zip(
                     service.fetchTokensMetadata(
                         contractIndex: contractIndex,
@@ -72,7 +72,6 @@ struct TokenLookupView: View {
                         tokenId: tokens.map { $0.token }.joined(separator: ",")
                     )
                     .mapError { TokenError.networkError(err: $0) }
-                    .map { $0.metadata }
                     .eraseToAnyPublisher(),
                     service.fetchTokensBalance(
                         contractIndex: contractIndex,
@@ -85,15 +84,16 @@ struct TokenLookupView: View {
                 )
                 .eraseToAnyPublisher()
             }
-            .flatMapLatest { (items: [CIS2TokensMetadataItem], balance: [CIS2TokenBalance]) -> AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> in
+            .flatMapLatest { (metadata: CIS2TokensMetadata, balance: [CIS2TokenBalance]) -> AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> in
                 Publishers.MergeMany(
-                    items.map { metadata in
-                        service.fetchTokensMetadataDetails(url: metadata.metadataURL)
+                    metadata.metadata.map { metadataItem in
+                        service.fetchTokensMetadataDetails(url: metadataItem.metadataURL)
                             .mapError { TokenError.networkError(err: $0) }
                             .map { details in
                                 CIS2TokenSelectionRepresentable(
-                                    tokenId: metadata.tokenId,
-                                    balance: Int(balance.first(where: { $0.tokenId == metadata.tokenId })?.balance ?? "") ?? 0,
+                                    contractName: metadata.contractName,
+                                    tokenId: metadataItem.tokenId,
+                                    balance: Int(balance.first(where: { $0.tokenId == metadataItem.tokenId })?.balance ?? "") ?? 0,
                                     contractIndex: contractIndex,
                                     name: details.name,
                                     symbol: details.symbol,

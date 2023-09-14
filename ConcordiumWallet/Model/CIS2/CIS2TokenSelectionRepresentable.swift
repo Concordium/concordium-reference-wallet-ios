@@ -2,6 +2,7 @@ import Foundation
 import RealmSwift
 
 struct CIS2TokenSelectionRepresentable: Hashable {
+    let contractName: String
     let tokenId: String
     let balance: Int
     let contractIndex: String
@@ -12,7 +13,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let thumbnail: URL?
     let unique: Bool?
     let accountAddress: String
-    
+
     func toEntity() -> CIS2TokenOwnershipEntity {
         .init(with: self)
     }
@@ -25,6 +26,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
 /// The TokenOwnership object represents the ownership relationship between an Account, a Token, and a specific contract index within that account's holdings.
 class CIS2TokenOwnershipEntity: Object {
     @Persisted var name: String = ""
+    @Persisted var contractName: String = ""
     @Persisted var tokenId: String = ""
     @Persisted var symbol: String? = nil
     @Persisted var accountAddress: String = ""
@@ -40,6 +42,7 @@ class CIS2TokenOwnershipEntity: Object {
     ) {
         self.init()
         name = token.name
+        contractName = token.contractName
         tokenId = token.tokenId
         symbol = token.symbol
         accountAddress = token.accountAddress
@@ -53,6 +56,7 @@ class CIS2TokenOwnershipEntity: Object {
 
     func asRepresentable() -> CIS2TokenSelectionRepresentable {
         .init(
+            contractName: contractName,
             tokenId: tokenId,
             balance: balance,
             contractIndex: contractIndex,

@@ -6,6 +6,7 @@
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
+import SDWebImageSwiftUI
 import SwiftUI
 
 struct TokenDetailsView: View {
@@ -16,10 +17,12 @@ struct TokenDetailsView: View {
         /// Used when to display token details before adding to database.
         case preview
     }
-    
+
     var token: CIS2TokenSelectionRepresentable
     var service: CIS2ServiceProtocol
     var popView: () -> Void
+    var showAddress: () -> Void
+    var sendFunds: () -> Void
     var context: Context
     @State private var isAlertShown = false
 
@@ -58,17 +61,21 @@ struct TokenDetailsView: View {
         HStack(alignment: .center) {
             Spacer()
             Button {
+                sendFunds()
             } label: {
                 Image(systemName: "paperplane.fill")
                     .resizable()
                     .frame(width: 32.0, height: 32.0)
                     .foregroundColor(.white)
+                    .opacity(token.balance > 0 ? 1.0 : 0.5)
             }
+            .disabled(token.balance == 0)
             Spacer()
             Divider()
             Spacer()
 
             Button {
+                showAddress()
             } label: {
                 Image(systemName: "qrcode")
                     .resizable()
@@ -87,6 +94,16 @@ struct TokenDetailsView: View {
     var tokenInfoSection: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    WebImage(url: token.thumbnail)
+                        .resizable()
+                        .placeholder(Image(systemName: "photo"))
+                        .indicator(.activity)
+                        .transition(.fade(duration: 0.5))
+                        .scaledToFit()
+                        .frame(width: 300, height: 300, alignment: .center)
+                }
+                .frame(maxWidth: .infinity)
                 Group {
                     Text("About token")
                         .foregroundColor(Pallette.primary)
@@ -118,7 +135,7 @@ struct TokenDetailsView: View {
                         .font(.body)
                 }
                 if let decimals = token.decimals {
-                Group {
+                    Group {
                         Text("Decimals")
                             .font(.caption)
                             .foregroundColor(.gray)
@@ -156,7 +173,7 @@ struct TokenDetailsView: View {
             )
         }
     }
-    
+
     var backToListButton: some View {
         Button {
             popView()

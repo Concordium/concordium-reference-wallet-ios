@@ -16,16 +16,6 @@ class AccountTokensViewFactory {
 }
 
 class AccountTokensViewController: BaseViewController, Storyboarded {
-    
-    struct AccountTokensViewModel {
-        let name: String
-        let symbol: String?
-        let thumbnailURL: URL?
-        let thumbnailImage: UIImage?
-        let unique: Bool?
-        let balance: String
-    }
-    
     enum Tabs: Int, CaseIterable {
         case fungible
         case collectibles
@@ -46,10 +36,10 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var tokensTableView: UITableView!
     var data: [CIS2TokenSelectionRepresentable] = []
-    var items: [AccountTokensViewModel] = []
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     private var presenter: AccountTokensPresenterProtocol
     private var cancellables: Set<AnyCancellable> = []
+
     init?(coder: NSCoder, presenter: AccountTokensPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
@@ -61,18 +51,38 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tokensTableView.delegate = self
         tokensTableView.dataSource = self
         presenter
             .cachedTokensPublisher
             .receive(on: DispatchQueue.main)
-            .map { $0.map { AccountTokensViewModel(name: $0.name, symbol: $0.symbol, thumbnailURL: $0.thumbnail, thumbnailImage: nil, unique: $0.unique, balance: $0.balanceDisplayValue) }}
-            .append([AccountTokensViewModel(name: "Concordium", symbol: "CCD", thumbnailURL: nil, thumbnailImage: UIImage(named: "concordium-logo"), unique: false, balance: self.presenter.account.forecastBalance.string)])
+            .map { [weak self] in
+                guard let self = self else { return $0 }
+                var currentArray = $0
+                currentArray.insert(
+                    .init(
+                        contractName: "",
+                        tokenId: "",
+                        balance: presenter.account.totalForecastBalance,
+                        contractIndex: "",
+                        name: "CCD",
+                        symbol: "CCD",
+                        decimals: nil,
+                        description: "",
+                        thumbnail: nil,
+                        unique: false,
+                        accountAddress: self.presenter.account.address
+                    ),
+                    at: 0
+                )
+                return currentArray
+            }
             .sink { [weak self] error in
                 self?.showErrorMessage(error.localizedDescription)
             } receiveValue: { [weak self] data in
                 guard let self = self else { return }
-                self.items = data
+                self.data = data
                 self.tokensTableView.reloadData()
             }
             .store(in: &cancellables)
@@ -94,23 +104,13 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 extension AccountTokensViewController: UITableViewDelegate {}
 
 extension AccountTokensViewController: UITableViewDataSource {
-    private var currentTabItems: [AccountTokensViewModel] {
+    private var currentTabItems: [CIS2TokenSelectionRepresentable] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
-            return items.filter { $0.unique ?? false }
+            return data.filter { $0.unique ?? false }
         case .fungible:
-            return items.filter { !($0.unique ?? false) }
+            return data.filter { !($0.unique ?? false) }
         default: return []
-        }
-    }
-
-    private var itemsCount: Int {
-        switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
-        case .collectibles:
-            return currentTabItems.count
-        case .fungible:
-            return currentTabItems.count
-        default: return 0
         }
     }
 
@@ -120,29 +120,34 @@ extension AccountTokensViewController: UITableViewDataSource {
             return 0
         }
         tableView.restoreDefaultState()
-        return itemsCount
+        return currentTabItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountTokensTableViewCell.self), for: indexPath) as? AccountTokensTableViewCell else {
             return UITableViewCell()
         }
+        let data = currentTabItems[indexPath.row]
+        cell.tokenImageView.tintColor = .gray
+        cell.nameLabel.text = data.name
+        cell.balanceLabel.text = data.balanceDisplayValue
+        cell.selectionStyle = .none
+
+        guard indexPath.row != 0 else {
+            cell.tokenImageView.image = UIImage(named: "concordium_logo")
+            return cell
+        }
 
         let placeholder = UIImage(systemName: "photo")
-        cell.tokenImageView.tintColor = .gray
-        let data = currentTabItems[indexPath.row]
-        cell.nameLabel.text = data.name
-        if let url = data.thumbnailURL {
+        if let url = data.thumbnail {
             cell.tokenImageView.sd_setImage(with: url, placeholderImage: placeholder)
-        } else if let localImage = data.thumbnailImage {
-            cell.tokenImageView.image = localImage
         }
-        cell.balanceLabel.text = data.balance
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        presenter.userSelected(token: data[indexPath.row])
+        guard indexPath.row != 0 else { return }
+        presenter.userSelected(token: currentTabItems[indexPath.row])
     }
 }
 

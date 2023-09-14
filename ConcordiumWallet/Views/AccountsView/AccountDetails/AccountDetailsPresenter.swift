@@ -111,6 +111,17 @@ class AccountDetailsPresenter {
     }
 }
 
+import UIKit
+
+struct AccountTokensViewModel {
+    let name: String
+    let symbol: String?
+    let thumbnailURL: URL?
+    let localThumbnailImage: UIImage?
+    let unique: Bool?
+    let balance: String
+}
+
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
         storageManager.getCIS2TokensPublisher(for: account.address)
@@ -126,6 +137,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                         .compactMap { $0.first }
                         .map {
                             CIS2TokenSelectionRepresentable(
+                                contractName: token.contractName,
                                 tokenId: token.tokenId,
                                 balance: Int($0.balance) ?? 0,
                                 contractIndex: token.contractIndex,
@@ -143,7 +155,6 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                 .collect()
             }
             .switchToLatest()
-            
             .eraseToAnyPublisher()
     }
 

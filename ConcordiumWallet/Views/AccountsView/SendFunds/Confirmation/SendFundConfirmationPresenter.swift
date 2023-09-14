@@ -49,7 +49,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var memo: Memo?
     private var energy: Int
     private var transferType: SendFundTransferType
-
+    private var tokenType: SendFundsType
     init(
         delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
         amount: GTU,
@@ -59,7 +59,8 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         cost: GTU,
         energy: Int,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
-        transferType: SendFundTransferType
+        transferType: SendFundTransferType,
+        tokenType: SendFundsType
     ) {
         self.delegate = delegate
         self.amount = amount
@@ -70,10 +71,11 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         self.energy = energy
         self.dependencyProvider = dependencyProvider
         self.transferType = transferType
+        self.tokenType = tokenType
     }
 
     func viewDidLoad() {
-        let sAmount = amount.displayValueWithGStroke()
+        let sAmount = transferType == .contractUpdate ? amount.displayValue() : amount.displayValueWithGStroke()
         let to = "sendFund.confirmation.line2.to".localized
         let recipientName = recipient.displayName()
         if transferType == .encryptedTransfer || transferType == .simpleTransfer {
@@ -91,7 +93,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         view?.visibleWaterMark = false
         
         switch transferType {
-        case .simpleTransfer:
+        case .simpleTransfer, .contractUpdate:
             view?.line1Text = "sendFund.confirmation.transfer".localized
             view?.buttonText = "sendFund.confirmation.buttonTitle".localized
         case .encryptedTransfer:
@@ -120,30 +122,49 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     func userTappedConfirm() {
         var transfer = TransferDataTypeFactory.create()
         transfer.transferType = transferType.actualType
-        transfer.amount = String(amount.intValue)
         transfer.fromAddress = fromAccount.address
         transfer.toAddress = recipient.address
+        transfer.amount = String(amount.intValue)
+        transfer.energy = energy
         transfer.cost = String(cost.intValue)
         transfer.memo = memo?.data.hexDescription
-        transfer.energy = energy
-
+        if transferType.actualType == .contractUpdate, case let SendFundsType.cis2(token: token) = tokenType {
+            let response = try? dependencyProvider.mobileWallet().serializeTokenTransferParameters(
+                input: .init(
+                    tokenId: token.tokenId,
+                    amount: "\(amount.intValue)",
+                    from: fromAccount.address,
+                    to: recipient.address
+                )
+            )
+            transfer.payload = .contractUpdatePayload(
+                .init(
+                    amount: "0",
+                    address: .init(index: Int(token.contractIndex) ?? 0, subindex: 0),
+                    receiveName: token.contractName + ".transfer",
+                    maxContractExecutionEnergy: energy,
+                    message: response?.parameter ?? ""
+                )
+            )
+        } 
         dependencyProvider.transactionsService()
-                .performTransfer(transfer, from: fromAccount, requestPasswordDelegate: delegate!)
-                .showLoadingIndicator(in: self.view)
-                .tryMap(dependencyProvider.storageManager().storeTransfer)
-                .sink(receiveError: { [weak self] error in
-                    if case NetworkError.serverError = error {
-                        Logger.error(error)
-                        self?.delegate?.sendFundFailed(error: error)
-                    } else if case GeneralError.userCancelled = error {
-                        return
-                    } else {
-                        self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-                    }
-                }, receiveValue: { [weak self] in
-                    guard let self = self else { return }
-                    Logger.debug($0)
-                    self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient)
-                }).store(in: &cancellables)
+            .performTransfer(transfer, from: fromAccount, requestPasswordDelegate: delegate!)
+            .showLoadingIndicator(in: view)
+            .tryMap(dependencyProvider.storageManager().storeTransfer)
+            .sink(receiveError: { [weak self] error in
+                if case NetworkError.serverError = error {
+                    Logger.error(error)
+                    self?.delegate?.sendFundFailed(error: error)
+                } else if case GeneralError.userCancelled = error {
+                    return
+                } else {
+                    self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                }
+            }, receiveValue: { [weak self] in
+                guard let self = self else { return }
+                Logger.debug($0)
+                self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient)
+            })
+            .store(in: &cancellables)
     }
 }

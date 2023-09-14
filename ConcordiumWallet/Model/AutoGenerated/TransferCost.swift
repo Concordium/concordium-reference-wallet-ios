@@ -9,7 +9,6 @@ import Foundation
 struct TransferCost: Codable {
     let energy: Int
     let cost: String
-
     enum CodingKeys: String, CodingKey {
         case energy = "energy"
         case cost = "cost"
