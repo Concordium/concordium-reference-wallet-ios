@@ -7,18 +7,18 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let contractIndex: String
     let name: String
     let symbol: String?
-    let decimals: Int
+    let decimals: Int?
     let description: String
     let thumbnail: URL?
-    let unique: Bool
+    let unique: Bool?
     let accountAddress: String
-    
-    var displayValueBalance: String {
-        GTU(intValue: balance).displayValue()
-    }
     
     func toEntity() -> CIS2TokenOwnershipEntity {
         .init(with: self)
+    }
+
+    var balanceDisplayValue: String {
+        (unique ?? false) ? balance > 0 ? "Owned" : " Not owned" : GTU(intValue: balance).displayValue()
     }
 }
 
@@ -31,9 +31,9 @@ class CIS2TokenOwnershipEntity: Object {
     @Persisted var contractIndex: String = ""
     @Persisted var balance: Int = 0
     @Persisted var thumbnail: String? = nil
-    @Persisted var unique: Bool
+    @Persisted var unique: Bool? = nil
     @Persisted var tokenDescription: String = ""
-    @Persisted var decimals: Int = 0
+    @Persisted var decimals: Int? = nil
 
     convenience init(
         with token: CIS2TokenSelectionRepresentable

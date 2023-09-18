@@ -84,7 +84,7 @@ struct CIS2TokenSelectView: View {
                                     .frame(width: 45, height: 45, alignment: .center)
                                 VStack(alignment: .leading) {
                                     Text(model.name)
-                                    Text("Your balance: \(GTU(intValue: model.balance).displayValue())")
+                                    Text("Your balance: \(model.balanceDisplayValue)")
                                         .foregroundColor(Pallette.fadedText)
                                 }
                                 Spacer()

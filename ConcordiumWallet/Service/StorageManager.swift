@@ -83,8 +83,9 @@ protocol StorageManagerProtocol {
     func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
     func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
     func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws
-    var cachedTokensPublisher: AnyPublisher<Results<CIS2TokenOwnershipEntity>, Error> { get }
+    func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error>
 }
+
 enum StorageError: Error {
     case writeError(error: Error)
     case itemNotFound
@@ -129,12 +130,12 @@ class StorageManager: StorageManagerProtocol {
     @MainActor
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
         try realm.write {
-            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter("contractIndex == %@", contractIndex)
+            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter("contractIndex == %@", contractIndex).filter("accountAddress == %@", accountAddress)
             // Remove tokens for a given contract index that are no longer selected.
             let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
             realm.delete(tokensToDelete)
-            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId } }
-            realm.add(uniqueTokens.map { CIS2TokenOwnershipEntity(with: $0) })
+            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId != token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
+            realm.add(uniqueTokens)
         }
     }
 
@@ -166,8 +167,18 @@ class StorageManager: StorageManagerProtocol {
         )
     }
 
-    var cachedTokensPublisher: AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error> {
-        realm.objects(CIS2TokenOwnershipEntity.self).collectionPublisher.eraseToAnyPublisher()
+    @MainActor
+    func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity] {
+        Array(realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+        )
+    }
+
+    func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error> {
+        realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+            .collectionPublisher
+            .eraseToAnyPublisher()
     }
 
     @MainActor

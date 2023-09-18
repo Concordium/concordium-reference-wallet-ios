@@ -44,7 +44,7 @@ struct TokenDetailsView: View {
 
     var balanceSection: some View {
         HStack {
-            Text("\(token.displayValueBalance)")
+            Text("\(token.balanceDisplayValue)")
                 .foregroundColor(Pallette.primary)
                 .font(.largeTitle)
         }
@@ -117,11 +117,13 @@ struct TokenDetailsView: View {
                     Text(token.symbol ?? " - ")
                         .font(.body)
                 }
+                if let decimals = token.decimals {
                 Group {
-                    Text("Decimals")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                    Text("\(token.decimals)").font(.body)
+                        Text("Decimals")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        Text("\(decimals)").font(.body)
+                    }
                 }
             }
             .padding()

@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 class AccountTokensTableViewCell: UITableViewCell {
-    @IBOutlet weak var tokenImageView: SDAnimatedImageView!
+    @IBOutlet weak var tokenImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     
