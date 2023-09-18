@@ -16,6 +16,16 @@ class AccountTokensViewFactory {
 }
 
 class AccountTokensViewController: BaseViewController, Storyboarded {
+    
+    struct AccountTokensViewModel {
+        let name: String
+        let symbol: String?
+        let thumbnailURL: URL?
+        let thumbnailImage: UIImage?
+        let unique: Bool?
+        let balance: String
+    }
+    
     enum Tabs: Int, CaseIterable {
         case fungible
         case collectibles
@@ -36,6 +46,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var tokensTableView: UITableView!
     var data: [CIS2TokenSelectionRepresentable] = []
+    var items: [AccountTokensViewModel] = []
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     private var presenter: AccountTokensPresenterProtocol
     private var cancellables: Set<AnyCancellable> = []
@@ -104,7 +115,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 extension AccountTokensViewController: UITableViewDelegate {}
 
 extension AccountTokensViewController: UITableViewDataSource {
-    private var currentTabItems: [CIS2TokenSelectionRepresentable] {
+    private var currentTabItems: [AccountTokensViewModel] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
             return data.filter { $0.unique ?? false }
@@ -120,7 +131,7 @@ extension AccountTokensViewController: UITableViewDataSource {
             return 0
         }
         tableView.restoreDefaultState()
-        return currentTabItems.count
+        return itemsCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
