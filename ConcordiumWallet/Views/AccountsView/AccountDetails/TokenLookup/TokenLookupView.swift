@@ -5,6 +5,7 @@
 
 import Combine
 import SwiftUI
+import BigInt
 
 struct TokenLookupView: View {
     enum TokenError: Error, Identifiable {
@@ -88,12 +89,14 @@ struct TokenLookupView: View {
                 Publishers.MergeMany(
                     metadata.metadata.map { metadataItem in
                         service.fetchTokensMetadataDetails(url: metadataItem.metadataURL)
-                            .mapError { TokenError.networkError(err: $0) }
-                            .map { details in
-                                CIS2TokenSelectionRepresentable(
+                            .tryMap { details in
+                                guard let balance = BigInt(balance.first(where: { $0.tokenId == metadataItem.tokenId })?.balance ?? "") else {
+                                    throw TokenError.inputError(msg: "Invalid balance")
+                                }
+                                return CIS2TokenSelectionRepresentable(
                                     contractName: metadata.contractName,
                                     tokenId: metadataItem.tokenId,
-                                    balance: Int(balance.first(where: { $0.tokenId == metadataItem.tokenId })?.balance ?? "") ?? 0,
+                                    balance: balance,
                                     contractIndex: contractIndex,
                                     name: details.name,
                                     symbol: details.symbol,
@@ -106,6 +109,7 @@ struct TokenLookupView: View {
                             }
                     }
                 )
+                .mapError { TokenError.networkError(err: $0) }
                 .collect()
                 .eraseToAnyPublisher()
             }

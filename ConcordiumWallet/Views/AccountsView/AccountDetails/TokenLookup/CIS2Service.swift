@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import BigInt
 
 protocol CIS2ServiceProtocol {
     func fetchTokens(contractIndex: String, contractSubindex: String) -> AnyPublisher<CIS2TokensInfo, Error>
@@ -46,7 +47,7 @@ class CIS2Service: CIS2ServiceProtocol {
                             CIS2TokenSelectionRepresentable(
                                 contractName: token.contractName,
                                 tokenId: token.tokenId,
-                                balance: Int($0.balance) ?? 0,
+                                balance: BigInt($0.balance) ?? .zero,
                                 contractIndex: token.contractIndex,
                                 name: token.name,
                                 symbol: token.symbol,
@@ -70,7 +71,7 @@ class CIS2Service: CIS2ServiceProtocol {
             CIS2TokenSelectionRepresentable(
                 contractName: $0.contractName,
                 tokenId: $0.tokenId,
-                balance: $0.balance,
+                balance: BigInt($0.balance) ?? .zero,
                 contractIndex: $0.contractIndex,
                 name: $0.name,
                 symbol: $0.symbol,
@@ -87,7 +88,7 @@ class CIS2Service: CIS2ServiceProtocol {
             CIS2TokenSelectionRepresentable(
                 contractName: $0.contractName,
                 tokenId: $0.tokenId,
-                balance: $0.balance,
+                balance: BigInt($0.balance) ?? .zero,
                 contractIndex: $0.contractIndex,
                 name: $0.name,
                 symbol: $0.symbol,

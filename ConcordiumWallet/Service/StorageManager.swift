@@ -134,7 +134,7 @@ class StorageManager: StorageManagerProtocol {
             // Remove tokens for a given contract index that are no longer selected.
             let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
             realm.delete(tokensToDelete)
-            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId != token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
+            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
             realm.add(uniqueTokens)
         }
     }

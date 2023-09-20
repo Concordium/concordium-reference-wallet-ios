@@ -1,10 +1,10 @@
+import BigInt
 import Foundation
 import RealmSwift
-
 struct CIS2TokenSelectionRepresentable: Hashable {
     let contractName: String
     let tokenId: String
-    let balance: Int
+    let balance: BigInt
     let contractIndex: String
     let name: String
     let symbol: String?
@@ -13,13 +13,42 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let thumbnail: URL?
     let unique: Bool?
     let accountAddress: String
-    
+
     func toEntity() -> CIS2TokenOwnershipEntity {
         .init(with: self)
     }
 
     var balanceDisplayValue: String {
-        (unique ?? false) ? balance > 0 ? "Owned" : " Not owned" : GTU(intValue: balance).displayValue()
+        if unique ?? false {
+            return balance > BigInt.zero ? "Owned" : " Not owned"
+        } else {
+            return balance.formatIntegerWithFractionDigits(fractionDigits: decimals ?? 6)
+        }
+    }
+}
+
+extension BigInt {
+    func formatIntegerWithFractionDigits(fractionDigits: Int) -> String {
+        guard fractionDigits != 0 else { return "0" }
+        // Convert the integer to a Double and divide by 10^fractionDigits to add the desired fraction
+        let divisor = pow(10.0, Double(fractionDigits))
+        let doubleValue = Double(self) / divisor
+        
+        // Use String(format:) to format the double as a string with the specified fraction digits
+        let formatString = "%.\(fractionDigits)f"
+        var formattedString = String(format: formatString, doubleValue)
+        
+        // Remove trailing zeros after the decimal point
+        while formattedString.hasSuffix("0") {
+            formattedString = String(formattedString.dropLast())
+        }
+        
+        // Remove the decimal point if there are no digits after it
+        if formattedString.hasSuffix(".") {
+            formattedString = String(formattedString.dropLast())
+        }
+        
+        return formattedString
     }
 }
 
@@ -31,7 +60,7 @@ class CIS2TokenOwnershipEntity: Object {
     @Persisted var symbol: String? = nil
     @Persisted var accountAddress: String = ""
     @Persisted var contractIndex: String = ""
-    @Persisted var balance: Int = 0
+    @Persisted var balance: String = ""
     @Persisted var thumbnail: String? = nil
     @Persisted var unique: Bool? = nil
     @Persisted var tokenDescription: String = ""
@@ -47,7 +76,7 @@ class CIS2TokenOwnershipEntity: Object {
         symbol = token.symbol
         accountAddress = token.accountAddress
         contractIndex = token.contractIndex
-        balance = token.balance
+        balance = String(token.balance)
         unique = token.unique
         tokenDescription = token.description
         thumbnail = token.thumbnail?.absoluteString ?? nil
@@ -58,7 +87,7 @@ class CIS2TokenOwnershipEntity: Object {
         .init(
             contractName: contractName,
             tokenId: tokenId,
-            balance: balance,
+            balance: BigInt(balance) ?? .zero,
             contractIndex: contractIndex,
             name: name,
             symbol: symbol,

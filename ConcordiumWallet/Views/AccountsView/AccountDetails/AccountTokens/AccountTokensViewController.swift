@@ -6,6 +6,8 @@
 import Combine
 import SDWebImage
 import UIKit
+import BigInt
+
 class AccountTokensViewFactory {
     class func create(with presenter: AccountTokensPresenterProtocol) -> AccountTokensViewController {
         AccountTokensViewController.instantiate(fromStoryboard: "Account") { coder in
@@ -46,7 +48,6 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var tokensTableView: UITableView!
     var data: [CIS2TokenSelectionRepresentable] = []
-    var items: [AccountTokensViewModel] = []
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     private var presenter: AccountTokensPresenterProtocol
     private var cancellables: Set<AnyCancellable> = []
@@ -75,7 +76,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                     .init(
                         contractName: "",
                         tokenId: "",
-                        balance: presenter.account.totalForecastBalance,
+                        balance: BigInt(presenter.account.totalForecastBalance),
                         contractIndex: "",
                         name: "CCD",
                         symbol: "CCD",
@@ -115,7 +116,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 extension AccountTokensViewController: UITableViewDelegate {}
 
 extension AccountTokensViewController: UITableViewDataSource {
-    private var currentTabItems: [AccountTokensViewModel] {
+    private var currentTabItems: [CIS2TokenSelectionRepresentable] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
             return data.filter { $0.unique ?? false }
@@ -131,7 +132,7 @@ extension AccountTokensViewController: UITableViewDataSource {
             return 0
         }
         tableView.restoreDefaultState()
-        return itemsCount
+        return currentTabItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -144,20 +145,16 @@ extension AccountTokensViewController: UITableViewDataSource {
         cell.balanceLabel.text = data.balanceDisplayValue
         cell.selectionStyle = .none
 
-        guard indexPath.row != 0 else {
+        if indexPath.row == 0, Tabs(rawValue: tabBarViewModel.selectedIndex) == .some(.fungible) {
             cell.tokenImageView.image = UIImage(named: "concordium_logo")
             return cell
         }
-
-        let placeholder = UIImage(systemName: "photo")
-        if let url = data.thumbnail {
-            cell.tokenImageView.sd_setImage(with: url, placeholderImage: placeholder)
-        }
+        cell.tokenImageView.sd_setImage(with: data.thumbnail, placeholderImage: UIImage(systemName: "photo"))
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row != 0 else { return }
+        if indexPath.row == 0, Tabs(rawValue: tabBarViewModel.selectedIndex) == .some(.fungible) { return }
         presenter.userSelected(token: currentTabItems[indexPath.row])
     }
 }

@@ -25,6 +25,7 @@ struct TokenDetailsView: View {
     var sendFunds: () -> Void
     var context: Context
     @State private var isAlertShown = false
+    @State private var isMetadataShown = false
 
     var body: some View {
         VStack {
@@ -121,6 +122,21 @@ struct TokenDetailsView: View {
                     Divider()
                 }
                 Group {
+                    Text("Token ID")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    Text(token.tokenId)
+                        .font(.body)
+                }
+                Group {
+                    Text("Ownership")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    let isOwned = service.getUserStoredCIS2Tokens(for: token.accountAddress, in: token.contractIndex).contains { $0.tokenId == token.tokenId }
+                    Text(isOwned ? "Owned" : "Not owned")
+                        .font(.body)
+                }
+                Group {
                     Text("Contract index, subindex")
                         .font(.caption)
                         .foregroundColor(.gray)
@@ -142,9 +158,15 @@ struct TokenDetailsView: View {
                         Text("\(decimals)").font(.body)
                     }
                 }
+                Button {
+                    isMetadataShown = true
+                } label: {
+                    Text("Show raw metadata")
+                }
             }
             .padding()
         }
+//        .sheet(isPresented: $isMetadataShown) {}
     }
 
     var hideTokenButton: some View {
@@ -158,7 +180,8 @@ struct TokenDetailsView: View {
                 .foregroundColor(Pallette.whiteText)
                 .background(Pallette.error)
                 .cornerRadius(10)
-        }.actionSheet(isPresented: $isAlertShown) {
+        }
+        .actionSheet(isPresented: $isAlertShown) {
             ActionSheet(
                 title: Text("Remove Token"),
                 message: Text("Do you want to remove the token from local storage?"),

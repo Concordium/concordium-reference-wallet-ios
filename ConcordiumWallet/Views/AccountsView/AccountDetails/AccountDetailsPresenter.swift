@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import RealmSwift
+import BigInt
 
 protocol TransactionsFetcher {
     func getNextTransactions()
@@ -139,7 +140,7 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                             CIS2TokenSelectionRepresentable(
                                 contractName: token.contractName,
                                 tokenId: token.tokenId,
-                                balance: Int($0.balance) ?? 0,
+                                balance: BigInt($0.balance) ?? .zero,
                                 contractIndex: token.contractIndex,
                                 name: token.name,
                                 symbol: token.symbol,

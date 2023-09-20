@@ -33,6 +33,10 @@
 		0111D7392A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
+		011576122ABAFE8C00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576112ABAFE8C00D24173 /* BigInt */; };
+		011576142ABAFEB900D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576132ABAFEB900D24173 /* BigInt */; };
+		011576162ABAFEBF00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576152ABAFEBF00D24173 /* BigInt */; };
+		011576192ABAFF6600D24173 /* BigInt+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011576182ABAFF6600D24173 /* BigInt+String.swift */; };
 		012888A32A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
 		012888A42A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
 		012888A52A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
@@ -141,6 +145,7 @@
 		01B939EC2AB26DA7001CE935 /* SerializeTokenTransferParametersOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B939EA2AB26DA7001CE935 /* SerializeTokenTransferParametersOutput.swift */; };
 		01B939ED2AB26DA7001CE935 /* SerializeTokenTransferParametersOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B939EA2AB26DA7001CE935 /* SerializeTokenTransferParametersOutput.swift */; };
 		01B939EE2AB26DA7001CE935 /* SerializeTokenTransferParametersOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B939EA2AB26DA7001CE935 /* SerializeTokenTransferParametersOutput.swift */; };
+		01BCA95A2AB9CF62006D1F0C /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 01BCA9592AB9CF62006D1F0C /* BigInt */; };
 		01CFC6AB2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
 		01CFC6AD2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFC6AA2A43308C007F9747 /* ContractUpdatePayloadEntity.swift */; };
@@ -2805,6 +2810,7 @@
 		0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectView.swift; sourceTree = "<group>"; };
 		0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountItemView.swift; sourceTree = "<group>"; };
 		0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SwiftUI.swift"; sourceTree = "<group>"; };
+		011576182ABAFF6600D24173 /* BigInt+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+String.swift"; sourceTree = "<group>"; };
 		012888A22A7A7572007D5325 /* AccountTokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensViewController.swift; sourceTree = "<group>"; };
 		0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDebugViewController.swift; sourceTree = "<group>"; };
 		013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectActionRequestView.swift; sourceTree = "<group>"; };
@@ -3552,6 +3558,7 @@
 				893CAC51286DBA1200BDF84C /* MnemonicSwift in Frameworks */,
 				01A6EE452AAB0F8500F2C19B /* SDWebImageSVGCoder in Frameworks */,
 				8927A66F286AC6820007CAF1 /* RealmSwift in Frameworks */,
+				011576122ABAFE8C00D24173 /* BigInt in Frameworks */,
 				01A91A9E2A8E3F8600735D23 /* SDWebImageSwiftUI in Frameworks */,
 				8927A678286AC72E0007CAF1 /* SwiftCBOR in Frameworks */,
 				CDAB513F2A3863A30010D12B /* Web3Wallet in Frameworks */,
@@ -3564,6 +3571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0CAAE7292EADA00009D5F8 /* MatomoTracker in Frameworks */,
+				01BCA95A2AB9CF62006D1F0C /* BigInt in Frameworks */,
 				8927A67C286AC73B0007CAF1 /* SwiftCBOR in Frameworks */,
 				010BCB062A2F574E00B50D67 /* Starscream in Frameworks */,
 				01A6EE472AAB0FF300F2C19B /* SDWebImageSVGCoder in Frameworks */,
@@ -3581,6 +3589,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDAB51492A3863F40010D12B /* Starscream in Frameworks */,
+				011576162ABAFEBF00D24173 /* BigInt in Frameworks */,
 				FA0CAAE9292EADA70009D5F8 /* MatomoTracker in Frameworks */,
 				8927A67E286AC7410007CAF1 /* SwiftCBOR in Frameworks */,
 				01A6EE492AAB0FF800F2C19B /* SDWebImageSVGCoder in Frameworks */,
@@ -3598,6 +3607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0CAAE5292E92480009D5F8 /* MatomoTracker in Frameworks */,
+				011576142ABAFEB900D24173 /* BigInt in Frameworks */,
 				8927A67A286AC7350007CAF1 /* SwiftCBOR in Frameworks */,
 				8927A671286AC6920007CAF1 /* RealmSwift in Frameworks */,
 				01A6EE4B2AAB0FFC00F2C19B /* SDWebImageSVGCoder in Frameworks */,
@@ -4438,6 +4448,7 @@
 				7F0573E224AC710C009517AD /* GTUTests.swift */,
 				7F0573EC24AC7173009517AD /* AttributesFormatterTests.swift */,
 				7F0573F124AC7449009517AD /* GeneralFormatterTests.swift */,
+				011576182ABAFF6600D24173 /* BigInt+String.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -5708,6 +5719,7 @@
 				CDAB51422A3863D50010D12B /* Starscream */,
 				01A91A9D2A8E3F8600735D23 /* SDWebImageSwiftUI */,
 				01A6EE442AAB0F8500F2C19B /* SDWebImageSVGCoder */,
+				011576112ABAFE8C00D24173 /* BigInt */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F48C211244DCD0B00997684 /* Mock.app */;
@@ -5737,6 +5749,7 @@
 				CDAB51462A3863EC0010D12B /* Web3Wallet */,
 				01A91A9F2A8E429600735D23 /* SDWebImageSwiftUI */,
 				01A6EE462AAB0FF300F2C19B /* SDWebImageSVGCoder */,
+				01BCA9592AB9CF62006D1F0C /* BigInt */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B7CD246A9A7C00ED09B8 /* ProdTestNet.app */;
@@ -5766,6 +5779,7 @@
 				CDAB514A2A3863F80010D12B /* Web3Wallet */,
 				01A91AA12A8E429C00735D23 /* SDWebImageSwiftUI */,
 				01A6EE482AAB0FF800F2C19B /* SDWebImageSVGCoder */,
+				011576152ABAFEBF00D24173 /* BigInt */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7F85B8CC246A9AB600ED09B8 /* ProdMainNet.app */;
@@ -5795,6 +5809,7 @@
 				CDAB51442A3863DA0010D12B /* Starscream */,
 				01A91AA32A8E42A500735D23 /* SDWebImageSwiftUI */,
 				01A6EE4A2AAB0FFC00F2C19B /* SDWebImageSVGCoder */,
+				011576132ABAFEB900D24173 /* BigInt */,
 			);
 			productName = ConcordiumWallet;
 			productReference = 7FF07A6923EADB1200F1FC04 /* StagingNet.app */;
@@ -5858,6 +5873,7 @@
 				010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */,
 				01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */,
 			);
 			productRefGroup = 7FF07A6A23EADB1200F1FC04 /* Products */;
 			projectDirPath = "";
@@ -8623,6 +8639,7 @@
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,
 				893CAC6E286EC1FD00BDF84C /* CopyPhraseTests.swift in Sources */,
+				011576192ABAFF6600D24173 /* BigInt+String.swift in Sources */,
 				7F0573F224AC7449009517AD /* GeneralFormatterTests.swift in Sources */,
 				378E0C441D6924E404784EAA /* AutoMockable.generated.swift in Sources */,
 			);
@@ -9218,6 +9235,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/attaswift/BigInt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		01F5F0A22A28ACF500BB4B74 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
@@ -9274,6 +9299,21 @@
 			package = 010BCB042A2F574E00B50D67 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
 		};
+		011576112ABAFE8C00D24173 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		011576132ABAFEB900D24173 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		011576152ABAFEBF00D24173 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
 		01A6EE442AAB0F8500F2C19B /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 01A6EE432AAB0F8500F2C19B /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
@@ -9313,6 +9353,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 01A91A9C2A8E3F8600735D23 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		01BCA9592AB9CF62006D1F0C /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
 		};
 		8927A66E286AC6820007CAF1 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
