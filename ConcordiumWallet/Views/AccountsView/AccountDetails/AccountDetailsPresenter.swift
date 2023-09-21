@@ -136,11 +136,12 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
                             tokenId: token.tokenId
                         )
                         .compactMap { $0.first }
+                        .print("Balance!!!")
                         .map {
                             CIS2TokenSelectionRepresentable(
                                 contractName: token.contractName,
                                 tokenId: token.tokenId,
-                                balance: BigInt($0.balance) ?? .zero,
+                                balance: BigInt($0.balance) ?? BigInt(666),
                                 contractIndex: token.contractIndex,
                                 name: token.name,
                                 symbol: token.symbol,

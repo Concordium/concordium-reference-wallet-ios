@@ -8,10 +8,10 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let contractIndex: String
     let name: String
     let symbol: String?
-    let decimals: Int?
+    let decimals: Int
     let description: String
     let thumbnail: URL?
-    let unique: Bool?
+    let unique: Bool
     let accountAddress: String
 
     func toEntity() -> CIS2TokenOwnershipEntity {
@@ -19,10 +19,10 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     }
 
     var balanceDisplayValue: String {
-        if unique ?? false {
+        if unique {
             return balance > BigInt.zero ? "Owned" : " Not owned"
         } else {
-            return balance.formatIntegerWithFractionDigits(fractionDigits: decimals ?? 6)
+            return balance.formatIntegerWithFractionDigits(fractionDigits: decimals)
         }
     }
 }
@@ -60,11 +60,10 @@ class CIS2TokenOwnershipEntity: Object {
     @Persisted var symbol: String? = nil
     @Persisted var accountAddress: String = ""
     @Persisted var contractIndex: String = ""
-    @Persisted var balance: String = ""
     @Persisted var thumbnail: String? = nil
-    @Persisted var unique: Bool? = nil
+    @Persisted var unique: Bool = false
     @Persisted var tokenDescription: String = ""
-    @Persisted var decimals: Int? = nil
+    @Persisted var decimals: Int = 0
 
     convenience init(
         with token: CIS2TokenSelectionRepresentable
@@ -76,7 +75,6 @@ class CIS2TokenOwnershipEntity: Object {
         symbol = token.symbol
         accountAddress = token.accountAddress
         contractIndex = token.contractIndex
-        balance = String(token.balance)
         unique = token.unique
         tokenDescription = token.description
         thumbnail = token.thumbnail?.absoluteString ?? nil
@@ -87,7 +85,7 @@ class CIS2TokenOwnershipEntity: Object {
         .init(
             contractName: contractName,
             tokenId: tokenId,
-            balance: BigInt(balance) ?? .zero,
+            balance: .zero, // TODO: TAKE CARE OF IT SOON!!!!
             contractIndex: contractIndex,
             name: name,
             symbol: symbol,

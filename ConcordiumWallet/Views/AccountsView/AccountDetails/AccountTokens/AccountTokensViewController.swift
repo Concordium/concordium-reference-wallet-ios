@@ -80,7 +80,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                         contractIndex: "",
                         name: "CCD",
                         symbol: "CCD",
-                        decimals: nil,
+                        decimals: 6,
                         description: "",
                         thumbnail: nil,
                         unique: false,

@@ -142,7 +142,7 @@ class StorageManager: StorageManagerProtocol {
     @MainActor
     func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws {
         try realm.write {
-            if let tokenToDelete = realm.objects(CIS2TokenOwnershipEntity.self).first { $0.tokenId == token.tokenId && $0.contractIndex == token.contractIndex } {
+            if let tokenToDelete = realm.objects(CIS2TokenOwnershipEntity.self).first(where: { $0.tokenId == token.tokenId && $0.contractIndex == token.contractIndex }) {
                 realm.delete(tokenToDelete)
             }
         }

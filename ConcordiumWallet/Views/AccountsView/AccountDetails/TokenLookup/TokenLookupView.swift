@@ -100,10 +100,10 @@ struct TokenLookupView: View {
                                     contractIndex: contractIndex,
                                     name: details.name,
                                     symbol: details.symbol,
-                                    decimals: details.decimals,
+                                    decimals: details.decimals ?? 6,
                                     description: details.description,
                                     thumbnail: details.thumbnail?.url,
-                                    unique: details.unique,
+                                    unique: details.unique ?? false,
                                     accountAddress: account.address
                                 )
                             }

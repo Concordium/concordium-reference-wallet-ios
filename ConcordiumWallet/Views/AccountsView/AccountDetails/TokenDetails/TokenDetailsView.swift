@@ -150,14 +150,13 @@ struct TokenDetailsView: View {
                     Text(token.symbol ?? " - ")
                         .font(.body)
                 }
-                if let decimals = token.decimals {
                     Group {
                         Text("Decimals")
                             .font(.caption)
                             .foregroundColor(.gray)
-                        Text("\(decimals)").font(.body)
+                        Text("\(token.decimals)").font(.body)
                     }
-                }
+                
                 Button {
                     isMetadataShown = true
                 } label: {

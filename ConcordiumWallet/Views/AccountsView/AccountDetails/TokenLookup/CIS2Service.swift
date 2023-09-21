@@ -71,7 +71,7 @@ class CIS2Service: CIS2ServiceProtocol {
             CIS2TokenSelectionRepresentable(
                 contractName: $0.contractName,
                 tokenId: $0.tokenId,
-                balance: BigInt($0.balance) ?? .zero,
+                balance: .zero,
                 contractIndex: $0.contractIndex,
                 name: $0.name,
                 symbol: $0.symbol,
@@ -88,7 +88,7 @@ class CIS2Service: CIS2ServiceProtocol {
             CIS2TokenSelectionRepresentable(
                 contractName: $0.contractName,
                 tokenId: $0.tokenId,
-                balance: BigInt($0.balance) ?? .zero,
+                balance: .zero,
                 contractIndex: $0.contractIndex,
                 name: $0.name,
                 symbol: $0.symbol,
