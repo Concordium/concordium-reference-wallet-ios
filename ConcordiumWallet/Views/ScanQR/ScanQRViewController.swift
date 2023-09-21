@@ -51,7 +51,6 @@ class ScanQRViewController: BaseViewController, ShowToast {
         presenter.view = self
         setupScanGuide()
         setupCaptureSession()
-        presenter.scannedQrCode("wc:d01914cbc06534d6bb3a6f97d19368da78ddd841089498e3267c4b60bc47dac6@2?relay-protocol=irn&symKey=baef10374a9c727510b11a2bb1e3e5faabea078c4bf15b838a09f6a9856df4c8")
     }
 
     override func viewWillAppear(_ animated: Bool) {
