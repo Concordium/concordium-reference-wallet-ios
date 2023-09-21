@@ -26,6 +26,8 @@ struct TokenDetailsView: View {
     var context: Context
     @State private var isAlertShown = false
     @State private var isMetadataShown = false
+    @State var isOwned = false
+    @State private var error: TokenError? = nil
 
     var body: some View {
         VStack {
@@ -132,7 +134,6 @@ struct TokenDetailsView: View {
                     Text("Ownership")
                         .font(.caption)
                         .foregroundColor(.gray)
-                    let isOwned = service.getUserStoredCIS2Tokens(for: token.accountAddress, in: token.contractIndex).contains { $0.tokenId == token.tokenId }
                     Text(isOwned ? "Owned" : "Not owned")
                         .font(.body)
                 }
@@ -150,13 +151,13 @@ struct TokenDetailsView: View {
                     Text(token.symbol ?? " - ")
                         .font(.body)
                 }
-                    Group {
-                        Text("Decimals")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                        Text("\(token.decimals)").font(.body)
-                    }
-                
+                Group {
+                    Text("Decimals")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    Text("\(token.decimals)").font(.body)
+                }
+
                 Button {
                     isMetadataShown = true
                 } label: {
@@ -165,7 +166,19 @@ struct TokenDetailsView: View {
             }
             .padding()
         }
-//        .sheet(isPresented: $isMetadataShown) {}
+        .alert(item: $error) { error in
+            Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
+        }
+        .sheet(isPresented: $isMetadataShown) {}
+        .onReceive(service.observedTokensPublisher(for: token.accountAddress, filteredBy: token.tokenId).asResult()) { result in
+            switch result {
+            case .success(let items):
+                isOwned = items.contains { $0.tokenId == token.tokenId }
+            case .failure(let error):
+                self.error = TokenError.networkError(err: error)
+            }
+        }
+        
     }
 
     var hideTokenButton: some View {

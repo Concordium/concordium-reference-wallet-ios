@@ -7,26 +7,26 @@ import Combine
 import SwiftUI
 import BigInt
 
-struct TokenLookupView: View {
-    enum TokenError: Error, Identifiable {
-        var id: String { errorMessage }
-        case inputError(msg: String)
-        case networkError(err: Error)
+enum TokenError: Error, Identifiable {
+    var id: String { errorMessage }
+    case inputError(msg: String)
+    case networkError(err: Error)
 
-        var errorMessage: String {
-            switch self {
-            case let .inputError(msg: msg):
-                return msg
-            case let .networkError(err: error):
-                if let e = error as? NetworkError {
-                    return ErrorMapper.toViewError(error: e).errorDescription ?? e.localizedDescription
-                } else {
-                    return error.localizedDescription
-                }
+    var errorMessage: String {
+        switch self {
+        case let .inputError(msg: msg):
+            return msg
+        case let .networkError(err: error):
+            if let e = error as? NetworkError {
+                return ErrorMapper.toViewError(error: e).errorDescription ?? e.localizedDescription
+            } else {
+                return error.localizedDescription
             }
         }
     }
+}
 
+struct TokenLookupView: View {
     var service: CIS2ServiceProtocol
     var displayContractTokens: ((_ metadata: [CIS2TokenSelectionRepresentable], _ contractIndex: String) -> Void)?
     private var account: AccountDataType

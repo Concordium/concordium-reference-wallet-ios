@@ -78,7 +78,7 @@ protocol StorageManagerProtocol {
     func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
 
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
-    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [CIS2TokenOwnershipEntity]
+    func getUserStoredCIS2Tokens(for accountAddress: String, for contractIndex: String) -> [CIS2TokenOwnershipEntity]
     func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
     func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
@@ -160,11 +160,8 @@ class StorageManager: StorageManagerProtocol {
     }
 
     @MainActor
-    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [CIS2TokenOwnershipEntity] {
-        Array(realm.objects(CIS2TokenOwnershipEntity.self)
-            .filter("accountAddress == %@", accountAddress)
-            .filter("contractIndex == %@", contractIndex)
-        )
+    func getUserStoredCIS2Tokens(for accountAddress: String, for contractIndex: String) -> [CIS2TokenOwnershipEntity] {
+        getUserStoredCIS2Tokens(for: accountAddress).filter { $0.contractIndex == contractIndex }
     }
 
     @MainActor

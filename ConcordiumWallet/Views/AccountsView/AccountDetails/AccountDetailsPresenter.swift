@@ -47,7 +47,6 @@ protocol AccountTokensPresenterProtocol {
     var account: AccountDataType { get }
     func userSelected(token: CIS2TokenSelectionRepresentable)
     func showManageTokensView()
-    func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable]
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> { get }
 }
 
@@ -124,44 +123,10 @@ struct AccountTokensViewModel {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
+  
+    
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
-        storageManager.getCIS2TokensPublisher(for: account.address)
-            .map {
-                Publishers.MergeMany(
-                    $0.map { token in
-                        self.cis2Service.fetchTokensBalance(
-                            contractIndex: token.contractIndex,
-                            contractSubindex: "0",
-                            accountAddress: token.accountAddress,
-                            tokenId: token.tokenId
-                        )
-                        .compactMap { $0.first }
-                        .print("Balance!!!")
-                        .map {
-                            CIS2TokenSelectionRepresentable(
-                                contractName: token.contractName,
-                                tokenId: token.tokenId,
-                                balance: BigInt($0.balance) ?? BigInt(666),
-                                contractIndex: token.contractIndex,
-                                name: token.name,
-                                symbol: token.symbol,
-                                decimals: token.decimals,
-                                description: token.tokenDescription,
-                                thumbnail: URL(string: token.thumbnail ?? ""),
-                                unique: token.unique,
-                                accountAddress: token.accountAddress
-                            )
-                        }
-                    }
-                )
-                .collect()
-            }
-            .switchToLatest()
-            .eraseToAnyPublisher()
-    }
-
-    func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable] {
-        storageManager.getUserStoredCIS2Tokens(for: account.address).map { $0.asRepresentable() }
+        cis2Service.observedTokensPublisher(for: account.address)
     }
 
     func showGTUDrop() -> Bool {

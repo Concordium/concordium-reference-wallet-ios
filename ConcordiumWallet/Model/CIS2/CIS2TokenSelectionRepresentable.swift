@@ -25,6 +25,34 @@ struct CIS2TokenSelectionRepresentable: Hashable {
             return balance.formatIntegerWithFractionDigits(fractionDigits: decimals)
         }
     }
+    
+    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, unique: Bool, accountAddress: String) {
+        self.contractName = contractName
+        self.tokenId = tokenId
+        self.balance = balance
+        self.contractIndex = contractIndex
+        self.name = name
+        self.symbol = symbol
+        self.decimals = decimals
+        self.description = description
+        self.thumbnail = thumbnail
+        self.unique = unique
+        self.accountAddress = accountAddress
+    }
+
+    init(entity: CIS2TokenOwnershipEntity, tokenBalance: BigInt) {
+        contractName = entity.contractName
+        tokenId = entity.tokenId
+        balance = tokenBalance
+        contractIndex = entity.contractIndex
+        name = entity.name
+        symbol = entity.symbol
+        decimals = entity.decimals
+        description = entity.tokenDescription
+        thumbnail = URL(string: entity.thumbnail ?? "") ?? nil
+        unique = entity.unique
+        accountAddress = entity.accountAddress
+    }
 }
 
 extension BigInt {
@@ -33,21 +61,21 @@ extension BigInt {
         // Convert the integer to a Double and divide by 10^fractionDigits to add the desired fraction
         let divisor = pow(10.0, Double(fractionDigits))
         let doubleValue = Double(self) / divisor
-        
+
         // Use String(format:) to format the double as a string with the specified fraction digits
         let formatString = "%.\(fractionDigits)f"
         var formattedString = String(format: formatString, doubleValue)
-        
+
         // Remove trailing zeros after the decimal point
         while formattedString.hasSuffix("0") {
             formattedString = String(formattedString.dropLast())
         }
-        
+
         // Remove the decimal point if there are no digits after it
         if formattedString.hasSuffix(".") {
             formattedString = String(formattedString.dropLast())
         }
-        
+
         return formattedString
     }
 }
