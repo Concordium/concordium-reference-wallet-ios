@@ -16,9 +16,17 @@ struct ResourceRequest {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return nil
         }
-        components.queryItems = parameters.keys.map { key in
+        var queryItems = [URLQueryItem]()
+        if let items = components.queryItems {
+            queryItems.append(contentsOf: items)
+        }
+        let params = parameters.keys.map { key in
             URLQueryItem(name: key, value: parameters[key]??.description)
         }
+
+        queryItems.append(contentsOf: params)
+        components.queryItems = queryItems
+
         guard let url = components.url else {
             return nil
         }

@@ -119,9 +119,9 @@ extension AccountTokensViewController: UITableViewDataSource {
     private var currentTabItems: [CIS2TokenSelectionRepresentable] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
-            return data.filter { $0.unique ?? false }
+            return data.filter { $0.unique }
         case .fungible:
-            return data.filter { !($0.unique ?? false) }
+            return data.filter { !$0.unique }
         default: return []
         }
     }

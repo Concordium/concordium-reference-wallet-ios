@@ -108,20 +108,4 @@ class CIS2TokenOwnershipEntity: Object {
         thumbnail = token.thumbnail?.absoluteString ?? nil
         decimals = token.decimals
     }
-
-    func asRepresentable() -> CIS2TokenSelectionRepresentable {
-        .init(
-            contractName: contractName,
-            tokenId: tokenId,
-            balance: .zero, // TODO: TAKE CARE OF IT SOON!!!!
-            contractIndex: contractIndex,
-            name: name,
-            symbol: symbol,
-            decimals: decimals,
-            description: tokenDescription,
-            thumbnail: URL(string: thumbnail ?? "") ?? nil,
-            unique: unique,
-            accountAddress: accountAddress
-        )
-    }
 }
