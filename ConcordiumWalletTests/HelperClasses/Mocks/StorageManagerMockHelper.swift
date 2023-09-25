@@ -25,7 +25,7 @@ class StorageManagerMockHelper: StorageManagerProtocol {
         NYI()
     }
 
-    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [Mock.CIS2TokenOwnershipEntity] {
+    func getUserStoredCIS2Tokens(for accountAddress: String, for contractIndex: String) -> [Mock.CIS2TokenOwnershipEntity] {
         NYI()
     }
 
