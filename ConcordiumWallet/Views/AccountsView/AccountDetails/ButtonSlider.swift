@@ -25,10 +25,10 @@ struct ButtonSlider: View {
                 imageName: "ccd_coins",
                 action: didTapTokensButton
             ),
-            ActionButton(
-                imageName: "button_slider_send",
-                action: actionSend
-            ),
+//            ActionButton(
+//                imageName: "button_slider_send",
+//                action: actionSend
+//            ),
             ActionButton(
                 imageName: "transaction_list",
                 action: didTapTransactionList

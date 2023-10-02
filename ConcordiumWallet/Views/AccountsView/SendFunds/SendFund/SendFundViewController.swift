@@ -103,12 +103,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             })
             .store(in: &cancellables)
 
-        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
-        tokenSelectionStackView.addGestureRecognizer(guesture)
-        tokenSelectionViewWrapper.layer.cornerRadius = 10
-        tokenSelectionViewWrapper.layer.borderWidth = 1.0
-        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
-        tokenSelectionStackView.isUserInteractionEnabled = true
+//        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
+//        tokenSelectionStackView.addGestureRecognizer(guesture)
+//        tokenSelectionViewWrapper.layer.cornerRadius = 10
+//        tokenSelectionViewWrapper.layer.borderWidth = 1.0
+//        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
+//        tokenSelectionStackView.isUserInteractionEnabled = true
     }
 
     @objc private func selectToken(_ sender: AnyObject) {

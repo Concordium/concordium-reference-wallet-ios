@@ -13,7 +13,7 @@ struct RealmHelper {
     
     // Set the new schema version. This must be greater than the previously used
     // version (if you've never set a schema version before, the version is 0).
-    private static let schemaVersion: UInt64 = 24
+    private static let schemaVersion: UInt64 = 26
 
     static let realmConfiguration = Realm.Configuration(
         schemaVersion: schemaVersion,
