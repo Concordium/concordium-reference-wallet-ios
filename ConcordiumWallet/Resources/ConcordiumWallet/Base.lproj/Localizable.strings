@@ -341,7 +341,7 @@ process on-chain.";
 "sendFund.balanceAtDisposal" = "Balance (at disposal)";
 "sendFund.shieldedBalance" = "Shielded balance";
 "sendFund.total" = "Total";
-"sendFund.atDisposal" = "At disposal";
+"sendFund.atDisposal" = "CCD at disposal";
 "sendFund.scanQr" = "Scan QR";
 "sendFund.addressBook" = "Address book";
 "sendFund.or" = "or";

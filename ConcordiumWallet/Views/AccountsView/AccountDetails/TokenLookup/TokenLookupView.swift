@@ -5,27 +5,28 @@
 
 import Combine
 import SwiftUI
+import BigInt
 
-struct TokenLookupView: View {
-    enum TokenError: Error, Identifiable {
-        var id: String { errorMessage }
-        case inputError(msg: String)
-        case networkError(err: Error)
+enum TokenError: Error, Identifiable {
+    var id: String { errorMessage }
+    case inputError(msg: String)
+    case networkError(err: Error)
 
-        var errorMessage: String {
-            switch self {
-            case let .inputError(msg: msg):
-                return msg
-            case let .networkError(err: error):
-                if let e = error as? NetworkError {
-                    return ErrorMapper.toViewError(error: e).errorDescription ?? e.localizedDescription
-                } else {
-                    return error.localizedDescription
-                }
+    var errorMessage: String {
+        switch self {
+        case let .inputError(msg: msg):
+            return msg
+        case let .networkError(err: error):
+            if let e = error as? NetworkError {
+                return ErrorMapper.toViewError(error: e).errorDescription ?? e.localizedDescription
+            } else {
+                return error.localizedDescription
             }
         }
     }
+}
 
+struct TokenLookupView: View {
     var service: CIS2ServiceProtocol
     var displayContractTokens: ((_ metadata: [CIS2TokenSelectionRepresentable], _ contractIndex: String) -> Void)?
     private var account: AccountDataType
@@ -64,7 +65,7 @@ struct TokenLookupView: View {
     var tokensMetadataPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> {
         searchButtonPublisher
             .setFailureType(to: TokenError.self)
-            .flatMapLatest { () -> AnyPublisher<([CIS2TokensMetadataItem], [CIS2TokenBalance]), TokenError> in
+            .flatMapLatest { () -> AnyPublisher<(CIS2TokensMetadata, [CIS2TokenBalance]), TokenError> in
                 Publishers.Zip(
                     service.fetchTokensMetadata(
                         contractIndex: contractIndex,
@@ -72,7 +73,6 @@ struct TokenLookupView: View {
                         tokenId: tokens.map { $0.token }.joined(separator: ",")
                     )
                     .mapError { TokenError.networkError(err: $0) }
-                    .map { $0.metadata }
                     .eraseToAnyPublisher(),
                     service.fetchTokensBalance(
                         contractIndex: contractIndex,
@@ -85,27 +85,31 @@ struct TokenLookupView: View {
                 )
                 .eraseToAnyPublisher()
             }
-            .flatMapLatest { (items: [CIS2TokensMetadataItem], balance: [CIS2TokenBalance]) -> AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> in
+            .flatMapLatest { (metadata: CIS2TokensMetadata, balance: [CIS2TokenBalance]) -> AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> in
                 Publishers.MergeMany(
-                    items.map { metadata in
-                        service.fetchTokensMetadataDetails(url: metadata.metadataURL)
-                            .mapError { TokenError.networkError(err: $0) }
-                            .map { details in
-                                CIS2TokenSelectionRepresentable(
-                                    tokenId: metadata.tokenId,
-                                    balance: Int(balance.first(where: { $0.tokenId == metadata.tokenId })?.balance ?? "") ?? 0,
+                    metadata.metadata.map { metadataItem in
+                        service.fetchTokensMetadataDetails(url: metadataItem.metadataURL)
+                            .tryMap { details in
+                                guard let balance = BigInt(balance.first(where: { $0.tokenId == metadataItem.tokenId })?.balance ?? "") else {
+                                    throw TokenError.inputError(msg: "Invalid balance")
+                                }
+                                return CIS2TokenSelectionRepresentable(
+                                    contractName: metadata.contractName,
+                                    tokenId: metadataItem.tokenId,
+                                    balance: balance,
                                     contractIndex: contractIndex,
                                     name: details.name,
                                     symbol: details.symbol,
-                                    decimals: details.decimals,
+                                    decimals: details.decimals ?? 6,
                                     description: details.description,
                                     thumbnail: details.thumbnail?.url,
-                                    unique: details.unique,
+                                    unique: details.unique ?? false,
                                     accountAddress: account.address
                                 )
                             }
                     }
                 )
+                .mapError { TokenError.networkError(err: $0) }
                 .collect()
                 .eraseToAnyPublisher()
             }

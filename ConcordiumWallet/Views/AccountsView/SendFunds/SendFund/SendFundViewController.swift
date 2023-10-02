@@ -6,59 +6,61 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
-import UIKit
 import Combine
-
+import UIKit
+import SDWebImage
 class SendFundFactory {
     class func create(with presenter: SendFundPresenter) -> SendFundViewController {
-        SendFundViewController.instantiate(fromStoryboard: "SendFund") {coder in
-            return SendFundViewController(coder: coder, presenter: presenter)
+        SendFundViewController.instantiate(fromStoryboard: "SendFund") { coder in
+            SendFundViewController(coder: coder, presenter: presenter)
         }
     }
 }
 
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
-	var presenter: SendFundPresenterProtocol
+    var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
     var amountSubject = PassthroughSubject<String, Never>()
+    var selectedTokenType = PassthroughSubject<SendFundsTokenType, Never>()
 
-    @IBOutlet weak var mainStackViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mainStackViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var addMemoLabel: UILabel!
+    @IBOutlet var mainStackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var mainStackViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var amountTextField: UITextField!
+    @IBOutlet var addMemoLabel: UILabel!
 
-    @IBOutlet weak var costMessageLabel: UILabel!
-    @IBOutlet weak var sendAllButton: StandardButton!
-    @IBOutlet weak var sendFundsButton: StandardButton!
-    @IBOutlet weak var selectRecipientWidgetView: UIView!
-    @IBOutlet weak var addMemoWidgetView: WidgetView!
-    @IBOutlet weak var addMemoWidgetLabel: UILabel!
-    @IBOutlet weak var removeMemoButton: UIButton!
-    
-    @IBOutlet weak var firstBalanceNameLabel: UILabel!
-    @IBOutlet weak var secondBalanceNameLabel: UILabel!
-    
-    @IBOutlet weak var tokenSelectionStackView: UIStackView!
-    @IBOutlet weak var selectedTokenName: UILabel!
-    @IBOutlet weak var selectedTokenImageView: UIImageView!
-    @IBOutlet weak var firstBalanceLabel: UILabel!
-    @IBOutlet weak var secondBalanceLabel: UILabel!
-    @IBOutlet weak var shieldedBalanceLockImageView: UIImageView! {
+    @IBOutlet var costMessageLabel: UILabel!
+    @IBOutlet var sendAllButton: StandardButton!
+    @IBOutlet var sendFundsButton: StandardButton!
+    @IBOutlet var selectRecipientWidgetView: UIView!
+    @IBOutlet var addMemoWidgetView: WidgetView!
+    @IBOutlet var addMemoWidgetLabel: UILabel!
+    @IBOutlet var removeMemoButton: UIButton!
+
+    @IBOutlet var firstBalanceNameLabel: UILabel!
+    @IBOutlet var secondBalanceNameLabel: UILabel!
+
+    @IBOutlet var tokenSelectionStackView: UIStackView!
+    @IBOutlet var selectedTokenName: UILabel!
+    @IBOutlet var selectedTokenImageView: UIImageView!
+    @IBOutlet var firstBalanceLabel: UILabel!
+    @IBOutlet var secondBalanceLabel: UILabel!
+    @IBOutlet var shieldedBalanceLockImageView: UIImageView! {
         didSet {
             shieldedBalanceLockImageView.alpha = 0.5
         }
     }
-    
-    @IBOutlet weak var recipientTextView: UITextView!
-    @IBOutlet weak var recipientPlacehodlerLabel: UILabel!
-    @IBOutlet weak var recipientTextFieldHeight: NSLayoutConstraint!
-    @IBOutlet weak var errorMessageLabel: UILabel!
 
-    @IBOutlet weak var tokenSelectionViewWrapper: UIView!
+    @IBOutlet var recipientTextView: UITextView!
+    @IBOutlet var recipientPlacehodlerLabel: UILabel!
+    @IBOutlet var recipientTextFieldHeight: NSLayoutConstraint!
+    @IBOutlet var errorMessageLabel: UILabel!
+
+    @IBOutlet var tokenSelectionViewWrapper: UIView!
     private var defaultMainStackViewTopConstraintConstant: CGFloat = 0
     private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
-    
-    private lazy var textFieldDelegate = GTUTextFieldDelegate { [weak self] _, isValid in
+
+    private lazy var textFieldDelegate = GTUTextFieldDelegate { [weak self] value, isValid in
+        print(value)
         if isValid {
             self?.presenter.userChangedAmount()
         }
@@ -85,9 +87,9 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         amountTextField.attributedPlaceholder =
             NSAttributedString(string: amountTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.primary])
-        
+
         let closeIcon = UIImage(named: "close_icon")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(self.closeButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(closeButtonTapped))
 
         amountTextField.delegate = textFieldDelegate
         setupRecipientTextArea()
@@ -100,13 +102,13 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
                 self?.amountSubject.send(text)
             })
             .store(in: &cancellables)
-    
-        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
-        tokenSelectionStackView.addGestureRecognizer(guesture)
-        tokenSelectionViewWrapper.layer.cornerRadius = 10
-        tokenSelectionViewWrapper.layer.borderWidth = 1.0
-        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
-        tokenSelectionStackView.isUserInteractionEnabled = true
+
+//        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
+//        tokenSelectionStackView.addGestureRecognizer(guesture)
+//        tokenSelectionViewWrapper.layer.cornerRadius = 10
+//        tokenSelectionViewWrapper.layer.borderWidth = 1.0
+//        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
+//        tokenSelectionStackView.isUserInteractionEnabled = true
     }
 
     @objc private func selectToken(_ sender: AnyObject) {
@@ -127,28 +129,29 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
     // swiftlint:disable:next function_body_length
     func bind(to viewModel: SendFundViewModel) {
+        
         viewModel.$buttonTitle
             .sink { [weak self] buttonTitle in
                 self?.sendFundsButton.setTitle(buttonTitle, for: .normal)
             }
             .store(in: &cancellables)
-        
+
         viewModel.$pageTitle
             .assign(to: \.title, on: self)
             .store(in: &cancellables)
-        
+
         viewModel.$showMemoAndRecipient
             .sink { [weak self] showMemoAndRecipient in
                 self?.selectRecipientWidgetView.isHidden = !showMemoAndRecipient
                 self?.addMemoWidgetView.isHidden = !showMemoAndRecipient
             }
             .store(in: &cancellables)
-        
+
         viewModel.$showShieldedLock
             .map { !$0 }
             .assign(to: \.isHidden, on: shieldedBalanceLockImageView)
             .store(in: &cancellables)
-        
+
         viewModel.$addMemoText
             .assign(to: \.text, on: addMemoLabel)
             .store(in: &cancellables)
@@ -156,32 +159,53 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         viewModel.$firstBalance
             .assign(to: \.text, on: firstBalanceLabel)
             .store(in: &cancellables)
-        
+
         viewModel.$firstBalanceName
             .assign(to: \.text, on: firstBalanceNameLabel)
             .store(in: &cancellables)
-    
+
         viewModel.$secondBalance
             .assign(to: \.text, on: secondBalanceLabel)
             .store(in: &cancellables)
-        
+
         viewModel.$secondBalanceName
             .assign(to: \.text, on: secondBalanceNameLabel)
             .store(in: &cancellables)
-        
+
         viewModel.$feeMessage
             .assign(to: \.text, on: costMessageLabel)
             .store(in: &cancellables)
 
         viewModel.$insufficientFunds
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] hasSufficientFunds  in
+            .sink(receiveValue: { [weak self] hasSufficientFunds in
                 UIView.animate(withDuration: 0.25) { [weak self] in
                     self?.errorMessageLabel.alpha = hasSufficientFunds ? 1 : 0
                 }
             })
             .store(in: &cancellables)
 
+        viewModel.$selectedTokenType
+            .map { type in
+                if case let SendFundsTokenType.cis2(token: token) = type {
+                    return token.symbol ?? token.name
+                } else {
+                    return "CCD"
+                }
+            }
+            .assign(to: \.text, on: self.selectedTokenName)
+            .store(in: &cancellables)
+
+        viewModel.$selectedTokenType
+            .sink { type in
+                if case let SendFundsTokenType.cis2(token: token) = type {
+                    self.selectedTokenImageView.sd_setImage(with: token.thumbnail, placeholderImage: UIImage(systemName: "photo"))
+                } else {
+                    self.selectedTokenImageView.image = UIImage(named: "concordium_logo")
+                }
+            }
+            .store(in: &cancellables)
+        
         viewModel.$sendButtonEnabled
             .assign(to: \.isEnabled, on: sendFundsButton)
             .store(in: &cancellables)
@@ -189,7 +213,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         viewModel.$sendAllEnabled
             .assign(to: \.isEnabled, on: sendAllButton)
             .store(in: &cancellables)
-        
+
         viewModel.$sendAllVisible
             .sink { [weak self] isVisible in
                 self?.sendAllButton.isHidden = !isVisible
@@ -200,7 +224,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .map { !$0 }
             .assign(to: \.isHidden, on: removeMemoButton)
             .store(in: &cancellables)
-        
+
         viewModel.$recipientAddress
             .sink(receiveValue: { [weak self] text in
                 self?.recipientTextView.text = text
@@ -212,50 +236,55 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .compactMap { $0 }
             .assign(to: \.text, on: amountTextField)
             .store(in: &cancellables)
+        
+        viewModel.$selectedTokenType
+            .map { $0 != .ccd }
+            .assign(to: \.isHidden, on: addMemoWidgetView)
+            .store(in: &cancellables)
     }
-    
+
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
         let alert = UIAlertController(
             title: "warningAlert.transactionMemo.title".localized,
             message: "warningAlert.transactionMemo.text".localized,
             preferredStyle: .alert
         )
-        
+
         let okAction = UIAlertAction(
             title: "errorAlert.okButton".localized,
             style: .default
         ) { _ in
             completion()
         }
-        
+
         let dontShowAgain = UIAlertAction(
             title: "warningAlert.dontShowAgainButton".localized,
             style: .default
         ) { [weak self] _ in
             self?.presenter.userTappedDontShowMemoAlertAgain { completion() }
         }
-        
+
         alert.addAction(okAction)
         alert.addAction(dontShowAgain)
-        
+
         present(alert, animated: true)
     }
-    
+
     @IBAction func selectRecipientTapped(_ sender: Any) {
         presenter.userTappedSelectRecipient()
         view.endEditing(true)
     }
-    
+
     @IBAction func scanQRTapped(_ sender: Any) {
         presenter.userTappedScanQR()
         view.endEditing(true)
     }
-    
+
     @IBAction func addMemoTapped(_ sender: Any) {
         presenter.userTappedAddMemo()
         view.endEditing(true)
     }
-    
+
     @IBAction func removeMemoTapped(_ sender: Any) {
         presenter.userTappedRemoveMemo()
     }
@@ -269,7 +298,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         presenter.userTappedSendFund(amount: amount)
     }
-    
+
     func setupRecipientTextArea() {
         recipientTextView.textContainer.lineFragmentPadding = 0
         recipientTextView.textContainerInset = .zero
@@ -278,27 +307,28 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             self.updateRecipientTextArea(text: text)
         }).store(in: &cancellables)
     }
-    
+
     func updateRecipientTextArea(text: String?) {
         if let text = text {
             if text.count > 0 {
-                self.recipientPlacehodlerLabel.isHidden = true
+                recipientPlacehodlerLabel.isHidden = true
             }
-            guard let font = self.recipientTextView.font else { return }
-            let height = text.height(withConstrainedWidth: self.recipientTextView.frame.width, font: font)
-            self.recipientTextFieldHeight.constant = height
+            guard let font = recipientTextView.font else { return }
+            let height = text.height(withConstrainedWidth: recipientTextView.frame.width, font: font)
+            recipientTextFieldHeight.constant = height
         } else {
-            self.recipientPlacehodlerLabel.isHidden = false
+            recipientPlacehodlerLabel.isHidden = false
         }
     }
-    
+
     @IBAction func recipientTextFieldEndEditing(_ sender: Any) {
         view.endEditing(true)
     }
-    
+
     func showAddressInvalid() {
         showToast(withMessage: "addRecipient.addressInvalid".localized, time: 1)
     }
+
     override func didDismissKeyboard() {
         super.didDismissKeyboard()
         presenter.finishedEditingRecipientAddress()

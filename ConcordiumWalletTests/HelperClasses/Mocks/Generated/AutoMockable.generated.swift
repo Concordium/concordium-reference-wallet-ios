@@ -54,6 +54,160 @@ class AppSettingsServiceProtocolMock: AppSettingsServiceProtocol {
     }
 }
 
+class CIS2TokensCoordinatorDependencyProviderMock: CIS2TokensCoordinatorDependencyProvider {
+    // MARK: - transactionsService
+
+    var transactionsServiceCallsCount = 0
+    var transactionsServiceCalled: Bool {
+        return transactionsServiceCallsCount > 0
+    }
+
+    var transactionsServiceReturnValue: TransactionsServiceProtocol!
+    var transactionsServiceClosure: (() -> TransactionsServiceProtocol)?
+
+    func transactionsService() -> TransactionsServiceProtocol {
+        transactionsServiceCallsCount += 1
+        if let transactionsServiceClosure = transactionsServiceClosure {
+            return transactionsServiceClosure()
+        } else {
+            return transactionsServiceReturnValue
+        }
+    }
+
+    // MARK: - accountsService
+
+    var accountsServiceCallsCount = 0
+    var accountsServiceCalled: Bool {
+        return accountsServiceCallsCount > 0
+    }
+
+    var accountsServiceReturnValue: AccountsServiceProtocol!
+    var accountsServiceClosure: (() -> AccountsServiceProtocol)?
+
+    func accountsService() -> AccountsServiceProtocol {
+        accountsServiceCallsCount += 1
+        if let accountsServiceClosure = accountsServiceClosure {
+            return accountsServiceClosure()
+        } else {
+            return accountsServiceReturnValue
+        }
+    }
+
+    // MARK: - identitiesService
+
+    var identitiesServiceCallsCount = 0
+    var identitiesServiceCalled: Bool {
+        return identitiesServiceCallsCount > 0
+    }
+
+    var identitiesServiceReturnValue: IdentitiesService!
+    var identitiesServiceClosure: (() -> IdentitiesService)?
+
+    func identitiesService() -> IdentitiesService {
+        identitiesServiceCallsCount += 1
+        if let identitiesServiceClosure = identitiesServiceClosure {
+            return identitiesServiceClosure()
+        } else {
+            return identitiesServiceReturnValue
+        }
+    }
+
+    // MARK: - cis2Service
+
+    var cis2ServiceCallsCount = 0
+    var cis2ServiceCalled: Bool {
+        return cis2ServiceCallsCount > 0
+    }
+
+    var cis2ServiceReturnValue: CIS2ServiceProtocol!
+    var cis2ServiceClosure: (() -> CIS2ServiceProtocol)?
+
+    func cis2Service() -> CIS2ServiceProtocol {
+        cis2ServiceCallsCount += 1
+        if let cis2ServiceClosure = cis2ServiceClosure {
+            return cis2ServiceClosure()
+        } else {
+            return cis2ServiceReturnValue
+        }
+    }
+
+    // MARK: - appSettingsService
+
+    var appSettingsServiceCallsCount = 0
+    var appSettingsServiceCalled: Bool {
+        return appSettingsServiceCallsCount > 0
+    }
+
+    var appSettingsServiceReturnValue: AppSettingsServiceProtocol!
+    var appSettingsServiceClosure: (() -> AppSettingsServiceProtocol)?
+
+    func appSettingsService() -> AppSettingsServiceProtocol {
+        appSettingsServiceCallsCount += 1
+        if let appSettingsServiceClosure = appSettingsServiceClosure {
+            return appSettingsServiceClosure()
+        } else {
+            return appSettingsServiceReturnValue
+        }
+    }
+
+    // MARK: - mobileWallet
+
+    var mobileWalletCallsCount = 0
+    var mobileWalletCalled: Bool {
+        return mobileWalletCallsCount > 0
+    }
+
+    var mobileWalletReturnValue: MobileWalletProtocol!
+    var mobileWalletClosure: (() -> MobileWalletProtocol)?
+
+    func mobileWallet() -> MobileWalletProtocol {
+        mobileWalletCallsCount += 1
+        if let mobileWalletClosure = mobileWalletClosure {
+            return mobileWalletClosure()
+        } else {
+            return mobileWalletReturnValue
+        }
+    }
+
+    // MARK: - seedMobileWallet
+
+    var seedMobileWalletCallsCount = 0
+    var seedMobileWalletCalled: Bool {
+        return seedMobileWalletCallsCount > 0
+    }
+
+    var seedMobileWalletReturnValue: SeedMobileWalletProtocol!
+    var seedMobileWalletClosure: (() -> SeedMobileWalletProtocol)?
+
+    func seedMobileWallet() -> SeedMobileWalletProtocol {
+        seedMobileWalletCallsCount += 1
+        if let seedMobileWalletClosure = seedMobileWalletClosure {
+            return seedMobileWalletClosure()
+        } else {
+            return seedMobileWalletReturnValue
+        }
+    }
+
+    // MARK: - storageManager
+
+    var storageManagerCallsCount = 0
+    var storageManagerCalled: Bool {
+        return storageManagerCallsCount > 0
+    }
+
+    var storageManagerReturnValue: StorageManagerProtocol!
+    var storageManagerClosure: (() -> StorageManagerProtocol)?
+
+    func storageManager() -> StorageManagerProtocol {
+        storageManagerCallsCount += 1
+        if let storageManagerClosure = storageManagerClosure {
+            return storageManagerClosure()
+        } else {
+            return storageManagerReturnValue
+        }
+    }
+}
+
 class CoordinatorMock: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController {
@@ -366,24 +520,51 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
 
     // MARK: - createTransfer
 
-    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyCallsCount = 0
-    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyCalled: Bool {
-        return createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyCallsCount > 0
+    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadCallsCount = 0
+    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadCalled: Bool {
+        return createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadCallsCount > 0
     }
 
-    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyReceivedArguments: (fromAccount: AccountDataType, toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: TransferType, requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?)?
-    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyReceivedInvocations: [(fromAccount: AccountDataType, toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: TransferType, requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?)] = []
-    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyReturnValue: AnyPublisher<CreateTransferRequest, Error>!
-    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyClosure: ((AccountDataType, String?, String?, Int, String?, String?, Bool?, DelegationTarget?, String?, String?, Double?, Double?, Double?, GeneratedBakerKeys?, Date, Int, TransferType, RequestPasswordDelegate, GlobalWrapper?, InputEncryptedAmount?, String?) -> AnyPublisher<CreateTransferRequest, Error>)?
+    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadReceivedArguments: (fromAccount: AccountDataType, toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: TransferType, requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?, payload: Payload?)?
+    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadReceivedInvocations: [(fromAccount: AccountDataType, toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: TransferType, requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?, payload: Payload?)] = []
+    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadReturnValue: AnyPublisher<CreateTransferRequest, Error>!
+    var createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadClosure: ((AccountDataType, String?, String?, Int, String?, String?, Bool?, DelegationTarget?, String?, String?, Double?, Double?, Double?, GeneratedBakerKeys?, Date, Int, TransferType, RequestPasswordDelegate, GlobalWrapper?, InputEncryptedAmount?, String?, Payload?) -> AnyPublisher<CreateTransferRequest, Error>)?
 
-    func createTransfer(from fromAccount: AccountDataType, to toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: TransferType, requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?) -> AnyPublisher<CreateTransferRequest, Error> {
-        createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyCallsCount += 1
-        createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyReceivedArguments = (fromAccount: fromAccount, toAccount: toAccount, amount: amount, nonce: nonce, memo: memo, capital: capital, restakeEarnings: restakeEarnings, delegationTarget: delegationTarget, openStatus: openStatus, metadataURL: metadataURL, transactionFeeCommission: transactionFeeCommission, bakingRewardCommission: bakingRewardCommission, finalizationRewardCommission: finalizationRewardCommission, bakerKeys: bakerKeys, expiry: expiry, energy: energy, transferType: transferType, requestPasswordDelegate: requestPasswordDelegate, global: global, inputEncryptedAmount: inputEncryptedAmount, receiverPublicKey: receiverPublicKey)
-        createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyReceivedInvocations.append((fromAccount: fromAccount, toAccount: toAccount, amount: amount, nonce: nonce, memo: memo, capital: capital, restakeEarnings: restakeEarnings, delegationTarget: delegationTarget, openStatus: openStatus, metadataURL: metadataURL, transactionFeeCommission: transactionFeeCommission, bakingRewardCommission: bakingRewardCommission, finalizationRewardCommission: finalizationRewardCommission, bakerKeys: bakerKeys, expiry: expiry, energy: energy, transferType: transferType, requestPasswordDelegate: requestPasswordDelegate, global: global, inputEncryptedAmount: inputEncryptedAmount, receiverPublicKey: receiverPublicKey))
-        if let createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyClosure = createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyClosure {
-            return createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyClosure(fromAccount, toAccount, amount, nonce, memo, capital, restakeEarnings, delegationTarget, openStatus, metadataURL, transactionFeeCommission, bakingRewardCommission, finalizationRewardCommission, bakerKeys, expiry, energy, transferType, requestPasswordDelegate, global, inputEncryptedAmount, receiverPublicKey)
+    func createTransfer(from fromAccount: AccountDataType, to toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: TransferType, requestPasswordDelegate: RequestPasswordDelegate, global: GlobalWrapper?, inputEncryptedAmount: InputEncryptedAmount?, receiverPublicKey: String?, payload: Payload?) -> AnyPublisher<CreateTransferRequest, Error> {
+        createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadCallsCount += 1
+        createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadReceivedArguments = (fromAccount: fromAccount, toAccount: toAccount, amount: amount, nonce: nonce, memo: memo, capital: capital, restakeEarnings: restakeEarnings, delegationTarget: delegationTarget, openStatus: openStatus, metadataURL: metadataURL, transactionFeeCommission: transactionFeeCommission, bakingRewardCommission: bakingRewardCommission, finalizationRewardCommission: finalizationRewardCommission, bakerKeys: bakerKeys, expiry: expiry, energy: energy, transferType: transferType, requestPasswordDelegate: requestPasswordDelegate, global: global, inputEncryptedAmount: inputEncryptedAmount, receiverPublicKey: receiverPublicKey, payload: payload)
+        createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadReceivedInvocations.append((fromAccount: fromAccount, toAccount: toAccount, amount: amount, nonce: nonce, memo: memo, capital: capital, restakeEarnings: restakeEarnings, delegationTarget: delegationTarget, openStatus: openStatus, metadataURL: metadataURL, transactionFeeCommission: transactionFeeCommission, bakingRewardCommission: bakingRewardCommission, finalizationRewardCommission: finalizationRewardCommission, bakerKeys: bakerKeys, expiry: expiry, energy: energy, transferType: transferType, requestPasswordDelegate: requestPasswordDelegate, global: global, inputEncryptedAmount: inputEncryptedAmount, receiverPublicKey: receiverPublicKey, payload: payload))
+        if let createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadClosure = createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadClosure {
+            return createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadClosure(fromAccount, toAccount, amount, nonce, memo, capital, restakeEarnings, delegationTarget, openStatus, metadataURL, transactionFeeCommission, bakingRewardCommission, finalizationRewardCommission, bakerKeys, expiry, energy, transferType, requestPasswordDelegate, global, inputEncryptedAmount, receiverPublicKey, payload)
         } else {
-            return createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyReturnValue
+            return createTransferFromToAmountNonceMemoCapitalRestakeEarningsDelegationTargetOpenStatusMetadataURLTransactionFeeCommissionBakingRewardCommissionFinalizationRewardCommissionBakerKeysExpiryEnergyTransferTypeRequestPasswordDelegateGlobalInputEncryptedAmountReceiverPublicKeyPayloadReturnValue
+        }
+    }
+
+    // MARK: - parameterToJson
+
+    var parameterToJsonWithThrowableError: Error?
+    var parameterToJsonWithCallsCount = 0
+    var parameterToJsonWithCalled: Bool {
+        return parameterToJsonWithCallsCount > 0
+    }
+
+    var parameterToJsonWithReceivedContractParams: ContractUpdateParameterToJsonInput?
+    var parameterToJsonWithReceivedInvocations: [ContractUpdateParameterToJsonInput] = []
+    var parameterToJsonWithReturnValue: String!
+    var parameterToJsonWithClosure: ((ContractUpdateParameterToJsonInput) throws -> String)?
+
+    func parameterToJson(with contractParams: ContractUpdateParameterToJsonInput) throws -> String {
+        if let error = parameterToJsonWithThrowableError {
+            throw error
+        }
+        parameterToJsonWithCallsCount += 1
+        parameterToJsonWithReceivedContractParams = contractParams
+        parameterToJsonWithReceivedInvocations.append(contractParams)
+        if let parameterToJsonWithClosure = parameterToJsonWithClosure {
+            return try parameterToJsonWithClosure(contractParams)
+        } else {
+            return parameterToJsonWithReturnValue
         }
     }
 
@@ -430,6 +611,33 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
             return combineEncryptedAmountClosure(encryptedAmount1, encryptedAmount2)
         } else {
             return combineEncryptedAmountReturnValue
+        }
+    }
+
+    // MARK: - createAccountTransfer
+
+    var createAccountTransferInputThrowableError: Error?
+    var createAccountTransferInputCallsCount = 0
+    var createAccountTransferInputCalled: Bool {
+        return createAccountTransferInputCallsCount > 0
+    }
+
+    var createAccountTransferInputReceivedInput: String?
+    var createAccountTransferInputReceivedInvocations: [String] = []
+    var createAccountTransferInputReturnValue: String!
+    var createAccountTransferInputClosure: ((String) throws -> String)?
+
+    func createAccountTransfer(input: String) throws -> String {
+        if let error = createAccountTransferInputThrowableError {
+            throw error
+        }
+        createAccountTransferInputCallsCount += 1
+        createAccountTransferInputReceivedInput = input
+        createAccountTransferInputReceivedInvocations.append(input)
+        if let createAccountTransferInputClosure = createAccountTransferInputClosure {
+            return try createAccountTransferInputClosure(input)
+        } else {
+            return createAccountTransferInputReturnValue
         }
     }
 
@@ -547,21 +755,55 @@ class MobileWalletProtocolMock: MobileWalletProtocol {
             return verifyIdentitiesAndAccountsPwHashReturnValue
         }
     }
-    
-    func createTransfer(from fromAccount: Mock.AccountDataType, to toAccount: String?, amount: String?, nonce: Int, memo: String?, capital: String?, restakeEarnings: Bool?, delegationTarget: Mock.DelegationTarget?, openStatus: String?, metadataURL: String?, transactionFeeCommission: Double?, bakingRewardCommission: Double?, finalizationRewardCommission: Double?, bakerKeys: Mock.GeneratedBakerKeys?, expiry: Date, energy: Int, transferType: Mock.TransferType, requestPasswordDelegate: Mock.RequestPasswordDelegate, global: Mock.GlobalWrapper?, inputEncryptedAmount: Mock.InputEncryptedAmount?, receiverPublicKey: String?, payload: Mock.Payload?) -> AnyPublisher<Mock.CreateTransferRequest, Error> {
-        NYI()
+
+    // MARK: - signMessage
+
+    var signMessageForMessageRequestPasswordDelegateCallsCount = 0
+    var signMessageForMessageRequestPasswordDelegateCalled: Bool {
+        return signMessageForMessageRequestPasswordDelegateCallsCount > 0
     }
-    
-    func parameterToJson(with contractParams: Mock.ContractUpdateParameterToJsonInput) throws -> String {
-        NYI()
-    }
-    
-    func createAccountTransfer(input: String) throws -> String {
-        NYI()
-    }
-    
+
+    var signMessageForMessageRequestPasswordDelegateReceivedArguments: (account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate)?
+    var signMessageForMessageRequestPasswordDelegateReceivedInvocations: [(account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate)] = []
+    var signMessageForMessageRequestPasswordDelegateReturnValue: AnyPublisher<StringMessageSignatures, Error>!
+    var signMessageForMessageRequestPasswordDelegateClosure: ((AccountDataType, String, RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error>)?
+
     func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error> {
-        NYI()
+        signMessageForMessageRequestPasswordDelegateCallsCount += 1
+        signMessageForMessageRequestPasswordDelegateReceivedArguments = (account: account, message: message, requestPasswordDelegate: requestPasswordDelegate)
+        signMessageForMessageRequestPasswordDelegateReceivedInvocations.append((account: account, message: message, requestPasswordDelegate: requestPasswordDelegate))
+        if let signMessageForMessageRequestPasswordDelegateClosure = signMessageForMessageRequestPasswordDelegateClosure {
+            return signMessageForMessageRequestPasswordDelegateClosure(account, message, requestPasswordDelegate)
+        } else {
+            return signMessageForMessageRequestPasswordDelegateReturnValue
+        }
+    }
+
+    // MARK: - serializeTokenTransferParameters
+
+    var serializeTokenTransferParametersInputThrowableError: Error?
+    var serializeTokenTransferParametersInputCallsCount = 0
+    var serializeTokenTransferParametersInputCalled: Bool {
+        return serializeTokenTransferParametersInputCallsCount > 0
+    }
+
+    var serializeTokenTransferParametersInputReceivedInput: SerializeTokenTransferParametersInput?
+    var serializeTokenTransferParametersInputReceivedInvocations: [SerializeTokenTransferParametersInput] = []
+    var serializeTokenTransferParametersInputReturnValue: SerializeTokenTransferParametersOutput!
+    var serializeTokenTransferParametersInputClosure: ((SerializeTokenTransferParametersInput) throws -> SerializeTokenTransferParametersOutput)?
+
+    func serializeTokenTransferParameters(input: SerializeTokenTransferParametersInput) throws -> SerializeTokenTransferParametersOutput {
+        if let error = serializeTokenTransferParametersInputThrowableError {
+            throw error
+        }
+        serializeTokenTransferParametersInputCallsCount += 1
+        serializeTokenTransferParametersInputReceivedInput = input
+        serializeTokenTransferParametersInputReceivedInvocations.append(input)
+        if let serializeTokenTransferParametersInputClosure = serializeTokenTransferParametersInputClosure {
+            return try serializeTokenTransferParametersInputClosure(input)
+        } else {
+            return serializeTokenTransferParametersInputReturnValue
+        }
     }
 }
 

@@ -78,7 +78,7 @@ protocol StorageManagerProtocol {
     func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
 
     func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
-    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [CIS2TokenOwnershipEntity]
+    func getUserStoredCIS2Tokens(for accountAddress: String, for contractIndex: String) -> [CIS2TokenOwnershipEntity]
     func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenOwnershipEntity]
     func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
     func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
@@ -134,15 +134,15 @@ class StorageManager: StorageManagerProtocol {
             // Remove tokens for a given contract index that are no longer selected.
             let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
             realm.delete(tokensToDelete)
-            let uniqueTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId != token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
-            realm.add(uniqueTokens)
+            let distinctTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
+            realm.add(distinctTokens)
         }
     }
 
     @MainActor
     func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws {
         try realm.write {
-            if let tokenToDelete = realm.objects(CIS2TokenOwnershipEntity.self).first { $0.tokenId == token.tokenId && $0.contractIndex == token.contractIndex } {
+            if let tokenToDelete = realm.objects(CIS2TokenOwnershipEntity.self).first(where: { $0.tokenId == token.tokenId && $0.contractIndex == token.contractIndex }) {
                 realm.delete(tokenToDelete)
             }
         }
@@ -160,11 +160,8 @@ class StorageManager: StorageManagerProtocol {
     }
 
     @MainActor
-    func getUserStoredCIS2Tokens(for accountAddress: String, in contractIndex: String) -> [CIS2TokenOwnershipEntity] {
-        Array(realm.objects(CIS2TokenOwnershipEntity.self)
-            .filter("accountAddress == %@", accountAddress)
-            .filter("contractIndex == %@", contractIndex)
-        )
+    func getUserStoredCIS2Tokens(for accountAddress: String, for contractIndex: String) -> [CIS2TokenOwnershipEntity] {
+        getUserStoredCIS2Tokens(for: accountAddress).filter { $0.contractIndex == contractIndex }
     }
 
     @MainActor

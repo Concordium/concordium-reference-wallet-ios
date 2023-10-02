@@ -20,6 +20,7 @@ extension Transaction {
 
 protocol TransferDataType: DataStoreProtocol, TransactionType {
     var amount: String { get set }
+    var receiveName: String? { get set }
     var fromAddress: String {get set }
     var toAddress: String { get set }
     var expiry: Date { get set }
@@ -46,6 +47,8 @@ protocol TransferDataType: DataStoreProtocol, TransactionType {
     func getPublicBalanceChange() -> Int
     func getShieldedBalanceChange() -> Int
     func withUpdated(cost: String?, status: SubmissionStatusEnum, outcome: OutcomeEnum?) -> TransferDataType
+    var contractIndex: String? { get set }
+    var contractSubindex: String? { get set }
 }
 
 extension TransferDataType {
@@ -130,6 +133,7 @@ struct TransferDataTypeFactory {
 
 final class TransferEntity: Object {
     @objc dynamic var id: String = UUID().uuidString
+    @objc dynamic var receiveName: String? = nil
     @objc dynamic var amount: String = ""
     @objc dynamic var fromAddress = ""
     @objc dynamic var toAddress: String = ""
@@ -154,6 +158,8 @@ final class TransferEntity: Object {
     @objc dynamic var bakingRewardCommission: Double = -1
     @objc dynamic var finalizationRewardCommission: Double = -1
     @objc dynamic var contractUpdatePayloadEntity: ContractUpdatePayloadEntity?
+    @objc dynamic var contractIndex: String? = nil
+    @objc dynamic var contractSubindex: String? = nil
 }
 
 extension TransferEntity: TransferDataType {

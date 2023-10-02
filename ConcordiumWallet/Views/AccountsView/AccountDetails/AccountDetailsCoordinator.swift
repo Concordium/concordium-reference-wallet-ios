@@ -148,7 +148,9 @@ class AccountDetailsCoordinator: Coordinator,
                                                dependencyProvider: dependencyProvider,
                                                account: account,
                                                balanceType: balanceType,
-                                               transferType: transferType)
+                                               transferType: transferType,
+                                               tokenType: .ccd
+        )
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
@@ -161,7 +163,9 @@ class AccountDetailsCoordinator: Coordinator,
                                                dependencyProvider: dependencyProvider,
                                                account: account,
                                                balanceType: balanceType,
-                                               transferType: transferType)
+                                               transferType: transferType,
+                                               tokenType: .ccd
+        )
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
@@ -343,6 +347,8 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
                     popView: { [weak self] in
                         self?.navigationController.popViewController(animated: true)
                     },
+                    showAddress: self.showAccountAddressQR,
+                    sendFunds: { [weak self] in self?.showSendFund() },
                     context: .database
                 )
             ),

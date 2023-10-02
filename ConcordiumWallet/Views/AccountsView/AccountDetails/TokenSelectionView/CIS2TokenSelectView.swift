@@ -37,7 +37,7 @@ struct CIS2TokenSelectView: View {
         self.contractIndex = contractIndex
         self.showDetails = showDetails
         self.service = service
-        _selectedItems = State(initialValue: Set(service.getUserStoredCIS2Tokens(for: accountAdress, in: contractIndex)))
+ 
     }
 
     var body: some View {

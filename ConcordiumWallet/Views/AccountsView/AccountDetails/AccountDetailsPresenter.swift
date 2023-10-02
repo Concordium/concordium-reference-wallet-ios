@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import RealmSwift
+import BigInt
 
 protocol TransactionsFetcher {
     func getNextTransactions()
@@ -46,7 +47,6 @@ protocol AccountTokensPresenterProtocol {
     var account: AccountDataType { get }
     func userSelected(token: CIS2TokenSelectionRepresentable)
     func showManageTokensView()
-    func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable]
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> { get }
 }
 
@@ -111,44 +111,22 @@ class AccountDetailsPresenter {
     }
 }
 
-extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-    var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
-        storageManager.getCIS2TokensPublisher(for: account.address)
-            .map {
-                Publishers.MergeMany(
-                    $0.map { token in
-                        self.cis2Service.fetchTokensBalance(
-                            contractIndex: token.contractIndex,
-                            contractSubindex: "0",
-                            accountAddress: token.accountAddress,
-                            tokenId: token.tokenId
-                        )
-                        .compactMap { $0.first }
-                        .map {
-                            CIS2TokenSelectionRepresentable(
-                                tokenId: token.tokenId,
-                                balance: Int($0.balance) ?? 0,
-                                contractIndex: token.contractIndex,
-                                name: token.name,
-                                symbol: token.symbol,
-                                decimals: token.decimals,
-                                description: token.tokenDescription,
-                                thumbnail: URL(string: token.thumbnail ?? ""),
-                                unique: token.unique,
-                                accountAddress: token.accountAddress
-                            )
-                        }
-                    }
-                )
-                .collect()
-            }
-            .switchToLatest()
-            
-            .eraseToAnyPublisher()
-    }
+import UIKit
 
-    func fetchCachedTokens() -> [CIS2TokenSelectionRepresentable] {
-        storageManager.getUserStoredCIS2Tokens(for: account.address).map { $0.asRepresentable() }
+struct AccountTokensViewModel {
+    let name: String
+    let symbol: String?
+    let thumbnailURL: URL?
+    let localThumbnailImage: UIImage?
+    let unique: Bool?
+    let balance: String
+}
+
+extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
+  
+    
+    var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
+        cis2Service.observedTokensPublisher(for: account.address)
     }
 
     func showGTUDrop() -> Bool {
