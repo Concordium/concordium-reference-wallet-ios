@@ -131,13 +131,6 @@ struct TokenDetailsView: View {
                         .font(.body)
                 }
                 Group {
-                    Text("Ownership")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                    Text(isOwned ? "Owned" : "Not owned")
-                        .font(.body)
-                }
-                Group {
                     Text("Contract index, subindex")
                         .font(.caption)
                         .foregroundColor(.gray)
