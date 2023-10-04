@@ -21,6 +21,7 @@ protocol CIS2ServiceProtocol {
 
     func observedTokensPublisher(for accountAddress: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
     func observedTokensPublisher(for accountAddress: String, filteredBy contractIndex: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
+    func observedTokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenSelectionRepresentable]
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -36,6 +37,11 @@ class CIS2Service: CIS2ServiceProtocol {
         observedTokensPublisher(for: accountAddress)
             .map { $0.filter { $0.contractIndex == contractIndex } }
             .eraseToAnyPublisher()
+    }
+    func observedTokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenSelectionRepresentable] {
+        storageManager.getUserStoredCIS2Tokens(for: accountAddress, filteredBy: contractIndex).map {
+            map(entity: $0)
+        }
     }
 
     func observedTokensPublisher(for accountAddress: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
