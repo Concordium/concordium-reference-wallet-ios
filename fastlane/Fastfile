@@ -44,8 +44,7 @@ platform :ios do
         skip_info_plist: true
       )
       gym(
-        scheme: ENV["SCHEME"],
-        skip_codesigning: true
+        scheme: ENV["SCHEME"]
       )
       upload_to_testflight(skip_waiting_for_build_processing: true)
     rescue => exception
