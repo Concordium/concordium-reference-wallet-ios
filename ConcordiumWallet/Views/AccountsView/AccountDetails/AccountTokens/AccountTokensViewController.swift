@@ -69,6 +69,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         presenter
             .cachedTokensPublisher
             .receive(on: DispatchQueue.main)
+            .map { $0.sorted(by: { $0.tokenId < $1.tokenId })}
             .map { [weak self] in
                 guard let self = self else { return $0 }
                 var currentArray = $0
