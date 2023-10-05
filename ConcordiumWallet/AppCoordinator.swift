@@ -353,10 +353,8 @@ extension AppCoordinator: LoginCoordinatorDelegate {
 
 extension AppCoordinator: WalletConnectCoordiantorDelegate {
     func dismissWalletConnectCoordinator() {
-        
+        childCoordinators.removeAll { $0 is WalletConnectCoordinator }
     }
-    
-    
 }
 
 extension AppCoordinator: ImportCoordinatorDelegate {

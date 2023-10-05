@@ -50,15 +50,8 @@ class WalletConnectCoordinator: Coordinator {
     }
 
     func start(with uri: String) {
-           Task {
-               do {
-                   try await Pair.instance.pair(uri: WalletConnectURI(string: uri)!)
-               } catch let err {
-                   self.navigationController.popViewController(animated: true)
-                   self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-               }
-           }
-       }
+        pairWalletConnect(with: uri)
+    }
 
     func nukeWalletConnectSessionsAndPairings() {
         Sign.instance.nuke()
@@ -499,6 +492,7 @@ private extension WalletConnectCoordinator {
                     shouldAllowAccept: info.$estimatedCost.map { $0 != nil && isAccountBalanceSufficient }.eraseToAnyPublisher()
                 )
                 
+
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         // TODO: Only enable "Accept" button after cost estimation has been resolved.
@@ -598,14 +592,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     if !value.hasPrefix("wc:") {
                         return false
                     }
-                    Task {
-                        do {
-                            try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
-                        } catch let err {
-                            self?.navigationController.popViewController(animated: true)
-                            self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-                        }
-                    }
+                    self?.pairWalletConnect(with: value)
                     return true
                 }, viewDidDisappear: { [weak self] in
                     self?.nukeWalletConnectSessionsAndPairings()
@@ -614,6 +601,21 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             )
         )
         navigationController.pushViewController(vc, animated: true)
+    }
+
+    private func pairWalletConnect(with uri: String) {
+        Task {
+            do {
+                guard let uri = WalletConnectURI(string: uri) else {
+                    self.presentError(with: "errorAlert.title".localized, message: "Unable to initialize WalletConnectURI.")
+                    return
+                }
+                try await Pair.instance.pair(uri: uri)
+            } catch let err {
+                self.navigationController.popViewController(animated: true)
+                self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+            }
+        }
     }
 
     func presentError(with title: String, message: String) {
