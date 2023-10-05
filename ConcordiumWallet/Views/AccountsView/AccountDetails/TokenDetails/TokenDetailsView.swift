@@ -25,7 +25,6 @@ struct TokenDetailsView: View {
     var sendFunds: () -> Void
     var context: Context
     @State private var isAlertShown = false
-    @State private var isMetadataShown = false
     @State var isOwned = false
     @State private var error: TokenError? = nil
 
@@ -150,19 +149,12 @@ struct TokenDetailsView: View {
                         .foregroundColor(.gray)
                     Text("\(token.decimals)").font(.body)
                 }
-
-                Button {
-                    isMetadataShown = true
-                } label: {
-                    Text("Show raw metadata")
-                }
             }
             .padding()
         }
         .alert(item: $error) { error in
             Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
         }
-        .sheet(isPresented: $isMetadataShown) {}
         .onReceive(service.observedTokensPublisher(for: token.accountAddress, filteredBy: token.tokenId).asResult()) { result in
             switch result {
             case let .success(items):
