@@ -49,6 +49,17 @@ class WalletConnectCoordinator: Coordinator {
         showWalletConnectScanner()
     }
 
+    func start(with uri: String) {
+           Task {
+               do {
+                   try await Pair.instance.pair(uri: WalletConnectURI(string: uri)!)
+               } catch let err {
+                   self.navigationController.popViewController(animated: true)
+                   self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+               }
+           }
+       }
+
     func nukeWalletConnectSessionsAndPairings() {
         Sign.instance.nuke()
         Pair.instance.nuke()

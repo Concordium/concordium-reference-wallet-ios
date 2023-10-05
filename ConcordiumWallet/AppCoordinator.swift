@@ -61,6 +61,25 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         childCoordinators.append(loginCoordinator)
         loginCoordinator.start()
     }
+    
+    func openWalletConnectAccountSelection(url: URL) {
+        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+            // Find the 'uri' query item
+            if let uriQueryItem = queryItems.first(where: { $0.name == "uri" }) {
+                // Get the value of the 'uri' query item
+                if let uriValue = uriQueryItem.value {
+                    // Print the extracted string
+                    let walletConnectCoordinator = WalletConnectCoordinator(
+                        navigationController: navigationController,
+                        dependencyProvider: self.defaultProvider,
+                        parentCoordiantor: self
+                    )
+
+                    walletConnectCoordinator.start(with: uriValue)
+                    childCoordinators.append(walletConnectCoordinator)                }
+            }
+        }
+      }
 
     func showMainTabbar() {
         navigationController.setupBaseNavigationControllerStyle()
@@ -330,6 +349,14 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         navigationController.viewControllers = [navigationController.viewControllers.last!]
         childCoordinators.removeAll { $0 is LoginCoordinator }
     }
+}
+
+extension AppCoordinator: WalletConnectCoordiantorDelegate {
+    func dismissWalletConnectCoordinator() {
+        
+    }
+    
+    
 }
 
 extension AppCoordinator: ImportCoordinatorDelegate {

@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             receivedCreateIdentityCallback(url)
         } else {
             // importing file
-            appCoordinator.importWallet(from: url)
+            appCoordinator.openWalletConnectAccountSelection(url: url)
         }
         return true
     }
