@@ -10,25 +10,28 @@ import SwiftUI
 
 struct ButtonSlider: View {
     var isShielded: Bool
-    var actionTokens: () -> Void
+    var didTapTokensButton: () -> Void
     var actionSend: () -> Void
+    var didTapTransactionList: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
     var actionShield: () -> Void
     var actionSettings: () -> Void
-
     var isDisabled: Bool
     
     var buttons: [ActionButton] {
         [
-            // TODO Uncomment once CIS-2 action has been implemented.
+            ActionButton(
+                imageName: "ccd_coins",
+                action: didTapTokensButton
+            ),
 //            ActionButton(
-//                imageName: "ccd_coins",
-//                action: actionTokens
+//                imageName: "button_slider_send",
+//                action: actionSend
 //            ),
             ActionButton(
-                imageName: "button_slider_send",
-                action: actionSend
+                imageName: "transaction_list",
+                action: didTapTransactionList
             ),
             ActionButton(
                 imageName: "button_slider_earn",
@@ -94,14 +97,22 @@ struct ButtonSlider: View {
 struct ActionButton: View, Identifiable {
     let imageName: String
     var action: () -> Void
-    
+    var isSelected: Bool = false
     var id: String { imageName }
 
     var body: some View {
-        Image(imageName)
-            .onTapGesture {
-                self.action()
+        VStack {
+            Image(imageName)
+                .frame(width: 32, height: 32)
+                .onTapGesture {
+                    self.action()
+                }
+            if isSelected {
+                Divider()
+                    .frame(height: 2)
+                    .background(Pallette.whiteText)
             }
+        }
     }
 }
 
@@ -117,13 +128,15 @@ struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
             isShielded: true,
-            actionTokens: {},
+            didTapTokensButton: {},
             actionSend: {},
+            didTapTransactionList: {},
             actionReceive: {},
             actionEarn: {},
             actionShield: {},
             actionSettings: {},
             isDisabled: false
         )
+        .frame(width: 500,height: 80)
     }
 }

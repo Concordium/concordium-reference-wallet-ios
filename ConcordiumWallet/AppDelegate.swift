@@ -9,6 +9,8 @@
 import UIKit
 import Combine
 import MatomoTracker
+import SDWebImageSVGCoder
+import SDWebImage
 
 extension Notification.Name {
     static let didReceiveIdentityData = Notification.Name("didReceiveIdentityData")
@@ -51,7 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func startAppCoordinator() {
         window?.rootViewController = appCoordinator.navigationController
         window?.makeKeyAndVisible()
-        
+        let SVGCoder = SDImageSVGCoder.shared
+        SDImageCodersManager.shared.addCoder(SVGCoder)
         // Warn if device is jail broken.
         if UIDevice.current.isJailBroken {
             let ac = UIAlertController(title: "Warning", message: "error", preferredStyle: .alert)

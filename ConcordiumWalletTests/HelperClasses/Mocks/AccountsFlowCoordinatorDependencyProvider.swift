@@ -34,4 +34,8 @@ class AccountsFlowCoordinatorDependencyProviderMock: AccountsFlowCoordinatorDepe
     func seedMobileWallet() -> SeedMobileWalletProtocol {
         fatalError("seedMobileWallet() has not been implemented")
     }
+    
+    func cis2Service() -> CIS2ServiceProtocol {
+        fatalError("seedMobileWallet() has not been implemented")
+    }
 }

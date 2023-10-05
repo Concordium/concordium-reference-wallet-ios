@@ -3,6 +3,7 @@
 // Copyright (c) 2020 concordium. All rights reserved.
 //
 
+import SwiftUI
 import UIKit
 
 protocol SendFundsCoordinatorDelegate: AnyObject {
@@ -14,7 +15,7 @@ enum SendFundTransferType {
     case encryptedTransfer
     case transferToSecret
     case transferToPublic
-
+    case contractUpdate
     var actualType: TransferType {
         switch self {
         case .simpleTransfer:
@@ -25,8 +26,15 @@ enum SendFundTransferType {
             return .transferToSecret
         case .transferToPublic:
             return .transferToPublic
+        case .contractUpdate:
+            return .contractUpdate
         }
     }
+}
+
+enum SendFundsTokenType: Equatable {
+    case ccd
+    case cis2(token: CIS2TokenSelectionRepresentable)
 }
 
 class SendFundsCoordinator: Coordinator {
@@ -39,19 +47,22 @@ class SendFundsCoordinator: Coordinator {
     private var transferType: SendFundTransferType
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     var sendFundPresenter: SendFundPresenter?
-
+    var tokenType: SendFundsTokenType
     init(navigationController: UINavigationController,
          delegate: SendFundsCoordinatorDelegate,
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
          balanceType: AccountBalanceTypeEnum,
-         transferType: SendFundTransferType) {
+         transferType: SendFundTransferType,
+         tokenType: SendFundsTokenType
+    ) {
         self.account = account
         self.balanceType = balanceType
         self.transferType = transferType
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .fullScreen
         parentCoordinator = delegate
+        self.tokenType = tokenType
         self.dependencyProvider = dependencyProvider
     }
 
@@ -60,7 +71,9 @@ class SendFundsCoordinator: Coordinator {
                                                   balanceType: balanceType,
                                                   transferType: transferType,
                                                   dependencyProvider: dependencyProvider,
-                                                  delegate: self)
+                                                  delegate: self,
+                                                  tokenType: tokenType
+        )
         self.sendFundPresenter = sendFundPresenter
         let sendFundVC = SendFundFactory.create(with: sendFundPresenter)
         navigationController.viewControllers = [sendFundVC]
@@ -127,13 +140,16 @@ class SendFundsCoordinator: Coordinator {
         transferType: SendFundTransferType
     ) {
         let presenter = SendFundConfirmationPresenter(
-            delegate: self, amount: amount,
-            from: account, to: recipient,
+            delegate: self,
+            amount: amount,
+            from: account,
+            to: recipient,
             memo: memo,
             cost: cost,
             energy: energy,
             dependencyProvider: dependencyProvider,
-            transferType: transferType
+            transferType: transferType,
+            tokenType: tokenType
         )
         let vc = SendFundConfirmationFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
@@ -155,8 +171,29 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
+    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenType) {
+        self.tokenType = sendFundsTokenType
+    }
+    
     func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void)) {
         showScanAddressQR(didScanQRCode: didScanQRCode)
+    }
+
+    func sendFundPresenterShowTokenTypeSelector(didSelectToken: @escaping ((CIS2TokenSelectionRepresentable?) -> Void)) {
+        navigationController.present(
+            UIHostingController(
+                rootView:
+                SendFundTokenSelection(
+                    service: dependencyProvider.cis2Service(),
+                    account: account,
+                    didSelectToken: { [weak self] token in
+                        didSelectToken(token)
+                        self?.navigationController.dismiss(animated: true)
+                    }
+                )
+            ),
+            animated: true
+        )
     }
 
     func sendFundPresenter(

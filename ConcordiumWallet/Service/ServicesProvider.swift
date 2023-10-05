@@ -15,6 +15,7 @@ protocol AccountsFlowCoordinatorDependencyProvider: WalletAndStorageDependencyPr
     func transactionsService() -> TransactionsServiceProtocol
     func accountsService() -> AccountsServiceProtocol
     func identitiesService() -> IdentitiesService
+    func cis2Service() -> CIS2ServiceProtocol
     func appSettingsService() -> AppSettingsServiceProtocol
 }
 
@@ -29,6 +30,8 @@ protocol MoreFlowCoordinatorDependencyProvider: WalletAndStorageDependencyProvid
     func keychainWrapper() -> KeychainWrapperProtocol
 }
 
+// sourcery: AutoMockable
+protocol CIS2TokensCoordinatorDependencyProvider: AccountsFlowCoordinatorDependencyProvider {}
 // sourcery: AutoMockable
 protocol LoginDependencyProvider: WalletAndStorageDependencyProvider {
     func keychainWrapper() -> KeychainWrapperProtocol
@@ -79,6 +82,12 @@ extension ServicesProvider: WalletAndStorageDependencyProvider {
 
     func storageManager() -> StorageManagerProtocol {
         _storageManager
+    }
+}
+
+extension ServicesProvider: CIS2TokensCoordinatorDependencyProvider {
+    func cis2Service() -> CIS2ServiceProtocol {
+        CIS2Service(networkManager: _networkManager, storageManager: _storageManager)
     }
 }
 

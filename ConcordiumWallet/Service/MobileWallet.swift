@@ -55,6 +55,7 @@ protocol MobileWalletProtocol {
     func verifyPasscode(for account: AccountDataType, pwHash: String) -> Result<Void, Error>
     func verifyIdentitiesAndAccounts(pwHash: String) -> [(IdentityDataType?, [AccountDataType])]
     func signMessage(for account: AccountDataType, message: String, requestPasswordDelegate: RequestPasswordDelegate) -> AnyPublisher<StringMessageSignatures, Error>
+    func serializeTokenTransferParameters(input: SerializeTokenTransferParametersInput) throws -> SerializeTokenTransferParametersOutput
 }
 
 enum MobileWalletError: Error {
@@ -307,6 +308,10 @@ class MobileWallet: MobileWalletProtocol {
         case .contractUpdate:
             return try CreateTransferRequest(walletFacade.createAccountTransaction(input: input))
         }
+    }
+
+    func serializeTokenTransferParameters(input: SerializeTokenTransferParametersInput) throws -> SerializeTokenTransferParametersOutput {
+        try walletFacade.serializeTokenTransferParameters(input: input)
     }
 
     private func createCredential(for pAccount: AccountDataType, input: MakeCreateCredentialRequest, pwHash: String)

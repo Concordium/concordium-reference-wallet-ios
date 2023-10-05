@@ -5,6 +5,7 @@
 
 import Foundation
 import RealmSwift
+import Combine
 
 protocol StorageManagerProtocol {
     func storeIdentity(_: IdentityDataType) throws
@@ -75,6 +76,14 @@ protocol StorageManagerProtocol {
 
     func getLastAcceptedTermsAndConditionsVersion() -> String
     func storeLastAcceptedTermsAndConditionsVersion(_ version: String)
+
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
+    func getUserStoredCIS2Tokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenOwnershipEntity]
+    func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenOwnershipEntity]
+    func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity?
+    func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws
+    func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws
+    func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error>
 }
 
 enum StorageError: Error {
@@ -83,7 +92,16 @@ enum StorageError: Error {
     case nullDataError
 }
 
-class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_body_length
+class StorageManager: StorageManagerProtocol {
+
+    @MainActor
+    func getUserStoredCIS2Tokens(for accountAddress: String) -> [CIS2TokenOwnershipEntity] {
+        Array(realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+        )
+    }
+    
+    // swiftlint:disable:this type_body_length
     private var realm: Realm
     private var keychain: KeychainWrapperProtocol
 
@@ -92,7 +110,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         configuration: Realm.Configuration = RealmHelper.realmConfiguration
     ) {
         self.keychain = keychain
-        self.realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+        realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }
@@ -103,10 +121,66 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
         guard let identityEntity = identity as? IdentityEntity else {
             return
         }
-        
+
         try realm.write {
             realm.add(identityEntity)
         }
+    }
+
+    @MainActor
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws {
+        try realm.write {
+            let storedTokens = realm.objects(CIS2TokenOwnershipEntity.self).filter("contractIndex == %@", contractIndex).filter("accountAddress == %@", accountAddress)
+            // Remove tokens for a given contract index that are no longer selected.
+            let tokensToDelete = storedTokens.filter { stored in !tokens.contains { $0.tokenId == stored.tokenId } }
+            realm.delete(tokensToDelete)
+            let distinctTokens = tokens.filter { token in !storedTokens.contains { $0.tokenId == token.tokenId }}.map { CIS2TokenOwnershipEntity(with: $0) }
+            realm.add(distinctTokens)
+        }
+    }
+
+    @MainActor
+    func deleteCIS2Token(_ token: CIS2TokenSelectionRepresentable) throws {
+        try realm.write {
+            if let tokenToDelete = realm.objects(CIS2TokenOwnershipEntity.self).first(where: { $0.tokenId == token.tokenId && $0.contractIndex == token.contractIndex }) {
+                realm.delete(tokenToDelete)
+            }
+        }
+    }
+    
+    @MainActor
+    func storeCIS2TokenMetadataDetails(_ metadata: CIS2TokenMetadataDetails, for url: String) throws {
+        try realm.write {
+            realm.create(
+                CIS2TokenMetadataDetailsEntity.self,
+                value: CIS2TokenMetadataDetailsEntity(with: metadata),
+                update: .modified
+            )
+        }
+    }
+
+    @MainActor
+    func getUserStoredCIS2Tokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenOwnershipEntity] {
+        getUserStoredCIS2Tokens(for: accountAddress).filter { $0.contractIndex == contractIndex }
+    }
+
+    @MainActor
+    func getCIS2Tokens(accountAddress: String) -> [CIS2TokenOwnershipEntity] {
+        Array(realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+        )
+    }
+
+    func getCIS2TokensPublisher(for accountAddress: String) -> AnyPublisher<RealmSwift.Results<CIS2TokenOwnershipEntity>, Error> {
+        realm.objects(CIS2TokenOwnershipEntity.self)
+            .filter("accountAddress == %@", accountAddress)
+            .collectionPublisher
+            .eraseToAnyPublisher()
+    }
+
+    @MainActor
+    func getCIS2TokenMetadataDetails(url: String) -> CIS2TokenMetadataDetailsEntity? {
+        realm.object(ofType: CIS2TokenMetadataDetailsEntity.self, forPrimaryKey: url)
     }
 
     func getIdentities() -> [IdentityDataType] {
@@ -117,7 +191,7 @@ class StorageManager: StorageManagerProtocol { // swiftlint:disable:this type_bo
     func getIdentity(matchingIdentityObject identityObject: IdentityObject) -> IdentityDataType? {
         getIdentities().first { $0.identityObject?.preIdentityObject.pubInfoForIP.idCredPub == identityObject.preIdentityObject.pubInfoForIP.idCredPub }
     }
-    
+
     func getIdentity(matchingSeedIdentityObject seedIdentityObject: SeedIdentityObject) -> IdentityDataType? {
         getIdentities().first {
             $0.seedIdentityObject?.preIdentityObject.idCredPub == seedIdentityObject.preIdentityObject.idCredPub

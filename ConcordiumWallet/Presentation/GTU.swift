@@ -6,8 +6,8 @@
 import Foundation
 
 struct GTU: Codable {
-    static let conversionFactor: Int = 1000000
-    static let maximumFractionDigits: Int = 6
+    private let conversionFactor: Int = 1000000
+    private let maximumFractionDigits: Int
     
     /// Useful for comparing against 0
     static let zero: GTU = GTU(intValue: 0)
@@ -15,24 +15,28 @@ struct GTU: Codable {
 
     private(set) var intValue: Int
 
-    init(displayValue: String) {
+    init(displayValue: String, maximumFractionDigits: Int = 6) {
+        self.maximumFractionDigits = maximumFractionDigits
+
         if displayValue.count == 0 {
             intValue = 0
             return
         }
         let wholePart = displayValue.unsignedWholePart
-        let fractionalPart = displayValue.fractionalPart(precision: GTU.maximumFractionDigits)
+        let fractionalPart = displayValue.fractionalPart(precision: maximumFractionDigits)
         let isNegative = displayValue.isNegative
-        intValue = GTU.wholeAndFractionalValueToInt(wholeValue: wholePart, fractionalValue: fractionalPart, isNegative: isNegative)
+        intValue = GTU.wholeAndFractionalValueToInt(wholeValue: wholePart, fractionalValue: fractionalPart, isNegative: isNegative, conversionFactor: conversionFactor)
     }
 
-    init(intValue: Int) {
+    init(intValue: Int, maximumFractionDigits: Int = 6) {
         self.intValue = intValue
+        self.maximumFractionDigits = maximumFractionDigits
     }
 
-    init?(intValue: Int?) {
+    init?(intValue: Int?, maximumFractionDigits: Int = 6) {
         guard let intValue = intValue else { return nil }
         self.intValue = intValue
+        self.maximumFractionDigits = maximumFractionDigits
     }
     
     // GTU is encoded as a string containing the int value
@@ -57,9 +61,9 @@ struct GTU: Codable {
     func displayValueWithGStroke() -> String {
         let minimumFractionDigits = 2
 
-        var str = GTU.intValueToUnsignedIntString(intValue,
+        var str = intValueToUnsignedIntString(intValue,
                                                   minimumFractionDigits: minimumFractionDigits,
-                                                  maxFractionDigits: GTU.maximumFractionDigits)
+                                                  maxFractionDigits: maximumFractionDigits)
         
         // Unicode for "Latin Capital Letter G with Stroke" = U+01E4
         if intValue < 0 {
@@ -72,9 +76,9 @@ struct GTU: Codable {
 
     func displayValue() -> String {
         let minimumFractionDigits = 2
-        var stringValue = GTU.intValueToUnsignedIntString(intValue,
+        var stringValue = intValueToUnsignedIntString(intValue,
                                                           minimumFractionDigits: minimumFractionDigits,
-                                                          maxFractionDigits: GTU.maximumFractionDigits)
+                                                          maxFractionDigits: maximumFractionDigits)
         if intValue < 0 {
             stringValue = "-\(stringValue)"
         }
@@ -85,11 +89,11 @@ struct GTU: Codable {
         return displayValue.unsignedWholePart <= (Int.max - 999999)/1000000 && displayValue.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,6}$")
     }
 
-    private static func wholeAndFractionalValueToInt(wholeValue: Int, fractionalValue: Int, isNegative: Bool) -> Int {
+    private static func wholeAndFractionalValueToInt(wholeValue: Int, fractionalValue: Int, isNegative: Bool, conversionFactor: Int) -> Int {
         return (wholeValue * conversionFactor + fractionalValue) * (isNegative ? -1 : 1)
     }
 
-    private static func intValueToUnsignedIntString(_ value: Int, minimumFractionDigits: Int, maxFractionDigits: Int) -> String {
+    private func intValueToUnsignedIntString(_ value: Int, minimumFractionDigits: Int, maxFractionDigits: Int) -> String {
         let absValue = abs(value)
         let wholeValueString = String(absValue / conversionFactor)
         var fractionVal = String(absValue % conversionFactor)

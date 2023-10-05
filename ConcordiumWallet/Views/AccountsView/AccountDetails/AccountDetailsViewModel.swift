@@ -29,12 +29,16 @@ private enum TransactionRequest: Hashable {
 }
 
 class AccountDetailsViewModel {
+    enum SelectedSection {
+        case transfers
+        case tokens
+    }
+
     var name: String?
     var address: String?
     
-    @Published var selectedTab: AccountDetailTab = .transfers
     @Published var selectedBalance: AccountBalanceTypeEnum = .balance
-    
+    @Published var selectedSection: SelectedSection = .tokens
     @Published var accountState: SubmissionStatusEnum = .committed
     @Published var balance: String = ""
     @Published var hasTransfers = true // assume transfers exists to avoid showing placeholders until we know about it

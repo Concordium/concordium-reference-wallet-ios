@@ -75,6 +75,16 @@ class MobileWalletFacade {
         try call(cFunction: create_sec_to_pub_transfer, with: input, debugTitle: "createUnshielding")
     }
     
+    func serializeTokenTransferParameters(input: SerializeTokenTransferParametersInput) throws -> SerializeTokenTransferParametersOutput {
+        let response = try call(
+            cFunction: serialize_token_transfer_parameters,
+            with: try encodeInput(input),
+            debugTitle: "serializeTokenTransferParameters"
+        )
+
+        return try decodeOutput(SerializeTokenTransferParametersOutput.self, from: response)
+    }
+    
     func createEncrypted(input: String) throws -> String {
         try call(cFunction: create_encrypted_transfer, with: input, debugTitle: "createEncrypted")
     }
