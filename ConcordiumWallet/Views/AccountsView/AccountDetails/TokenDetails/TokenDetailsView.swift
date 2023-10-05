@@ -97,6 +97,14 @@ struct TokenDetailsView: View {
     var tokenInfoSection: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                Group {
+                    Text("About token")
+                        .foregroundColor(Pallette.primary)
+                        .font(.subheadline)
+                    Text("\(token.name)")
+                        .font(.title2)
+                    Divider()
+                }
                 HStack(alignment: .center) {
                     WebImage(url: token.thumbnail)
                         .resizable()
@@ -107,14 +115,6 @@ struct TokenDetailsView: View {
                         .frame(width: 300, height: 300, alignment: .center)
                 }
                 .frame(maxWidth: .infinity)
-                Group {
-                    Text("About token")
-                        .foregroundColor(Pallette.primary)
-                        .font(.subheadline)
-                    Text("\(token.name)")
-                        .font(.title2)
-                    Divider()
-                }
                 Group {
                     Text("Description")
                         .font(.caption)
@@ -165,13 +165,12 @@ struct TokenDetailsView: View {
         .sheet(isPresented: $isMetadataShown) {}
         .onReceive(service.observedTokensPublisher(for: token.accountAddress, filteredBy: token.tokenId).asResult()) { result in
             switch result {
-            case .success(let items):
+            case let .success(items):
                 isOwned = items.contains { $0.tokenId == token.tokenId }
-            case .failure(let error):
+            case let .failure(error):
                 self.error = TokenError.networkError(err: error)
             }
         }
-        
     }
 
     var hideTokenButton: some View {
