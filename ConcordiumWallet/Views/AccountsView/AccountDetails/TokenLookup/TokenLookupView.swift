@@ -3,9 +3,9 @@
 //  ConcordiumWallet
 //
 
+import BigInt
 import Combine
 import SwiftUI
-import BigInt
 
 enum TokenError: Error, Identifiable {
     var id: String { errorMessage }
@@ -52,7 +52,7 @@ struct TokenLookupView: View {
                     )
                 }
             }
-            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .debounce(for: 1, scheduler: RunLoop.main)
             .flatMapLatest { token -> AnyPublisher<[CIS2Token], TokenError> in
                 service.fetchTokens(contractIndex: token, contractSubindex: "0")
                     .map { $0.tokens }
