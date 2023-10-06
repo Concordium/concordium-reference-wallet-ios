@@ -492,7 +492,6 @@ private extension WalletConnectCoordinator {
                     shouldAllowAccept: info.$estimatedCost.map { $0 != nil && isAccountBalanceSufficient }.eraseToAnyPublisher()
                 )
                 
-
                 self?.navigationController.pushViewController(
                     UIHostingController(
                         // TODO: Only enable "Accept" button after cost estimation has been resolved.
