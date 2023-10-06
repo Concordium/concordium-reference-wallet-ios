@@ -90,8 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Logger.trace("application:openUrl: \(url)")
         if url.absoluteString.starts(with: ApiConstants.notabeneCallback) {
             receivedCreateIdentityCallback(url)
-        } else {
-            // importing file
+        } else if url.absoluteString.starts(with: ApiConstants.walletConnectURI) {
             appCoordinator.openWalletConnectAccountSelection(url: url)
         }
         return true

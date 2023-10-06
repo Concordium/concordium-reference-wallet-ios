@@ -61,21 +61,22 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         childCoordinators.append(loginCoordinator)
         loginCoordinator.start()
     }
-    
+
     func openWalletConnectAccountSelection(url: URL) {
-        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
-            if let uriQueryItem = queryItems.first(where: { $0.name == "uri" }) {
-                if let uriValue = uriQueryItem.value {
-                    let walletConnectCoordinator = WalletConnectCoordinator(
-                        navigationController: navigationController,
-                        dependencyProvider: self.defaultProvider,
-                        parentCoordiantor: self
-                    )
-                    walletConnectCoordinator.start(with: uriValue)
-                    childCoordinators.append(walletConnectCoordinator)
-                }
-            }
+        guard
+            let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems,
+            let uriQueryItem = queryItems.first(where: { $0.name == "uri" }),
+            let uriValue = uriQueryItem.value else {
+            showErrorAlert(ViewError.simpleError(localizedReason: "WalletConnect URL format incorrect."))
+            return
         }
+        let walletConnectCoordinator = WalletConnectCoordinator(
+            navigationController: navigationController,
+            dependencyProvider: defaultProvider,
+            parentCoordiantor: self
+        )
+        walletConnectCoordinator.start(with: uriValue)
+        childCoordinators.append(walletConnectCoordinator)
     }
 
     func showMainTabbar() {
@@ -271,7 +272,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 }
 
 extension AppCoordinator: AccountsPresenterDelegate {
-
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
