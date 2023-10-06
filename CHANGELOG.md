@@ -11,9 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Support for manager fungible and non-fungible tokens. This includes adding, inspecting, and removing tokens.
+- Support for managing fungible and non-fungible tokens. This includes adding, inspecting, and removing tokens.
 
-## [1.1.1] - 2023-07-31
+## [1.1.1] - 2023-07-28
 
 ### Changed
 
