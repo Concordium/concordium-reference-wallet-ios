@@ -225,6 +225,17 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         self.viewModel = viewModel
 
         showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
+        
+        viewModel.$selectedBalance
+                .sink { [weak self] _ in
+                    self?.presenter.userSelectedTransfers()
+                    self?.showTransferData(
+                            accountState: viewModel.accountState,
+                            isReadOnly: viewModel.isReadOnly,
+                            hasTransfers: viewModel.hasTransfers
+                    )
+                }
+                .store(in: &cancellables)
 
         Publishers.CombineLatest(viewModel.$hasTransfers, viewModel.$accountState)
             .sink { [weak self] (hasTransfers: Bool, accountState: SubmissionStatusEnum) in
