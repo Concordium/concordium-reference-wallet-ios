@@ -229,11 +229,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         viewModel.$selectedBalance
                 .sink { [weak self] _ in
                     self?.presenter.userSelectedTransfers()
-                    self?.showTransferData(
-                            accountState: viewModel.accountState,
-                            isReadOnly: viewModel.isReadOnly,
-                            hasTransfers: viewModel.hasTransfers
-                    )
                 }
                 .store(in: &cancellables)
 
