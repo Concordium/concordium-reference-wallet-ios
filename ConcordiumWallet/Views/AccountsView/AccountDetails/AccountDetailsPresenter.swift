@@ -73,6 +73,7 @@ protocol AccountDetailsPresenterProtocol: AnyObject, AccountTokensPresenterProto
 
     func userSelectedGeneral()
     func userSelectedShieled()
+    func userSelectedTransfers()
     func showGTUDrop() -> Bool
     func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter
     func updateTransfersOnChanges()
@@ -286,6 +287,10 @@ extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
             switchToBalanceType(.balance)
             updateTransfers()
         }
+    }
+    
+    func userSelectedTransfers() {
+        updateTransfers()
     }
 
     func createTransactionsDataPresenter() -> AccountTransactionsDataPresenter {
