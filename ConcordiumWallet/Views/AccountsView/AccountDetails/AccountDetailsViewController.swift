@@ -226,6 +226,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
 
         showTransferData(accountState: viewModel.accountState, isReadOnly: viewModel.isReadOnly, hasTransfers: viewModel.hasTransfers)
         
+        // HACK: Remnant from legacy wallet code that ensures the UI to be updated appropriately when shilded balances are enabled or hidden.
+        //       The value of 'selectedBalance' isn't actually ever written (nor read!); the reason this works is that
+        //       'switchToBalanceType', 'hideShieldedTapped' etc. re-binds the view model, causing the (hardcoded) value '.balance' to be republished.
+        //       Via this observer, 'updateTransfers' is called when this happens to refresh the UI at just the right time.
         viewModel.$selectedBalance
                 .sink { [weak self] _ in
                     self?.presenter.userSelectedTransfers()
