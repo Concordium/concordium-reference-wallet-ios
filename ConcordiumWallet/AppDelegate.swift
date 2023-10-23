@@ -86,12 +86,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupMatomoTracker()
     }
 
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            if let webpageURL = userActivity.webpageURL {
+                DispatchQueue.main.async {
+                    self.appCoordinator.openWalletConnectAccountSelection(url: webpageURL)
+                }
+            }
+        }
+        return true
+    }
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         Logger.trace("application:openUrl: \(url)")
         if url.absoluteString.starts(with: ApiConstants.notabeneCallback) {
             receivedCreateIdentityCallback(url)
         } else if url.absoluteString.starts(with: ApiConstants.walletConnectURI) {
-            appCoordinator.openWalletConnectAccountSelection(url: url)
+            DispatchQueue.main.async {
+                self.appCoordinator.openWalletConnectAccountSelection(url: url)
+            }
         }
         return true
     }
