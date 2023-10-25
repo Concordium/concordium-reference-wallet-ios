@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDocumentTypes</key>
-	<array/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,7 +25,7 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>concordiumwalletstaging</string>
+				<string>concordiumwallet</string>
 			</array>
 		</dict>
 	</array>
@@ -52,6 +50,8 @@
 	<string>Used to scan QR code and to take a picture for your identity</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable FaceID for more convenient login</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoMono.ttf</string>
@@ -76,7 +76,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
 </dict>
 </plist>
