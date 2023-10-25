@@ -77,10 +77,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             walletConnectCoordinator.start(with: uriValue)
             childCoordinators.append(walletConnectCoordinator)
         }
-        else if let requestId = queryItems.first(where: { $0.name == "requestId" })?.value,
-            let sessionTopic = queryItems.first(where: { $0.name == "sessionTopic" })?.value {
-
-        }
     }
 
     func showMainTabbar() {
