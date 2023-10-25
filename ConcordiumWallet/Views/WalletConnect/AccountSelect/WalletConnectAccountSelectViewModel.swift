@@ -13,10 +13,12 @@ class WalletConnectAccountSelectViewModel: ObservableObject {
     private var storageManager: StorageManagerProtocol
     @Published var accounts: [AccountDataType] = []
     var didSelect: ((_ account: AccountDataType) -> ())
+    var dismissView: (() -> Void)
     
-    init(storageManager: StorageManagerProtocol, didSelect: @escaping (_ account: AccountDataType) -> ()) {
+    init(storageManager: StorageManagerProtocol, didSelect: @escaping (_ account: AccountDataType) -> (), dismissView: @escaping (() -> Void)) {
         self.storageManager = storageManager
         self.didSelect = didSelect
+        self.dismissView = dismissView
     }
     
     func loadAccounts() {

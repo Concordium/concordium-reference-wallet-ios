@@ -67,12 +67,12 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
             showErrorAlert(ViewError.simpleError(localizedReason: "WalletConnect URL format incorrect."))
             return
         }
-   
+
         if let uriValue = queryItems.first(where: { $0.name == "uri" })?.value {
             let walletConnectCoordinator = WalletConnectCoordinator(
                 navigationController: navigationController,
                 dependencyProvider: defaultProvider,
-                parentCoordiantor: self
+                parentCoordinator: self
             )
             walletConnectCoordinator.start(with: uriValue)
             childCoordinators.append(walletConnectCoordinator)

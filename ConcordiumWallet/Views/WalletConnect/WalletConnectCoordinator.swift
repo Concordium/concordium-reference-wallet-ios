@@ -21,11 +21,11 @@ class WalletConnectCoordinator: Coordinator {
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
-        parentCoordiantor: WalletConnectCoordiantorDelegate
+        parentCoordinator: WalletConnectCoordiantorDelegate
     ) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
-        parentCoordinator = parentCoordiantor
+        self.parentCoordinator = parentCoordinator
 
         let metadata = AppMetadata(
             name: "Concordium",
@@ -112,6 +112,7 @@ private extension WalletConnectCoordinator {
 
                 let viewModel = WalletConnectAccountSelectViewModel(
                     storageManager: self.dependencyProvider.storageManager(),
+                    
                     didSelect: { [weak self] account in
                         self?.navigationController.pushViewController(
                             UIHostingController(
@@ -150,7 +151,6 @@ private extension WalletConnectCoordinator {
                                                     self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                                 }
                                             }
-
                                             // Pop the VC without waiting for rejection to complete.
                                             self?.navigationController.popToRootViewController(animated: true)
                                         },
@@ -160,6 +160,10 @@ private extension WalletConnectCoordinator {
                             ),
                             animated: true
                         )
+                    }, dismissView: {
+                        self.navigationController.popViewController(animated: true)
+                        self.parentCoordinator?.dismissWalletConnectCoordinator()
+                        self.nukeWalletConnectSessionsAndPairings()
                     }
                 )
 
@@ -186,6 +190,7 @@ private extension WalletConnectCoordinator {
     }
 
     private func setupWalletConnectSettleBinding() {
+        
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
