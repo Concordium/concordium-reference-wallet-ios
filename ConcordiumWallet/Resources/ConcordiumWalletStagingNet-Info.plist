@@ -58,8 +58,6 @@
 	<string>Used to scan QR code and to take a picture for your identity</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable FaceID for more convenient login</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoMono.ttf</string>
