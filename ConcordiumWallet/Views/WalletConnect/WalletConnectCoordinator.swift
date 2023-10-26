@@ -618,6 +618,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             } catch let err {
                 self.navigationController.popViewController(animated: true)
                 self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                self.parentCoordinator?.dismissWalletConnectCoordinator()
             }
         }
     }

@@ -69,13 +69,17 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
 
         if let uriValue = queryItems.first(where: { $0.name == "uri" })?.value {
-            let walletConnectCoordinator = WalletConnectCoordinator(
-                navigationController: navigationController,
-                dependencyProvider: defaultProvider,
-                parentCoordinator: self
-            )
-            walletConnectCoordinator.start(with: uriValue)
-            childCoordinators.append(walletConnectCoordinator)
+            if let coordinator = childCoordinators.first(where: { $0 is WalletConnectCoordinator }) as? WalletConnectCoordinator {
+                coordinator.start(with: uriValue)
+            } else {
+                let walletConnectCoordinator = WalletConnectCoordinator(
+                    navigationController: navigationController,
+                    dependencyProvider: defaultProvider,
+                    parentCoordinator: self
+                )
+                walletConnectCoordinator.start(with: uriValue)
+                childCoordinators.append(walletConnectCoordinator)
+            }
         }
     }
 
