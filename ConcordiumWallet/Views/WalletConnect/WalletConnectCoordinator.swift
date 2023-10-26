@@ -190,7 +190,6 @@ private extension WalletConnectCoordinator {
     }
 
     private func setupWalletConnectSettleBinding() {
-        
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
