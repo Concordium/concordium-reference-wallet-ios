@@ -607,17 +607,17 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
     }
 
     private func pairWalletConnect(with uri: String) {
-        Task {
+        Task { [weak self] in
             do {
                 guard let uri = WalletConnectURI(string: uri) else {
-                    self.presentError(with: "errorAlert.title".localized, message: "Unable to initialize WalletConnectURI.")
+                    self?.presentError(with: "errorAlert.title".localized, message: "Unable to initialize WalletConnectURI.")
                     return
                 }
                 try await Pair.instance.pair(uri: uri)
             } catch let err {
-                self.navigationController.popViewController(animated: true)
-                self.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-                self.parentCoordinator?.dismissWalletConnectCoordinator()
+                self?.navigationController.popViewController(animated: true)
+                self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                self?.parentCoordinator?.dismissWalletConnectCoordinator()
             }
         }
     }
@@ -639,6 +639,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 )
             } catch let err {
                 self?.presentError(with: "errorAlert.title".localized, message: "Cannot respond status to the dApp: \(err.localizedDescription)")
+                self?.parentCoordinator?.dismissWalletConnectCoordinator()
             }
         }
         if shouldPresent {
@@ -658,6 +659,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     with: "errorAlert.title".localized,
                     message: "Cannot repsond status to the dApp: \(err.localizedDescription)"
                 )
+                self?.parentCoordinator?.dismissWalletConnectCoordinator()
             }
         }
         
