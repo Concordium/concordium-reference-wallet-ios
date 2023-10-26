@@ -160,10 +160,10 @@ private extension WalletConnectCoordinator {
                             ),
                             animated: true
                         )
-                    }, dismissView: {
-                        self.navigationController.popViewController(animated: true)
-                        self.parentCoordinator?.dismissWalletConnectCoordinator()
-                        self.nukeWalletConnectSessionsAndPairings()
+                    }, dismissView: { [weak self] in
+                        self?.navigationController.popViewController(animated: true)
+                        self?.parentCoordinator?.dismissWalletConnectCoordinator()
+                        self?.nukeWalletConnectSessionsAndPairings()
                     }
                 )
 
