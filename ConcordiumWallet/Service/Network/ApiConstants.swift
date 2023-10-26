@@ -33,7 +33,7 @@ struct ApiConstants {
     static let scheme = "concordiumwalletstaging"
     #endif
     static let notabeneCallback = "\(scheme)://identity-issuer/callback"
-    static let walletConnectURI = "concordiumwallet://wc"
+    static let walletConnectURI = "\(scheme)://wc"
 
     static let ipInfo = proxyUrl.appendingPathComponent("/v0/ip_info")
     static let ipInfoV1 = proxyUrl.appendingPathComponent("/v1/ip_info")
