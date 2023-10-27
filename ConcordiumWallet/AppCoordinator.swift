@@ -62,6 +62,31 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         loginCoordinator.start()
     }
 
+    func openWalletConnectAccountSelection(url: URL) {
+        guard let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else {
+            showErrorAlert(ViewError.simpleError(localizedReason: "WalletConnect URL format incorrect."))
+            return
+        }
+
+        if let uriValue = queryItems.first(where: { $0.name == "uri" })?.value {
+            initializeWalletConnectCoordinatorFlow().start(with: uriValue)
+        }
+    }
+
+    func initializeWalletConnectCoordinatorFlow() -> WalletConnectCoordinator {
+        if childCoordinators.contains(where: { $0 is WalletConnectCoordinator }) {
+            navigationController.popToRootViewController(animated: true)
+            dismissWalletConnectCoordinator()
+        }
+        let c = WalletConnectCoordinator(
+            navigationController: navigationController,
+            dependencyProvider: defaultProvider,
+            parentCoordinator: self
+        )
+        childCoordinators.append(c)
+        return c
+    }
+
     func showMainTabbar() {
         navigationController.setupBaseNavigationControllerStyle()
 
@@ -255,7 +280,6 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
 }
 
 extension AppCoordinator: AccountsPresenterDelegate {
-
     func userPerformed(action: AccountCardAction, on account: AccountDataType) {
         accountsCoordinator?.userPerformed(action: action, on: account)
     }
@@ -329,6 +353,12 @@ extension AppCoordinator: LoginCoordinatorDelegate {
         // Remove login from hierarchy.
         navigationController.viewControllers = [navigationController.viewControllers.last!]
         childCoordinators.removeAll { $0 is LoginCoordinator }
+    }
+}
+
+extension AppCoordinator: WalletConnectCoordiantorDelegate {
+    func dismissWalletConnectCoordinator() {
+        childCoordinators.removeAll { $0 is WalletConnectCoordinator }
     }
 }
 

@@ -20,6 +20,19 @@ struct WalletConnectAccountSelectView: View {
                 viewModel.didSelect(account: account.wrappedValue)
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    viewModel.dismissView()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.backward")
+                        Text("Cancel")
+                    }
+                }
+            }
+        }
         .listRowSeparator(.hidden)
         .listStyle(.plain)
         .onAppear(perform: viewModel.loadAccounts)
