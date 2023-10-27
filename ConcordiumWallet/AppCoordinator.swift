@@ -69,13 +69,14 @@ class AppCoordinator: NSObject, Coordinator, ShowAlert, RequestPasswordDelegate 
         }
 
         if let uriValue = queryItems.first(where: { $0.name == "uri" })?.value {
-            getOrCreateWalletConnectCoordinator().start(with: uriValue)
+            initializeWalletConnectCoordinatorFlow().start(with: uriValue)
         }
     }
-    
-    func getOrCreateWalletConnectCoordinator() -> WalletConnectCoordinator {
-        if let c = childCoordinators.first(where: { $0 is WalletConnectCoordinator }) as? WalletConnectCoordinator {
-            return c
+
+    func initializeWalletConnectCoordinatorFlow() -> WalletConnectCoordinator {
+        if childCoordinators.contains(where: { $0 is WalletConnectCoordinator }) {
+            navigationController.popToRootViewController(animated: true)
+            dismissWalletConnectCoordinator()
         }
         let c = WalletConnectCoordinator(
             navigationController: navigationController,
