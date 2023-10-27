@@ -110,8 +110,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ///       The reason for these check is that we want to check if url follows `concordiumwallet` scheme for WalletConnect,
     ///       but need to support also DeepLinks per scheme, for instance `concordiumwallettest` or  `concordiumwalletstaging`
     private func matchesURLScheme(_ url: String) -> Bool {
-        let regexPattern = #"^\#(ApiConstants.scheme)|concordiumwallet://wc"#
-        let regex = try! NSRegularExpression(pattern: regexPattern, options: [])
+        let regexPattern = #"^\#(ApiConstants.scheme)://wc.*|concordiumwallet://wc.*"#
+        guard let regex = try? NSRegularExpression(pattern: regexPattern, options: []) else { return false }
         let range = NSRange(location: 0, length: url.utf16.count)
         if let match = regex.firstMatch(in: url, options: [], range: range) {
             return match.range == range
