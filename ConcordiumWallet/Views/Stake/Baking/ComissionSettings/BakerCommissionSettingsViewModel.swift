@@ -34,7 +34,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                 return "Finalization reward is out of specified range"
             case .transactionFeeOutOfRange:
                 return "Transaction fee is out of specified range"
-            case .networkError(let error):
+            case let .networkError(error):
                 return error.localizedDescription
             }
         }
@@ -103,6 +103,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     func continueButtonTapped() {
         do {
             try validate()
+            handler.add(entry: BakerComissionData(bakingRewardComission: bakingRewardCommission, finalizationRewardComission: finalizationRewardCommission, transactionComission: transactionFeeCommission))
             didTapContinue()
         } catch let error {
             self.error = error as? BakerCommissionSettingError

@@ -83,15 +83,15 @@ struct BakerCommissionSliderView: View {
     private let allowCustomCommissionRates = UserDefaults.standard.bool(forKey: "ALLOW_CUSTOM_COMMISSION_RATES")
     var body: some View {
         let commissionBinding = Binding<Double>(get: {
-               self.commission
-           }, set: {
-               // Rounding for edge cases of sliders to prevent odd values caused by floating point errors.
-               if $0 + BakerCommissionSettingsView.sliderStep > range.max || $0 - BakerCommissionSettingsView.sliderStep < range.min {
-                   commission = round($0 * 100) / 100
-               } else {
-                   self.commission = $0
-               }
-           })
+            self.commission
+        }, set: {
+            // Rounding for edge cases of sliders to prevent odd values caused by floating point errors.
+            if $0 + BakerCommissionSettingsView.sliderStep > range.max || $0 - BakerCommissionSettingsView.sliderStep < range.min {
+                commission = round($0 * 100) / 100
+            } else {
+                self.commission = $0
+            }
+        })
         HStack {
             VStack {
                 Text("Min:")
