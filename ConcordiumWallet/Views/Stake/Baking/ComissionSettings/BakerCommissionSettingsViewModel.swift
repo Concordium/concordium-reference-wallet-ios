@@ -12,38 +12,58 @@ import Foundation
 extension NumberFormatter {
     static var comissionFormatter: NumberFormatter {
         let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 5
-        formatter.numberStyle = .percent
+        formatter.numberStyle = .decimal
+        formatter.multiplier = 100
+        formatter.maximumFractionDigits = 3
         return formatter
     }
 }
 
-class BakerComissionSettingsViewModel: ObservableObject {
-    @Published var transactionFeeComission: Double = 0
-    @Published var finalizationRewardComission: Double = 0
-    @Published var bakingRewardComission: Double = 0
+class BakerCommissionSettingsViewModel: ObservableObject {
+    enum BakerCommissionSettingError: LocalizedError {
+        case transactionFeeOutOfRange
+        case bakingRewardOutOfRange
+        case finalizationRewardOutOfRange
+        case networkError(Error)
+
+        var errorMessage: String? {
+            switch self {
+            case .bakingRewardOutOfRange:
+                return "Baking reward is out of specified range"
+            case .finalizationRewardOutOfRange:
+                return "Finalization reward is out of specified range"
+            case .transactionFeeOutOfRange:
+                return "Transaction fee is out of specified range"
+            case .networkError(let error):
+                return error.localizedDescription
+            }
+        }
+    }
+
+    @Published var transactionFeeCommission: Double = 0
+    @Published var finalizationRewardCommission: Double = 0
+    @Published var bakingRewardCommission: Double = 0
 
     @Published var finalizationCommissionRange: CommissionRange?
     @Published var transactionCommissionRange: CommissionRange?
     @Published var bakingCommissionRange: CommissionRange?
 
-    @Published var error: Error?
+    @Published var error: BakerCommissionSettingError?
 
     private var cancellables = Set<AnyCancellable>()
     private var didTapContinue: () -> Void
     private var service: StakeServiceProtocol
     private var handler: StakeDataHandler
-    let formatter: NumberFormatter
+    
+    private static let commisionMultiplier = 100
     init(
         service: StakeServiceProtocol,
         handler: StakeDataHandler,
-        numberFormatter: NumberFormatter,
-        continueAction: @escaping (() -> Void)
+        didTapContinue: @escaping (() -> Void)
     ) {
         self.service = service
-        self.didTapContinue = continueAction
+        self.didTapContinue = didTapContinue
         self.handler = handler
-        self.formatter = numberFormatter
     }
 
     func fetchData() {
@@ -73,28 +93,46 @@ class BakerComissionSettingsViewModel: ObservableObject {
                         finalization: response.finalizationCommissionRange.max
                     )
                 }
-
             case let .failure(error):
-                self.error = error
+                self.error = .networkError(error)
             }
         }
         .store(in: &cancellables)
     }
 
     func continueButtonTapped() {
-        handler.add(
-            entry: BakerComissionData(
-                bakingRewardComission: bakingRewardComission,
-                finalizationRewardComission: finalizationRewardComission,
-                transactionComission: transactionFeeComission
-            )
-        )
-        didTapContinue()
+        do {
+            try validate()
+            didTapContinue()
+        } catch let error {
+            self.error = error as? BakerCommissionSettingError
+        }
+    }
+
+    func validate() throws {
+        guard
+            let bakingCommissionRange = bakingCommissionRange,
+            let finalizationCommissionRange = finalizationCommissionRange,
+            let transactionCommissionRange = transactionCommissionRange else {
+            throw BakerCommissionSettingError.bakingRewardOutOfRange
+        }
+
+        guard bakingCommissionRange.min ... bakingCommissionRange.max ~= bakingRewardCommission else {
+            throw BakerCommissionSettingError.bakingRewardOutOfRange
+        }
+
+        guard finalizationCommissionRange.min ... finalizationCommissionRange.max ~= finalizationRewardCommission else {
+            throw BakerCommissionSettingError.finalizationRewardOutOfRange
+        }
+
+        guard transactionCommissionRange.min ... transactionCommissionRange.max ~= transactionFeeCommission else {
+            throw BakerCommissionSettingError.transactionFeeOutOfRange
+        }
     }
 
     private func updateCommisionValues(baking: Double, transaction: Double, finalization: Double) {
-        transactionFeeComission = transaction
-        bakingRewardComission = baking
-        finalizationRewardComission = finalization
+        transactionFeeCommission = transaction
+        bakingRewardCommission = baking
+        finalizationRewardCommission = finalization
     }
 }

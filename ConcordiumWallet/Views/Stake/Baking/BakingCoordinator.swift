@@ -113,15 +113,14 @@ class BakingCoordinator: Coordinator {
     }
 
     func showComissionSettings(dataHandler: StakeDataHandler) {
-        let viewModel = BakerComissionSettingsViewModel(
+        let viewModel = BakerCommissionSettingsViewModel(
             service: dependencyProvider.stakeService(),
-            handler: dataHandler,
-            numberFormatter: .comissionFormatter
+            handler: dataHandler
         ) { [weak self] in
             self?.showMetadataUrl(dataHandler: dataHandler)
         }
 
-        let view = BakerComissionSettingsView(viewModel: viewModel)
+        let view = BakerCommissionSettingsView(viewModel: viewModel)
         let vc = UIHostingController(rootView: view)
         navigationController.pushViewController(vc, animated: true)
     }
