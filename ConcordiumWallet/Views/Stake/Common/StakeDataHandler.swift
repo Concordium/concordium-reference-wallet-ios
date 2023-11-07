@@ -366,15 +366,15 @@ struct BakerComissionData: FieldValue, Equatable {
         [
             DisplayValue(
                 key: "Baking reward comission",
-                value: formatter.string(from: NSNumber(value: bakingRewardComission)) ?? "\(bakingRewardComission)"
+                value: formatter.string(from: NSNumber(value: bakingRewardComission)) ?? "\(bakingRewardComission)%"
             ),
             DisplayValue(
                 key: "Finalization reward comission",
-                value: formatter.string(from: NSNumber(value: finalizationRewardComission)) ?? "\(finalizationRewardComission)"
+                value: formatter.string(from: NSNumber(value: finalizationRewardComission)) ?? "\(finalizationRewardComission)%"
             ),
             DisplayValue(
                 key: "Transaction comission".localized,
-                value: formatter.string(from: NSNumber(value: transactionComission)) ?? "\(transactionComission)"
+                value: formatter.string(from: NSNumber(value: transactionComission)) ?? "\(transactionComission)%"
             )
         ]
     }
@@ -391,10 +391,6 @@ struct BakerComissionData: FieldValue, Equatable {
         transaction.bakingRewardCommission = bakingRewardComission
         transaction.finalizationRewardCommission = finalizationRewardComission
         transaction.transactionFeeCommission = transactionComission
-    }
-    
-    static func ==(lhs: BakerComissionData, rhs: BakerComissionData) -> Bool {
-        return (lhs.bakingRewardComission == rhs.bakingRewardComission && lhs.finalizationRewardComission == rhs.finalizationRewardComission && lhs.transactionComission == rhs.transactionComission)
     }
 }
 

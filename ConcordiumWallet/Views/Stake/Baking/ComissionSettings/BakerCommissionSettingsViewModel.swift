@@ -54,7 +54,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     private var didTapContinue: () -> Void
     private var service: StakeServiceProtocol
     private var handler: StakeDataHandler
-    
+
     private static let commisionMultiplier = 100
     init(
         service: StakeServiceProtocol,
@@ -74,25 +74,28 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                 self.transactionCommissionRange = response.transactionCommissionRange
                 self.finalizationCommissionRange = response.finalizationCommissionRange
 
+                if let data = self.handler.getNewEntry(BakerComissionData.self) {
+                    self.updateCommisionValues(
+                        baking: data.bakingRewardComission,
+                        transaction: data.transactionComission,
+                        finalization: data.finalizationRewardComission
+                    )
+                    return
+                }
                 if let data = self.handler.getCurrentEntry(BakerComissionData.self) {
                     self.updateCommisionValues(
                         baking: data.bakingRewardComission,
                         transaction: data.transactionComission,
                         finalization: data.finalizationRewardComission
                     )
-                } else if let data = self.handler.getNewEntry(BakerComissionData.self) {
-                    self.updateCommisionValues(
-                        baking: data.bakingRewardComission,
-                        transaction: data.transactionComission,
-                        finalization: data.finalizationRewardComission
-                    )
-                } else {
-                    self.updateCommisionValues(
-                        baking: response.bakingCommissionRange.max,
-                        transaction: response.transactionCommissionRange.max,
-                        finalization: response.finalizationCommissionRange.max
-                    )
+                    return
                 }
+                self.updateCommisionValues(
+                    baking: response.bakingCommissionRange.max,
+                    transaction: response.transactionCommissionRange.max,
+                    finalization: response.finalizationCommissionRange.max
+                )
+
             case let .failure(error):
                 self.error = .networkError(error)
             }
