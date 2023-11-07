@@ -55,9 +55,7 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
             viewModel.selectedWords = viewModel.selectedWords[0...index] + Array(repeating: "", count: 23 - index)
         case .wordSelected(let index, let word):
             // TODO: Test phrase
-            let staging = ["witness", "coach", "obtain", "laptop", "patrol", "sleep", "give", "cricket", "cement", "siren", "business", "raise", "clever", "moon", "drip", "mean", "seed", "violin", "stairs", "section", "powder", "cause", "rebuild", "cactus"]
-            let testnet = ["duck", "crumble", "acoustic", "absorb", "bargain", "goat", "harvest", "essay", "domain", "disease", "claw", "raw", "wash", "hundred", "gallery", "fine", "atom", "blouse", "theme", "color", "can", "gossip", "captain", "burst"]
-            viewModel.selectedWords = staging
+            viewModel.selectedWords[index] = word
             if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {
                 switch recoveryService.validate(recoveryPhrase: viewModel.selectedWords) {
                 case let .success(recoveryPhrase):
