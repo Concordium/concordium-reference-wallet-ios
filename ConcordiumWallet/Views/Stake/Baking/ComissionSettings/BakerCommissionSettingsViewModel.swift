@@ -26,7 +26,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
         case finalizationRewardOutOfRange
         case networkError(Error)
 
-        var errorMessage: String? {
+        var errorMessage: String {
             switch self {
             case .bakingRewardOutOfRange:
                 return "Baking reward is out of specified range"
