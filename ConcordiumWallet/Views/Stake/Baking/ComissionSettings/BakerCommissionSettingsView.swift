@@ -12,13 +12,6 @@ import SwiftUI
 struct BakerCommissionSettingsView: View {
     static var sliderStep = 1e-5
     @StateObject var viewModel: BakerCommissionSettingsViewModel
-    var isShowingError: Binding<Bool> {
-        Binding {
-            viewModel.error != nil
-        } set: { _ in
-            viewModel.error = nil
-        }
-    }
 
     var body: some View {
         VStack {
@@ -69,7 +62,7 @@ struct BakerCommissionSettingsView: View {
             presenting: viewModel.error,
             actions: { _ in },
             message: { error in
-                Text(error.errorMessage ?? "Unspecified error")
+                Text(error.errorMessage)
             })
         .onAppear { viewModel.fetchData() }
         .padding()
@@ -80,14 +73,16 @@ struct BakerCommissionSliderView: View {
     var range: CommissionRange
     @Binding var commission: Double
     let formatter: NumberFormatter = .comissionFormatter
-    private let allowCustomCommissionRates = UserDefaults.standard.bool(forKey: "ALLOW_CUSTOM_COMMISSION_RATES")
+
     var body: some View {
         let commissionBinding = Binding<Double>(get: {
             self.commission
         }, set: {
             // Rounding for edge cases of sliders to prevent odd values caused by floating point errors.
-            if $0 + BakerCommissionSettingsView.sliderStep > range.max || $0 - BakerCommissionSettingsView.sliderStep < range.min {
-                commission = round($0 * 100) / 100
+            if $0 + BakerCommissionSettingsView.sliderStep > range.max {
+                commission = range.max
+            } else if $0 - BakerCommissionSettingsView.sliderStep < range.min {
+                commission = range.min
             } else {
                 self.commission = $0
             }
@@ -101,7 +96,7 @@ struct BakerCommissionSliderView: View {
                 HStack(alignment: .center, spacing: 1) {
                     Spacer()
                     TextField("", value: $commission, formatter: NumberFormatter.comissionFormatter)
-                        .disabled(range.min == range.max && allowCustomCommissionRates)
+                        .disabled(range.min == range.max)
                         .keyboardType(.decimalPad)
                         .textFieldStyle(.roundedBorder)
                         .lineLimit(1)
@@ -110,9 +105,7 @@ struct BakerCommissionSliderView: View {
                     Text(" %")
                     Spacer()
                 }
-                // `ALLOW_CUSTOM_COMMISSION_RATES` flag can be added in arguments passed on launch in scheme settings.
-                // Used for toggling on/off slider feature.
-                if range.min < range.max && allowCustomCommissionRates {
+                if range.min < range.max {
                     Slider(value: commissionBinding, in: range.min ... range.max, step: BakerCommissionSettingsView.sliderStep)
                 }
             }

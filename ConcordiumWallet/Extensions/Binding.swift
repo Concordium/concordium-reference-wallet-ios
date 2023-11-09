@@ -9,6 +9,8 @@
 import SwiftUI
 
 extension Binding {
+    /// A SwiftUI extension on `Binding` that provides a convenient method for checking whether the wrapped value is not nil.
+    /// - Returns: A `Binding` of `Bool` where `true` indicates the wrapped value is not nil, and `false` indicates it is nil.
     func isNotNil<T>() -> Binding<Bool> where Value == T? {
         .init(get: {
             wrappedValue != nil
