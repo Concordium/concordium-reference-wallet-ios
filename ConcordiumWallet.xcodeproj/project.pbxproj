@@ -3,10 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014BC7922AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC78F2AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift */; };
+		014BC7932AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC78F2AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift */; };
+		014BC7942AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC78F2AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift */; };
+		014BC7952AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC78F2AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift */; };
+		014BC79A2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC7912AFB945F000F8027 /* BakerCommissionSettingsView.swift */; };
+		014BC79B2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC7912AFB945F000F8027 /* BakerCommissionSettingsView.swift */; };
+		014BC79C2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC7912AFB945F000F8027 /* BakerCommissionSettingsView.swift */; };
+		014BC79D2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BC7912AFB945F000F8027 /* BakerCommissionSettingsView.swift */; };
 		0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604236D23FD617F0085D14C /* TransparentNavigationController.swift */; };
 		067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */; };
 		067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */; };
@@ -1999,6 +2007,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		014BC78F2AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerCommissionSettingsViewModel.swift; sourceTree = "<group>"; };
+		014BC7912AFB945F000F8027 /* BakerCommissionSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakerCommissionSettingsView.swift; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
 		067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfoLabel.swift; sourceTree = "<group>"; };
 		067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWarningLabel.swift; sourceTree = "<group>"; };
@@ -2619,6 +2629,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		014BC78E2AFB945F000F8027 /* ComissionSettings */ = {
+			isa = PBXGroup;
+			children = (
+				014BC78F2AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift */,
+				014BC7912AFB945F000F8027 /* BakerCommissionSettingsView.swift */,
+			);
+			path = ComissionSettings;
+			sourceTree = "<group>";
+		};
 		0604236C23FD61560085D14C /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3958,6 +3977,7 @@
 		90C371CC27DF24D10046F05E /* Baking */ = {
 			isa = PBXGroup;
 			children = (
+				014BC78E2AFB945F000F8027 /* ComissionSettings */,
 				89CF2D52281A537B00742E1E /* Status */,
 				89CF2D3828168B1200742E1E /* Receipt */,
 				89E1A76727FFF5D1008C761B /* PoolSettings */,
@@ -4961,6 +4981,7 @@
 				90C371C827DB90770046F05E /* StakeEntryCell.swift in Sources */,
 				7F48C25B244E17D100997684 /* AccNonce.swift in Sources */,
 				7F48C164244DCD0B00997684 /* LoadProtocol.swift in Sources */,
+				014BC79A2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */,
 				7F48C165244DCD0B00997684 /* BaseButton.swift in Sources */,
 				7FCA3998250BFB39004567C4 /* ImportReceiptViewController.swift in Sources */,
 				7F48C166244DCD0B00997684 /* BaseLabel.swift in Sources */,
@@ -5199,6 +5220,7 @@
 				7FB64A0D247D568500DC500E /* ExportViewController.swift in Sources */,
 				5251EFA427C6301C006991DD /* AlertDisplayer.swift in Sources */,
 				7F48C1FA244DCD0B00997684 /* SelectRecipientViewController.swift in Sources */,
+				014BC7922AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */,
 				7F48C264244E17D100997684 /* CreateTransferRequest.swift in Sources */,
 				5251EF8D27BA6803006991DD /* ShowShieldedDelegate.swift in Sources */,
 				529531BB256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -5290,6 +5312,7 @@
 				7F85B6D3246A9A7C00ED09B8 /* CreateNicknamePresenter.swift in Sources */,
 				7F85B6D4246A9A7C00ED09B8 /* WidgetButton.swift in Sources */,
 				7F7F6D2B24A0986D0017B18F /* SingleLabelViewController.swift in Sources */,
+				014BC7942AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */,
 				642ED98325F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
 				7F85B6D5246A9A7C00ED09B8 /* WidgetViewController.swift in Sources */,
 				7F85B6D6246A9A7C00ED09B8 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
@@ -5638,6 +5661,7 @@
 				07619A93269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				89CF2D22280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */,
 				529531AB256BA711004CECE4 /* AccountBaker.swift in Sources */,
+				014BC79C2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */,
 				64DB66CB25DE6A1000F4C605 /* AboutPresenter.swift in Sources */,
 				89CF2D5B281A66C400742E1E /* (null) in Sources */,
 				529531BD256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -5708,6 +5732,7 @@
 				7F85B7D2246A9AB600ED09B8 /* CreateNicknamePresenter.swift in Sources */,
 				7F85B7D3246A9AB600ED09B8 /* WidgetButton.swift in Sources */,
 				7F7F6D2C24A0986E0017B18F /* SingleLabelViewController.swift in Sources */,
+				014BC7952AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */,
 				642ED98425F2201800A09BB3 /* UpdatePasswordPresenter.swift in Sources */,
 				7F85B7D4246A9AB600ED09B8 /* WidgetViewController.swift in Sources */,
 				7F85B7D5246A9AB600ED09B8 /* IdentityDataSelectionWidgetPresenter.swift in Sources */,
@@ -6056,6 +6081,7 @@
 				07619A94269D83D9009B79E2 /* AppConstants.swift in Sources */,
 				89CF2D23280EF5F700742E1E /* BakerAmountInputPresenter.swift in Sources */,
 				529531AC256BA711004CECE4 /* AccountBaker.swift in Sources */,
+				014BC79D2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */,
 				64DB66D125DE6A1100F4C605 /* AboutPresenter.swift in Sources */,
 				89CF2D5C281A66C400742E1E /* (null) in Sources */,
 				529531BE256BE0A6004CECE4 /* ScheduleEntity.swift in Sources */,
@@ -6364,6 +6390,7 @@
 				528EB74B255C30AD00010554 /* InitialAccountInfoViewController.swift in Sources */,
 				7FD8DEA22445F9F500CA06D8 /* IdentityObjectWrapper.swift in Sources */,
 				642ED94425EE2FA500A09BB3 /* TransferFiltersEntity.swift in Sources */,
+				014BC7932AFB945F000F8027 /* BakerCommissionSettingsViewModel.swift in Sources */,
 				070D61E027B2A3C600B6903C /* OnboardingCarouselPageViewController.swift in Sources */,
 				C9874EC92417931E006EF386 /* IdentityDataWidgetViewController.swift in Sources */,
 				8992BB2C2840E264005279C9 /* TermsAndConditionsUpdatePresenter.swift in Sources */,
@@ -6397,6 +6424,7 @@
 				90434C8827FB29C600E4DBAA /* DelegationOnboardingCoordinator.swift in Sources */,
 				8992BA4F2824FE96005279C9 /* BakingAlerts.swift in Sources */,
 				19C2E7429349DB90804089D0 /* AppSettings.swift in Sources */,
+				014BC79B2AFB945F000F8027 /* BakerCommissionSettingsView.swift in Sources */,
 				19C2E1F4C4825F62DEE3EE2B /* UIView+Additions.swift in Sources */,
 				901F7F9327F33C8800C46741 /* RewardParameters.swift in Sources */,
 				19C2EEE659B30FE50532DE54 /* PasswordFieldViewController.swift in Sources */,

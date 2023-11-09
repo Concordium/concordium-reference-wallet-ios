@@ -356,13 +356,28 @@ struct RestakeBakerData: SimpleFieldValue {
     }
 }
 
-struct BakerComissionData: FieldValue {
+struct BakerComissionData: FieldValue, Equatable {
     let field = Field.bakerComission
     let bakingRewardComission: Double
     let finalizationRewardComission: Double
     let transactionComission: Double
-    
-    func getDisplayValues(type: TransferType) -> [DisplayValue] { [] }
+    let formatter: NumberFormatter = .comissionFormatter
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
+        [
+            DisplayValue(
+                key: "Baking reward comission",
+                value: formatter.string(from: NSNumber(value: bakingRewardComission)) ?? "\(bakingRewardComission)"
+            ),
+            DisplayValue(
+                key: "Finalization reward comission",
+                value: formatter.string(from: NSNumber(value: finalizationRewardComission)) ?? "\(finalizationRewardComission)"
+            ),
+            DisplayValue(
+                key: "Transaction comission".localized,
+                value: formatter.string(from: NSNumber(value: transactionComission)) ?? "\(transactionComission)"
+            )
+        ]
+    }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateBakerPool || type == .configureBaker {
@@ -376,6 +391,10 @@ struct BakerComissionData: FieldValue {
         transaction.bakingRewardCommission = bakingRewardComission
         transaction.finalizationRewardCommission = finalizationRewardComission
         transaction.transactionFeeCommission = transactionComission
+    }
+    
+    static func ==(lhs: BakerComissionData, rhs: BakerComissionData) -> Bool {
+        return (lhs.bakingRewardComission == rhs.bakingRewardComission && lhs.finalizationRewardComission == rhs.finalizationRewardComission && lhs.transactionComission == rhs.transactionComission)
     }
 }
 
