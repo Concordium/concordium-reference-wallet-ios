@@ -356,7 +356,7 @@ struct RestakeBakerData: SimpleFieldValue {
     }
 }
 
-struct BakerComissionData: FieldValue, Equatable {
+struct BakerComissionData: FieldValue {
     let field = Field.bakerComission
     let bakingRewardComission: Double
     let finalizationRewardComission: Double
@@ -391,10 +391,6 @@ struct BakerComissionData: FieldValue, Equatable {
         transaction.bakingRewardCommission = bakingRewardComission
         transaction.finalizationRewardCommission = finalizationRewardComission
         transaction.transactionFeeCommission = transactionComission
-    }
-    
-    static func ==(lhs: BakerComissionData, rhs: BakerComissionData) -> Bool {
-        return (lhs.bakingRewardComission == rhs.bakingRewardComission && lhs.finalizationRewardComission == rhs.finalizationRewardComission && lhs.transactionComission == rhs.transactionComission)
     }
 }
 

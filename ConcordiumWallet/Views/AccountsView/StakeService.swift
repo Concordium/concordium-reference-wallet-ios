@@ -9,7 +9,6 @@
 import Foundation
 import Combine
 
-// sourcery: AutoMockable
 protocol StakeServiceProtocol {
     func getBakerPool(bakerId: Int) -> AnyPublisher<BakerPoolResponse, Error>
     func getPassiveDelegation() -> AnyPublisher<PassiveDelegation, Error>
