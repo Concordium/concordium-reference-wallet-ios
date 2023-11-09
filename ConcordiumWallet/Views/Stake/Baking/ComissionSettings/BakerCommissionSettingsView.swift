@@ -106,7 +106,6 @@ struct BakerCommissionSliderView: View {
                         .textFieldStyle(.roundedBorder)
                         .lineLimit(1)
                         .multilineTextAlignment(.center)
-
                         .frame(width: 72)
                     Text(" %")
                     Spacer()
