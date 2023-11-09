@@ -215,7 +215,8 @@ struct BakerCommissionSliderView: View {
         }
     }
 
-    #Preview {
+struct BakerCommissionSettingsViewPreview: PreviewProvider {
+    static var previews: some View {
         BakerCommissionSettingsView(
             viewModel: .init(
                 service: StakeServiceMock(),
@@ -224,4 +225,5 @@ struct BakerCommissionSliderView: View {
             )
         )
     }
+}
 #endif
