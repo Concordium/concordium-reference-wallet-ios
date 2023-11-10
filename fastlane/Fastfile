@@ -5,8 +5,7 @@ platform :ios do
   lane :test do
     app_identifier = ENV["APP_IDENTIFIER"]
     project = $project
-    setup_ci if ENV['CI']
-
+   setup_ci if ENV['CI']
     scan(
       project: $project,
       devices: ['iPhone 13 Pro'],
@@ -47,23 +46,22 @@ platform :ios do
         scheme: ENV["SCHEME"]
       )
       upload_to_testflight(skip_waiting_for_build_processing: true)
+      on_success("Mobile Wallet - #{$version_number} (#{$build_number}) has been successfully uploaded to TestFlight.")
     rescue => exception
       on_error("Upload to TestFlight failed: #{exception}")
       UI.user_error! "Exporting Concordium Mobile Wallet to TestFlight has failed with error: #{exception}"
       raise exception
     end
-    on_success("Mobile Wallet - #{$version_number} (#{$build_number}) has been successfully uploaded to TestFlight.")
   end
 
   def on_success(message)
     begin
       slack(
         slack_url: ENV['SLACK_URL'],
-        channel: ENV['SLACK_CHANNEL'],
-        title: "Success!  ✅",
         message: message,
-        facts:[],
-        teams_url: $teamsUrl
+        success: true,
+        pretext: "Success! ✅",
+        payload: {}
       )
     rescue
       puts 'Oops, something went wrong. Teams returns exception'
@@ -75,12 +73,15 @@ platform :ios do
       slack(
         slack_url: ENV['SLACK_URL'],
         message: "Sorry! Unfortunately your CI build has failed! 🙁",
-        channel: ENV['SLACK_CHANNEL'],
         success: false,
         payload: { 
 	   "Build Date" => Time.new.to_s,
 	   "Error message" => message
 	 },
+        payload: {
+          "Build Date" => Time.new.to_s,
+          "Error message" => message
+        },
         default_payloads: [:git_branch, :lane, :last_git_commit, :last_git_commit_hash]
       )
     rescue
