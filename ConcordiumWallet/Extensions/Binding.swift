@@ -14,8 +14,6 @@ extension Binding {
     func isNotNil<T>() -> Binding<Bool> where Value == T? {
         .init(get: {
             wrappedValue != nil
-        }, set: { _ in
-            wrappedValue = nil
-        })
+        }, set: { _ in })
     }
 }
