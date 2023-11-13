@@ -150,7 +150,6 @@ class AccountCardView: UIView, NibLoadable {
             self.stateLabel.isHidden = true
             self.stateImageView.isHidden = true
         case .readonly:
-            
             self.stackCardView.alpha = 0.5
             self.stateLabel.text = "accounts.overview.readonly".localized
             self.stateImageView.image = UIImage(named: "icon_read_only")
@@ -158,10 +157,10 @@ class AccountCardView: UIView, NibLoadable {
             widget.applyConcordiumEdgeStyle(color: .fadedText)
             widget.backgroundColor = UIColor.inactiveCard
         case .baking:
-            self.stateLabel.text = "accounts.overview.baking".localized
-            self.stateImageView.image = UIImage(named: "icon_bread")
+            self.stateLabel.isHidden = true
+            self.stateImageView.image = UIImage(named: "icon_validate")
         case .delegating:
-            self.stateLabel.text = "accounts.overview.delegating".localized
+            self.stateLabel.isHidden = true
             self.stateImageView.image = UIImage(named: "icon_delegate")
         }
     }
