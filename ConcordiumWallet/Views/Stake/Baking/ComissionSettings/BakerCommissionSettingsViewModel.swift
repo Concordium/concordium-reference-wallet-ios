@@ -133,7 +133,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
         }
     }
 
-    private func updateCommisionValues(baking: Double, transaction: Double, finalization: Double) {
+    private func updateCommissionValues(baking: Double, transaction: Double, finalization: Double) {
         transactionFeeCommission = transaction
         bakingRewardCommission = baking
         finalizationRewardCommission = finalization
