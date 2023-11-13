@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 extension NumberFormatter {
-    static var comissionFormatter: NumberFormatter {
+    static var commissionFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.multiplier = 100
@@ -71,6 +71,11 @@ class BakerCommissionSettingsViewModel: ObservableObject {
             switch result {
             case let .success(response):
 
+                self.commissionRanges = (bakingCommissionRange: response.bakingCommissionRange,
+                               transactionCommissionRange: response.transactionCommissionRange,
+                               finalizationCommissionRange: response.finalizationCommissionRange
+                )
+        
                 if let data = self.handler.getNewEntry(BakerComissionData.self) {
                     self.updateCommisionValues(
                         baking: data.bakingRewardComission,
@@ -91,11 +96,6 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     baking: response.bakingCommissionRange.max,
                     transaction: response.transactionCommissionRange.max,
                     finalization: response.finalizationCommissionRange.max
-                )
-
-                self.commissionRanges = (bakingCommissionRange: response.bakingCommissionRange,
-                               transactionCommissionRange: response.transactionCommissionRange,
-                               finalizationCommissionRange: response.finalizationCommissionRange
                 )
 
             case let .failure(error):

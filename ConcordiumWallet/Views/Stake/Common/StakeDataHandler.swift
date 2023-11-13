@@ -361,7 +361,7 @@ struct BakerComissionData: FieldValue, Equatable {
     let bakingRewardComission: Double
     let finalizationRewardComission: Double
     let transactionComission: Double
-    let formatter: NumberFormatter = .comissionFormatter
+    let formatter: NumberFormatter = .commissionFormatter
     func getDisplayValues(type: TransferType) -> [DisplayValue] {
         [
             DisplayValue(

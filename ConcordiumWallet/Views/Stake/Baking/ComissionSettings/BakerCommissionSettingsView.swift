@@ -16,7 +16,7 @@ struct BakerCommissionSettingsView: View {
     var body: some View {
         VStack {
             if let ranges = viewModel.commissionRanges {
-                Text("When you open your baker as a pool, you earn\ncommissions of stake delegated to your pool from another accounts")
+                Text("When you open your baker as a pool, you earn commissions of stake delegated to your pool from another accounts")
                     .padding(.bottom, 16)
 
                 Text("Transaction fee commission")
@@ -69,7 +69,7 @@ struct BakerCommissionSettingsView: View {
 struct BakerCommissionSliderView: View {
     var range: CommissionRange
     @Binding var commission: Double
-    let formatter: NumberFormatter = .comissionFormatter
+    let formatter: NumberFormatter = .commissionFormatter
 
     var body: some View {
         let commissionBinding = Binding<Double>(get: {
@@ -93,7 +93,7 @@ struct BakerCommissionSliderView: View {
             VStack {
                 HStack(alignment: .center, spacing: 1) {
                     Spacer()
-                    TextField("", value: $commission, formatter: NumberFormatter.comissionFormatter)
+                    TextField("", value: $commission, formatter: NumberFormatter.commissionFormatter)
                         .disabled(range.min == range.max)
                         .keyboardType(.decimalPad)
                         .textFieldStyle(.roundedBorder)
