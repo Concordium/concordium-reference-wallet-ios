@@ -75,14 +75,15 @@ struct BakerCommissionSliderView: View {
         let commissionBinding = Binding<Double>(get: {
             self.commission
         }, set: {
-            // Rounding for edge cases of sliders to prevent odd values caused by floating point errors.
-            if $0 + BakerCommissionSettingsView.sliderStep >= range.max {
+            var commission = $0
+            // Snap to the range limits to prevent odd floating point roundoff.
+            if commission > range.max - BakerCommissionSettingsView.sliderStep {
                 commission = range.max
-            } else if $0 - BakerCommissionSettingsView.sliderStep <= range.min {
-                commission = range.min
-            } else {
-                self.commission = $0
             }
+            if commission < range.min + BakerCommissionSettingsView.sliderStep {
+                commission = range.min
+            }
+            self.commission = commission
         })
         HStack {
             VStack {
