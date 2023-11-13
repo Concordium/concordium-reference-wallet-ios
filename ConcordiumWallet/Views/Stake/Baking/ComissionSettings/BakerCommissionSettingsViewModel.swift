@@ -55,7 +55,6 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     private var service: StakeServiceProtocol
     private var handler: StakeDataHandler
 
-    private static let commisionMultiplier = 100
     init(
         service: StakeServiceProtocol,
         handler: StakeDataHandler,
