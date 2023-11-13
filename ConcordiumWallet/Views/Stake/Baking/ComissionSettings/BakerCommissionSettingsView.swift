@@ -15,28 +15,25 @@ struct BakerCommissionSettingsView: View {
 
     var body: some View {
         VStack {
-            if
-                let bakingCommissionRange = viewModel.bakingCommissionRange,
-                let transactionCommissionRange = viewModel.transactionCommissionRange,
-                let finalizationCommissionRange = viewModel.finalizationCommissionRange {
+            if let ranges = viewModel.commissionRanges {
                 Text("When you open your baker as a pool, you earn\ncommissions of stake delegated to your pool from another accounts")
                     .padding(.bottom, 16)
 
                 Text("Transaction fee commission")
                 BakerCommissionSliderView(
-                    range: transactionCommissionRange,
+                    range: ranges.transactionCommissionRange,
                     commission: $viewModel.transactionFeeCommission
                 )
 
                 Text("Baking reward commission")
                 BakerCommissionSliderView(
-                    range: bakingCommissionRange,
+                    range: ranges.bakingCommissionRange,
                     commission: $viewModel.bakingRewardCommission
                 )
 
                 Text("Finalization reward commission")
                 BakerCommissionSliderView(
-                    range: finalizationCommissionRange,
+                    range: ranges.finalizationCommissionRange,
                     commission: $viewModel.finalizationRewardCommission
                 )
                 Spacer()

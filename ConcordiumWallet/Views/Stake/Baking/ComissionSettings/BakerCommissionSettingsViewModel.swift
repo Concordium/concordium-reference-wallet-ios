@@ -43,11 +43,11 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     @Published var transactionFeeCommission: Double = 0
     @Published var finalizationRewardCommission: Double = 0
     @Published var bakingRewardCommission: Double = 0
-
-    @Published var finalizationCommissionRange: CommissionRange?
-    @Published var transactionCommissionRange: CommissionRange?
-    @Published var bakingCommissionRange: CommissionRange?
-
+    @Published var commissionRanges: (
+        bakingCommissionRange: CommissionRange,
+        transactionCommissionRange: CommissionRange,
+        finalizationCommissionRange: CommissionRange
+    )?
     @Published var error: BakerCommissionSettingError?
 
     private var cancellables = Set<AnyCancellable>()
@@ -70,9 +70,6 @@ class BakerCommissionSettingsViewModel: ObservableObject {
         service.getChainParameters().asResult().sink { result in
             switch result {
             case let .success(response):
-                self.bakingCommissionRange = response.bakingCommissionRange
-                self.transactionCommissionRange = response.transactionCommissionRange
-                self.finalizationCommissionRange = response.finalizationCommissionRange
 
                 if let data = self.handler.getNewEntry(BakerComissionData.self) {
                     self.updateCommisionValues(
@@ -96,6 +93,11 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     finalization: response.finalizationCommissionRange.max
                 )
 
+                self.commissionRanges = (bakingCommissionRange: response.bakingCommissionRange,
+                               transactionCommissionRange: response.transactionCommissionRange,
+                               finalizationCommissionRange: response.finalizationCommissionRange
+                )
+
             case let .failure(error):
                 self.error = .networkError(error)
             }
@@ -114,22 +116,19 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     }
 
     func validate() throws {
-        guard
-            let bakingCommissionRange = bakingCommissionRange,
-            let finalizationCommissionRange = finalizationCommissionRange,
-            let transactionCommissionRange = transactionCommissionRange else {
+        guard let ranges = commissionRanges else {
             throw BakerCommissionSettingError.bakingRewardOutOfRange
         }
 
-        guard bakingCommissionRange.min ... bakingCommissionRange.max ~= bakingRewardCommission else {
+        guard ranges.bakingCommissionRange.min ... ranges.bakingCommissionRange.max ~= bakingRewardCommission else {
             throw BakerCommissionSettingError.bakingRewardOutOfRange
         }
 
-        guard finalizationCommissionRange.min ... finalizationCommissionRange.max ~= finalizationRewardCommission else {
+        guard ranges.finalizationCommissionRange.min ... ranges.finalizationCommissionRange.max ~= finalizationRewardCommission else {
             throw BakerCommissionSettingError.finalizationRewardOutOfRange
         }
 
-        guard transactionCommissionRange.min ... transactionCommissionRange.max ~= transactionFeeCommission else {
+        guard ranges.transactionCommissionRange.min ... ranges.transactionCommissionRange.max ~= transactionFeeCommission else {
             throw BakerCommissionSettingError.transactionFeeOutOfRange
         }
     }
