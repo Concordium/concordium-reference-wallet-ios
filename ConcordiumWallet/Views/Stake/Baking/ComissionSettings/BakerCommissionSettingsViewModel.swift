@@ -1,5 +1,5 @@
 //
-//  BakerComissionSettingsViewModel.swift
+//  BakerCommissionSettingsViewModel.swift
 //  ConcordiumWallet
 //
 //  Created by Milan Sawicki on 06/11/2023.
@@ -76,7 +76,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                                finalizationCommissionRange: response.finalizationCommissionRange
                 )
         
-                if let data = self.handler.getNewEntry(BakerComissionData.self) {
+                if let data = self.handler.getNewEntry(BakerCommissionData.self) {
                     self.updateCommisionValues(
                         baking: data.bakingRewardComission,
                         transaction: data.transactionComission,
@@ -84,7 +84,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     )
                     return
                 }
-                if let data = self.handler.getCurrentEntry(BakerComissionData.self) {
+                if let data = self.handler.getCurrentEntry(BakerCommissionData.self) {
                     self.updateCommisionValues(
                         baking: data.bakingRewardComission,
                         transaction: data.transactionComission,
@@ -108,7 +108,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     func continueButtonTapped() {
         do {
             try validate()
-            handler.add(entry: BakerComissionData(bakingRewardComission: bakingRewardCommission, finalizationRewardComission: finalizationRewardCommission, transactionComission: transactionFeeCommission))
+            handler.add(entry: BakerCommissionData(bakingRewardComission: bakingRewardCommission, finalizationRewardComission: finalizationRewardCommission, transactionComission: transactionFeeCommission))
             didTapContinue()
         } catch let error {
             self.error = error as? BakerCommissionSettingError

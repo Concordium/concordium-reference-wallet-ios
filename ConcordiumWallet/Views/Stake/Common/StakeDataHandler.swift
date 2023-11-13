@@ -29,7 +29,7 @@ enum Field: Hashable {
     case bakerKeys
     case bakerId
     case bakerAmount
-    case bakerComission
+    case bakerCommission
  
     // swiftlint:disable cyclomatic_complexity
     func getLabelText() -> String {
@@ -69,7 +69,7 @@ enum Field: Hashable {
             return "baking.receipt.metadataurl".localized
         case .bakerKeys:
             return ""
-        case .bakerComission:
+        case .bakerCommission:
             return ""
         }
     }
@@ -112,7 +112,7 @@ enum Field: Hashable {
             return 4
         case .bakerKeys:
             return 5
-        case .bakerComission:
+        case .bakerCommission:
             return .max
         }
     }
@@ -356,8 +356,8 @@ struct RestakeBakerData: SimpleFieldValue {
     }
 }
 
-struct BakerComissionData: FieldValue, Equatable {
-    let field = Field.bakerComission
+struct BakerCommissionData: FieldValue, Equatable {
+    let field = Field.bakerCommission
     let bakingRewardComission: Double
     let finalizationRewardComission: Double
     let transactionComission: Double
