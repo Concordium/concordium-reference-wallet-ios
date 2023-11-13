@@ -19,27 +19,27 @@ extension NumberFormatter {
     }
 }
 
-class BakerCommissionSettingsViewModel: ObservableObject {
-    enum BakerCommissionSettingError: LocalizedError {
-        case transactionFeeOutOfRange
-        case bakingRewardOutOfRange
-        case finalizationRewardOutOfRange
-        case networkError(Error)
+enum BakerCommissionSettingError: LocalizedError {
+    case transactionFeeOutOfRange
+    case bakingRewardOutOfRange
+    case finalizationRewardOutOfRange
+    case networkError(Error)
 
-        var errorMessage: String {
-            switch self {
-            case .bakingRewardOutOfRange:
-                return "Baking reward is out of specified range"
-            case .finalizationRewardOutOfRange:
-                return "Finalization reward is out of specified range"
-            case .transactionFeeOutOfRange:
-                return "Transaction fee is out of specified range"
-            case let .networkError(error):
-                return error.localizedDescription
-            }
+    var errorMessage: String {
+        switch self {
+        case .bakingRewardOutOfRange:
+            return "Baking reward is out of specified range"
+        case .finalizationRewardOutOfRange:
+            return "Finalization reward is out of specified range"
+        case .transactionFeeOutOfRange:
+            return "Transaction fee is out of specified range"
+        case let .networkError(error):
+            return error.localizedDescription
         }
     }
+}
 
+class BakerCommissionSettingsViewModel: ObservableObject {
     @Published var transactionFeeCommission: Double = 0
     @Published var finalizationRewardCommission: Double = 0
     @Published var bakingRewardCommission: Double = 0
@@ -49,7 +49,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
         finalizationCommissionRange: CommissionRange
     )?
     @Published var error: BakerCommissionSettingError?
-
+    var dismissView: () -> Void
     private var cancellables = Set<AnyCancellable>()
     private var didTapContinue: () -> Void
     private var service: StakeServiceProtocol
@@ -58,11 +58,13 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     init(
         service: StakeServiceProtocol,
         handler: StakeDataHandler,
-        didTapContinue: @escaping (() -> Void)
+        didTapContinue: @escaping (() -> Void),
+        dismissView: @escaping (() -> Void)
     ) {
         self.service = service
         self.didTapContinue = didTapContinue
         self.handler = handler
+        self.dismissView = dismissView
     }
 
     func fetchData() {
@@ -71,12 +73,12 @@ class BakerCommissionSettingsViewModel: ObservableObject {
             case let .success(response):
 
                 self.commissionRanges = (bakingCommissionRange: response.bakingCommissionRange,
-                               transactionCommissionRange: response.transactionCommissionRange,
-                               finalizationCommissionRange: response.finalizationCommissionRange
+                                         transactionCommissionRange: response.transactionCommissionRange,
+                                         finalizationCommissionRange: response.finalizationCommissionRange
                 )
-        
+
                 if let data = self.handler.getNewEntry(BakerCommissionData.self) {
-                    self.updateCommisionValues(
+                    self.updateCommissionValues(
                         baking: data.bakingRewardComission,
                         transaction: data.transactionComission,
                         finalization: data.finalizationRewardComission
@@ -84,14 +86,14 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     return
                 }
                 if let data = self.handler.getCurrentEntry(BakerCommissionData.self) {
-                    self.updateCommisionValues(
+                    self.updateCommissionValues(
                         baking: data.bakingRewardComission,
                         transaction: data.transactionComission,
                         finalization: data.finalizationRewardComission
                     )
                     return
                 }
-                self.updateCommisionValues(
+                self.updateCommissionValues(
                     baking: response.bakingCommissionRange.max,
                     transaction: response.transactionCommissionRange.max,
                     finalization: response.finalizationCommissionRange.max
@@ -105,31 +107,31 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     }
 
     func continueButtonTapped() {
-        do {
-            try validate()
+        if let error = validate() {
+            self.error = error
+        } else {
             handler.add(entry: BakerCommissionData(bakingRewardComission: bakingRewardCommission, finalizationRewardComission: finalizationRewardCommission, transactionComission: transactionFeeCommission))
             didTapContinue()
-        } catch let error {
-            self.error = error as? BakerCommissionSettingError
         }
     }
 
-    func validate() throws {
+    func validate() -> BakerCommissionSettingError? {
         guard let ranges = commissionRanges else {
-            throw BakerCommissionSettingError.bakingRewardOutOfRange
+            return BakerCommissionSettingError.bakingRewardOutOfRange
         }
 
         guard ranges.bakingCommissionRange.min ... ranges.bakingCommissionRange.max ~= bakingRewardCommission else {
-            throw BakerCommissionSettingError.bakingRewardOutOfRange
+            return BakerCommissionSettingError.bakingRewardOutOfRange
         }
 
         guard ranges.finalizationCommissionRange.min ... ranges.finalizationCommissionRange.max ~= finalizationRewardCommission else {
-            throw BakerCommissionSettingError.finalizationRewardOutOfRange
+            return BakerCommissionSettingError.finalizationRewardOutOfRange
         }
 
         guard ranges.transactionCommissionRange.min ... ranges.transactionCommissionRange.max ~= transactionFeeCommission else {
-            throw BakerCommissionSettingError.transactionFeeOutOfRange
+            return BakerCommissionSettingError.transactionFeeOutOfRange
         }
+        return nil
     }
 
     private func updateCommissionValues(baking: Double, transaction: Double, finalization: Double) {

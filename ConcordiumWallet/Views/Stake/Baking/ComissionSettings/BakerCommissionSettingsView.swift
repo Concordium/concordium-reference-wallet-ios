@@ -57,7 +57,19 @@ struct BakerCommissionSettingsView: View {
             "Error",
             isPresented: $viewModel.error.isNotNil(),
             presenting: viewModel.error,
-            actions: { _ in },
+            actions: { error in
+                Button {
+                    switch error {
+                    case .networkError:
+                        viewModel.dismissView()
+                    default: break
+                    }
+                    viewModel.error = nil
+
+                } label: {
+                    Text("OK")
+                }
+            },
             message: { error in
                 Text(error.errorMessage)
             })
