@@ -72,11 +72,15 @@ class BakerCommissionSettingsViewModel: ObservableObject {
             switch result {
             case let .success(response):
 
-                self.commissionRanges = (bakingCommissionRange: response.bakingCommissionRange,
-                                         transactionCommissionRange: response.transactionCommissionRange,
-                                         finalizationCommissionRange: response.finalizationCommissionRange
+                self.commissionRanges = (
+                    bakingCommissionRange: response.bakingCommissionRange,
+                    transactionCommissionRange: response.transactionCommissionRange,
+                    finalizationCommissionRange: response.finalizationCommissionRange
                 )
 
+                // This will only trigger when new baker is registered.
+                // In that case there are no current values, all data is considered 'new'.
+                // That field is first set in `BakerAmountInputPresenter.loadPoolParameters()`.
                 if let data = self.handler.getNewEntry(BakerCommissionData.self) {
                     self.updateCommissionValues(
                         baking: data.bakingRewardComission,
@@ -85,6 +89,9 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     )
                     return
                 }
+                // This covers a scenario when updating pool settings.
+                // In order to update UI we set slider values to current values.
+                // When slider is moved, the updated is returned by `handler.getNewEntry`.
                 if let data = self.handler.getCurrentEntry(BakerCommissionData.self) {
                     self.updateCommissionValues(
                         baking: data.bakingRewardComission,
@@ -110,7 +117,13 @@ class BakerCommissionSettingsViewModel: ObservableObject {
         if let error = validate() {
             self.error = error
         } else {
-            handler.add(entry: BakerCommissionData(bakingRewardComission: bakingRewardCommission, finalizationRewardComission: finalizationRewardCommission, transactionComission: transactionFeeCommission))
+            handler.add(
+                entry: BakerCommissionData(
+                    bakingRewardComission: bakingRewardCommission,
+                    finalizationRewardComission: finalizationRewardCommission,
+                    transactionComission: transactionFeeCommission
+                )
+            )
             didTapContinue()
         }
     }

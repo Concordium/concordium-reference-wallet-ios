@@ -33,6 +33,10 @@
 		0111D7392A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
+		01145A3D2B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
+		01145A3E2B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
+		01145A3F2B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
+		01145A402B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
 		011576122ABAFE8C00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576112ABAFE8C00D24173 /* BigInt */; };
 		011576142ABAFEB900D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576132ABAFEB900D24173 /* BigInt */; };
 		011576162ABAFEBF00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576152ABAFEBF00D24173 /* BigInt */; };
@@ -2822,6 +2826,7 @@
 		0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectView.swift; sourceTree = "<group>"; };
 		0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountItemView.swift; sourceTree = "<group>"; };
 		0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SwiftUI.swift"; sourceTree = "<group>"; };
+		01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
 		011576182ABAFF6600D24173 /* BigInt+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+String.swift"; sourceTree = "<group>"; };
 		012888A22A7A7572007D5325 /* AccountTokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensViewController.swift; sourceTree = "<group>"; };
 		01306D1A2AFA69300002BA64 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
@@ -5694,6 +5699,7 @@
 				FA01C9BE291C5D2E00BD8738 /* UserDefaults+Helper.swift */,
 				FA0CAAF42937DD750009D5F8 /* UITapGestureRecognizer.swift */,
 				01306D1A2AFA69300002BA64 /* Binding.swift */,
+				01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6689,6 +6695,7 @@
 				01B939E62AB269C2001CE935 /* SerializeTokenTransferParametersInput.swift in Sources */,
 				7FA0AE9B246047AA00B7673F /* OriginTypeEnum.swift in Sources */,
 				52B2CE4924F6806B0092F8EB /* ArsInfo.swift in Sources */,
+				01145A3D2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				8DD48C7A2953136E00CA9085 /* EarnView.swift in Sources */,
 				7F48C1DA244DCD0B00997684 /* LetterSpacingLabel.swift in Sources */,
 				FABA9D95291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
@@ -7308,6 +7315,7 @@
 				7F85B7A6246A9A7C00ED09B8 /* SelectRecipientViewController.swift in Sources */,
 				07519F9426FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				896B41D528B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
+				01145A3F2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				528EB751255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D46819289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAA924FD1D5100EE1658 /* Balance.swift in Sources */,
@@ -7896,6 +7904,7 @@
 				7F85B8A3246A9AB600ED09B8 /* SendFundViewController.swift in Sources */,
 				07519F9526FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				896B41D628B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
+				01145A402B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				528EB752255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D4681A289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAAA24FD1D5100EE1658 /* Balance.swift in Sources */,
@@ -8270,6 +8279,7 @@
 				C938F531241E789A00ECAD47 /* CreateAccountCoordinator.swift in Sources */,
 				C9BB9FE12444AB3900AE0884 /* GeneralFormatter.swift in Sources */,
 				89D46801289BA089007D3FC8 /* SeedMobileWallet.swift in Sources */,
+				01145A3E2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				7FF07AD423EADBB100F1FC04 /* BaseNavigationController.swift in Sources */,
 				89D46877289D2233007D3FC8 /* SeedIdentityStatusPresenter.swift in Sources */,
 				010BCB012A2F563000B50D67 /* SocketFactory.swift in Sources */,

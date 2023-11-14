@@ -78,6 +78,7 @@ struct BakerCommissionSettingsView: View {
     }
 }
 
+
 struct BakerCommissionSliderView: View {
     var range: CommissionRange
     @Binding var commission: Double
@@ -95,7 +96,7 @@ struct BakerCommissionSliderView: View {
             if commission < range.min + BakerCommissionSettingsView.sliderStep {
                 commission = range.min
             }
-            self.commission = commission
+            self.commission = commission.rounded(.toNearestOrAwayFromZero, decimals: 5)
         })
         HStack {
             VStack {
