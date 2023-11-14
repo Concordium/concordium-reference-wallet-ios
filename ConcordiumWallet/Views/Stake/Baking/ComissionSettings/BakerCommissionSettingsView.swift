@@ -65,14 +65,14 @@ struct BakerCommissionSettingsView: View {
                     default: break
                     }
                     viewModel.error = nil
-
                 } label: {
                     Text("OK")
                 }
             },
             message: { error in
                 Text(error.errorMessage)
-            })
+            }
+        )
         .onAppear { viewModel.fetchData() }
         .padding()
     }
