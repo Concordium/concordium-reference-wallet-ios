@@ -151,16 +151,20 @@ class AccountCardView: UIView, NibLoadable {
             self.stateImageView.isHidden = true
         case .readonly:
             self.stackCardView.alpha = 0.5
+            self.stateLabel.isHidden = false
             self.stateLabel.text = "accounts.overview.readonly".localized
+            self.stateImageView.contentMode = .right
             self.stateImageView.image = UIImage(named: "icon_read_only")
             setTextFontColor(color: .fadedText)
             widget.applyConcordiumEdgeStyle(color: .fadedText)
             widget.backgroundColor = UIColor.inactiveCard
         case .baking:
             self.stateLabel.isHidden = true
+            self.stateImageView.contentMode = .scaleAspectFit
             self.stateImageView.image = UIImage(named: "icon_validate")
         case .delegating:
             self.stateLabel.isHidden = true
+            self.stateImageView.contentMode = .scaleAspectFit
             self.stateImageView.image = UIImage(named: "icon_delegate")
         }
     }
