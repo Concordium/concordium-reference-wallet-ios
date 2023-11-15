@@ -29,7 +29,7 @@ struct ExportService {
             case .backup:
                 return "concordium-backup.concordiumwallet"
             case .bakerKeys:
-                return "baker-credentials.json"
+                return "validator-credentials.json"
             }
         }
     }

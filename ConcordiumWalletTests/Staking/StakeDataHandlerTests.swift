@@ -233,8 +233,8 @@ class StakeDataHandlerTests: XCTestCase {
         assertDisplayValues(
             actualValues: closedDisplayValues,
             expectedValues: [
-                DisplayValue(key: "Account to register as baker", value: "\(account.name ?? "")\n\n\(account.address)"),
-                DisplayValue(key: "Baker stake", value: amount.displayValueWithGStroke()),
+                DisplayValue(key: "Account to register as validator", value: "\(account.name ?? "")\n\n\(account.address)"),
+                DisplayValue(key: "Validator stake", value: amount.displayValueWithGStroke()),
                 DisplayValue(key: "Rewards will be", value: "Added to stake"),
                 DisplayValue(key: "Delegation pool status", value: "Closed for delegation"),
                 DisplayValue(key: "Election verify key", value: keys.electionVerifyKey.splitInto(lines: 2)),
