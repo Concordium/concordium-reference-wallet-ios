@@ -101,7 +101,7 @@ struct BakerCommissionSliderView: View {
         HStack {
             VStack {
                 Text("Min:")
-                Text("\(formatter.string(from: NSNumber(value: range.min)) ?? " - ")%")
+                Text("\(formatter.string(from: NSNumber(value: range.min))!)%")
             }
             VStack {
                 HStack(alignment: .center, spacing: 1) {
@@ -122,7 +122,7 @@ struct BakerCommissionSliderView: View {
             }
             VStack {
                 Text("Max:")
-                Text("\(formatter.string(from: NSNumber(value: range.max)) ?? " - ")%")
+                Text("\(formatter.string(from: NSNumber(value: range.max))!)%")
             }
         }
         .padding(.bottom, 16)
