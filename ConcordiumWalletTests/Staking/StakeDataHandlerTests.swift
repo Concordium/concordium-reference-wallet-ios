@@ -26,7 +26,7 @@ class StakeDataHandlerTests: XCTestCase {
         dataHandler.add(entry: BakerPoolSettingsData(poolSettings: .open))
         dataHandler.add(entry: BakerMetadataURLData(metadataURL: "https://example.com"))
         dataHandler.add(entry: BakerKeyData(keys: .randomKeys))
-        dataHandler.add(entry: BakerComissionData(
+        dataHandler.add(entry: BakerCommissionData(
             bakingRewardComission: 0.5,
             finalizationRewardComission: 1.0,
             transactionComission: 1.5
@@ -55,7 +55,7 @@ class StakeDataHandlerTests: XCTestCase {
         dataHandler.add(entry: RestakeBakerData(restake: true))
         dataHandler.add(entry: BakerPoolSettingsData(poolSettings: .closed))
         dataHandler.add(entry: BakerKeyData(keys: .randomKeys))
-        dataHandler.add(entry: BakerComissionData(
+        dataHandler.add(entry: BakerCommissionData(
             bakingRewardComission: 0.5,
             finalizationRewardComission: 1.0,
             transactionComission: 1.5

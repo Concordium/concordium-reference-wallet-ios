@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Combine
+import SwiftUI
 
 protocol BakingCoordinatorDelegate: Coordinator {
     func finishedBakingCoordinator()
@@ -110,7 +111,22 @@ class BakingCoordinator: Coordinator {
         let vc = BakerMetadataFactory.create(with: presenter)
         navigationController.pushViewController(vc, animated: true)
     }
-    
+
+    func showComissionSettings(dataHandler: StakeDataHandler) {
+        let viewModel = BakerCommissionSettingsViewModel(
+            service: dependencyProvider.stakeService(),
+            handler: dataHandler,
+            didTapContinue: { [weak self] in
+            self?.showMetadataUrl(dataHandler: dataHandler)
+            }) { [weak self] in
+                self?.navigationController.popViewController(animated: true)
+            }
+
+        let view = BakerCommissionSettingsView(viewModel: viewModel)
+        let vc = UIHostingController(rootView: view)
+        navigationController.pushViewController(vc, animated: true)
+    }
+
     func showAmountInput(dataHandler: StakeDataHandler) {
         let presenter = BakerAmountInputPresenter(
             account: account,
@@ -229,12 +245,12 @@ extension BakingCoordinator: BakerPoolSettingsPresenterDelegate {
         switch dataHandler.transferType {
         case .registerBaker:
             if case .open = dataHandler.getNewEntry(BakerPoolSettingsData.self)?.poolSettings {
-                showMetadataUrl(dataHandler: dataHandler)
+                showComissionSettings(dataHandler: dataHandler)
             } else {
                 showGenerateKey(dataHandler: dataHandler)
             }
         case .updateBakerPool:
-            showMetadataUrl(dataHandler: dataHandler)
+            showComissionSettings(dataHandler: dataHandler)
         default:
             break
         }
