@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,13 +18,13 @@
         <!--Stake Amount Input View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="StakeAmountInputViewController" id="Y6W-OH-hqX" customClass="StakeAmountInputViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StakeAmountInputViewController" id="Y6W-OH-hqX" customClass="StakeAmountInputViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yu6-gQ-okf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="764"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bKa-mu-xv9">
                                         <rect key="frame" x="15" y="20" width="384" height="382.5"/>
@@ -181,7 +181,7 @@ Explanation label for Stake]</string>
                                 <viewLayoutGuide key="contentLayoutGuide" id="OE8-tj-szo"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="vkg-zo-oSw"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDP-rx-n6T" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDP-rx-n6T" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -238,13 +238,13 @@ Explanation label for Stake]</string>
         <!--Stake Receipt View Controller-->
         <scene sceneID="klg-rD-eie">
             <objects>
-                <viewController storyboardIdentifier="StakeReceiptViewController" id="9ea-wD-Kac" customClass="StakeReceiptViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StakeReceiptViewController" id="9ea-wD-Kac" customClass="StakeReceiptViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Pq-xL-8T9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOU-De-sV8">
-                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="764"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ui4-u9-L4N">
                                         <rect key="frame" x="30" y="20" width="354" height="522.5"/>
@@ -324,12 +324,12 @@ Explanation label for Stake]</string>
                                                                     <constraint firstAttribute="trailing" secondItem="GCC-mU-WcC" secondAttribute="trailing" id="xrh-iK-C1K"/>
                                                                 </constraints>
                                                             </view>
-                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="354" placeholderIntrinsicHeight="300" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Xsn-DQ-BgE" customClass="ContentSizedTableView" customModule="Mock" customModuleProvider="target">
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="354" placeholderIntrinsicHeight="300" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Xsn-DQ-BgE" customClass="ContentSizedTableView" customModule="Concordium_Legacy" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="35.5" width="354" height="300"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <prototypes>
-                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakeEntryCell" id="PNe-1K-Nwd" customClass="StakeEntryCell" customModule="Mock" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="44.5" width="354" height="65.5"/>
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakeEntryCell" id="PNe-1K-Nwd" customClass="StakeEntryCell" customModule="Concordium_Legacy" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="50" width="354" height="65.5"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNe-1K-Nwd" id="N0Q-5P-Bw0">
                                                                             <rect key="frame" x="0.0" y="0.0" width="354" height="65.5"/>
@@ -445,7 +445,7 @@ Explanation label for Stake]</string>
                                 <viewLayoutGuide key="contentLayoutGuide" id="yve-C5-IpA"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Wqq-H6-pe0"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amF-dD-Lbb" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amF-dD-Lbb" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -493,16 +493,16 @@ Explanation label for Stake]</string>
         <!--Stake Status View Controller-->
         <scene sceneID="rnE-Ux-h2A">
             <objects>
-                <viewController storyboardIdentifier="StakeStatusViewController" id="M2Q-u5-u87" customClass="StakeStatusViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StakeStatusViewController" id="M2Q-u5-u87" customClass="StakeStatusViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QG3-1g-yRl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Cv-gN-k6V">
-                                <rect key="frame" x="15" y="44" width="384" height="688"/>
+                                <rect key="frame" x="15" y="48" width="384" height="684"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hB-4Q-Rqe">
-                                        <rect key="frame" x="0.0" y="0.0" width="384" height="688"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="684"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DaO-zy-Eku">
                                                 <rect key="frame" x="20" y="20" width="344" height="473.5"/>
@@ -537,12 +537,12 @@ Explanation label for Stake]</string>
                                                             <constraint firstAttribute="bottom" secondItem="1cf-Fh-tmk" secondAttribute="bottom" constant="10" id="n4y-cz-oLO"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="354" placeholderIntrinsicHeight="300" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pbm-AG-Qmt" customClass="ContentSizedTableView" customModule="Mock" customModuleProvider="target">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="354" placeholderIntrinsicHeight="300" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pbm-AG-Qmt" customClass="ContentSizedTableView" customModule="Concordium_Legacy" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="50" width="344" height="300"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakeEntryCell" id="rdg-hm-gG0" customClass="StakeEntryCell" customModule="Mock" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.5" width="344" height="65.5"/>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakeEntryCell" id="rdg-hm-gG0" customClass="StakeEntryCell" customModule="Concordium_Legacy" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="50" width="344" height="65.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rdg-hm-gG0" id="jdZ-0u-xof">
                                                                     <rect key="frame" x="0.0" y="0.0" width="344" height="65.5"/>
@@ -678,7 +678,7 @@ Explanation label for Stake]</string>
                                         <viewLayoutGuide key="frameLayoutGuide" id="5zJ-FN-px1"/>
                                     </scrollView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-E1-YAA">
-                                        <rect key="frame" x="176.5" y="337" width="31" height="14.5"/>
+                                        <rect key="frame" x="176.5" y="335" width="31" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" name="whiteText"/>
                                         <nil key="highlightedColor"/>
@@ -701,7 +701,7 @@ Explanation label for Stake]</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb5-tZ-tRZ" customClass="WidgetButton" customModule="Mock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb5-tZ-tRZ" customClass="WidgetButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="747" width="384" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -720,7 +720,7 @@ Explanation label for Stake]</string>
                                     <action selector="pressedStopWithSender:" destination="M2Q-u5-u87" eventType="touchUpInside" id="1bI-5R-7jt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRD-9m-G69" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRD-9m-G69" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -779,12 +779,12 @@ Explanation label for Stake]</string>
         <!--Baker Pool Generate Key View Controller-->
         <scene sceneID="NDP-UT-npX">
             <objects>
-                <viewController storyboardIdentifier="BakerPoolGenerateKeyViewController" id="ebl-XB-hvY" customClass="BakerPoolGenerateKeyViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BakerPoolGenerateKeyViewController" id="ebl-XB-hvY" customClass="BakerPoolGenerateKeyViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UJr-0B-bzs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pul-EI-hyA" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pul-EI-hyA" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -801,13 +801,13 @@ Explanation label for Stake]</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89b-xt-5HM">
-                                <rect key="frame" x="32" y="94" width="350" height="20.5"/>
+                                <rect key="frame" x="32" y="98" width="350" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpK-qw-kL8">
-                                <rect key="frame" x="-5" y="144.5" width="424" height="637.5"/>
+                                <rect key="frame" x="-5" y="148.5" width="424" height="633.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="brz-E0-bdx">
                                         <rect key="frame" x="0.0" y="0.0" width="424" height="157"/>
@@ -909,13 +909,13 @@ Explanation label for Stake]</string>
         <!--Delegation Pool Selection View Controller-->
         <scene sceneID="B0F-9q-xi5">
             <objects>
-                <viewController storyboardIdentifier="DelegationPoolSelectionViewController" id="jHp-8n-goo" customClass="DelegationPoolSelectionViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DelegationPoolSelectionViewController" id="jHp-8n-goo" customClass="DelegationPoolSelectionViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lYp-yw-rkF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Df6-Rf-EmF">
-                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="764"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="oLH-pU-chs">
                                         <rect key="frame" x="15" y="20" width="384" height="718"/>
@@ -1002,7 +1002,7 @@ Explanation label for Stake]</string>
                                 <viewLayoutGuide key="contentLayoutGuide" id="2De-qu-JIc"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Vc4-Vj-0Ws"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lTR-SH-AHo" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lTR-SH-AHo" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -1050,12 +1050,12 @@ Explanation label for Stake]</string>
         <!--Baker Pool Settings View Controller-->
         <scene sceneID="3Vi-IU-9gS">
             <objects>
-                <viewController storyboardIdentifier="BakerPoolSettingsViewController" id="iCU-H3-txL" customClass="BakerPoolSettingsViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BakerPoolSettingsViewController" id="iCU-H3-txL" customClass="BakerPoolSettingsViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XXv-Jy-oZt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-NK-CxZ" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-NK-CxZ" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -1072,7 +1072,7 @@ Explanation label for Stake]</string>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7yI-JL-jQh">
-                                <rect key="frame" x="15" y="94" width="384" height="710"/>
+                                <rect key="frame" x="15" y="98" width="384" height="706"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="23C-fx-GES">
                                         <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
@@ -1085,10 +1085,10 @@ Explanation label for Stake]</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qb2-jI-cCJ">
-                                        <rect key="frame" x="0.0" y="67" width="384" height="643"/>
+                                        <rect key="frame" x="0.0" y="67" width="384" height="639"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FBX-KP-HFW">
-                                                <rect key="frame" x="0.0" y="287.5" width="384" height="68.5"/>
+                                                <rect key="frame" x="0.0" y="285" width="384" height="68.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vu0-Tt-PSQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="18.5"/>
@@ -1149,12 +1149,12 @@ Explanation label for Stake]</string>
         <!--Baker Metadata View Controller-->
         <scene sceneID="0B1-da-kyX">
             <objects>
-                <viewController storyboardIdentifier="BakerMetadataViewController" id="Z3H-4Z-u3S" customClass="BakerMetadataViewController" customModule="Mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BakerMetadataViewController" id="Z3H-4Z-u3S" customClass="BakerMetadataViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Lo-uw-YxP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yc-X8-4rz" customClass="StandardButton" customModule="Mock" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yc-X8-4rz" customClass="StandardButton" customModule="Concordium_Legacy" customModuleProvider="target">
                                 <rect key="frame" x="15" y="812" width="384" height="50"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -1171,23 +1171,23 @@ Explanation label for Stake]</string>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iI6-Ql-ohd">
-                                <rect key="frame" x="15" y="44" width="384" height="760"/>
+                                <rect key="frame" x="15" y="48" width="384" height="756"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9x-2O-3HW">
-                                        <rect key="frame" x="0.0" y="0.0" width="384" height="171.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="170.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hk7-H6-lRt">
-                                        <rect key="frame" x="0.0" y="171.5" width="384" height="17"/>
+                                        <rect key="frame" x="0.0" y="170.5" width="384" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEM-4q-6SS">
-                                        <rect key="frame" x="0.0" y="188.5" width="384" height="571.5"/>
+                                        <rect key="frame" x="0.0" y="187.5" width="384" height="568.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LCT-8F-rWg">
-                                                <rect key="frame" x="0.0" y="254.5" width="384" height="62.5"/>
+                                                <rect key="frame" x="0.0" y="253" width="384" height="62.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTj-F8-BFE">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="18.5"/>
@@ -1242,6 +1242,98 @@ Explanation label for Stake]</string>
             </objects>
             <point key="canvasLocation" x="951" y="759"/>
         </scene>
+        <!--Baker Commission Settings View Controller-->
+        <scene sceneID="Y4f-dv-z2n">
+            <objects>
+                <viewController storyboardIdentifier="BakerCommissionSettingsViewController" id="n1L-Jq-JFN" customClass="BakerCommissionSettingsViewController" customModule="Concordium_Legacy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pc5-50-bw4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HV3-wa-dsB">
+                                <rect key="frame" x="16" y="64" width="382" height="790"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="When you open your baker as a pool, you earn commissions of stake delegated to your pool from another accounts" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Zx-3k-DNj">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="61"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="256" verticalHuggingPriority="254" text="Transaction fee commission" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7n-KZ-GBi">
+                                        <rect key="frame" x="0.0" y="77" width="382" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="256" verticalHuggingPriority="254" text="amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="500-fF-StW">
+                                        <rect key="frame" x="0.0" y="113.5" width="382" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="256" verticalHuggingPriority="254" text="Transaction fee commission" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wau-sX-KwW">
+                                        <rect key="frame" x="0.0" y="150" width="382" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="256" verticalHuggingPriority="254" text="amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaU-yZ-I77">
+                                        <rect key="frame" x="0.0" y="186.5" width="382" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIW-eT-cCv">
+                                        <rect key="frame" x="0.0" y="223" width="382" height="503"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <string key="text">In Concordium Legacy Wallet, commission rates are locked and cannot be changed. If you wish to change the commission rates for your staking pool, you must install the Concordium Blockchain Wallet. To see how to do this, refer to the Concordium Wallet FAQ</string>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBN-TB-s4W">
+                                        <rect key="frame" x="0.0" y="742" width="382" height="48"/>
+                                        <color key="backgroundColor" name="primary"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="19N-NA-rMa"/>
+                                        </constraints>
+                                        <color key="tintColor" name="background"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                            <color key="baseForegroundColor" name="background"/>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="continueButtonTapped:" destination="n1L-Jq-JFN" eventType="touchUpInside" id="A0r-uw-Pgv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Sst-Py-kkV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Sst-Py-kkV" firstAttribute="bottom" secondItem="HV3-wa-dsB" secondAttribute="bottom" constant="8" id="52F-ms-Ddy"/>
+                            <constraint firstItem="HV3-wa-dsB" firstAttribute="top" secondItem="Sst-Py-kkV" secondAttribute="top" constant="16" id="EY7-dP-Kj2"/>
+                            <constraint firstItem="Sst-Py-kkV" firstAttribute="trailing" secondItem="HV3-wa-dsB" secondAttribute="trailing" constant="16" id="hkz-na-lF0"/>
+                            <constraint firstItem="HV3-wa-dsB" firstAttribute="leading" secondItem="Sst-Py-kkV" secondAttribute="leading" constant="16" id="oNU-L4-PJZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bakingRewardFeeLabel" destination="DaU-yZ-I77" id="dDb-zw-gBW"/>
+                        <outlet property="descriptionTextView" destination="iIW-eT-cCv" id="Vjm-BY-g6q"/>
+                        <outlet property="transactionFeeAmountLabel" destination="500-fF-StW" id="HuA-k6-rJy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sHC-BB-b7C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-375" y="-639"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="6yc-X8-4rz">
@@ -1269,6 +1361,9 @@ Explanation label for Stake]</string>
     <resources>
         <image name="Receipt" width="31" height="107"/>
         <image name="logo_rotating_arrows" width="109" height="109"/>
+        <namedColor name="background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="buttonText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -1287,6 +1382,9 @@ Explanation label for Stake]</string>
         <namedColor name="whiteText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -31,7 +31,7 @@ class BakingCoordinator: Coordinator {
         parentCoordinator: BakingCoordinatorDelegate
     ) {
         self.navigationController = navigationController
-        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalPresentationStyle = .automatic
         self.account = account
         self.delegate = parentCoordinator
         self.dependencyProvider = dependencyProvider
@@ -120,10 +120,8 @@ class BakingCoordinator: Coordinator {
         ) { [weak self] in
             self?.showMetadataUrl(dataHandler: dataHandler)
         }
-
-        let view = BakerCommissionSettingsView(viewModel: viewModel)
-        let vc = UIHostingController(rootView: view)
-        navigationController.pushViewController(vc, animated: true)
+        let viewController = BakerCommissionSettingsViewFactory.create(with: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
     }
 
     func showAmountInput(dataHandler: StakeDataHandler) {
