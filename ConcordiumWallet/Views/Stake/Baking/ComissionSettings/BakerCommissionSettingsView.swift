@@ -25,16 +25,10 @@ struct BakerCommissionSettingsView: View {
                     commission: $viewModel.transactionFeeCommission
                 )
 
-                Text("Baking reward commission")
+                Text("Block reward commission")
                 BakerCommissionSliderView(
                     range: ranges.bakingCommissionRange,
                     commission: $viewModel.bakingRewardCommission
-                )
-
-                Text("Finalization reward commission")
-                BakerCommissionSliderView(
-                    range: ranges.finalizationCommissionRange,
-                    commission: $viewModel.finalizationRewardCommission
                 )
                 Spacer()
                 Button(action: viewModel.continueButtonTapped) {
