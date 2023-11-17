@@ -31,7 +31,7 @@ class BakingCoordinator: Coordinator {
         parentCoordinator: BakingCoordinatorDelegate
     ) {
         self.navigationController = navigationController
-        navigationController.modalPresentationStyle = .automatic
+        navigationController.modalPresentationStyle = .fullScreen
         self.account = account
         self.delegate = parentCoordinator
         self.dependencyProvider = dependencyProvider
