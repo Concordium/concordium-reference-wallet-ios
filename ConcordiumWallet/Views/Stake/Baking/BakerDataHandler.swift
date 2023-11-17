@@ -84,7 +84,7 @@ private extension PoolInfo {
             set.append(BakerPoolSettingsData(poolSettings: poolSettings))
         }
         set.append(BakerMetadataURLData(metadataURL: metadataURL))
-        set.append(BakerComissionData(
+        set.append(BakerCommissionData(
             bakingRewardComission: commissionRates.bakingCommission,
             finalizationRewardComission: commissionRates.finalizationCommission,
             transactionComission: commissionRates.transactionCommission

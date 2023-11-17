@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class BakerCommissionSettingsViewFactory {
     class func create(with viewModel: BakerCommissionSettingsViewModel) -> BakerCommissionSettingsViewController {
@@ -17,12 +18,14 @@ class BakerCommissionSettingsViewFactory {
 }
 
 class BakerCommissionSettingsViewController: BaseViewController, Storyboarded, Loadable {
-    
+
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var transactionFeeAmountLabel: UILabel!
     @IBOutlet weak var bakingRewardFeeLabel: UILabel!
-
+    private var cancellables: [AnyCancellable] = []
+    private var formatter = NumberFormatter.commissionFormatter
     private let viewModel: BakerCommissionSettingsViewModel
+
     init?(coder: NSCoder, viewModel: BakerCommissionSettingsViewModel) {
         self.viewModel = viewModel
         super.init(coder: coder)
@@ -31,8 +34,18 @@ class BakerCommissionSettingsViewController: BaseViewController, Storyboarded, L
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchData()
-        self.transactionFeeAmountLabel.text = "\(viewModel.transactionFeeComission)"
-        self.bakingRewardFeeLabel.text = "\(viewModel.bakingRewardComission)"
+        viewModel.$transactionFeeCommission
+            .compactMap { [weak self] in
+                guard let self = self else { return nil }
+                return "\(self.formatter.string(from: NSNumber(value: $0))!)%" }
+            .assign(to: \.text, on: transactionFeeAmountLabel)
+            .store(in: &cancellables)
+        viewModel.$bakingRewardCommission
+            .compactMap { [weak self] in
+                guard let self = self else { return nil }
+                return "\(self.formatter.string(from: NSNumber(value: $0))!)%" }
+            .assign(to: \.text, on: bakingRewardFeeLabel)
+            .store(in: &cancellables)
     }
 
     required init?(coder: NSCoder) {

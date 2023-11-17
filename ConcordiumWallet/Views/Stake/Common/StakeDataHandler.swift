@@ -356,12 +356,12 @@ struct RestakeBakerData: SimpleFieldValue {
     }
 }
 
-struct BakerComissionData: FieldValue {
+struct BakerCommissionData: FieldValue {
     let field = Field.bakerComission
     let bakingRewardComission: Double
     let finalizationRewardComission: Double
     let transactionComission: Double
-    let formatter: NumberFormatter = .comissionFormatter
+    let formatter: NumberFormatter = NumberFormatter.commissionFormatter
     func getDisplayValues(type: TransferType) -> [DisplayValue] {
         [
             DisplayValue(

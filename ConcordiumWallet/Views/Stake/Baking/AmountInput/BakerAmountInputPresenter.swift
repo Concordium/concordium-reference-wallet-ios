@@ -172,7 +172,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     private struct RemoteParameters {
         let minimumValue: GTU
         let maximumValue: GTU
-        let comissionData: BakerComissionData
+        let comissionData: BakerCommissionData
     }
     
     private func loadPoolParameters() {
@@ -205,7 +205,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                     return RemoteParameters(
                         minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),
                         maximumValue: GTU(intValue: availableCapital),
-                        comissionData: BakerComissionData(
+                        comissionData: BakerCommissionData(
                             bakingRewardComission: chainParameters.bakingCommissionRange.max,
                             finalizationRewardComission: chainParameters.finalizationCommissionRange.max,
                             transactionComission: chainParameters.transactionCommissionRange.max

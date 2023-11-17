@@ -116,12 +116,14 @@ class BakingCoordinator: Coordinator {
         let viewModel = BakerCommissionSettingsViewModel(
             service: dependencyProvider.stakeService(),
             handler: dataHandler,
-            numberFormatter: .comissionFormatter
-        ) { [weak self] in
+            didTapContinue: { [weak self] in
             self?.showMetadataUrl(dataHandler: dataHandler)
-        }
-        let viewController = BakerCommissionSettingsViewFactory.create(with: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+            }) { [weak self] in
+                self?.navigationController.popViewController(animated: true)
+            }
+
+        let vc = BakerCommissionSettingsViewFactory.create(with: viewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func showAmountInput(dataHandler: StakeDataHandler) {
