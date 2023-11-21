@@ -43,11 +43,7 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     @Published var transactionFeeCommission: Double = 0
     @Published var finalizationRewardCommission: Double = 0
     @Published var bakingRewardCommission: Double = 0
-    @Published var commissionRanges: (
-        bakingCommissionRange: CommissionRange,
-        transactionCommissionRange: CommissionRange,
-        finalizationCommissionRange: CommissionRange
-    )?
+
     @Published var error: BakerCommissionSettingError?
     var dismissView: () -> Void
     private var cancellables = Set<AnyCancellable>()
@@ -70,76 +66,30 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     func fetchData() {
         service.getChainParameters()
             .asResult().sink { result in
-            switch result {
-            case let .success(response):
-
-                self.commissionRanges = (
-                    bakingCommissionRange: response.bakingCommissionRange,
-                    transactionCommissionRange: response.transactionCommissionRange,
-                    finalizationCommissionRange: response.finalizationCommissionRange
-                )
-
-                // This will only trigger when new baker is registered.
-                // In that case there are no current values, all data is considered 'new'.
-                // That field is first set in `BakerAmountInputPresenter.loadPoolParameters()`.
-                if let data = self.handler.getNewEntry(BakerCommissionData.self) {
+                switch result {
+                case let .success(response):
                     self.updateCommissionValues(
-                        baking: data.bakingRewardComission,
-                        transaction: data.transactionComission,
-                        finalization: data.finalizationRewardComission
+                        baking: response.bakingCommissionRange.min + (response.bakingCommissionRange.max - response.bakingCommissionRange.min) * 0.1,
+                        transaction: response.transactionCommissionRange.min + (response.transactionCommissionRange.max - response.transactionCommissionRange.min) * 0.1,
+                        finalization: response.finalizationCommissionRange.min + (response.finalizationCommissionRange.max - response.finalizationCommissionRange.min) * 0.1
                     )
                     return
+                case let .failure(error):
+                    self.error = .networkError(error)
                 }
-                // This covers a scenario when updating pool settings.
-                // In order to update UI we set slider values to current values.
-                // When slider is moved, the updated is returned by `handler.getNewEntry`.
-                if let data = self.handler.getCurrentEntry(BakerCommissionData.self) {
-                    self.updateCommissionValues(
-                        baking: data.bakingRewardComission,
-                        transaction: data.transactionComission,
-                        finalization: data.finalizationRewardComission
-                    )
-                    return
-                }
-            case let .failure(error):
-                self.error = .networkError(error)
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
 
     func continueButtonTapped() {
-        if let error = validate() {
-            self.error = error
-        } else {
-            handler.add(
-                entry: BakerCommissionData(
-                    bakingRewardComission: bakingRewardCommission,
-                    finalizationRewardComission: finalizationRewardCommission,
-                    transactionComission: transactionFeeCommission
-                )
+        handler.add(
+            entry: BakerCommissionData(
+                bakingRewardComission: bakingRewardCommission,
+                finalizationRewardComission: finalizationRewardCommission,
+                transactionComission: transactionFeeCommission
             )
-            didTapContinue()
-        }
-    }
-
-    func validate() -> BakerCommissionSettingError? {
-        guard let ranges = commissionRanges else {
-            return BakerCommissionSettingError.bakingRewardOutOfRange
-        }
-
-        guard ranges.bakingCommissionRange.min ... ranges.bakingCommissionRange.max ~= bakingRewardCommission else {
-            return BakerCommissionSettingError.bakingRewardOutOfRange
-        }
-
-        guard ranges.finalizationCommissionRange.min ... ranges.finalizationCommissionRange.max ~= finalizationRewardCommission else {
-            return BakerCommissionSettingError.finalizationRewardOutOfRange
-        }
-
-        guard ranges.transactionCommissionRange.min ... ranges.transactionCommissionRange.max ~= transactionFeeCommission else {
-            return BakerCommissionSettingError.transactionFeeOutOfRange
-        }
-        return nil
+        )
+        didTapContinue()
     }
 
     private func updateCommissionValues(baking: Double, transaction: Double, finalization: Double) {
