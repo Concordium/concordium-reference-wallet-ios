@@ -101,12 +101,6 @@ class BakerCommissionSettingsViewModel: ObservableObject {
                     )
                     return
                 }
-                self.updateCommissionValues(
-                    baking: response.bakingCommissionRange.max,
-                    transaction: response.transactionCommissionRange.max,
-                    finalization: response.finalizationCommissionRange.max
-                )
-
             case let .failure(error):
                 self.error = .networkError(error)
             }
