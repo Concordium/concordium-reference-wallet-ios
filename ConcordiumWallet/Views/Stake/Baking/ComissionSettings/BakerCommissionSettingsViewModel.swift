@@ -22,15 +22,12 @@ extension NumberFormatter {
 enum BakerCommissionSettingError: LocalizedError {
     case transactionFeeOutOfRange
     case bakingRewardOutOfRange
-    case finalizationRewardOutOfRange
     case networkError(Error)
 
     var errorMessage: String {
         switch self {
         case .bakingRewardOutOfRange:
             return "Baking reward is out of specified range"
-        case .finalizationRewardOutOfRange:
-            return "Finalization reward is out of specified range"
         case .transactionFeeOutOfRange:
             return "Transaction fee is out of specified range"
         case let .networkError(error):
@@ -135,10 +132,6 @@ class BakerCommissionSettingsViewModel: ObservableObject {
 
         guard ranges.bakingCommissionRange.min ... ranges.bakingCommissionRange.max ~= bakingRewardCommission else {
             return BakerCommissionSettingError.bakingRewardOutOfRange
-        }
-
-        guard ranges.finalizationCommissionRange.min ... ranges.finalizationCommissionRange.max ~= finalizationRewardCommission else {
-            return BakerCommissionSettingError.finalizationRewardOutOfRange
         }
 
         guard ranges.transactionCommissionRange.min ... ranges.transactionCommissionRange.max ~= transactionFeeCommission else {
