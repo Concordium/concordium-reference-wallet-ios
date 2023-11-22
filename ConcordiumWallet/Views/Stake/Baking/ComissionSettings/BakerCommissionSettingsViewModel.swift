@@ -42,7 +42,6 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     @Published var bakingRewardCommission: Double = 0
 
     @Published var error: BakerCommissionSettingError?
-    var dismissView: () -> Void
     private var cancellables = Set<AnyCancellable>()
     private var didTapContinue: () -> Void
     private var service: StakeServiceProtocol
@@ -51,31 +50,26 @@ class BakerCommissionSettingsViewModel: ObservableObject {
     init(
         service: StakeServiceProtocol,
         handler: StakeDataHandler,
-        didTapContinue: @escaping (() -> Void),
-        dismissView: @escaping (() -> Void)
+        didTapContinue: @escaping (() -> Void)
     ) {
         self.service = service
         self.didTapContinue = didTapContinue
         self.handler = handler
-        self.dismissView = dismissView
     }
 
-    func fetchData() {
-        service.getChainParameters()
-            .asResult().sink { result in
-                switch result {
-                case let .success(response):
-                    self.updateCommissionValues(
-                        baking: response.bakingCommissionRange.min + (response.bakingCommissionRange.max - response.bakingCommissionRange.min) * 0.1,
-                        transaction: response.transactionCommissionRange.min + (response.transactionCommissionRange.max - response.transactionCommissionRange.min) * 0.1,
-                        finalization: response.finalizationCommissionRange.min + (response.finalizationCommissionRange.max - response.finalizationCommissionRange.min) * 0.1
-                    )
-                    return
-                case let .failure(error):
-                    self.error = .networkError(error)
-                }
-            }
-            .store(in: &cancellables)
+    func loadData() {
+        // This covers a scenario when updating pool settings.
+        // The values are not editable but, we have to diffrentiate between the flow setting up new validator and editing the current one.
+        if let data = handler.getCurrentEntry(BakerCommissionData.self) {
+            transactionFeeCommission = data.transactionComission
+            bakingRewardCommission = data.bakingRewardComission
+            finalizationRewardCommission = data.finalizationRewardComission
+        } else if let data = handler.getNewEntry(BakerCommissionData.self) {
+            // This covers a scenario when setting up new validator account.
+            transactionFeeCommission = data.transactionComission
+            bakingRewardCommission = data.bakingRewardComission
+            finalizationRewardCommission = data.finalizationRewardComission
+        }
     }
 
     func continueButtonTapped() {
@@ -87,11 +81,5 @@ class BakerCommissionSettingsViewModel: ObservableObject {
             )
         )
         didTapContinue()
-    }
-
-    private func updateCommissionValues(baking: Double, transaction: Double, finalization: Double) {
-        transactionFeeCommission = transaction
-        bakingRewardCommission = baking
-        finalizationRewardCommission = finalization
     }
 }

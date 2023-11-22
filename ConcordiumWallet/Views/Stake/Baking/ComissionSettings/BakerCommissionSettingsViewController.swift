@@ -38,7 +38,7 @@ class BakerCommissionSettingsViewController: BaseViewController, Storyboarded, L
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchData()
+        viewModel.loadData()
         setupDescriptionAttributes()
         setupBindings()
     }
@@ -77,19 +77,23 @@ class BakerCommissionSettingsViewController: BaseViewController, Storyboarded, L
     }
 
     private func setupBindings() {
-        viewModel.$transactionFeeCommission
-            .compactMap { [weak self] in
-                guard let self = self else { return nil }
-                return "\(self.formatter.string(from: NSNumber(value: $0))!)%"
-            }
-            .assign(to: \.text, on: transactionFeeAmountLabel)
-            .store(in: &cancellables)
-        viewModel.$bakingRewardCommission
-            .compactMap { [weak self] in
-                guard let self = self else { return nil }
-                return "\(self.formatter.string(from: NSNumber(value: $0))!)%"
-            }
-            .assign(to: \.text, on: bakingRewardFeeLabel)
-            .store(in: &cancellables)
+        if let label = transactionFeeAmountLabel {
+            viewModel.$transactionFeeCommission
+                .compactMap { [weak self] in
+                    guard let self = self else { return nil }
+                    return "\(self.formatter.string(from: NSNumber(value: $0))!)%"
+                }
+                .assign(to: \.text, on: label)
+                .store(in: &cancellables)
+        }
+        if let label = bakingRewardFeeLabel {
+            viewModel.$bakingRewardCommission
+                .compactMap { [weak self] in
+                    guard let self = self else { return nil }
+                    return "\(self.formatter.string(from: NSNumber(value: $0))!)%"
+                }
+                .assign(to: \.text, on: label)
+                .store(in: &cancellables)
+        }
     }
 }

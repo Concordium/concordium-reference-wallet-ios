@@ -117,11 +117,8 @@ class BakingCoordinator: Coordinator {
             service: dependencyProvider.stakeService(),
             handler: dataHandler,
             didTapContinue: { [weak self] in
-            self?.showMetadataUrl(dataHandler: dataHandler)
-            }) { [weak self] in
-                self?.navigationController.popViewController(animated: true)
-            }
-
+                self?.showMetadataUrl(dataHandler: dataHandler)
+            })
         let vc = BakerCommissionSettingsViewFactory.create(with: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
