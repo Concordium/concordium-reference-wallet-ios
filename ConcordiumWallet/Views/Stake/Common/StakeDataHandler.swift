@@ -356,13 +356,28 @@ struct RestakeBakerData: SimpleFieldValue {
     }
 }
 
-struct BakerComissionData: FieldValue {
+struct BakerCommissionData: FieldValue {
     let field = Field.bakerComission
     let bakingRewardComission: Double
     let finalizationRewardComission: Double
     let transactionComission: Double
-    
-    func getDisplayValues(type: TransferType) -> [DisplayValue] { [] }
+    let formatter: NumberFormatter = NumberFormatter.commissionFormatter
+    func getDisplayValues(type: TransferType) -> [DisplayValue] {
+        [
+            DisplayValue(
+                key: "Baking reward comission",
+                value: formatter.string(from: NSNumber(value: bakingRewardComission)) ?? "\(bakingRewardComission)"
+            ),
+            DisplayValue(
+                key: "Finalization reward comission",
+                value: formatter.string(from: NSNumber(value: finalizationRewardComission)) ?? "\(finalizationRewardComission)"
+            ),
+            DisplayValue(
+                key: "Transaction comission".localized,
+                value: formatter.string(from: NSNumber(value: transactionComission)) ?? "\(transactionComission)"
+            )
+        ]
+    }
     
     func getCostParameters(type: TransferType) -> [TransferCostParameter] {
         if type == .updateBakerPool || type == .configureBaker {
