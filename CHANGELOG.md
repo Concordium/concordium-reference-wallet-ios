@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Renamed baker/baking to validator/validation.
+
 ## [3.2.1]
 
 ### Changed
