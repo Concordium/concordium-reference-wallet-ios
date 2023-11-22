@@ -18,9 +18,7 @@ class BakerCommissionSettingsViewFactory {
 }
 
 extension BakerCommissionSettingsViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        return true
-    }
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool { true }
 }
 
 class BakerCommissionSettingsViewController: BaseViewController, Storyboarded, Loadable {
