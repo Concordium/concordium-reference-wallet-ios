@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Renamed baker/baking to validator/validation.
+
+## [1.2.0] - 2023-10-06
+
+### Added
+
+- Support for managing fungible and non-fungible tokens. This includes adding, inspecting, and removing tokens.
+
+## [1.1.1] - 2023-07-28
+
 ### Changed
 
 - Removed election difficulty from expected chain parameters.

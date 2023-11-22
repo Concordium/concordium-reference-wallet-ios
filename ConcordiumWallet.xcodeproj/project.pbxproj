@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,10 @@
 		0111D7392A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		0111D73A2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
 		0111D73B2A2DFEB800E05D35 /* UIViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */; };
+		01145A3D2B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
+		01145A3E2B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
+		01145A3F2B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
+		01145A402B03A4F8008331F5 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */; };
 		011576122ABAFE8C00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576112ABAFE8C00D24173 /* BigInt */; };
 		011576142ABAFEB900D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576132ABAFEB900D24173 /* BigInt */; };
 		011576162ABAFEBF00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576152ABAFEBF00D24173 /* BigInt */; };
@@ -41,6 +45,10 @@
 		012888A42A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
 		012888A52A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
 		012888A62A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
+		01306D1B2AFA69300002BA64 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01306D1A2AFA69300002BA64 /* Binding.swift */; };
+		01306D1C2AFA69300002BA64 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01306D1A2AFA69300002BA64 /* Binding.swift */; };
+		01306D1D2AFA69300002BA64 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01306D1A2AFA69300002BA64 /* Binding.swift */; };
+		01306D1E2AFA69300002BA64 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01306D1A2AFA69300002BA64 /* Binding.swift */; };
 		0131338D2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */; };
 		0131338E2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */; };
 		0131338F2A386C9E0050AE93 /* WCDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */; };
@@ -104,6 +112,10 @@
 		018EEDF02A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF12A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		018EEDF22A4DC053000EC02C /* (null) in Sources */ = {isa = PBXBuildFile; };
+		018FDABC2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FDABB2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift */; };
+		018FDABD2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FDABB2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift */; };
+		018FDABE2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FDABB2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift */; };
+		018FDABF2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FDABB2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift */; };
 		01A6EE452AAB0F8500F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE442AAB0F8500F2C19B /* SDWebImageSVGCoder */; };
 		01A6EE472AAB0FF300F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE462AAB0FF300F2C19B /* SDWebImageSVGCoder */; };
 		01A6EE492AAB0FF800F2C19B /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 01A6EE482AAB0FF800F2C19B /* SDWebImageSVGCoder */; };
@@ -170,6 +182,10 @@
 		01EBC3FD2A556DF600D15E91 /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC3F72A556DF600D15E91 /* SignClientProtocol+Nuke.swift */; };
 		01EBC3FE2A556DF600D15E91 /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC3F72A556DF600D15E91 /* SignClientProtocol+Nuke.swift */; };
 		01EBC3FF2A556DF600D15E91 /* SignClientProtocol+Nuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC3F72A556DF600D15E91 /* SignClientProtocol+Nuke.swift */; };
+		01FB2A6A2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB2A692AF15CD80081FE5C /* BakerCommissionSettingsView.swift */; };
+		01FB2A6B2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB2A692AF15CD80081FE5C /* BakerCommissionSettingsView.swift */; };
+		01FB2A6C2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB2A692AF15CD80081FE5C /* BakerCommissionSettingsView.swift */; };
+		01FB2A6D2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB2A692AF15CD80081FE5C /* BakerCommissionSettingsView.swift */; };
 		0604236E23FD617F0085D14C /* TransparentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604236D23FD617F0085D14C /* TransparentNavigationController.swift */; };
 		067D766923FC1AF9002DEF67 /* LoginInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */; };
 		067D766B23FC1B42002DEF67 /* LoginWarningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */; };
@@ -2810,8 +2826,10 @@
 		0111D7242A2DFE7000E05D35 /* WalletConnectAccountSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountSelectView.swift; sourceTree = "<group>"; };
 		0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountItemView.swift; sourceTree = "<group>"; };
 		0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SwiftUI.swift"; sourceTree = "<group>"; };
+		01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
 		011576182ABAFF6600D24173 /* BigInt+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+String.swift"; sourceTree = "<group>"; };
 		012888A22A7A7572007D5325 /* AccountTokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensViewController.swift; sourceTree = "<group>"; };
+		01306D1A2AFA69300002BA64 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDebugViewController.swift; sourceTree = "<group>"; };
 		013133922A389E960050AE93 /* WalletConnectActionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectActionRequestView.swift; sourceTree = "<group>"; };
 		0152810C2A3C789500493615 /* WalletConnectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectCoordinator.swift; sourceTree = "<group>"; };
@@ -2825,6 +2843,7 @@
 		017A5F332A49B9CA00E80B56 /* ContractUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdatePayload.swift; sourceTree = "<group>"; };
 		017A5F362A49BA0300E80B56 /* ContractUpdateParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractUpdateParams.swift; sourceTree = "<group>"; };
 		017A5F382A49BA1900E80B56 /* WalletConnectError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectError.swift; sourceTree = "<group>"; };
+		018FDABB2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerCommissionSettingsViewModel.swift; sourceTree = "<group>"; };
 		01A91AA62A8E7D3F00735D23 /* CIS2TokensInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensInfo.swift; sourceTree = "<group>"; };
 		01A91AA82A8E7D7F00735D23 /* CIS2TokensMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensMetadata.swift; sourceTree = "<group>"; };
 		01A91AAA2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokensMetadataItem.swift; sourceTree = "<group>"; };
@@ -2840,6 +2859,7 @@
 		01E61BAA2A83C0E900F3EEF6 /* TokenLookupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLookupView.swift; sourceTree = "<group>"; };
 		01EBC3F62A556DF600D15E91 /* PairingInteracting+Nuke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PairingInteracting+Nuke.swift"; sourceTree = "<group>"; };
 		01EBC3F72A556DF600D15E91 /* SignClientProtocol+Nuke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignClientProtocol+Nuke.swift"; sourceTree = "<group>"; };
+		01FB2A692AF15CD80081FE5C /* BakerCommissionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BakerCommissionSettingsView.swift; sourceTree = "<group>"; };
 		0604236D23FD617F0085D14C /* TransparentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentNavigationController.swift; sourceTree = "<group>"; };
 		067D766823FC1AF9002DEF67 /* LoginInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfoLabel.swift; sourceTree = "<group>"; };
 		067D766A23FC1B42002DEF67 /* LoginWarningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWarningLabel.swift; sourceTree = "<group>"; };
@@ -3739,6 +3759,15 @@
 				0154A6712A8548BF00C33954 /* CIS2Service.swift */,
 			);
 			path = TokenLookup;
+			sourceTree = "<group>";
+		};
+		01FB2A682AF15CC20081FE5C /* ComissionSettings */ = {
+			isa = PBXGroup;
+			children = (
+				018FDABB2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift */,
+				01FB2A692AF15CD80081FE5C /* BakerCommissionSettingsView.swift */,
+			);
+			path = ComissionSettings;
 			sourceTree = "<group>";
 		};
 		0604236C23FD61560085D14C /* NavigationController */ = {
@@ -5462,6 +5491,7 @@
 		90C371CC27DF24D10046F05E /* Baking */ = {
 			isa = PBXGroup;
 			children = (
+				01FB2A682AF15CC20081FE5C /* ComissionSettings */,
 				89CF2D52281A537B00742E1E /* Status */,
 				89CF2D3828168B1200742E1E /* Receipt */,
 				89E1A76727FFF5D1008C761B /* PoolSettings */,
@@ -5668,6 +5698,8 @@
 				FA01C9C9291C5D3000BD8738 /* UIViewController+Helper.swift */,
 				FA01C9BE291C5D2E00BD8738 /* UserDefaults+Helper.swift */,
 				FA0CAAF42937DD750009D5F8 /* UITapGestureRecognizer.swift */,
+				01306D1A2AFA69300002BA64 /* Binding.swift */,
+				01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6340,6 +6372,7 @@
 				8928970B289A6464009688F1 /* Net.swift in Sources */,
 				8D61F4752955E845005E9410 /* ButtonSlider.swift in Sources */,
 				9074C71427D9314B00B2DFD8 /* StakeDataHandler.swift in Sources */,
+				01FB2A6A2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */,
 				89D467FB289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
 				7F48C267244E17D100997684 /* Description.swift in Sources */,
 				FA01C9FA291C5D3100BD8738 /* UINavigationItem+Helper.swift in Sources */,
@@ -6615,6 +6648,7 @@
 				010BCB002A2F563000B50D67 /* SocketFactory.swift in Sources */,
 				7F48C1BE244DCD0B00997684 /* IdentityDataSelectionCell.swift in Sources */,
 				7F168A0824812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
+				01306D1B2AFA69300002BA64 /* Binding.swift in Sources */,
 				8D9E398A2950552E007ED183 /* ExportTransactionLogPresenter.swift in Sources */,
 				C96632512459B85A0087A1F2 /* AccountTransactionsDataViewController.swift in Sources */,
 				01E61BA52A81B13800F3EEF6 /* AccountTokensTableViewCell.swift in Sources */,
@@ -6661,6 +6695,7 @@
 				01B939E62AB269C2001CE935 /* SerializeTokenTransferParametersInput.swift in Sources */,
 				7FA0AE9B246047AA00B7673F /* OriginTypeEnum.swift in Sources */,
 				52B2CE4924F6806B0092F8EB /* ArsInfo.swift in Sources */,
+				01145A3D2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				8DD48C7A2953136E00CA9085 /* EarnView.swift in Sources */,
 				7F48C1DA244DCD0B00997684 /* LetterSpacingLabel.swift in Sources */,
 				FABA9D95291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
@@ -6847,6 +6882,7 @@
 				901F7EF327E9D98C00C46741 /* TransferCostParameters.swift in Sources */,
 				01A91AAD2A8E7DB900735D23 /* CIS2TokenMetadataDetails.swift in Sources */,
 				901F7F1127EA0D5C00C46741 /* PoolInfo.swift in Sources */,
+				018FDABC2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */,
 				19C2EC8929F409BF6C6AEFFD /* IdentityImporter.swift in Sources */,
 				8DD48C762953133F00CA9085 /* EarnPresenter.swift in Sources */,
 				901F7F9627F33C8800C46741 /* MintDistribution.swift in Sources */,
@@ -7039,6 +7075,7 @@
 				901F7FAD27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				90C371DB27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
 				901F7FA427F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
+				01FB2A6C2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */,
 				7F85B740246A9A7C00ED09B8 /* Policy.swift in Sources */,
 				8D61F4772955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B741246A9A7C00ED09B8 /* IdentitiesCoordinator.swift in Sources */,
@@ -7172,6 +7209,7 @@
 				901F7F3227EB023100C46741 /* AccountDelegation.swift in Sources */,
 				7F85B778246A9A7C00ED09B8 /* TransactionDetailPresenter.swift in Sources */,
 				7F85B779246A9A7C00ED09B8 /* MakeCreateTransferRequest.swift in Sources */,
+				018FDABE2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */,
 				7F85B77A246A9A7C00ED09B8 /* IPArDatum.swift in Sources */,
 				07DEC16D26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B77B246A9A7C00ED09B8 /* IPInfo.swift in Sources */,
@@ -7236,6 +7274,7 @@
 				7F85B79C246A9A7C00ED09B8 /* RequestPasswordDelegate.swift in Sources */,
 				7F85B79D246A9A7C00ED09B8 /* GeneralError.swift in Sources */,
 				7F85B79E246A9A7C00ED09B8 /* AccountAddressQRPresenter.swift in Sources */,
+				01306D1D2AFA69300002BA64 /* Binding.swift in Sources */,
 				7F5F77862487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5EC26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8026FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
@@ -7276,6 +7315,7 @@
 				7F85B7A6246A9A7C00ED09B8 /* SelectRecipientViewController.swift in Sources */,
 				07519F9426FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				896B41D528B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
+				01145A3F2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				528EB751255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D46819289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAA924FD1D5100EE1658 /* Balance.swift in Sources */,
@@ -7624,6 +7664,7 @@
 				901F7FAE27F5E31600C46741 /* ChainParametersEntity.swift in Sources */,
 				90C371DC27DF46410046F05E /* DelegationReceiptPresenter.swift in Sources */,
 				901F7FA527F33C8800C46741 /* TransactionFeeDistribution.swift in Sources */,
+				01FB2A6D2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */,
 				7F85B83D246A9AB600ED09B8 /* BiometricsEnablingPresenter.swift in Sources */,
 				8D61F4782955E845005E9410 /* ButtonSlider.swift in Sources */,
 				7F85B83F246A9AB600ED09B8 /* Policy.swift in Sources */,
@@ -7757,6 +7798,7 @@
 				901F7F3327EB023100C46741 /* AccountDelegation.swift in Sources */,
 				7F85B872246A9AB600ED09B8 /* AccountConfirmedViewController.swift in Sources */,
 				7FB64A08247BC9FB00DC500E /* ExportService.swift in Sources */,
+				018FDABF2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */,
 				7F85B873246A9AB600ED09B8 /* AccountDetailsViewController.swift in Sources */,
 				07DEC16E26F0D55A0094395E /* CommitmentsRandomness.swift in Sources */,
 				7F85B874246A9AB600ED09B8 /* CreateTransferRequest.swift in Sources */,
@@ -7821,6 +7863,7 @@
 				7F85B899246A9AB600ED09B8 /* OutcomeEnum.swift in Sources */,
 				7F85B89A246A9AB600ED09B8 /* RequestPasswordPresenter.swift in Sources */,
 				7F85B89B246A9AB600ED09B8 /* RequestPasswordDelegate.swift in Sources */,
+				01306D1E2AFA69300002BA64 /* Binding.swift in Sources */,
 				7F5F77872487D3C30016F8D1 /* IdentityProviderWebViewPresenter.swift in Sources */,
 				077AC5ED26E7889B0016BF26 /* ContactSupportButtonWidgetPresenter.swift in Sources */,
 				07519F8126FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
@@ -7861,6 +7904,7 @@
 				7F85B8A3246A9AB600ED09B8 /* SendFundViewController.swift in Sources */,
 				07519F9526FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
 				896B41D628B374A200D1F271 /* IDPIdentityRequest.swift in Sources */,
+				01145A402B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				528EB752255C320600010554 /* InitialAccountInfoPresenter.swift in Sources */,
 				89D4681A289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
 				5211BAAA24FD1D5100EE1658 /* Balance.swift in Sources */,
@@ -8190,6 +8234,7 @@
 				06AA2AA023F688C60001F964 /* CreateIdentityCoordinator.swift in Sources */,
 				07519F7F26FB68C700F4E6E3 /* HapticFeedbackHelper.swift in Sources */,
 				529531AE256BA711004CECE4 /* AccountReleaseSchedule.swift in Sources */,
+				01FB2A6B2AF15CD80081FE5C /* BakerCommissionSettingsView.swift in Sources */,
 				FABA9D96291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				896B423528B495D400D1F271 /* SelectIdentityViewModel.swift in Sources */,
 				89EB9F4F27FEDCF5005F8633 /* BakerPoolGenerateKeyPresenter.swift in Sources */,
@@ -8234,6 +8279,7 @@
 				C938F531241E789A00ECAD47 /* CreateAccountCoordinator.swift in Sources */,
 				C9BB9FE12444AB3900AE0884 /* GeneralFormatter.swift in Sources */,
 				89D46801289BA089007D3FC8 /* SeedMobileWallet.swift in Sources */,
+				01145A3E2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				7FF07AD423EADBB100F1FC04 /* BaseNavigationController.swift in Sources */,
 				89D46877289D2233007D3FC8 /* SeedIdentityStatusPresenter.swift in Sources */,
 				010BCB012A2F563000B50D67 /* SocketFactory.swift in Sources */,
@@ -8499,6 +8545,7 @@
 				909EAF1F27F71FAD001930AE /* PendingChangeEntity.swift in Sources */,
 				8992BA562828E713005279C9 /* PassiveDelegation.swift in Sources */,
 				19C2E365F833136A91177D42 /* AddRecipientViewController.swift in Sources */,
+				01306D1C2AFA69300002BA64 /* Binding.swift in Sources */,
 				89D4683E289BE895007D3FC8 /* SelectIdentityProviderPresenter.swift in Sources */,
 				19C2E321C4CCC444BF89ED2E /* SendFundsCoordinator.swift in Sources */,
 				89D467F2289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
@@ -8509,6 +8556,7 @@
 				909EAF2427F72058001930AE /* AccountPendingChangeType.swift in Sources */,
 				19C2EDF1839B4F4F8FE11A76 /* GTU.swift in Sources */,
 				8992BAB4283630F4005279C9 /* String+Links.swift in Sources */,
+				018FDABD2AF9560600F0C54B /* BakerCommissionSettingsViewModel.swift in Sources */,
 				19C2E42A5B0156D1AA877CBA /* AccountDetailsViewModel.swift in Sources */,
 				19C2E17E671E62F0C6925443 /* AccountTransactionsLoadingCellView.swift in Sources */,
 				01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
@@ -8726,7 +8774,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8759,7 +8807,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8777,9 +8825,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8795,12 +8843,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development software.concordium.mobilewallet.seedphrase.testnet";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8815,9 +8863,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8833,12 +8881,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development software.concordium.mobilewallet.seedphrase.testnet";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8854,7 +8902,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8869,7 +8917,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8890,7 +8938,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8905,7 +8953,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9044,7 +9092,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -9059,7 +9107,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9079,7 +9127,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -9094,7 +9142,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

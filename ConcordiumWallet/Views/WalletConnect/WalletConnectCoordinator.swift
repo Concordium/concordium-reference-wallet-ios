@@ -21,11 +21,11 @@ class WalletConnectCoordinator: Coordinator {
     init(
         navigationController: UINavigationController,
         dependencyProvider: DependencyProvider,
-        parentCoordiantor: WalletConnectCoordiantorDelegate
+        parentCoordinator: WalletConnectCoordiantorDelegate
     ) {
         self.dependencyProvider = dependencyProvider
         self.navigationController = navigationController
-        parentCoordinator = parentCoordiantor
+        self.parentCoordinator = parentCoordinator
 
         let metadata = AppMetadata(
             name: "Concordium",
@@ -47,6 +47,10 @@ class WalletConnectCoordinator: Coordinator {
 
     func start() {
         showWalletConnectScanner()
+    }
+
+    func start(with uri: String) {
+        pairWalletConnect(with: uri)
     }
 
     func nukeWalletConnectSessionsAndPairings() {
@@ -108,6 +112,7 @@ private extension WalletConnectCoordinator {
 
                 let viewModel = WalletConnectAccountSelectViewModel(
                     storageManager: self.dependencyProvider.storageManager(),
+                    
                     didSelect: { [weak self] account in
                         self?.navigationController.pushViewController(
                             UIHostingController(
@@ -146,7 +151,6 @@ private extension WalletConnectCoordinator {
                                                     self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
                                                 }
                                             }
-
                                             // Pop the VC without waiting for rejection to complete.
                                             self?.navigationController.popToRootViewController(animated: true)
                                         },
@@ -156,6 +160,10 @@ private extension WalletConnectCoordinator {
                             ),
                             animated: true
                         )
+                    }, dismissView: { [weak self] in
+                        self?.navigationController.popViewController(animated: true)
+                        self?.parentCoordinator?.dismissWalletConnectCoordinator()
+                        self?.nukeWalletConnectSessionsAndPairings()
                     }
                 )
 
@@ -587,14 +595,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     if !value.hasPrefix("wc:") {
                         return false
                     }
-                    Task {
-                        do {
-                            try await Pair.instance.pair(uri: WalletConnectURI(string: value)!)
-                        } catch let err {
-                            self?.navigationController.popViewController(animated: true)
-                            self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
-                        }
-                    }
+                    self?.pairWalletConnect(with: value)
                     return true
                 }, viewDidDisappear: { [weak self] in
                     self?.nukeWalletConnectSessionsAndPairings()
@@ -603,6 +604,22 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
             )
         )
         navigationController.pushViewController(vc, animated: true)
+    }
+
+    private func pairWalletConnect(with uri: String) {
+        Task { [weak self] in
+            do {
+                guard let uri = WalletConnectURI(string: uri) else {
+                    self?.presentError(with: "errorAlert.title".localized, message: "Unable to initialize WalletConnectURI.")
+                    return
+                }
+                try await Pair.instance.pair(uri: uri)
+            } catch let err {
+                self?.navigationController.popViewController(animated: true)
+                self?.presentError(with: "errorAlert.title".localized, message: err.localizedDescription)
+                self?.parentCoordinator?.dismissWalletConnectCoordinator()
+            }
+        }
     }
 
     func presentError(with title: String, message: String) {
@@ -622,6 +639,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                 )
             } catch let err {
                 self?.presentError(with: "errorAlert.title".localized, message: "Cannot respond status to the dApp: \(err.localizedDescription)")
+                self?.parentCoordinator?.dismissWalletConnectCoordinator()
             }
         }
         if shouldPresent {
@@ -641,6 +659,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
                     with: "errorAlert.title".localized,
                     message: "Cannot repsond status to the dApp: \(err.localizedDescription)"
                 )
+                self?.parentCoordinator?.dismissWalletConnectCoordinator()
             }
         }
         

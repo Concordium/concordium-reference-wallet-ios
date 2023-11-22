@@ -836,3 +836,85 @@ class ScanQRViewProtocolMock: ScanQRViewProtocol {
         showQrInvalidClosure?()
     }
 }
+
+class StakeServiceProtocolMock: StakeServiceProtocol {
+    // MARK: - getBakerPool
+
+    var getBakerPoolBakerIdCallsCount = 0
+    var getBakerPoolBakerIdCalled: Bool {
+        return getBakerPoolBakerIdCallsCount > 0
+    }
+
+    var getBakerPoolBakerIdReceivedBakerId: Int?
+    var getBakerPoolBakerIdReceivedInvocations: [Int] = []
+    var getBakerPoolBakerIdReturnValue: AnyPublisher<BakerPoolResponse, Error>!
+    var getBakerPoolBakerIdClosure: ((Int) -> AnyPublisher<BakerPoolResponse, Error>)?
+
+    func getBakerPool(bakerId: Int) -> AnyPublisher<BakerPoolResponse, Error> {
+        getBakerPoolBakerIdCallsCount += 1
+        getBakerPoolBakerIdReceivedBakerId = bakerId
+        getBakerPoolBakerIdReceivedInvocations.append(bakerId)
+        if let getBakerPoolBakerIdClosure = getBakerPoolBakerIdClosure {
+            return getBakerPoolBakerIdClosure(bakerId)
+        } else {
+            return getBakerPoolBakerIdReturnValue
+        }
+    }
+
+    // MARK: - getPassiveDelegation
+
+    var getPassiveDelegationCallsCount = 0
+    var getPassiveDelegationCalled: Bool {
+        return getPassiveDelegationCallsCount > 0
+    }
+
+    var getPassiveDelegationReturnValue: AnyPublisher<PassiveDelegation, Error>!
+    var getPassiveDelegationClosure: (() -> AnyPublisher<PassiveDelegation, Error>)?
+
+    func getPassiveDelegation() -> AnyPublisher<PassiveDelegation, Error> {
+        getPassiveDelegationCallsCount += 1
+        if let getPassiveDelegationClosure = getPassiveDelegationClosure {
+            return getPassiveDelegationClosure()
+        } else {
+            return getPassiveDelegationReturnValue
+        }
+    }
+
+    // MARK: - getChainParameters
+
+    var getChainParametersCallsCount = 0
+    var getChainParametersCalled: Bool {
+        return getChainParametersCallsCount > 0
+    }
+
+    var getChainParametersReturnValue: AnyPublisher<ChainParametersResponse, Error>!
+    var getChainParametersClosure: (() -> AnyPublisher<ChainParametersResponse, Error>)?
+
+    func getChainParameters() -> AnyPublisher<ChainParametersResponse, Error> {
+        getChainParametersCallsCount += 1
+        if let getChainParametersClosure = getChainParametersClosure {
+            return getChainParametersClosure()
+        } else {
+            return getChainParametersReturnValue
+        }
+    }
+
+    // MARK: - generateBakerKeys
+
+    var generateBakerKeysCallsCount = 0
+    var generateBakerKeysCalled: Bool {
+        return generateBakerKeysCallsCount > 0
+    }
+
+    var generateBakerKeysReturnValue: Result<GeneratedBakerKeys, Error>!
+    var generateBakerKeysClosure: (() -> Result<GeneratedBakerKeys, Error>)?
+
+    func generateBakerKeys() -> Result<GeneratedBakerKeys, Error> {
+        generateBakerKeysCallsCount += 1
+        if let generateBakerKeysClosure = generateBakerKeysClosure {
+            return generateBakerKeysClosure()
+        } else {
+            return generateBakerKeysReturnValue
+        }
+    }
+}

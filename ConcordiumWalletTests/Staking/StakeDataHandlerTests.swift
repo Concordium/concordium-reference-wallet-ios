@@ -26,7 +26,7 @@ class StakeDataHandlerTests: XCTestCase {
         dataHandler.add(entry: BakerPoolSettingsData(poolSettings: .open))
         dataHandler.add(entry: BakerMetadataURLData(metadataURL: "https://example.com"))
         dataHandler.add(entry: BakerKeyData(keys: .randomKeys))
-        dataHandler.add(entry: BakerComissionData(
+        dataHandler.add(entry: BakerCommissionData(
             bakingRewardComission: 0.5,
             finalizationRewardComission: 1.0,
             transactionComission: 1.5
@@ -55,7 +55,7 @@ class StakeDataHandlerTests: XCTestCase {
         dataHandler.add(entry: RestakeBakerData(restake: true))
         dataHandler.add(entry: BakerPoolSettingsData(poolSettings: .closed))
         dataHandler.add(entry: BakerKeyData(keys: .randomKeys))
-        dataHandler.add(entry: BakerComissionData(
+        dataHandler.add(entry: BakerCommissionData(
             bakingRewardComission: 0.5,
             finalizationRewardComission: 1.0,
             transactionComission: 1.5
@@ -233,8 +233,8 @@ class StakeDataHandlerTests: XCTestCase {
         assertDisplayValues(
             actualValues: closedDisplayValues,
             expectedValues: [
-                DisplayValue(key: "Account to register as baker", value: "\(account.name ?? "")\n\n\(account.address)"),
-                DisplayValue(key: "Baker stake", value: amount.displayValueWithGStroke()),
+                DisplayValue(key: "Account to register as validator", value: "\(account.name ?? "")\n\n\(account.address)"),
+                DisplayValue(key: "Validator stake", value: amount.displayValueWithGStroke()),
                 DisplayValue(key: "Rewards will be", value: "Added to stake"),
                 DisplayValue(key: "Delegation pool status", value: "Closed for delegation"),
                 DisplayValue(key: "Election verify key", value: keys.electionVerifyKey.splitInto(lines: 2)),

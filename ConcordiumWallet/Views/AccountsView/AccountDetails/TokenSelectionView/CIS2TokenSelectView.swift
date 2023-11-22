@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CIS2TokenSelectView: View {
     @State private var tokenIndex: String = ""
-    @State var selectedItems: Set<CIS2TokenSelectionRepresentable> = []
+    @State var selectedItems: Set<CIS2TokenSelectionRepresentable>
     var popView: () -> Void
     var showDetails: (_ token: CIS2TokenSelectionRepresentable) -> Void
     var didUpdateTokens: () -> Void
@@ -37,7 +37,7 @@ struct CIS2TokenSelectView: View {
         self.contractIndex = contractIndex
         self.showDetails = showDetails
         self.service = service
- 
+        _selectedItems = State(initialValue: Set(service.observedTokens(for: accountAdress, filteredBy: contractIndex)))
     }
 
     var body: some View {
@@ -91,7 +91,7 @@ struct CIS2TokenSelectView: View {
                                 Button {
                                     didSelect(item: model)
                                 } label: {
-                                    Image(systemName: selectedItems.contains { $0 == model } ? "checkmark.square.fill" : "square")
+                                    Image(systemName: selectedItems.contains { $0.tokenId == model.tokenId } ? "checkmark.square.fill" : "square")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 20, height: 20)
@@ -129,13 +129,12 @@ struct CIS2TokenSelectView: View {
                 .cornerRadius(10)
             }
         }
-        .onAppear()
         .padding()
     }
 
     func didSelect(item: CIS2TokenSelectionRepresentable) {
-        if selectedItems.contains(where: { $0 == item }) {
-            selectedItems.remove(item)
+        if let index = selectedItems.firstIndex(where: { $0.tokenId == item.tokenId }) {
+            selectedItems.remove(at: index)
         } else {
             selectedItems.insert(item)
         }

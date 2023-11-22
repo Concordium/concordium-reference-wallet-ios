@@ -21,6 +21,7 @@ protocol CIS2ServiceProtocol {
 
     func observedTokensPublisher(for accountAddress: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
     func observedTokensPublisher(for accountAddress: String, filteredBy contractIndex: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
+    func observedTokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenSelectionRepresentable]
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -36,6 +37,12 @@ class CIS2Service: CIS2ServiceProtocol {
         observedTokensPublisher(for: accountAddress)
             .map { $0.filter { $0.contractIndex == contractIndex } }
             .eraseToAnyPublisher()
+    }
+
+    func observedTokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenSelectionRepresentable] {
+        storageManager.getUserStoredCIS2Tokens(for: accountAddress, filteredBy: contractIndex).map {
+            transformCIS2Token(from: $0)
+        }
     }
 
     func observedTokensPublisher(for accountAddress: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
@@ -62,8 +69,8 @@ class CIS2Service: CIS2ServiceProtocol {
             .eraseToAnyPublisher()
     }
 
-    private func map(entity: CIS2TokenOwnershipEntity) -> CIS2TokenSelectionRepresentable {
-        return CIS2TokenSelectionRepresentable(
+    private func transformCIS2Token(from entity: CIS2TokenOwnershipEntity) -> CIS2TokenSelectionRepresentable {
+        CIS2TokenSelectionRepresentable(
             contractName: entity.contractName,
             tokenId: entity.tokenId,
             balance: .zero,
@@ -91,7 +98,8 @@ class CIS2Service: CIS2ServiceProtocol {
             ResourceRequest(
                 url: ApiConstants.cis2Tokens
                     .appendingPathComponent(contractIndex)
-                    .appendingPathComponent(contractSubindex)
+                    .appendingPathComponent(contractSubindex),
+                parameters: ["limit" : "1000"]
             )
         )
     }

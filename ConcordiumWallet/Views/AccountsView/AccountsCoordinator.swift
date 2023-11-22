@@ -240,7 +240,6 @@ extension AccountsCoordinator: SeedIdentitiesCoordinatorDelegate {
     func seedIdentityCoordinatorWasFinished(for identity: IdentityDataType) {
         navigationController.dismiss(animated: true)
         childCoordinators.removeAll(where: { $0 is SeedIdentitiesCoordinator })
-
         NotificationCenter.default.post(name: Notification.Name("seedAccountCoordinatorWasFinishedNotification"), object: nil)
     }
 }
@@ -254,7 +253,7 @@ extension AccountsCoordinator: WalletConnectDelegate {
         let walletConnectCoordinator = WalletConnectCoordinator(
             navigationController: navigationController,
             dependencyProvider: dependencyProvider,
-            parentCoordiantor: self
+            parentCoordinator: self
         )
 
         walletConnectCoordinator.start()
