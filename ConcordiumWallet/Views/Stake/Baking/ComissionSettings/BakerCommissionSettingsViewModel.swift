@@ -20,9 +20,6 @@ extension NumberFormatter {
 }
 
 enum BakerCommissionSettingError: LocalizedError {
-    case transactionFeeOutOfRange
-    case bakingRewardOutOfRange
-    case finalizationRewardOutOfRange
     case networkError(Error)
 
     var errorMessage: String {
