@@ -16,7 +16,7 @@ struct BakerCommissionSettingsView: View {
     var body: some View {
         VStack {
             if let ranges = viewModel.commissionRanges {
-                Text("When you open your baker as a pool, you earn commissions of stake delegated to your pool from another accounts")
+                Text("When you open your validator as a pool, you earn commissions of stake delegated to your pool from another accounts")
                     .padding(.bottom, 16)
 
                 Text("Transaction fee commission")
