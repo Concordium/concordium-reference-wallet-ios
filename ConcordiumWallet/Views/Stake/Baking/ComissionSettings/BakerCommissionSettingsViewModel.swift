@@ -19,29 +19,11 @@ extension NumberFormatter {
     }
 }
 
-enum BakerCommissionSettingError: LocalizedError {
-    case networkError(Error)
-
-    var errorMessage: String {
-        switch self {
-        case .bakingRewardOutOfRange:
-            return "Baking reward is out of specified range"
-        case .finalizationRewardOutOfRange:
-            return "Finalization reward is out of specified range"
-        case .transactionFeeOutOfRange:
-            return "Transaction fee is out of specified range"
-        case let .networkError(error):
-            return error.localizedDescription
-        }
-    }
-}
-
 class BakerCommissionSettingsViewModel: ObservableObject {
     @Published var transactionFeeCommission: Double = 0
     @Published var finalizationRewardCommission: Double = 0
     @Published var bakingRewardCommission: Double = 0
 
-    @Published var error: BakerCommissionSettingError?
     private var cancellables = Set<AnyCancellable>()
     private var didTapContinue: () -> Void
     private var service: StakeServiceProtocol
