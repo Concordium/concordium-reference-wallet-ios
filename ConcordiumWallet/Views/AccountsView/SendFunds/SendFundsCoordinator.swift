@@ -131,7 +131,7 @@ class SendFundsCoordinator: Coordinator {
     }
 
     func showSendFundConfirmation(
-        amount: GTU,
+        amount: SendFundsAmount,
         energy: Int,
         from account: AccountDataType,
         to recipient: RecipientDataType,
@@ -197,7 +197,7 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
     }
 
     func sendFundPresenter(
-        didSelectTransferAmount amount: GTU,
+        didSelectTransferAmount amount: SendFundsAmount,
         energyUsed energy: Int,
         from account: AccountDataType,
         to recipient: RecipientDataType,

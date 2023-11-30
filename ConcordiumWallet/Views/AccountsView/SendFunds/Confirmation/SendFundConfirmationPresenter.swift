@@ -42,7 +42,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private var cancellables = [AnyCancellable]()
 
-    private var amount: GTU
+    private var amount: SendFundsAmount
     private var fromAccount: AccountDataType
     private var recipient: RecipientDataType
     private var cost: GTU
@@ -52,7 +52,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var tokenType: SendFundsTokenType
     init(
         delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
-        amount: GTU,
+        amount: SendFundsAmount,
         from account: AccountDataType,
         to recipient: RecipientDataType,
         memo: Memo?,
@@ -75,7 +75,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     }
 
     func viewDidLoad() {
-        let sAmount = transferType == .contractUpdate ? amount.displayValue() : amount.displayValueWithGStroke()
+        var sAmount = amount.displayValue
         let to = "sendFund.confirmation.line2.to".localized
         let recipientName = recipient.displayName()
         if transferType == .encryptedTransfer || transferType == .simpleTransfer {

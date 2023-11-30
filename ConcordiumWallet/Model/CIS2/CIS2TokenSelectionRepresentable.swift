@@ -76,7 +76,7 @@ extension BigInt {
             formattedString = String(formattedString.dropLast())
         }
 
-        return formattedString
+        return formattedString.replacingOccurrences(of: ".", with: ",")
     }
 }
 

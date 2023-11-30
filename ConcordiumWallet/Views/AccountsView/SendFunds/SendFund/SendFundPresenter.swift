@@ -6,6 +6,7 @@
 //  Copyright © 2020 concordium. All rights reserved.
 //
 
+import BigInt
 import Combine
 import Foundation
 
@@ -29,7 +30,7 @@ class SendFundViewModel {
     @Published var sendAllAmount: String?
     @Published var selectedSendAllDisposableAmount = false
     @Published var disposalAmount: GTU?
-    @Published var enteredAmount: GTU?
+    @Published var enteredAmount: SendFundsAmount?
     @Published var selectedTokenType: SendFundsTokenType = .ccd
     private var cancellables: Set<AnyCancellable> = []
     func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenType) {
@@ -125,7 +126,7 @@ protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
     func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void))
-    func sendFundPresenter(didSelectTransferAmount amount: GTU,
+    func sendFundPresenter(didSelectTransferAmount amount: SendFundsAmount,
                            energyUsed energy: Int,
                            from account: AccountDataType,
                            to recipient: RecipientDataType,
@@ -149,7 +150,7 @@ protocol SendFundPresenterProtocol: AnyObject {
     func userTappedScanQR()
     func userTappedAddMemo()
     func userTappedRemoveMemo()
-    func userTappedSendFund(amount: String)
+    func userTappedSendFund()
     func userTappedDontShowMemoAlertAgain(_ completion: @escaping () -> Void)
     func userTappedSendAll()
     func userChangedAmount()
@@ -159,6 +160,54 @@ protocol SendFundPresenterProtocol: AnyObject {
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
     func setAddedMemo(memo: Memo)
+}
+
+struct FungibleToken {
+    var intValue: BigInt
+    let decimals: Int
+    let conversionFactor: BigInt
+    let symbol: String?
+    init(displayValue: String, decimals: Int, symbol: String?) {
+        let wholePart = BigInt(displayValue.unsignedWholePart)
+        let conversionFactor = BigInt(pow(10.0, Double(decimals)))
+        let fractionalPart = BigInt(displayValue.fractionalPart(precision: decimals))
+        self.conversionFactor = conversionFactor
+        self.symbol = symbol
+        self.decimals = decimals
+        intValue = wholePart * conversionFactor + fractionalPart
+    }
+
+    var displayValue: String {
+        intValue.formatIntegerWithFractionDigits(fractionDigits: decimals) + (symbol ?? "")
+    }
+}
+
+enum SendFundsAmount {
+    case ccd(GTU)
+    case fungibleToken(token: FungibleToken)
+    case nonFungibleToken(name: String?)
+
+    var intValue: BigInt {
+        switch self {
+        case let .ccd(gtu):
+            return BigInt(gtu.intValue)
+        case let .fungibleToken(token: amount):
+            return amount.intValue
+        case .nonFungibleToken:
+            return 1
+        }
+    }
+
+    var displayValue: String {
+        switch self {
+        case let .ccd(gtu):
+            return gtu.displayValueWithGStroke()
+        case let .fungibleToken(token):
+            return token.displayValue
+        case let .nonFungibleToken(name):
+            return name ?? " - "
+        }
+    }
 }
 
 class SendFundPresenter: SendFundPresenterProtocol {
@@ -217,27 +266,33 @@ class SendFundPresenter: SendFundPresenterProtocol {
             self?.selectedRecipient = RecipientEntity(name: "", address: address)
         }).store(in: &cancellables)
 
+        // Unwrapping the publisher that emits string value from amount text field.
         guard let amountSubject = view?.amountSubject else { return }
+
+        // Map the amount value to `SendFundsAmount`
+        amountSubject.compactMap { [unowned self] in
+            switch viewModel.selectedTokenType {
+            case .ccd:
+                return SendFundsAmount.ccd(GTU(displayValue: $0))
+            case let SendFundsTokenType.cis2(token: token):
+                if token.unique {
+                    return .nonFungibleToken(name: token.symbol)
+                } else {
+                    return .fungibleToken(token: FungibleToken(displayValue: $0, decimals: token.decimals, symbol: token.name))
+                }
+            }
+        }
+        .assign(to: \.enteredAmount, on: viewModel)
+        .store(in: &cancellables)
 
         // A publisher that returns true if the amount can be transfered from the account
         // (this publisher will return true for an empty amount)
         // we combine with fee message to make sure the insufficient funds label is updated
         // also when the fee is calculated
-
-        amountSubject.map { [unowned self] in
-            var decimals = 6
-            if case let SendFundsTokenType.cis2(token: t) = self.viewModel.selectedTokenType {
-                decimals = t.decimals ?? 6
-            }
-            return GTU(displayValue: $0, maximumFractionDigits: decimals)
-        }
-        .assign(to: \.enteredAmount, on: viewModel)
-        .store(in: &cancellables)
-
-        Publishers.CombineLatest(amountSubject, viewModel.$feeMessage)
+        Publishers.CombineLatest(viewModel.$enteredAmount, viewModel.$feeMessage)
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .map { [weak self] amount, _ in
-                guard let self = self else { return false }
+                guard let self = self, let amount = amount else { return false }
                 return !self.hasSufficientFunds(amount: amount)
             }
             .assign(to: \.insufficientFunds, on: viewModel)
@@ -246,13 +301,14 @@ class SendFundPresenter: SendFundPresenterProtocol {
         Publishers.CombineLatest3(
             viewModel.$recipientAddress,
             viewModel.$feeMessage,
-            amountSubject
+            viewModel.$enteredAmount
         )
         .receive(on: DispatchQueue.main)
         .map { [weak self] recipientAddress, feeMessage, amount in
             // Called when editing the amount or address.
-            guard let self = self else { return false }
-            guard let recipientAddress = recipientAddress else { return false }
+            guard let self = self,
+                  let recipientAddress = recipientAddress,
+                  let amount = amount else { return false }
             let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
 
             return isAddressValid &&
@@ -261,7 +317,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         }
         .assign(to: \.sendButtonEnabled, on: viewModel)
         .store(in: &cancellables)
-        
+
         viewModel.$disposalAmount
             .compactMap { $0 }
             .sink(receiveValue: { [weak self] disposalAmount in
@@ -362,13 +418,14 @@ class SendFundPresenter: SendFundPresenterProtocol {
         sendAllFundsIfNeeded()
     }
 
-    func userTappedSendFund(amount: String) {
+    func userTappedSendFund() {
         let sendFund = { [weak self] in
             guard
                 let self = self,
                 let selectedRecipient = self.selectedRecipient,
                 let cost = self.cost,
-                let energy = self.energy
+                let energy = self.energy,
+                let enteredAmount = viewModel.enteredAmount
             else {
                 // never happens since button is disabled in this case
                 return
@@ -389,7 +446,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             
             
             delegate?.sendFundPresenter(
-                didSelectTransferAmount: GTU(displayValue: amount),
+                didSelectTransferAmount: enteredAmount,
                 energyUsed: energy,
                 from: account,
                 to: recipient,
@@ -400,7 +457,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         }
 
         if transferType == .transferToSecret {
-            showShieldAmountWarningIfNeeded(amount: amount, completion: sendFund)
+            showShieldAmountWarningIfNeeded(completion: sendFund)
         } else if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
             sendFund()
         } else {
@@ -424,13 +481,28 @@ class SendFundPresenter: SendFundPresenterProtocol {
         completion()
     }
 
-    private func hasSufficientFunds(amount: String) -> Bool {
-        guard let cost = cost else {
-            return true
+    private func hasSufficientFunds(amount: SendFundsAmount) -> Bool {
+        guard let cost = cost else { return true }
+
+        switch viewModel.selectedTokenType {
+        case .ccd:
+            if case let SendFundsAmount.ccd(gtu) = amount {
+                return account.canTransfer(
+                    amount: gtu,
+                    withTransferCost: cost,
+                    onBalance: balanceType
+                )
+            }
+        case let .cis2(token: token):
+            if case let SendFundsAmount.fungibleToken(amountToken) = amount {
+                return amountToken.intValue <= token.balance
+            }
+            if case SendFundsAmount.nonFungibleToken = amount {
+                return amount.intValue <= token.balance
+            }
         }
-        return account.canTransfer(amount: GTU(displayValue: amount),
-                                   withTransferCost: cost,
-                                   onBalance: balanceType)
+
+        return false
     }
 
     private func buildTransferCostParameter() -> [TransferCostParameter] {
@@ -491,7 +563,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 let cost = GTU(intValue: Int(value.cost) ?? 0)
                 let totalAmount: String!
                 if case let SendFundsTokenType.cis2(token: token) = viewModel.selectedTokenType {
-                    totalAmount = token.balanceDisplayValue
+                    totalAmount = token.unique ? "1" : token.balanceDisplayValue
                 } else if self.balanceType == .shielded {
                     // the cost is always deducted from the public balance, not
                     // from the shielded
@@ -515,13 +587,13 @@ class SendFundPresenter: SendFundPresenterProtocol {
         energy = nil
     }
 
-    private func showShieldAmountWarningIfNeeded(amount: String, completion: @escaping () -> Void) {
+    private func showShieldAmountWarningIfNeeded(completion: @escaping () -> Void) {
         guard let disposableAmount = viewModel.disposalAmount?.intValue else {
             completion()
             return
         }
 
-        let gtuAmount = GTU(displayValue: amount)
+        let gtuAmount = viewModel.enteredAmount!
 
         let maxGTU = disposableAmount - (disposableAmount / 20) // 95% of disposableAmount
 
