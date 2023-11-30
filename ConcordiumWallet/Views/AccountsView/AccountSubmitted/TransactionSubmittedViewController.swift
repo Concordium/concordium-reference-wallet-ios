@@ -57,7 +57,7 @@ class TransactionSubmittedViewController: BaseViewController, TransactionSubmitt
         }.store(in: &cancellables)
         
         viewModel.$amount.sink { [weak self] amount in
-            self?.transactionAmountLabel.text = amount
+            self?.transactionAmountLabel.text = amount?.displayValue
         }.store(in: &cancellables)
         
         viewModel.$transferSummary.sink { [weak self] summary in

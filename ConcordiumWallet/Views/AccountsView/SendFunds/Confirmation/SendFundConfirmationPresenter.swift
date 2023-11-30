@@ -23,7 +23,7 @@ protocol SendFundConfirmationViewProtocol: ShowAlert, Loadable {
 // MARK: -
 // MARK: Delegate
 protocol SendFundConfirmationPresenterDelegate: AnyObject {
-    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType)
+    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount)
     func sendFundFailed(error: Error)
 }
 
@@ -163,7 +163,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             }, receiveValue: { [weak self] in
                 guard let self = self else { return }
                 Logger.debug($0)
-                self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient)
+                self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient, amount: self.amount)
             })
             .store(in: &cancellables)
     }

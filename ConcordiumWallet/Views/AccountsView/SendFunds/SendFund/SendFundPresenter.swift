@@ -276,7 +276,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 return SendFundsAmount.ccd(GTU(displayValue: $0))
             case let SendFundsTokenType.cis2(token: token):
                 if token.unique {
-                    return .nonFungibleToken(name: token.symbol)
+                    return .nonFungibleToken(name: token.name)
                 } else {
                     return .fungibleToken(token: FungibleToken(displayValue: $0, decimals: token.decimals, symbol: token.name))
                 }

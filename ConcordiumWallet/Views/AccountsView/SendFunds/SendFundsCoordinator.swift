@@ -104,8 +104,8 @@ class SendFundsCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showTransactionSubmitted(transfer: TransferDataType, recipient: RecipientDataType) {
-        let vc = TransactionSubmittedFactory.create(with: TransactionSubmittedPresenter(transfer: transfer, recipient: recipient, delegate: self))
+    func showTransactionSubmitted(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount) {
+        let vc = TransactionSubmittedFactory.create(with: TransactionSubmittedPresenter(transfer: transfer, recipient: recipient, amount: amount, delegate: self))
         showModally(vc, from: navigationController)
     }
 
@@ -294,8 +294,8 @@ extension SendFundsCoordinator: CreationFailedPresenterDelegate {
 }
 
 extension SendFundsCoordinator: SendFundConfirmationPresenterDelegate {
-    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType) {
-        showTransactionSubmitted(transfer: transfer, recipient: recipient)
+    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount) {
+        showTransactionSubmitted(transfer: transfer, recipient: recipient, amount: amount)
     }
 
     func sendFundFailed(error: Error) {

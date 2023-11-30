@@ -13,13 +13,13 @@ class TransactionSubmittedViewModel {
     @Published var transferSummary: String
     @Published var visibleWaterMark: Bool
     @Published var submitedText: String
-    @Published var amount: String
+    @Published var amount: SendFundsAmount?
     @Published var recipient: RecipientDataType
     @Published var memoText: String?
     
-    init(transfer: TransferDataType, recipient: RecipientDataType) {
+    init(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount) {
         self.transferSummary = TransactionSubmittedViewModel.formatSummary(for: transfer)
-        self.amount = GTU(intValue: Int(transfer.amount) ?? 0).displayValue()
+        self.amount = amount
         self.recipient = recipient
         
         self.visibleWaterMark = (transfer.transferType == .encryptedTransfer)
@@ -80,8 +80,8 @@ class TransactionSubmittedPresenter: TransactionSubmittedPresenterProtocol {
     
     private var viewModel: TransactionSubmittedViewModel
 
-    init(transfer: TransferDataType, recipient: RecipientDataType, delegate: TransactionSubmittedPresenterDelegate? = nil) {
-        viewModel = TransactionSubmittedViewModel(transfer: transfer, recipient: recipient)
+    init(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount, delegate: TransactionSubmittedPresenterDelegate? = nil) {
+        viewModel = TransactionSubmittedViewModel(transfer: transfer, recipient: recipient, amount: amount)
         self.delegate = delegate
     }
 
