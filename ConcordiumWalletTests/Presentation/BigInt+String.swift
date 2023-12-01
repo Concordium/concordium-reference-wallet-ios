@@ -13,7 +13,7 @@ class IntegerFormattingTests: XCTestCase {
 
     func testFormattingWithTrailingZeros() {
         XCTAssertEqual(BigInt(12345000000).formatIntegerWithFractionDigits(fractionDigits: 6), "12345")
-        XCTAssertEqual(BigInt(12345000000).formatIntegerWithFractionDigits(fractionDigits: 7), "1234.5")
+        XCTAssertEqual(BigInt(12345000000).formatIntegerWithFractionDigits(fractionDigits: 7), "1234,5")
     }
     
     func testEdgeCases() {
