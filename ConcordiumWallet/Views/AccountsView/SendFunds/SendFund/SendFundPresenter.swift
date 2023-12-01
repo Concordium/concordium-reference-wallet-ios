@@ -300,6 +300,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self.viewModel.selectedTokenType = .ccd
                 self.viewModel.setBalancesFor(transferType: .simpleTransfer, account: self.account)
             }
+            viewModel.selectedSendAllDisposableAmount = false
             self.delegate?.sendFundPresenter(self, didUpdate: viewModel.selectedTokenType)
             self.updateTransferCostEstimate()
         })
