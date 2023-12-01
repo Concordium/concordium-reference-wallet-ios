@@ -75,7 +75,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     }
 
     func viewDidLoad() {
-        var sAmount = amount.displayValue
+        let sAmount = amount.displayValue
         let to = "sendFund.confirmation.line2.to".localized
         let recipientName = recipient.displayName()
         if transferType == .encryptedTransfer || transferType == .simpleTransfer {

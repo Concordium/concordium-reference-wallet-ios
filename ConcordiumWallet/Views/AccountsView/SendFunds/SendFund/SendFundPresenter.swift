@@ -288,6 +288,12 @@ class SendFundPresenter: SendFundPresenterProtocol {
         delegate?.sendFundPresenterAddMemo(self, memo: addedMemo)
     }
 
+    private func resetViewState() {
+        viewModel.selectedSendAllDisposableAmount = false
+        self.viewModel.sendAllAmount = ""
+        self.viewModel.insufficientFunds = false
+    }
+    
     func selectTokenType() {
         delegate?.sendFundPresenterShowTokenTypeSelector(didSelectToken: { [weak self] token in
             guard let self = self else { return }
@@ -300,9 +306,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self.viewModel.selectedTokenType = .ccd
                 self.viewModel.setBalancesFor(transferType: .simpleTransfer, account: self.account)
             }
-            viewModel.selectedSendAllDisposableAmount = false
+
             self.delegate?.sendFundPresenter(self, didUpdate: viewModel.selectedTokenType)
             self.updateTransferCostEstimate()
+            resetViewState()
         })
     }
 

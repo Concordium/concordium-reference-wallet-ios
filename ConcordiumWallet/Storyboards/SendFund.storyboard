@@ -970,8 +970,8 @@ is less than 0.01 cents]</string>
                                         <color key="textColor" name="fadedText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[G12 to Douglas Sparks]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="j0W-bc-zbe">
-                                        <rect key="frame" x="60.5" y="48" width="293" height="33.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[G12 to Douglas Sparks]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="j0W-bc-zbe">
+                                        <rect key="frame" x="8" y="48" width="398" height="33.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" name="text"/>
                                         <nil key="highlightedColor"/>
@@ -988,12 +988,12 @@ is less than 0.01 cents]</string>
                                     <constraint firstAttribute="trailing" secondItem="P59-5t-kOM" secondAttribute="trailing" constant="16" id="1aT-bW-xDP"/>
                                     <constraint firstItem="XuW-Tx-oP6" firstAttribute="centerX" secondItem="j0W-bc-zbe" secondAttribute="centerX" id="C7r-UG-Ady"/>
                                     <constraint firstAttribute="bottom" secondItem="rFU-FL-BEX" secondAttribute="bottom" constant="81" id="CNO-Bf-d30"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="j0W-bc-zbe" secondAttribute="trailing" constant="5" id="HPN-Tt-Dy0"/>
+                                    <constraint firstAttribute="trailing" secondItem="j0W-bc-zbe" secondAttribute="trailing" constant="8" id="HPN-Tt-Dy0"/>
                                     <constraint firstItem="P59-5t-kOM" firstAttribute="leading" secondItem="TSy-K0-mgw" secondAttribute="leading" constant="16" id="NFD-Jg-zmv"/>
                                     <constraint firstItem="j0W-bc-zbe" firstAttribute="top" secondItem="WaI-Wh-nVT" secondAttribute="bottom" constant="30" id="Pfs-R7-S1e"/>
                                     <constraint firstItem="rFU-FL-BEX" firstAttribute="centerX" secondItem="TSy-K0-mgw" secondAttribute="centerX" id="Qcn-q4-iOP"/>
                                     <constraint firstItem="eoh-bN-ZHZ" firstAttribute="top" secondItem="j0W-bc-zbe" secondAttribute="bottom" constant="30" id="TRy-4o-vSW"/>
-                                    <constraint firstItem="j0W-bc-zbe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TSy-K0-mgw" secondAttribute="leading" constant="5" id="VgE-ys-qO6"/>
+                                    <constraint firstItem="j0W-bc-zbe" firstAttribute="leading" secondItem="TSy-K0-mgw" secondAttribute="leading" constant="8" id="VgE-ys-qO6"/>
                                     <constraint firstItem="rFU-FL-BEX" firstAttribute="top" secondItem="eoh-bN-ZHZ" secondAttribute="bottom" constant="30" id="YKU-aG-Vad"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eoh-bN-ZHZ" secondAttribute="trailing" constant="5" id="aKy-04-xr5"/>
                                     <constraint firstItem="j0W-bc-zbe" firstAttribute="centerX" secondItem="TSy-K0-mgw" secondAttribute="centerX" id="c1R-Qa-nEi"/>
@@ -1047,33 +1047,33 @@ is less than 0.01 cents]</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAg-go-ghu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8801" y="-85"/>
+            <point key="canvasLocation" x="8800" y="-85.044642857142847"/>
         </scene>
     </scenes>
     <designables>
         <designable name="2Kc-aS-szO">
-            <size key="intrinsicContentSize" width="236" height="30"/>
+            <size key="intrinsicContentSize" width="120" height="30"/>
         </designable>
         <designable name="6Wm-nq-6Ah">
-            <size key="intrinsicContentSize" width="34" height="30"/>
+            <size key="intrinsicContentSize" width="44" height="30"/>
         </designable>
         <designable name="Agb-Wh-pXj">
-            <size key="intrinsicContentSize" width="158" height="30"/>
+            <size key="intrinsicContentSize" width="52" height="30"/>
         </designable>
         <designable name="Mfp-SX-eTS">
             <size key="intrinsicContentSize" width="58" height="32"/>
         </designable>
         <designable name="Sxw-xB-mg9">
-            <size key="intrinsicContentSize" width="174" height="21"/>
+            <size key="intrinsicContentSize" width="64" height="21"/>
         </designable>
         <designable name="aao-ws-5Uh">
-            <size key="intrinsicContentSize" width="103" height="33"/>
+            <size key="intrinsicContentSize" width="109" height="34"/>
         </designable>
         <designable name="wcx-5J-50g">
-            <size key="intrinsicContentSize" width="134" height="19"/>
+            <size key="intrinsicContentSize" width="62" height="19"/>
         </designable>
         <designable name="ysE-7N-kLa">
-            <size key="intrinsicContentSize" width="178" height="33"/>
+            <size key="intrinsicContentSize" width="188" height="34"/>
         </designable>
     </designables>
     <resources>

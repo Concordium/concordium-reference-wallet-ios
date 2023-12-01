@@ -41,6 +41,6 @@ struct FungibleToken {
 
     /// A human-readable string representation of the token amount with proper formatting.
     var displayValue: String {
-        intValue.formatIntegerWithFractionDigits(fractionDigits: decimals) + (symbol ?? "")
+        intValue.formatIntegerWithFractionDigits(fractionDigits: decimals) + " " + (symbol ?? "")
     }
 }
