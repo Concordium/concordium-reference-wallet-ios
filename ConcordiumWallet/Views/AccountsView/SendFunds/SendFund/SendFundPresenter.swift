@@ -228,7 +228,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 return SendFundsAmount.ccd(GTU(displayValue: $0))
             case let SendFundsTokenSelection.cis2(token: token):
                 if token.unique {
-                    return .nonFungibleToken(name: token.name)
+                    return  $0 == "1" ? .nonFungibleToken(name: token.name) : nil
                 } else {
                     return .fungibleToken(token: FungibleToken(displayValue: $0, decimals: token.decimals, symbol: token.name))
                 }
@@ -458,7 +458,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 return amountToken.intValue <= token.balance
             }
             if case SendFundsAmount.nonFungibleToken = amount {
-                return amount.intValue <= token.balance
+                return amount.intValue == token.balance
             }
         }
 

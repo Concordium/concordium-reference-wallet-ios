@@ -12,4 +12,13 @@ import Foundation
 enum SendFundsTokenSelection: Equatable {
     case ccd
     case cis2(token: CIS2TokenSelectionRepresentable)
+    
+    init(from token: CIS2TokenSelectionRepresentable? = nil) {
+        if let token = token {
+            self = .cis2(token: token)
+        } else {
+            self = .ccd
+        }
+    }
+
 }

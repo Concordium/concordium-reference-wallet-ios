@@ -155,6 +155,21 @@ class AccountDetailsCoordinator: Coordinator,
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
     }
+    
+    func showSendCIS2Token(balanceType: AccountBalanceTypeEnum = .balance, token: CIS2TokenSelectionRepresentable) {
+        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
+        let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
+                                               delegate: self,
+                                               dependencyProvider: dependencyProvider,
+                                               account: account,
+                                               balanceType: balanceType,
+                                               transferType: transferType,
+                                               tokenType: SendFundsTokenSelection(from: token)
+        )
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
+    }
 
     func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
         let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
@@ -348,7 +363,7 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
                         self?.navigationController.popViewController(animated: true)
                     },
                     showAddress: self.showAccountAddressQR,
-                    sendFunds: { [weak self] in self?.showSendFund() },
+                    sendFunds: { [weak self] in self?.showSendCIS2Token(token: token) },
                     context: .database
                 )
             ),

@@ -82,7 +82,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         presenter.view = self
         presenter.viewDidLoad()
-
         errorMessageLabel.alpha = 0
 
         amountTextField.attributedPlaceholder =

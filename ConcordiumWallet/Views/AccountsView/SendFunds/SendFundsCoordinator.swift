@@ -56,7 +56,7 @@ class SendFundsCoordinator: Coordinator {
         self.transferType = transferType
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .fullScreen
-        parentCoordinator = delegate
+        self.parentCoordinator = delegate
         self.tokenType = tokenType
         self.dependencyProvider = dependencyProvider
     }

@@ -62,19 +62,19 @@ struct TokenDetailsView: View {
     var buttonsSection: some View {
         HStack(alignment: .center) {
             Spacer()
-//            Button {
-//                sendFunds()
-//            } label: {
-//                Image(systemName: "paperplane.fill")
-//                    .resizable()
-//                    .frame(width: 32.0, height: 32.0)
-//                    .foregroundColor(.white)
-//                    .opacity(token.balance > 0 ? 1.0 : 0.5)
-//            }
-//            .disabled(token.balance == 0)
-//            Spacer()
-//            Divider()
-//            Spacer()
+            Button {
+                sendFunds()
+            } label: {
+                Image(systemName: "paperplane.fill")
+                    .resizable()
+                    .frame(width: 32.0, height: 32.0)
+                    .foregroundColor(.white)
+                    .opacity(token.balance > 0 ? 1.0 : 0.5)
+            }
+            .disabled(token.balance == 0)
+            Spacer()
+            Divider()
+            Spacer()
 
             Button {
                 showAddress()
