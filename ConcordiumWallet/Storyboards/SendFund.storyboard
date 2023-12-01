@@ -797,16 +797,10 @@ is less than 0.01 cents]</string>
                                         <rect key="frame" x="94.5" y="234.5" width="184.5" height="88"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="H01-jI-Cky">
-                                                <rect key="frame" x="52.5" y="0.0" width="79.5" height="50"/>
+                                                <rect key="frame" x="62.5" y="0.0" width="59" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ͼ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsq-Kg-2Yu">
-                                                        <rect key="frame" x="0.0" y="7" width="18.5" height="36"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssI-7h-8zC">
-                                                        <rect key="frame" x="20.5" y="0.5" width="59" height="49.5"/>
+                                                        <rect key="frame" x="0.0" y="0.5" width="59" height="49.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="49.5" id="YRC-fZ-gJ9"/>
                                                         </constraints>
@@ -815,9 +809,6 @@ is less than 0.01 cents]</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="tsq-Kg-2Yu" firstAttribute="height" secondItem="ssI-7h-8zC" secondAttribute="height" multiplier="0.727273" id="Fny-Es-ywr"/>
-                                                </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBn-y5-jwj">
                                                 <rect key="frame" x="0.0" y="52" width="184.5" height="36"/>

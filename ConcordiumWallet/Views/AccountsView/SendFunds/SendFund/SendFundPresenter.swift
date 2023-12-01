@@ -35,10 +35,10 @@ class SendFundViewModel {
     private var cancellables: Set<AnyCancellable> = []
     func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenSelection) {
         switch transferType {
-        case .simpleTransfer, .encryptedTransfer:
+        case .simpleTransfer, .encryptedTransfer, .contractUpdate:
             // We show the memo and recipient for simple or encrypted transfers
             showMemoAndRecipient = true
-        case .transferToSecret, .transferToPublic, .contractUpdate:
+        case .transferToSecret, .transferToPublic:
             // We hide the memo and recipient for shielding or unshielding
             showMemoAndRecipient = false
         }
@@ -81,7 +81,10 @@ class SendFundViewModel {
             if case let SendFundsTokenSelection.cis2(token: token) = selectedTokenType {
                 firstBalanceName = "\(token.symbol ?? token.name) balance: "
                 secondBalanceName = "sendFund.atDisposal".localized
+                
                 firstBalance = token.balanceDisplayValue
+                secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
+                disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
             }
         case .simpleTransfer, .transferToSecret:
             // for transfers from the public account, we show Total and at disposal for the public balance
@@ -205,6 +208,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     func viewDidLoad() {
         viewModel.setup(account: account, transferType: transferType, tokenType: tokenType)
+        viewModel.setBalancesFor(transferType: transferType, account: account)
 
         $addedMemo.sink { [weak self] memo in
             self?.viewModel.update(withMemo: memo)

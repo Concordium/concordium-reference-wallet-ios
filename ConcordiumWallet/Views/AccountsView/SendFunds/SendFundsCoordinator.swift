@@ -69,6 +69,7 @@ class SendFundsCoordinator: Coordinator {
                                                   delegate: self,
                                                   tokenType: tokenType
         )
+
         self.sendFundPresenter = sendFundPresenter
         let sendFundVC = SendFundFactory.create(with: sendFundPresenter)
         navigationController.viewControllers = [sendFundVC]

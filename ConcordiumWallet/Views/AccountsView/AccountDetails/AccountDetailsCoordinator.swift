@@ -163,7 +163,7 @@ class AccountDetailsCoordinator: Coordinator,
                                                dependencyProvider: dependencyProvider,
                                                account: account,
                                                balanceType: balanceType,
-                                               transferType: transferType,
+                                               transferType: .contractUpdate,
                                                tokenType: SendFundsTokenSelection(from: token)
         )
         coordinator.start()
