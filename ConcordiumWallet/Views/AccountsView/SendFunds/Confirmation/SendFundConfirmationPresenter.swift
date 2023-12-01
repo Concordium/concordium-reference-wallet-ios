@@ -49,7 +49,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     private var memo: Memo?
     private var energy: Int
     private var transferType: SendFundTransferType
-    private var tokenType: SendFundsTokenType
+    private var tokenType: SendFundsTokenSelection
     init(
         delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
         amount: SendFundsAmount,
@@ -60,7 +60,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         energy: Int,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         transferType: SendFundTransferType,
-        tokenType: SendFundsTokenType
+        tokenType: SendFundsTokenSelection
     ) {
         self.delegate = delegate
         self.amount = amount
@@ -128,7 +128,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.energy = energy
         transfer.cost = String(cost.intValue)
         transfer.memo = memo?.data.hexDescription
-        if transferType.actualType == .contractUpdate, case let SendFundsTokenType.cis2(token: token) = tokenType {
+        if transferType.actualType == .contractUpdate, case let SendFundsTokenSelection.cis2(token: token) = tokenType {
             let response = try? dependencyProvider.mobileWallet().serializeTokenTransferParameters(
                 input: .init(
                     tokenId: token.tokenId,

@@ -31,9 +31,9 @@ class SendFundViewModel {
     @Published var selectedSendAllDisposableAmount = false
     @Published var disposalAmount: GTU?
     @Published var enteredAmount: SendFundsAmount?
-    @Published var selectedTokenType: SendFundsTokenType = .ccd
+    @Published var selectedTokenType: SendFundsTokenSelection = .ccd
     private var cancellables: Set<AnyCancellable> = []
-    func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenType) {
+    func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenSelection) {
         switch transferType {
         case .simpleTransfer, .encryptedTransfer:
             // We show the memo and recipient for simple or encrypted transfers
@@ -78,7 +78,7 @@ class SendFundViewModel {
     func setBalancesFor(transferType: SendFundTransferType, account: AccountDataType) {
         switch transferType {
         case .contractUpdate:
-            if case let SendFundsTokenType.cis2(token: token) = selectedTokenType {
+            if case let SendFundsTokenSelection.cis2(token: token) = selectedTokenType {
                 firstBalanceName = "\(token.symbol ?? token.name) balance: "
                 secondBalanceName = "sendFund.atDisposal".localized
                 firstBalance = token.balanceDisplayValue
@@ -111,7 +111,7 @@ protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
     func bind(to viewModel: SendFundViewModel)
     var amountSubject: PassthroughSubject<String, Never> { get }
     var recipientAddressPublisher: AnyPublisher<String, Never> { get }
-    var selectedTokenType: PassthroughSubject<SendFundsTokenType, Never> { get }
+    var selectedTokenType: PassthroughSubject<SendFundsTokenSelection, Never> { get }
     func showAddressInvalid()
     func showMemoWarningAlert(_ completion: @escaping () -> Void)
 }
@@ -122,7 +122,7 @@ protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
 
 protocol SendFundPresenterDelegate: AnyObject {
     func sendFundPresenterClosed(_ presenter: SendFundPresenter)
-    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenType)
+    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenSelection)
     func sendFundPresenterAddMemo(_ presenter: SendFundPresenter, memo: Memo?)
     func sendFundPresenterSelectRecipient(_ presenter: SendFundPresenter, balanceType: AccountBalanceTypeEnum, currentAccount: AccountDataType)
     func sendFundPresenterShowScanQRCode(didScanQRCode: @escaping ((String) -> Void))
@@ -162,54 +162,6 @@ protocol SendFundPresenterProtocol: AnyObject {
     func setAddedMemo(memo: Memo)
 }
 
-struct FungibleToken {
-    var intValue: BigInt
-    let decimals: Int
-    let conversionFactor: BigInt
-    let symbol: String?
-    init(displayValue: String, decimals: Int, symbol: String?) {
-        let wholePart = BigInt(displayValue.unsignedWholePart)
-        let conversionFactor = BigInt(pow(10.0, Double(decimals)))
-        let fractionalPart = BigInt(displayValue.fractionalPart(precision: decimals))
-        self.conversionFactor = conversionFactor
-        self.symbol = symbol
-        self.decimals = decimals
-        intValue = wholePart * conversionFactor + fractionalPart
-    }
-
-    var displayValue: String {
-        intValue.formatIntegerWithFractionDigits(fractionDigits: decimals) + (symbol ?? "")
-    }
-}
-
-enum SendFundsAmount {
-    case ccd(GTU)
-    case fungibleToken(token: FungibleToken)
-    case nonFungibleToken(name: String?)
-
-    var intValue: BigInt {
-        switch self {
-        case let .ccd(gtu):
-            return BigInt(gtu.intValue)
-        case let .fungibleToken(token: amount):
-            return amount.intValue
-        case .nonFungibleToken:
-            return 1
-        }
-    }
-
-    var displayValue: String {
-        switch self {
-        case let .ccd(gtu):
-            return gtu.displayValueWithGStroke()
-        case let .fungibleToken(token):
-            return token.displayValue
-        case let .nonFungibleToken(name):
-            return name ?? " - "
-        }
-    }
-}
-
 class SendFundPresenter: SendFundPresenterProtocol {
     weak var view: SendFundViewProtocol?
     weak var delegate: SendFundPresenterDelegate?
@@ -228,14 +180,14 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     private var cost: GTU?
     private var energy: Int?
-    private var tokenType: SendFundsTokenType
+    private var tokenType: SendFundsTokenSelection
 
     init(account: AccountDataType,
          balanceType: AccountBalanceTypeEnum,
          transferType: SendFundTransferType,
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          delegate: SendFundPresenterDelegate? = nil,
-         tokenType: SendFundsTokenType
+         tokenType: SendFundsTokenSelection
     ) {
         self.account = account
         self.balanceType = balanceType
@@ -274,7 +226,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             switch viewModel.selectedTokenType {
             case .ccd:
                 return SendFundsAmount.ccd(GTU(displayValue: $0))
-            case let SendFundsTokenType.cis2(token: token):
+            case let SendFundsTokenSelection.cis2(token: token):
                 if token.unique {
                     return .nonFungibleToken(name: token.name)
                 } else {
@@ -507,7 +459,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     private func buildTransferCostParameter() -> [TransferCostParameter] {
         var costParameters: [TransferCostParameter] = []
-        if transferType == .contractUpdate, case let SendFundsTokenType.cis2(token: token) = viewModel.selectedTokenType {
+        if transferType == .contractUpdate, case let SendFundsTokenSelection.cis2(token: token) = viewModel.selectedTokenType {
             let parameters = try? dependencyProvider.mobileWallet().serializeTokenTransferParameters(
                 input: .init(
                     tokenId: token.tokenId,
@@ -562,7 +514,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 guard let self = self else { return }
                 let cost = GTU(intValue: Int(value.cost) ?? 0)
                 let totalAmount: String!
-                if case let SendFundsTokenType.cis2(token: token) = viewModel.selectedTokenType {
+                if case let SendFundsTokenSelection.cis2(token: token) = viewModel.selectedTokenType {
                     totalAmount = token.unique ? "1" : token.balanceDisplayValue
                 } else if self.balanceType == .shielded {
                     // the cost is always deducted from the public balance, not

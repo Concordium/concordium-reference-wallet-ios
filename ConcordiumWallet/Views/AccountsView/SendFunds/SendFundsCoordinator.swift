@@ -32,11 +32,6 @@ enum SendFundTransferType {
     }
 }
 
-enum SendFundsTokenType: Equatable {
-    case ccd
-    case cis2(token: CIS2TokenSelectionRepresentable)
-}
-
 class SendFundsCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: SendFundsCoordinatorDelegate?
@@ -47,14 +42,14 @@ class SendFundsCoordinator: Coordinator {
     private var transferType: SendFundTransferType
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     var sendFundPresenter: SendFundPresenter?
-    var tokenType: SendFundsTokenType
+    var tokenType: SendFundsTokenSelection
     init(navigationController: UINavigationController,
          delegate: SendFundsCoordinatorDelegate,
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
          balanceType: AccountBalanceTypeEnum,
          transferType: SendFundTransferType,
-         tokenType: SendFundsTokenType
+         tokenType: SendFundsTokenSelection
     ) {
         self.account = account
         self.balanceType = balanceType
@@ -171,7 +166,7 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
-    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenType) {
+    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenSelection) {
         self.tokenType = sendFundsTokenType
     }
     
