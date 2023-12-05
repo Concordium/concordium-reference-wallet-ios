@@ -4,7 +4,7 @@
 //
 
 import Foundation
-
+import BigInt
 struct GTU: Codable {
     private let conversionFactor: Int = 1000000
     private let maximumFractionDigits: Int

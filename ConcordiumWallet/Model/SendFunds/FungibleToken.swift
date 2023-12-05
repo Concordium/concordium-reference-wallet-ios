@@ -15,13 +15,15 @@ import Foundation
 enum FungibleTokenParseError: Error {
     case invalidInput
     case negativeDecimals
-    
+    case fractionPartTooLong
     var localizedDescription: String {
         switch self {
         case .invalidInput:
             return "Unable to parse. Unexpected input."
         case .negativeDecimals:
             return "Unable to parse. Input can't be negative value."
+        case .fractionPartTooLong:
+            return "Number of decimal digits exceeds token capability."
         }
     }
 }
@@ -59,6 +61,9 @@ struct FungibleToken {
             let fracPart = input[idx1 ..< input.endIndex]
             guard let wholePartInt = BigInt(String(wholePart)), let fracPartInt = BigInt(String(fracPart)) else {
                 throw FungibleTokenParseError.invalidInput
+            }
+            guard decimals > fracPart.count else {
+                throw FungibleTokenParseError.fractionPartTooLong
             }
             let multipliedWholeInt = multiplyWithPowerOfTen(int: wholePartInt, exponent: decimals)
             let multipliedFractionInt = multiplyWithPowerOfTen(int: fracPartInt, exponent: decimals - fracPart.count)

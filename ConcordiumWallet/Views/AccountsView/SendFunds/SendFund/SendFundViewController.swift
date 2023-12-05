@@ -20,7 +20,6 @@ class SendFundFactory {
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
     var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
-    var amountSubject = PassthroughSubject<String, Never>()
     var selectedTokenType = PassthroughSubject<SendFundsTokenSelection, Never>()
 
     @IBOutlet var mainStackViewBottomConstraint: NSLayoutConstraint!
@@ -171,11 +170,11 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .assign(to: \.text, on: costMessageLabel)
             .store(in: &cancellables)
 
-        viewModel.$insufficientFunds
+        viewModel.$shouldShowError
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] hasSufficientFunds in
+            .sink(receiveValue: { [weak self] shouldShowError in
                 UIView.animate(withDuration: 0.25) { [weak self] in
-                    self?.errorMessageLabel.alpha = hasSufficientFunds ? 1 : 0
+                    self?.errorMessageLabel.alpha = shouldShowError ? 1 : 0
                 }
             })
             .store(in: &cancellables)

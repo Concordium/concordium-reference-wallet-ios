@@ -23,5 +23,13 @@ class IntegerFormattingTests: XCTestCase {
         XCTAssertEqual(BigInt(12345).format(implicitDecimals: 0, minDecimals: 3), "12345")
         XCTAssertEqual(BigInt(-12345).format(implicitDecimals: 4, minDecimals: 3), "-1,2345")
         XCTAssertEqual(BigInt(-12345).format(implicitDecimals: -4, minDecimals: 3), "-1,2345")
+        XCTAssertEqual(BigInt(1234589879787878799).format(implicitDecimals: 4, minDecimals: 3), "-1,2345")
+    }
+    
+    func testParser() {
+        XCTAssertThrowsError(try FungibleToken.parse(input: "1,23", decimals: 1, symbol: nil)){ error in
+            XCTAssertEqual(error as! FungibleTokenParseError, FungibleTokenParseError.negativeDecimals)
+        }
+        XCTAssertNoThrow(try FungibleToken.parse(input: "1,2137", decimals: 6, symbol: nil))
     }
 }

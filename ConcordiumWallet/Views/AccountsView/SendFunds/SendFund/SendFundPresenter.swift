@@ -13,7 +13,7 @@ import Foundation
 class SendFundViewModel {
     @Published var recipientAddress: String?
     @Published var feeMessage: String?
-    @Published var insufficientFunds: Bool = false
+    @Published var shouldShowError: Bool = false
     @Published var firstBalance: String?
     @Published var firstBalanceName: String?
     @Published var secondBalance: String?
@@ -30,7 +30,6 @@ class SendFundViewModel {
     @Published var sendAllAmount: String?
     @Published var selectedSendAllDisposableAmount = false
     @Published var disposalAmount: GTU?
-    @Published var parseError: FungibleTokenParseError?
     @Published var enteredAmount: SendFundsAmount = .none
     @Published var selectedTokenType: SendFundsTokenSelection = .ccd
     private var cancellables: Set<AnyCancellable> = []
@@ -110,9 +109,10 @@ class SendFundViewModel {
 }
 
 // MARK: View
-
+import UIKit
 protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
     func bind(to viewModel: SendFundViewModel)
+    var errorMessageLabel: UILabel! { get }
     var amountTextPublisher: AnyPublisher<String, Never> { get }
     var recipientAddressPublisher: AnyPublisher<String, Never> { get }
     var selectedTokenType: PassthroughSubject<SendFundsTokenSelection, Never> { get }
@@ -229,25 +229,27 @@ class SendFundPresenter: SendFundPresenterProtocol {
         // Map the amount value to `SendFundsAmount`
         view?.amountTextPublisher
             .map { [unowned self] in
-                switch viewModel.selectedTokenType {
-                case .ccd:
-                    return SendFundsAmount.ccd(GTU(displayValue: $0))
-                case let SendFundsTokenSelection.cis2(token: token):
-                    if token.unique {
-                        return $0 == "1" ? .nonFungibleToken(name: token.name) : SendFundsAmount.none
-                    } else {
-                        do {
+                do {
+                    switch viewModel.selectedTokenType {
+                    case .ccd:
+                        let token = try FungibleToken.parse(input: $0, decimals: 6, symbol: nil)
+                        return .fungibleToken(token: token)
+                    case let SendFundsTokenSelection.cis2(token: token):
+                        if token.unique {
+                            return $0 == "1" ? .nonFungibleToken(name: token.name) : SendFundsAmount.none
+                        } else {
                             let token = try FungibleToken.parse(input: $0, decimals: token.decimals, symbol: token.symbol)
                             return .fungibleToken(token: token)
-                        } catch let error {
-                            if let errorDescription = (error as? FungibleTokenParseError)?.localizedDescription {
-                                self.view?.showErrorAlert(.simpleError(localizedReason: errorDescription))
-                            } else {
-                                self.view?.showErrorAlert(.simpleError(localizedReason: "Unknown Error"))
-                            }
-                            return SendFundsAmount.none
                         }
                     }
+                }
+                catch let error {
+                       if let errorDescription = (error as? FungibleTokenParseError)?.localizedDescription {
+                           self.view?.errorMessageLabel.text = errorDescription
+                       } else {
+                           self.view?.errorMessageLabel.text = "Unknown Error"
+                       }
+                       return SendFundsAmount.none
                 }
             }
         .assign(to: \.enteredAmount, on: viewModel)
@@ -263,7 +265,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 guard let self = self else { return false }
                 return !self.hasSufficientFunds(amount: amount)
             }
-            .assign(to: \.insufficientFunds, on: viewModel)
+            .assign(to: \.shouldShowError, on: viewModel)
             .store(in: &cancellables)
 
         Publishers.CombineLatest3(
@@ -309,7 +311,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     private func resetViewState() {
         viewModel.selectedSendAllDisposableAmount = false
         viewModel.sendAllAmount = ""
-        viewModel.insufficientFunds = false
+        viewModel.shouldShowError = false
     }
 
     func selectTokenType() {
@@ -466,9 +468,9 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
         switch viewModel.selectedTokenType {
         case .ccd:
-            if case let SendFundsAmount.ccd(gtu) = amount {
+            if case let SendFundsAmount.ccd(ccd) = amount {
                 return account.canTransfer(
-                    amount: gtu,
+                    amount: GTU(intValue: Int(ccd.intValue)),
                     withTransferCost: cost,
                     onBalance: balanceType
                 )

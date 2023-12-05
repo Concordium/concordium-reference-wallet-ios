@@ -13,7 +13,7 @@ import Foundation
 
 enum SendFundsAmount {
     /// Represents an amount in a CCDs.
-    case ccd(GTU)
+    case ccd(token: FungibleToken)
     /// Represents an amount in a fungible token.
     case fungibleToken(token: FungibleToken)
     /// Represents a non-fungible token.
@@ -37,8 +37,8 @@ enum SendFundsAmount {
     /// Returns a human-readable display value for the fund amount.
     var displayValue: String {
         switch self {
-        case let .ccd(gtu):
-            return gtu.displayValueWithGStroke()
+        case let .ccd(ccd):
+            return GTU(intValue: Int(ccd.intValue)).displayValueWithGStroke()
         case let .fungibleToken(token):
             return token.displayValue
         case let .nonFungibleToken(name):
