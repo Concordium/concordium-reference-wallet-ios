@@ -30,7 +30,8 @@ class SendFundViewModel {
     @Published var sendAllAmount: String?
     @Published var selectedSendAllDisposableAmount = false
     @Published var disposalAmount: GTU?
-    @Published var enteredAmount: SendFundsAmount?
+    @Published var parseError: FungibleTokenParseError?
+    @Published var enteredAmount: SendFundsAmount = .none
     @Published var selectedTokenType: SendFundsTokenSelection = .ccd
     private var cancellables: Set<AnyCancellable> = []
     func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenSelection) {
@@ -81,7 +82,7 @@ class SendFundViewModel {
             if case let SendFundsTokenSelection.cis2(token: token) = selectedTokenType {
                 firstBalanceName = "\(token.symbol ?? token.name) balance: "
                 secondBalanceName = "sendFund.atDisposal".localized
-                
+
                 firstBalance = token.balanceDisplayValue
                 secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
                 disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
@@ -112,7 +113,7 @@ class SendFundViewModel {
 
 protocol SendFundViewProtocol: Loadable, ShowAlert, ShowToast {
     func bind(to viewModel: SendFundViewModel)
-    var amountSubject: PassthroughSubject<String, Never> { get }
+    var amountTextPublisher: AnyPublisher<String, Never> { get }
     var recipientAddressPublisher: AnyPublisher<String, Never> { get }
     var selectedTokenType: PassthroughSubject<SendFundsTokenSelection, Never> { get }
     func showAddressInvalid()
@@ -159,7 +160,7 @@ protocol SendFundPresenterProtocol: AnyObject {
     func userChangedAmount()
     func finishedEditingRecipientAddress()
     func selectTokenType()
-
+    var cancellables: [AnyCancellable] { get }
     // By coordinator
     func setSelectedRecipient(recipient: RecipientDataType)
     func setAddedMemo(memo: Memo)
@@ -172,7 +173,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     @Published private var selectedRecipient: RecipientDataType?
     @Published private var addedMemo: Memo?
 
-    private var cancellables = [AnyCancellable]()
+    var cancellables = [AnyCancellable]()
 
     private var viewModel = SendFundViewModel()
 
@@ -212,32 +213,43 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
         $addedMemo.sink { [weak self] memo in
             self?.viewModel.update(withMemo: memo)
-        }.store(in: &cancellables)
+        }
+        .store(in: &cancellables)
 
         $selectedRecipient.sink { [weak self] recipient in
             self?.viewModel.update(withRecipient: recipient)
-        }.store(in: &cancellables)
+        }
+        .store(in: &cancellables)
 
         view?.recipientAddressPublisher.sink(receiveValue: { [weak self] address in
             self?.selectedRecipient = RecipientEntity(name: "", address: address)
-        }).store(in: &cancellables)
-
-        // Unwrapping the publisher that emits string value from amount text field.
-        guard let amountSubject = view?.amountSubject else { return }
+        })
+        .store(in: &cancellables)
 
         // Map the amount value to `SendFundsAmount`
-        amountSubject.compactMap { [unowned self] in
-            switch viewModel.selectedTokenType {
-            case .ccd:
-                return SendFundsAmount.ccd(GTU(displayValue: $0))
-            case let SendFundsTokenSelection.cis2(token: token):
-                if token.unique {
-                    return  $0 == "1" ? .nonFungibleToken(name: token.name) : nil
-                } else {
-                    return .fungibleToken(token: FungibleToken(displayValue: $0, decimals: token.decimals, symbol: token.name))
+        view?.amountTextPublisher
+            .map { [unowned self] in
+                switch viewModel.selectedTokenType {
+                case .ccd:
+                    return SendFundsAmount.ccd(GTU(displayValue: $0))
+                case let SendFundsTokenSelection.cis2(token: token):
+                    if token.unique {
+                        return $0 == "1" ? .nonFungibleToken(name: token.name) : SendFundsAmount.none
+                    } else {
+                        do {
+                            let token = try FungibleToken.parse(input: $0, decimals: token.decimals, symbol: token.symbol)
+                            return .fungibleToken(token: token)
+                        } catch let error {
+                            if let errorDescription = (error as? FungibleTokenParseError)?.localizedDescription {
+                                self.view?.showErrorAlert(.simpleError(localizedReason: errorDescription))
+                            } else {
+                                self.view?.showErrorAlert(.simpleError(localizedReason: "Unknown Error"))
+                            }
+                            return SendFundsAmount.none
+                        }
+                    }
                 }
             }
-        }
         .assign(to: \.enteredAmount, on: viewModel)
         .store(in: &cancellables)
 
@@ -248,7 +260,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         Publishers.CombineLatest(viewModel.$enteredAmount, viewModel.$feeMessage)
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .map { [weak self] amount, _ in
-                guard let self = self, let amount = amount else { return false }
+                guard let self = self else { return false }
                 return !self.hasSufficientFunds(amount: amount)
             }
             .assign(to: \.insufficientFunds, on: viewModel)
@@ -262,9 +274,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
         .receive(on: DispatchQueue.main)
         .map { [weak self] recipientAddress, feeMessage, amount in
             // Called when editing the amount or address.
+            if case SendFundsAmount.none = amount {
+                return false
+            }
             guard let self = self,
-                  let recipientAddress = recipientAddress,
-                  let amount = amount else { return false }
+                  let recipientAddress = recipientAddress else { return false }
             let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
 
             return isAddressValid &&
@@ -294,10 +308,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     private func resetViewState() {
         viewModel.selectedSendAllDisposableAmount = false
-        self.viewModel.sendAllAmount = ""
-        self.viewModel.insufficientFunds = false
+        viewModel.sendAllAmount = ""
+        viewModel.insufficientFunds = false
     }
-    
+
     func selectTokenType() {
         delegate?.sendFundPresenterShowTokenTypeSelector(didSelectToken: { [weak self] token in
             guard let self = self else { return }
@@ -388,13 +402,12 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 let self = self,
                 let selectedRecipient = self.selectedRecipient,
                 let cost = self.cost,
-                let energy = self.energy,
-                let enteredAmount = viewModel.enteredAmount
+                let energy = self.energy
             else {
                 // never happens since button is disabled in this case
                 return
             }
-            
+
             let recipient: RecipientDataType
             if selectedRecipient.address == account.address {
                 // if we try to make a simple or an encrypted transfer to own account, we show an error
@@ -402,15 +415,14 @@ class SendFundPresenter: SendFundPresenterProtocol {
                     view?.showToast(withMessage: "sendFund.sendingToOwnAccountDisallowed".localized, time: 1)
                     return
                 }
-                
+
                 recipient = RecipientEntity(name: account.displayName, address: account.address)
             } else {
                 recipient = selectedRecipient
             }
-            
-            
+
             delegate?.sendFundPresenter(
-                didSelectTransferAmount: enteredAmount,
+                didSelectTransferAmount: viewModel.enteredAmount,
                 energyUsed: energy,
                 from: account,
                 to: recipient,
@@ -448,6 +460,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
     private func hasSufficientFunds(amount: SendFundsAmount) -> Bool {
         guard let cost = cost else { return true }
 
+        if case SendFundsAmount.none = amount {
+            return true
+        }
+
         switch viewModel.selectedTokenType {
         case .ccd:
             if case let SendFundsAmount.ccd(gtu) = amount {
@@ -475,7 +491,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             let parameters = try? dependencyProvider.mobileWallet().serializeTokenTransferParameters(
                 input: .init(
                     tokenId: token.tokenId,
-                    amount: "\(viewModel.enteredAmount?.intValue ?? 0)",
+                    amount: "\(viewModel.enteredAmount.intValue)",
                     from: account.address,
                     to: selectedRecipient?.address ?? "")
             )
@@ -535,7 +551,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 } else {
                     totalAmount = (GTU(intValue: disposalAmount) - cost).displayValue()
                 }
-                self.view?.amountSubject.send(totalAmount)
+//                self.view?./**/
                 self.viewModel.sendAllAmount = totalAmount
                 self.cost = cost
                 self.energy = value.energy
@@ -557,7 +573,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             return
         }
 
-        let gtuAmount = viewModel.enteredAmount!
+        let gtuAmount = viewModel.enteredAmount
 
         let maxGTU = disposableAmount - (disposableAmount / 20) // 95% of disposableAmount
 

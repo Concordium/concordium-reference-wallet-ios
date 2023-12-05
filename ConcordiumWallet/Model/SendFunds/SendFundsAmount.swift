@@ -6,8 +6,8 @@
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 /// Enumeration wrapping different types of tokens amounts that can be sent.
 
@@ -18,6 +18,9 @@ enum SendFundsAmount {
     case fungibleToken(token: FungibleToken)
     /// Represents a non-fungible token.
     case nonFungibleToken(name: String?)
+    /// Represents a state for initial values after screen shows up, or when ie. fractional value for NFT is set.
+    /// Helper for UI configuration.
+    case none
 
     var intValue: BigInt {
         switch self {
@@ -27,6 +30,7 @@ enum SendFundsAmount {
             return amount.intValue
         case .nonFungibleToken:
             return 1
+        default: return 0
         }
     }
 
@@ -39,6 +43,8 @@ enum SendFundsAmount {
             return token.displayValue
         case let .nonFungibleToken(name):
             return name ?? " - "
+        case .none:
+            return ""
         }
     }
 }

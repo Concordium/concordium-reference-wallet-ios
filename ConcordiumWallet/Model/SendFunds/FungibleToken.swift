@@ -6,37 +6,84 @@
 //  Copyright © 2023 concordium. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 /// A structure representing a fungible token with a specified precision.
+///
+
+enum FungibleTokenParseError: Error {
+    case invalidInput
+    case negativeDecimals
+    
+    var localizedDescription: String {
+        switch self {
+        case .invalidInput:
+            return "Unable to parse. Unexpected input."
+        case .negativeDecimals:
+            return "Unable to parse. Input can't be negative value."
+        }
+    }
+}
+
 struct FungibleToken {
     /// The integer value of the token amount.
     var intValue: BigInt
-    
+
     /// The number of decimal places for the token amount.
     let decimals: Int
-    
-    /// The conversion factor to adjust the display value based on the decimal precision.
-    let conversionFactor: BigInt
-    
+
+//    /// The conversion factor to adjust the display value based on the decimal precision.
+//    let conversionFactor: BigInt
+
     /// The symbol associated with the fungible token.
     let symbol: String?
-    
+
     /// Initializes a `FungibleToken` instance with a given display value, decimal precision, and optional symbol.
     ///
     /// - Parameters:
-    ///   - displayValue: The string representation of the token amount.
+    ///   - value: Token amount as BigInt.
     ///   - decimals: The number of decimal places for the token amount.
     ///   - symbol: An optional symbol associated with the fungible token.
-    init(displayValue: String, decimals: Int, symbol: String?) {
-        let wholePart = BigInt(displayValue.unsignedWholePart)
-        let conversionFactor = BigInt(pow(10.0, Double(decimals)))
-        let fractionalPart = BigInt(displayValue.fractionalPart(precision: decimals))
-        self.conversionFactor = conversionFactor
-        self.symbol = symbol
-        self.decimals = decimals
-        intValue = wholePart * conversionFactor + fractionalPart
+    static func parse(input: String, decimals: Int, symbol: String?) throws -> FungibleToken {
+        guard decimals > 0 else {
+            throw FungibleTokenParseError.negativeDecimals
+        }
+        let decimalSeparator = NumberFormatter().decimalSeparator!
+
+        let sep = decimalSeparator[decimalSeparator.startIndex]
+        // Covers scenario when user inputs a value with decimal separator
+        if let idx = input.firstIndex(of: sep) {
+            let wholePart = input[input.startIndex ..< idx]
+            let idx1 = input.index(idx, offsetBy: 1)
+            let fracPart = input[idx1 ..< input.endIndex]
+            guard let wholePartInt = BigInt(String(wholePart)), let fracPartInt = BigInt(String(fracPart)) else {
+                throw FungibleTokenParseError.invalidInput
+            }
+            let multipliedWholeInt = multiplyWithPowerOfTen(int: wholePartInt, exponent: decimals)
+            let multipliedFractionInt = multiplyWithPowerOfTen(int: fracPartInt, exponent: decimals - fracPart.count)
+            return FungibleToken(intValue: multipliedWholeInt + multipliedFractionInt, decimals: decimals, symbol: symbol)
+        }
+
+        guard let int = BigInt(input) else {
+            throw FungibleTokenParseError.invalidInput
+        }
+        return FungibleToken(
+            intValue: multiplyWithPowerOfTen(
+                int: int,
+                exponent: decimals
+            ),
+            decimals: decimals,
+            symbol: symbol
+        )
+    }
+
+    private static func multiplyWithPowerOfTen(int: BigInt, exponent: Int) -> BigInt {
+        var input = int
+        for _ in 1 ... exponent {
+            input *= 10
+        }
+        return input
     }
 
     /// A human-readable string representation of the token amount with proper formatting.

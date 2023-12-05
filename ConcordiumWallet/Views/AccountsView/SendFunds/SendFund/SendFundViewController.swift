@@ -50,6 +50,9 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         }
     }
 
+    var amountTextPublisher: AnyPublisher<String, Never> {
+        amountTextField.textPublisher
+    }
     @IBOutlet var recipientTextView: UITextView!
     @IBOutlet var recipientPlacehodlerLabel: UILabel!
     @IBOutlet var recipientTextFieldHeight: NSLayoutConstraint!
@@ -60,7 +63,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
 
     private lazy var textFieldDelegate = GTUTextFieldDelegate { [weak self] value, isValid in
-        print(value)
         if isValid {
             self?.presenter.userChangedAmount()
         }
@@ -95,12 +97,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         defaultMainStackViewBottomConstraintConstant = mainStackViewBottomConstraint.constant
         defaultMainStackViewTopConstraintConstant = mainStackViewTopConstraint.constant
-
-        amountTextField.textPublisher
-            .sink(receiveValue: { [weak self] text in
-                self?.amountSubject.send(text)
-            })
-            .store(in: &cancellables)
 
         let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
         tokenSelectionStackView.addGestureRecognizer(guesture)
@@ -294,7 +290,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
     @IBAction func sendFundTapped(_ sender: Any) {
         guard let amount = amountTextField.text else { return }
-
         presenter.userTappedSendFund()
     }
 
