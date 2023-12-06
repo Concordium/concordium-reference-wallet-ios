@@ -40,7 +40,7 @@
 		011576122ABAFE8C00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576112ABAFE8C00D24173 /* BigInt */; };
 		011576142ABAFEB900D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576132ABAFEB900D24173 /* BigInt */; };
 		011576162ABAFEBF00D24173 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 011576152ABAFEBF00D24173 /* BigInt */; };
-		011576192ABAFF6600D24173 /* BigInt+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011576182ABAFF6600D24173 /* BigInt+String.swift */; };
+		011576192ABAFF6600D24173 /* FungibleTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011576182ABAFF6600D24173 /* FungibleTokenTests.swift */; };
 		012888A32A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
 		012888A42A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
 		012888A52A7A7572007D5325 /* AccountTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012888A22A7A7572007D5325 /* AccountTokensViewController.swift */; };
@@ -2839,7 +2839,7 @@
 		0111D7252A2DFE7000E05D35 /* WalletConnectAccountItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectAccountItemView.swift; sourceTree = "<group>"; };
 		0111D7372A2DFEB800E05D35 /* UIViewController+SwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SwiftUI.swift"; sourceTree = "<group>"; };
 		01145A3C2B03A4F8008331F5 /* Double+Rounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
-		011576182ABAFF6600D24173 /* BigInt+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+String.swift"; sourceTree = "<group>"; };
+		011576182ABAFF6600D24173 /* FungibleTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FungibleTokenTests.swift; sourceTree = "<group>"; };
 		012888A22A7A7572007D5325 /* AccountTokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTokensViewController.swift; sourceTree = "<group>"; };
 		01306D1A2AFA69300002BA64 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		0131338C2A386C9E0050AE93 /* WCDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDebugViewController.swift; sourceTree = "<group>"; };
@@ -4502,7 +4502,7 @@
 				7F0573E224AC710C009517AD /* GTUTests.swift */,
 				7F0573EC24AC7173009517AD /* AttributesFormatterTests.swift */,
 				7F0573F124AC7449009517AD /* GeneralFormatterTests.swift */,
-				011576182ABAFF6600D24173 /* BigInt+String.swift */,
+				011576182ABAFF6600D24173 /* FungibleTokenTests.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -8725,7 +8725,7 @@
 				7F0573EB24AC710C009517AD /* TransactionsLoadingHandlerTests.swift in Sources */,
 				19C2EF490E9CA00157B61071 /* EncryptionServiceTest.swift in Sources */,
 				893CAC6E286EC1FD00BDF84C /* CopyPhraseTests.swift in Sources */,
-				011576192ABAFF6600D24173 /* BigInt+String.swift in Sources */,
+				011576192ABAFF6600D24173 /* FungibleTokenTests.swift in Sources */,
 				7F0573F224AC7449009517AD /* GeneralFormatterTests.swift in Sources */,
 				378E0C441D6924E404784EAA /* AutoMockable.generated.swift in Sources */,
 			);

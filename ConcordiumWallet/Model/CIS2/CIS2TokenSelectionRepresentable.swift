@@ -55,10 +55,6 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     }
 }
 
-extension BigInt {
-    
-}
-
 /// The TokenOwnership object represents the ownership relationship between an Account, a Token, and a specific contract index within that account's holdings.
 class CIS2TokenOwnershipEntity: Object {
     @Persisted var name: String = ""
