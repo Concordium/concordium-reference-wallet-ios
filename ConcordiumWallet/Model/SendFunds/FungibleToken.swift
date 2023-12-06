@@ -9,9 +9,6 @@
 import BigInt
 import Foundation
 
-/// A structure representing a fungible token with a specified precision.
-///
-
 enum FungibleTokenParseError: Error {
     case invalidInput
     case negativeDecimals
@@ -31,6 +28,7 @@ enum FungibleTokenParseError: Error {
     }
 }
 
+/// A structure representing a fungible token with a specified precision.
 struct FungibleToken {
     /// The integer value of the token amount.
     var intValue: BigInt
@@ -65,7 +63,7 @@ struct FungibleToken {
             guard let wholePartInt = BigInt(String(wholePart)), let fracPartInt = BigInt(String(fracPart)) else {
                 throw FungibleTokenParseError.invalidInput
             }
-            guard decimals > fracPart.count else {
+            guard decimals >= fracPart.count else {
                 throw FungibleTokenParseError.fractionPartTooLong
             }
             let multipliedWholeInt = multiplyWithPowerOfTen(int: wholePartInt, exponent: decimals)
@@ -88,7 +86,7 @@ struct FungibleToken {
 
     private static func multiplyWithPowerOfTen(int: BigInt, exponent: Int) -> BigInt {
         var input = int
-        for _ in 1 ... exponent {
+        for _ in 0 ..< exponent {
             input *= 10
         }
         return input
@@ -96,6 +94,41 @@ struct FungibleToken {
 
     /// A human-readable string representation of the token amount with proper formatting.
     var displayValue: String {
-        intValue.format(implicitDecimals: decimals, minDecimals: 3) + " " + (symbol ?? "")
+        formattedString(subunitPrecision: decimals, minDecimalDigits: 3) + " " + (symbol ?? "")
+    }
+    
+    /// Formats the `BigInt` with a specified number of implicit decimals and a minimum number of decimals.
+    ///
+    /// - Parameters:
+    ///   - subunitPrecision: The number of digits that are interpreted as fractional.
+    ///   - minDecimalDigits: The minimum number of digits.
+    /// - Returns: A string representation of the formatted `BigInt`.
+    func formattedString(subunitPrecision: Int, minDecimalDigits: Int) -> String {
+        var val = intValue
+        var decimals = subunitPrecision
+        while decimals > minDecimalDigits && val % 10 == 0 {
+            val /= 10
+            decimals -= 1
+        }
+        return format(subunitPrecision: decimals)
+    }
+    
+    func format(subunitPrecision: Int) -> String {
+        if subunitPrecision == 0 {
+            return String(intValue)
+        }
+        var val = intValue
+        var sign = ""
+        if val < 0 {
+            val = abs(val)
+            sign = "-"
+        }
+        let decimalSeparator = NumberFormatter().decimalSeparator!
+        let divisor = BigInt(10).power(subunitPrecision)
+        let int = String(val / divisor)
+        let frac = String(val % divisor)
+        let padding = String(repeating: "0", count: subunitPrecision - frac.count)
+        
+        return "\(sign)\(int)\(decimalSeparator)\(padding)\(frac)"
     }
 }

@@ -22,7 +22,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         if unique {
             return balance > BigInt.zero ? "Owned" : " Not owned"
         } else {
-            return balance.format(implicitDecimals: decimals, minDecimals: 3)
+            return FungibleToken(intValue: balance, decimals: decimals, symbol: symbol).displayValue
         }
     }
     
@@ -56,41 +56,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
 }
 
 extension BigInt {
-    /// Formats the `BigInt` with a specified number of implicit decimals and a minimum number of decimals.
-    ///
-    /// - Parameters:
-    ///   - implicitDecimals: The number of implicit decimals that the input number is expected to have..
-    ///   - minDecimals: The minimum number of decimals to include in the formatted string. Defaults to 3.
-    /// - Returns: A string representation of the formatted `BigInt`.
-    func format(implicitDecimals: Int, minDecimals: Int = 3) -> String {
-        var val = self
-        var decimals = implicitDecimals
-        while decimals > minDecimals && val % 10 == 0 {
-            val /= 10
-            decimals -= 1
-        }
-        return val.format(implicitDecimals: decimals)
-    }
     
-    func format(implicitDecimals: Int) -> String {
-        
-        if implicitDecimals == 0 {
-            return String(self)
-        }
-        var val = self
-        var sign = ""
-        if val < 0 {
-            val = abs(val)
-            sign = "-"
-        }
-        let decimalSeparator = NumberFormatter().decimalSeparator!
-        let divisor = BigInt(10).power(implicitDecimals)
-        let int = String(val / divisor)
-        let frac = String(val % divisor)
-        let padding = String(repeating: "0", count: implicitDecimals - frac.count)
-        
-        return "\(sign)\(int)\(decimalSeparator)\(padding)\(frac)"
-    }
 }
 
 /// The TokenOwnership object represents the ownership relationship between an Account, a Token, and a specific contract index within that account's holdings.
