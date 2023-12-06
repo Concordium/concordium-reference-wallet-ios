@@ -54,7 +54,7 @@ class FungibleTokenTests: XCTestCase {
     
     func test_display_value_with_decimal_separator() {
             let token = FungibleToken(intValue: BigInt(123456), decimals: 3, symbol: "ABC")
-            XCTAssertEqual(token.displayValue, "123.456 ABC")
+            XCTAssertEqual(token.displayValue, "123\(sep)456 ABC")
         }
 
 
@@ -65,6 +65,6 @@ class FungibleTokenTests: XCTestCase {
 
         func test_display_value_with_negative_value() {
             let token = FungibleToken(intValue: BigInt(-123456), decimals: 3, symbol: "PQR")
-            XCTAssertEqual(token.displayValue, "-123.456 PQR")
+            XCTAssertEqual(token.displayValue, "-123\(sep)456 PQR")
         }
 }
