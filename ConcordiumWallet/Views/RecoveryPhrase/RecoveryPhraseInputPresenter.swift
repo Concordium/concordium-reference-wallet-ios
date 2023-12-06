@@ -60,8 +60,7 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
 //            viewModel.selectedWords = ["myth", "hamster", "wire", "envelope", "shine", "client", "host", "flat", "burden", "photo", "west", "say", "bench", "hawk", "faith", "tower", "track", "wealth", "ceiling", "lemon", "net", "bring", "noble", "script"]
 //            viewModel.selectedWords = ["congress", "test", "genre", "day", "monitor", "divorce", "heart", "balance", "destroy", "save", "upgrade", "cash", "weird", "process", "wreck", "donor", "copy", "potato", "try", "essay", "impulse", "myself", "chimney", "pipe"]
             
-            viewModel.selectedWords = ["front", "ethics", "seat", "garlic", "alone", "diesel", "discover", "same", "shadow", "grace", "dentist", "attitude", "skill", "blanket", "flat", "skill", "avocado", "manage", "vicious", "dynamic", "hire", "elevator", "fee", "price"]
-//            viewModel.selectedWords[index] = word
+            viewModel.selectedWords[index] = word
             if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {
                 switch recoveryService.validate(recoveryPhrase: viewModel.selectedWords) {
                 case let .success(recoveryPhrase):
