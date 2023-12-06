@@ -54,12 +54,7 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
         case .clearBelow(let index):
             viewModel.selectedWords = viewModel.selectedWords[0...index] + Array(repeating: "", count: 23 - index)
         case .wordSelected(let index, let word):
-            // TODO: Test phrase
-//            viewModel.selectedWords = ["interest", "spy", "champion", "install", "appear", "solution", "digital", "intact", "expose", "order", "minute", "match", "train", "possible", "practice", "leave", "first", "matter", "zero", "brief", "tag", "mushroom", "anger", "tide"]
-//            viewModel.selectedWords = ["there", "excuse", "hat", "credit", "position", "various", "laptop", "arch", "fish", "tank", "mass", "margin", "sea", "purity", "position", "royal", "law", "tribe", "harvest", "match", "field", "hundred", "unfair", "increase"]
-//            viewModel.selectedWords = ["myth", "hamster", "wire", "envelope", "shine", "client", "host", "flat", "burden", "photo", "west", "say", "bench", "hawk", "faith", "tower", "track", "wealth", "ceiling", "lemon", "net", "bring", "noble", "script"]
-//            viewModel.selectedWords = ["congress", "test", "genre", "day", "monitor", "divorce", "heart", "balance", "destroy", "save", "upgrade", "cash", "weird", "process", "wreck", "donor", "copy", "potato", "try", "essay", "impulse", "myself", "chimney", "pipe"]
-            
+            // TODO: Test phrase            
             viewModel.selectedWords[index] = word
             if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {
                 switch recoveryService.validate(recoveryPhrase: viewModel.selectedWords) {
