@@ -110,14 +110,14 @@ struct FungibleToken {
             val /= 10
             decimals -= 1
         }
-        return format(subunitPrecision: decimals)
+        return format(value: val, subunitPrecision: decimals)
     }
     
-    func format(subunitPrecision: Int) -> String {
+    private func format(value: BigInt, subunitPrecision: Int) -> String {
         if subunitPrecision == 0 {
             return String(intValue)
         }
-        var val = intValue
+        var val = value
         var sign = ""
         if val < 0 {
             val = abs(val)

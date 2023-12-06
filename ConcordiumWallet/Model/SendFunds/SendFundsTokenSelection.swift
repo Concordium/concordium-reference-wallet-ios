@@ -20,5 +20,4 @@ enum SendFundsTokenSelection: Equatable {
             self = .ccd
         }
     }
-
 }

@@ -22,7 +22,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         if unique {
             return balance > BigInt.zero ? "Owned" : " Not owned"
         } else {
-            return FungibleToken(intValue: balance, decimals: decimals, symbol: symbol).displayValue
+            return FungibleToken(intValue: balance, decimals: decimals, symbol: symbol).formattedString(subunitPrecision: decimals, minDecimalDigits: 3)
         }
     }
     
