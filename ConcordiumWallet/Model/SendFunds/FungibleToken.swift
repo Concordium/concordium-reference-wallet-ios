@@ -16,6 +16,7 @@ enum FungibleTokenParseError: Error {
     case invalidInput
     case negativeDecimals
     case fractionPartTooLong
+    case inputTooLarge
     var localizedDescription: String {
         switch self {
         case .invalidInput:
@@ -23,7 +24,9 @@ enum FungibleTokenParseError: Error {
         case .negativeDecimals:
             return "Unable to parse. Input can't be negative value."
         case .fractionPartTooLong:
-            return "Number of decimal digits exceeds token capability."
+            return "Too many fractional digits."
+        case .inputTooLarge:
+            return "Input too large."
         }
     }
 }

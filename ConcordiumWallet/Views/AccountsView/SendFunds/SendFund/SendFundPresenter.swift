@@ -30,7 +30,7 @@ class SendFundViewModel {
     @Published var sendAllAmount: String?
     @Published var selectedSendAllDisposableAmount = false
     @Published var disposalAmount: GTU?
-    @Published var enteredAmount: SendFundsAmount = .none
+    @Published var enteredAmount: Result<SendFundsAmount, SendFundsViewError> = .success(.none)
     @Published var selectedTokenType: SendFundsTokenSelection = .ccd
     private var cancellables: Set<AnyCancellable> = []
     func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenSelection) {
@@ -208,6 +208,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 
     func viewDidLoad() {
+        guard let view = view else { return }
         viewModel.setup(account: account, transferType: transferType, tokenType: tokenType)
         viewModel.setBalancesFor(transferType: transferType, account: account)
 
@@ -221,35 +222,43 @@ class SendFundPresenter: SendFundPresenterProtocol {
         }
         .store(in: &cancellables)
 
-        view?.recipientAddressPublisher.sink(receiveValue: { [weak self] address in
+        view.recipientAddressPublisher.sink(receiveValue: { [weak self] address in
             self?.selectedRecipient = RecipientEntity(name: "", address: address)
         })
         .store(in: &cancellables)
 
         // Map the amount value to `SendFundsAmount`
-        view?.amountTextPublisher
-            .map { [unowned self] in
+        view.amountTextPublisher
+            .map { [unowned self] value -> Result<SendFundsAmount, SendFundsViewError> in
                 do {
                     switch viewModel.selectedTokenType {
                     case .ccd:
-                        let token = try FungibleToken.parse(input: $0, decimals: 6, symbol: nil)
-                        return .fungibleToken(token: token)
+                        let token = try FungibleToken.parse(input: value, decimals: 6, symbol: nil)
+                        guard token.intValue <= Int.max else {
+                            throw SendFundsViewError.parseError(.invalidInput)
+                        }
+                        return .success(.ccd(token: GTU(intValue: Int(token.intValue))))
                     case let SendFundsTokenSelection.cis2(token: token):
                         if token.unique {
-                            return $0 == "1" ? .nonFungibleToken(name: token.name) : SendFundsAmount.none
+                            return .success(value == "1" ? .nonFungibleToken(name: token.name) : SendFundsAmount.none)
                         } else {
-                            let token = try FungibleToken.parse(input: $0, decimals: token.decimals, symbol: token.symbol)
-                            return .fungibleToken(token: token)
+                            let token = try FungibleToken.parse(input: value, decimals: token.decimals, symbol: token.symbol)
+                            return .success(.fungibleToken(token: token))
                         }
                     }
+                } catch let error {
+                   if let error = (error as? FungibleTokenParseError) {
+                       return .failure(.parseError(error))
+                   } else {
+                       return .failure(.parseError(.invalidInput))
+                   }
                 }
-                catch let error {
-                       if let errorDescription = (error as? FungibleTokenParseError)?.localizedDescription {
-                           self.view?.errorMessageLabel.text = errorDescription
-                       } else {
-                           self.view?.errorMessageLabel.text = "Unknown Error"
-                       }
-                       return SendFundsAmount.none
+            }
+            .map {
+                switch $0 {
+                case .success(let amount):
+                    return self.hasSufficientFunds(amount: amount) ?  $0 : .failure(.insufficientFunds)
+                case .failure(_): return $0
                 }
             }
         .assign(to: \.enteredAmount, on: viewModel)
@@ -259,15 +268,19 @@ class SendFundPresenter: SendFundPresenterProtocol {
         // (this publisher will return true for an empty amount)
         // we combine with fee message to make sure the insufficient funds label is updated
         // also when the fee is calculated
-        Publishers.CombineLatest(viewModel.$enteredAmount, viewModel.$feeMessage)
+        viewModel.$enteredAmount
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
-            .map { [weak self] amount, _ in
-                guard let self = self else { return false }
-                return !self.hasSufficientFunds(amount: amount)
+            .map { 
+                print($0)
+                switch $0 {
+                case .failure(_): return true
+                case .success(_): return false
+                }
             }
             .assign(to: \.shouldShowError, on: viewModel)
             .store(in: &cancellables)
 
+      
         Publishers.CombineLatest3(
             viewModel.$recipientAddress,
             viewModel.$feeMessage,
@@ -276,16 +289,17 @@ class SendFundPresenter: SendFundPresenterProtocol {
         .receive(on: DispatchQueue.main)
         .map { [weak self] recipientAddress, feeMessage, amount in
             // Called when editing the amount or address.
-            if case SendFundsAmount.none = amount {
+            if case .failure(_) = amount {
                 return false
             }
             guard let self = self,
                   let recipientAddress = recipientAddress else { return false }
             let isAddressValid = !recipientAddress.isEmpty && self.dependencyProvider.mobileWallet().check(accountAddress: recipientAddress)
 
+            guard let amount = try? amount.get() else { return false }
             return isAddressValid &&
                 !(feeMessage ?? "").isEmpty &&
-                self.hasSufficientFunds(amount: amount)
+            self.hasSufficientFunds(amount: amount)
         }
         .assign(to: \.sendButtonEnabled, on: viewModel)
         .store(in: &cancellables)
@@ -297,7 +311,19 @@ class SendFundPresenter: SendFundPresenterProtocol {
             })
             .store(in: &cancellables)
 
-        view?.bind(to: viewModel)
+        viewModel.$enteredAmount
+            .debounce(for: 0.1, scheduler: DispatchQueue.main)
+            .map {
+                switch $0 {
+                case let .failure(error): return error.localizedDescription
+                case .success(_): return nil
+                }
+            }
+            .compactMap { $0 }
+            .assign(to: \.errorMessageLabel.text, on: view)
+            .store(in: &cancellables)
+        
+        view.bind(to: viewModel)
     }
 
     func userTappedClose() {
@@ -424,7 +450,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             }
 
             delegate?.sendFundPresenter(
-                didSelectTransferAmount: viewModel.enteredAmount,
+                didSelectTransferAmount: try! viewModel.enteredAmount.get(),
                 energyUsed: energy,
                 from: account,
                 to: recipient,
@@ -463,7 +489,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         guard let cost = cost else { return true }
 
         if case SendFundsAmount.none = amount {
-            return true
+            return false
         }
 
         switch viewModel.selectedTokenType {
@@ -493,7 +519,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             let parameters = try? dependencyProvider.mobileWallet().serializeTokenTransferParameters(
                 input: .init(
                     tokenId: token.tokenId,
-                    amount: "\(viewModel.enteredAmount.intValue)",
+                    amount: "\(viewModel.enteredAmount.get().intValue)",
                     from: account.address,
                     to: selectedRecipient?.address ?? "")
             )
@@ -524,7 +550,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self?.energy = value.energy
                 let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
                 self?.viewModel.feeMessage = feeMessage
-                print(value)
             })
             .store(in: &cancellables)
     }
@@ -553,7 +578,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 } else {
                     totalAmount = (GTU(intValue: disposalAmount) - cost).displayValue()
                 }
-//                self.view?./**/
                 self.viewModel.sendAllAmount = totalAmount
                 self.cost = cost
                 self.energy = value.energy
@@ -570,12 +594,12 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 
     private func showShieldAmountWarningIfNeeded(completion: @escaping () -> Void) {
-        guard let disposableAmount = viewModel.disposalAmount?.intValue else {
+        guard let disposableAmount = viewModel.disposalAmount?.intValue,
+              let gtuAmount = try? viewModel.enteredAmount.get()
+        else {
             completion()
             return
         }
-
-        let gtuAmount = viewModel.enteredAmount
 
         let maxGTU = disposableAmount - (disposableAmount / 20) // 95% of disposableAmount
 

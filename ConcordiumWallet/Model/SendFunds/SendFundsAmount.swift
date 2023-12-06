@@ -13,7 +13,7 @@ import Foundation
 
 enum SendFundsAmount {
     /// Represents an amount in a CCDs.
-    case ccd(token: FungibleToken)
+    case ccd(token: GTU)
     /// Represents an amount in a fungible token.
     case fungibleToken(token: FungibleToken)
     /// Represents a non-fungible token.

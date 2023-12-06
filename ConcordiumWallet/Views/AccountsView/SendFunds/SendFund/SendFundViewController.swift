@@ -17,6 +17,20 @@ class SendFundFactory {
     }
 }
 
+enum SendFundsViewError: Error {
+    case parseError(FungibleTokenParseError)
+    case insufficientFunds
+    
+    var localizedDescription: String {
+        switch self {
+        case .parseError(let fungibleTokenParseError):
+            return fungibleTokenParseError.localizedDescription
+        case .insufficientFunds:
+            return "sendFund.insufficientFunds".localized
+        }
+    }
+}
+
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
     var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
@@ -288,7 +302,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     }
 
     @IBAction func sendFundTapped(_ sender: Any) {
-        guard let amount = amountTextField.text else { return }
+        guard let _ = amountTextField.text else { return }
         presenter.userTappedSendFund()
     }
 
