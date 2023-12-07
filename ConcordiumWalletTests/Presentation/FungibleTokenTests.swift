@@ -13,7 +13,7 @@ class FungibleTokenTests: XCTestCase {
     let sep = NumberFormatter().decimalSeparator!
 
     func test_FungibleToken_throws_when_fractional_part_too_long() {
-        XCTAssertThrowsError(try FungibleToken.parse(input: "1,23", decimals: 1, symbol: nil)) { error in
+        XCTAssertThrowsError(try FungibleToken.parse(input: "1\(sep)23", decimals: 1, symbol: nil)) { error in
             XCTAssertEqual(error as! FungibleTokenParseError, FungibleTokenParseError.fractionPartTooLong)
         }
     }
@@ -42,7 +42,7 @@ class FungibleTokenTests: XCTestCase {
 
     func test_input_with_negative_decimals_count_throws_negativeDecimals_exception() {
         do {
-            _ = try FungibleToken.parse(input: "-456.789", decimals: -3, symbol: "PQR")
+            _ = try FungibleToken.parse(input: "-456\(sep)789", decimals: -3, symbol: "PQR")
             XCTFail("expected_error_not_thrown")
         } catch let error as FungibleTokenParseError {
             XCTAssertEqual(error, .negativeDecimals)
