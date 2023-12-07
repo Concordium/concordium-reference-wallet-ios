@@ -238,7 +238,7 @@ private extension WalletConnectCoordinator {
             }
             .store(in: &cancellables)
     }
-
+ 
     func setupWalletConnectRequestBinding() {
         // Handler for incoming requests on established connection.
         Sign.instance.sessionRequestPublisher
