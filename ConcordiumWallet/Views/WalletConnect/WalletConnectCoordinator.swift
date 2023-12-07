@@ -530,7 +530,6 @@ private extension WalletConnectCoordinator {
                     ),
                     animated: true
                 )
-
                 self?.isHandlingRequest = true
             }
             .store(in: &cancellables)
