@@ -177,6 +177,7 @@ private extension WalletConnectCoordinator {
     }
 
     func respondResult(request: Request, msg: AnyCodable) {
+        self.isHandlingRequest = false
         Task { [weak self] in
             do {
                 try await Sign.instance.respond(
@@ -253,6 +254,7 @@ private extension WalletConnectCoordinator {
                     self.reject(request: request, err: WalletConnectError.userRejected, shouldPresent: false)
                     return
                 }
+                self.isHandlingRequest = true
 
                 // Look up session for request topic for finding connected account and dApp name.
                 // TODO: We should not just trust the information from the WC client, but just check it against our own connection state.
@@ -494,7 +496,6 @@ private extension WalletConnectCoordinator {
                             }, receiveValue: { [weak self] val in
                                 print("DEBUG: WalletConnect: Transaction submitted: \(val)")
                                 self?.respondResult(request: request, msg: AnyCodable(["hash": val.submissionId]))
-                                self?.isHandlingRequest = false
                             })
                             .store(in: &cancellables)
                         self.navigationController.popViewController(animated: true)
@@ -531,7 +532,6 @@ private extension WalletConnectCoordinator {
                     ),
                     animated: true
                 )
-                self.isHandlingRequest = true
             }
             .store(in: &cancellables)
 
@@ -641,6 +641,7 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
     }
 
     func reject(request: Request, err: WalletConnectError, shouldPresent: Bool) {
+        self.isHandlingRequest = false
         let (code, msg) = err.codeAndMsg
         Task { [weak self] in
             do {
