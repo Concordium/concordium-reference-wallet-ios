@@ -251,7 +251,7 @@ private extension WalletConnectCoordinator {
 
                 // Prevents displaying multiple requests at once
                 if self.isHandlingRequest {
-                    self.reject(request: request, err: WalletConnectError.userRejected, shouldPresent: false)
+                    self.reject(request: request, err: WalletConnectError.userRejected, shouldPresent: false, shouldUnsetRequestFlag: false)
                     return
                 }
                 self.isHandlingRequest = true
@@ -638,8 +638,10 @@ extension WalletConnectCoordinator: WalletConnectDelegate {
         navigationController.present(ac, animated: true)
     }
 
-    func reject(request: Request, err: WalletConnectError, shouldPresent: Bool) {
-        self.isHandlingRequest = false
+    func reject(request: Request, err: WalletConnectError, shouldPresent: Bool, shouldUnsetRequestFlag: Bool = true) {
+        if shouldUnsetRequestFlag {
+            self.isHandlingRequest = false
+        }
         let (code, msg) = err.codeAndMsg
         Task { [weak self] in
             do {
