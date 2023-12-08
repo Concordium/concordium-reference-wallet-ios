@@ -492,7 +492,6 @@ private extension WalletConnectCoordinator {
                                     err: .transactionError(err.localizedDescription),
                                     shouldPresent: true
                                 )
-                                self?.isHandlingRequest = false
                             }, receiveValue: { [weak self] val in
                                 print("DEBUG: WalletConnect: Transaction submitted: \(val)")
                                 self?.respondResult(request: request, msg: AnyCodable(["hash": val.submissionId]))
@@ -503,7 +502,6 @@ private extension WalletConnectCoordinator {
                         print("DEBUG: WalletConnect: Rejecting request")
                         self?.reject(request: request, err: .userRejected, shouldPresent: false)
                         self?.navigationController.popViewController(animated: true)
-                        self?.isHandlingRequest = false
                     },
                     shouldAllowAccept: info.$estimatedCost.map { $0 != nil && isAccountBalanceSufficient }.eraseToAnyPublisher()
                 )
