@@ -11,7 +11,7 @@ import Foundation
 #endif
 
 import Combine
-
+import BigInt
 @testable import Mock
 
 class AppSettingsServiceProtocolMock: AppSettingsServiceProtocol {
@@ -50,6 +50,85 @@ class AppSettingsServiceProtocolMock: AppSettingsServiceProtocol {
             return getTermsAndConditionsVersionClosure()
         } else {
             return getTermsAndConditionsVersionReturnValue
+        }
+    }
+}
+
+class CIS2TokenSelectionRepresentableProtocolMock: CIS2TokenSelectionRepresentableProtocol {
+    var contractName: String {
+        get { return underlyingContractName }
+        set(value) { underlyingContractName = value }
+    }
+
+    var underlyingContractName: String!
+    var tokenId: String {
+        get { return underlyingTokenId }
+        set(value) { underlyingTokenId = value }
+    }
+
+    var underlyingTokenId: String!
+    var balance: BigInt {
+        get { return underlyingBalance }
+        set(value) { underlyingBalance = value }
+    }
+
+    var underlyingBalance: BigInt!
+    var contractIndex: String {
+        get { return underlyingContractIndex }
+        set(value) { underlyingContractIndex = value }
+    }
+
+    var underlyingContractIndex: String!
+    var name: String {
+        get { return underlyingName }
+        set(value) { underlyingName = value }
+    }
+
+    var underlyingName: String!
+    var symbol: String?
+    var decimals: Int {
+        get { return underlyingDecimals }
+        set(value) { underlyingDecimals = value }
+    }
+
+    var underlyingDecimals: Int!
+    var description: String {
+        get { return underlyingDescription }
+        set(value) { underlyingDescription = value }
+    }
+
+    var underlyingDescription: String!
+    var thumbnail: URL?
+    var unique: Bool {
+        get { return underlyingUnique }
+        set(value) { underlyingUnique = value }
+    }
+
+    var underlyingUnique: Bool!
+    var accountAddress: String {
+        get { return underlyingAccountAddress }
+        set(value) { underlyingAccountAddress = value }
+    }
+
+    var underlyingAccountAddress: String!
+    var dateAdded: Date?
+
+    // MARK: - toEntity
+
+    var toEntityCallsCount = 0
+    var toEntityCalled: Bool {
+        return toEntityCallsCount > 0
+    }
+
+    var toEntityReturnValue: CIS2TokenOwnershipEntity!
+    var toEntityClosure: (() -> CIS2TokenOwnershipEntity)?
+
+    func toEntity() -> CIS2TokenOwnershipEntity {
+        toEntityCallsCount += 1
+        if let toEntityClosure = toEntityClosure {
+            return toEntityClosure()
+        } else {
+            return toEntityReturnValue
         }
     }
 }

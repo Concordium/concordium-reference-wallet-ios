@@ -2,7 +2,25 @@ import BigInt
 import Foundation
 import RealmSwift
 
-struct CIS2TokenSelectionRepresentable: Hashable {
+// sourcery: AutoMockable
+protocol CIS2TokenSelectionRepresentableProtocol {
+    var contractName: String { get }
+    var tokenId: String { get }
+    var balance: BigInt { get }
+    var contractIndex: String { get }
+    var name: String { get }
+    var symbol: String? { get }
+    var decimals: Int { get }
+    var description: String { get }
+    var thumbnail: URL? { get }
+    var unique: Bool { get }
+    var accountAddress: String { get }
+    var dateAdded: Date? { get }
+    
+    func toEntity() -> CIS2TokenOwnershipEntity
+}
+
+struct CIS2TokenSelectionRepresentable: Hashable, CIS2TokenSelectionRepresentableProtocol {
     let contractName: String
     let tokenId: String
     let balance: BigInt
