@@ -244,18 +244,20 @@ private extension WalletConnectCoordinator {
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] request, _ in
+                guard let self else { return }
+                
                 print("DEBUG: WalletConnect: Incoming request: \(request)")
 
                 // Prevents displaying multiple requests at once
-                if self?.isHandlingRequest ?? true {
-                    self?.reject(request: request, err: WalletConnectError.userRejected, shouldPresent: false)
+                if self.isHandlingRequest {
+                    self.reject(request: request, err: WalletConnectError.userRejected, shouldPresent: false)
                     return
                 }
 
                 // Look up session for request topic for finding connected account and dApp name.
                 // TODO: We should not just trust the information from the WC client, but just check it against our own connection state.
                 guard let session = Sign.instance.getSessions().first(where: { $0.topic == request.topic }) else {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: WalletConnectError.sessionError(SessionError.sessionNotFound(topic: request.topic)),
                         shouldPresent: true
@@ -264,7 +266,7 @@ private extension WalletConnectCoordinator {
                 }
                 // Look up namespace "ccd" in the session.
                 guard session.namespaces.count == 1, let ccdNamespace = session.namespaces["ccd"] else {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: WalletConnectError.sessionError(SessionError.unexpectedNamespaces(namespaces: Array(session.namespaces.keys))),
                         shouldPresent: true
@@ -273,7 +275,7 @@ private extension WalletConnectCoordinator {
                 }
                 // Look up single account address in "ccd" namespace.
                 guard ccdNamespace.accounts.count == 1, let accountAddress = ccdNamespace.accounts.first?.address else {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: WalletConnectError.sessionError(SessionError.unexpectedAccountCount(addresses: Array(ccdNamespace.accounts.map { $0.address }))),
                         shouldPresent: true
@@ -281,8 +283,8 @@ private extension WalletConnectCoordinator {
                     return
                 }
                 // Get account object by address.
-                guard let account = self?.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
-                    self?.reject(
+                guard let account = self.dependencyProvider.storageManager().getAccount(withAddress: accountAddress) else {
+                    self.reject(
                         request: request,
                         err: WalletConnectError.sessionError(SessionError.accountNotFound(address: accountAddress)),
                         shouldPresent: true
@@ -304,7 +306,7 @@ private extension WalletConnectCoordinator {
                         let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
                         payload = try JSONDecoder().decode(SignMessagePayload.self, from: jsonData)
                     } catch let err {
-                        self?.reject(
+                        self.reject(
                             request: request,
                             err: WalletConnectError.internalError("Converting message parameters failed: \(err)"),
                             shouldPresent: true
@@ -312,7 +314,7 @@ private extension WalletConnectCoordinator {
                         return
                     }
                     
-                    self?.navigationController.pushViewController(
+                    self.navigationController.pushViewController(
                         UIHostingController(
                             rootView: WalletConnectApprovalView(
                                 title: "Sign Message",
@@ -356,7 +358,7 @@ private extension WalletConnectCoordinator {
                     return
                 default:
                     // This should never happen as WalletConnect checks that you only invoke approved methods.
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: WalletConnectError.requestError(.unsupportedMethod(request.method)),
                         shouldPresent: true
@@ -373,7 +375,7 @@ private extension WalletConnectCoordinator {
                     let jsonData = try JSONSerialization.data(withJSONObject: request.params.value, options: [])
                     params = try JSONDecoder().decode(ContractUpdateParams.self, from: jsonData)
                 } catch let err {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: WalletConnectError.internalError("Converting contract update parameters failed: \(err)"),
                         shouldPresent: true
@@ -389,7 +391,7 @@ private extension WalletConnectCoordinator {
                 )
 
                 if params.sender != account.address {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: WalletConnectError.internalError("Sender address '\(params.sender)' differs from connected account '\(account.address)'"),
                         shouldPresent: true
@@ -399,7 +401,7 @@ private extension WalletConnectCoordinator {
                 
                 var message: SignableValueRepresentation?
                 if !inputParams.parameter.isEmpty {
-                    if let decoded = try? self?.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
+                    if let decoded = try? self.dependencyProvider.transactionsService().decodeContractParameter(with: inputParams).data(using: .utf8)?.prettyPrintedJSONString {
                         message = .decoded(decoded as String)
                     } else {
                         message = SignableValueRepresentation.raw(params.payload.message)
@@ -408,7 +410,7 @@ private extension WalletConnectCoordinator {
 
                 // Check that request transaction is a contract update as that's the only type we support.
                 guard case TransferType.contractUpdate = params.type else {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: .requestError(.unsupportedTransactionType(params.type)),
                         shouldPresent: true
@@ -417,7 +419,7 @@ private extension WalletConnectCoordinator {
                 }
                 // Check that sender account address isn't empty as that would result in a meaningless error when trying to look up its nonce.
                 guard !params.sender.isEmpty else {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: .requestError(.invalidPayload("Sender address is empty")),
                         shouldPresent: true
@@ -426,7 +428,7 @@ private extension WalletConnectCoordinator {
                 }
 
                 guard let amount = Int(params.payload.amount) else {
-                    self?.reject(
+                    self.reject(
                         request: request,
                         err: .requestError(.invalidPayload("Invalid amount")),
                         shouldPresent: true
@@ -445,36 +447,35 @@ private extension WalletConnectCoordinator {
                 
                 let isAccountBalanceSufficient = account.forecastAtDisposalBalance > amount
 
-                if let self {
-                    self.dependencyProvider.transactionsService().getTransferCost(
-                        transferType: transfer.transferType.toWalletProxyTransferType(),
-                        costParameters: [
-                            .amount(params.payload.amount),
-                            .sender(params.sender),
-                            .contractIndex(params.payload.address.index),
-                            .contractSubindex(params.payload.address.subindex),
-                            .receiveName(params.payload.receiveName),
-                            .parameter(params.payload.message),
-                        ]
+                // Estimate cost of transaction.
+                self.dependencyProvider.transactionsService().getTransferCost(
+                    transferType: transfer.transferType.toWalletProxyTransferType(),
+                    costParameters: [
+                        .amount(params.payload.amount),
+                        .sender(params.sender),
+                        .contractIndex(params.payload.address.index),
+                        .contractSubindex(params.payload.address.subindex),
+                        .receiveName(params.payload.receiveName),
+                        .parameter(params.payload.message),
+                    ]
+                )
+                .sink(receiveError: { _ in
+                    // Fall back to using the value provided by the dApp.
+                    // TODO: Print error to user along with explanation that the dApp value is being used.
+                    info.estimatedCost = .init(
+                        nrg: transfer.energy,
+                        ccd: nil
                     )
-                    .sink(receiveError: { _ in
-                        // Fall back to using the value provided by the dApp.
-                        // TODO: Print error to user along with explanation that the dApp value is being used.
-                        info.estimatedCost = .init(
-                            nrg: transfer.energy,
-                            ccd: nil
-                        )
-                    }, receiveValue: { cost in
-                        // Set max energy adjusted by configured buffer factor.
-                        // The CCD estimate is not adjusted.
-                        let energy = Int(cost.energy)
-                        info.estimatedCost = .init(
-                            nrg: energy,
-                            ccd: GTU(intValue: Int(cost.cost))
-                        )
-                        transfer.energy = energy
-                    }).store(in: &self.cancellables)
-                }
+                }, receiveValue: { cost in
+                    // Set max energy adjusted by configured buffer factor.
+                    // The CCD estimate is not adjusted.
+                    let energy = Int(cost.energy)
+                    info.estimatedCost = .init(
+                        nrg: energy,
+                        ccd: GTU(intValue: Int(cost.cost))
+                    )
+                    transfer.energy = energy
+                }).store(in: &self.cancellables)
 
                 let viewModel = WalletConnectApprovalViewModel(
                     didAccept: { [weak self] in
@@ -506,7 +507,7 @@ private extension WalletConnectCoordinator {
                     shouldAllowAccept: info.$estimatedCost.map { $0 != nil && isAccountBalanceSufficient }.eraseToAnyPublisher()
                 )
                 
-                self?.navigationController.pushViewController(
+                self.navigationController.pushViewController(
                     UIHostingController(
                         // TODO: Only enable "Accept" button after cost estimation has been resolved.
                         rootView: WalletConnectApprovalView(
@@ -530,7 +531,7 @@ private extension WalletConnectCoordinator {
                     ),
                     animated: true
                 )
-                self?.isHandlingRequest = true
+                self.isHandlingRequest = true
             }
             .store(in: &cancellables)
 
