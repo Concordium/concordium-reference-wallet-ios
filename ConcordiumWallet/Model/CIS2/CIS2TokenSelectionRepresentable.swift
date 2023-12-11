@@ -3,24 +3,8 @@ import Foundation
 import RealmSwift
 
 // sourcery: AutoMockable
-protocol CIS2TokenSelectionRepresentableProtocol {
-    var contractName: String { get }
-    var tokenId: String { get }
-    var balance: BigInt { get }
-    var contractIndex: String { get }
-    var name: String { get }
-    var symbol: String? { get }
-    var decimals: Int { get }
-    var description: String { get }
-    var thumbnail: URL? { get }
-    var unique: Bool { get }
-    var accountAddress: String { get }
-    var dateAdded: Date? { get }
-    
-    func toEntity() -> CIS2TokenOwnershipEntity
-}
 
-struct CIS2TokenSelectionRepresentable: Hashable, CIS2TokenSelectionRepresentableProtocol {
+struct CIS2TokenSelectionRepresentable: Hashable {
     let contractName: String
     let tokenId: String
     let balance: BigInt
@@ -44,8 +28,8 @@ struct CIS2TokenSelectionRepresentable: Hashable, CIS2TokenSelectionRepresentabl
             return FungibleToken(intValue: balance, decimals: decimals, symbol: symbol).formattedString(subunitPrecision: decimals, minDecimalDigits: 3)
         }
     }
-    
-    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, unique: Bool, accountAddress: String, dateAdded: Date = Date()) {
+
+    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, unique: Bool, accountAddress: String, dateAdded: Date? = Date()) {
         self.contractName = contractName
         self.tokenId = tokenId
         self.balance = balance
@@ -108,15 +92,25 @@ class CIS2TokenOwnershipEntity: Object {
 }
 
 extension Array where Element == CIS2TokenSelectionRepresentable {
-    func sorted() -> [CIS2TokenSelectionRepresentable]  {
-        return self.sorted(
-            by: {
-                // If there's no date stored, sort alphabetically instead.
-                guard let ldate = $0.dateAdded, let rdate = $1.dateAdded else {
-                    return $0.name < $1.name
-                }
+    /// Returns array of `CIS2TokenSelectionRepresentable` by date, showing the oldest on top.
+    /// Because sorting has been implemented later then the storing feature, user might have elements in local storage without date property.
+    /// Items without date are sorted alphabetically and showed on the bottom.
+    func sorted() -> [CIS2TokenSelectionRepresentable] {
+        sorted {
+            switch ($0.dateAdded, $1.dateAdded) {
+            // If both elements have a date, it sorts them based on the date.
+            case let (.some(ldate), .some(rdate)):
                 return ldate < rdate
+            // If both elements have no date, it sorts them alphabetically.
+            case (.none, .none):
+                return $0.name < $1.name
+            // If only the left element has a date, it places it above the right element.
+            case (.some, .none):
+                return true
+            // If only the right element has a date, it places it below the left element.
+            case (.none, .some):
+                return false
             }
-        )
+        }
     }
 }
