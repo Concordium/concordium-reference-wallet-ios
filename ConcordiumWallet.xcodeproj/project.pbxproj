@@ -6962,7 +6962,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -6976,7 +6976,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.2.2;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "Concordium Legacy";
@@ -6997,7 +6997,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -7011,7 +7011,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.2.2;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.stagenet;
 				PRODUCT_NAME = "Concordium Legacy";
