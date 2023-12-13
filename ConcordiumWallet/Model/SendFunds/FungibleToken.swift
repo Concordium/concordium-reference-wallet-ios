@@ -63,7 +63,7 @@ struct FungibleToken {
             guard let wholePartInt = BigInt(String(wholePart)), let fracPartInt = BigInt(String(fracPart)) else {
                 throw FungibleTokenParseError.invalidInput
             }
-            guard decimals >= fracPart.count else {
+            guard fracPart.count <= decimals else {
                 throw FungibleTokenParseError.fractionPartTooLong
             }
             let multipliedWholeInt = multiplyWithPowerOfTen(int: wholePartInt, exponent: decimals)
