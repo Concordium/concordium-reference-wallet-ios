@@ -82,7 +82,7 @@ struct FungibleToken {
         )
     }
 
-    private static func multiplyWithPowerOfTen(int: BigInt, exponent: Int) -> BigInt {
+    private static func multiplyByPowerOfTen(n: BigInt, power: Int) -> BigInt {
         var input = int
         for _ in 0 ..< exponent {
             input *= 10
