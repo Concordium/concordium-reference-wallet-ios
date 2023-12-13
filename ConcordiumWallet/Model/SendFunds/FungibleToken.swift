@@ -14,6 +14,7 @@ enum FungibleTokenParseError: Error {
     case negativeDecimals
     case fractionPartTooLong
     case inputTooLarge
+
     var localizedDescription: String {
         switch self {
         case .invalidInput:
@@ -36,12 +37,10 @@ struct FungibleToken {
     /// The number of decimal places for the token amount.
     let decimals: Int
 
-//    /// The conversion factor to adjust the display value based on the decimal precision.
-//    let conversionFactor: BigInt
-
     /// The symbol associated with the fungible token.
     let symbol: String?
 
+    private static let decimalSeparator = NumberFormatter().decimalSeparator!
     /// Initializes a `FungibleToken` instance with a given display value, decimal precision, and optional symbol.
     ///
     /// - Parameters:
@@ -52,7 +51,6 @@ struct FungibleToken {
         guard decimals > 0 else {
             throw FungibleTokenParseError.negativeDecimals
         }
-        let decimalSeparator = NumberFormatter().decimalSeparator!
 
         let sep = decimalSeparator[decimalSeparator.startIndex]
         // Covers scenario when user inputs a value with decimal separator
