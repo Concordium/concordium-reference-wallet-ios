@@ -13,7 +13,7 @@ class TransactionSubmittedViewModel {
     @Published var transferSummary: String
     @Published var visibleWaterMark: Bool
     @Published var submitedText: String
-    @Published var amount: SendFundsAmount?
+    @Published var amount: SendFundsAmount
     @Published var recipient: RecipientDataType
     @Published var memoText: String?
     

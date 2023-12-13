@@ -54,7 +54,7 @@ class RecoveryPhraseInputPresenter: SwiftUIPresenter<RecoveryPhraseInputViewMode
         case .clearBelow(let index):
             viewModel.selectedWords = viewModel.selectedWords[0...index] + Array(repeating: "", count: 23 - index)
         case .wordSelected(let index, let word):
-            // TODO: Test phrase            
+            // TODO: Test phrase
             viewModel.selectedWords[index] = word
             if viewModel.selectedWords.allSatisfy({ !$0.isEmpty }) {
                 switch recoveryService.validate(recoveryPhrase: viewModel.selectedWords) {
