@@ -92,7 +92,11 @@ struct FungibleToken {
 
     /// A human-readable string representation of the token amount with proper formatting.
     var displayValue: String {
-        formattedString(subunitPrecision: decimals, minDecimalDigits: 3) + " " + (symbol ?? "")
+        let s = formattedString(subunitPrecision: decimals, minDecimalDigits: 3)
+        if let symbol {
+            return "\(s) \(symbol)"
+        }
+        return s
     }
     
     /// Formats the `BigInt` with a specified number of implicit decimals and a minimum number of decimals.
