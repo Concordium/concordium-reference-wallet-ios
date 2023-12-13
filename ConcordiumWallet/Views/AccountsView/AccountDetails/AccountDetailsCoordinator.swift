@@ -363,7 +363,7 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
                     popView: { [weak self] in
                         self?.navigationController.popViewController(animated: true)
                     },
-                    showAddress: self.showAccountAddressQR,
+                    showAddress: showAccountAddressQR,
                     sendFunds: { [weak self] in self?.showSendCIS2Token(token: token) },
                     context: .database
                 )

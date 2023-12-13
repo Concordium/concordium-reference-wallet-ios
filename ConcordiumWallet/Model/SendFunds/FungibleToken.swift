@@ -64,18 +64,18 @@ struct FungibleToken {
             guard fracPart.count <= decimals else {
                 throw FungibleTokenParseError.fractionPartTooLong
             }
-            let multipliedWholeInt = multiplyWithPowerOfTen(int: wholePartInt, exponent: decimals)
-            let multipliedFractionInt = multiplyWithPowerOfTen(int: fracPartInt, exponent: decimals - fracPart.count)
+            let multipliedWholeInt = multiplyByPowerOfTen(n: wholePartInt, power: decimals)
+            let multipliedFractionInt = multiplyByPowerOfTen(n: fracPartInt, power: decimals - fracPart.count)
             return FungibleToken(intValue: multipliedWholeInt + multipliedFractionInt, decimals: decimals, symbol: symbol)
         }
 
-        guard let int = BigInt(input) else {
+        guard let wholePartInt = BigInt(input) else {
             throw FungibleTokenParseError.invalidInput
         }
         return FungibleToken(
-            intValue: multiplyWithPowerOfTen(
-                int: int,
-                exponent: decimals
+            intValue: multiplyByPowerOfTen(
+                n: wholePartInt,
+                power: decimals
             ),
             decimals: decimals,
             symbol: symbol
@@ -83,16 +83,16 @@ struct FungibleToken {
     }
 
     private static func multiplyByPowerOfTen(n: BigInt, power: Int) -> BigInt {
-        var input = int
-        for _ in 0 ..< exponent {
-            input *= 10
+        var res = n
+        for _ in 0 ..< power {
+            res *= 10
         }
-        return input
+        return res
     }
 
     /// A human-readable string representation of the token amount with proper formatting.
     var displayValue: String {
-        let s = formattedString(subunitPrecision: decimals, minDecimalDigits: 3)
+        let s = formattedString(minDecimalDigits: 3)
         if let symbol {
             return "\(s) \(symbol)"
         }
@@ -105,9 +105,9 @@ struct FungibleToken {
     ///   - subunitPrecision: The number of digits that are interpreted as fractional.
     ///   - minDecimalDigits: The minimum number of digits.
     /// - Returns: A string representation of the formatted `BigInt`.
-    func formattedString(subunitPrecision: Int, minDecimalDigits: Int) -> String {
+    func formattedString(minDecimalDigits: Int) -> String {
         var val = intValue
-        var decimals = subunitPrecision
+        var decimals = self.decimals
         while decimals > minDecimalDigits && val % 10 == 0 {
             val /= 10
             decimals -= 1
