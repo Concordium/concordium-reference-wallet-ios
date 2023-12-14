@@ -78,18 +78,17 @@ class SendFundViewModel {
     func setBalancesFor(transferType: SendFundTransferType, account: AccountDataType) {
         switch transferType {
         case .contractUpdate:
-            if case let SendFundsTokenSelection.cis2(token: token) = selectedTokenType {
-                firstBalanceName = "\(token.symbol ?? token.name) balance: "
-                secondBalanceName = "sendFund.atDisposal".localized
-
+            if case let SendFundsTokenSelection.cis2(token: token) = selectedTokenType, let symbol = token.symbol {
+                firstBalanceName = "\(symbol) \("sendFund.balance".localized):"
+                secondBalanceName = "\("sendFund.available".localized):"
                 firstBalance = token.balanceDisplayValue
                 secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
                 disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
             }
         case .simpleTransfer, .transferToSecret:
             // for transfers from the public account, we show Total and at disposal for the public balance
-            firstBalanceName = "sendFund.total".localized
-            secondBalanceName = "sendFund.atDisposal".localized
+            firstBalanceName = "CCD \("sendFund.balance".localized):"
+            secondBalanceName = "\("sendFund.available".localized):"
             // We don't show the send all button for shielding transfers as it is likely a user mistake
             sendAllVisible = transferType != .transferToSecret
             firstBalance = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
