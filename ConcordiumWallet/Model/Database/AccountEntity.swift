@@ -5,7 +5,6 @@
 
 import Foundation
 import RealmSwift
-import BigInt
 
 protocol AccountDataType: DataStoreProtocol {
     var name: String? { get set }

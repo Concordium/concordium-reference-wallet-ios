@@ -14,7 +14,7 @@ enum SendFundsTokenSelection: Equatable {
     case cis2(token: CIS2TokenSelectionRepresentable)
     
     init(from token: CIS2TokenSelectionRepresentable? = nil) {
-        if let token = token {
+        if let token {
             self = .cis2(token: token)
         } else {
             self = .ccd

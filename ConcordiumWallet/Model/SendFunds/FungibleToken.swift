@@ -14,6 +14,7 @@ enum FungibleTokenParseError: Error {
     case negativeDecimals
     case fractionPartTooLong
     case inputTooLarge
+
     var localizedDescription: String {
         switch self {
         case .invalidInput:
@@ -36,12 +37,10 @@ struct FungibleToken {
     /// The number of decimal places for the token amount.
     let decimals: Int
 
-//    /// The conversion factor to adjust the display value based on the decimal precision.
-//    let conversionFactor: BigInt
-
     /// The symbol associated with the fungible token.
     let symbol: String?
 
+    private static let decimalSeparator = NumberFormatter().decimalSeparator!
     /// Initializes a `FungibleToken` instance with a given display value, decimal precision, and optional symbol.
     ///
     /// - Parameters:
@@ -52,7 +51,6 @@ struct FungibleToken {
         guard decimals > 0 else {
             throw FungibleTokenParseError.negativeDecimals
         }
-        let decimalSeparator = NumberFormatter().decimalSeparator!
 
         let sep = decimalSeparator[decimalSeparator.startIndex]
         // Covers scenario when user inputs a value with decimal separator
@@ -63,38 +61,42 @@ struct FungibleToken {
             guard let wholePartInt = BigInt(String(wholePart)), let fracPartInt = BigInt(String(fracPart)) else {
                 throw FungibleTokenParseError.invalidInput
             }
-            guard decimals >= fracPart.count else {
+            guard fracPart.count <= decimals else {
                 throw FungibleTokenParseError.fractionPartTooLong
             }
-            let multipliedWholeInt = multiplyWithPowerOfTen(int: wholePartInt, exponent: decimals)
-            let multipliedFractionInt = multiplyWithPowerOfTen(int: fracPartInt, exponent: decimals - fracPart.count)
+            let multipliedWholeInt = multiplyByPowerOfTen(n: wholePartInt, power: decimals)
+            let multipliedFractionInt = multiplyByPowerOfTen(n: fracPartInt, power: decimals - fracPart.count)
             return FungibleToken(intValue: multipliedWholeInt + multipliedFractionInt, decimals: decimals, symbol: symbol)
         }
 
-        guard let int = BigInt(input) else {
+        guard let wholePartInt = BigInt(input) else {
             throw FungibleTokenParseError.invalidInput
         }
         return FungibleToken(
-            intValue: multiplyWithPowerOfTen(
-                int: int,
-                exponent: decimals
+            intValue: multiplyByPowerOfTen(
+                n: wholePartInt,
+                power: decimals
             ),
             decimals: decimals,
             symbol: symbol
         )
     }
 
-    private static func multiplyWithPowerOfTen(int: BigInt, exponent: Int) -> BigInt {
-        var input = int
-        for _ in 0 ..< exponent {
-            input *= 10
+    private static func multiplyByPowerOfTen(n: BigInt, power: Int) -> BigInt {
+        var res = n
+        for _ in 0 ..< power {
+            res *= 10
         }
-        return input
+        return res
     }
 
     /// A human-readable string representation of the token amount with proper formatting.
     var displayValue: String {
-        formattedString(subunitPrecision: decimals, minDecimalDigits: 3) + " " + (symbol ?? "")
+        let s = formattedString(minDecimalDigits: 3)
+        if let symbol {
+            return "\(s) \(symbol)"
+        }
+        return s
     }
     
     /// Formats the `BigInt` with a specified number of implicit decimals and a minimum number of decimals.
@@ -103,9 +105,9 @@ struct FungibleToken {
     ///   - subunitPrecision: The number of digits that are interpreted as fractional.
     ///   - minDecimalDigits: The minimum number of digits.
     /// - Returns: A string representation of the formatted `BigInt`.
-    func formattedString(subunitPrecision: Int, minDecimalDigits: Int) -> String {
+    func formattedString(minDecimalDigits: Int) -> String {
         var val = intValue
-        var decimals = subunitPrecision
+        var decimals = self.decimals
         while decimals > minDecimalDigits && val % 10 == 0 {
             val /= 10
             decimals -= 1
