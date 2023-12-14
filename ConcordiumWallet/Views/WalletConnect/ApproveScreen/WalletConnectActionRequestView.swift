@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Web3Wallet
+import Combine
 
 struct EstimatedCost {
     let nrg: Int
@@ -19,10 +20,20 @@ class TransferInfo: ObservableObject {
 }
 
 struct WalletConnectActionRequestView: View {
+    let service: AccountsServiceProtocol
     let dappName: String
-    let accountName: String
-    let balanceAtDisposal: GTU
-    
+    var accountName: String {
+        account.name ?? ""
+    }
+    private var accountBalancePublisher: AnyPublisher<String, NetworkError> {
+        service.recalculateAccountBalance(account: account, balanceType: .balance)
+            .mapError { return $0 as? NetworkError ?? .communicationError(error: $0) }
+            .map { GTU(intValue: $0.forecastAtDisposalBalance).displayValueWithGStroke() }
+            .eraseToAnyPublisher()
+    }
+    @State var error: NetworkError?
+    @State var balance: String = ""
+    let account: AccountDataType
     let amount: GTU
     let contractAddress: ContractAddress
     let transactionType: String
@@ -80,7 +91,7 @@ struct WalletConnectActionRequestView: View {
             HStack {
                 Text("Account Balance:")
                     .foregroundColor(isAccountBalanceSufficient ? .black : .red)
-                Text("\(balanceAtDisposal.displayValueWithGStroke())")
+                Text(balance)
                     .foregroundColor(isAccountBalanceSufficient ? .black : .red)
             }
             ScrollView {
@@ -132,6 +143,17 @@ struct WalletConnectActionRequestView: View {
                     
                 }
             }
+            .alert(item: $error) { error in
+                Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .default(Text("OK")))
+            }
+            .onReceive(accountBalancePublisher.asResult(), perform: { result in
+                switch result {
+                case .success(let balance):
+                    self.balance = balance
+                case .failure(let error):
+                    self.error = error
+                }
+            })
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(.gray, lineWidth: 1)
