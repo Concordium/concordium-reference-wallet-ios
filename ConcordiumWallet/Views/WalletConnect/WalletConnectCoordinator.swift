@@ -512,7 +512,6 @@ private extension WalletConnectCoordinator {
                         rootView: WalletConnectApprovalView(
                             title: "Transaction Approval",
                             contentView: WalletConnectActionRequestView(
-                                /// This Self has been guarded in separete PR, thus I allow myself to force unwrap it here as there'll merge conflict on this anyway.
                                 service: self.dependencyProvider.accountsService(),
                                 dappName: session.peer.name,
                                 account: account,
