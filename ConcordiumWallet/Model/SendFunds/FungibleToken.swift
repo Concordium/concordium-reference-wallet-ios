@@ -48,7 +48,7 @@ struct FungibleToken {
     ///   - decimals: The number of decimal places for the token amount.
     ///   - symbol: An optional symbol associated with the fungible token.
     static func parse(input: String, decimals: Int, symbol: String?) throws -> FungibleToken {
-        guard decimals > 0 else {
+        guard decimals >= 0 else {
             throw FungibleTokenParseError.negativeDecimals
         }
 
@@ -100,10 +100,9 @@ struct FungibleToken {
     }
     
     /// Formats the `BigInt` with a specified number of implicit decimals and a minimum number of decimals.
-    ///
     /// - Parameters:
     ///   - subunitPrecision: The number of digits that are interpreted as fractional.
-    ///   - minDecimalDigits: The minimum number of digits.
+    ///   - minDecimalDigits: The minimum number of digits. It's capped to the value of decimals.
     /// - Returns: A string representation of the formatted `BigInt`.
     func formattedString(minDecimalDigits: Int) -> String {
         var val = intValue
