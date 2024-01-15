@@ -69,7 +69,7 @@ extension NetworkManagerProtocol {
 }
 
 /// Defines the Network service errors.
-enum NetworkError: Error {
+enum NetworkError: Error, Identifiable {
     case invalidRequest
     case communicationError(error: Error)
     case invalidResponse
@@ -77,4 +77,23 @@ enum NetworkError: Error {
     case serverError(error: ServerErrorMessage)
     case jsonDecodingError(error: Error)
     case timeOut
+
+    var id: String {
+          switch self {
+          case .invalidRequest:
+              return "invalidRequest"
+          case .communicationError(let error):
+              return "communicationError-\(error.localizedDescription)"
+          case .invalidResponse:
+              return "invalidResponse"
+          case .dataLoadingError(let statusCode, _):
+              return "dataLoadingError-\(statusCode)"
+          case .serverError(let error):
+              return "serverError-\(error)"
+          case .jsonDecodingError(let error):
+              return "jsonDecodingError-\(error.localizedDescription)"
+          case .timeOut:
+              return "timeOut"
+          }
+      }
 }

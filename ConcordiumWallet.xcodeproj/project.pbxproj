@@ -8798,7 +8798,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8816,7 +8816,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8835,7 +8835,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/Mock.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWallet-mock-Info.plist";
@@ -8849,7 +8849,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8869,7 +8869,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8885,7 +8885,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8907,7 +8907,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8923,7 +8923,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8944,7 +8944,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8959,7 +8959,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8980,7 +8980,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/ProdMainNet.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
@@ -8995,7 +8995,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9134,7 +9134,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -9149,7 +9149,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9169,7 +9169,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConcordiumWallet/Resources/Entitlements/StagingNet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletStagingNet-Info.plist";
@@ -9184,7 +9184,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

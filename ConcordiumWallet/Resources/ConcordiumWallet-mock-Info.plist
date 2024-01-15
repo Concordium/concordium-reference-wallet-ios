@@ -91,6 +91,6 @@
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
+	<string>To ensure a secure and seamless user experience, our app might use the microphone for a liveness check. The microphone is exclusively used during the identity creation process.</string>
 </dict>
 </plist>

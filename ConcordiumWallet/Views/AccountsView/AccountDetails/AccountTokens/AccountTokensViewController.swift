@@ -84,7 +84,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                     .init(
                         contractName: "",
                         tokenId: "",
-                        balance: BigInt(presenter.account.totalForecastBalance),
+                        balance: BigInt(presenter.account.finalizedBalance),
                         contractIndex: "",
                         name: "CCD",
                         symbol: "CCD",
