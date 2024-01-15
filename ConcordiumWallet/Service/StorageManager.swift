@@ -110,7 +110,7 @@ class StorageManager: StorageManagerProtocol {
         configuration: Realm.Configuration = RealmHelper.realmConfiguration
     ) {
         self.keychain = keychain
-        realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
+         realm = try! Realm(configuration: RealmHelper.realmConfiguration) // swiftlint:disable:this force_try
         Logger.debug("Initialized Realm database at \(realm.configuration.fileURL?.absoluteString ?? "")")
         excludeDocumentsAndLibraryFoldersFromBackup()
     }

@@ -1,6 +1,9 @@
 import BigInt
 import Foundation
 import RealmSwift
+
+// sourcery: AutoMockable
+
 struct CIS2TokenSelectionRepresentable: Hashable {
     let contractName: String
     let tokenId: String
@@ -13,7 +16,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let thumbnail: URL?
     let unique: Bool
     let accountAddress: String
-
+    let dateAdded: Date?
     func toEntity() -> CIS2TokenOwnershipEntity {
         .init(with: self)
     }
@@ -25,8 +28,8 @@ struct CIS2TokenSelectionRepresentable: Hashable {
             return FungibleToken(intValue: balance, decimals: decimals, symbol: symbol).formattedString(minDecimalDigits: 3)
         }
     }
-    
-    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, unique: Bool, accountAddress: String) {
+
+    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, unique: Bool, accountAddress: String, dateAdded: Date? = Date()) {
         self.contractName = contractName
         self.tokenId = tokenId
         self.balance = balance
@@ -38,6 +41,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         self.thumbnail = thumbnail
         self.unique = unique
         self.accountAddress = accountAddress
+        self.dateAdded = dateAdded
     }
 
     init(entity: CIS2TokenOwnershipEntity, tokenBalance: BigInt) {
@@ -52,6 +56,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         thumbnail = URL(string: entity.thumbnail ?? "") ?? nil
         unique = entity.unique
         accountAddress = entity.accountAddress
+        dateAdded = entity.dateAdded.timeIntervalSince1970 > 0 ? entity.dateAdded : nil
     }
 }
 
@@ -67,6 +72,7 @@ class CIS2TokenOwnershipEntity: Object {
     @Persisted var unique: Bool = false
     @Persisted var tokenDescription: String = ""
     @Persisted var decimals: Int = 0
+    @Persisted var dateAdded: Date = Date()
 
     convenience init(
         with token: CIS2TokenSelectionRepresentable
@@ -82,5 +88,29 @@ class CIS2TokenOwnershipEntity: Object {
         tokenDescription = token.description
         thumbnail = token.thumbnail?.absoluteString ?? nil
         decimals = token.decimals
+    }
+}
+
+extension Array where Element == CIS2TokenSelectionRepresentable {
+    /// Returns array of `CIS2TokenSelectionRepresentable` by date, showing the oldest on top.
+    /// Because sorting has been implemented later then the storing feature, user might have elements in local storage without date property.
+    /// Items without date are sorted alphabetically and showed on the bottom.
+    func sorted() -> [CIS2TokenSelectionRepresentable] {
+        sorted {
+            switch ($0.dateAdded, $1.dateAdded) {
+            // If both elements have a date, it sorts them based on the date.
+            case let (.some(ldate), .some(rdate)):
+                return ldate < rdate
+            // If both elements have no date, it sorts them alphabetically.
+            case (.none, .none):
+                return $0.name < $1.name
+            // If only the left element has a date, it places it above the right element.
+            case (.some, .none):
+                return true
+            // If only the right element has a date, it places it below the left element.
+            case (.none, .some):
+                return false
+            }
+        }
     }
 }
