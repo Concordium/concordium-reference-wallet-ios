@@ -512,9 +512,9 @@ private extension WalletConnectCoordinator {
                         rootView: WalletConnectApprovalView(
                             title: "Transaction Approval",
                             contentView: WalletConnectActionRequestView(
+                                service: self.dependencyProvider.accountsService(),
                                 dappName: session.peer.name,
-                                accountName: account.displayName,
-                                balanceAtDisposal: GTU(intValue: account.forecastAtDisposalBalance),
+                                account: account,
                                 amount: GTU(intValue: amount),
                                 contractAddress: params.payload.address,
                                 transactionType: params.type.rawValue,
