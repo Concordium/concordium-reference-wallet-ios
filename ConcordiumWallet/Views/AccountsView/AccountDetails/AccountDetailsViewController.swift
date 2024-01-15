@@ -86,10 +86,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         viewModel.$selectedSection.map { $0 != .tokens }
             .assign(to: \.isHidden, on: accountTokensViewController.view)
             .store(in: &cancellables)
-        
-        viewModel.$selectedSection.map { $0 != .transfers }
-            .assign(to: \.isHidden, on: transactionsVC.view)
-            .store(in: &cancellables)
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
