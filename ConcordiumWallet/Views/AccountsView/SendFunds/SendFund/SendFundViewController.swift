@@ -17,11 +17,24 @@ class SendFundFactory {
     }
 }
 
+enum SendFundsViewError: Error {
+    case parseError(FungibleTokenParseError)
+    case insufficientFunds
+    
+    var localizedDescription: String {
+        switch self {
+        case .parseError(let fungibleTokenParseError):
+            return fungibleTokenParseError.localizedDescription
+        case .insufficientFunds:
+            return "sendFund.insufficientFunds".localized
+        }
+    }
+}
+
 class SendFundViewController: KeyboardDismissableBaseViewController, SendFundViewProtocol, Storyboarded {
     var presenter: SendFundPresenterProtocol
     var recipientAddressPublisher: AnyPublisher<String, Never> { recipientTextView.textPublisher }
-    var amountSubject = PassthroughSubject<String, Never>()
-    var selectedTokenType = PassthroughSubject<SendFundsTokenType, Never>()
+    var selectedTokenType = PassthroughSubject<SendFundsTokenSelection, Never>()
 
     @IBOutlet var mainStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var mainStackViewTopConstraint: NSLayoutConstraint!
@@ -50,6 +63,9 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         }
     }
 
+    var amountTextPublisher: AnyPublisher<String, Never> {
+        amountTextField.textPublisher
+    }
     @IBOutlet var recipientTextView: UITextView!
     @IBOutlet var recipientPlacehodlerLabel: UILabel!
     @IBOutlet var recipientTextFieldHeight: NSLayoutConstraint!
@@ -60,7 +76,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     private var defaultMainStackViewBottomConstraintConstant: CGFloat = 0
 
     private lazy var textFieldDelegate = GTUTextFieldDelegate { [weak self] value, isValid in
-        print(value)
         if isValid {
             self?.presenter.userChangedAmount()
         }
@@ -82,7 +97,6 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         presenter.view = self
         presenter.viewDidLoad()
-
         errorMessageLabel.alpha = 0
 
         amountTextField.attributedPlaceholder =
@@ -97,18 +111,12 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
         defaultMainStackViewBottomConstraintConstant = mainStackViewBottomConstraint.constant
         defaultMainStackViewTopConstraintConstant = mainStackViewTopConstraint.constant
 
-        amountTextField.textPublisher
-            .sink(receiveValue: { [weak self] text in
-                self?.amountSubject.send(text)
-            })
-            .store(in: &cancellables)
-
-//        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
-//        tokenSelectionStackView.addGestureRecognizer(guesture)
-//        tokenSelectionViewWrapper.layer.cornerRadius = 10
-//        tokenSelectionViewWrapper.layer.borderWidth = 1.0
-//        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
-//        tokenSelectionStackView.isUserInteractionEnabled = true
+        let guesture = UITapGestureRecognizer(target: self, action: #selector(selectToken(_:)))
+        tokenSelectionStackView.addGestureRecognizer(guesture)
+        tokenSelectionViewWrapper.layer.cornerRadius = 10
+        tokenSelectionViewWrapper.layer.borderWidth = 1.0
+        tokenSelectionViewWrapper.layer.borderColor = Pallette.primary.cgColor
+        tokenSelectionStackView.isUserInteractionEnabled = true
     }
 
     @objc private func selectToken(_ sender: AnyObject) {
@@ -176,18 +184,18 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .assign(to: \.text, on: costMessageLabel)
             .store(in: &cancellables)
 
-        viewModel.$insufficientFunds
+        viewModel.$shouldShowError
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] hasSufficientFunds in
+            .sink(receiveValue: { [weak self] shouldShowError in
                 UIView.animate(withDuration: 0.25) { [weak self] in
-                    self?.errorMessageLabel.alpha = hasSufficientFunds ? 1 : 0
+                    self?.errorMessageLabel.alpha = shouldShowError ? 1 : 0
                 }
             })
             .store(in: &cancellables)
 
         viewModel.$selectedTokenType
             .map { type in
-                if case let SendFundsTokenType.cis2(token: token) = type {
+                if case let SendFundsTokenSelection.cis2(token: token) = type {
                     return token.symbol ?? token.name
                 } else {
                     return "CCD"
@@ -198,7 +206,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
 
         viewModel.$selectedTokenType
             .sink { type in
-                if case let SendFundsTokenType.cis2(token: token) = type {
+                if case let SendFundsTokenSelection.cis2(token: token) = type {
                     self.selectedTokenImageView.sd_setImage(with: token.thumbnail, placeholderImage: UIImage(systemName: "photo"))
                 } else {
                     self.selectedTokenImageView.image = UIImage(named: "concordium_logo")
@@ -294,9 +302,8 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
     }
 
     @IBAction func sendFundTapped(_ sender: Any) {
-        guard let amount = amountTextField.text else { return }
-
-        presenter.userTappedSendFund(amount: amount)
+        guard let _ = amountTextField.text else { return }
+        presenter.userTappedSendFund()
     }
 
     func setupRecipientTextArea() {

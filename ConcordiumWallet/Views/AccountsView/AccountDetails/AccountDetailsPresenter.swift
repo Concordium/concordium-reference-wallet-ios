@@ -124,8 +124,7 @@ struct AccountTokensViewModel {
 }
 
 extension AccountDetailsPresenter: AccountDetailsPresenterProtocol {
-  
-    
+
     var cachedTokensPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], Error> {
         cis2Service.observedTokensPublisher(for: account.address)
     }

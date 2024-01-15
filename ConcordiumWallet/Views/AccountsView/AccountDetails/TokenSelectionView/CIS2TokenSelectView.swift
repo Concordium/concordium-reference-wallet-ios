@@ -18,7 +18,7 @@ struct CIS2TokenSelectView: View {
     private let accountAddress: String
     private let contractIndex: String
     private var filteredTokens: [CIS2TokenSelectionRepresentable] {
-        viewModel.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }
+        viewModel.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }.sorted(using: KeyPathComparator(\.tokenId))
     }
 
     init(

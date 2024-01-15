@@ -3,10 +3,10 @@
 //  ConcordiumWallet
 //
 
+import BigInt
 import Combine
 import SDWebImage
 import UIKit
-import BigInt
 
 class AccountTokensViewFactory {
     class func create(with presenter: AccountTokensPresenterProtocol) -> AccountTokensViewController {
@@ -18,7 +18,6 @@ class AccountTokensViewFactory {
 }
 
 class AccountTokensViewController: BaseViewController, Storyboarded {
-    
     struct AccountTokensViewModel {
         let name: String
         let symbol: String?
@@ -27,7 +26,7 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
         let unique: Bool?
         let balance: String
     }
-    
+
     enum Tabs: Int, CaseIterable {
         case fungible
         case collectibles
@@ -47,7 +46,8 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var tokensTableView: UITableView!
-    var data: [CIS2TokenSelectionRepresentable] = []
+    var fungibleTokens: [CIS2TokenSelectionRepresentable] = []
+    var nfts: [CIS2TokenSelectionRepresentable] = []
     var tabBarViewModel: MaterialTabBar.ViewModel = .init()
     private var presenter: AccountTokensPresenterProtocol
     private var cancellables: Set<AnyCancellable> = []
@@ -66,14 +66,21 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
 
         tokensTableView.delegate = self
         tokensTableView.dataSource = self
+
         presenter
             .cachedTokensPublisher
             .receive(on: DispatchQueue.main)
-            .map { $0.sorted(using: KeyPathComparator(\.tokenId))}
-            .map { [weak self] in
-                guard let self = self else { return $0 }
-                var currentArray = $0
-                currentArray.insert(
+            .map { ($0.filter { !$0.unique }, $0.filter { $0.unique }) }
+            .map { fts, nfts in
+                (fts.sorted(), nfts.sorted())
+            }
+            .sink { [weak self] error in
+                self?.showErrorMessage(error.localizedDescription)
+            } receiveValue: { [weak self] fts, nfts in
+                guard let self = self else { return }
+                self.fungibleTokens = fts
+                // Hardcode CCD in front of the FTs array.
+                self.fungibleTokens.insert(
                     .init(
                         contractName: "",
                         tokenId: "",
@@ -89,17 +96,10 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                     ),
                     at: 0
                 )
-                return currentArray
-            }
-            .sink { [weak self] error in
-                self?.showErrorMessage(error.localizedDescription)
-            } receiveValue: { [weak self] data in
-                guard let self = self else { return }
-                self.data = data
+                self.nfts = nfts
                 self.tokensTableView.reloadData()
             }
             .store(in: &cancellables)
-
         tabBarViewModel.tabs = Tabs.allCases.map { $0.titleLabel }
         show(MaterialTabBar(viewModel: tabBarViewModel), in: tabBarView)
 
@@ -120,9 +120,9 @@ extension AccountTokensViewController: UITableViewDataSource {
     private var currentTabItems: [CIS2TokenSelectionRepresentable] {
         switch Tabs(rawValue: tabBarViewModel.selectedIndex) {
         case .collectibles:
-            return data.filter { $0.unique }
+            return nfts
         case .fungible:
-            return data.filter { !$0.unique }
+            return fungibleTokens
         default: return []
         }
     }

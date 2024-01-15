@@ -10,6 +10,7 @@ struct CIS2TokenMetadataDetails: Codable, Hashable {
     let description: String
     let thumbnail: ImageData?
     let unique: Bool?
+    
     struct ImageData: Codable, Hashable, Equatable {
         let url: URL?
     }
@@ -36,7 +37,6 @@ final class CIS2TokenMetadataDetailsEntity: Object {
     @Persisted var metadataDescription: String = ""
     @Persisted var thumbnail: String? = nil
     @Persisted var unique: Bool? = nil
-
     convenience init(
         with metadata: CIS2TokenMetadataDetails
     ) {

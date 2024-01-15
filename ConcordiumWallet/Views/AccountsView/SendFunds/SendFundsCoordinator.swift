@@ -32,11 +32,6 @@ enum SendFundTransferType {
     }
 }
 
-enum SendFundsTokenType: Equatable {
-    case ccd
-    case cis2(token: CIS2TokenSelectionRepresentable)
-}
-
 class SendFundsCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: SendFundsCoordinatorDelegate?
@@ -47,21 +42,21 @@ class SendFundsCoordinator: Coordinator {
     private var transferType: SendFundTransferType
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     var sendFundPresenter: SendFundPresenter?
-    var tokenType: SendFundsTokenType
+    var tokenType: SendFundsTokenSelection
     init(navigationController: UINavigationController,
          delegate: SendFundsCoordinatorDelegate,
          dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
          account: AccountDataType,
          balanceType: AccountBalanceTypeEnum,
          transferType: SendFundTransferType,
-         tokenType: SendFundsTokenType
+         tokenType: SendFundsTokenSelection
     ) {
         self.account = account
         self.balanceType = balanceType
         self.transferType = transferType
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .fullScreen
-        parentCoordinator = delegate
+        self.parentCoordinator = delegate
         self.tokenType = tokenType
         self.dependencyProvider = dependencyProvider
     }
@@ -74,6 +69,7 @@ class SendFundsCoordinator: Coordinator {
                                                   delegate: self,
                                                   tokenType: tokenType
         )
+
         self.sendFundPresenter = sendFundPresenter
         let sendFundVC = SendFundFactory.create(with: sendFundPresenter)
         navigationController.viewControllers = [sendFundVC]
@@ -104,8 +100,8 @@ class SendFundsCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func showTransactionSubmitted(transfer: TransferDataType, recipient: RecipientDataType) {
-        let vc = TransactionSubmittedFactory.create(with: TransactionSubmittedPresenter(transfer: transfer, recipient: recipient, delegate: self))
+    func showTransactionSubmitted(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount) {
+        let vc = TransactionSubmittedFactory.create(with: TransactionSubmittedPresenter(transfer: transfer, recipient: recipient, amount: amount, delegate: self))
         showModally(vc, from: navigationController)
     }
 
@@ -131,7 +127,7 @@ class SendFundsCoordinator: Coordinator {
     }
 
     func showSendFundConfirmation(
-        amount: GTU,
+        amount: SendFundsAmount,
         energy: Int,
         from account: AccountDataType,
         to recipient: RecipientDataType,
@@ -171,7 +167,7 @@ class SendFundsCoordinator: Coordinator {
 }
 
 extension SendFundsCoordinator: SendFundPresenterDelegate {
-    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenType) {
+    func sendFundPresenter(_ presenter: SendFundPresenter, didUpdate sendFundsTokenType: SendFundsTokenSelection) {
         self.tokenType = sendFundsTokenType
     }
     
@@ -197,7 +193,7 @@ extension SendFundsCoordinator: SendFundPresenterDelegate {
     }
 
     func sendFundPresenter(
-        didSelectTransferAmount amount: GTU,
+        didSelectTransferAmount amount: SendFundsAmount,
         energyUsed energy: Int,
         from account: AccountDataType,
         to recipient: RecipientDataType,
@@ -294,8 +290,8 @@ extension SendFundsCoordinator: CreationFailedPresenterDelegate {
 }
 
 extension SendFundsCoordinator: SendFundConfirmationPresenterDelegate {
-    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType) {
-        showTransactionSubmitted(transfer: transfer, recipient: recipient)
+    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount) {
+        showTransactionSubmitted(transfer: transfer, recipient: recipient, amount: amount)
     }
 
     func sendFundFailed(error: Error) {

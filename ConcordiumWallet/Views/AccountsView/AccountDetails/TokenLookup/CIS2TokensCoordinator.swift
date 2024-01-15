@@ -7,7 +7,6 @@ import SwiftUI
 import UIKit
 
 class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
-
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController
@@ -55,6 +54,7 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
         navigationController.present(accountAddressQRCoordinator.navigationController, animated: true)
         childCoordinators.append(accountAddressQRCoordinator)
     }
+
     private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable], contractIndex: String) {
         let view = CIS2TokenSelectView(
             viewModel: model,
@@ -70,17 +70,19 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
     }
 
     func accountAddressQRCoordinatorFinished() {
-        
     }
-    
+
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance, for token: CIS2TokenSelectionRepresentable) {
         let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
-        let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType, tokenType: .ccd)
+        let coordinator = SendFundsCoordinator(
+            navigationController: BaseNavigationController(),
+            delegate: self,
+            dependencyProvider: dependencyProvider,
+            account: account,
+            balanceType: balanceType,
+            transferType: transferType,
+            tokenType: SendFundsTokenSelection(from: token)
+        )
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
@@ -89,6 +91,5 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
 
 extension CIS2TokensCoordinator: SendFundsCoordinatorDelegate {
     func sendFundsCoordinatorFinished() {
-        
     }
 }

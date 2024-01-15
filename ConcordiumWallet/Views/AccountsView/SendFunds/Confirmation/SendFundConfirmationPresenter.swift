@@ -23,7 +23,7 @@ protocol SendFundConfirmationViewProtocol: ShowAlert, Loadable {
 // MARK: -
 // MARK: Delegate
 protocol SendFundConfirmationPresenterDelegate: AnyObject {
-    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType)
+    func sendFundSubmitted(transfer: TransferDataType, recipient: RecipientDataType, amount: SendFundsAmount)
     func sendFundFailed(error: Error)
 }
 
@@ -42,17 +42,17 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     let dependencyProvider: AccountsFlowCoordinatorDependencyProvider
     private var cancellables = [AnyCancellable]()
 
-    private var amount: GTU
+    private var amount: SendFundsAmount
     private var fromAccount: AccountDataType
     private var recipient: RecipientDataType
     private var cost: GTU
     private var memo: Memo?
     private var energy: Int
     private var transferType: SendFundTransferType
-    private var tokenType: SendFundsTokenType
+    private var tokenType: SendFundsTokenSelection
     init(
         delegate: (SendFundConfirmationPresenterDelegate & RequestPasswordDelegate)? = nil,
-        amount: GTU,
+        amount: SendFundsAmount,
         from account: AccountDataType,
         to recipient: RecipientDataType,
         memo: Memo?,
@@ -60,7 +60,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         energy: Int,
         dependencyProvider: AccountsFlowCoordinatorDependencyProvider,
         transferType: SendFundTransferType,
-        tokenType: SendFundsTokenType
+        tokenType: SendFundsTokenSelection
     ) {
         self.delegate = delegate
         self.amount = amount
@@ -75,7 +75,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
     }
 
     func viewDidLoad() {
-        let sAmount = transferType == .contractUpdate ? amount.displayValue() : amount.displayValueWithGStroke()
+        let sAmount = amount.displayValue
         let to = "sendFund.confirmation.line2.to".localized
         let recipientName = recipient.displayName()
         if transferType == .encryptedTransfer || transferType == .simpleTransfer {
@@ -128,7 +128,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         transfer.energy = energy
         transfer.cost = String(cost.intValue)
         transfer.memo = memo?.data.hexDescription
-        if transferType.actualType == .contractUpdate, case let SendFundsTokenType.cis2(token: token) = tokenType {
+        if transferType.actualType == .contractUpdate, case let SendFundsTokenSelection.cis2(token: token) = tokenType {
             let response = try? dependencyProvider.mobileWallet().serializeTokenTransferParameters(
                 input: .init(
                     tokenId: token.tokenId,
@@ -163,7 +163,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
             }, receiveValue: { [weak self] in
                 guard let self = self else { return }
                 Logger.debug($0)
-                self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient)
+                self.delegate?.sendFundSubmitted(transfer: $0, recipient: self.recipient, amount: self.amount)
             })
             .store(in: &cancellables)
     }

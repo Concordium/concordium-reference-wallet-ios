@@ -23,8 +23,7 @@ class GTUTextFieldDelegate: NSObject, UITextFieldDelegate {
             in: range,
             with: replacementString
         )
-        
-        let isValid = GTU.isValid(displayValue: updatedText)
+        let isValid = updatedText.matches(regex: "^[0-9]*[\\.,]?[0-9]{0,}$")
         afterTextValidation(textField, isValid)
         
         return isValid
