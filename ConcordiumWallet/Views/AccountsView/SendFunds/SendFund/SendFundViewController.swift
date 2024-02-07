@@ -249,6 +249,11 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .map { $0 != .ccd }
             .assign(to: \.isHidden, on: addMemoWidgetView)
             .store(in: &cancellables)
+        
+        viewModel.$transferType
+            .map { $0 == .transferToSecret }
+            .assign(to: \.isHidden, on: tokenSelectionViewWrapper)
+            .store(in: &cancellables)
     }
 
     func showMemoWarningAlert(_ completion: @escaping () -> Void) {
