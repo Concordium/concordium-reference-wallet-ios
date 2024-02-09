@@ -9,6 +9,7 @@ struct CIS2TokenMetadataDetails: Codable, Hashable {
     let decimals: Int?
     let description: String
     let thumbnail: ImageData?
+    let display: ImageData?
     let unique: Bool?
     
     struct ImageData: Codable, Hashable, Equatable {
@@ -26,6 +27,11 @@ struct CIS2TokenMetadataDetails: Codable, Hashable {
         } else {
             self.thumbnail = nil
         }
+        if let urlString = entity.display, let url = URL(string: urlString) {
+            self.display = .init(url: url)
+        } else {
+            self.display = nil
+        }
     }
 }
 
@@ -36,6 +42,7 @@ final class CIS2TokenMetadataDetailsEntity: Object {
     @Persisted var decimals: Int? = nil
     @Persisted var metadataDescription: String = ""
     @Persisted var thumbnail: String? = nil
+    @Persisted var display: String? = nil
     @Persisted var unique: Bool? = nil
     convenience init(
         with metadata: CIS2TokenMetadataDetails
@@ -46,6 +53,7 @@ final class CIS2TokenMetadataDetailsEntity: Object {
         self.decimals = metadata.decimals
         self.metadataDescription = metadata.description
         self.thumbnail = metadata.thumbnail?.url?.absoluteString
+        self.display = metadata.display?.url?.absoluteString
         self.unique = metadata.unique
     }
 }

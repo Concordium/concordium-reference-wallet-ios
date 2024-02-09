@@ -90,7 +90,8 @@ class AccountTokensViewController: BaseViewController, Storyboarded {
                         symbol: "CCD",
                         decimals: 6,
                         description: "",
-                        thumbnail: nil,
+                        thumbnail: nil, 
+                        display: nil,
                         unique: false,
                         accountAddress: self.presenter.account.address
                     ),
