@@ -20,11 +20,12 @@ extension CIS2TokenSelectionRepresentable {
         decimals: Int = 6,
         description: String = "",
         thumbnail: URL? = nil,
+        display: URL? = nil,
         unique: Bool = false,
         accountAddress: String = "",
         dateAdded: Date? = Date()
     ) -> CIS2TokenSelectionRepresentable {
-        .init(contractName: contractName, tokenId: tokenId, balance: balance, contractIndex: contractIndex, name: name, symbol: symbol, decimals: decimals, description: description, thumbnail: thumbnail, unique: unique, accountAddress: accountAddress, dateAdded: dateAdded)
+        .init(contractName: contractName, tokenId: tokenId, balance: balance, contractIndex: contractIndex, name: name, symbol: symbol, decimals: decimals, description: description, thumbnail: thumbnail, display: display, unique: unique, accountAddress: accountAddress, dateAdded: dateAdded)
     }
 }
 
