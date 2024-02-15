@@ -149,7 +149,13 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             guard let self = self else {
                 return .failure(StakeError.internalError)
             }
-            
+        
+            if let stakedAmount = account.baker?.stakedAmount  {
+                if amount == GTU(intValue: stakedAmount) {
+                    return .success(amount)
+                }
+            }
+        
             return rangeResult
                 .mapError { _ in StakeError.internalError }
                 .flatMap { costRange in
