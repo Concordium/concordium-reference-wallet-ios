@@ -230,7 +230,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         .store(in: &cancellables)
 
         view.recipientAddressPublisher.sink(receiveValue: { [weak self] address in
-            self?.selectedRecipient = RecipientEntity(name: "", address: address)
+            self?.setSelectedRecipient(recipient: RecipientEntity(name: "", address: address))
         })
         .store(in: &cancellables)
 
