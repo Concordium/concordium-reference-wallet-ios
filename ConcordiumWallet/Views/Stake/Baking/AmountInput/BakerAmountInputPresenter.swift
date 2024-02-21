@@ -150,12 +150,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 return .failure(StakeError.internalError)
             }
         
-            if let stakedAmount = account.baker?.stakedAmount  {
-                if amount == GTU(intValue: stakedAmount) {
-                    return .success(amount)
-                }
+            // in case when validators want to change their restaking preference
+            // we allow to modify validator options in case when amount not changed
+            if let baker = account.baker, baker.stakedAmount == amount.intValue {
+                return .success(amount)
             }
-        
+            
             return rangeResult
                 .mapError { _ in StakeError.internalError }
                 .flatMap { costRange in
