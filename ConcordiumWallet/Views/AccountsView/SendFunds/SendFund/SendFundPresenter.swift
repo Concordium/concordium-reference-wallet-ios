@@ -32,7 +32,10 @@ class SendFundViewModel {
     @Published var disposalAmount: GTU?
     @Published var enteredAmount: Result<SendFundsAmount, SendFundsViewError> = .success(.none)
     @Published var selectedTokenType: SendFundsTokenSelection = .ccd
+    @Published var transferType: SendFundTransferType = .simpleTransfer
+    
     private var cancellables: Set<AnyCancellable> = []
+    
     func setup(account: AccountDataType, transferType: SendFundTransferType, tokenType: SendFundsTokenSelection) {
         switch transferType {
         case .simpleTransfer, .encryptedTransfer, .contractUpdate:
@@ -46,6 +49,7 @@ class SendFundViewModel {
         setPageAndSendButtonTitle(transferType: transferType)
         setBalancesFor(transferType: transferType, account: account)
         selectedTokenType = tokenType
+        self.transferType = transferType
     }
 
     func update(withRecipient recipient: RecipientDataType?) {
@@ -178,7 +182,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     private var account: AccountDataType
     private var balanceType: AccountBalanceTypeEnum
-    private var transferType: SendFundTransferType
+    private var transferType: SendFundTransferType {
+        didSet {
+            self.viewModel.transferType = transferType
+        }
+    }
     private var dependencyProvider: AccountsFlowCoordinatorDependencyProvider
 
     private var cost: GTU?
@@ -222,7 +230,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
         .store(in: &cancellables)
 
         view.recipientAddressPublisher.sink(receiveValue: { [weak self] address in
-            self?.selectedRecipient = RecipientEntity(name: "", address: address)
+            self?.setSelectedRecipient(recipient: RecipientEntity(name: "", address: address))
         })
         .store(in: &cancellables)
 

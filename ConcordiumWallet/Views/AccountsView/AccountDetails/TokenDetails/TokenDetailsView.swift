@@ -105,13 +105,14 @@ struct TokenDetailsView: View {
                     Divider()
                 }
                 HStack(alignment: .center) {
-                    WebImage(url: token.thumbnail)
+                    let size: CGFloat = token.display == nil ? 100 : 300
+                    WebImage(url: token.display ?? token.thumbnail)
                         .resizable()
                         .placeholder(Image(systemName: "photo"))
                         .indicator(.activity)
                         .transition(.fade(duration: 0.5))
                         .scaledToFit()
-                        .frame(width: 300, height: 300, alignment: .center)
+                        .frame(width: size, height: size, alignment: .center)
                 }
                 .frame(maxWidth: .infinity)
                 Group {

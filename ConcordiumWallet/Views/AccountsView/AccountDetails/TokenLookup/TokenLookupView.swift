@@ -102,7 +102,8 @@ struct TokenLookupView: View {
                                     symbol: details.symbol,
                                     decimals: details.decimals ?? 6,
                                     description: details.description,
-                                    thumbnail: details.thumbnail?.url,
+                                    thumbnail: details.thumbnail?.url, 
+                                    display: details.display?.url,
                                     unique: details.unique ?? false,
                                     accountAddress: account.address
                                 )

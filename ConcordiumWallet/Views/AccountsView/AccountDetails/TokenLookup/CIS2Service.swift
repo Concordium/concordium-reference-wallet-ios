@@ -79,7 +79,8 @@ class CIS2Service: CIS2ServiceProtocol {
             symbol: entity.symbol,
             decimals: entity.decimals,
             description: entity.tokenDescription,
-            thumbnail: URL(string: entity.thumbnail ?? "") ?? nil,
+            thumbnail: URL(string: entity.thumbnail ?? "") ?? nil, 
+            display: URL(string: entity.display ?? "") ?? nil,
             unique: entity.unique,
             accountAddress: entity.accountAddress
         )

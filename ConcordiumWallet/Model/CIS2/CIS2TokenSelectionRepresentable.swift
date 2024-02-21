@@ -14,6 +14,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
     let decimals: Int
     let description: String
     let thumbnail: URL?
+    let display: URL?
     let unique: Bool
     let accountAddress: String
     let dateAdded: Date?
@@ -29,7 +30,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         }
     }
 
-    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, unique: Bool, accountAddress: String, dateAdded: Date? = Date()) {
+    init(contractName: String, tokenId: String, balance: BigInt, contractIndex: String, name: String, symbol: String?, decimals: Int, description: String, thumbnail: URL?, display: URL?, unique: Bool, accountAddress: String, dateAdded: Date? = Date()) {
         self.contractName = contractName
         self.tokenId = tokenId
         self.balance = balance
@@ -39,6 +40,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         self.decimals = decimals
         self.description = description
         self.thumbnail = thumbnail
+        self.display = display
         self.unique = unique
         self.accountAddress = accountAddress
         self.dateAdded = dateAdded
@@ -54,6 +56,7 @@ struct CIS2TokenSelectionRepresentable: Hashable {
         decimals = entity.decimals
         description = entity.tokenDescription
         thumbnail = URL(string: entity.thumbnail ?? "") ?? nil
+        display = URL(string: entity.display ?? "") ?? nil
         unique = entity.unique
         accountAddress = entity.accountAddress
         dateAdded = entity.dateAdded.timeIntervalSince1970 > 0 ? entity.dateAdded : nil
@@ -69,6 +72,7 @@ class CIS2TokenOwnershipEntity: Object {
     @Persisted var accountAddress: String = ""
     @Persisted var contractIndex: String = ""
     @Persisted var thumbnail: String? = nil
+    @Persisted var display: String? = nil
     @Persisted var unique: Bool = false
     @Persisted var tokenDescription: String = ""
     @Persisted var decimals: Int = 0
@@ -87,6 +91,7 @@ class CIS2TokenOwnershipEntity: Object {
         unique = token.unique
         tokenDescription = token.description
         thumbnail = token.thumbnail?.absoluteString ?? nil
+        display = token.display?.absoluteString ?? nil
         decimals = token.decimals
     }
 }

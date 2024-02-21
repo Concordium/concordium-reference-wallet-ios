@@ -57,7 +57,7 @@ struct CIS2TokenSelectView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Pallette.primary, lineWidth: 1)
             )
-            .padding([.top, .bottom], 4)
+            .padding(.vertical, 4)
             VStack {
                 if filteredTokens.isEmpty {
                     HStack {
@@ -97,9 +97,10 @@ struct CIS2TokenSelectView: View {
                                         .frame(width: 20, height: 20)
                                         .foregroundColor(Pallette.primary)
                                 }
-                            }.onTapGesture { showDetails(model) }
-                            .padding([.top, .bottom], 8)
-                            .padding([.leading, .trailing], 16)
+                            }
+                            .onTapGesture { showDetails(model) }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
                         }
                     }
                 }
@@ -141,8 +142,7 @@ struct CIS2TokenSelectView: View {
     }
 
     func addToStorage() {
-        let updated = viewModel.filter { selectedItems.contains($0) }
-        if let _ = try? service.storeCIS2Tokens(updated, accountAddress: accountAddress, contractIndex: contractIndex) {
+        if let _ = try? service.storeCIS2Tokens(Array(selectedItems), accountAddress: accountAddress, contractIndex: contractIndex) {
             didUpdateTokens()
         }
     }
