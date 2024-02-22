@@ -8,7 +8,7 @@
 
 import Foundation
 
-// TODO Add binary method (i.e. schema).
 struct SignMessagePayload: Codable {
     let message: String
+    let schema: String
 }
