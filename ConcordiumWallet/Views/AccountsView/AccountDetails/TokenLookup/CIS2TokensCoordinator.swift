@@ -27,6 +27,7 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
         view.displayContractTokens = { [weak self] data, contractIndex in
             self?.showTokenSelectionView(with: data, contractIndex: contractIndex)
         }
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
     }
 

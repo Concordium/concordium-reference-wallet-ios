@@ -37,6 +37,8 @@ struct TokenLookupView: View {
     @State private var tokens: [CIS2Token] = []
     @State private var error: TokenError? = nil
     @State private var isLoading = false
+    
+    @FocusState private var isUsernameFocused: Bool
 
     var tokensPublisher: AnyPublisher<[CIS2Token], TokenError> {
         tokenIndexPublisher
@@ -89,7 +91,7 @@ struct TokenLookupView: View {
                 Publishers.MergeMany(
                     metadata.metadata.map { metadataItem in
                         service.fetchTokensMetadataDetails(url: metadataItem.metadataURL)
-                            .tryMap { details in
+                            .tryCompactMap { details in
                                 guard let balance = BigInt(balance.first(where: { $0.tokenId == metadataItem.tokenId })?.balance ?? "") else {
                                     throw TokenError.inputError(msg: "Invalid balance")
                                 }
@@ -108,6 +110,8 @@ struct TokenLookupView: View {
                                     accountAddress: account.address
                                 )
                             }
+                            .replaceError(with: nil)
+                            .compactMap { $0 }
                     }
                 )
                 .mapError { TokenError.networkError(err: $0) }
@@ -131,6 +135,7 @@ struct TokenLookupView: View {
                     .padding(4)
                 Text("Enter a contract index to look for tokens.")
                 TextField("Contract index", text: $contractIndex)
+                    .focused($isUsernameFocused)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.numberPad)
@@ -186,5 +191,8 @@ struct TokenLookupView: View {
         .alert(item: $error) { error in
             Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
         }
+        .onAppear(perform: {
+            isUsernameFocused = true
+        })
     }
 }

@@ -100,15 +100,9 @@ class CIS2Service: CIS2ServiceProtocol {
                 url: ApiConstants.cis2Tokens
                     .appendingPathComponent(contractIndex)
                     .appendingPathComponent(contractSubindex),
-                parameters: ["limit" : "1000"]
+                parameters: ["limit" : "20"]
             )
         )
-    }
-
-    func fetchTokensMetadata(contractIndex: String, contractSubindex: String = "0", tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error> {
-        let url = ApiConstants.cis2TokensMetadata.appendingPathComponent(contractIndex).appendingPathComponent(contractSubindex)
-        let request = ResourceRequest(url: url, parameters: ["tokenId": tokenId])
-        return networkManager.load(request)
     }
 
     func fetchTokensMetadataDetails(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error> {
@@ -127,7 +121,7 @@ class CIS2Service: CIS2ServiceProtocol {
     func fetchTokensBalance(contractIndex: String, contractSubindex: String = "0", accountAddress: String, tokenId: String) -> AnyPublisher<[CIS2TokenBalance], Error> {
         networkManager.load(
             ResourceRequest(url:
-                ApiConstants.cis2TokenBalance
+                ApiConstants.cis2TokenBalanceV1
                     .appendingPathComponent(contractIndex)
                     .appendingPathComponent(contractSubindex)
                     .appendingPathComponent(accountAddress),
@@ -135,4 +129,24 @@ class CIS2Service: CIS2ServiceProtocol {
             )
         )
     }
+}
+
+extension CIS2Service {
+    /// Fetches metadata for tokens specified by their identifiers within a contract.
+    ///
+    /// - Parameters:
+    ///   - contractIndex: The index of the contract to fetch token metadata from.
+    ///   - contractSubindex: The subindex of the contract. Defaults to "0" if not provided.
+    ///   - tokenIds: An string of comma separated string identifiers representing the tokens for which metadata is to be fetched.
+    ///   - API: `GET /v1/CIS2Tokens/{index}/{subindex}`
+    ///
+    func fetchTokensMetadata(contractIndex: String, contractSubindex: String = "0", tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error> {
+        let url = ApiConstants.cis2TokensMetadataV1.appendingPathComponent(contractIndex).appendingPathComponent(contractSubindex)
+        let request = ResourceRequest(url: url, parameters: ["tokenId": tokenId])
+        return networkManager.load(request)
+    }
+}
+
+enum AsyncError: Error {
+    case finishedWithoutValue
 }

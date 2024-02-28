@@ -151,7 +151,7 @@ extension AccountTokensViewController: UITableViewDataSource {
             cell.tokenImageView.image = UIImage(named: "concordium_logo")
             return cell
         }
-        cell.tokenImageView.sd_setImage(with: data.thumbnail, placeholderImage: UIImage(systemName: "photo"))
+        cell.tokenImageView.sd_setImage(with: data.thumbnail ?? data.display, placeholderImage: UIImage(systemName: "photo"))
         return cell
     }
 

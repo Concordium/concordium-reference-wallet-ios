@@ -69,7 +69,7 @@ struct CIS2TokenSelectView: View {
                     ScrollView {
                         ForEach(filteredTokens, id: \.self) { model in
                             HStack {
-                                WebImage(url: model.thumbnail)
+                                WebImage(url: model.thumbnail ?? model.display)
                                     .resizable()
                                     .placeholder {
                                         Image(systemName: "photo")
