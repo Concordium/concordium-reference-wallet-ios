@@ -28,10 +28,11 @@ enum TokenError: Error, Identifiable {
 
 struct TokenLookupView: View {
     var service: CIS2ServiceProtocol
-    var displayContractTokens: ((_ metadata: [CIS2TokenSelectionRepresentable], _ contractIndex: String) -> Void)?
-    private var account: AccountDataType
+    var account: AccountDataType
+
+    var displayContractTokens: ((_ tokens: [CIS2Token], _ contractIndex: String) -> Void)?
+    
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
-    private let searchButtonPublisher = PassthroughSubject<Void, Never>()
 
     @State private var contractIndex: String = ""
     @State private var tokens: [CIS2Token] = []
@@ -64,68 +65,6 @@ struct TokenLookupView: View {
             .eraseToAnyPublisher()
     }
 
-    var tokensMetadataPublisher: AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> {
-        searchButtonPublisher
-            .setFailureType(to: TokenError.self)
-            .flatMapLatest { () -> AnyPublisher<(CIS2TokensMetadata, [CIS2TokenBalance]), TokenError> in
-                Publishers.Zip(
-                    service.fetchTokensMetadata(
-                        contractIndex: contractIndex,
-                        contractSubindex: "0",
-                        tokenId: tokens.map { $0.token }.joined(separator: ",")
-                    )
-                    .mapError { TokenError.networkError(err: $0) }
-                    .eraseToAnyPublisher(),
-                    service.fetchTokensBalance(
-                        contractIndex: contractIndex,
-                        contractSubindex: "0",
-                        accountAddress: account.address,
-                        tokenId: tokens.map { $0.token }.joined(separator: ",")
-                    )
-                    .mapError { TokenError.networkError(err: $0) }
-                    .eraseToAnyPublisher()
-                )
-                .eraseToAnyPublisher()
-            }
-            .flatMapLatest { (metadata: CIS2TokensMetadata, balance: [CIS2TokenBalance]) -> AnyPublisher<[CIS2TokenSelectionRepresentable], TokenError> in
-                Publishers.MergeMany(
-                    metadata.metadata.map { metadataItem in
-                        service.fetchTokensMetadataDetails(url: metadataItem.metadataURL)
-                            .tryCompactMap { details in
-                                guard let balance = BigInt(balance.first(where: { $0.tokenId == metadataItem.tokenId })?.balance ?? "") else {
-                                    throw TokenError.inputError(msg: "Invalid balance")
-                                }
-                                return CIS2TokenSelectionRepresentable(
-                                    contractName: metadata.contractName,
-                                    tokenId: metadataItem.tokenId,
-                                    balance: balance,
-                                    contractIndex: contractIndex,
-                                    name: details.name,
-                                    symbol: details.symbol,
-                                    decimals: details.decimals ?? 6,
-                                    description: details.description,
-                                    thumbnail: details.thumbnail?.url, 
-                                    display: details.display?.url,
-                                    unique: details.unique ?? false,
-                                    accountAddress: account.address
-                                )
-                            }
-                            .replaceError(with: nil)
-                            .compactMap { $0 }
-                    }
-                )
-                .mapError { TokenError.networkError(err: $0) }
-                .collect()
-                .eraseToAnyPublisher()
-            }
-            .eraseToAnyPublisher()
-    }
-
-    init(service: CIS2ServiceProtocol, account: AccountDataType) {
-        self.service = service
-        self.account = account
-    }
-
     var body: some View {
         ZStack {
             VStack {
@@ -147,7 +86,7 @@ struct TokenLookupView: View {
                     .padding()
                 Spacer()
                 Button(action: {
-                    searchButtonPublisher.send(())
+                    displayContractTokens?(tokens, contractIndex)
                 }) {
                     Text("Look for tokens")
                         .padding()
@@ -168,23 +107,11 @@ struct TokenLookupView: View {
             perform: { result in
                 isLoading = false
                 switch result {
-                case let .success(tokens):
-                    self.tokens = tokens
-                case let .failure(error):
-                    self.tokens.removeAll()
-                    self.error = error
-                }
-            }
-        )
-        .onReceive(
-            tokensMetadataPublisher.asResult(),
-            perform: { result in
-                isLoading = false
-                switch result {
-                case let .success(metadata):
-                    displayContractTokens?(metadata, contractIndex)
-                case let .failure(error):
-                    self.error = error
+                    case let .success(tokens):
+                        self.tokens = tokens
+                    case let .failure(error):
+                        self.tokens.removeAll()
+                        self.error = error
                 }
             }
         )

@@ -24,8 +24,8 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
 
     func start() {
         var view = TokenLookupView(service: dependencyProvider.cis2Service(), account: account)
-        view.displayContractTokens = { [weak self] data, contractIndex in
-            self?.showTokenSelectionView(with: data, contractIndex: contractIndex)
+        view.displayContractTokens = { [weak self] tokens, contractIndex in
+            self?.showTokenSelectionView(with: tokens, contractIndex: contractIndex)
         }
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
@@ -56,9 +56,9 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
         childCoordinators.append(accountAddressQRCoordinator)
     }
 
-    private func showTokenSelectionView(with model: [CIS2TokenSelectionRepresentable], contractIndex: String) {
+    private func showTokenSelectionView(with tokens: [CIS2Token], contractIndex: String) {
         let view = CIS2TokenSelectView(
-            viewModel: model,
+            tokens: tokens,
             accountAdress: account.address,
             contractIndex: contractIndex,
             popView: { [weak self] in self?.navigationController.popViewController(animated: true) },

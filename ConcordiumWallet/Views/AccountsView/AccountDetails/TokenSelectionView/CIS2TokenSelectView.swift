@@ -10,19 +10,23 @@ import SwiftUI
 struct CIS2TokenSelectView: View {
     @State private var tokenIndex: String = ""
     @State var selectedItems: Set<CIS2TokenSelectionRepresentable>
+   
+    @StateObject var viewModel: CIS2TokenSelectViewModel
+
     var popView: () -> Void
     var showDetails: (_ token: CIS2TokenSelectionRepresentable) -> Void
     var didUpdateTokens: () -> Void
     let service: CIS2ServiceProtocol
-    var viewModel: [CIS2TokenSelectionRepresentable]
+    
     private let accountAddress: String
     private let contractIndex: String
+    
     private var filteredTokens: [CIS2TokenSelectionRepresentable] {
-        viewModel.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }.sorted(using: KeyPathComparator(\.tokenId))
+        viewModel.tokens.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }
     }
 
     init(
-        viewModel: [CIS2TokenSelectionRepresentable],
+        tokens: [CIS2Token],
         accountAdress: String,
         contractIndex: String,
         popView: @escaping () -> Void,
@@ -30,7 +34,6 @@ struct CIS2TokenSelectView: View {
         showDetails: @escaping (_ token: CIS2TokenSelectionRepresentable) -> Void,
         service: CIS2ServiceProtocol
     ) {
-        self.viewModel = viewModel
         self.popView = popView
         self.didUpdateTokens = didUpdateTokens
         self.accountAddress = accountAdress
@@ -38,6 +41,8 @@ struct CIS2TokenSelectView: View {
         self.showDetails = showDetails
         self.service = service
         _selectedItems = State(initialValue: Set(service.observedTokens(for: accountAdress, filteredBy: contractIndex)))
+        
+        _viewModel = .init(wrappedValue: CIS2TokenSelectViewModel(allContractTokens: tokens, accountAdress: accountAdress, contractIndex: contractIndex, service: service))
     }
 
     var body: some View {
@@ -58,53 +63,38 @@ struct CIS2TokenSelectView: View {
                     .stroke(Pallette.primary, lineWidth: 1)
             )
             .padding(.vertical, 4)
-            VStack {
-                if filteredTokens.isEmpty {
-                    HStack {
-                        Text("No tokens matching given predicate.")
-                            .padding()
-                    }
-                    .frame(maxWidth: .infinity)
-                } else {
-                    ScrollView {
-                        ForEach(filteredTokens, id: \.self) { model in
-                            HStack {
-                                WebImage(url: model.thumbnail ?? model.display)
-                                    .resizable()
-                                    .placeholder {
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 24, height: 24)
-                                            .foregroundColor(.gray)
-                                    }
-                                    .indicator(.activity)
-                                    .transition(.fade(duration: 0.2))
-                                    .scaledToFit()
-                                    .frame(width: 45, height: 45, alignment: .center)
-                                VStack(alignment: .leading) {
-                                    Text(model.name)
-                                    Text("Your balance: \(model.balanceDisplayValue)")
-                                        .foregroundColor(Pallette.fadedText)
-                                }
-                                Spacer()
-                                Button {
-                                    didSelect(item: model)
-                                } label: {
-                                    Image(systemName: selectedItems.contains { $0.tokenId == model.tokenId } ? "checkmark.square.fill" : "square")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 20, height: 20)
-                                        .foregroundColor(Pallette.primary)
-                                }
+
+            GeometryReader { proxy in
+                ScrollView {
+                    LazyVStack {
+                        if !viewModel.isLoading && viewModel.tokens.isEmpty && viewModel.currentPage != 1 {
+                            ZStack {
+                                Text("No tokens found.")
                             }
-                            .onTapGesture { showDetails(model) }
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 16)
+                            .frame(width: proxy.size.width, height: proxy.size.height)
                         }
+
+                        if filteredTokens.isEmpty && !tokenIndex.isEmpty {
+                            ZStack {
+                                Text("No tokens matching given predicate.")
+                            }
+                            .frame(width: proxy.size.width, height: proxy.size.height)
+                        } else {
+                            ForEach(filteredTokens, id: \.self) { model in
+                                CIS2TokenView(model: model)
+                                    .onTapGesture { showDetails(model) }
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 16)
+                            }
+                        }
+                        
+                        LoadingStateView(proxy.size)
                     }
+                    
                 }
-                Spacer()
+            }
+            .refreshable {
+                viewModel.loadInitial()
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
@@ -144,6 +134,57 @@ struct CIS2TokenSelectView: View {
     func addToStorage() {
         if let _ = try? service.storeCIS2Tokens(Array(selectedItems), accountAddress: accountAddress, contractIndex: contractIndex) {
             didUpdateTokens()
+        }
+    }
+    
+    @ViewBuilder
+    func LoadingStateView(_ size: CGSize) -> some View {
+        ZStack {
+            switch(viewModel.isLoading, viewModel.hasMore) {
+                case (false, true):
+                    ProgressView()
+                        .onAppear {
+                            viewModel.loadMore()
+                        }
+                case (true, _):
+                    ProgressView()
+                default: EmptyView()
+            }
+        }
+        .padding(16)
+    }
+    
+    @ViewBuilder
+    func CIS2TokenView(model: CIS2TokenSelectionRepresentable) -> some View {
+        HStack {
+            WebImage(url: model.thumbnail ?? model.display)
+                .resizable()
+                .placeholder {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.gray)
+                }
+                .indicator(.activity)
+                .transition(.fade(duration: 0.2))
+                .scaledToFit()
+                .frame(width: 45, height: 45, alignment: .center)
+            VStack(alignment: .leading) {
+                Text(model.name)
+                Text("Your balance: \(model.balanceDisplayValue)")
+                    .foregroundColor(Pallette.fadedText)
+            }
+            Spacer()
+            Button {
+                didSelect(item: model)
+            } label: {
+                Image(systemName: selectedItems.contains { $0.tokenId == model.tokenId } ? "checkmark.square.fill" : "square")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Pallette.primary)
+            }
         }
     }
 }

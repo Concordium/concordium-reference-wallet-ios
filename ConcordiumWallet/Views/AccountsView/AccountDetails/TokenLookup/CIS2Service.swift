@@ -15,13 +15,17 @@ protocol CIS2ServiceProtocol {
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) -> AnyPublisher<CIS2TokensMetadata, Error>
     func fetchTokensMetadataDetails(url: String) -> AnyPublisher<CIS2TokenMetadataDetails, Error>
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) -> AnyPublisher<[CIS2TokenBalance], Error>
-    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
 
-    func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws
 
     func observedTokensPublisher(for accountAddress: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
     func observedTokensPublisher(for accountAddress: String, filteredBy contractIndex: String) -> AnyPublisher<[CIS2TokenSelectionRepresentable], Error>
     func observedTokens(for accountAddress: String, filteredBy contractIndex: String) -> [CIS2TokenSelectionRepresentable]
+    
+    func storeCIS2Tokens(_ tokens: [CIS2TokenSelectionRepresentable], accountAddress: String, contractIndex: String) throws
+    func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) async throws -> CIS2TokensMetadata
+    func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) async throws -> [CIS2TokenBalance]
+    func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws
+    func fetchTokensMetadataDetails(url: URL) async throws -> CIS2TokenMetadataDetails
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -100,7 +104,7 @@ class CIS2Service: CIS2ServiceProtocol {
                 url: ApiConstants.cis2Tokens
                     .appendingPathComponent(contractIndex)
                     .appendingPathComponent(contractSubindex),
-                parameters: ["limit" : "20"]
+                parameters: ["limit" : "1000"]
             )
         )
     }
@@ -149,4 +153,46 @@ extension CIS2Service {
 
 enum AsyncError: Error {
     case finishedWithoutValue
+}
+
+
+extension CIS2Service {
+    func fetchTokens(contractIndex: String, contractSubindex: String = "0") async throws -> CIS2TokensInfo {
+        try await networkManager.load(
+            ResourceRequest(
+                url: ApiConstants.cis2Tokens
+                    .appendingPathComponent(contractIndex)
+                    .appendingPathComponent(contractSubindex),
+                parameters: ["limit" : "1000"]
+            )
+        )
+    }
+    
+    func fetchTokensMetadata(contractIndex: String, contractSubindex: String = "0", tokenId: String) async throws -> CIS2TokensMetadata {
+        let url = ApiConstants.cis2TokensMetadataV1.appendingPathComponent(contractIndex).appendingPathComponent(contractSubindex)
+        let request = ResourceRequest(url: url, parameters: ["tokenId": tokenId])
+        return try await  networkManager.load(request)
+    }
+    
+    func fetchTokensBalance(contractIndex: String, contractSubindex: String = "0", accountAddress: String, tokenId: String) async throws -> [CIS2TokenBalance] {
+        try await networkManager.load(
+            ResourceRequest(url:
+                ApiConstants.cis2TokenBalanceV1
+                    .appendingPathComponent(contractIndex)
+                    .appendingPathComponent(contractSubindex)
+                    .appendingPathComponent(accountAddress),
+                parameters: ["tokenId": tokenId]
+            )
+        )
+    }
+    
+    func fetchTokensMetadataDetails(url: URL) async throws -> CIS2TokenMetadataDetails {
+        let metadata: CIS2TokenMetadataDetails = try await networkManager.load(ResourceRequest(url: url))
+        
+        try await MainActor.run {
+            try self.storageManager.storeCIS2TokenMetadataDetails(metadata, for: url.absoluteString)
+        }
+
+        return metadata
+    }
 }
