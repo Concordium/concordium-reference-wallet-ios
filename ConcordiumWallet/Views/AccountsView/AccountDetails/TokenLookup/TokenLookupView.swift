@@ -39,7 +39,7 @@ struct TokenLookupView: View {
     @State private var error: TokenError? = nil
     @State private var isLoading = false
     
-    @FocusState private var isUsernameFocused: Bool
+    @FocusState private var isIndexFieldFocused: Bool
 
     var tokensPublisher: AnyPublisher<[CIS2Token], TokenError> {
         tokenIndexPublisher
@@ -74,7 +74,7 @@ struct TokenLookupView: View {
                     .padding(4)
                 Text("Enter a contract index to look for tokens.")
                 TextField("Contract index", text: $contractIndex)
-                    .focused($isUsernameFocused)
+                    .focused($isIndexFieldFocused)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.numberPad)
@@ -119,7 +119,7 @@ struct TokenLookupView: View {
             Alert(title: Text("Error"), message: Text(error.errorMessage), dismissButton: .default(Text("OK")))
         }
         .onAppear(perform: {
-            isUsernameFocused = true
+            isIndexFieldFocused = true
         })
     }
 }
