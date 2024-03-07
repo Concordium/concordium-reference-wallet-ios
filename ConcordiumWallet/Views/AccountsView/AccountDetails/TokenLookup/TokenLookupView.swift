@@ -30,7 +30,7 @@ struct TokenLookupView: View {
     var service: CIS2ServiceProtocol
     var account: AccountDataType
 
-    var displayContractTokens: ((_ tokens: [CIS2Token], _ contractIndex: String) -> Void)?
+    var displayContractTokens: ((_ tokens: [CIS2Token], _ contractIndex: String) -> Void)
     
     private let tokenIndexPublisher = PassthroughSubject<String, Never>()
 
@@ -86,7 +86,7 @@ struct TokenLookupView: View {
                     .padding()
                 Spacer()
                 Button(action: {
-                    displayContractTokens?(tokens, contractIndex)
+                    displayContractTokens(tokens, contractIndex)
                 }) {
                     Text("Look for tokens")
                         .padding()

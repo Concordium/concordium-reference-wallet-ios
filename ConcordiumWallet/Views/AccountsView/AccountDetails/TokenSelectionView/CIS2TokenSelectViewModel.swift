@@ -72,8 +72,6 @@ final class CIS2TokenSelectViewModel: ObservableObject {
                 }
                 
                 await MainActor.run {
-                    isLoading = false
-                    currentPage += 1
                     hasMore = !metadata.metadata.isEmpty
                     
                     if currentPage == 1 {
@@ -81,6 +79,8 @@ final class CIS2TokenSelectViewModel: ObservableObject {
                     } else {
                         tokens += representables
                     }
+                    currentPage += 1
+                    isLoading = false
                 }
             } catch {
                 await MainActor.run {
