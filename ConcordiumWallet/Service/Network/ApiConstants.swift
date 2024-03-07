@@ -55,7 +55,9 @@ struct ApiConstants {
     static let latestTermsAndCondition = proxyUrl.appendingPathComponent("/v0/termsAndConditionsVersion")
     static let cis2Tokens = proxyUrl.appendingPathComponent("/v0/CIS2Tokens")
     static let cis2TokensMetadata = proxyUrl.appendingPathComponent("v0/CIS2TokenMetadata")
+    static let cis2TokensMetadataV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenMetadata")
     static let cis2TokenBalance = proxyUrl.appendingPathComponent("v0/CIS2TokenBalance")
+    static let cis2TokenBalanceV1 = proxyUrl.appendingPathComponent("v1/CIS2TokenBalance")
 
     /// Generate a callback URI associated with an identifier
     static func callbackUri(with identityCreationID: String) -> String {
