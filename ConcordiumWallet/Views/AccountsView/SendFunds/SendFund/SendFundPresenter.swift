@@ -175,6 +175,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     @Published private var selectedRecipient: RecipientDataType?
     @Published private var addedMemo: Memo?
+    @Published private var isUpdatingTransferCost: Bool = false
 
     var cancellables = [AnyCancellable]()
 
@@ -288,13 +289,15 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .store(in: &cancellables)
 
       
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             viewModel.$recipientAddress,
             viewModel.$feeMessage,
-            viewModel.$enteredAmount
+            viewModel.$enteredAmount,
+            $isUpdatingTransferCost
         )
         .receive(on: DispatchQueue.main)
-        .map { [weak self] recipientAddress, feeMessage, amount in
+        .map { [weak self] recipientAddress, feeMessage, amount, isUpdatingTransferCost in
+            guard isUpdatingTransferCost == false else { return false }
             // Called when editing the amount or address.
             if case .failure(_) = amount {
                 return false
@@ -330,6 +333,12 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .assign(to: \.errorMessageLabel.text, on: view)
             .store(in: &cancellables)
         
+        view.amountTextPublisher
+            .debounce(for: 0.7, scheduler: DispatchQueue.main)
+            .sink{ [weak self] _ in
+                self?.updateTransferCostEstimate()
+            }
+            .store(in: &cancellables)
         view.bind(to: viewModel)
     }
 
@@ -545,20 +554,24 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 
     private func updateTransferCostEstimate() {
+        isUpdatingTransferCost = true
         dependencyProvider
             .transactionsService()
             .getTransferCost(transferType: transferType.actualType.toWalletProxyTransferType(), costParameters: buildTransferCostParameter())
             .sink(receiveError: { [weak self] error in
+                guard let self = self else { return }
                 Logger.error(error)
-                self?.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+                self.isUpdatingTransferCost = false
             }, receiveValue: { [weak self] value in
-                let cost = GTU(intValue: Int(value.cost) ?? 0)
-                self?.cost = cost
-                self?.energy = value.energy
-                let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
-                self?.viewModel.feeMessage = feeMessage
+                guard let self = self else { return }
                 
-                debugPrint("Update Transfer Cost Estimates -- \(value)")
+                let cost = GTU(intValue: Int(value.cost) ?? 0)
+                self.cost = cost
+                self.energy = value.energy
+                let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
+                self.viewModel.feeMessage = feeMessage
+                self.isUpdatingTransferCost = false
             })
             .store(in: &cancellables)
     }
