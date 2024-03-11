@@ -557,6 +557,8 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self?.energy = value.energy
                 let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
                 self?.viewModel.feeMessage = feeMessage
+                
+                debugPrint("Update Transfer Cost Estimates -- \(value)")
             })
             .store(in: &cancellables)
     }
