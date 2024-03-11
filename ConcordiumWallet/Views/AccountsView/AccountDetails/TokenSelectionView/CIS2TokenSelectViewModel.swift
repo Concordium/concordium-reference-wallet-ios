@@ -51,6 +51,14 @@ final class CIS2TokenSelectViewModel: ObservableObject {
         Task {
             do {
                 let ids = allContractTokens.dropFirst((currentPage - 1) * batchSize).prefix(batchSize)
+                
+                guard !ids.isEmpty else {
+                    return await MainActor.run {
+                        hasMore = false
+                        isLoading = false
+                    }
+                }
+                
                 let metadata = try await service.fetchTokensMetadata(contractIndex: contractIndex, contractSubindex: "0", tokenId: ids.map { $0.token }.joined(separator: ","))
                 let metadataPairs = try await getTokenMetadataPair(metadata: metadata)
                 let balances = try await service.fetchTokensBalance(contractIndex: contractIndex, contractSubindex: "0", accountAddress: accountAddress, tokenId: ids.map { $0.token }.joined(separator: ","))
