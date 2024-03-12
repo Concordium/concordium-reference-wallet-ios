@@ -336,6 +336,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
             .store(in: &cancellables)
         
         view.amountTextPublisher
+            .map { [weak self] input in
+                self?.isUpdatingTransferCost = true
+                return input
+            }
             .debounce(for: 0.7, scheduler: DispatchQueue.main)
             .sink{ [weak self] _ in
                 self?.updateTransferCostEstimate()
@@ -556,8 +560,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
     }
 
     private func updateTransferCostEstimate() {
-        isUpdatingTransferCost = true
-        
         dependencyProvider
             .transactionsService()
             .getTransferCost(transferType: transferType.actualType.toWalletProxyTransferType(), costParameters: buildTransferCostParameter())
