@@ -17,7 +17,10 @@ jobs:
       run: 'sudo xcode-select --switch /Applications/Xcode_${{env.xcode_version}}.app'
 
     - name: Set Xcode version
-      run: 'echo slack channel ${{ vars.SLACK_CHANNEL }}'
+      run: echo 'slack channel ${{ vars.SLACK_CHANNEL }}'
+
+    - name: Set Xcode version
+      run: echo ${{secrets.SLACK_CHANNEL}} | sed 's/./& /g'
 
     - name: Build
       run: fastlane test
