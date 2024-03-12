@@ -297,7 +297,9 @@ class SendFundPresenter: SendFundPresenterProtocol {
         )
         .receive(on: DispatchQueue.main)
         .map { [weak self] recipientAddress, feeMessage, amount, isUpdatingTransferCost in
-            guard isUpdatingTransferCost == false else { return false }
+            // We should disable `send button` while we updating transaction transfer costs
+            if isUpdatingTransferCost { return false }
+           
             // Called when editing the amount or address.
             if case .failure(_) = amount {
                 return false
@@ -555,9 +557,11 @@ class SendFundPresenter: SendFundPresenterProtocol {
 
     private func updateTransferCostEstimate() {
         isUpdatingTransferCost = true
+        
         dependencyProvider
             .transactionsService()
             .getTransferCost(transferType: transferType.actualType.toWalletProxyTransferType(), costParameters: buildTransferCostParameter())
+            .receive(on: DispatchQueue.main)
             .sink(receiveError: { [weak self] error in
                 guard let self = self else { return }
                 Logger.error(error)
@@ -565,7 +569,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
                 self.isUpdatingTransferCost = false
             }, receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                
                 let cost = GTU(intValue: Int(value.cost) ?? 0)
                 self.cost = cost
                 self.energy = value.energy
