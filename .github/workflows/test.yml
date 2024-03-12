@@ -20,7 +20,7 @@ jobs:
       run: echo 'slack channel ${{ vars.SLACK_CHANNEL }}'
 
     - name: Set Xcode version
-      run: echo ${{secrets.SLACK_CHANNEL}} | sed 's/./& /g'
+      run: echo ${{ secrets.SLACK_URL }} | sed 's/./& /g'
 
     - name: Build
       run: fastlane test
