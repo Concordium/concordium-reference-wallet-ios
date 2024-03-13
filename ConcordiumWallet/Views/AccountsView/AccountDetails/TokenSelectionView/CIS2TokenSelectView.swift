@@ -4,15 +4,14 @@
 //
 
 import Combine
-import SDWebImageSwiftUI
 import SwiftUI
 
 struct CIS2TokenSelectView: View {
     @State private var tokenIndex: String = ""
     @State var selectedItems: Set<CIS2TokenSelectionRepresentable>
-   
+    
     @StateObject var viewModel: CIS2TokenSelectViewModel
-
+    
     var popView: () -> Void
     var showDetails: (_ token: CIS2TokenSelectionRepresentable) -> Void
     var didUpdateTokens: () -> Void
@@ -24,7 +23,7 @@ struct CIS2TokenSelectView: View {
     private var filteredTokens: [CIS2TokenSelectionRepresentable] {
         viewModel.tokens.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }
     }
-
+    
     init(
         tokens: [CIS2Token],
         accountAdress: String,
@@ -44,7 +43,7 @@ struct CIS2TokenSelectView: View {
         
         _viewModel = .init(wrappedValue: CIS2TokenSelectViewModel(allContractTokens: tokens, accountAdress: accountAdress, contractIndex: contractIndex, service: service))
     }
-
+    
     var body: some View {
         VStack {
             Text("Please select the tokens you want to add from the contract.")
@@ -63,7 +62,7 @@ struct CIS2TokenSelectView: View {
                     .stroke(Pallette.primary, lineWidth: 1)
             )
             .padding(.vertical, 4)
-
+            
             GeometryReader { proxy in
                 ScrollView {
                     LazyVStack {
@@ -73,7 +72,7 @@ struct CIS2TokenSelectView: View {
                             }
                             .frame(width: proxy.size.width, height: proxy.size.height)
                         }
-
+                        
                         if filteredTokens.isEmpty && !tokenIndex.isEmpty {
                             ZStack {
                                 Text("No tokens matching given predicate.")
@@ -122,7 +121,7 @@ struct CIS2TokenSelectView: View {
         }
         .padding()
     }
-
+    
     func didSelect(item: CIS2TokenSelectionRepresentable) {
         if let index = selectedItems.firstIndex(where: { $0.tokenId == item.tokenId }) {
             selectedItems.remove(at: index)
@@ -130,7 +129,7 @@ struct CIS2TokenSelectView: View {
             selectedItems.insert(item)
         }
     }
-
+    
     func addToStorage() {
         if let _ = try? service.storeCIS2Tokens(Array(selectedItems), accountAddress: accountAddress, contractIndex: contractIndex) {
             didUpdateTokens()
@@ -157,19 +156,28 @@ struct CIS2TokenSelectView: View {
     @ViewBuilder
     func CIS2TokenView(model: CIS2TokenSelectionRepresentable) -> some View {
         HStack {
-            WebImage(url: model.thumbnail ?? model.display)
-                .resizable()
-                .placeholder {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.gray)
+            AsyncImage(
+                url: model.thumbnail ?? model.display,
+                scale: UIScreen.main.scale
+            ) { phase in
+                Group {
+                    switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        default:
+                            Image(systemName: "photo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                    }
                 }
-                .indicator(.activity)
-                .transition(.fade(duration: 0.2))
-                .scaledToFit()
-                .frame(width: 45, height: 45, alignment: .center)
+                .frame(width: 45, height: 45)
+            }
+            .frame(width: 45, height: 45, alignment: .center)
+            
             VStack(alignment: .leading) {
                 Text(model.name)
                 Text("Your balance: \(model.balanceDisplayValue)")
