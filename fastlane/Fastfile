@@ -29,9 +29,7 @@ platform :ios do
       app_store_connect_api_key(
         key_id: ENV["APPLE_KEY_ID"],
         issuer_id: ENV['APPLE_KEY_ISSUER'],
-        #in_house: false,
         key_content: ENV['APPLE_API_KEY'],
-        #is_key_content_base64: true
       )
       increment_build_number(
         build_number: [
