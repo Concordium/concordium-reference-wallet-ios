@@ -211,27 +211,21 @@ extension CIS2Service {
     /// - Returns: An array of tuples, each containing a `CIS2TokensMetadataItem` and its corresponding `CIS2TokenMetadataDetails`.
     ///
     func getTokenMetadataPair(metadata: CIS2TokensMetadata) async throws -> [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails)] {
-        var allData = [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails?)]()
-        
-        try await withThrowingTaskGroup(of: (CIS2TokensMetadataItem, CIS2TokenMetadataDetails?).self) { [weak self] group in
-            guard let self = self else { return }
+        return try await withThrowingTaskGroup(of: (CIS2TokensMetadataItem, CIS2TokenMetadataDetails)?.self) { [weak self] group in
+            guard let self else { return [] }
             for metadata in metadata.metadata {
                 if let url = URL(string: metadata.metadataURL) {
                     group.addTask {
-                        let result = try? await self.fetchTokensMetadataDetails(url: url)
+                        guard let result = try? await self.fetchTokensMetadataDetails(url: url) else {
+                             return nil
+                        }
                         return (metadata, result)
                     }
                 }
             }
             
-            for try await data in group {
-                allData.append(data)
-            }
+            return try await group
+                .compactMap { $0 }
+                .reduce(into: []) { $0.append($1) }
         }
-        
-        return allData.compactMap { (metadataItem, tokenMetadataDetails) -> (CIS2TokensMetadataItem, CIS2TokenMetadataDetails)? in
-            guard let tokenMetadataDetails = tokenMetadataDetails else { return nil }
-            return (metadataItem, tokenMetadataDetails)
-        }
-    }
 }
