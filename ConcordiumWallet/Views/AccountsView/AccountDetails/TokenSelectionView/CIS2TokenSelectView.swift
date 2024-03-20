@@ -80,7 +80,6 @@ struct CIS2TokenSelectView: View {
                             SearchTokensListView(proxy)
                         }
                     }
-                    .animation(.bouncy, value: tokenIndex.isEmpty)
                     .transition(.opacity)
                 }
             }
