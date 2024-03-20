@@ -51,7 +51,11 @@ struct CIS2TokenSelectView: View {
                     .foregroundColor(.gray)
                     .padding(.leading, 8)
                 TextField("Search for token ID", text: $tokenIndex)
-                    .onChange(of: tokenIndex) { _ in searchTokenViewModel.tokens = [] }
+                    .onChange(of: tokenIndex) { idx in
+                        if idx.isEmpty {
+                            searchTokenViewModel.state = .idle
+                        }
+                    }
                     .onSubmit {
                         searchTokenViewModel.runSearch(tokenIndex)
                     }
@@ -76,7 +80,8 @@ struct CIS2TokenSelectView: View {
                             SearchTokensListView(proxy)
                         }
                     }
-                    
+                    .animation(.bouncy, value: tokenIndex.isEmpty)
+                    .transition(.opacity)
                 }
             }
             .refreshable {
@@ -128,10 +133,7 @@ struct CIS2TokenSelectView: View {
     func AllTokensListView(_ proxy: GeometryProxy) -> some View {
         Group {
             if !viewModel.isLoading && viewModel.tokens.isEmpty && viewModel.currentPage != 1 {
-                ZStack {
-                    Text("No tokens found.")
-                }
-                .frame(width: proxy.size.width, height: proxy.size.height)
+                SearchTokenFullscreenText(text: "No tokens found.", proxy: proxy)
             } else {
                 ForEach(viewModel.tokens, id: \.self) { model in
                     CIS2TokenView(model: model)
@@ -144,23 +146,37 @@ struct CIS2TokenSelectView: View {
         }
     }
     
+    @ViewBuilder
     func SearchTokensListView(_ proxy: GeometryProxy) -> some View {
-        Group {
-            if searchTokenViewModel.tokens.isEmpty {
+        switch searchTokenViewModel.state {
+            case .idle:
+                SearchTokenFullscreenText(text: "Enter token ID and tap Search", proxy: proxy)
+            case .searching:
                 ZStack {
-                    Text("No tokens matching given predicate.")
+                    ProgressView()
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
-            } else {
-                ProgressView().opacity(searchTokenViewModel.isSearching ? 1.0 : 0.0)
-                ForEach(searchTokenViewModel.tokens, id: \.self) { model in
-                    CIS2TokenView(model: model)
-                        .onTapGesture { showDetails(model) }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 16)
+            case .found(let tokens):
+                if tokens.isEmpty {
+                    SearchTokenFullscreenText(text: "No tokens matching given predicate.", proxy: proxy)
+                } else {
+                    ForEach(tokens, id: \.self) { model in
+                        CIS2TokenView(model: model)
+                            .onTapGesture { showDetails(model) }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                    }
                 }
-            }
+            case .error:
+                SearchTokenFullscreenText(text: "No tokens matching given predicate.", proxy: proxy)
         }
+    }
+    
+    func SearchTokenFullscreenText(text: String, proxy: GeometryProxy) -> some View {
+        ZStack {
+            Text(text)
+        }
+        .frame(width: proxy.size.width, height: proxy.size.height)
     }
     
     func LoadingStateView(_ size: CGSize) -> some View {

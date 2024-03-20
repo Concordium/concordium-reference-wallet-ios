@@ -211,13 +211,13 @@ extension CIS2Service {
     /// - Returns: An array of tuples, each containing a `CIS2TokensMetadataItem` and its corresponding `CIS2TokenMetadataDetails`.
     ///
     func getTokenMetadataPair(metadata: CIS2TokensMetadata) async throws -> [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails)] {
-        return try await withThrowingTaskGroup(of: (CIS2TokensMetadataItem, CIS2TokenMetadataDetails)?.self) { [weak self] group in
+        try await withThrowingTaskGroup(of: (CIS2TokensMetadataItem, CIS2TokenMetadataDetails)?.self) { [weak self] group in
             guard let self else { return [] }
             for metadata in metadata.metadata {
                 if let url = URL(string: metadata.metadataURL) {
                     group.addTask {
                         guard let result = try? await self.fetchTokensMetadataDetails(url: url) else {
-                             return nil
+                            return nil
                         }
                         return (metadata, result)
                     }
@@ -228,4 +228,5 @@ extension CIS2Service {
                 .compactMap { $0 }
                 .reduce(into: []) { $0.append($1) }
         }
+    }
 }

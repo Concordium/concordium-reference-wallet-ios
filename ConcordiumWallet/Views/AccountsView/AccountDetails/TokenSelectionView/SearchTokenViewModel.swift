@@ -10,8 +10,25 @@ import Foundation
 import BigInt
 
 final class SearchTokenViewModel: ObservableObject {
-    @Published var tokens: [CIS2TokenSelectionRepresentable] = []
-    @Published var isSearching: Bool = false
+    enum State {
+        case idle, searching, found([CIS2TokenSelectionRepresentable]), error(String)
+        
+        var items: [CIS2TokenSelectionRepresentable] {
+            if case .found(let array) = self {
+                return array
+            }
+            return []
+        }
+        
+        var isSearching: Bool {
+            if case .searching = self {
+                return true
+            }
+            return false
+        }
+    }
+    
+    @Published var state: SearchTokenViewModel.State = .idle
     
     private let service: CIS2ServiceProtocol
     private let accountAddress: String
@@ -28,17 +45,18 @@ final class SearchTokenViewModel: ObservableObject {
     }
     
     func runSearch(_ tokenIndex: String) {
-        isSearching = true
+        guard !state.isSearching else { return }
+        
+        state = .searching
         Task {
             do {
                 let data = try await searchTokenData(by: tokenIndex)
                 await MainActor.run {
-                    tokens = data
-                    isSearching = false
+                    state = .found(data)
                 }
             } catch {
                 await MainActor.run {
-                    isSearching = false
+                    state = .error(error.localizedDescription)
                 }
             }
         }
