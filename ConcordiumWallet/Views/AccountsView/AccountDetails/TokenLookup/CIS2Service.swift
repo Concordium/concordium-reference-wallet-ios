@@ -204,7 +204,7 @@ extension CIS2Service {
     ///
     /// This function asynchronously retrieves pairs of metadata items and their corresponding token metadata details from the provided `CIS2TokensMetadata`.
     /// It utilizes the `fetchTokensMetadataDetails` method of the `service` object to fetch token metadata details for each metadata item's URL.
-    ///  If a metadata item's URL is invalid or fetching the details fails, it will be skipped in the result.
+    ///  If a metadata item's URL is invalid or fetching the details fails, the entire item will be skipped in the result.
     ///
     /// - Parameter metadata: The `CIS2TokensMetadata` containing the metadata items.
     ///
