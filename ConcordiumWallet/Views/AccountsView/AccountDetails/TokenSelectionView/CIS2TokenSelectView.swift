@@ -11,6 +11,7 @@ struct CIS2TokenSelectView: View {
     @State var selectedItems: Set<CIS2TokenSelectionRepresentable>
     
     @StateObject var viewModel: CIS2TokenSelectViewModel
+    @StateObject var searchTokenViewModel: SearchTokenViewModel
     
     var popView: () -> Void
     var showDetails: (_ token: CIS2TokenSelectionRepresentable) -> Void
@@ -19,11 +20,7 @@ struct CIS2TokenSelectView: View {
     
     private let accountAddress: String
     private let contractIndex: String
-    
-    private var filteredTokens: [CIS2TokenSelectionRepresentable] {
-        viewModel.tokens.filter { tokenIndex.isEmpty ? true : $0.tokenId.contains(tokenIndex) }
-    }
-    
+
     init(
         tokens: [CIS2Token],
         accountAdress: String,
@@ -42,6 +39,7 @@ struct CIS2TokenSelectView: View {
         _selectedItems = State(initialValue: Set(service.observedTokens(for: accountAdress, filteredBy: contractIndex)))
         
         _viewModel = .init(wrappedValue: CIS2TokenSelectViewModel(allContractTokens: tokens, accountAdress: accountAdress, contractIndex: contractIndex, service: service))
+        _searchTokenViewModel = .init(wrappedValue: SearchTokenViewModel(accountAdress: accountAdress, contractIndex: contractIndex, service: service))
     }
     
     var body: some View {
@@ -53,9 +51,19 @@ struct CIS2TokenSelectView: View {
                     .foregroundColor(.gray)
                     .padding(.leading, 8)
                 TextField("Search for token ID", text: $tokenIndex)
+                    .onChange(of: tokenIndex) { idx in
+                        if idx.isEmpty {
+                            searchTokenViewModel.state = .idle
+                        }
+                    }
+                    .onSubmit {
+                        searchTokenViewModel.runSearch(tokenIndex)
+                    }
                     .textInputAutocapitalization(.never)
-                    .keyboardType(.numberPad)
+                    /// we should allow user to type in letters since `token_id` is represented in hex
+                    .keyboardType(.default)
                     .padding(8)
+                    .submitLabel(.search)
             }
             .background(
                 RoundedRectangle(cornerRadius: 8)
@@ -66,34 +74,19 @@ struct CIS2TokenSelectView: View {
             GeometryReader { proxy in
                 ScrollView {
                     LazyVStack {
-                        if !viewModel.isLoading && viewModel.tokens.isEmpty && viewModel.currentPage != 1 {
-                            ZStack {
-                                Text("No tokens found.")
-                            }
-                            .frame(width: proxy.size.width, height: proxy.size.height)
-                        }
-                        
-                        if filteredTokens.isEmpty && !tokenIndex.isEmpty {
-                            ZStack {
-                                Text("No tokens matching given predicate.")
-                            }
-                            .frame(width: proxy.size.width, height: proxy.size.height)
+                        if tokenIndex.isEmpty {
+                            AllTokensListView(proxy)
                         } else {
-                            ForEach(filteredTokens, id: \.self) { model in
-                                CIS2TokenView(model: model)
-                                    .onTapGesture { showDetails(model) }
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 16)
-                            }
+                            SearchTokensListView(proxy)
                         }
-                        
-                        LoadingStateView(proxy.size)
                     }
-                    
+                    .transition(.opacity)
                 }
             }
             .refreshable {
-                viewModel.loadInitial()
+                if tokenIndex.isEmpty {
+                    viewModel.loadInitial()
+                }
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
@@ -136,7 +129,55 @@ struct CIS2TokenSelectView: View {
         }
     }
     
+    func AllTokensListView(_ proxy: GeometryProxy) -> some View {
+        Group {
+            if !viewModel.isLoading && viewModel.tokens.isEmpty && viewModel.currentPage != 1 {
+                SearchTokenFullscreenText(text: "No tokens found.", proxy: proxy)
+            } else {
+                ForEach(viewModel.tokens, id: \.self) { model in
+                    CIS2TokenView(model: model)
+                        .onTapGesture { showDetails(model) }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                }
+                LoadingStateView(proxy.size)
+            }
+        }
+    }
+    
     @ViewBuilder
+    func SearchTokensListView(_ proxy: GeometryProxy) -> some View {
+        switch searchTokenViewModel.state {
+            case .idle:
+                SearchTokenFullscreenText(text: "Enter token ID and tap Search", proxy: proxy)
+            case .searching:
+                ZStack {
+                    ProgressView()
+                }
+                .frame(width: proxy.size.width, height: proxy.size.height)
+            case .found(let tokens):
+                if tokens.isEmpty {
+                    SearchTokenFullscreenText(text: "No tokens matching given predicate.", proxy: proxy)
+                } else {
+                    ForEach(tokens, id: \.self) { model in
+                        CIS2TokenView(model: model)
+                            .onTapGesture { showDetails(model) }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                    }
+                }
+            case .error:
+                SearchTokenFullscreenText(text: "No tokens matching given predicate.", proxy: proxy)
+        }
+    }
+    
+    func SearchTokenFullscreenText(text: String, proxy: GeometryProxy) -> some View {
+        ZStack {
+            Text(text)
+        }
+        .frame(width: proxy.size.width, height: proxy.size.height)
+    }
+    
     func LoadingStateView(_ size: CGSize) -> some View {
         ZStack {
             switch(viewModel.isLoading, viewModel.hasMore) {
@@ -153,7 +194,6 @@ struct CIS2TokenSelectView: View {
         .padding(16)
     }
     
-    @ViewBuilder
     func CIS2TokenView(model: CIS2TokenSelectionRepresentable) -> some View {
         HStack {
             AsyncImage(

@@ -413,6 +413,10 @@
 		07E8573526F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573626F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
 		07E8573726F1D24F001FB2D2 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8573326F1D24F001FB2D2 /* RealmHelper.swift */; };
+		080F53A32BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
+		080F53A42BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
+		080F53A52BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
+		080F53A62BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
 		08F7ABD32B962CCA008588D2 /* CIS2TokenSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */; };
 		08F7ABD42B962CCA008588D2 /* CIS2TokenSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */; };
 		08F7ABD52B962CCA008588D2 /* CIS2TokenSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */; };
@@ -2948,6 +2952,7 @@
 		07E6E27327B558A30083A852 /* intro_flow_onboarding_en_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = intro_flow_onboarding_en_1.html; sourceTree = "<group>"; };
 		07E6E27527B558A30083A852 /* intro_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = intro_flow_style.css; sourceTree = "<group>"; };
 		07E8573326F1D24F001FB2D2 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
+		080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
 		08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenSelectViewModel.swift; sourceTree = "<group>"; };
 		17A41E4A266789F10079BD3A /* StagingNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StagingNet.entitlements; sourceTree = "<group>"; };
 		17A41E4B26678FF80079BD3A /* Concordium ID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Concordium ID.entitlements"; sourceTree = "<group>"; };
@@ -3716,6 +3721,7 @@
 			children = (
 				0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */,
 				08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */,
+				080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */,
 			);
 			path = TokenSelectionView;
 			sourceTree = "<group>";
@@ -6736,6 +6742,7 @@
 				01145A3D2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
 				8DD48C7A2953136E00CA9085 /* EarnView.swift in Sources */,
 				7F48C1DA244DCD0B00997684 /* LetterSpacingLabel.swift in Sources */,
+				080F53A32BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */,
 				FABA9D95291888E40094012B /* SubmittedSeedAccountView.swift in Sources */,
 				8992BB212840D056005279C9 /* ShowAlertProtocol+ForceUpdate.swift in Sources */,
 				7F48C1DB244DCD0B00997684 /* IdentityConfirmedPresenter.swift in Sources */,
@@ -7270,6 +7277,7 @@
 				017A5F412A49C32B00E80B56 /* WalletConnectError.swift in Sources */,
 				5243C034278E2384005CAC8D /* SanityChecker.swift in Sources */,
 				7F85B787246A9A7C00ED09B8 /* LetterSpacingLabel.swift in Sources */,
+				080F53A52BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */,
 				7F85B788246A9A7C00ED09B8 /* IdentityConfirmedPresenter.swift in Sources */,
 				89D467DB289B8CAA007D3FC8 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				6461F5DF29FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
@@ -7863,6 +7871,7 @@
 				017A5F422A49C32C00E80B56 /* WalletConnectError.swift in Sources */,
 				7F85B881246A9AB600ED09B8 /* AccountTransactionsDataPresenter.swift in Sources */,
 				5243C035278E2384005CAC8D /* SanityChecker.swift in Sources */,
+				080F53A62BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */,
 				7F85B882246A9AB600ED09B8 /* Metadata.swift in Sources */,
 				89D467DC289B8CAA007D3FC8 /* PrivateIDObjectDataWrapper.swift in Sources */,
 				6461F5E029FB2A6C00975BC5 /* TermsAndConditionsViewModel.swift in Sources */,
@@ -8360,6 +8369,7 @@
 				7FF07AC423EADBB100F1FC04 /* UITableView+Extensions.swift in Sources */,
 				7FF07AC123EADBB100F1FC04 /* UIColor+Additions.swift in Sources */,
 				5237188025753C4700B2BC31 /* MakeGenerateAccountsResponseElement.swift in Sources */,
+				080F53A42BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */,
 				C938F533241FB9B100ECAD47 /* UITextField+Extensions.swift in Sources */,
 				7FD878592406AF7C00509BDB /* LoginCoordinator.swift in Sources */,
 				5211BAB7250126B000EE1658 /* ShieldedAccountEncryptionStatus.swift in Sources */,

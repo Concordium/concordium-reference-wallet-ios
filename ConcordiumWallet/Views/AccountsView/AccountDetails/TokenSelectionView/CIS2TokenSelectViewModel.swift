@@ -60,7 +60,7 @@ final class CIS2TokenSelectViewModel: ObservableObject {
                 }
                 
                 let metadata = try await service.fetchTokensMetadata(contractIndex: contractIndex, contractSubindex: "0", tokenId: ids.map { $0.token }.joined(separator: ","))
-                let metadataPairs = try await getTokenMetadataPair(metadata: metadata)
+                let metadataPairs = try await service.getTokenMetadataPair(metadata: metadata)
                 let balances = try await service.fetchTokensBalance(contractIndex: contractIndex, contractSubindex: "0", accountAddress: accountAddress, tokenId: ids.map { $0.token }.joined(separator: ","))
                 
                 let representables = metadataPairs.map { (metadataItem, details) in
@@ -95,41 +95,6 @@ final class CIS2TokenSelectViewModel: ObservableObject {
                     isLoading = false
                 }
             }
-        }
-    }
-    
-    /// Retrieves a pair of metadata items and their corresponding token metadata details.
-    ///
-    /// This function asynchronously retrieves pairs of metadata items and their corresponding token metadata details from the provided `CIS2TokensMetadata`.
-    /// It utilizes the `fetchTokensMetadataDetails` method of the `service` object to fetch token metadata details for each metadata item's URL.
-    ///  If a metadata item's URL is invalid or fetching the details fails, it will be skipped in the result.
-    ///
-    /// - Parameter metadata: The `CIS2TokensMetadata` containing the metadata items.
-    ///
-    /// - Returns: An array of tuples, each containing a `CIS2TokensMetadataItem` and its corresponding `CIS2TokenMetadataDetails`.
-    ///
-    func getTokenMetadataPair(metadata: CIS2TokensMetadata) async throws -> [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails)] {
-        var allData = [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails?)]()
-        
-        try await withThrowingTaskGroup(of: (CIS2TokensMetadataItem, CIS2TokenMetadataDetails?).self) { [weak self] group in
-            guard let self = self else { return }
-            for metadata in metadata.metadata {
-                if let url = URL(string: metadata.metadataURL) {
-                    group.addTask {
-                        let result = try? await self.service.fetchTokensMetadataDetails(url: url)
-                        return (metadata, result)
-                    }
-                }
-            }
-            
-            for try await data in group {
-                allData.append(data)
-            }
-        }
-        
-        return allData.compactMap { (metadataItem, tokenMetadataDetails) -> (CIS2TokensMetadataItem, CIS2TokenMetadataDetails)? in
-            guard let tokenMetadataDetails = tokenMetadataDetails else { return nil }
-            return (metadataItem, tokenMetadataDetails)
         }
     }
 }

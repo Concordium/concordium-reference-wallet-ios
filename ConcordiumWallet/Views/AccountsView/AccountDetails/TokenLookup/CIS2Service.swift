@@ -26,6 +26,8 @@ protocol CIS2ServiceProtocol {
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) async throws -> [CIS2TokenBalance]
     func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws
     func fetchTokensMetadataDetails(url: URL) async throws -> CIS2TokenMetadataDetails
+    
+    func getTokenMetadataPair(metadata: CIS2TokensMetadata) async throws -> [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails)]
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -194,5 +196,37 @@ extension CIS2Service {
         }
 
         return metadata
+    }
+}
+
+extension CIS2Service {
+    /// Retrieves a pair of metadata items and their corresponding token metadata details.
+    ///
+    /// This function asynchronously retrieves pairs of metadata items and their corresponding token metadata details from the provided `CIS2TokensMetadata`.
+    /// It utilizes the `fetchTokensMetadataDetails` method of the `service` object to fetch token metadata details for each metadata item's URL.
+    ///  If a metadata item's URL is invalid or fetching the details fails, the entire item will be skipped in the result.
+    ///
+    /// - Parameter metadata: The `CIS2TokensMetadata` containing the metadata items.
+    ///
+    /// - Returns: An array of tuples, each containing a `CIS2TokensMetadataItem` and its corresponding `CIS2TokenMetadataDetails`.
+    ///
+    func getTokenMetadataPair(metadata: CIS2TokensMetadata) async throws -> [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails)] {
+        try await withThrowingTaskGroup(of: (CIS2TokensMetadataItem, CIS2TokenMetadataDetails)?.self) { [weak self] group in
+            guard let self else { return [] }
+            for metadata in metadata.metadata {
+                if let url = URL(string: metadata.metadataURL) {
+                    group.addTask {
+                        guard let result = try? await self.fetchTokensMetadataDetails(url: url) else {
+                            return nil
+                        }
+                        return (metadata, result)
+                    }
+                }
+            }
+            
+            return try await group
+                .compactMap { $0 }
+                .reduce(into: []) { $0.append($1) }
+        }
     }
 }
