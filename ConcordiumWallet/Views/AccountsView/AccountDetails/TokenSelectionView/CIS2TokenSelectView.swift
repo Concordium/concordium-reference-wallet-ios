@@ -5,6 +5,8 @@
 
 import Combine
 import SwiftUI
+import SDWebImageSwiftUI
+import SDWebImageSVGCoder
 
 struct CIS2TokenSelectView: View {
     @State private var tokenIndex: String = ""
@@ -196,28 +198,13 @@ struct CIS2TokenSelectView: View {
     
     func CIS2TokenView(model: CIS2TokenSelectionRepresentable) -> some View {
         HStack {
-            AsyncImage(
-                url: model.thumbnail ?? model.display,
-                scale: UIScreen.main.scale
-            ) { phase in
-                Group {
-                    switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        default:
-                            Image(systemName: "photo")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                    }
-                }
-                .frame(width: 45, height: 45)
-            }
-            .frame(width: 45, height: 45, alignment: .center)
-            
+            WebImage(url: model.thumbnail ?? model.display)
+                .resizable()
+                .placeholder(Image(systemName: "photo"))
+                .indicator(.activity)
+                .scaledToFit()
+                .frame(width: 45, height: 45, alignment: .center)
+
             VStack(alignment: .leading) {
                 Text(model.name)
                 Text("Your balance: \(model.balanceDisplayValue)")
