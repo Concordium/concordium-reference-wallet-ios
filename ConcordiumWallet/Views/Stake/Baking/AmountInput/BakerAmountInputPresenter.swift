@@ -183,8 +183,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     
     private func loadPoolParameters() {
-        /// In case when user is has `bakerId` we loads baker commision data for this pool
-        /// else we take chain parameters as `comissionData`
+    /// In case when user has a `bakerId`, we load baker commission data for this pool.
+    /// Else, we take chain parameters as `commissionData`.
         if let bakerId = account.baker?.bakerID {
             loadPoolParameters(for: bakerId)
         } else {
