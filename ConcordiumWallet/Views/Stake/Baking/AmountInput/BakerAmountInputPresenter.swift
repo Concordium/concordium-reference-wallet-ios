@@ -186,8 +186,8 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         // In case when account is a `baker/validator`, we load baker commission data for this pool.
         // Else, we take chain parameters as `commissionData`.
         
-        if let bakerId = account.baker?.bakerID {
-            loadPoolParameters(for: bakerId)
+        if let baker = account.baker {
+            loadPoolParameters(for: baker.bakerID)
         } else {
             stakeService.getPassiveDelegation()
                 .zip(stakeService.getChainParameters())
@@ -223,7 +223,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, bakerPool) in
                     let totalCapital = Int(passiveDelegation.allPoolTotalCapital) ?? 0
                     // We make sure to first convert capitalBound to an Int so we don't have to do floating point arithmetic
-                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - GTU(intValue: Int(bakerPool.delegatedCapital) ?? 0).intValue
+                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - (Int(bakerPool.delegatedCapital) ?? 0)
                     
                     return RemoteParameters(
                         minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),
