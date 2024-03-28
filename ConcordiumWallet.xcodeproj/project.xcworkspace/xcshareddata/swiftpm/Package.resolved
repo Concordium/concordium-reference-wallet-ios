@@ -1,150 +1,149 @@
 {
-  "originHash" : "06ce748ca616ce913f1f54d3edabe35c86d6b8a020d222ae86472feb433d8e60",
-  "pins" : [
-    {
-      "identity" : "bigint",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/attaswift/BigInt.git",
-      "state" : {
-        "revision" : "0ed110f7555c34ff468e72e1686e59721f2b0da6",
-        "version" : "5.3.0"
-      }
-    },
-    {
-      "identity" : "concordium-wallet-crypto-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift",
-      "state" : {
-        "revision" : "f7728a5274aae63e1bd5204ba455dfaf740f57a9",
-        "version" : "0.24.0-0"
-      }
-    },
-    {
-      "identity" : "matomo-sdk-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/matomo-org/matomo-sdk-ios.git",
-      "state" : {
-        "revision" : "15a645e11eaa8053f93749d73ced03da1e56fd01",
-        "version" : "7.5.2"
-      }
-    },
-    {
-      "identity" : "mnemonicswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zcash-hackworks/MnemonicSwift",
-      "state" : {
-        "revision" : "716a2c32ac2bbd8a1499ac834077df42b75edc85",
-        "version" : "2.2.4"
-      }
-    },
-    {
-      "identity" : "qrcode",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/WalletConnect/QRCode",
-      "state" : {
-        "revision" : "263f280d2c8144adfb0b6676109846cfc8dd552b",
-        "version" : "14.3.1"
-      }
-    },
-    {
-      "identity" : "realm-core",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-core",
-      "state" : {
-        "revision" : "f1e962cd447f8b69f8f7cf46a188b1c6246923c5",
-        "version" : "13.17.0"
-      }
-    },
-    {
-      "identity" : "realm-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-swift",
-      "state" : {
-        "revision" : "0155caac1a0830a9fbaaffe5866b909fad3a6fc4",
-        "version" : "10.41.1"
-      }
-    },
-    {
-      "identity" : "sdwebimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage.git",
-      "state" : {
-        "revision" : "633996a807442ec28df9d33b0f88ce57a0e2fdbf",
-        "version" : "5.17.0"
-      }
-    },
-    {
-      "identity" : "sdwebimagesvgcoder",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
-      "state" : {
-        "revision" : "950167445ab703740569869c8b7510efc9d09a26",
-        "version" : "1.7.0"
-      }
-    },
-    {
-      "identity" : "sdwebimageswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
-      "state" : {
-        "revision" : "e837c37d45449fbd3b4745c10c5b5274e73edead",
-        "version" : "2.2.3"
-      }
-    },
-    {
-      "identity" : "starscream",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/daltoniam/Starscream.git",
-      "state" : {
-        "revision" : "a063fda2b8145a231953c20e7a646be254365396",
-        "version" : "3.1.2"
-      }
-    },
-    {
-      "identity" : "swift-crypto",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-crypto.git",
-      "state" : {
-        "revision" : "75ec60b8b4cc0f085c3ac414f3dca5625fa3588e",
-        "version" : "2.2.4"
-      }
-    },
-    {
-      "identity" : "swift-qrcode-generator",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dagronf/swift-qrcode-generator",
-      "state" : {
-        "revision" : "5ca09b6a2ad190f94aa3d6ddef45b187f8c0343b",
-        "version" : "1.0.3"
-      }
-    },
-    {
-      "identity" : "swiftcbor",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/unrelentingtech/SwiftCBOR",
-      "state" : {
-        "revision" : "98a59c305cca5c5367c3422d5e127661d4e76e24",
-        "version" : "0.4.5"
-      }
-    },
-    {
-      "identity" : "swiftimagereadwrite",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dagronf/SwiftImageReadWrite",
-      "state" : {
-        "revision" : "5596407d1cf61b953b8e658fa8636a471df3c509",
-        "version" : "1.1.6"
-      }
-    },
-    {
-      "identity" : "walletconnectswiftv2",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/WalletConnect/WalletConnectSwiftV2.git",
-      "state" : {
-        "revision" : "84b09a13b48d08f1092a7494e2ad70cbb92545c2",
-        "version" : "1.6.11"
-      }
-    }
-  ],
-  "version" : 3
-}
+   "pins" : [
+     {
+       "identity" : "bigint",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/attaswift/BigInt.git",
+       "state" : {
+         "revision" : "0ed110f7555c34ff468e72e1686e59721f2b0da6",
+         "version" : "5.3.0"
+       }
+     },
+     {
+       "identity" : "concordium-wallet-crypto-swift",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/Concordium/concordium-wallet-crypto-swift",
+       "state" : {
+         "revision" : "f7728a5274aae63e1bd5204ba455dfaf740f57a9",
+         "version" : "0.24.0-0"
+       }
+     },
+     {
+       "identity" : "matomo-sdk-ios",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/matomo-org/matomo-sdk-ios.git",
+       "state" : {
+         "revision" : "15a645e11eaa8053f93749d73ced03da1e56fd01",
+         "version" : "7.5.2"
+       }
+     },
+     {
+       "identity" : "mnemonicswift",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/zcash-hackworks/MnemonicSwift",
+       "state" : {
+         "revision" : "716a2c32ac2bbd8a1499ac834077df42b75edc85",
+         "version" : "2.2.4"
+       }
+     },
+     {
+       "identity" : "qrcode",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/WalletConnect/QRCode",
+       "state" : {
+         "revision" : "263f280d2c8144adfb0b6676109846cfc8dd552b",
+         "version" : "14.3.1"
+       }
+     },
+     {
+       "identity" : "realm-core",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/realm/realm-core",
+       "state" : {
+         "revision" : "f1e962cd447f8b69f8f7cf46a188b1c6246923c5",
+         "version" : "13.17.0"
+       }
+     },
+     {
+       "identity" : "realm-swift",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/realm/realm-swift",
+       "state" : {
+         "revision" : "0155caac1a0830a9fbaaffe5866b909fad3a6fc4",
+         "version" : "10.41.1"
+       }
+     },
+     {
+       "identity" : "sdwebimage",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/SDWebImage/SDWebImage.git",
+       "state" : {
+         "revision" : "633996a807442ec28df9d33b0f88ce57a0e2fdbf",
+         "version" : "5.17.0"
+       }
+     },
+     {
+       "identity" : "sdwebimagesvgcoder",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
+       "state" : {
+         "revision" : "950167445ab703740569869c8b7510efc9d09a26",
+         "version" : "1.7.0"
+       }
+     },
+     {
+       "identity" : "sdwebimageswiftui",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+       "state" : {
+         "revision" : "e837c37d45449fbd3b4745c10c5b5274e73edead",
+         "version" : "2.2.3"
+       }
+     },
+     {
+       "identity" : "starscream",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/daltoniam/Starscream.git",
+       "state" : {
+         "revision" : "a063fda2b8145a231953c20e7a646be254365396",
+         "version" : "3.1.2"
+       }
+     },
+     {
+       "identity" : "swift-crypto",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/apple/swift-crypto.git",
+       "state" : {
+         "revision" : "75ec60b8b4cc0f085c3ac414f3dca5625fa3588e",
+         "version" : "2.2.4"
+       }
+     },
+     {
+       "identity" : "swift-qrcode-generator",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/dagronf/swift-qrcode-generator",
+       "state" : {
+         "revision" : "5ca09b6a2ad190f94aa3d6ddef45b187f8c0343b",
+         "version" : "1.0.3"
+       }
+     },
+     {
+       "identity" : "swiftcbor",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/unrelentingtech/SwiftCBOR",
+       "state" : {
+         "revision" : "98a59c305cca5c5367c3422d5e127661d4e76e24",
+         "version" : "0.4.5"
+       }
+     },
+     {
+       "identity" : "swiftimagereadwrite",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/dagronf/SwiftImageReadWrite",
+       "state" : {
+         "revision" : "5596407d1cf61b953b8e658fa8636a471df3c509",
+         "version" : "1.1.6"
+       }
+     },
+     {
+       "identity" : "walletconnectswiftv2",
+       "kind" : "remoteSourceControl",
+       "location" : "https://github.com/WalletConnect/WalletConnectSwiftV2.git",
+       "state" : {
+         "revision" : "84b09a13b48d08f1092a7494e2ad70cbb92545c2",
+         "version" : "1.6.11"
+       }
+     }
+   ],
+   "version" : 2
+ }
