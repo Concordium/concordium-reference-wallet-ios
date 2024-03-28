@@ -222,7 +222,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
                 self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, bakerPool) in
                     let totalCapital = Int(passiveDelegation.allPoolTotalCapital) ?? 0
                     // We make sure to first convert capitalBound to an Int so we don't have to do floating point arithmetic
-                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - GTU(intValue: Int(bakerPool.delegatedCapital) ?? 0).intValue
+                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - (Int(bakerPool.delegatedCapital) ?? 0)
                     
                     return RemoteParameters(
                         minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),
