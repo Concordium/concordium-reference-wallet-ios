@@ -21,20 +21,20 @@ private enum TransferCostOption {
     
     var formattedTransactionFee: String {
         switch self {
-        case .cost(let transferCost):
-            let gtuCost = GTU(intValue: Int(transferCost.cost) ?? 0)
-            return String(format: "stake.inputamount.transactionfee".localized, gtuCost.displayValueWithGStroke())
-        case .range(let transferCostRange):
-            return transferCostRange.formattedTransactionFee
+            case .cost(let transferCost):
+                let gtuCost = GTU(intValue: Int(transferCost.cost) ?? 0)
+                return String(format: "stake.inputamount.transactionfee".localized, gtuCost.displayValueWithGStroke())
+            case .range(let transferCostRange):
+                return transferCostRange.formattedTransactionFee
         }
     }
     
     var maxCost: GTU {
         switch self {
-        case .cost(let transferCost):
-            return GTU(intValue: Int(transferCost.cost) ?? 0)
-        case .range(let transferCostRange):
-            return transferCostRange.maxCost
+            case .cost(let transferCost):
+                return GTU(intValue: Int(transferCost.cost) ?? 0)
+            case .range(let transferCostRange):
+                return transferCostRange.maxCost
         }
     }
 }
@@ -149,7 +149,7 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
             guard let self = self else {
                 return .failure(StakeError.internalError)
             }
-        
+            
             // in case when validators want to change their restaking preference
             // we allow to modify validator options in case when amount not changed
             if let baker = account.baker, baker.stakedAmount == amount.intValue {
@@ -164,12 +164,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         }
         .sink { [weak self] result in
             switch result {
-            case let .failure(error):
-                self?.viewModel.isContinueEnabled = false
-                self?.viewModel.amountErrorMessage = error.localizedDescription
-            case .success:
-                self?.viewModel.isContinueEnabled = true
-                self?.viewModel.amountErrorMessage = nil
+                case let .failure(error):
+                    self?.viewModel.isContinueEnabled = false
+                    self?.viewModel.amountErrorMessage = error.localizedDescription
+                case .success:
+                    self?.viewModel.isContinueEnabled = true
+                    self?.viewModel.amountErrorMessage = nil
             }
         }
         .store(in: &cancellables)
@@ -183,8 +183,9 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     
     private func loadPoolParameters() {
-    /// In case when user has a `bakerId`, we load baker commission data for this pool.
-    /// Else, we take chain parameters as `commissionData`.
+        // In case when account is a `baker/validator`, we load baker commission data for this pool.
+        // Else, we take chain parameters as `commissionData`.
+        
         if let bakerId = account.baker?.bakerID {
             loadPoolParameters(for: bakerId)
         } else {
@@ -240,12 +241,12 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
     
     private func handleParametersResult(_ result: Result<RemoteParameters, Error>) {
         switch result {
-        case let .failure(error):
-            self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
-        case let .success(parameters):
-            self.validator.minimumValue = parameters.minimumValue
-            self.validator.maximumValue = parameters.maximumValue
-            self.dataHandler.add(entry: parameters.comissionData)
+            case let .failure(error):
+                self.view?.showErrorAlert(ErrorMapper.toViewError(error: error))
+            case let .success(parameters):
+                self.validator.minimumValue = parameters.minimumValue
+                self.validator.maximumValue = parameters.maximumValue
+                self.dataHandler.add(entry: parameters.comissionData)
         }
     }
     
@@ -289,20 +290,20 @@ private extension BakerDataType {
 private extension StakeWarning {
     func asAlert(completion: @escaping () -> Void) -> AlertOptions? {
         switch self {
-        case .noChanges:
-            return BakingAlerts.noChanges
-        case .loweringStake:
-            return nil
-        case .moreThan95:
-            let continueAction = AlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .default)
-            let newStakeAction = AlertAction(name: "baking.morethan95.newstake".localized,
-                                             completion: nil,
-                                             style: .default)
-            return AlertOptions(title: "baking.morethan95.title".localized,
-                                            message: "baking.morethan95.message".localized,
-                                            actions: [continueAction, newStakeAction])
-        case .amountZero:
-            return nil
+            case .noChanges:
+                return BakingAlerts.noChanges
+            case .loweringStake:
+                return nil
+            case .moreThan95:
+                let continueAction = AlertAction(name: "baking.morethan95.continue".localized, completion: completion, style: .default)
+                let newStakeAction = AlertAction(name: "baking.morethan95.newstake".localized,
+                                                 completion: nil,
+                                                 style: .default)
+                return AlertOptions(title: "baking.morethan95.title".localized,
+                                    message: "baking.morethan95.message".localized,
+                                    actions: [continueAction, newStakeAction])
+            case .amountZero:
+                return nil
         }
     }
 }
