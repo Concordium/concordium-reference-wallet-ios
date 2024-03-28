@@ -181,57 +181,50 @@ class BakerAmountInputPresenter: StakeAmountInputPresenterProtocol {
         let comissionData: BakerCommissionData
     }
     
+    ///
+    /// `ValidatorPoolData` contained needed data to show on tx approve UI current  pool commisions state
+    /// - `rates`commisiotn rate for validator pool, to update commision data
+    /// - `delegatedCapital` - is for baker pool delegated capital
+    ///
+    typealias ValidatorPoolData = (rates: CommissionRates?, delegatedCapital: Int)
     
     private func loadPoolParameters() {
-        // In case when account is a `baker/validator`, we load baker commission data for this pool.
-        // Else, we take chain parameters as `commissionData`.
-        
-        if let baker = account.baker {
-            loadPoolParameters(for: baker.bakerID)
-        } else {
-            stakeService.getPassiveDelegation()
-                .zip(stakeService.getChainParameters())
-                .asResult()
-                .showLoadingIndicator(in: self.view)
-                .sink { [weak self] (result) in
-                    self?.handleParametersResult(result.map { (passiveDelegation, chainParameters) in
-                        let totalCapital = Int(passiveDelegation.allPoolTotalCapital) ?? 0
-                        // We make sure to first convert capitalBound to an Int so we don't have to do floating point arithmetic
-                        let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100)
-                        
-                        return RemoteParameters(
-                            minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),
-                            maximumValue: GTU(intValue: availableCapital),
-                            comissionData: BakerCommissionData(
-                                bakingRewardComission: chainParameters.bakingCommissionRange.max,
-                                finalizationRewardComission: chainParameters.finalizationCommissionRange.max,
-                                transactionComission: chainParameters.transactionCommissionRange.max
-                            )
-                        )
-                    })
+        let passiveDelegationRequest = stakeService.getPassiveDelegation()
+        let chainParametersRequest = stakeService.getChainParameters()
+        let validatorData = Just(account.baker?.bakerID)
+            .setFailureType(to: Error.self)
+            .flatMap { [weak self] bakerId -> AnyPublisher<ValidatorPoolData, Error> in
+                guard let self = self, let bakerId = bakerId else {
+                    return .just((nil, 0))
                 }
-                .store(in: &cancellables)
-        }
-    }
-    
-    private func loadPoolParameters(for bakerID: Int) {
-        stakeService.getPassiveDelegation()
-            .zip(stakeService.getChainParameters(), stakeService.getBakerPool(bakerId: bakerID))
+                
+                return self.stakeService.getBakerPool(bakerId: bakerId)
+                    .map { bakerPool in
+                        (bakerPool.poolInfo.commissionRates,  Int(bakerPool.delegatedCapital) ?? 0)
+                    }
+                    .eraseToAnyPublisher()
+            }
+        
+        passiveDelegationRequest
+            .zip(chainParametersRequest, validatorData)
             .asResult()
             .showLoadingIndicator(in: self.view)
             .sink { [weak self] (result) in
-                self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, bakerPool) in
+                self?.handleParametersResult(result.map { (passiveDelegation, chainParameters, validatorData) in
+                    let (commissionRates, delegatedCapital) = validatorData
                     let totalCapital = Int(passiveDelegation.allPoolTotalCapital) ?? 0
                     // We make sure to first convert capitalBound to an Int so we don't have to do floating point arithmetic
-                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - (Int(bakerPool.delegatedCapital) ?? 0)
+                    let availableCapital = (totalCapital * Int(chainParameters.capitalBound * 100) / 100) - delegatedCapital
                     
                     return RemoteParameters(
                         minimumValue: GTU(intValue: Int(chainParameters.minimumEquityCapital) ?? 0),
                         maximumValue: GTU(intValue: availableCapital),
                         comissionData: BakerCommissionData(
-                            bakingRewardComission: bakerPool.poolInfo.commissionRates.bakingCommission,
-                            finalizationRewardComission: bakerPool.poolInfo.commissionRates.finalizationCommission,
-                            transactionComission: bakerPool.poolInfo.commissionRates.transactionCommission
+                            // In case when account is a `baker/validator`, we use baker commission data for this pool.
+                            // Else, we take chain parameters as `commissionData`.
+                            bakingRewardComission: commissionRates?.bakingCommission ?? chainParameters.bakingCommissionRange.max,
+                            finalizationRewardComission: commissionRates?.finalizationCommission ?? chainParameters.finalizationCommissionRange.max,
+                            transactionComission: commissionRates?.transactionCommission ?? chainParameters.transactionCommissionRange.max
                         )
                     )
                 })
