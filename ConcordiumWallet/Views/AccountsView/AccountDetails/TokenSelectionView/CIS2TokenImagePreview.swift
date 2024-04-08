@@ -30,7 +30,7 @@ struct CIS2TokenImagePreview: View {
     
     var body: some View {
         Group {
-            if let url = url, url.absoluteString.caseInsensitiveCompare(".svg") == .orderedSame {
+            if let url = url, (url.absoluteString.range(of: ".svg", options: .caseInsensitive) != nil) {
                 WebImage(
                     url: url,
                     context: [.imageCoder: CustomSVGDecoder(fallbackDecoder: SDImageSVGCoder.shared)]
