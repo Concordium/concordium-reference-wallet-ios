@@ -29,27 +29,28 @@ struct CIS2TokenImagePreview: View {
     let size: CIS2TokenImagePreview.Size
     
     var body: some View {
-        if let url = url, url.absoluteString.contains(".svg") {
-            WebImage(
-                url: url,
-                context: [.imageCoder: CustomSVGDecoder(fallbackDecoder: SDImageSVGCoder.shared)]
-            )
-            .resizable()
-            .indicator(.activity)
-            .transition(.fade(duration: 0.5))
-            .aspectRatio(contentMode: .fit)
-            .frame(width: size.size.width, height: size.size.height)
-        } else {
-            AsyncImage(url: url, scale: 1.0) { image in
-                image
-                    .resizable()
-                    .clipShape(Circle())
-            } placeholder: {
-                Color.gray.opacity(0.4).clipShape(Circle())
+        Group {
+            if let url = url, url.absoluteString.caseInsensitiveCompare(".svg") == .orderedSame {
+                WebImage(
+                    url: url,
+                    context: [.imageCoder: CustomSVGDecoder(fallbackDecoder: SDImageSVGCoder.shared)]
+                )
+                .resizable()
+                .indicator(.activity)
+
+            } else {
+                AsyncImage(url: url, scale: 1.0) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    Color.gray.opacity(0.4).clipShape(Circle())
+                }
             }
-            .aspectRatio(contentMode: .fit)
-            .frame(width: size.size.width, height: size.size.height)
         }
+        .clipShape(Circle())
+        .transition(.fade(duration: 0.5))
+        .aspectRatio(contentMode: .fill)
+        .frame(width: size.size.width, height: size.size.height)
     }
 }
 
