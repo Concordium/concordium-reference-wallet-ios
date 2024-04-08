@@ -198,12 +198,7 @@ struct CIS2TokenSelectView: View {
     
     func CIS2TokenView(model: CIS2TokenSelectionRepresentable) -> some View {
         HStack {
-            WebImage(url: model.thumbnail ?? model.display)
-                .resizable()
-                .placeholder(Image(systemName: "photo"))
-                .indicator(.activity)
-                .scaledToFit()
-                .frame(width: 45, height: 45, alignment: .center)
+            CIS2TokenImagePreview(url: model.thumbnail ?? model.display, size: .medium)
 
             VStack(alignment: .leading) {
                 Text(model.name)
