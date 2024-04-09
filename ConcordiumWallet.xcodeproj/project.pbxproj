@@ -417,6 +417,10 @@
 		080F53A42BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
 		080F53A52BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
 		080F53A62BA9E38800BADD38 /* SearchTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */; };
+		08C169E02BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DF2BC3C59F00E61326 /* CIS2TokenImagePreview.swift */; };
+		08C169E12BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DF2BC3C59F00E61326 /* CIS2TokenImagePreview.swift */; };
+		08C169E22BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DF2BC3C59F00E61326 /* CIS2TokenImagePreview.swift */; };
+		08C169E32BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C169DF2BC3C59F00E61326 /* CIS2TokenImagePreview.swift */; };
 		08F7ABD32B962CCA008588D2 /* CIS2TokenSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */; };
 		08F7ABD42B962CCA008588D2 /* CIS2TokenSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */; };
 		08F7ABD52B962CCA008588D2 /* CIS2TokenSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */; };
@@ -2953,6 +2957,7 @@
 		07E6E27527B558A30083A852 /* intro_flow_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = intro_flow_style.css; sourceTree = "<group>"; };
 		07E8573326F1D24F001FB2D2 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTokenViewModel.swift; sourceTree = "<group>"; };
+		08C169DF2BC3C59F00E61326 /* CIS2TokenImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenImagePreview.swift; sourceTree = "<group>"; };
 		08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIS2TokenSelectViewModel.swift; sourceTree = "<group>"; };
 		17A41E4A266789F10079BD3A /* StagingNet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StagingNet.entitlements; sourceTree = "<group>"; };
 		17A41E4B26678FF80079BD3A /* Concordium ID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Concordium ID.entitlements"; sourceTree = "<group>"; };
@@ -3722,6 +3727,7 @@
 				0154A6772A8CEA0500C33954 /* CIS2TokenSelectView.swift */,
 				08F7ABD22B962CCA008588D2 /* CIS2TokenSelectViewModel.swift */,
 				080F53A22BA9E38800BADD38 /* SearchTokenViewModel.swift */,
+				08C169DF2BC3C59F00E61326 /* CIS2TokenImagePreview.swift */,
 			);
 			path = TokenSelectionView;
 			sourceTree = "<group>";
@@ -6878,6 +6884,7 @@
 				89B34A0C2892ADAE0059891C /* RecoveryPhraseRecoverIntroPresenter.swift in Sources */,
 				075A4BBE2719A04F00066AF1 /* CopyReferenceInfoWidgetViewController.swift in Sources */,
 				8992BA22281FFDDB005279C9 /* BakerPoolMenuPresenter.swift in Sources */,
+				08C169E02BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */,
 				89B34A022892AACE0059891C /* RecoveryPhraseRecoverIntroView.swift in Sources */,
 				017A5F242A49B97500E80B56 /* Schema.swift in Sources */,
 				FA01CA22291C5D3100BD8738 /* CGFloat+Helper.swift in Sources */,
@@ -7249,6 +7256,7 @@
 				FA01C9D4291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
 				FA01C9E0291C5D3100BD8738 /* UITextField+Helper.swift in Sources */,
 				89D46873289D21D2007D3FC8 /* SeedIdentityStatusView.swift in Sources */,
+				08C169E22BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */,
 				7F85B774246A9A7C00ED09B8 /* AccountDetailsViewController.swift in Sources */,
 				7F168A0E24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
 				01A3D11A2B19CF7E004FB79D /* SendFundsAmount.swift in Sources */,
@@ -7843,6 +7851,7 @@
 				7F85B86F246A9AB600ED09B8 /* ShowAlertProtocol.swift in Sources */,
 				FA01C9D5291C5D3100BD8738 /* UIScreen+Dimensions.swift in Sources */,
 				FA01C9E1291C5D3100BD8738 /* UITextField+Helper.swift in Sources */,
+				08C169E32BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */,
 				89D46874289D21D2007D3FC8 /* SeedIdentityStatusView.swift in Sources */,
 				7F168A0F24812B7100DE429E /* SendFundConfirmationViewController.swift in Sources */,
 				01A3D11B2B19CF7E004FB79D /* SendFundsAmount.swift in Sources */,
@@ -8589,6 +8598,7 @@
 				19C2EE4F9BADE3BCC1AF1358 /* SelectRecipientViewController.swift in Sources */,
 				079F310326EB5A2D00ED96D3 /* PermissionHelper.swift in Sources */,
 				19C2ED4B9B793A090B70CF7F /* AddRecipientPresenter.swift in Sources */,
+				08C169E12BC3C59F00E61326 /* CIS2TokenImagePreview.swift in Sources */,
 				07519F6D26FB23DE00F4E6E3 /* AddMemoViewController.swift in Sources */,
 				01A3D11E2B19CF90004FB79D /* FungibleToken.swift in Sources */,
 				52CE0C7A250FFEC70018B5D1 /* Encrypted.swift in Sources */,
@@ -9342,7 +9352,7 @@
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 		01BCA9582AB9CF62006D1F0C /* XCRemoteSwiftPackageReference "BigInt" */ = {

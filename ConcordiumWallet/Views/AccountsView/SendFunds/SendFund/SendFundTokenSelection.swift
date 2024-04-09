@@ -39,13 +39,15 @@ struct SendFundTokenSelection: View {
                     didSelectToken(token)
                 } label: {
                     HStack {
-                        WebImage(url: token.thumbnail)
-                            .resizable()
-                            .placeholder(Image(systemName: "photo"))
-                            .indicator(.activity)
-                            .transition(.fade(duration: 0.5))
-                            .scaledToFit()
-                            .frame(width: 48, height: 48, alignment: .center)
+                        WebImage(url: token.thumbnail) { image in
+                            image.resizable()
+                        } placeholder: {
+                            Image(systemName: "photo")
+                        }
+                        .indicator(.activity)
+                        .transition(.fade(duration: 0.5))
+                        .scaledToFit()
+                        .frame(width: 48, height: 48, alignment: .center)
                         VStack(alignment: .leading) {
                             Text(token.name)
                                 .multilineTextAlignment(.leading)
