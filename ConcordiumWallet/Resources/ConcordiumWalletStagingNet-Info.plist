@@ -41,6 +41,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Concordium Support Mail</key>
 	<string>idiss@concordium.software</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<true/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>

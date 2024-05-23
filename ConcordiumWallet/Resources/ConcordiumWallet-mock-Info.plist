@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDocumentTypes</key>
-	<array/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -35,6 +33,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Concordium Support Mail</key>
 	<string>idiss@concordium.software</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<true/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -67,6 +67,8 @@
 	<string>Used to scan QR code and to take a picture for your identity</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable FaceID for more convenient login</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To ensure a secure and seamless user experience, our app might use the microphone for a liveness check. The microphone is exclusively used during the identity creation process.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoMono.ttf</string>
@@ -90,7 +92,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>To ensure a secure and seamless user experience, our app might use the microphone for a liveness check. The microphone is exclusively used during the identity creation process.</string>
 </dict>
 </plist>
