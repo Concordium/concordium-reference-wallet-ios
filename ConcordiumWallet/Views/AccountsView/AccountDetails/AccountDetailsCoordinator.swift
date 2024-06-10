@@ -142,13 +142,12 @@ class AccountDetailsCoordinator: Coordinator,
     }
 
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: dependencyProvider,
                                                account: account,
                                                balanceType: balanceType,
-                                               transferType: transferType,
+                                               transferType: .simpleTransfer,
                                                tokenType: .ccd
         )
         coordinator.start()
@@ -157,7 +156,7 @@ class AccountDetailsCoordinator: Coordinator,
     }
     
     func showSendCIS2Token(balanceType: AccountBalanceTypeEnum = .balance, token: CIS2TokenSelectionRepresentable) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
+        let transferType: SendFundTransferType = .simpleTransfer
         let coordinator = SendFundsCoordinator(
             navigationController: BaseNavigationController(),
             delegate: self,
@@ -166,21 +165,6 @@ class AccountDetailsCoordinator: Coordinator,
             balanceType: balanceType,
             transferType: .contractUpdate,
             tokenType: SendFundsTokenSelection(from: token)
-        )
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-
-    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
-        let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType,
-                                               tokenType: .ccd
         )
         coordinator.start()
         childCoordinators.append(coordinator)
@@ -374,10 +358,6 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
 
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
         showSendFund(balanceType: balanceType)
-    }
-
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
-        shieldUnshieldFund(balanceType: balanceType)
     }
 
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {

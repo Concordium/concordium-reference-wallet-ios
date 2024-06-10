@@ -76,7 +76,7 @@ class CIS2TokensCoordinator: Coordinator, AccountAddressQRCoordinatorDelegate {
     }
 
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance, for token: CIS2TokenSelectionRepresentable) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
+        let transferType: SendFundTransferType = .simpleTransfer
         let coordinator = SendFundsCoordinator(
             navigationController: BaseNavigationController(),
             delegate: self,

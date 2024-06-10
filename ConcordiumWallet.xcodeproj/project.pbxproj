@@ -2199,10 +2199,6 @@
 		8D4097B328323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
 		8D4097B428323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
 		8D4097B528323F1600EBB9EA /* AppSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4097B128323F1600EBB9EA /* AppSettingsService.swift */; };
-		8D5776D0295B42930059C309 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5776CF295B42930059C309 /* ButtonsShielded.swift */; };
-		8D5776D1295B42930059C309 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5776CF295B42930059C309 /* ButtonsShielded.swift */; };
-		8D5776D2295B42930059C309 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5776CF295B42930059C309 /* ButtonsShielded.swift */; };
-		8D5776D3295B42930059C309 /* ButtonsShielded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5776CF295B42930059C309 /* ButtonsShielded.swift */; };
 		8D61F4752955E845005E9410 /* ButtonSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D61F4742955E845005E9410 /* ButtonSlider.swift */; };
 		8D61F4762955E845005E9410 /* ButtonSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D61F4742955E845005E9410 /* ButtonSlider.swift */; };
 		8D61F4772955E845005E9410 /* ButtonSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D61F4742955E845005E9410 /* ButtonSlider.swift */; };
@@ -3422,7 +3418,6 @@
 		89EB9F5B27FEE959005F8633 /* GeneratedBakerKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedBakerKeys.swift; sourceTree = "<group>"; };
 		8D4097AC28323A1F00EBB9EA /* AppSettingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsResponse.swift; sourceTree = "<group>"; };
 		8D4097B128323F1600EBB9EA /* AppSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsService.swift; sourceTree = "<group>"; };
-		8D5776CF295B42930059C309 /* ButtonsShielded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsShielded.swift; sourceTree = "<group>"; };
 		8D61F4742955E845005E9410 /* ButtonSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSlider.swift; sourceTree = "<group>"; };
 		8D9E39842950485A007ED183 /* ExportTransactionLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTransactionLogView.swift; sourceTree = "<group>"; };
 		8D9E39892950552E007ED183 /* ExportTransactionLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTransactionLogPresenter.swift; sourceTree = "<group>"; };
@@ -5604,7 +5599,6 @@
 				19C2E412525C6ED4F2F87A8C /* TransactionsLoadingHandler.swift */,
 				5251EF8C27BA6802006991DD /* ShowShieldedDelegate.swift */,
 				8D61F4742955E845005E9410 /* ButtonSlider.swift */,
-				8D5776CF295B42930059C309 /* ButtonsShielded.swift */,
 			);
 			path = AccountDetails;
 			sourceTree = "<group>";
@@ -6772,7 +6766,6 @@
 				7F48C1E0244DCD0B00997684 /* AppSettings.swift in Sources */,
 				901F7EEE27E8A6A600C46741 /* DelegationTarget.swift in Sources */,
 				7F48C1E1244DCD0B00997684 /* UIView+Additions.swift in Sources */,
-				8D5776D0295B42930059C309 /* ButtonsShielded.swift in Sources */,
 				7F48C1E2244DCD0B00997684 /* PasswordFieldViewController.swift in Sources */,
 				893CAC46286DA7F000BDF84C /* View+Modifiers.swift in Sources */,
 				070D61D727B2907000B6903C /* OnboardingCarouselViewController.swift in Sources */,
@@ -7215,7 +7208,6 @@
 				89D467F3289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				7F85B761246A9A7C00ED09B8 /* AccountCell.swift in Sources */,
 				5237188525753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
-				8D5776D2295B42930059C309 /* ButtonsShielded.swift in Sources */,
 				8DD9B1BD294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				52A6A78024F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				89B34A302892B6C50059891C /* RecoveryPhraseInputViewModel.swift in Sources */,
@@ -7810,7 +7802,6 @@
 				89D467F4289B9CF0007D3FC8 /* IdentityCreation.swift in Sources */,
 				7F85B85C246A9AB600ED09B8 /* Aci.swift in Sources */,
 				5237188625753C4700B2BC31 /* MakeGenerateAaccountsRequest.swift in Sources */,
-				8D5776D3295B42930059C309 /* ButtonsShielded.swift in Sources */,
 				8DD9B1BE294C7D60003E8CB8 /* CookieJar.swift in Sources */,
 				52A6A78124F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				89B34A312892B6C50059891C /* RecoveryPhraseInputViewModel.swift in Sources */,
@@ -8695,7 +8686,6 @@
 				89B34A532897B6140059891C /* Collections+Indexed.swift in Sources */,
 				19C2E85AC21620CFD6D4941E /* EncryptionMetadata.swift in Sources */,
 				19C2EAB6E48A28C1990D3D30 /* ExportContainer.swift in Sources */,
-				8D5776D1295B42930059C309 /* ButtonsShielded.swift in Sources */,
 				89B34A392893D0A50059891C /* PageList.swift in Sources */,
 				19C2E106001E26A82B164069 /* CreateExportPasswordPresenter.swift in Sources */,
 				89D46853289CF390007D3FC8 /* CreateSeedIdentityView.swift in Sources */,
@@ -8897,11 +8887,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
@@ -8920,7 +8908,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8935,11 +8922,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
+				DEVELOPMENT_TEAM = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
@@ -8958,7 +8943,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
