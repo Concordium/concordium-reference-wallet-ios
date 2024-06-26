@@ -628,6 +628,10 @@
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C2EEC7EFFF9C46A7786EF7 /* 4.1.2.RX_backend_accBalance.json */; };
 		378E0C441D6924E404784EAA /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153AF2B8166B46422D71155 /* AutoMockable.generated.swift */; };
+		509749C42C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
+		509749C52C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
+		509749C62C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
+		509749C72C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -3061,6 +3065,7 @@
 		19C2EFD00DA2B13DEB773973 /* IdentityProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityProviderError.swift; sourceTree = "<group>"; };
 		19C2EFED051EE58467949EAA /* AddRecipientPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipientPresenter.swift; sourceTree = "<group>"; };
 		19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceArData.swift; sourceTree = "<group>"; };
+		509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshiedSunsetView.swift; sourceTree = "<group>"; };
 		52055F762552B83D0071F7CA /* IdentityCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityCardView.xib; sourceTree = "<group>"; };
 		52055F802552B8F10071F7CA /* IdentityCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCardView.swift; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -4323,6 +4328,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		509749C22C199B7400D28D6B /* UnshiedSunset */ = {
+			isa = PBXGroup;
+			children = (
+				509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */,
+			);
+			path = UnshiedSunset;
+			sourceTree = "<group>";
+		};
 		5243C030278E2360005CAC8D /* VerifyIdsAndAccounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -4926,6 +4939,7 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				509749C22C199B7400D28D6B /* UnshiedSunset */,
 				0111D7212A2DFE7000E05D35 /* WalletConnect */,
 				19C2E50D27878D62320AE14B /* ScanQR */,
 				891B19F628A6132D00F4B0D6 /* SeedIdentities */,
@@ -6652,6 +6666,7 @@
 				64FD333A25FF8A7C00563703 /* KeyList.swift in Sources */,
 				7F48C1AD244DCD0B00997684 /* AccountsCoordinator.swift in Sources */,
 				07519F9226FCBF6C00F4E6E3 /* HashingHelper.swift in Sources */,
+				509749C42C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */,
 				896B423E28B49A6700D1F271 /* SelectIdentityPresenter.swift in Sources */,
 				52DCA9F627CD106600CDF85E /* BurgerMenuOptionCell.swift in Sources */,
 				07519F9D26FDC0EB00F4E6E3 /* EncodingProtocol.swift in Sources */,
@@ -7400,6 +7415,7 @@
 				89B34A352892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
 				CD3E4A912A5588D700D7FBF3 /* SignMessagePayload.swift in Sources */,
 				7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */,
+				509749C62C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */,
 				7F85B7B1246A9A7C00ED09B8 /* TransactionDetailInfoCellView.swift in Sources */,
 				7F85B7B2246A9A7C00ED09B8 /* TransactionsLoadingHandler.swift in Sources */,
 				89D46844289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
@@ -7994,6 +8010,7 @@
 				89B34A362892B7280059891C /* RecoveryPhraseInputView.swift in Sources */,
 				CD3E4A922A5588D700D7FBF3 /* SignMessagePayload.swift in Sources */,
 				7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */,
+				509749C72C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */,
 				7F85B8AE246A9AB600ED09B8 /* AccountDetailsPresenter.swift in Sources */,
 				7F85B8AF246A9AB600ED09B8 /* TransactionViewModel.swift in Sources */,
 				89D46845289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
@@ -8496,6 +8513,7 @@
 				89CF2D31281167EF00742E1E /* BakerPoolSettingsPresenter.swift in Sources */,
 				C96632522459B85A0087A1F2 /* AccountTransactionsDataPresenter.swift in Sources */,
 				89D467FC289B9EB9007D3FC8 /* IDRequestV1.swift in Sources */,
+				509749C52C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */,
 				19C2EAE949D6E4BFF9E5A373 /* Metadata.swift in Sources */,
 				5236EA4225134C4900214174 /* IdentityWrapperShell.swift in Sources */,
 				7F168A0924812B7100DE429E /* SendFundConfirmationPresenter.swift in Sources */,
