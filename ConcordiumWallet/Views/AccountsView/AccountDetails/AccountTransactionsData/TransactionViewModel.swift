@@ -119,13 +119,7 @@ extension TransactionViewModel {
         
         if balanceType == .shielded {
             let title: String
-            if transfer.transferType == .transferToSecret {
-                title = "transaction.shieldedAmount".localized
-            } else if transfer.transferType == .transferToPublic {
-                title = "transaction.unshieldedAmount".localized
-            } else {
-                title = recipientListLookup(transfer.toAddress) ?? AddressDisplay.string(from: transfer.toAddress)
-            }
+            title = recipientListLookup(transfer.toAddress) ?? AddressDisplay.string(from: transfer.toAddress)
             self.init(status: transfer.transactionStatus ?? SubmissionStatusEnum.received,
                       outcome: transfer.outcome,
                       cost: GTU(intValue: Int("0") ?? 0),
@@ -143,10 +137,6 @@ extension TransactionViewModel {
         } else {
             let title: String
             switch transfer.transferType {
-            case .transferToPublic:
-                title = "transaction.unshieldedAmount".localized
-            case .transferToSecret:
-                title = "transaction.shieldedAmount".localized
             case .registerDelegation, .updateDelegation, .removeDelegation:
                 title = "transaction.configuredelegation".localized
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker:
@@ -173,7 +163,7 @@ extension TransactionViewModel {
                                                      submissionStatus: submissionStatus,
                                                      account: account,
                                                      recipientListLookup: recipientListLookup),
-                showCostAsShieleded: (transfer.transferType == .encryptedTransfer),
+                showCostAsShieleded: false,
                 source: transfer)
         }
         Logger.trace("Converted local transfer to view model: \(self)")

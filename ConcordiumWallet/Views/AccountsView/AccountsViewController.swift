@@ -282,9 +282,9 @@ class AccountsViewController: BaseViewController, Storyboarded, AccountsViewProt
             title: "accountCreation.prevent.button.download".localized,
             style: .default
         ) { _ in
-            var appStoreUrl = "https://testflight.apple.com/join/YaKKqYMA"
+            var appStoreUrl = "https://testflight.apple.com/join/gnWggXOz"
             #if MAINNET
-                appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
+                appStoreUrl = "https://apps.apple.com/us/app/cryptox-concordium-wallet/id1593386457"
             #endif
             
             UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)

@@ -11,20 +11,11 @@ protocol SendFundsCoordinatorDelegate: AnyObject {
 
 enum SendFundTransferType {
     case simpleTransfer
-    case encryptedTransfer
-    case transferToSecret
-    case transferToPublic
     
     var actualType: TransferType {
         switch self {
         case .simpleTransfer:
             return .simpleTransfer
-        case .encryptedTransfer:
-            return .encryptedTransfer
-        case .transferToSecret:
-            return .transferToSecret
-        case .transferToPublic:
-            return .transferToPublic
         }
     }
 }

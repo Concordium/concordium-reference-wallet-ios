@@ -70,26 +70,12 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
                                                account: account,
                                                balanceType: balanceType,
-                                               transferType: transferType)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-
-    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
-        let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: self.dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType)
+                                               transferType: .simpleTransfer)
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
@@ -228,11 +214,7 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
         showSendFund(balanceType: balanceType)
     }
-    
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
-        shieldUnshieldFund(balanceType: balanceType)
-    }
-    
+
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR()
     }
