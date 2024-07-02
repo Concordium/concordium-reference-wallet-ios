@@ -114,13 +114,13 @@ class IdentitiesCoordinator: Coordinator {
             title: "identityCreation.prevent.button.download".localized,
             style: .default
         ) { _ in
-            var appStoreUrl = "https://testflight.apple.com/join/YaKKqYMA"
+            var appStoreUrl = "https://testflight.apple.com/join/gnWggXOz"
             #if MAINNET
-                appStoreUrl = "https://apps.apple.com/us/app/concordium-blockchain-wallet/id6444703764"
+                appStoreUrl = "https://apps.apple.com/dk/app/cryptox-concordium-wallet/id1593386457"
             #endif
             UIApplication.shared.open(URL(string: appStoreUrl)!, options: [:], completionHandler: nil)
         }
-        
+    
         let okAction = UIAlertAction(title: "identityCreation.prevent.button.okay".localized, style: .default)
         
         alert.addAction(downloadAction)

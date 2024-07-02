@@ -32,12 +32,9 @@ class SendFundViewModel {
     
     func setup(account: AccountDataType, transferType: SendFundTransferType) {
         switch transferType {
-        case .simpleTransfer, .encryptedTransfer:
+        case .simpleTransfer:
             // We show the memo and recipient for simple or encrypted transfers
             showMemoAndRecipient = true
-        case .transferToSecret, .transferToPublic:
-            // We hide the memo and recipient for shielding or unshielding
-            showMemoAndRecipient = false
         }
         
         setPageAndSendButtonTitle(transferType: transferType)
@@ -59,37 +56,22 @@ class SendFundViewModel {
     
     private func setPageAndSendButtonTitle(transferType: SendFundTransferType) {
         switch transferType {
-        case .simpleTransfer, .encryptedTransfer:
+        case .simpleTransfer:
             pageTitle = "sendFund.pageTitle.send".localized
             buttonTitle = "sendFund.buttonTitle.send".localized
-        case .transferToPublic:
-            pageTitle = "sendFund.pageTitle.unshieldAmount".localized
-            buttonTitle = "sendFund.buttonTitle.unshieldAmount".localized
-        case .transferToSecret:
-            pageTitle = "sendFund.pageTitle.shieldAmount".localized
-            buttonTitle = "sendFund.buttonTitle.shieldAmount".localized
         }
     }
     private func setBalancesFor(transferType: SendFundTransferType, account: AccountDataType) {
         switch transferType {
-        case .simpleTransfer, .transferToSecret:
+        case .simpleTransfer:
             // for transfers from the public account, we show Total and at disposal for the public balance
             firstBalanceName = "sendFund.total".localized
             secondBalanceName = "sendFund.atDisposal".localized
             // We don't show the send all button for shielding transfers as it is likely a user mistake
-            sendAllVisible = transferType != .transferToSecret
+            sendAllVisible = true
             firstBalance = GTU(intValue: account.forecastBalance).displayValueWithGStroke()
             secondBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
             disposalAmount = GTU(intValue: account.forecastAtDisposalBalance)
-        case .encryptedTransfer, .transferToPublic:
-            // for transfers from the shielded account we should the public at disposal and the shielded balance
-            let showLock = account.encryptedBalanceStatus == .partiallyDecrypted || account.encryptedBalanceStatus == .encrypted
-            showShieldedLock = showLock
-            firstBalanceName = "sendFund.balanceAtDisposal".localized
-            secondBalanceName = "sendFund.shieldedBalance".localized
-            firstBalance = GTU(intValue: account.forecastAtDisposalBalance).displayValueWithGStroke()
-            secondBalance = GTU(intValue: account.finalizedEncryptedBalance).displayValueWithGStroke() + (showLock ? " + " : "")
-            disposalAmount = GTU(intValue: account.finalizedEncryptedBalance)
         }
     }
     
@@ -173,12 +155,6 @@ class SendFundPresenter: SendFundPresenterProtocol {
         self.transferType = transferType
         self.delegate = delegate
         self.dependencyProvider = dependencyProvider
-        
-        // If transfertype is from/to shielded account, set recipient to own account.
-        if transferType == .transferToPublic || transferType == .transferToSecret {
-            let ownAccount = RecipientEntity(name: self.account.displayName, address: self.account.address)
-            setSelectedRecipient(recipient: ownAccount)
-        }
     }
     
     func viewDidLoad() {
@@ -322,7 +298,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             let recipient: RecipientDataType
             if selectedRecipient.address == self.account.address {
                 // if we try to make a simple or an encrypted transfer to own account, we show an error
-                if self.transferType == .simpleTransfer || self.transferType == .encryptedTransfer {
+                if self.transferType == .simpleTransfer {
                     self.view?.showToast(withMessage: "".localized, time: 1)
                     return
                 }
@@ -343,9 +319,7 @@ class SendFundPresenter: SendFundPresenterProtocol {
             )
         }
         
-        if transferType == .transferToSecret {
-            showShieldAmountWarningIfNeeded(amount: amount, completion: sendFund)
-        } else if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
+        if addedMemo == nil || AppSettings.dontShowMemoAlertWarning {
             sendFund()
         } else {
             view?.showMemoWarningAlert { sendFund() }

@@ -43,12 +43,6 @@ class TransactionsService: TransactionsServiceProtocol, SubmissionStatusService 
         switch pTransfer.transferType {
         case .simpleTransfer:
             return performPublicTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .transferToSecret:
-            return performShielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .transferToPublic:
-            return performUnshielding(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
-        case .encryptedTransfer:
-            return performEncryptedTransfer(pTransfer, from: account, requestPasswordDelegate: requestPasswordDelegate)
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             return performBakerTransfer(pTransfer, from: account, bakerKeys: bakerKeys, requestPasswordDelegate: requestPasswordDelegate)
         case .registerDelegation, .removeDelegation, .updateDelegation:

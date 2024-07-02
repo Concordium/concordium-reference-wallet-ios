@@ -447,6 +447,10 @@
 		218F32A22705DBB800372BBD /* IdentityCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F329E2705DBB800372BBD /* IdentityCreation.swift */; };
 		26AF1825E3D4CB2E54801EFB /* Pods_ConcordiumWalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB9312525E69B21A038A443 /* Pods_ConcordiumWalletTests.framework */; };
 		4286EFE82EF437678337ADAE /* Pods_StagingNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE842A09677EA6A6A253039 /* Pods_StagingNet.framework */; };
+		509749CA2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C92C2EE25100D28D6B /* UnshiedSunsetView.swift */; };
+		509749CB2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C92C2EE25100D28D6B /* UnshiedSunsetView.swift */; };
+		509749CC2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C92C2EE25100D28D6B /* UnshiedSunsetView.swift */; };
+		509749CD2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C92C2EE25100D28D6B /* UnshiedSunsetView.swift */; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -2191,6 +2195,7 @@
 		218F329E2705DBB800372BBD /* IdentityCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCreation.swift; sourceTree = "<group>"; };
 		2A3F0FD4F6C2FD3BB235ACE7 /* Pods-ConcordiumWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcordiumWalletTests.release.xcconfig"; path = "Target Support Files/Pods-ConcordiumWalletTests/Pods-ConcordiumWalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		34AFB5995102DCAB454EE528 /* Pods-StagingNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StagingNet.release.xcconfig"; path = "Target Support Files/Pods-StagingNet/Pods-StagingNet.release.xcconfig"; sourceTree = "<group>"; };
+		509749C92C2EE25100D28D6B /* UnshiedSunsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshiedSunsetView.swift; sourceTree = "<group>"; };
 		52055F762552B83D0071F7CA /* IdentityCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityCardView.xib; sourceTree = "<group>"; };
 		52055F802552B8F10071F7CA /* IdentityCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCardView.swift; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -3141,6 +3146,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		509749C82C2ECE3100D28D6B /* UnshiedSunset */ = {
+			isa = PBXGroup;
+			children = (
+				509749C92C2EE25100D28D6B /* UnshiedSunsetView.swift */,
+			);
+			path = UnshiedSunset;
+			sourceTree = "<group>";
+		};
 		5243C030278E2360005CAC8D /* VerifyIdsAndAccounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -3686,6 +3699,7 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				509749C82C2ECE3100D28D6B /* UnshiedSunset */,
 				52A0A0B927D0B376001C162D /* Stake */,
 				7FF07AE523EAE0AC00F1FC04 /* AccountsView */,
 				C93EFF3024107F09002D6DB7 /* Cells */,
@@ -5074,6 +5088,7 @@
 				7F48C1A5244DCD0B00997684 /* CreateAccountButtonWidgetPresenter.swift in Sources */,
 				901F7FA627F33C8800C46741 /* EuroPerEnergy.swift in Sources */,
 				642A293125FB967A0073BF8C /* ValueCredential.swift in Sources */,
+				509749CA2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */,
 				7F48C1A7244DCD0B00997684 /* Storyboarded.swift in Sources */,
 				077FD7DC269EC49200EE749C /* SupportMailProtocol.swift in Sources */,
 				901F7F4327EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
@@ -5519,6 +5534,7 @@
 				7F85B76A246A9A7C00ED09B8 /* Details.swift in Sources */,
 				7F85B76B246A9A7C00ED09B8 /* Description.swift in Sources */,
 				901F7F4027EB07B800C46741 /* DelegationEntity.swift in Sources */,
+				509749CC2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */,
 				7F85B76C246A9A7C00ED09B8 /* RemoteTransactions.swift in Sources */,
 				0789670A2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F85B76D246A9A7C00ED09B8 /* TransactionDetailViewController.swift in Sources */,
@@ -5939,6 +5955,7 @@
 				7F85B866246A9AB600ED09B8 /* UILabel+localized.swift in Sources */,
 				7F85B867246A9AB600ED09B8 /* OriginTypeEnum.swift in Sources */,
 				901F7F4127EB07B800C46741 /* DelegationEntity.swift in Sources */,
+				509749CD2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */,
 				7F85B868246A9AB600ED09B8 /* AccountDetailsIdentityDataViewController.swift in Sources */,
 				0789670B2742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
 				7F85B869246A9AB600ED09B8 /* Details.swift in Sources */,
@@ -6353,6 +6370,7 @@
 				19C2E6C9E6A23B6A3A72AF23 /* Description.swift in Sources */,
 				901F7F3A27EB07AE00C46741 /* BakerEntity.swift in Sources */,
 				7F85B8F32472D39800ED09B8 /* MoreMenuViewController.swift in Sources */,
+				509749CB2C2EE25100D28D6B /* UnshiedSunsetView.swift in Sources */,
 				901F7F4427EB4D0700C46741 /* DelegationDataHandler.swift in Sources */,
 				89CF2D35281167EF00742E1E /* BakerPoolSettingsViewController.swift in Sources */,
 				7FA0AE9424598D6500B7673F /* RemoteTransactions.swift in Sources */,

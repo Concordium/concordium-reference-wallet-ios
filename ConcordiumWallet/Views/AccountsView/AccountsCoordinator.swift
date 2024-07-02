@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import UIKit
+import SwiftUI
 
 protocol AccountsCoordinatorDelegate: AnyObject {
     func createNewIdentity()
@@ -46,6 +47,33 @@ class AccountsCoordinator: Coordinator {
         )
         vc.tabBarItem = UITabBarItem(title: "accounts_tab_title".localized, image: UIImage(named: "tab_bar_accounts_icon"), tag: 0)
         navigationController.viewControllers = [vc]
+        
+        if !isShieldedAmountAbsent() {
+              showShieldingSunsetFlow()
+          }
+    }
+    
+    
+    private func isShieldedAmountAbsent() -> Bool {
+        dependencyProvider.storageManager()
+            .getAccounts()
+            .compactMap(dependencyProvider.storageManager()
+            .getShieldedAmountsForAccount)
+            .map { $0.map { $0.encryptedValue == ShieldedAmountEntity.zeroValue }.allSatisfy { $0 }  }
+            .allSatisfy { $0 }
+    }
+
+    let envObjects = EnvironmentObjects()
+
+    func showShieldingSunsetFlow() {
+         envObjects.openURL = { url in
+             UIApplication.shared.open(url)
+         }
+
+         envObjects.dismiss = {
+             self.navigationController.dismiss(animated: true)
+         }
+        navigationController.present(UIHostingController(rootView: UnshiedSunsetView().environmentObject(envObjects)), animated: true)
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
