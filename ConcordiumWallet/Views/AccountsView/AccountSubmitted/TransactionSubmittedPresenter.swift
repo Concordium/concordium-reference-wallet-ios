@@ -22,7 +22,7 @@ class TransactionSubmittedViewModel {
         self.amount = amount
         self.recipient = recipient
         
-        self.visibleWaterMark = (transfer.transferType == .encryptedTransfer)
+        self.visibleWaterMark = true
         
         if let memo = Memo(hex: transfer.memo) {
             self.memoText = String(format: "sendFund.memo.text".localized, memo.displayValue)
@@ -31,12 +31,6 @@ class TransactionSubmittedViewModel {
         switch transfer.transferType {
         case .simpleTransfer:
             submitedText = "transactionConfirmed.submitted".localized
-        case .encryptedTransfer:
-            submitedText = "shieldedtransactionConfirmed.submitted".localized
-        case .transferToPublic:
-            submitedText = "unshielding.submitted".localized
-        case .transferToSecret:
-            submitedText = "shielding.submitted".localized
         case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
             submitedText = ""
         case .registerDelegation, .removeDelegation, .updateDelegation:

@@ -150,11 +150,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         presenter.updateTransfersOnChanges()
     }
 
-    private func setupButtonSlider(isShielded: Bool) {
+    private func setupButtonSlider() {
         let areActionsEnabled = viewModel.accountState == .finalized && !viewModel.isReadOnly
 
         let buttonSlider = ButtonSlider(
-            isShielded: isShielded,
             didTapTokensButton: { [weak self] in
                 self?.viewModel.selectedSection = .tokens
             },
@@ -174,42 +173,12 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             actionEarn: {
                 self.presenter.showEarn()
             },
-            actionShield: {
-                if self.shieldEnabled {
-                    self.presenter.userTappedShieldUnshield()
-                }
-            },
             actionSettings: {
                 self.presenter.burgerButtonTapped()
             },
             isDisabled: !areActionsEnabled
         )
         let childView = UIHostingController(rootView: buttonSlider)
-        addChild(childView)
-        childView.view.frame = buttonSliderContainer.bounds
-        buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
-        buttonSliderContainer.addSubview(childView.view)
-        childView.didMove(toParent: self)
-    }
-
-    private func setupButtonsShielded() {
-        let buttonsShielded = ButtonsShielded(
-            actionSendShielded: {
-                if self.sendEnabled {
-                    self.presenter.userTappedSend()
-                }
-            },
-            actionUnshield: {
-                if self.shieldEnabled {
-                    self.presenter.userTappedShieldUnshield()
-                }
-            },
-            actionReceive: {
-                if self.receiveEnabled {
-                    self.presenter.userTappedAddress()
-                }
-            })
-        let childView = UIHostingController(rootView: buttonsShielded)
         addChild(childView)
         childView.view.frame = buttonSliderContainer.bounds
         buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
@@ -269,9 +238,11 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             self.topSpacingStackViewConstraint.constant = isShielded ? 20 : 10
 
             if isShielded {
-                self.setupButtonsShielded()
+                self.buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
+                self.buttonSliderContainer.isHidden = true
             } else {
-                self.setupButtonSlider(isShielded: viewModel.isShieldedEnabled)
+                self.setupButtonSlider()
+                self.buttonSliderContainer.isHidden = false
             }
 
             UIView.animate(withDuration: 0.3) {

@@ -9,13 +9,11 @@
 import SwiftUI
 
 struct ButtonSlider: View {
-    var isShielded: Bool
     var didTapTokensButton: () -> Void
     var actionSend: () -> Void
     var didTapTransactionList: () -> Void
     var actionReceive: () -> Void
     var actionEarn: () -> Void
-    var actionShield: () -> Void
     var actionSettings: () -> Void
     var isDisabled: Bool
     
@@ -41,10 +39,6 @@ struct ButtonSlider: View {
                 imageName: "button_slider_receive",
                 action: actionReceive
             ),
-            isShielded ? ActionButton(
-                imageName: "button_slider_shield",
-                action: actionShield
-            ) : nil,
             ActionButton(
                 imageName: "button_slider_settings",
                 action: actionSettings
@@ -127,13 +121,11 @@ struct VerticalLine: View {
 struct ButtonSlider_Previews: PreviewProvider {
     static var previews: some View {
         ButtonSlider(
-            isShielded: true,
             didTapTokensButton: {},
             actionSend: {},
             didTapTransactionList: {},
             actionReceive: {},
             actionEarn: {},
-            actionShield: {},
             actionSettings: {},
             isDisabled: false
         )
