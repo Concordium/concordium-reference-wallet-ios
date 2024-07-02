@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Concordium&#x2007;Legacy</string>
+	<string>Concordium Legacy</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -59,6 +59,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Concordium Support Mail</key>
 	<string>idiss@concordium.software</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<true/>
+	<key>ITSEncryptionExportComplianceCode</key>
+	<string>5de0b41c-b734-42cb-9365-c67fa85653b6</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
