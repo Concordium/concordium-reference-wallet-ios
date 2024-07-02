@@ -26,21 +26,21 @@ struct UnshiedSunsetView: View {
                 .padding(.top, 24)
                 
                 VStack(spacing: 24) {
-                    Text("We recommend that you unshield any Shielded balance today. To do so move your account to the new CryptoX Concordium wallet. ")
+                    Text("We recommend that you unshield any Shielded balance today. To do so move your account to the new CryptoX Concordium wallet.")
                         .font(Font.system(size: 14, weight: .regular))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     Text(
                         """
-                        1. Install the CryptoX wallet
-                        2. Export your file
-                        3. Import your file in the CryptoX wallet
+                        1. Install the CryptoX Concordium wallet
+                        2. Copy your seed phrase
+                        3. Insert your seed phrase in the CryptoX wallet
                         """
                     )
                     .font(Font.system(size: 14, weight: .bold))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
-                    Text("When that’s done, you will be able to unshield your Shielded balance through the CryptoX wallet, and you can safely delete this one. ")
+                    Text("When that’s done, you will be able to unshield your Shielded balance through the CryptoX wallet, and you can safely delete this one.")
                         .font(Font.system(size: 14, weight: .regular))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
