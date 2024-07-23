@@ -10,9 +10,6 @@ import Foundation
 
 enum TransferType: String, Codable {
     case simpleTransfer
-    case encryptedTransfer
-    case transferToSecret
-    case transferToPublic
     
     case registerDelegation
     case updateDelegation

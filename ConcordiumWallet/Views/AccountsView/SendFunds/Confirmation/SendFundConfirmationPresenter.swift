@@ -76,7 +76,7 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         let sAmount = amount.displayValueWithGStroke()
         let to = "sendFund.confirmation.line2.to".localized
         let recipientName = recipient.displayName()
-        if transferType == .encryptedTransfer || transferType == .simpleTransfer {
+        if transferType == .simpleTransfer {
             view?.line2Text = "\(sAmount) \(to) \(recipientName)"
             let sFromAccount = "sendFund.confirmation.line3.fromAccount".localized
             let accountName = fromAccount.displayName
@@ -94,16 +94,6 @@ class SendFundConfirmationPresenter: SendFundConfirmationPresenterProtocol {
         case .simpleTransfer:
             view?.line1Text = "sendFund.confirmation.transfer".localized
             view?.buttonText = "sendFund.confirmation.buttonTitle".localized
-        case .encryptedTransfer:
-            view?.line1Text = "sendFund.confirmation.transfer".localized
-            view?.buttonText = "sendFund.sendshielded".localized
-            view?.visibleWaterMark = true
-        case .transferToPublic:
-            view?.line1Text = "sendFund.confirmation.unshield".localized
-            view?.buttonText = "accounts.unshieldedamount".localized
-        case .transferToSecret:
-            view?.line1Text = "sendFund.confirmation.shield".localized
-            view?.buttonText = "accounts.shieldedamount".localized
         }
 
         let estimateTransactionFee = "sendFund.confirmation.line4.estimatedTransactionFee".localized

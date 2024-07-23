@@ -70,26 +70,12 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
     }
     
     func showSendFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .encryptedTransfer : .simpleTransfer
         let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
                                                delegate: self,
                                                dependencyProvider: self.dependencyProvider,
                                                account: account,
                                                balanceType: balanceType,
-                                               transferType: transferType)
-        coordinator.start()
-        childCoordinators.append(coordinator)
-        navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-    }
-
-    func shieldUnshieldFund(balanceType: AccountBalanceTypeEnum = .balance) {
-        let transferType: SendFundTransferType = balanceType == .shielded ? .transferToPublic : .transferToSecret
-        let coordinator = SendFundsCoordinator(navigationController: BaseNavigationController(),
-                                               delegate: self,
-                                               dependencyProvider: self.dependencyProvider,
-                                               account: account,
-                                               balanceType: balanceType,
-                                               transferType: transferType)
+                                               transferType: .simpleTransfer)
         coordinator.start()
         childCoordinators.append(coordinator)
         navigationController.present(coordinator.navigationController, animated: true, completion: nil)
@@ -110,7 +96,6 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
                                                           delegate: self)
         let vc = AccountDetailsFactory.create(with: accountDetailsPresenter!)
         navigationController.pushViewController(vc, animated: false)
-        showShieldedBalanceOnboarding(showShieldedDelegate: accountDetailsPresenter)
     }
     
     func showTransactionDetail(viewModel: TransactionViewModel) {
@@ -176,63 +161,13 @@ class AccountDetailsCoordinator: Coordinator, RequestPasswordDelegate {
         let vc = TransferFiltersFactory.create(with: TransferFiltersPresenter(delegate: self, account: account))
         navigationController.pushViewController(vc, animated: true)
     }
-
-    func showShieldedBalanceOnboarding(showShieldedDelegate: ShowShieldedDelegate?) {
-        let onboardingCarouselViewModel = OnboardingCarouselViewModel(
-            title: "onboardingcarousel.shieldedbalance.title".localized,
-            pages: [
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page1.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_1")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page2.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_2")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page3.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_3")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page4.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_4")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page5.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_5")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page6.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_6")
-                ),
-                OnboardingPage(
-                    title: "onboardingcarousel.shieldedbalance.page7.title".localized,
-                    viewController: OnboardingCarouselWebContentViewController(htmlFilename: "shielded_balance_onboarding_en_7")
-                )
-            ]
-        )
-
-        let onboardingCarouselPresenter = OnboardingCarouselPresenter(
-            delegate: showShieldedDelegate,
-            viewModel: onboardingCarouselViewModel
-        )
-
-        let onboardingCarouselViewController = OnboardingCarouselFactory.create(with: onboardingCarouselPresenter)
-        onboardingCarouselViewController.hidesBottomBarWhenPushed = true
-
-        navigationController.pushViewController(onboardingCarouselViewController, animated: true)
-    }
 }
 
 extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
     func accountDetailsPresenterSend(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
         showSendFund(balanceType: balanceType)
     }
-    
-    func accountDetailsPresenterShieldUnshield(_ accountDetailsPresenter: AccountDetailsPresenter, balanceType: AccountBalanceTypeEnum) {
-        shieldUnshieldFund(balanceType: balanceType)
-    }
-    
+
     func accountDetailsPresenterAddress(_ accountDetailsPresenter: AccountDetailsPresenter) {
         showAccountAddressQR()
     }
@@ -269,17 +204,9 @@ extension AccountDetailsCoordinator: AccountDetailsPresenterDelegate {
 }
 
 extension AccountDetailsCoordinator: OnboardingCarouselPresenterDelegate {
-    func onboardingCarouselClosed() {
-        navigationController.popViewController(animated: true)
-    }
-
-    func onboardingCarouselSkiped() {
-        self.navigationController.popViewController(animated: true)
-    }
-
-    func onboardingCarouselFinished() {
-        self.navigationController.popViewController(animated: true)
-    }
+    func onboardingCarouselClosed() {}
+    func onboardingCarouselSkiped() {}
+    func onboardingCarouselFinished() {}
 }
 
 extension AccountDetailsCoordinator: ReleaseSchedulePresenterDelegate {
@@ -329,10 +256,7 @@ extension AccountDetailsCoordinator: BurgerMenuAccountDetailsPresenterDelegate {
             showTransferFilters(account: account)
         case .shieldedBalance(_, let shouldShow, let showShieldedDelegate):
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            // we only go to the onboarding flow if we should show the shielded balance
-            if shouldShow {
-                showShieldedBalanceOnboarding(showShieldedDelegate: showShieldedDelegate)
-            }
+            showShieldedDelegate?.onboardingCarouselFinished()
         case .delegation:
             keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             showDelegation()

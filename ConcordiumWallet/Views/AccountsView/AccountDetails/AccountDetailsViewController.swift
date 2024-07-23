@@ -30,12 +30,12 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var retryCreateButton: StandardButton!
     @IBOutlet weak var removeLocalAccountButton: StandardButton!
     
+    @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var sendView: RoundedCornerView!
-    @IBOutlet weak var shieldView: RoundedCornerView!
     @IBOutlet weak var addressView: RoundedCornerView!
     @IBOutlet weak var backgroundShield: UIImageView!
     
@@ -49,9 +49,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var stakedValueLabel: UILabel!
     @IBOutlet weak var stakedLabel: UILabel!
     @IBOutlet weak var sendImageView: UIImageView!
-    
-    @IBOutlet weak var shieldTypeLabel: UILabel!
-    @IBOutlet weak var shieldTypeImageView: UIImageView!
     
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var generalButton: UIButton!
@@ -202,14 +199,14 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         viewModel.$isShielded.sink { [weak self](isShielded) in
             guard let self = self else { return }
             self.sendImageView.image = (isShielded ? UIImage(named: "send_shielded") : UIImage(named: "send"))
-            self.shieldTypeLabel.text = isShielded ? "accountDetails.unshield".localized : "accountDetails.shield".localized
-            self.shieldTypeImageView.image = (isShielded ? UIImage(named: "Icon_Unshield") : UIImage(named: "Icon_Shield_white"))
             self.isShielded = isShielded
             self.title = self.presenter.getTitle()
             self.atDisposalView.setHiddenIfChanged(isShielded)
             
             self.generalButton.backgroundColor = isShielded ? UIColor.primary : UIColor.primarySelected
             self.shieldedButton.backgroundColor = isShielded ? UIColor.primarySelected : UIColor.primary
+            
+            self.sendView.isHidden = isShielded
             
             if isShielded {
                 self.balanceNameLabel.text =  String(format: ("accounts.overview.shieldedtotal".localized), viewModel.name ?? "")
@@ -233,12 +230,10 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         viewModel.$isShieldedEnabled.sink { [weak self] enabled in
             if enabled {
                 self?.buttonsView.setHiddenIfChanged(false)
-                self?.shieldView.setHiddenIfChanged(false)
                 self?.spacerView.setHiddenIfChanged(true)
                 
             } else {
                 self?.buttonsView.setHiddenIfChanged(true)
-                self?.shieldView.setHiddenIfChanged(true)
                 self?.spacerView.setHiddenIfChanged(false)
 
             }
@@ -272,11 +267,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
         presenter.userTappedSend()
     }
     
-    @IBAction func shieldTapped(_ sender: Any) {
-        // Shield/Unshield button pressed
-        presenter.userTappedShieldUnshield()
-    }
-    
     @IBAction func addressTapped(_ sender: Any) {
         presenter.userTappedAddress()
     }
@@ -292,11 +282,6 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBAction func gtuDropTapped(_ sender: UIButton) {
         sender.isEnabled = false
         presenter.gtuDropTapped()
-    }
-    
-    @IBAction func pressedUnlock(_ sender: UIBarButtonItem) {
-        sender.isEnabled = false
-        presenter.pressedUnlock()
     }
     
     @IBAction func pressedGeneral(_ sender: UIButton) {
@@ -427,12 +412,10 @@ extension AccountDetailsViewController {
         if canSend {
             if !isReadOnly {
                 sendView.enable()
-                shieldView.enable()
             }
             addressView.enable()
         } else {
             sendView.disable()
-            shieldView.disable()
             addressView.disable()
             if isReadOnly {
                 addressView.enable()
