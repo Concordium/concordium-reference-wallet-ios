@@ -893,17 +893,17 @@ Remember to restart your node with the validator keys.";
 "force.update.warning.backup" = "Make backup";
 
 "force.update.warning.title" = "New wallet app available";
-"force.update.warning.message" = "Going forward the Concordium Legacy Wallet will not receive any new features. Therefore, we recommend that you install the new Concordium Wallet for Mobile to use all the latest Concordium features. You can still access your existing accounts and identities in the Concordium Legacy Wallet, but you cannot create new ones. Be sure to keep a backup of your private keys.";
+"force.update.warning.message" = "Going forward the Concordium Legacy Wallet will not receive any new features. Therefore, we recommend that you install the new CryptoX Concordium Wallet for Mobile to use all the latest Concordium features. You can still access your existing accounts and identities in the Concordium Legacy Wallet, but you cannot create new ones. Be sure to keep a backup of your private keys.";
 "force.update.warning.update.now" = "Download the new wallet app";
 "force.update.warning.remind.me" = "Remind me next time I open the wallet";
 
 "identityCreation.prevent.title" = "New identities no longer supported";
-"identityCreation.prevent.message" = "Creation of new identities are no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new identity you must down the new Concordium Wallet for Mobile.";
+"identityCreation.prevent.message" = "Creation of new identities are no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new identity you must download the new CryptoX Concordium Wallet for Mobile.";
 "identityCreation.prevent.button.download" = "Download the new wallet";
 "identityCreation.prevent.button.okay" = "Okay";
 
 "accountCreation.prevent.title" = "New accounts no longer supported";
-"accountCreation.prevent.message" = "Creation of new accounts is no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new account you must down the new Concordium Wallet for Mobile.";
+"accountCreation.prevent.message" = "Creation of new accounts is no longer supported in the Concordium Legacy Wallet.\n\nIf you need a new account you must download the new CryptoX Concordium Wallet for Mobile.";
 "accountCreation.prevent.button.download" = "Download the new wallet";
 "accountCreation.prevent.button.okay" = "Okay";
 
