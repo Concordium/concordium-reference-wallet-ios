@@ -12,12 +12,12 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  xcode_version: 14.3.1
+  xcode_version: 15.3
 
 jobs:
   Deploy:
     environment: '${{ github.event.inputs.environment }}'
-    runs-on: macos-13
+    runs-on: macos-latest
 
     steps:
     - name: Checkout
