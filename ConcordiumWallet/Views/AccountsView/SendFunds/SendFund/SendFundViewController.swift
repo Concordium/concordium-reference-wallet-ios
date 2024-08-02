@@ -251,7 +251,7 @@ class SendFundViewController: KeyboardDismissableBaseViewController, SendFundVie
             .store(in: &cancellables)
         
         viewModel.$transferType
-            .map { $0 == .transferToSecret }
+            .map { _ in false }
             .assign(to: \.isHidden, on: tokenSelectionViewWrapper)
             .store(in: &cancellables)
     }

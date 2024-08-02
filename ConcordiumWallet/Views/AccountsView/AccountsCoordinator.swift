@@ -53,6 +53,23 @@ class AccountsCoordinator: Coordinator {
         )
         let accountsViewController = AccountsFactory.create(with: accountsPresenter)
         navigationController.viewControllers = [accountsViewController]
+        
+        if !isShieldedAmountAbsent() {
+            showShieldingSunsetFlow()
+        }
+    }
+    
+    private func isShieldedAmountAbsent() -> Bool {
+        dependencyProvider.storageManager()
+            .getAccounts()
+            .compactMap(dependencyProvider.storageManager()
+            .getShieldedAmountsForAccount)
+            .map { $0.map { $0.encryptedValue == ShieldedAmountEntity.zeroValue }.allSatisfy { $0 }  }
+            .allSatisfy { $0 }
+    }
+    
+    func showShieldingSunsetFlow() {
+        navigationController.present(UIHostingController(rootView: UnshiedSunsetView()), animated: true)
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {
