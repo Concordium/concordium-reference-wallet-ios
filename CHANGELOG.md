@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.5.0]
+
+### Added
+- ITSAppUsesNonExemptEncryption key, regard to the Apple Encryption Complience
+
+### Changed
 
 - Renamed baker/baking to validator/validation.
+
+### Fixed
+- WalletConnect: Fix parsing of "broken" schema format for contract update transactions.
+- Fix incorrect text in the identity name dialog
+- Fix CI2 Tokens flow while searching for tokens
+
 
 ## [1.2.0] - 2023-10-06
 

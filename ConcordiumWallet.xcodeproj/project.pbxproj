@@ -628,6 +628,10 @@
 		19C2EFF1CEC944A7FCBC63C5 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C2ED4F802767556C4ABBE9 /* SingleSection.swift */; };
 		19C2EFFF5510E28CD0A195C9 /* 4.1.2.RX_backend_accBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C2EEC7EFFF9C46A7786EF7 /* 4.1.2.RX_backend_accBalance.json */; };
 		378E0C441D6924E404784EAA /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153AF2B8166B46422D71155 /* AutoMockable.generated.swift */; };
+		50F8F98B2C620FCC004447CA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 50F8F98A2C620FCC004447CA /* CHANGELOG.md */; };
+		50F8F98C2C620FCC004447CA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 50F8F98A2C620FCC004447CA /* CHANGELOG.md */; };
+		50F8F98D2C620FCC004447CA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 50F8F98A2C620FCC004447CA /* CHANGELOG.md */; };
+		50F8F98E2C620FCC004447CA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 50F8F98A2C620FCC004447CA /* CHANGELOG.md */; };
 		52055F772552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F782552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
 		52055F792552B83D0071F7CA /* IdentityCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52055F762552B83D0071F7CA /* IdentityCardView.xib */; };
@@ -3065,6 +3069,7 @@
 		19C2EFD00DA2B13DEB773973 /* IdentityProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityProviderError.swift; sourceTree = "<group>"; };
 		19C2EFED051EE58467949EAA /* AddRecipientPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipientPresenter.swift; sourceTree = "<group>"; };
 		19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceArData.swift; sourceTree = "<group>"; };
+		50F8F98A2C620FCC004447CA /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		52055F762552B83D0071F7CA /* IdentityCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityCardView.xib; sourceTree = "<group>"; };
 		52055F802552B8F10071F7CA /* IdentityCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityCardView.swift; sourceTree = "<group>"; };
 		52055F852552C1D90071F7CA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -4778,6 +4783,8 @@
 		7FF07A6023EADB1200F1FC04 = {
 			isa = PBXGroup;
 			children = (
+				7FF07A9F23EADBB100F1FC04 /* readme.md */,
+				50F8F98A2C620FCC004447CA /* CHANGELOG.md */,
 				19C2E793C0A30253D187EC88 /* .swiftlint.yml */,
 				644BB67C25DFB4630086ED48 /* ConcordiumApplication.swift */,
 				7FF07A6B23EADB1200F1FC04 /* ConcordiumWallet */,
@@ -4789,7 +4796,6 @@
 				644BB67225DFB4220086ED48 /* main.swift */,
 				7F48C214244DCD4500997684 /* mock */,
 				7FF07A6A23EADB1200F1FC04 /* Products */,
-				7FF07A9F23EADBB100F1FC04 /* readme.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -6019,6 +6025,7 @@
 				070D626727B40C2D00B6903C /* Onboarding.storyboard in Resources */,
 				7F48C23E244DCD5F00997684 /* 1.1.2.RX-backend_identity_provider_info.json in Resources */,
 				070D622127B3C54600B6903C /* shielded_balance_onboarding_en_4.html in Resources */,
+				50F8F98B2C620FCC004447CA /* CHANGELOG.md in Resources */,
 				8992BA532828E6C5005279C9 /* 5.4.2.RX_backend_passiveDelegation.json in Resources */,
 				07E6E27627B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				7F48C24B244DCD7100997684 /* 3.2.1.TX-lib_create_transfer.json in Resources */,
@@ -6165,6 +6172,7 @@
 				9078543328101BFC00B655EB /* baker_update_flow_en_3.html in Resources */,
 				07E6E27827B558A30083A852 /* intro_flow_onboarding_en_5.html in Resources */,
 				07E6E28027B558A30083A852 /* intro_flow_onboarding_en_3.html in Resources */,
+				50F8F98D2C620FCC004447CA /* CHANGELOG.md in Resources */,
 				9078545A28102BD000B655EB /* baker_remove_flow_en_1.html in Resources */,
 				90434C8427FB111B00E4DBAA /* delegation_update_flow_en_1.html in Resources */,
 				901F7F2827EA138300C46741 /* 5.2.2.RX_backend_chain_parameters.json in Resources */,
@@ -6239,6 +6247,7 @@
 				7F5F779424891F220016F8D1 /* AppIcon.xcassets in Resources */,
 				901F7F7727F1D5DE00C46741 /* delegation_intro_flow_en_2.html in Resources */,
 				90434C7D27FB111B00E4DBAA /* delegation_update_flow_en_2.html in Resources */,
+				50F8F98E2C620FCC004447CA /* CHANGELOG.md in Resources */,
 				52055F9D25541B160071F7CA /* AccountCardView.xib in Resources */,
 				9078545B28102BD000B655EB /* baker_remove_flow_en_1.html in Resources */,
 				901F7F8327F1D5DE00C46741 /* delegation_intro_flow_en_7.html in Resources */,
@@ -6297,6 +6306,7 @@
 				7FD435FF249A2D34002D2AC3 /* icon-22-29.png in Resources */,
 				9078544A28101BFC00B655EB /* baker_intro_flow_en_1.html in Resources */,
 				649C5E9C29F6C65C00408948 /* RobotoMono.ttf in Resources */,
+				50F8F98C2C620FCC004447CA /* CHANGELOG.md in Resources */,
 				9078544228101BFC00B655EB /* bakerupdate_flow_style.css in Resources */,
 				90434C9F27FB2D2800E4DBAA /* updatedelegation_flow_style.css in Resources */,
 				070D622E27B3C54600B6903C /* shielded_balance_onboarding_en_3.html in Resources */,
