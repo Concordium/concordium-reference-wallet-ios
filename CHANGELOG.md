@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.5.0]
 
 ### Added
-- ITSAppUsesNonExemptEncryption key, regard to the Apple Encryption Complience
+- Add Non-Exempt Encryption Version: We've updated the encryption version for enhanced security
 
 ### Changed
 
