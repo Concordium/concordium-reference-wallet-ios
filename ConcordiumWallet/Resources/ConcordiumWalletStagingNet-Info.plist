@@ -43,6 +43,8 @@
 	<string>idiss@concordium.software</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<true/>
+	<key>ITSEncryptionExportComplianceCode</key>
+	<string>6a4b12a4-5886-4e16-a74e-aed598cc486e</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
