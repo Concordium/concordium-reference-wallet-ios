@@ -42,9 +42,9 @@ platform :ios do
         scheme: ENV["SCHEME"]
       )
       upload_to_testflight(skip_waiting_for_build_processing: true)
-      on_success("Mobile Wallet - #{$version_number} (#{$build_number}) has been successfully uploaded to TestFlight.")
+      #on_success("Mobile Wallet - #{$version_number} (#{$build_number}) has been successfully uploaded to TestFlight.")
     rescue => exception
-      on_error("Upload to TestFlight failed: #{exception}")
+      #on_error("Upload to TestFlight failed: #{exception}")
       UI.user_error! "Exporting Concordium Mobile Wallet to TestFlight has failed with error: #{exception}"
       raise exception
     end
