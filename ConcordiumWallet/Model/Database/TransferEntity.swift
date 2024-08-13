@@ -67,12 +67,8 @@ extension TransferDataType {
             balanceChange = Int(cost) ?? 0
         default:
             switch transferType {
-            case .simpleTransfer, .transferToSecret: // transfer to public is included even if not finalized
+            case .simpleTransfer: // transfer to public is included even if not finalized
                 balanceChange = amountAsInt() + (Int(cost) ?? 0)
-            case .transferToPublic:
-                balanceChange = -amountAsInt() + (Int(cost) ?? 0)
-            case .encryptedTransfer:
-                balanceChange = (Int(cost) ?? 0)
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = (Int(cost) ?? 0)
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:
@@ -98,10 +94,6 @@ extension TransferDataType {
             switch transferType {
             case .simpleTransfer:
                 balanceChange = 0
-            case .transferToSecret:
-                balanceChange = -amountAsInt()// shielding is included even if not finalized
-            case .encryptedTransfer, .transferToPublic:
-                balanceChange = amountAsInt() + 0 // the cost is taken from the public balance
             case .registerDelegation, .removeDelegation, .updateDelegation:
                 balanceChange = 0
             case .registerBaker, .updateBakerKeys, .updateBakerPool, .updateBakerStake, .removeBaker, .configureBaker:

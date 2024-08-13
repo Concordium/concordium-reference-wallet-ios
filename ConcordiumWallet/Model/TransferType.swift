@@ -10,9 +10,6 @@ import Foundation
 
 enum TransferType: String, Codable {
     case simpleTransfer
-    case encryptedTransfer
-    case transferToSecret
-    case transferToPublic
     
     case registerDelegation
     case updateDelegation
@@ -50,12 +47,6 @@ enum TransferType: String, Codable {
         switch self {
         case .simpleTransfer:
             return .simpleTransfer
-        case .encryptedTransfer:
-            return .encryptedTransfer
-        case .transferToSecret:
-            return .transferToSecret
-        case .transferToPublic:
-            return .transferToPublic
         case .registerDelegation:
             return .registerDelegation
         case .updateDelegation:
@@ -84,9 +75,6 @@ enum TransferType: String, Codable {
 /// (see https://github.com/Concordium/concordium-wallet-proxy/blob/80ef058749d13f83e1f1afdecc6b1345f8def5fa/src/Proxy.hs#L687).
 enum WalletProxyTransferType: String, Codable {
     case simpleTransfer
-    case encryptedTransfer
-    case transferToSecret
-    case transferToPublic
 
     case registerDelegation
     case updateDelegation
