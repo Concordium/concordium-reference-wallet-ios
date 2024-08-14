@@ -8900,75 +8900,81 @@
 			name = Release;
 		};
 		7F85B7CB246A9A7C00ED09B8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Dependencies",
-				);
-				MARKETING_VERSION = 1.5.1;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Debug;
-		};
-		7F85B7CC246A9A7C00ED09B8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Dependencies",
-				);
-				MARKETING_VERSION = 1.5.1;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
-				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
+                CODE_SIGN_IDENTITY = "Apple Development";
+                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                CURRENT_PROJECT_VERSION = 64;
+                DEVELOPMENT_TEAM = "";
+                "DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
+                ENABLE_BITCODE = NO;
+                INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
+                INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
+                IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                );
+                LIBRARY_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "$(PROJECT_DIR)",
+                    "$(PROJECT_DIR)/Dependencies",
+                );
+                MARKETING_VERSION = 1.5.0;
+                OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
+                PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE_SPECIFIER = "";
+                "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
+                SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = 1;
+                VERSIONING_SYSTEM = "apple-generic";
+            };
+            name = Debug;
+        };
+        7F85B7CC246A9A7C00ED09B8 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
+                CODE_SIGN_IDENTITY = "Apple Development";
+                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                CURRENT_PROJECT_VERSION = 64;
+                DEVELOPMENT_TEAM = "";
+                "DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
+                ENABLE_BITCODE = NO;
+                INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
+                INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
+                IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                );
+                LIBRARY_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "$(PROJECT_DIR)",
+                    "$(PROJECT_DIR)/Dependencies",
+                );
+                MARKETING_VERSION = 1.5.0;
+                OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
+                PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE_SPECIFIER = "";
+                "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
+                SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = 1;
+                VERSIONING_SYSTEM = "apple-generic";
+            };
+            name = Release;
+        };
 		7F85B8CA246A9AB600ED09B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
