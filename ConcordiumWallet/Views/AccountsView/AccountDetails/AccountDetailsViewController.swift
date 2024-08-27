@@ -55,6 +55,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
     @IBOutlet weak var topSpacingStackViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonSliderContainer: RoundedCornerView!
     
+    @IBOutlet weak var buttonSliderContainerConstraintHeight: NSLayoutConstraint!
     @IBOutlet weak var gtuDropView: UIView! {
         didSet {
             gtuDropView.isHidden = true
@@ -225,6 +226,7 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             if isShielded {
                 self.balanceNameLabel.text = String(format: "accounts.overview.shieldedtotal".localized, viewModel.name ?? "")
                 self.stakedView.setHiddenIfChanged(true)
+                self.viewModel.selectedSection = .transfers
             } else {
                 self.balanceNameLabel.text = "accounts.overview.generaltotal".localized
                 if viewModel.hasStaked {
@@ -240,9 +242,11 @@ class AccountDetailsViewController: BaseViewController, AccountDetailsViewProtoc
             if isShielded {
                 self.buttonSliderContainer.subviews.forEach { $0.removeFromSuperview() }
                 self.buttonSliderContainer.isHidden = true
+                self.buttonSliderContainerConstraintHeight.constant = 0
             } else {
                 self.setupButtonSlider()
                 self.buttonSliderContainer.isHidden = false
+                self.buttonSliderContainerConstraintHeight.constant = 60
             }
 
             UIView.animate(withDuration: 0.3) {
