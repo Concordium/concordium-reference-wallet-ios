@@ -9,6 +9,7 @@
 import BigInt
 import Combine
 import Foundation
+import CryptoKit
 
 protocol CIS2ServiceProtocol {
     func fetchTokens(contractIndex: String, contractSubindex: String) -> AnyPublisher<CIS2TokensInfo, Error>
@@ -25,9 +26,14 @@ protocol CIS2ServiceProtocol {
     func fetchTokensMetadata(contractIndex: String, contractSubindex: String, tokenId: String) async throws -> CIS2TokensMetadata
     func fetchTokensBalance(contractIndex: String, contractSubindex: String, accountAddress: String, tokenId: String) async throws -> [CIS2TokenBalance]
     func deleteTokenFromCache(_ token: CIS2TokenSelectionRepresentable) throws
-    func fetchTokensMetadataDetails(url: URL) async throws -> CIS2TokenMetadataDetails
+    func fetchTokensMetadataDetails(url: URL, metadataChecksum: String?) async throws -> CIS2TokenMetadataDetails
     
     func getTokenMetadataPair(metadata: CIS2TokensMetadata) async throws -> [(CIS2TokensMetadataItem, CIS2TokenMetadataDetails)]
+}
+
+enum ChecksumError: Error {
+    case invalidChecksum
+    case incorrectChecksum
 }
 
 class CIS2Service: CIS2ServiceProtocol {
@@ -188,8 +194,12 @@ extension CIS2Service {
         )
     }
     
-    func fetchTokensMetadataDetails(url: URL) async throws -> CIS2TokenMetadataDetails {
+    func fetchTokensMetadataDetails(url: URL, metadataChecksum: String?) async throws -> CIS2TokenMetadataDetails {
         let metadata: CIS2TokenMetadataDetails = try await networkManager.load(ResourceRequest(url: url))
+        
+        if let metadataChecksum {
+            try await verifyChecksum(checksum: metadataChecksum, url: url)
+        }
         
         try await MainActor.run {
             try self.storageManager.storeCIS2TokenMetadataDetails(metadata, for: url.absoluteString)
@@ -216,7 +226,7 @@ extension CIS2Service {
             for metadata in metadata.metadata {
                 if let url = URL(string: metadata.metadataURL) {
                     group.addTask {
-                        guard let result = try? await self.fetchTokensMetadataDetails(url: url) else {
+                        guard let result = try? await self.fetchTokensMetadataDetails(url: url, metadataChecksum: metadata.metadataChecksum) else {
                             return nil
                         }
                         return (metadata, result)
@@ -227,6 +237,21 @@ extension CIS2Service {
             return try await group
                 .compactMap { $0 }
                 .reduce(into: []) { $0.append($1) }
+        }
+    }
+    
+    /// Verifies the checksum of the response data against a provided checksum.
+    ///
+    /// - Parameters:
+    ///   - checksum: The expected checksum.
+    ///   - responseData: The data to verify.
+    /// - Throws: `ChecksumError.incorrectChecksum` if the checksums do not match.
+    func verifyChecksum(checksum: String, url: URL) async throws {
+        let (data, _) = try await URLSession(configuration: .ephemeral).data(from: url)
+        let hash = SHA256.hash(data: data)
+        let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
+        guard hashString.localizedCaseInsensitiveCompare(checksum) == .orderedSame else {
+            throw ChecksumError.incorrectChecksum
         }
     }
 }
