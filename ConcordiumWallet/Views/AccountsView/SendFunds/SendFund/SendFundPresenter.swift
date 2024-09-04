@@ -580,6 +580,10 @@ class SendFundPresenter: SendFundPresenterProtocol {
                     totalAmount = (GTU(intValue: disposalAmount) - cost).displayValue()
                 }
                 self.viewModel.sendAllAmount = totalAmount
+                
+                let newAmount = SendFundsAmount.ccd(token: GTU(intValue: disposalAmount) - cost)
+                self.viewModel.enteredAmount = .success(newAmount)
+                
                 self.cost = cost
                 self.energy = value.energy
                 let feeMessage = "sendFund.feeMessage".localized + cost.displayValue()
