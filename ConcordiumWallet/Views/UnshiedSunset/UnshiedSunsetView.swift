@@ -83,7 +83,3 @@ struct UnshiedSunsetView: View {
         }
     }
 }
-
-#Preview {
-    UnshiedSunsetView()
-}
