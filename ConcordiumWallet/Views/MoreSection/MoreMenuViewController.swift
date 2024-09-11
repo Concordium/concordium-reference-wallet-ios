@@ -14,6 +14,7 @@ enum MenuCell: Hashable {
     case addressBook(title: String)
     case update(title: String)
     case recovery(title: String)
+    case privateKey(title: String)
     case about(title: String)
     
 }
@@ -76,6 +77,8 @@ extension MoreMenuViewController: UITableViewDelegate {
             presenter.userSelectedUpdate()
         case .recovery:
             Task { await presenter.userSelectedRecovery() }
+        case .privateKey:
+            presenter.userShowPrivateKey()
         case .about:
             presenter.userSelectedAbout()
         }
@@ -90,6 +93,7 @@ extension MoreMenuViewController {
         snapshot.appendItems([.addressBook(title: "more.addressBook".localized)])
         snapshot.appendItems([.update(title: "more.update".localized)])
         snapshot.appendItems([.recovery(title: "more.recovery".localized)])
+        snapshot.appendItems([.privateKey(title: "more.private.key".localized)])
         snapshot.appendItems([.about(title: "more.about".localized)])
                 
         DispatchQueue.main.async {
@@ -104,6 +108,7 @@ extension MoreMenuViewController {
                 .addressBook(let title),
                 .update(let title),
                 .recovery(let title),
+                .privateKey(let title),
                 .about(let title):
             // swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemCellView", for: indexPath) as! MenuItemCellView
