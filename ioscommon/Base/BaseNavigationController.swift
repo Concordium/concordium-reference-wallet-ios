@@ -10,7 +10,7 @@ import UIKit
 
 class BaseNavigationController: UINavigationController {
 
-    var statusBarStyle = UIStatusBarStyle.darkContent
+    var statusBarStyle = UIStatusBarStyle.lightContent
 
     override func viewDidLoad() {
         super.viewDidLoad()
