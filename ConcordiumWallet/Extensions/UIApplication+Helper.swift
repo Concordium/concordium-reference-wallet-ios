@@ -16,3 +16,10 @@ extension UIApplication {
         }
     }
 }
+
+
+extension UIApplication {
+    func topMostViewController() -> UIViewController? {
+        return self.keyWindow?.rootViewController?.topMostViewController()
+    }
+}
