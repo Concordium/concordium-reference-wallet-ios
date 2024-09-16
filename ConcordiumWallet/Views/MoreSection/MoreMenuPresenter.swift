@@ -21,7 +21,6 @@ protocol MoreMenuPresenterDelegate: AnyObject {
     func updateSelected()
     func recoverySelected() async throws
     func aboutSelected()
-    func userShowPrivateKey()
 }
 
 // MARK: -
@@ -34,7 +33,6 @@ protocol MoreMenuPresenterProtocol: AnyObject {
     func userSelectedUpdate()
     func userSelectedRecovery() async
     func userSelectedAbout()
-    func userShowPrivateKey()
 }
 
 class MoreMenuPresenter {
@@ -72,9 +70,5 @@ extension MoreMenuPresenter: MoreMenuPresenterProtocol {
 
     func userSelectedAbout() {
         delegate?.aboutSelected()
-    }
-    
-    func userShowPrivateKey() {
-        delegate?.userShowPrivateKey()
     }
 }

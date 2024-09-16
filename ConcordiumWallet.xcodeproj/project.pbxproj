@@ -632,14 +632,6 @@
 		5088BABB2C6CA2030056CFD0 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAB92C6CA2030056CFD0 /* TermsAndConditionsView.swift */; };
 		5088BABC2C6CA2030056CFD0 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAB92C6CA2030056CFD0 /* TermsAndConditionsView.swift */; };
 		5088BABD2C6CA2030056CFD0 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAB92C6CA2030056CFD0 /* TermsAndConditionsView.swift */; };
-		5088BAC02C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BABF2C91EF7D0056CFD0 /* RevealPrivateKeyView.swift */; };
-		5088BAC12C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BABF2C91EF7D0056CFD0 /* RevealPrivateKeyView.swift */; };
-		5088BAC22C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BABF2C91EF7D0056CFD0 /* RevealPrivateKeyView.swift */; };
-		5088BAC32C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BABF2C91EF7D0056CFD0 /* RevealPrivateKeyView.swift */; };
-		5088BAC62C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAC52C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift */; };
-		5088BAC72C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAC52C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift */; };
-		5088BAC82C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAC52C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift */; };
-		5088BAC92C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088BAC52C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift */; };
 		509749C42C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
 		509749C52C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
 		509749C62C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */; };
@@ -3074,8 +3066,6 @@
 		19C2EFED051EE58467949EAA /* AddRecipientPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipientPresenter.swift; sourceTree = "<group>"; };
 		19C2EFF2620E0CD7DECE642A /* ChoiceArData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceArData.swift; sourceTree = "<group>"; };
 		5088BAB92C6CA2030056CFD0 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
-		5088BABF2C91EF7D0056CFD0 /* RevealPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealPrivateKeyView.swift; sourceTree = "<group>"; };
-		5088BAC52C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIRequestPasswordDelegate.swift; sourceTree = "<group>"; };
 		509749C32C19A0BA00D28D6B /* UnshiedSunsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnshiedSunsetView.swift; sourceTree = "<group>"; };
 		50F8F98A2C620FCC004447CA /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		52055F762552B83D0071F7CA /* IdentityCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityCardView.xib; sourceTree = "<group>"; };
@@ -4337,22 +4327,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		5088BABE2C91EF620056CFD0 /* RevealPrivateKey */ = {
-			isa = PBXGroup;
-			children = (
-				5088BABF2C91EF7D0056CFD0 /* RevealPrivateKeyView.swift */,
-			);
-			path = RevealPrivateKey;
-			sourceTree = "<group>";
-		};
-		5088BAC42C921B440056CFD0 /* RequestPasswordDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				5088BAC52C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift */,
-			);
-			path = RequestPasswordDelegate;
-			sourceTree = "<group>";
-		};
 		509749C22C199B7400D28D6B /* UnshiedSunset */ = {
 			isa = PBXGroup;
 			children = (
@@ -4965,8 +4939,6 @@
 		7FF07AE323EAE09B00F1FC04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5088BAC42C921B440056CFD0 /* RequestPasswordDelegate */,
-				5088BABE2C91EF620056CFD0 /* RevealPrivateKey */,
 				509749C22C199B7400D28D6B /* UnshiedSunset */,
 				0111D7212A2DFE7000E05D35 /* WalletConnect */,
 				19C2E50D27878D62320AE14B /* ScanQR */,
@@ -6761,7 +6733,6 @@
 				89B34A292892B6B10059891C /* RecoveryPhraseInputPresenter.swift in Sources */,
 				7F48C27D244E17D100997684 /* SubmissionStatus.swift in Sources */,
 				01AB17DE2AA1F5F50078237F /* SendFundTokenSelection.swift in Sources */,
-				5088BAC62C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */,
 				C94ED728246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
 				01A91AAB2A8E7D9C00735D23 /* CIS2TokensMetadataItem.swift in Sources */,
 				078967082742F0890031EA9F /* KeyboardDismissableBaseViewController.swift in Sources */,
@@ -6801,7 +6772,6 @@
 				52A6A77E24F909CD00138D83 /* IDObjectRequestWrapper.swift in Sources */,
 				7F48C1DC244DCD0B00997684 /* IdentityConfirmedViewController.swift in Sources */,
 				7F48C274244E17D100997684 /* MakeCreateTransferRequest.swift in Sources */,
-				5088BAC02C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */,
 				891B19D328A3819700F4B0D6 /* SubmitSeedAccountPresenter.swift in Sources */,
 				89D46871289D21D2007D3FC8 /* SeedIdentityStatusView.swift in Sources */,
 				527DE350257378DC00333E65 /* ReleaseScheduleCell.swift in Sources */,
@@ -7060,7 +7030,6 @@
 				FA0CAAED2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,
 				7F85B6FB246A9A7C00ED09B8 /* KeychainWrapper.swift in Sources */,
 				7F85B6FC246A9A7C00ED09B8 /* MenuItemCellView.swift in Sources */,
-				5088BAC82C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */,
 				64DB66D325DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				070D625F27B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				7F85B6FE246A9A7C00ED09B8 /* UIButton+StoryboardLocalization.swift in Sources */,
@@ -7449,7 +7418,6 @@
 				CD3E4A912A5588D700D7FBF3 /* SignMessagePayload.swift in Sources */,
 				7FF9191E2511505C00B1032B /* ImportViewController.swift in Sources */,
 				509749C62C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */,
-				5088BAC22C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */,
 				7F85B7B1246A9A7C00ED09B8 /* TransactionDetailInfoCellView.swift in Sources */,
 				7F85B7B2246A9A7C00ED09B8 /* TransactionsLoadingHandler.swift in Sources */,
 				89D46844289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
@@ -7656,7 +7624,6 @@
 				FA0CAAEE2934ECE40009D5F8 /* UserDefaultsQueue.swift in Sources */,
 				7F85B7F9246A9AB600ED09B8 /* Origin.swift in Sources */,
 				7F85B7FA246A9AB600ED09B8 /* KeychainWrapper.swift in Sources */,
-				5088BAC92C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */,
 				64DB66D425DE6A1300F4C605 /* AboutViewController.swift in Sources */,
 				070D626027B3DF0500B6903C /* OnboardingCarouselWebContentViewController.swift in Sources */,
 				7F85B7FB246A9AB600ED09B8 /* MenuItemCellView.swift in Sources */,
@@ -8045,7 +8012,6 @@
 				CD3E4A922A5588D700D7FBF3 /* SignMessagePayload.swift in Sources */,
 				7FF9191F2511505C00B1032B /* ImportViewController.swift in Sources */,
 				509749C72C19A0BA00D28D6B /* UnshiedSunsetView.swift in Sources */,
-				5088BAC32C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */,
 				7F85B8AE246A9AB600ED09B8 /* AccountDetailsPresenter.swift in Sources */,
 				7F85B8AF246A9AB600ED09B8 /* TransactionViewModel.swift in Sources */,
 				89D46845289BF99C007D3FC8 /* SeedIDRequest.swift in Sources */,
@@ -8386,7 +8352,6 @@
 				7FEB7BEF2409111400D3E0EC /* PreIdentityObject.swift in Sources */,
 				89D467C3289AAD4A007D3FC8 /* PrivateIDObjectData.swift in Sources */,
 				C938F531241E789A00ECAD47 /* CreateAccountCoordinator.swift in Sources */,
-				5088BAC72C921B670056CFD0 /* SwiftUIRequestPasswordDelegate.swift in Sources */,
 				C9BB9FE12444AB3900AE0884 /* GeneralFormatter.swift in Sources */,
 				89D46801289BA089007D3FC8 /* SeedMobileWallet.swift in Sources */,
 				01145A3E2B03A4F8008331F5 /* Double+Rounding.swift in Sources */,
@@ -8678,7 +8643,6 @@
 				01CFC6AC2A43308C007F9747 /* ContractUpdatePayloadEntity.swift in Sources */,
 				19C2E0C5C3B047A2DC0D44D7 /* AccountDetailsPresenter.swift in Sources */,
 				89D46818289BC9DC007D3FC8 /* OnboardingCarouselView.swift in Sources */,
-				5088BAC12C91EF7D0056CFD0 /* RevealPrivateKeyView.swift in Sources */,
 				19C2E0045F94FFFE728C6603 /* TransactionViewModel.swift in Sources */,
 				C94ED727246302160071A4FB /* TransactionDetailInfoCellView.swift in Sources */,
 				19C2E2E6817B5D3C16E135CE /* TransactionsLoadingHandler.swift in Sources */,
@@ -8890,7 +8854,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8923,7 +8887,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				MOCK = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMOCK";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mocked;
@@ -8941,9 +8905,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
@@ -8957,11 +8923,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_GTU_DROP";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -8976,9 +8943,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ConcordiumWallet/Resources/Entitlements/Concordium ID.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = K762RM4LQ3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K762RM4LQ3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ConcordiumWallet/Resources/ConcordiumWalletTestNet-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TestNet Seed Phrase Wallet";
@@ -8992,11 +8961,12 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTESTNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.testnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore software.concordium.mobilewallet.seedphrase.testnet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENABLE_GTU_DROP;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ConcordiumWallet-Briding-Header-File.h";
 				SWIFT_VERSION = 5.0;
@@ -9027,7 +8997,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9063,7 +9033,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DMAINNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9217,7 +9187,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9252,7 +9222,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DSTAGINGNET";
 				PRODUCT_BUNDLE_IDENTIFIER = software.concordium.mobilewallet.seedphrase.stagenet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

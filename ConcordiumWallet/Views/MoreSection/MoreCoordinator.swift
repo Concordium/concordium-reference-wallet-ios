@@ -6,7 +6,6 @@
 import Combine
 import Foundation
 import UIKit
-import SwiftUI
 
 protocol MoreCoordinatorDelegate: IdentitiesCoordinatorDelegate { }
 
@@ -125,11 +124,6 @@ class MoreCoordinator: Coordinator, ShowAlert, MoreCoordinatorDelegate {
 }
 
 extension MoreCoordinator: MoreMenuPresenterDelegate {
-    func userShowPrivateKey() {
-        let view = RevealPrivateKeyView(viewModel: RevealPrivateKeyViewModel(dependencyProvider: self.dependencyProvider))
-        navigationController.pushViewController(UIHostingController(rootView: view), animated: true)
-    }
-    
     func identitiesSelected() {
         showIdentities()
     }

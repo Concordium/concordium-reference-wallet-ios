@@ -433,7 +433,6 @@ If you don’t have enough CCD at disposal on your balance, you might not be abl
 "more.update.error.nonFinalizedItems" = "All identities and accounts must be finalized before passcode can be changed. Please wait, then try again. If you have any failed identities, these must also be deleted first.";
 "more.updatePasswordAndBiometrics.infoText" = "By pressing Continue, you will be guided through setting up a new passcode. You will also get the option of enabling biometrics, or to continue without them.";
 "more.recovery" = "Recovery";
-"more.private.key" = "Wallet private key";
 "more.validateIdsAndAccount.warningTitle" = "⚠️ Warning ⚠️";
 //"more.validateIdsAndAccount.unusableIdentitiesFound" = "The keys for the following identities and accounts could not be found. Without the keys the identities and accounts cannot function. How would you like to proceed?\n";
 "more.validateIdsAndAccount.removeFromApp" = "Remove from app";
