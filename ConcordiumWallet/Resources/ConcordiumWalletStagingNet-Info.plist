@@ -60,9 +60,7 @@
 	<key>Concordium Support Mail</key>
 	<string>idiss@concordium.software</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
-	<true/>
-	<key>ITSEncryptionExportComplianceCode</key>
-	<string>5de0b41c-b734-42cb-9365-c67fa85653b6</string>
+	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
