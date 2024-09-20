@@ -27,7 +27,7 @@ struct SeedAccountsService {
     private let mobileWallet: SeedMobileWalletProtocol
     private let networkManager: NetworkManagerProtocol
     private let storageManager: StorageManagerProtocol
-    private let keychainWrapper: KeychainWrapperProtocol
+    let keychainWrapper: KeychainWrapperProtocol
     
     init(
         mobileWallet: SeedMobileWalletProtocol,
