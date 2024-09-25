@@ -54,9 +54,9 @@ class AccountsCoordinator: Coordinator {
         let accountsViewController = AccountsFactory.create(with: accountsPresenter)
         navigationController.viewControllers = [accountsViewController]
         
-        if !isShieldedAmountAbsent() {
+//        if !isShieldedAmountAbsent() {
             showShieldingSunsetFlow()
-        }
+//        }
     }
     
     private func isShieldedAmountAbsent() -> Bool {
@@ -68,8 +68,15 @@ class AccountsCoordinator: Coordinator {
             .allSatisfy { $0 }
     }
     
+    func userShowPrivateKey() {
+        let view = RevealPrivateKeyView(viewModel: RevealPrivateKeyViewModel(dependencyProvider: self.dependencyProvider))
+        navigationController.pushViewController(UIHostingController(rootView: view), animated: true)
+    }
+    
     func showShieldingSunsetFlow() {
-        navigationController.present(UIHostingController(rootView: UnshiedSunsetView()), animated: true)
+        navigationController.present(UIHostingController(rootView: UnshiedSunsetView(showCopyPrivateKeyFlow: { [weak self] in
+            self?.userShowPrivateKey()
+        })), animated: true)
     }
 
     func showCreateNewAccount(withDefaultValuesFrom account: AccountDataType? = nil) {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 final class RevealPrivateKeyViewModel: ObservableObject {
-    typealias DependencyProvider = MoreFlowCoordinatorDependencyProvider & IdentitiesFlowCoordinatorDependencyProvider
+    typealias DependencyProvider = IdentitiesFlowCoordinatorDependencyProvider
     
     @Published var privateKey: String = ""
     
@@ -23,8 +23,8 @@ final class RevealPrivateKeyViewModel: ObservableObject {
     
     func getPrivateKey() async {
         do {
-            let pwHash = try await passwordDelegate.requestUserPassword(keychain: dependencyProvider.keychainWrapper())
-            let seedValue = try dependencyProvider.keychainWrapper().getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
+            let pwHash = try await passwordDelegate.requestUserPassword(keychain: dependencyProvider.seedAccountsService().keychainWrapper)
+            let seedValue = try dependencyProvider.seedAccountsService().keychainWrapper.getValue(for: "RecoveryPhraseSeed", securedByPassword: pwHash).get()
             await MainActor.run {
                 withAnimation {
                     self.privateKey = seedValue
