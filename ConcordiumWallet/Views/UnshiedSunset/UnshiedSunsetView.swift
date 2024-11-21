@@ -39,7 +39,6 @@ struct UnshiedSunsetView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                 }
-                .opacity(currentTab == .shielding ? 0 : 1.0)
                 .animation(.bouncy, value: currentTab)
                 
                 Button {
